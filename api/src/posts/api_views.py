@@ -12,7 +12,7 @@ class PostListCreate(GenericPostListCreate):
 
 # HTTP GET: Returns a post
 # HTTP PUT: Updates a post
-# HTTP PATCH: Updates a post
+# HTTP PATCH: Partially updates a post
 # HTTP DELETE: Deletes a post
 class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Post.objects.all()
@@ -29,7 +29,7 @@ class PostCommentListCreate(GenericPostCommentListCreate):
 
 # HTTP GET: Returns a post comment
 # HTTP PUT: Updates a post comment
-# HTTP PATCH: Updates a post comment
+# HTTP PATCH: Partially updates a post comment
 # HTTP DELETE: Deletes a post comment
 class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()

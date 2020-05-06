@@ -26,7 +26,7 @@ class GenericPostListCreate(ListCreateAPIView):
 
 # HTTP GET: Returns a generic resource
 # HTTP PUT: Updates a generic resource
-# HTTP PATCH: Updates a generic resource
+# HTTP PATCH: Partially updates a generic resource
 # HTTP DELETE: Deletes a generic resource
 class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     # Override required for queryset; it should be a model class

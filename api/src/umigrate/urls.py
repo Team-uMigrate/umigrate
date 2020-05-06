@@ -26,6 +26,12 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
     url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
-    path('api/', include('users.urls')),
+    path('api/', include('ads.urls')),
+    path('api/', include('events.urls')),
+    path('api/', include('housing.urls')),
+    # path('api/', include('jobs.urls')),
+    # path('api/', include('messaging.urls')),
+    path('api/', include('polls.urls')),
     path('api/', include('posts.urls')),
+    path('api/', include('users.urls')),
 ]

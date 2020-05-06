@@ -83,8 +83,14 @@ INSTALLED_APPS = [
     'channels_redis',
 
     # Project apps
-    'users',
+    'ads',
+    'events',
+    'housing',
+    'jobs',
+    'messaging',
+    'polls',
     'posts',
+    'users',
 ]
 
 # Middleware

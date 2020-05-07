@@ -12,7 +12,7 @@ class UserTestCase(APITestCase):
         self.client.login(email='test0@uwaterloo.ca', password='Top$ecret150')
 
     def test_list(self):
-        response = self.client.get(f"/api/users/")
+        response = self.client.get('/api/users/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_list = response.data['results']
@@ -20,7 +20,7 @@ class UserTestCase(APITestCase):
         self.assertEqual(len(response_list), len(resource_list))
 
     def test_retrieve(self):
-        response = self.client.get(f"/api/users/1")
+        response = self.client.get('/api/users/1')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_dict = dict(response.data)

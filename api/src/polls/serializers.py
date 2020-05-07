@@ -20,9 +20,6 @@ class OptionSerializer(GenericSerializer):
         extra_fields = [
             'vote_set',
         ]
-        exclude_fields = [
-            'poll',
-        ]
 
 
 # Serializes the poll model

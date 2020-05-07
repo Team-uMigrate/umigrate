@@ -142,11 +142,11 @@ class GenericCommentTestCase:
     def test_create(self):
         data = {
             'comment_body': 'My comment',
-            self.parent_name: 1,
         }
 
         response = self.api_client.post(f'/api/{self.resource_name}/1/comments/', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_201_CREATED)
+        self.assert_equal(response.data[self.parent_name], 1)
 
         response_dict = dict(response.data)
         for key in data:
@@ -173,10 +173,10 @@ class GenericCommentTestCase:
     def test_update(self):
         data = {
             'comment_body': 'My new comment',
-            self.parent_name: 1,
         }
         response = self.api_client.put(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
+        self.assert_equal(response.data[self.parent_name], 1)
 
         response_dict = dict(response.data)
         for key in data:
@@ -188,10 +188,10 @@ class GenericCommentTestCase:
     def test_update_partial(self):
         data = {
             'comment_body': 'My new comment',
-            self.parent_name: 1,
         }
         response = self.api_client.patch(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
+        self.assert_equal(response.data[self.parent_name], 1)
 
         response_dict = dict(response.data)
         for key in data:

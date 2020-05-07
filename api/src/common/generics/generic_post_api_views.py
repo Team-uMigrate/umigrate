@@ -49,7 +49,7 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
 # HTTP GET: Returns a list of comments for the generic resource with the ID matching the ID in the URL
 # HTTP POST: Creates a comment for the generic resource with the ID matching the ID in the URL
-class GenericPostCommentListCreate(GenericPostListCreate):
+class GenericCommentListCreate(GenericPostListCreate):
     # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
     parent_string = None
 
@@ -63,3 +63,19 @@ class GenericPostCommentListCreate(GenericPostListCreate):
         request.data[self.parent_string] = kwargs['id']
 
         return GenericPostListCreate.create(self, request, *args, **kwargs)
+
+
+# HTTP GET: Returns a generic resource comment
+# HTTP PUT: Updates a generic resource comment
+# HTTP PATCH: Partially updates a generic resource comment
+# HTTP DELETE: Deletes a generic resource comment
+class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+    # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
+    parent_string = None
+
+    def update(self, request, *args, **kwargs):
+        if isinstance(request.data, QueryDict):
+            request.data._mutable = True
+        request.data[self.parent_string] = self.get_object().__dict__[f'{self.parent_string}_id']
+
+        return GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)

@@ -1,4 +1,5 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, GenericPostCommentListCreate
+from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
 from .models import Post, PostComment
 from .serializers import PostSerializer, PostCommentSerializer
 
@@ -21,7 +22,7 @@ class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of post comments for the post with the ID that matches the ID in the URL
 # HTTP POST: Creates a post comment for the post with the ID that matches the ID in the URL
-class PostCommentListCreate(GenericPostCommentListCreate):
+class PostCommentListCreate(GenericCommentListCreate):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
     parent_string = 'post'
@@ -31,6 +32,7 @@ class PostCommentListCreate(GenericPostCommentListCreate):
 # HTTP PUT: Updates a post comment
 # HTTP PATCH: Partially updates a post comment
 # HTTP DELETE: Deletes a post comment
-class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    parent_string = 'post'

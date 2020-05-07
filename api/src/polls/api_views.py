@@ -1,4 +1,5 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, GenericPostCommentListCreate
+from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
 from .models import Poll, PollComment, Option, Vote
 from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of poll comments for the poll with the ID that matches the ID in the URL
 # HTTP POST: Creates a poll comment for the poll with the ID that matches the ID in the URL
-class PollCommentListCreate(GenericPostCommentListCreate):
+class PollCommentListCreate(GenericCommentListCreate):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
     parent_string = 'poll'
@@ -33,14 +34,15 @@ class PollCommentListCreate(GenericPostCommentListCreate):
 # HTTP PUT: Updates a poll comment
 # HTTP PATCH: Partially updates a poll comment
 # HTTP DELETE: Deletes a poll comment
-class PollCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
+    parent_string = 'poll'
 
 
 # HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL
 # HTTP POST: Creates an options for the poll with the ID that matches the ID in the URL
-class OptionListCreate(GenericPostCommentListCreate):
+class OptionListCreate(GenericCommentListCreate):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
     parent_string = 'poll'
@@ -48,7 +50,7 @@ class OptionListCreate(GenericPostCommentListCreate):
 
 # HTTP GET: Returns a list of votes for the option with the ID that matches the ID in the URL
 # HTTP POST: Creates a vote for the option with the ID that matches the ID in the URL
-class VoteListCreate(GenericPostCommentListCreate):
+class VoteListCreate(GenericCommentListCreate):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
     parent_string = 'option'

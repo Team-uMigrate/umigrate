@@ -1,4 +1,5 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, GenericPostCommentListCreate
+from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
 from .models import Housing, HousingComment
 from .serializers import HousingSerializer, HousingCommentSerializer
 
@@ -21,7 +22,7 @@ class HousingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of housing comments for the housing post with the ID that matches the ID in the URL
 # HTTP POST: Creates a housing comment for the housing post with the ID that matches the ID in the URL
-class HousingCommentListCreate(GenericPostCommentListCreate):
+class HousingCommentListCreate(GenericCommentListCreate):
     queryset = HousingComment.objects.all()
     serializer_class = HousingCommentSerializer
     parent_string = 'housing'
@@ -31,6 +32,7 @@ class HousingCommentListCreate(GenericPostCommentListCreate):
 # HTTP PUT: Updates a housing comment
 # HTTP PATCH: Partially updates a housing comment
 # HTTP DELETE: Deletes a housing comment
-class HousingCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+class HousingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = HousingComment.objects.all()
     serializer_class = HousingCommentSerializer
+    parent_string = 'housing'

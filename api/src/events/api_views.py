@@ -1,4 +1,5 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, GenericPostCommentListCreate
+from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
 from .models import Event, EventComment
 from .serializers import EventSerializer, EventCommentSerializer
 
@@ -21,7 +22,7 @@ class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of event comments for the event with the ID that matches the ID in the URL
 # HTTP POST: Creates a event comment for the event with the ID that matches the ID in the URL
-class EventCommentListCreate(GenericPostCommentListCreate):
+class EventCommentListCreate(GenericCommentListCreate):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
     parent_string = 'event'
@@ -31,6 +32,7 @@ class EventCommentListCreate(GenericPostCommentListCreate):
 # HTTP PUT: Updates an event comment
 # HTTP PATCH: Partially updates an event comment
 # HTTP DELETE: Deletes an event comment
-class EventCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
+    parent_string = 'event'

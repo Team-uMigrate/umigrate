@@ -63,12 +63,12 @@ class OptionTestCase(APITestCase):
 
     def test_create(self):
         data = {
-            'description': 'Option',
-            'poll': 1,
+            'description': 'Option'
         }
 
         response = self.client.post('/api/polls/1/options/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['poll'], 1)
 
         response_dict = dict(response.data)
         for key in data:
@@ -76,7 +76,7 @@ class OptionTestCase(APITestCase):
 
 
 # Test case for vote API views
-class PollVoteTestCase(APITestCase):
+class VoteTestCase(APITestCase):
 
     def setUp(self):
         self.user = CustomUser.objects.create_user(email='test0@uwaterloo.ca', password='Top$ecret150')
@@ -96,3 +96,4 @@ class PollVoteTestCase(APITestCase):
     def test_create(self):
         response = self.client.post('/api/polls/options/1/votes/', format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['option'], 1)

@@ -30,3 +30,57 @@ class UserTestCase(APITestCase):
         obj['photo'] = None
         for key in response_dict:
             self.assertEqual(obj[key], response_dict[key])
+
+    def test_get_followed_user(self):
+        response = self.client.get('/api/users/1/follow')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {'followed': False})
+
+    def test_post_followed_user(self):
+        followed_data = {
+            'followed': True
+        }
+
+        followed_response = self.client.post('/api/users/1/follow', followed_data, format='json')
+        self.assertEqual(followed_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(followed_response.data, {'followed': True})
+        self.assertEqual(len(CustomUser.objects.get(id=1).followed_users.filter(id=1)), 1)
+
+        obj = CustomUser.objects.get(id=2)
+        obj.followed_users.add(1)
+
+        unfollowed_data = {
+            'followed': False
+        }
+
+        unfollowed_response = self.client.post('/api/users/2/follow', unfollowed_data, format='json')
+        self.assertEqual(unfollowed_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(unfollowed_response.data, {'followed': False})
+        self.assertEqual(len(CustomUser.objects.get(id=2).followed_users.filter(id=1)), 0)
+
+    def test_get_blocked_user(self):
+        response = self.client.get('/api/users/1/block')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {'blocked': False})
+
+    def test_post_blocked_user(self):
+        blocked_data = {
+            'blocked': True
+        }
+
+        blocked_response = self.client.post('/api/users/1/block', blocked_data, format='json')
+        self.assertEqual(blocked_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(blocked_response.data, {'blocked': True})
+        self.assertEqual(len(CustomUser.objects.get(id=1).blocked_users.filter(id=1)), 1)
+
+        obj = CustomUser.objects.get(id=2)
+        obj.blocked_users.add(1)
+
+        unblocked_data = {
+            'blocked': False
+        }
+
+        unblocked_response = self.client.post('/api/users/2/block', unblocked_data, format='json')
+        self.assertEqual(unblocked_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(unblocked_response.data, {'blocked': False})
+        self.assertEqual(len(CustomUser.objects.get(id=2).blocked_users.filter(id=1)), 0)

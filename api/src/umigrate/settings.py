@@ -137,7 +137,11 @@ ROOT_URLCONF = 'umigrate.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }
 
 # Email settings
@@ -184,7 +188,7 @@ if STAGE_ENVIRONMENT == 'local' and os.path.isfile(os.path.join(BASE_DIR, 'db.sq
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+        },
     }
 else:
     DATABASES = {
@@ -195,7 +199,7 @@ else:
             'PASSWORD': DATABASE_PASSWORD,
             'HOST': 'localhost',
             'PORT': '',
-        }
+        },
     }
 
 # Channels configuration
@@ -278,7 +282,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../website/static')
+    os.path.join(BASE_DIR, '../website/static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 

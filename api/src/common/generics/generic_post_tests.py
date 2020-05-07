@@ -102,6 +102,33 @@ class GenericPostTestCase:
         response = self.api_client.delete(f'/api/{self.resource_name}/1')
         self.assert_equal(response.status_code, status.HTTP_204_NO_CONTENT)
 
+    def test_get_like(self):
+        response = self.api_client.get(f'/api/{self.resource_name}/1/like')
+        self.assert_equal(response.status_code, status.HTTP_200_OK)
+        self.assert_equal(response.data, {'liked': False})
+
+    def test_post_like(self):
+        like_data = {
+            'liked': True
+        }
+
+        like_response = self.api_client.post(f'/api/{self.resource_name}/1/like', like_data, format='json')
+        self.assert_equal(like_response.status_code, status.HTTP_200_OK)
+        self.assert_equal(like_response.data, {'liked': True})
+        self.assert_equal(len(self.model.objects.get(id=1).liked_users.filter(id=1)), 1)
+
+        obj = self.model.objects.get(id=2)
+        obj.liked_users.add(1)
+
+        unlike_data = {
+            'liked': False
+        }
+
+        unlike_response = self.api_client.post(f'/api/{self.resource_name}/2/like', unlike_data, format='json')
+        self.assert_equal(unlike_response.status_code, status.HTTP_200_OK)
+        self.assert_equal(unlike_response.data, {'liked': False})
+        self.assert_equal(len(self.model.objects.get(id=2).liked_users.filter(id=1)), 0)
+
 
 # An abstract test case for generic comment API views
 class GenericCommentTestCase:
@@ -203,3 +230,31 @@ class GenericCommentTestCase:
     def test_destroy(self):
         response = self.api_client.delete(f'/api/{self.resource_name}/comments/1')
         self.assert_equal(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_get_like(self):
+        response = self.api_client.get(f'/api/{self.resource_name}/comments/1/like')
+        self.assert_equal(response.status_code, status.HTTP_200_OK)
+        self.assert_equal(response.data, {'liked': False})
+
+    def test_post_like(self):
+        like_data = {
+            'liked': True
+        }
+
+        like_response = self.api_client.post(f'/api/{self.resource_name}/comments/1/like', like_data, format='json')
+        self.assert_equal(like_response.status_code, status.HTTP_200_OK)
+        self.assert_equal(like_response.data, {'liked': True})
+        self.assert_equal(len(self.model.objects.get(id=1).liked_users.filter(id=1)), 1)
+
+        obj = self.model.objects.get(id=2)
+        obj.liked_users.add(1)
+
+        unlike_data = {
+            'liked': False
+        }
+
+        unlike_response = self.api_client.post(f'/api/{self.resource_name}/comments/2/like', unlike_data, format='json')
+        self.assert_equal(unlike_response.status_code, status.HTTP_200_OK)
+        self.assert_equal(unlike_response.data, {'liked': False})
+        self.assert_equal(len(self.model.objects.get(id=2).liked_users.filter(id=1)), 0)
+

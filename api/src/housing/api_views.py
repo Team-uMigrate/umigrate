@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Housing, HousingComment
 from .serializers import HousingSerializer, HousingCommentSerializer
 
@@ -36,3 +36,23 @@ class HousingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = HousingComment.objects.all()
     serializer_class = HousingCommentSerializer
     parent_string = 'housing'
+
+
+# HTTP GET: Returns true or false if a user has liked a housing post
+# HTTP POST: Like or unlike a housing post
+class HousingLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Housing.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user has liked a housing comment
+# HTTP POST: Like or unlike a housing post comment
+class HousingCommentLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return HousingComment.objects.get(id=obj_id).liked_users

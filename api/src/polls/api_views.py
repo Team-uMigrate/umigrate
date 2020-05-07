@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Poll, PollComment, Option, Vote
 from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer
 from rest_framework.response import Response
@@ -38,6 +38,26 @@ class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
     parent_string = 'poll'
+
+
+# HTTP GET: Returns true or false if a user has liked a poll
+# HTTP POST: Like or unlike a poll
+class PollLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Poll.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user has liked a poll comment
+# HTTP POST: Like or unlike a poll comment
+class PollCommentLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return PollComment.objects.get(id=obj_id).liked_users
 
 
 # HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL

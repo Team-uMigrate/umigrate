@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Post, PostComment
 from .serializers import PostSerializer, PostCommentSerializer
 
@@ -36,3 +36,23 @@ class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
     parent_string = 'post'
+
+
+# HTTP GET: Returns true or false if a user has liked a post
+# HTTP POST: Like or unlike a post
+class PostLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Post.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user has liked a post comment
+# HTTP POST: Like or unlike a post comment
+class PostCommentLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return PostComment.objects.get(id=obj_id).liked_users

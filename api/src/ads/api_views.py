@@ -1,4 +1,5 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
+from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Ad, AdComment
 from .serializers import AdSerializer, AdCommentSerializer
 
@@ -35,3 +36,23 @@ class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
     parent_string = 'ad'
+
+
+# HTTP GET: Returns true or false if a user has liked an ad
+# HTTP POST: Like or unlike an ad
+class AdLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Ad.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user has liked an ad comment
+# HTTP POST: Like or unlike an ad comment
+class AdCommentLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return AdComment.objects.get(id=obj_id).liked_users

@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy
+    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Event, EventComment
 from .serializers import EventSerializer, EventCommentSerializer
 
@@ -36,3 +36,43 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
     parent_string = 'event'
+
+
+# HTTP GET: Returns true or false if a user has liked an event
+# HTTP POST: Like or unlike an event
+class EventLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Event.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user has liked an event comment
+# HTTP POST: Like or unlike an event comment
+class EventCommentLike(GenericUserExtension):
+    response_string = 'liked'
+
+    @staticmethod
+    def field_func(obj_id):
+        return EventComment.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns true or false if a user is interested in going to an event
+# HTTP POST: Sets or removes a user's status to interested
+class EventInterestedUser(GenericUserExtension):
+    response_string = 'interested'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Event.objects.get(id=obj_id).interested_users
+
+
+# HTTP GET: Returns true or false if a user is attending an event
+# HTTP POST: Sets or removes a user's status to attending
+class EventAttendingUser(GenericUserExtension):
+    response_string = 'attending'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Event.objects.get(id=obj_id).attending_users

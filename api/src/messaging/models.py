@@ -24,7 +24,7 @@ class Room(GenericPhotoModel):
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE)
     datetime_created = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='images/room_photos', blank=True)
-    members = models.ManyToManyField(to=CustomUser, related_name="room_set")
+    members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
     privacy_level = models.IntegerField(default=1, choices=Choices.ROOM_CHOICES)
 
     class Meta:

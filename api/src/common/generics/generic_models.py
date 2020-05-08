@@ -33,4 +33,4 @@ class GenericPhotoModel(models.Model):
         except Exception:
             pass
 
-        super().save()
+        super().save(*args, **kwargs)

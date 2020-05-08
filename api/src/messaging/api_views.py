@@ -24,6 +24,15 @@ class RoomListCreate(GenericPostListCreate):
         self.queryset = CustomUser.objects.get(id=request.user.id).room_set.all() | Room.objects.filter(privacy_level=0)
         return GenericPostListCreate.list(self, request, *args, **kwargs)
 
+    def create(self, request, *args, **kwargs):
+        response = GenericPostListCreate.create(self, request, *args, **kwargs)
+
+        if response.status_code == status.HTTP_201_CREATED:
+            Room.objects.get(id=response.data['id']).members.add(request.user.id)
+            response.data['members'] = Room.objects.get(id=response.data['id']).members.values_list('id', flat=True)
+
+        return response
+
 
 # HTTP GET: Returns a room
 # HTTP PUT: Updates a room

@@ -1,10 +1,11 @@
 from ads.models import Ad, AdComment
 from events.models import Event, EventComment
 from housing.models import Housing, HousingComment
+from jobs.models import Job
+from messaging.models import Room, Message
 from polls.models import Poll, PollComment, Option, Vote
 from posts.models import Post, PostComment
-from messaging.models import Room, Message
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 
 # Creates ad instances
@@ -43,7 +44,7 @@ def create_events(num):
             creator_id=1,
             price=123.45,
             start_datetime=datetime.now(),
-            end_datetime=datetime.today() + timedelta(days=1),
+            end_datetime=datetime.now() + timedelta(days=1),
             street_address='123 King street',
             city='Waterloo',
             division='Ontario',
@@ -182,3 +183,20 @@ def create_messages(num):
             room_id=1,
         )
         message.save()
+
+
+# Create job instances
+def create_jobs(num):
+    for i in range(num):
+        job = Job.objects.create(
+            creator_id=1,
+            position=f'Job {i}',
+            company=f'Company {i}',
+            job_type=0,
+            start_date=date.today(),
+            end_date=date.today() + timedelta(days=1),
+            city='Waterloo',
+            division='Ontario',
+            country='Canada',
+        )
+        job.save()

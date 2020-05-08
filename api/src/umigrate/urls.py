@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/', include('ads.urls')),
     path('api/', include('events.urls')),
     path('api/', include('housing.urls')),
-    # path('api/', include('jobs.urls')),
+    path('api/', include('jobs.urls')),
     path('api/', include('messaging.urls')),
     path('api/', include('polls.urls')),
     path('api/', include('posts.urls')),

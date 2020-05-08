@@ -26,10 +26,12 @@ class GenericPostTestCase:
         'tagged_users',
         'interested_users',
         'attending_users',
+        'members',
     ]
 
     def setUp(self):
         self.user = CustomUser.objects.create_user(email='test0@uwaterloo.ca', password='Top$ecret150')
+        CustomUser.objects.create_user(email='test1@uwaterloo.ca', password='Top$ecret150')
         self.api_client.login(email='test0@uwaterloo.ca', password='Top$ecret150')
         self.create_resource(3)
 

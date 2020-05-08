@@ -3,6 +3,7 @@ from events.models import Event, EventComment
 from housing.models import Housing, HousingComment
 from polls.models import Poll, PollComment, Option, Vote
 from posts.models import Post, PostComment
+from messaging.models import Room, Message
 from datetime import datetime, timedelta
 
 
@@ -158,3 +159,26 @@ def create_post_comments(num):
             creator_id=1,
         )
         post_comment.save()
+
+
+# Create room instances
+def create_rooms(num):
+    for i in range(num):
+        room = Room.objects.create(
+            title=f'Room {i}',
+            creator_id=1,
+            privacy_level=0,
+        )
+        room.members.add(1)
+        room.save()
+
+
+# Create message instances
+def create_messages(num):
+    for i in range(num):
+        message = Message.objects.create(
+            message_body=f'Message {i}',
+            creator_id=1,
+            room_id=1
+        )
+        message.save()

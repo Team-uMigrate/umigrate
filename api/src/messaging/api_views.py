@@ -28,8 +28,9 @@ class RoomListCreate(GenericPostListCreate):
         response = GenericPostListCreate.create(self, request, *args, **kwargs)
 
         if response.status_code == status.HTTP_201_CREATED:
-            Room.objects.get(id=response.data['id']).members.add(request.user.id)
-            response.data['members'] = Room.objects.get(id=response.data['id']).members.values_list('id', flat=True)
+            if request.user.id not in response.data['members']:
+                Room.objects.get(id=response.data['id']).members.add(request.user.id)
+                response.data['members'] = Room.objects.get(id=response.data['id']).members.values_list('id', flat=True)
 
         return response
 
@@ -44,6 +45,16 @@ class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     permission_classes = [
         IsCreatorOrMemberReadOnly,
     ] + GenericPostRetrieveUpdateDestroy.permission_classes
+
+    def update(self, request, *args, **kwargs):
+        response = GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)
+
+        if response.status_code == status.HTTP_200_OK:
+            if request.user.id not in response.data['members']:
+                Room.objects.get(id=response.data['id']).members.add(request.user.id)
+                response.data['members'] = Room.objects.get(id=response.data['id']).members.values_list('id', flat=True)
+
+        return response
 
 
 # HTTP GET: Returns a list of messages for a room

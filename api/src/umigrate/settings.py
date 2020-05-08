@@ -112,6 +112,8 @@ MIDDLEWARE = [
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SECURE = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1800
 
 # CORS & CSRF settings
 

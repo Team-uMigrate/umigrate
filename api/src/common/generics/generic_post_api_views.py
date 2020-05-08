@@ -104,7 +104,7 @@ class GenericUserExtension(APIView):
             return Response({self.response_string: False})
 
         except ObjectDoesNotExist:
-            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, *args, **kwargs):
         try:
@@ -120,10 +120,10 @@ class GenericUserExtension(APIView):
             return Response({self.response_string: add_user})
 
         except KeyError:
-            return Response({self.response_string: ["This field may not be blank."]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({self.response_string: ['This field may not be blank.']}, status=status.HTTP_400_BAD_REQUEST)
 
         except AssertionError:
-            return Response({self.response_string: ["This field must be have a boolean value."]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({self.response_string: ['This field must be have a boolean value.']}, status=status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
-            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)

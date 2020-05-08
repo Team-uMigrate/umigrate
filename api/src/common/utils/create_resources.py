@@ -179,6 +179,6 @@ def create_messages(num):
         message = Message.objects.create(
             message_body=f'Message {i}',
             creator_id=1,
-            room_id=1
+            room_id=1,
         )
         message.save()

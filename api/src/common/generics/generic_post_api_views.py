@@ -1,5 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import QueryDict
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
@@ -19,6 +21,7 @@ class GenericPostListCreate(ListCreateAPIView):
         IsAuthenticated,
         IsCreatorOrReadOnly,
     ]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
 
     def create(self, request, *args, **kwargs):
         if isinstance(request.data, QueryDict):

@@ -9,6 +9,8 @@ from .serializers import PostSerializer, PostCommentSerializer
 class PostListCreate(GenericPostListCreate):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_fields = ['region', 'datetime_created', 'creator', ]
+    search_fields = ['title', ]
 
 
 # HTTP GET: Returns a post

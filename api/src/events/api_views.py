@@ -9,6 +9,9 @@ from .serializers import EventSerializer, EventCommentSerializer
 class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price',
+                     'street_address', 'city', 'division', 'country', ]
+    search_fields = ['title', 'city', 'division', 'country', ]
 
 
 # HTTP GET: Returns an event

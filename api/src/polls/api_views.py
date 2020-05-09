@@ -2,8 +2,6 @@ from common.generics.generic_post_api_views import GenericPostListCreate, Generi
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Poll, PollComment, Option, Vote
 from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer
-from rest_framework.response import Response
-from rest_framework import status
 
 
 # HTTP GET: Returns a list of polls
@@ -11,6 +9,8 @@ from rest_framework import status
 class PollListCreate(GenericPostListCreate):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
+    filter_fields = ['region', 'datetime_created', 'creator', ]
+    search_fields = ['title', ]
 
 
 # HTTP GET: Returns a poll

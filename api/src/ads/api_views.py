@@ -9,6 +9,8 @@ from .serializers import AdSerializer, AdCommentSerializer
 class AdListCreate(GenericPostListCreate):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    filter_fields = ['region', 'datetime_created', 'creator', 'category', 'price', ]
+    search_fields = ['title', 'features', ]
 
 
 # HTTP GET: Returns an ad

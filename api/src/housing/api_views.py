@@ -9,6 +9,9 @@ from .serializers import HousingSerializer, HousingCommentSerializer
 class HousingListCreate(GenericPostListCreate):
     queryset = Housing.objects.all()
     serializer_class = HousingSerializer
+    filter_fields = ['region', 'datetime_created', 'creator', 'category', 'price', 'term',
+                     'street_address', 'city', 'division', 'country', ]
+    search_fields = ['title', 'features', 'city', 'division', 'country', ]
 
 
 # HTTP GET: Returns a housing post

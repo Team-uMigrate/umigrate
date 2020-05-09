@@ -6,9 +6,9 @@ def convert_to_tuple(choices):
 # Choices for model fields
 class Choices:
     SEX_CHOICES = convert_to_tuple([
+        'Other',
         'Male',
         'Female',
-        'Other',
     ])
     REGION_CHOICES = convert_to_tuple([
         'Waterloo',

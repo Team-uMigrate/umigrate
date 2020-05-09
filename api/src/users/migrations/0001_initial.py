@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=30)),
                 ('last_name', models.CharField(max_length=30)),
                 ('preferred_name', models.CharField(blank=True, max_length=30)),
-                ('sex', models.PositiveSmallIntegerField(choices=[(0, 'Male'), (1, 'Female'), (2, 'Other')], default=0)),
+                ('sex', models.PositiveSmallIntegerField(choices=[(0, 'Other'), (1, 'Male'), (2, 'Female')], default=0)),
                 ('bio', models.CharField(blank=True, max_length=500)),
                 ('birthday', models.DateField(default=datetime.date.today)),
                 ('current_term', models.PositiveSmallIntegerField(choices=[(0, '1A'), (1, '1B'), (2, 'W1'), (3, '2A'), (4, 'W2'), (5, '2B'), (6, 'W3'), (7, '3A'), (8, 'W4'), (9, '3B'), (10, 'W5'), (11, 'W6'), (12, '4A'), (13, '4B')], default=0)),

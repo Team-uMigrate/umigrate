@@ -262,14 +262,9 @@ SITE_ID = 1
 if STAGE_ENVIRONMENT is 'local':
     ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
-
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailSerializer',
 }
-
-# REST_AUTH_REGISTER_SERIALIZERS = {
-#     'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
-# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

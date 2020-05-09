@@ -21,8 +21,8 @@ class GenericPhotoModel(models.Model):
         abstract = True
 
     def delete(self, using=None, keep_parents=False):
-        super().delete()
         self.photo.delete()
+        super().delete()
 
     def save(self, *args, **kwargs):
         try:

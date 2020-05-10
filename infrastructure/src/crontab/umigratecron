@@ -1,0 +1,1 @@
+0 4 * * * python3 /home/umigrate/api/manage.py clearsessions

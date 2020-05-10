@@ -1,0 +1,19 @@
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/umigrate/api
+EnvironmentFile=/home/umigrate/venv/.env
+ExecStart=/home/umigrate/venv/bin/gunicorn \
+        --access-logfile - \
+        --workers 3 \
+        --bind unix:/run/gunicorn.sock \
+        umigrate.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

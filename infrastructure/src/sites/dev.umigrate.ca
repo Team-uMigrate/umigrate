@@ -1,0 +1,36 @@
+upstream websocket {
+    server 127.0.0.0:8001;
+}
+
+server {
+    listen 80;
+    server_name dev.umigrate.ca;
+    root /home/umigrate/website;
+    index index.html index.htm;
+    
+    location = /favicon.ico { 
+        access_log off; 
+        log_not_found off;
+    }
+    
+    location ~ ^/(static|media)/ {
+        root /home/umigrate;
+    }
+
+    location /ws/ {
+        include proxy_params;
+        proxy_pass http://0.0.0.0:8001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location ~ ^/(admin|api)/ {
+            include proxy_params;
+            proxy_pass http://unix:/run/gunicorn.sock;
+    }
+    
+    location / {
+            try_files $uri /index.html =404;
+    }
+}

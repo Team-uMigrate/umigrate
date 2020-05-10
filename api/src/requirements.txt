@@ -1,0 +1,10 @@
+Django
+djangorestframework
+django-rest-auth
+django-allauth
+django-filter
+Pillow
+django-cors-headers
+channels
+channels-redis
+sendgrid

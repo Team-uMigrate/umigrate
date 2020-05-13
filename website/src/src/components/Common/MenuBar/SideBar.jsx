@@ -25,6 +25,9 @@ const SideBar = (props) => {
             <NavLink to="/advertisements">Advertisements</NavLink>
           </Nav.Item>
           <Nav.Item>
+            <NavLink to="/messaging">Messaging</NavLink>
+          </Nav.Item>
+          <Nav.Item>
             <NavLink to="/settings">Settings</NavLink>
           </Nav.Item>
         </div>

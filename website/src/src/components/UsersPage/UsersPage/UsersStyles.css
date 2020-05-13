@@ -1,0 +1,8 @@
+.my-modal {
+    width: 75vw;
+    max-width: 90vw;
+  }
+  /* Occupy the 90% of the screen width */
+  .modal-backdrop {
+    background-color: rgba(0,0,0,.5) !important;
+}

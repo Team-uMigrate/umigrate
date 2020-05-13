@@ -1,0 +1,22 @@
+.navbar {
+  background-color: #20546b;
+  height: 55px;
+}
+
+.dropdown a:link {
+  font-size: 1.3em;
+  color: white;
+}
+
+.float-right.my-auto {
+  font-size: 20px;
+  color:white;
+}
+
+h5{
+  color: white;
+}
+
+.searchbar {
+  width: 700px;
+}

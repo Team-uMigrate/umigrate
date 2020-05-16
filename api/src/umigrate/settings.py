@@ -32,7 +32,7 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 
 # Set allowed hosts
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = [os.environ.get('DOMAIN_NAME')]
 
 # Set default database password
 DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD')

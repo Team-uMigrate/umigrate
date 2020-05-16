@@ -8,6 +8,11 @@ SENDGRID_API_KEY=$4
 ALLOWED_HOSTS=$5
 STAGE_ENVIRONMENT=$6
 
+# Create virtualenv
+pip3 install --upgrade pip
+pip3 install virtualenv
+virtualenv --python=/usr/bin/python3 /home/umigrate/venv
+
 # Send pipeline variables to environment variables file
 echo SECRET_KEY=$SECRET_KEY >> /home/umigrate/venv/.env
 echo DATABASE_PASSWORD=$DATABASE_PASSWORD >> /home/umigrate/venv/.env

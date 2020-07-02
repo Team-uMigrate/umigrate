@@ -2,6 +2,8 @@ from common.generics.generic_post_api_views import GenericPostListCreate, Generi
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Housing, HousingComment
 from .serializers import HousingSerializer, HousingCommentSerializer
+from django_filters import rest_framework as filters
+from housing.filters import HousingFilter
 
 
 # HTTP GET: Returns a list of housing posts
@@ -9,9 +11,9 @@ from .serializers import HousingSerializer, HousingCommentSerializer
 class HousingListCreate(GenericPostListCreate):
     queryset = Housing.objects.all()
     serializer_class = HousingSerializer
-    filter_fields = ['region', 'datetime_created', 'creator', 'category', 'price', 'term',
-                     'street_address', 'city', 'division', 'country', ]
-    search_fields = ['title', 'features', 'city', 'division', 'country', ]
+    search_fields = ['title', 'features']
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = HousingFilter
 
 
 # HTTP GET: Returns a housing post

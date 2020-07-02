@@ -2,15 +2,16 @@ from common.generics.generic_post_api_views import GenericPostListCreate, Generi
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Ad, AdComment
 from .serializers import AdSerializer, AdCommentSerializer
-
+from django_filters import rest_framework as filters
+from ads.filters import AdFilter
 
 # HTTP GET: Returns a list of ads
 # HTTP POST: Creates an ad
 class AdListCreate(GenericPostListCreate):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
-    filter_fields = ['region', 'datetime_created', 'creator', 'category', 'price', ]
-    search_fields = ['title', 'features', ]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = AdFilter
 
 
 # HTTP GET: Returns an ad

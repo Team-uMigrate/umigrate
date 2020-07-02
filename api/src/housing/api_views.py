@@ -11,6 +11,7 @@ from housing.filters import HousingFilter
 class HousingListCreate(GenericPostListCreate):
     queryset = Housing.objects.all()
     serializer_class = HousingSerializer
+    search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = HousingFilter
 

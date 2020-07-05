@@ -25,7 +25,7 @@ server {
         proxy_set_header Connection "upgrade";
     }
 
-    location ~ ^/(admin|api)/ {
+    location ~ ^/(admin|api|auth|account)/ {
             include proxy_params;
             proxy_pass http://unix:/run/gunicorn.sock;
     }

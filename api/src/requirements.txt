@@ -8,4 +8,7 @@ django-cors-headers
 channels
 channels-redis
 sendgrid
+
 psycopg2
+gunicorn
+daphne

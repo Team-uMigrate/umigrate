@@ -119,16 +119,15 @@ SESSION_COOKIE_AGE = 1800
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = [ALLOWED_HOSTS]
-CSRF_USE_SESSIONS = True
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = [ALLOWED_HOSTS]
+CORS_ORIGIN_WHITELIST = ALLOWED_HOSTS
 
 if STAGE_ENVIRONMENT is 'local':
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_SAMESITE = None
     CSRF_COOKIE_SECURE = False
     CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_ALLOW_ALL = True
@@ -142,7 +141,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'common.utils.local_authentication.CsrfExemptSessionAuthentication' if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',
     ],
 }
 
@@ -255,8 +254,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/auth/login/'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/auth/login/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/register/create-user' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/register/create-user'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
 SITE_ID = 1
 
 if STAGE_ENVIRONMENT is 'local':

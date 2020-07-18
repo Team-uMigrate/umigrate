@@ -30,7 +30,6 @@ class LoginContainer extends Component {
       .then((response) => {
         Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, { withCredentials: true})
           .then((response) => {
-            console.log(response);
             this.context.setAuthenticated(true);
 
             if(response.data.first_name === ""){

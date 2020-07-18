@@ -18,7 +18,7 @@ const LoginView = ({ handleSubmit, handleNewAccSubmit }) =>
         </Form.Group>
       </Form.Row>
       <Button variant="primary" type="submit">
-        Submit
+        Login
       </Button>
     </Form>
     <Form className="formStyle" onSubmit={handleNewAccSubmit}>

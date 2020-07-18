@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import VerificationContainer from "./Verification";
-import CreateUser from "./CreateUser";
 import { Redirect, Route } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import CreateUserContainer from "./CreateUser";
 
 const RegistrationPage = () => {
   const auth = useContext(AuthContext);
@@ -10,8 +10,8 @@ const RegistrationPage = () => {
   if (auth.isAuthenticated === true) {
     return (
       <switch>
-        <Route path="/register/create-user"><CreateUser /></Route>
-        <Redirect from="/" to="/register/create-user"><CreateUser /></Redirect>
+        <Route path="/register/create-user"><CreateUserContainer /></Route>
+        <Redirect from="/" to="/register/create-user"><CreateUserContainer /></Redirect>
       </switch>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component, createContext } from "react";
 import Axios from "axios";
-import { BASE_URL, LOGIN_ENDPOINT } from "../constants/urls/apiUrls";
-import {USER_ID} from "../constants/misc/localStorageKeys";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/urls/apiUrls";
+import { USER_DATA } from "../constants/misc/localStorageKeys";
 
 const AuthContext = createContext();
 
@@ -14,14 +14,14 @@ class AuthContextProvider extends Component {
   };
 
   componentDidMount = () => {
-    Axios.get(BASE_URL + LOGIN_ENDPOINT, { withCredentials: true })
+    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, {withCredentials: true})
       .then((response) => {
-        console.log("Success! " + response.data);
-        localStorage.setItem(USER_ID, response.data.id);
+        localStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({isAuthenticated: true});
       })
+      // Todo: Check for specific error when receiving the not authenticated message
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
         this.setState({isAuthenticated: false});
       });
   };

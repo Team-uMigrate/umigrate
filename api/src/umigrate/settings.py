@@ -255,7 +255,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/register/create-user' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/register/create-user'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/register/create-user'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
 SITE_ID = 1
 

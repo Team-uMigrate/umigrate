@@ -15,8 +15,9 @@ class LoginContainer extends Component {
     showFailureModal : false
   };
 
-  handleNewAccSubmit = () => {
+  handleNewAccSubmit = (e) => {
     this.setState({makeAccountRedirect : true});
+    e.preventDefault();
   };
 
   handleSubmit = (e) => {
@@ -29,8 +30,16 @@ class LoginContainer extends Component {
       .then((response) => {
         Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, { withCredentials: true})
           .then((response) => {
-            localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+            console.log(response);
             this.context.setAuthenticated(true);
+
+            if(response.data.first_name === ""){
+              this.context.setRegistered(false);
+            }
+            else {
+              this.context.setRegistered(true);
+              localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+            }
           })
           // Todo: Check for specific error when receiving the not authenticated message
           .catch((error) =>{
@@ -70,14 +79,9 @@ class LoginContainer extends Component {
     }
 
     else {
-      let failureModal;
-      if (this.state.showFailureModal) {
-        failureModal = this.getFailureModal();
-      }
-
       return (
         <div>
-          {failureModal}
+          {this.getFailureModal()}
           <LoginView
             handleSubmit={this.handleSubmit}
             handleNewAccSubmit={this.handleNewAccSubmit}

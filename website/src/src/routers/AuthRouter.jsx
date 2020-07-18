@@ -13,7 +13,7 @@ import AuthContext from "../contexts/AuthContext";
 const AuthRouter = () => {
   const auth = useContext(AuthContext);
 
-  if(auth.isAuthenticated === true) {
+  if(auth.isRegistered === true) {
     return (
       <Router>
         <Switch>
@@ -30,7 +30,7 @@ const AuthRouter = () => {
     )
   }
 
-  else if(auth.isAuthenticated === false) {
+  else if(auth.isRegistered === false) {
     return (
       <Router>
         <Switch>

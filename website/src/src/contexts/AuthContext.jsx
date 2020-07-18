@@ -8,21 +8,32 @@ const AuthContext = createContext();
 class AuthContextProvider extends Component {
   state = {
     isAuthenticated: null,
+    isRegistered: null,
     setAuthenticated: (isAuth) => {
       this.setState({isAuthenticated: isAuth})
+    },
+    setRegistered: (isReg) => {
+      this.setState({isRegistered: isReg})
     }
   };
 
   componentDidMount = () => {
     Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, {withCredentials: true})
       .then((response) => {
-        localStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({isAuthenticated: true});
+        if (response.data.first_name === "") {
+          this.setState({isRegistered: false});
+        }
+        else {
+          this.setState({isRegistered: true});
+          localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        }
       })
       // Todo: Check for specific error when receiving the not authenticated message
       .catch((error) => {
         console.log(error);
         this.setState({isAuthenticated: false});
+        this.setState({isRegistered: false});
       });
   };
 

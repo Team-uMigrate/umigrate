@@ -1,37 +1,29 @@
-import React, { Component } from "react";
-import Verification from "./Verification";
+import React, { useContext } from "react";
+import VerificationContainer from "./Verification";
 import CreateUser from "./CreateUser";
-import { Route, Redirect, Switch} from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
 
-class RegistrationPage extends Component {
-  state = {
-    isVerified: false
-  };
+const RegistrationPage = () => {
+  const auth = useContext(AuthContext);
 
-  setVerified = (isVer) => {
-    this.setState({isVerified: isVer})
-  };
-
-  render() {
-    if(!this.state.isVerified) {
-      return (
-        <Switch>
-          <Route path="/register/verification"><Verification setVer={this.setVerified} /></Route>
-          <Redirect from="/register/" to="/register/verification" />
-        </Switch>
-      )
-    }
-
-    else {
-      return (
-        <Switch>
-          <Route path="/register/verification"><Verification setVer={this.setVerified} /></Route>
-          <Route path="/register/create-user"><CreateUser /></Route>
-          <Redirect from="/register/" to="/register/verification" />
-        </Switch>
-      )
-    }
+  if (auth.isAuthenticated === true) {
+    return (
+      <switch>
+        <Route path="/register/create-user"><CreateUser /></Route>
+        <Redirect from="/" to="/register/create-user"><CreateUser /></Redirect>
+      </switch>
+    )
   }
-}
+
+  else {
+    return (
+      <switch>
+        <Route path="/register/verification"><VerificationContainer /></Route>
+        <Redirect from="/" to="/register/verification"><VerificationContainer /></Redirect>
+      </switch>
+    )
+  }
+};
 
 export default RegistrationPage;

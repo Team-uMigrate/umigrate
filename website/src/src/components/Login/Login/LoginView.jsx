@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import "./LoginStyles.css"
 
-const LoginView = ({handleSubmit, handleNewAccSubmit}) =>
+const LoginView = ({ handleSubmit, handleNewAccSubmit }) =>
   <div>
     <Form className="formStyle" onSubmit={handleSubmit}>
       <Form.Row>
@@ -22,7 +22,7 @@ const LoginView = ({handleSubmit, handleNewAccSubmit}) =>
       </Button>
     </Form>
     <Form className="formStyle" onSubmit={handleNewAccSubmit}>
-      <Button variant="primary" onClick={handleNewAccSubmit}>
+      <Button variant="primary" type="submit">
         Don't have an account? Make one!
       </Button>
     </Form>

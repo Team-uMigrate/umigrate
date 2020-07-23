@@ -4,12 +4,12 @@ from .api_views import PollListCreate, PollRetrieveUpdateDestroy, PollCommentLis
 
 # Polls url patterns
 urlpatterns = [
-    path('polls/', PollListCreate.as_view()),
-    path('polls/<int:id>', PollRetrieveUpdateDestroy.as_view()),
-    path('polls/<int:id>/comments/', PollCommentListCreate.as_view()),
-    path('polls/comments/<int:id>', PollCommentRetrieveUpdateDestroy.as_view()),
-    path('polls/<int:id>/like', PollLike.as_view()),
-    path('polls/comments/<int:id>/like', PollCommentLike.as_view()),
-    path('polls/<int:id>/options/', OptionListCreate.as_view()),
-    path('polls/options/<int:id>/votes/', VoteListCreate.as_view()),
+    path('', PollListCreate.as_view()),
+    path('<int:id>', PollRetrieveUpdateDestroy.as_view()),
+    path('<int:id>/comments/', PollCommentListCreate.as_view()),
+    path('comments/<int:id>', PollCommentRetrieveUpdateDestroy.as_view()),
+    path('<int:id>/like', PollLike.as_view()),
+    path('comments/<int:id>/like', PollCommentLike.as_view()),
+    path('<int:id>/options/', OptionListCreate.as_view()),
+    path('options/<int:id>/votes/', VoteListCreate.as_view()),
 ]

@@ -2,23 +2,19 @@
 export const BASE_URL = "https://" + window.location.host;
 
 // Endpoints
+export const USER_PROFILE_ENDPOINT = "/auth/user/";
 export const USERS_ENDPOINT = "/api/users/";
-export const USER_SETTINGS_ENDPOINT = "/api/users/me/settings";
 export const ADS_ENDPOINT = "/api/ads/";
 export const EVENTS_ENDPOINT = "/api/events/";
 export const HOUSING_ENDPOINT = "/api/housing/";
 export const JOBS_ENDPOINT = "/api/jobs/";
-export const ROOMS_ENDPOINT = "/api/users/";
+export const ROOMS_ENDPOINT = "/api/rooms/";
 export const POLLS_ENDPOINT = "/api/polls/";
 export const POSTS_ENDPOINT = "/api/posts/";
-export const CHANGE_PASSWORD_ENDPOINT = "/api/users/me/change-password";
-export const MESSAGING_ROOMS_ENDPOINT = "/api/messaging/rooms/";
-export const MESSAGES_ENDPOINT = "/api/messaging/rooms/messages/";
-export const LOGIN_ENDPOINT = "/api/login";
-export const LOGOUT_ENDPOINT = "/api/logout";
-export const VERIFICATION_EMAIL_ENDPOINT = "/api/verification/email";
-export const VERIFICATION_CODE_ENDPOINT = "/api/verification/code";
+export const LOGIN_ENDPOINT = "/auth/login/";
+export const LOGOUT_ENDPOINT = "/auth/logout/";
 export const MESSAGING_WEBSOCKET = "wss://" + window.location.host + "/ws/messaging/";
+export const REGISTER_ENDPOINT = "/auth/registration/";
 
 // Comments endpoints
 export const AD_COMMENT_ENDPOINT = "/api/ads/comments/";

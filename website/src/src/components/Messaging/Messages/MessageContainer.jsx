@@ -6,9 +6,9 @@ import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
 import {
   BASE_URL,
-  MESSAGES_ENDPOINT,
+  ROOMS_ENDPOINT,
   MESSAGES_EXTENSION,
-  MESSAGING_ROOMS_ENDPOINT, MESSAGING_WEBSOCKET
+  MESSAGING_WEBSOCKET
 } from "../../../constants/urls/apiUrls";
 import likeResource from "../../../utils/api/resources/likeResource";
 import { USER_ID } from "../../../constants/misc/localStorageKeys";
@@ -65,7 +65,7 @@ class MessageContainer extends Component {
 
   loadPosts = () => {
     listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-    BASE_URL + MESSAGING_ROOMS_ENDPOINT + this.state.currentRoom.id + MESSAGES_EXTENSION, this.state.page)
+    BASE_URL + ROOMS_ENDPOINT + this.state.currentRoom.id + MESSAGES_EXTENSION, this.state.page)
     };
 
   handleObserver = (entities, options) => {
@@ -78,7 +78,7 @@ class MessageContainer extends Component {
 
   setCurrentRoom = (room) => {
     listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-      BASE_URL + MESSAGING_ROOMS_ENDPOINT + room.id + MESSAGES_EXTENSION);
+      BASE_URL + ROOMS_ENDPOINT + room.id + MESSAGES_EXTENSION);
 
     this.ws = new WebSocket(MESSAGING_WEBSOCKET + room.id + "/");
 
@@ -114,7 +114,7 @@ class MessageContainer extends Component {
   };
 
   handleLike = (id) => {
-    likeResource(this, BASE_URL + MESSAGES_ENDPOINT, id);
+    likeResource(this, BASE_URL + ROOMS_ENDPOINT + "messages/", id);
   };
 
   render() {

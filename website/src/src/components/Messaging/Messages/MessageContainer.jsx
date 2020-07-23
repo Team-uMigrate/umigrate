@@ -11,8 +11,8 @@ import {
   MESSAGING_WEBSOCKET
 } from "../../../constants/urls/apiUrls";
 import likeResource from "../../../utils/api/resources/likeResource";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
 import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
+import {USER_DATA} from "../../../constants/misc/localStorageKeys";
 
 
 class MessageContainer extends Component {
@@ -129,7 +129,7 @@ class MessageContainer extends Component {
     let room = this.state.currentRoom;
 
     let roomTitle = room.isDirectMessaging ?
-      (localStorage.getItem(USER_ID) === room.members[0].id ?
+      (JSON.parse(localStorage.getItem(USER_DATA)).id === room.members[0].id ?
         room.members[0].preferred_name : room.members[1].preferred_name)
       : room.title;
 

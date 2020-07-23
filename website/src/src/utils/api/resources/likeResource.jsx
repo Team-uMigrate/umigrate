@@ -1,6 +1,5 @@
 import Axios from "axios";
 import { LIKE_EXTENSION } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
 
 const likeResource = (obj, setData, url, id) => {
   Axios.get(url + id + LIKE_EXTENSION, {withCredentials : true})
@@ -22,19 +21,23 @@ const likeResource = (obj, setData, url, id) => {
           setData(data);
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log(error);
           if(error.response.status === 401){
-            localStorage.removeItem(USER_ID);
-            obj.context.setAuthenticated(false);
+            console.log(error);
+            obj.setAuthenticated(true);
+            obj.setRegistered(false);
           }
+          return error.response;
         });
     })
     .catch((error) => {
-      console.log(error.response);
+      console.log(error);
       if(error.response.status === 401){
-        localStorage.removeItem(USER_ID);
-        obj.context.setAuthenticated(false);
+        console.log(error);
+        obj.setAuthenticated(true);
+        obj.setRegistered(false);
       }
+      return error.response;
     });
 };
 

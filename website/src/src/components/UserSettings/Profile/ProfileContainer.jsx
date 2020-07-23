@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import {USER_DATA} from "../../../constants/misc/localStorageKeys";
 import ProfileView from "./ProfileView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";
@@ -19,7 +19,7 @@ class ProfileContainer extends Component {
     filename: "",
   };
   componentDidMount = () => {
-    let userId = localStorage.getItem(USER_ID);
+    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
     retrieveResource(
       this,
@@ -58,7 +58,7 @@ class ProfileContainer extends Component {
   };
 
   handleSubmit = () => {
-    let userId = localStorage.getItem(USER_ID);
+    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
     const data = {
       bio: document.getElementById("bio").value,

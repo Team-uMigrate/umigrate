@@ -8,10 +8,11 @@ const updateResource = (obj, setData, url, id, data) => {
       setData(response.data);
     })
     .catch((error) => {
-      console.log(error.response);
+      console.log(error);
       if(error.response.status === 401){
-        localStorage.removeItem(USER_ID);
-        obj.context.setAuthenticated(false);
+        console.log(error);
+        obj.setAuthenticated(true);
+        obj.setRegistered(false);
       }
       return error.response;
     });

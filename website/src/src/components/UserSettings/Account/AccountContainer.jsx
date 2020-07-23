@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import {USER_DATA} from "../../../constants/misc/localStorageKeys";
 import AccountView from "./AccountView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";
@@ -16,7 +16,7 @@ class AccountContainer extends Component {
   };
 
   handleSubmit = () => {
-    let userId = localStorage.getItem(USER_ID);
+    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
     const data = {
       first_name: document.getElementById("first_name").value,
@@ -33,7 +33,7 @@ class AccountContainer extends Component {
   };
 
   componentDidMount = () => {
-    let userId = localStorage.getItem(USER_ID);
+    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
     retrieveResource(this, (data) => (this.setState({userData: data, sex: data.sex, region: data.region})),
       BASE_URL + USERS_ENDPOINT, userId);

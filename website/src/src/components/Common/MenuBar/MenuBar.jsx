@@ -7,9 +7,12 @@ import SideBar from "./SideBar";
 import Backdrop from "./BackDrop";
 import Axios from "axios";
 import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import AuthContext from "../../../contexts/AuthContext";
 
 class MenuBar extends Component {
+  static contextType = AuthContext;
+
   state = {
     sideDrawerOpen: false,
     displayName: "",
@@ -17,7 +20,7 @@ class MenuBar extends Component {
   };
 
   componentDidMount = () => {
-    let userId = localStorage.getItem(USER_ID);
+    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
     Axios.get(BASE_URL + USERS_ENDPOINT + userId, {
       withCredentials: true,
@@ -28,11 +31,13 @@ class MenuBar extends Component {
         this.setState({displayPhoto: response.data.photo});
       })
       .catch((error) => {
-        console.log(error.response);
-        if (error.response.status === 401) {
-          localStorage.removeItem(USER_ID);
-          this.props.setAuth(false);
+        console.log(error);
+        if(error.response.status === 401){
+          console.log(error);
+          this.context.setAuthenticated(true);
+          this.context.setRegistered(false);
         }
+        return error.response;
       });
   };
 

@@ -1,3 +1,3 @@
-import Verification from "./Verification";
+import VerificationContainer from "./VerificationContainer";
 
-export default Verification;
+export default VerificationContainer;

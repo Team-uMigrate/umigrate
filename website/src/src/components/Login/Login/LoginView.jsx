@@ -1,14 +1,14 @@
 import React from "react";
-import {Button, Col, Form} from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 import "./LoginStyles.css"
 
-const LoginView = (props) =>
+const LoginView = ({ handleSubmit, handleNewAccSubmit }) =>
   <div>
-    <Form className="formStyle" onSubmit={props.handleSubmit}>
+    <Form className="formStyle" onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control required type="text" placeholder="Enter your email address"/>
+          <Form.Control required type="email" placeholder="Enter your email address"/>
         </Form.Group>
       </Form.Row>
       <Form.Row>
@@ -18,11 +18,11 @@ const LoginView = (props) =>
         </Form.Group>
       </Form.Row>
       <Button variant="primary" type="submit">
-        Submit
+        Login
       </Button>
     </Form>
-    <Form className="formStyle" onSubmit={props.handleNewAccSubmit}>
-      <Button variant="primary" onClick={props.handleNewAccSubmit}>
+    <Form className="formStyle" onSubmit={handleNewAccSubmit}>
+      <Button variant="primary" type="submit">
         Don't have an account? Make one!
       </Button>
     </Form>

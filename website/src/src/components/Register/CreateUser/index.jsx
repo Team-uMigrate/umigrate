@@ -1,3 +1,3 @@
-import CreateUser from "./CreateUser";
+import CreateUserContainer from "./CreateUserContainer";
 
-export default CreateUser;
+export default  CreateUserContainer;

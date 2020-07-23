@@ -3,7 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import RoomView from "./RoomView";
 import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
-import {BASE_URL, MESSAGING_ROOMS_ENDPOINT} from "../../../constants/urls/apiUrls";
+import {BASE_URL, ROOMS_ENDPOINT} from "../../../constants/urls/apiUrls";
 import {REGION_CHOICES} from "../../../constants/misc/resourceChoices";
 
 class RoomContainer extends Component {
@@ -18,7 +18,7 @@ class RoomContainer extends Component {
   };
 
   loadRooms = () => {
-    listResource(this, (data) => this.setState({rooms: data}), BASE_URL + MESSAGING_ROOMS_ENDPOINT);
+    listResource(this, (data) => this.setState({rooms: data}), BASE_URL + ROOMS_ENDPOINT);
   };
 
   render () {

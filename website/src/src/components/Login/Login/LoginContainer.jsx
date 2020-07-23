@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import Axios from 'axios';
-import { BASE_URL, LOGIN_ENDPOINT} from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 import LoginView from "./LoginView";
 import AuthContext from "../../../contexts/AuthContext";
 
@@ -15,28 +15,44 @@ class LoginContainer extends Component {
     showFailureModal : false
   };
 
-  handleNewAccSubmit = () => {
+  handleNewAccSubmit = (e) => {
     this.setState({makeAccountRedirect : true});
+    e.preventDefault();
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
-
     const data = {
       "email" : document.getElementById("email").value,
       "password" : document.getElementById("password").value
     };
 
-    Axios.post(BASE_URL + LOGIN_ENDPOINT, data, { withCredentials: true })
+    Axios.post(BASE_URL + LOGIN_ENDPOINT, data, { withCredentials: true})
       .then((response) => {
-        console.log("Success! ", response);
-        localStorage.setItem(USER_ID, response.data.id);
-        this.context.setAuthenticated(true);
+        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, { withCredentials: true})
+          .then((response) => {
+            this.context.setAuthenticated(true);
+
+            if(response.data.first_name === ""){
+              this.context.setRegistered(false);
+            }
+            else {
+              this.context.setRegistered(true);
+              localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+            }
+          })
+          // Todo: Check for specific error when receiving the not authenticated message
+          .catch((error) =>{
+            console.log(error);
+            this.setState({showFailureModal : true});
+          });
       })
+      // Todo: Check for specific error when receiving the not authenticated message
       .catch((error) =>{
-        console.log("Error. ", error.response);
+        console.log(error);
         this.setState({showFailureModal : true});
       });
+
+    e.preventDefault();
   };
 
   handleClose = () => {
@@ -45,14 +61,12 @@ class LoginContainer extends Component {
 
   getFailureModal = () => {
     return (
-      <React.Fragment>
-        <Modal.Body>
-          <h2>Login failed</h2>
-        </Modal.Body>
+      <Modal show={this.state.showFailureModal} onHide={this.handleClose}>
+        <Modal.Body>Login failed</Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={this.handleClose}>Close</Button>
         </Modal.Footer>
-      </React.Fragment>
+      </Modal>
     );
   };
 
@@ -63,16 +77,17 @@ class LoginContainer extends Component {
       )
     }
 
-    else if(this.state.showFailureModal){
-      return this.getFailureModal();
+    else {
+      return (
+        <div>
+          {this.getFailureModal()}
+          <LoginView
+            handleSubmit={this.handleSubmit}
+            handleNewAccSubmit={this.handleNewAccSubmit}
+          />
+        </div>
+      )
     }
-
-    return (
-      <LoginView
-        handleSubmit={this.handleSubmit}
-        handleNewAccSubmit={this.handleNewAccSubmit}
-      />
-    )
   }
 }
 

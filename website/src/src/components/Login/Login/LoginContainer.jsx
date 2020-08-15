@@ -36,8 +36,8 @@ class LoginContainer extends Component {
               this.context.setRegistered(false);
             }
             else {
-              this.context.setRegistered(true);
               localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+              this.context.setRegistered(true);
             }
           })
           // Todo: Check for specific error when receiving the not authenticated message

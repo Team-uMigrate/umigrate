@@ -25,8 +25,8 @@ class AuthContextProvider extends Component {
           this.setState({isRegistered: false});
         }
         else {
-          this.setState({isRegistered: true});
           localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+          this.setState({isRegistered: true});
         }
       })
       // Todo: Check for specific error when receiving the not authenticated message

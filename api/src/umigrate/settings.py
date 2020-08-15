@@ -142,7 +142,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'common.utils.local_authentication.CsrfExemptSessionAuthentication' if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',
+        'common.utils.local_authentication.CsrfExemptSessionAuthentication' # if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',
+        # Todo: Fix CSRF with SESSION authentication bug for dev
     ],
 }
 

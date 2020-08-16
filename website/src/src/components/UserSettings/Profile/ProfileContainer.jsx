@@ -4,6 +4,7 @@ import ProfileView from "./ProfileView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";
 import AuthContext from "../../../contexts/AuthContext";
+import Axios from "axios";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -74,6 +75,22 @@ class ProfileContainer extends Component {
       "",
       data
     );
+
+    const formData = new FormData();
+    formData.append("photo", this.state.file);
+    Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, formData, {
+      headers : {'content-type': 'multipart/form-data'},
+      withCredentials: true })
+      .then((response) => {
+        this.setState({
+          userData: response.data,
+          enrolled_program: response.data.enrolled_program,
+          current_term: response.data.current_term,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   handleTermInputChange = (evt) => {

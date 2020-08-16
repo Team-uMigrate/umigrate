@@ -1,5 +1,7 @@
 // Base URL
-export const BASE_URL = "https://" + window.location.host;
+export const BASE_URL = process.env.NODE_ENV === "development" ?
+  "http://localhost:8000"
+  : "https://" + window.location.host;
 
 // Endpoints
 export const USER_PROFILE_ENDPOINT = "/auth/user/";
@@ -13,7 +15,9 @@ export const POLLS_ENDPOINT = "/api/polls/";
 export const POSTS_ENDPOINT = "/api/posts/";
 export const LOGIN_ENDPOINT = "/auth/login/";
 export const LOGOUT_ENDPOINT = "/auth/logout/";
-export const MESSAGING_WEBSOCKET = "wss://" + window.location.host + "/ws/messaging/";
+export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
+  "ws://localhost:8000/ws/messaging/"
+  : "wss://" + window.location.host + "/ws/messaging/";
 export const REGISTER_ENDPOINT = "/auth/registration/";
 
 // Comments endpoints

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Umigrate Website</title>
+</head>
+<body>
+    <!-- { { room_id|json_script:"room-id" }} -->
+    <script>
+       // const roomId = JSON.parse(document.getElementById('room-id').textContent);
+
+        let websocketProtocol = 'wss://';
+        if (window.location.protocol !== 'https:'){
+            websocketProtocol = 'ws://';
+        }
+
+        const notificationSocket = new WebSocket(
+            websocketProtocol
+            + window.location.host
+            + '/ws/notifications/'
+        );
+
+        notificationSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            // data is a new notification coming in!
+            // note that this may be called multiple times when you first connect to the websocket
+        };
+
+        notificationSocket.onclose = function(e) {
+            console.error('notification socket closed unexpectedly');
+        };
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 from django.db import models
+from common.constants.choices import Choices
 
 
 # Custom manager for multiple deletions at once
@@ -6,6 +7,22 @@ class CustomManager(models.Manager):
     def delete(self):
         for obj in self.get_queryset():
             obj.delete()
+
+
+# Abstract model that contains basic member variables
+class GenericModel(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=500, blank=True)
+    region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
+    datetime_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-datetime_created']
+        abstract = True
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 # An abstract model that represents a generic object with a photo member

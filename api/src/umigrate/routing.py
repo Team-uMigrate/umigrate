@@ -8,7 +8,7 @@ application = ProtocolTypeRouter({
     'websocket': SessionMiddlewareStack(
         URLRouter(
             messaging.routing.websocket_urlpatterns
-            # notifications.routing.websocket_urlpatterns
+            notifications.routing.websocket_urlpatterns
         )
     )
 })

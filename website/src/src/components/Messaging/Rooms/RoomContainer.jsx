@@ -37,7 +37,6 @@ class RoomContainer extends Component {
               isDirectMessaging={room.is_direct_messaging}
               creator={room.creator}
               members={room.members}
-              setCurrentRoom={this.props.setCurrentRoom}
             />
           ))}
         </ListGroup>

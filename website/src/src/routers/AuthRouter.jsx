@@ -9,6 +9,7 @@ import LoginPage from "../components/Login";
 import RegistrationPage from "../components/Register";
 import UsersPage from "../components/UsersPage";
 import AuthContext from "../contexts/AuthContext";
+import {RoomContextProvider} from "../contexts/RoomContext";
 
 const AuthRouter = () => {
   const auth = useContext(AuthContext);
@@ -21,7 +22,10 @@ const AuthRouter = () => {
           <Route path="/community"><CommunityPage /></Route>
           <Route path="/housing"><HousingPage /></Route>
           <Route path="/settings"><SettingsPage /></Route>
-          <Route path="/messaging"><MessagingPage /></Route>
+          <Route path="/messaging">
+            <RoomContextProvider>
+              <MessagingPage />
+            </RoomContextProvider></Route>
           <Route path="/users"><UsersPage /></Route>
           // Todo: Set default page back to community
           <Redirect from="/" to="/advertisements" />

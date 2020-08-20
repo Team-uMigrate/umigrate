@@ -2,10 +2,10 @@ import React from "react";
 import "./MessageStyles.css"
 import { ListGroup } from "react-bootstrap";
 
-const MessageView = props =>
+const MessageView = ({messageBody, creator, datetimeCreated}) =>
  <ListGroup.Item>
-   <h3>{props.content}</h3>
-   <h6>{props.creator.preferred_name}    {props.datetimeCreated}</h6>
+   <h3>{messageBody}</h3>
+   <h6>{creator.preferred_name}    {datetimeCreated}</h6>
  </ListGroup.Item>
 ;
 

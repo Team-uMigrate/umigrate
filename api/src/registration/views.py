@@ -16,6 +16,7 @@ class RegistrationView(RegisterView):
     queryset = ''
     uw = UW_Driver()
 
+    # Overrides from rest_auth to insert load_uwaterloo_data after initial user creation but before email is sent
     def perform_create(self, serializer):
         user = serializer.save(self.request)
         self.load_uwaterloo_data(user, serializer)
@@ -36,12 +37,14 @@ class RegistrationView(RegisterView):
     'email_addresses': ['j21smith@uwaterloo.ca'], 'offices': [], 'telephone_numbers': [], 'homepage': ''}
     """
 
+    # Grabs user's data from UWaterloo API and loads it into user database
     def load_uwaterloo_data(self, user, serializer):
         uwResponse = self.uw.directory_people_search(user.email.split("@")[0])
         serializer.validate_uwResponse(uwResponse)
         user.first_name = uwResponse['given_name']
         user.last_name = uwResponse['last_name']
         user.preferred_name = uwResponse['given_name']
+        # Maps users department to program and defaults to 0 (Unknown) if not found
         user.enrolled_program = {
                         'ENG': 1,
                         'ART': 2,

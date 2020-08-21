@@ -17,12 +17,21 @@ class Choices:
         'Ottawa',
     ])
     PROGRAM_CHOICES = convert_to_tuple([
+        'Unknown',
         'Engineering',
         'Arts',
-        'Math',
+        'Mathimatics',
         'Science',
-        'Business',
-        'Law',
+        'Applied Health Sciences',
+        'Environment',
+        'Theology',
+        'Graduate Studies',
+        'Independent Studies',
+        'Interdisciplinary',
+        'Conrad Grebel',
+        'Renison',
+        'St. Pauls',
+        'St. Jeromes',
     ])
     TERM_CHOICES = convert_to_tuple([
         '1A',

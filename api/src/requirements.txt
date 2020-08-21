@@ -12,3 +12,5 @@ sendgrid
 psycopg2
 gunicorn
 daphne
+
+uwaterloodriver

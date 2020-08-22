@@ -1,6 +1,6 @@
 
 [Unit]
-Description=daphne server script
+Description=daphne server script #%i
 After=network.target
 
 [Service]

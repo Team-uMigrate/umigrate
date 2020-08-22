@@ -53,6 +53,8 @@ if STAGE_ENVIRONMENT is 'local':
     DATABASE_PASSWORD = None
     REDIS_PASSWORD = None
     ALLOWED_HOSTS = ['*']
+    # To add WATERLOO_API_KEY, uncomment next line an paste key in single quotes
+    #os.environ['UW_API_KEY'] = ''
 
 
 # Application definition

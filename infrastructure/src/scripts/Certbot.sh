@@ -4,4 +4,4 @@
 DOMAIN_NAME=$1
 
 # Install SSL certificates
-certbot --nginx -d $DOMAIN_NAME --email 'support@umigrate.ca' --agree-tos -n
+certbot --nginx -d $DOMAIN_NAME --email 'teamumigrate@gmail.com' --agree-tos -n

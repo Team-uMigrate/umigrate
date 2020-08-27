@@ -13,7 +13,6 @@ class NotificationListCreate(ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
     def list(self, request, *args, **kwargs):
-        self.serializer_class = self.retrieve_serializer_class
         return ListCreateAPIView.list(self, request, *args, **kwargs)
 
 

@@ -4,7 +4,7 @@ from asgiref.sync import sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Notification
-from users.models import User
+from users.models import CustomUser
 
 
 # Handles websocket connections for notifications 
@@ -18,7 +18,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         try:
             get_user_id = sync_to_async(lambda: self.scope['session']['user_id'])
             user_id = await get_user_id()
-            get_user = database_sync_to_async(lambda: User.get(id=user_id))
+            get_user = database_sync_to_async(lambda: CustomUser.get(id=user_id))
             user = await get_user()
             self.user = user.__dict__
 

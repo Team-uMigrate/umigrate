@@ -19,4 +19,5 @@ class Housing(GenericPostModel, GenericPhotoModel):
 
 # Represents a housing comment object
 class HousingComment(GenericCommentModel):
+    posting_type = 'housing'
     housing = models.ForeignKey(to=Housing, related_name='comment_set', on_delete=models.CASCADE)

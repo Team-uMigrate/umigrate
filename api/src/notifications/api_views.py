@@ -1,19 +1,16 @@
 from django.http import QueryDict
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 from .models import Notification
 from .serializers import NotificationSerializer
 
-class NotificationListCreate(ListCreateAPIView):
+class NotificationListCreate(ListAPIView):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
     filter_fields = ['title', 'datetime_created', 'region']
     search_fields = ['title', 'region']
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-
-    def list(self, request, *args, **kwargs):
-        return ListCreateAPIView.list(self, request, *args, **kwargs)
 
 
 class NotificationRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):

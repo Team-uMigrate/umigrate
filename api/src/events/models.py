@@ -21,4 +21,5 @@ class Event(GenericPostModel, GenericPhotoModel):
 
 # Represents an event comment object
 class EventComment(GenericCommentModel):
+    posting_type = 'event'
     event = models.ForeignKey(to=Event, related_name='comment_set', on_delete=models.CASCADE)

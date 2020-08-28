@@ -10,4 +10,5 @@ class Post(GenericPostModel, GenericPhotoModel):
 
 # Represents a post comment object
 class PostComment(GenericCommentModel):
+    posting_type = 'post'
     post = models.ForeignKey(to=Post, related_name='comment_set', on_delete=models.CASCADE)

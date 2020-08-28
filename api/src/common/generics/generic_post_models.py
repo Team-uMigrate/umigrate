@@ -12,14 +12,14 @@ from django.db.models.signals import post_save
 def post_comment_post_save(sender, instance, created, **kwargs):
     if created:
         # hardcoded truncated length 100
-        posting_type = getattr(instance, instance.posting_type)
+        posting = getattr(instance, instance.posting_type)
         notification = Notification.objects.create(
             title=(instance.creator.preferred_name + ' commented on your post!'),
             description=(instance.creator.preferred_name + ' commented, ' + instance.comment_body)[:100],
-            region=posting_type.region
+            region=posting.region
         )
-        notification.members.set([posting_type.creator])
-        async_to_sync(Notification.send_through_websocket)(notification, user_channel=posting_type.creator.id)
+        notification.members.set([posting.creator])
+        #async_to_sync(Notification.send_through_websocket)(notification, user_channel=posting.creator.id)
 
 
 def post_post_save(sender, instance, created, **kwargs):
@@ -35,7 +35,7 @@ def post_post_save(sender, instance, created, **kwargs):
             for user in users:
                 notification.members.add(user)
 
-            async_to_sync(Notification.send_through_websocket)(notification, region=instance.region)
+            #async_to_sync(Notification.send_through_websocket)(notification, region=instance.region)
 
 
 # A custom permission that only allows the creator of a resource to modify or delete it
@@ -65,9 +65,10 @@ class GenericPostModel(GenericModel):
 
 
 # An abstract model that represents a generic comment object
-class GenericCommentModel(GenericModel):
+class GenericCommentModel(models.Model):
     # Override posting_type with a lowercase string of the posting type
-    posting_type = "%(app_label)s_%(class)s"
+    posting_type = None
+
     id = models.AutoField(primary_key=True)
     comment_body = models.TextField(max_length=1000)
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_comment_set", on_delete=models.CASCADE)

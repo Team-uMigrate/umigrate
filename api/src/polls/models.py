@@ -11,6 +11,7 @@ class Poll(GenericPostModel, GenericPhotoModel):
 
 # Represents a poll comment object
 class PollComment(GenericCommentModel):
+    posting_type = 'poll'
     poll = models.ForeignKey(to=Poll, related_name='comment_set', on_delete=models.CASCADE)
 
 

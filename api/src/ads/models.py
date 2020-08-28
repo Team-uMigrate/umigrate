@@ -14,4 +14,5 @@ class Ad(GenericPostModel, GenericPhotoModel):
 
 # Represents an ad comment object
 class AdComment(GenericCommentModel):
+    posting_type = 'ad'
     ad = models.ForeignKey(to=Ad, related_name='comment_set', on_delete=models.CASCADE)

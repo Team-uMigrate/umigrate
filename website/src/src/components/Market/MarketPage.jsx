@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AdContainer from "./Ad";
+import AdContainer from "./Ads";
 import NavigationBarContainer from "../Common/NavigationBar";
 
 class MarketPage extends Component {

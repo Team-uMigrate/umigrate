@@ -1,15 +1,12 @@
 from django.conf import settings
-
 from rest_auth.registration.views import RegisterView
 from rest_auth.utils import jwt_encode
 from rest_auth.app_settings import create_token
-
 from allauth.account.utils import complete_signup
 from allauth.account import app_settings as allauth_settings
-
 from .serializers import RegistrationSerializer
-
 from uwaterloodriver import UW_Driver
+
 
 class RegistrationView(RegisterView):
     serializer_class = RegistrationSerializer

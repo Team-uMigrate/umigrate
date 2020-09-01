@@ -5,6 +5,7 @@ import { USER_DATA } from "../constants/misc/localStorageKeys";
 
 const AuthContext = createContext();
 
+// Allows other components to access the 'isAuthenticated' and 'isRegistered' states
 class AuthContextProvider extends Component {
   state = {
     isAuthenticated: null,
@@ -29,7 +30,7 @@ class AuthContextProvider extends Component {
           this.setState({isRegistered: true});
         }
       })
-      // Todo: Check for specific error when receiving the not authenticated message
+      // Todo: Check for specific error when receiving the 'not authenticated' message
       .catch((error) => {
         console.log(error);
         this.setState({isAuthenticated: false});

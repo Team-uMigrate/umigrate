@@ -17,7 +17,7 @@ class CustomUserManager(BaseUserManager):
 
         email = self.normalize_email(email)
 
-        if not (str(email).endswith('@uwaterloo.ca') or str(email).endswith('@umigrate.ca')):
+        if not (str(email).endswith('@uwaterloo.ca') or str(email) == 'teamumigrate@gmail.com'):
             raise ValueError(_('The Email must end with uwaterloo.ca'))
 
         user = self.model(email=email, **extra_fields)

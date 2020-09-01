@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import AdContainer from "./Ad";
 import NavigationBarContainer from "../Common/NavigationBar";
 
-class AdsPage extends Component {
+class MarketPage extends Component {
   render() {
     return (
       <div>
-        <NavigationBarContainer title="Advertisements" />
+        <NavigationBarContainer title="Market" />
         <div className="row">
           <div className="col-lg-6">
             <AdContainer />
@@ -17,4 +17,4 @@ class AdsPage extends Component {
   }
 }
 
-export default AdsPage;
+export default MarketPage;

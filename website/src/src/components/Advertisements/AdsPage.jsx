@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import AdContainer from "./Ad";
-import MenuBar from "../Common/MenuBar";
+import NavigationBarContainer from "../Common/NavigationBar";
 
 class AdsPage extends Component {
   render() {
     return (
       <div>
-        <MenuBar type="advertisements" />
+        <NavigationBarContainer title="Advertisements" />
         <div className="row">
           <div className="col-lg-6">
             <AdContainer />

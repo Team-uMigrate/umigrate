@@ -1,0 +1,42 @@
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index:100;
+}
+
+.sidebar {
+  height: 100%;
+  background:  #323945;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  max-width: 300px;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+}
+
+.sidebar > .nav-item {
+  padding: 12px 12px 12px 30px;
+  font-size: 18px;
+  border-bottom: solid 2px;
+}
+
+.sidebar > .nav-item:hover {
+  background-color: #31596d;
+}
+
+.sidebar > .nav-item a {
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar.open {
+  transform:translateX(0);
+}

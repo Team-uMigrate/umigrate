@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import UsersContainer from "./UsersPage/UsersContainer";
-import MenuBar from "../Common/MenuBar";
+import NavigationBarContainer from "../Common/NavigationBar";
 
 class UsersPage extends Component {
   render() {
     return (
       <div>
-        <MenuBar type = "users"/>
+        <NavigationBarContainer title="Users" />
         <div className="row">
           <div className="col-lg-6">
             <UsersContainer />

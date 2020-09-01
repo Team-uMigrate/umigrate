@@ -9,8 +9,9 @@ import LoginPage from "../components/Login";
 import RegistrationPage from "../components/Register";
 import UsersPage from "../components/UsersPage";
 import AuthContext from "../contexts/AuthContext";
-import {RoomContextProvider} from "../contexts/RoomContext";
+import { RoomContextProvider } from "../contexts/RoomContext";
 
+// Maps pages to url paths and restricts access to pages depending on the isAuthenticated and isRegistered states
 const AuthRouter = () => {
   const auth = useContext(AuthContext);
 
@@ -31,7 +32,7 @@ const AuthRouter = () => {
           <Redirect from="/" to="/advertisements" />
         </Switch>
       </Router>
-    )
+    );
   }
 
   else if(auth.isRegistered === false) {
@@ -43,13 +44,13 @@ const AuthRouter = () => {
           <Redirect from="/" to="/login" />;
         </Switch>
       </Router>
-    )
+    );
   }
 
   else {
     return (
       <h1>Please Wait.....</h1>
-    )
+    );
   }
 };
 

@@ -20,7 +20,7 @@ class Choices:
         'Unknown',
         'Engineering',
         'Arts',
-        'Mathimatics',
+        'Mathematics',
         'Science',
         'Applied Health Sciences',
         'Environment',

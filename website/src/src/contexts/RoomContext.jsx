@@ -1,7 +1,8 @@
-import React, {Component, createContext} from "react";
+import React, { Component, createContext } from "react";
 
 const RoomContext = createContext();
 
+// Allows the messaging page to access the 'room' state
 class RoomContextProvider extends Component {
   state = {
     room: null,

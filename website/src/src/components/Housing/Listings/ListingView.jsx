@@ -1,10 +1,9 @@
 import React from "react";
 import { ListGroup, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import "./AdStyles.css"
+import { ThumbUp } from "@material-ui/icons";
+import "./ListingStyles.css"
 
-const AdView = props =>
+const ListingView = props =>
   <ListGroup.Item>
     <div className="row">
       <div className="col-lg-2 col-md-3 col-sm-6">
@@ -13,13 +12,16 @@ const AdView = props =>
       <div className="col-lg-10">
         <div className="d-flex w-100 justify-content-between">
           <h3 className="mb-1">{props.creator.first_name} {props.creator.last_name} - {props.title}</h3>
-          <Button onClick={() => props.handleLike(props.id)}><FontAwesomeIcon icon={faThumbsUp}/></Button>
+          {/*Todo: Use <IconButton> instead of <Button>*/}
+          <Button onClick={() => props.handleLike(props.id)}><ThumbUp /></Button>
         </div>
         <hr />
         <h5 className="mb-1"> {props.description}</h5>
         <p className="mb-1">{props.region}</p>
         <p className="mb-1">${props.price}</p>
-        <p className="mb-1">${props.features}</p>
+        <p className="mb-1">{props.features}</p>
+        <small>Location: {props.streetAddress}, {props.city}</small>
+        <p className="mb-1">{props.term}</p>
         <small>Created: {props.datetimeCreated}</small>
         <hr />
         <small>{props.likedUsers.length} Likes : </small>
@@ -31,4 +33,4 @@ const AdView = props =>
   </ListGroup.Item>
 ;
 
-export default AdView;
+export default ListingView;

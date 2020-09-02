@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
 import "./RoomStyles.css";
-import {USER_DATA} from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 import RoomContext from "../../../contexts/RoomContext";
 
 const RoomView = props => {

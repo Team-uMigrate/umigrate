@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import {PROGRAM_CHOICES, TERM_CHOICES} from "../../../constants/misc/resourceChoices";
+import { PROGRAM_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import "./ProfileStyles.css";
 
-const ProfileView = (props) => 
+const ProfileView = (props) =>
   <div className="Style">
     <h2>Profile Settings</h2>
     <div className="StyleForm">

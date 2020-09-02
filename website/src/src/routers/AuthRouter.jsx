@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Switch, BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import AdsPage from "../components/Advertisements";
+import MarketPage from "../components/Market";
 import SettingsPage from "../components/UserSettings";
 import CommunityPage from "../components/Community";
 import HousingPage from "../components/Housing";
@@ -9,8 +9,9 @@ import LoginPage from "../components/Login";
 import RegistrationPage from "../components/Register";
 import UsersPage from "../components/UsersPage";
 import AuthContext from "../contexts/AuthContext";
-import {RoomContextProvider} from "../contexts/RoomContext";
+import { RoomContextProvider } from "../contexts/RoomContext";
 
+// Maps pages to url paths and restricts access to pages depending on the isAuthenticated and isRegistered states
 const AuthRouter = () => {
   const auth = useContext(AuthContext);
 
@@ -18,7 +19,7 @@ const AuthRouter = () => {
     return (
       <Router>
         <Switch>
-          <Route path="/advertisements"><AdsPage /></Route>
+          <Route path="/market"><MarketPage /></Route>
           <Route path="/community"><CommunityPage /></Route>
           <Route path="/housing"><HousingPage /></Route>
           <Route path="/settings"><SettingsPage /></Route>
@@ -28,10 +29,10 @@ const AuthRouter = () => {
             </RoomContextProvider></Route>
           <Route path="/users"><UsersPage /></Route>
           // Todo: Set default page back to community
-          <Redirect from="/" to="/advertisements" />
+          <Redirect from="/" to="/market" />
         </Switch>
       </Router>
-    )
+    );
   }
 
   else if(auth.isRegistered === false) {
@@ -43,13 +44,13 @@ const AuthRouter = () => {
           <Redirect from="/" to="/login" />;
         </Switch>
       </Router>
-    )
+    );
   }
 
   else {
     return (
       <h1>Please Wait.....</h1>
-    )
+    );
   }
 };
 

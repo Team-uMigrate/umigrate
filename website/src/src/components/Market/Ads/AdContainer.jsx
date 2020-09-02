@@ -47,7 +47,7 @@ class AdContainer extends Component {
     this.setState({prevY: y});
   };
 
-  // fix liking
+  // Todo: fix liking
   handleLike = (id) => {
     likeResource(this, BASE_URL + ADS_ENDPOINT, id);
   };

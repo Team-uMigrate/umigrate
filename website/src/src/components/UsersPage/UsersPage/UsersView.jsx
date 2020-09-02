@@ -1,7 +1,6 @@
 import React from "react";
 import { ListGroup, Button, Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { ThumbUp } from "@material-ui/icons";
 import "./UsersStyles.css"
 
 const UsersView = props =>
@@ -12,7 +11,8 @@ const UsersView = props =>
       </div>
       <div className="col-lg-10">
         <div className="d-flex w-100 justify-content-between">
-          <h3 className="mb-1">{props.firstName} {props.lastName} - <small>{props.city}, {props.country}</small> <Button onClick={() => props.handleShow(props)}><FontAwesomeIcon icon={faUser}/></Button></h3>
+          {/*Todo: Use <IconButton> instead of <Button>*/}
+          <h3 className="mb-1">{props.firstName} {props.lastName} - <small>{props.city}, {props.country}</small> <Button onClick={() => props.handleShow(props)}><ThumbUp /></Button></h3>
         </div>
         <div>
         <Modal
@@ -82,14 +82,14 @@ export default UsersView;
 const firstBlock = {
     backgroundColor: "lightGrey"
   };
-  
+
   const profilePhoto = {
     borderRadius: "100%",
     width: "200px",
     float: "left",
     border: "3px solid LightCyan"
   };
-  
+
   const messageButton = {
     zIndex: "9999999999999",
     position: "absolute",
@@ -98,7 +98,7 @@ const firstBlock = {
     bottom: "5px",
     boxSizing: "border-box"
   };
-  
+
   const secondBlock = {
     backgroundColor: "LightCyan",
     marginBottom: "10px",
@@ -106,13 +106,13 @@ const firstBlock = {
     outline: "1px solid grey",
     padding: "20px"
   };
-  
+
   const thirdBlock = {
     backgroundColor: "LightCyan",
     marginBottom: "5px",
     outline: "1px solid grey"
   };
-  
+
   const container = {
     listSstyle: "none",
     margin: "0 2px",
@@ -121,7 +121,7 @@ const firstBlock = {
     justifyContent: "space-around",
     marginBottom: "5px"
   };
-  
+
   const fourthBlock = {
     backgroundColor: "LightCyan",
     marginBottom: "10px",

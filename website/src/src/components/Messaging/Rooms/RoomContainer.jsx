@@ -3,8 +3,8 @@ import { ListGroup } from "react-bootstrap";
 import RoomView from "./RoomView";
 import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
-import {BASE_URL, ROOMS_ENDPOINT} from "../../../constants/urls/apiUrls";
-import {REGION_CHOICES} from "../../../constants/misc/resourceChoices";
+import { BASE_URL, ROOMS_ENDPOINT } from "../../../constants/urls/apiUrls";
+import { REGION_CHOICES } from "../../../constants/misc/resourceChoices";
 
 class RoomContainer extends Component {
   static contextType = AuthContext;

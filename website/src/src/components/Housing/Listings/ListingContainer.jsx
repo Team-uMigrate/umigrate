@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HousingView from "./HousingView";
+import ListingView from "./ListingView";
 import { BASE_URL, HOUSING_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { ListGroup } from "react-bootstrap";
 import likeResource from "../../../utils/api/resources/likeResource";
@@ -8,7 +8,7 @@ import { HOUSING_CATEGORY_CHOICES, REGION_CHOICES, TERM_CHOICES } from "../../..
 import AuthContext from "../../../contexts/AuthContext";
 import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
 
-class HousingContainer extends Component {
+class ListingContainer extends Component {
   static contextType = AuthContext;
 
   state = {
@@ -57,7 +57,7 @@ class HousingContainer extends Component {
       <div>
       <ListGroup>
         {this.state.housingPosts.map((housing) => (
-          <HousingView
+          <ListingView
             key={housing.id}
             id={housing.id}
             title={housing.title}
@@ -87,4 +87,4 @@ class HousingContainer extends Component {
   }
 }
 
-export default HousingContainer;
+export default ListingContainer;

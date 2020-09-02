@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {BASE_URL, USER_PROFILE_ENDPOINT} from "../../../constants/urls/apiUrls";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import AccountView from "./AccountView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";

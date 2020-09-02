@@ -1,10 +1,9 @@
 import React from "react";
 import { ListGroup, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import "./HousingStyles.css"
+import { ThumbUp } from "@material-ui/icons";
+import "./ListingStyles.css"
 
-const HousingView = props =>
+const ListingView = props =>
   <ListGroup.Item>
     <div className="row">
       <div className="col-lg-2 col-md-3 col-sm-6">
@@ -13,7 +12,8 @@ const HousingView = props =>
       <div className="col-lg-10">
         <div className="d-flex w-100 justify-content-between">
           <h3 className="mb-1">{props.creator.first_name} {props.creator.last_name} - {props.title}</h3>
-          <Button onClick={() => props.handleLike(props.id)}><FontAwesomeIcon icon={faThumbsUp}/></Button>
+          {/*Todo: Use <IconButton> instead of <Button>*/}
+          <Button onClick={() => props.handleLike(props.id)}><ThumbUp /></Button>
         </div>
         <hr />
         <h5 className="mb-1"> {props.description}</h5>
@@ -33,4 +33,4 @@ const HousingView = props =>
   </ListGroup.Item>
 ;
 
-export default HousingView;
+export default ListingView;

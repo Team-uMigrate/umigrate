@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HousingContainer from "./Housing";
+import ListingContainer from "./Listings";
 import NavigationBarContainer from "../Common/NavigationBar";
 
 class HousingPage extends Component {
@@ -9,7 +9,7 @@ class HousingPage extends Component {
         <NavigationBarContainer title="Housing" />
         <div className="row">
           <div className="col-lg-6">
-            <HousingContainer />
+            <ListingContainer />
           </div>
         </div>
       </div>

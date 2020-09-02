@@ -1,9 +1,9 @@
 import React from "react";
-import {Navbar, Image, NavDropdown, Form, FormControl} from "react-bootstrap";
+import { Navbar, Image, NavDropdown, Form, FormControl } from "react-bootstrap";
 import "./NavigationBarStyles.css"
 import { Menu, Search, Notifications, AccountCircle } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-import {USER_DATA} from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 
 const NavigationBarView = ({title, drawerClickHandler}) => {
   const userData = JSON.parse(localStorage.getItem(USER_DATA));

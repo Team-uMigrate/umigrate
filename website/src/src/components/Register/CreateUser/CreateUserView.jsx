@@ -1,6 +1,6 @@
 import React from "react";
-import {Alert, Button, Col, Form} from "react-bootstrap";
-import {PROGRAM_CHOICES, REGION_CHOICES, SEX_CHOICES, TERM_CHOICES} from "../../../constants/misc/resourceChoices";
+import { Alert, Button, Col, Form } from "react-bootstrap";
+import { PROGRAM_CHOICES, REGION_CHOICES, SEX_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import "./CreateUserStyles.css"
 
 const CreateUserView = ({handleSubmit, handleImageUpload, imagePreviewUrl}) => {

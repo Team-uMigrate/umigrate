@@ -12,7 +12,7 @@ import {
 } from "../../../constants/urls/apiUrls";
 import likeResource from "../../../utils/api/resources/likeResource";
 import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
-import {USER_DATA} from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 
 class MessageContainer extends Component {
   static contextType = AuthContext;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UsersView from "./UsersView";
 import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { ListGroup, Modal } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { REGION_CHOICES, SEX_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
@@ -65,17 +65,13 @@ class UsersContainer extends Component {
         {this.state.users.map((user) => (
             // if we ever want to add more info, just get from the API
             // ie term, email, etc
-            
+
           <UsersView
             key={user.id}
             id={user.id}
             firstName={user.first_name}
             lastName={user.last_name}
-            datetimeCreated={user.datetime_created}
             photo={user.photo}
-            city={user.city}
-            division={user.division}
-            country={user.country}
             // change to handle modal
             handleShow={this.handleShow}
             handleHide={this.handleHide}

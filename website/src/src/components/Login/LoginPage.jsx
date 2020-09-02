@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import LoginContainer from "./Login";
 import AuthContext from "../../contexts/AuthContext";
 import { Redirect, Route } from "react-router-dom";

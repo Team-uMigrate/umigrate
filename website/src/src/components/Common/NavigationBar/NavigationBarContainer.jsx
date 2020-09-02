@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import AuthContext from "../../../contexts/AuthContext";
-import {USER_DATA} from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 import Axios from "axios";
-import {BASE_URL, USERS_ENDPOINT} from "../../../constants/urls/apiUrls";
+import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import NavigationBarView from "./NavigationBarView";
 import MenuBarView from "../MenuBar";
 

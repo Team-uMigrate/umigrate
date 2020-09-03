@@ -19,7 +19,7 @@ class AuthContextProvider extends Component {
   };
 
   componentDidMount = () => {
-    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, {withCredentials: true})
+    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
       .then((response) => {
         this.setState({isAuthenticated: true});
         if (response.data.first_name === "") {
@@ -33,6 +33,7 @@ class AuthContextProvider extends Component {
       // Todo: Check for specific error when receiving the 'not authenticated' message
       .catch((error) => {
         console.log(error);
+        console.log(error.response);
         this.setState({isAuthenticated: false});
         this.setState({isRegistered: false});
       });

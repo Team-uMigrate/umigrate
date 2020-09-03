@@ -26,11 +26,11 @@ class LoginContainer extends Component {
       "password" : document.getElementById("password").value
     };
 
-    Axios.post(BASE_URL + LOGIN_ENDPOINT, data, { withCredentials: true})
+    Axios.post(BASE_URL + LOGIN_ENDPOINT, data)
       .then((response) => {
         Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
 
-        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, { withCredentials: true})
+        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
           .then((response) => {
             this.context.setAuthenticated(true);
 
@@ -45,12 +45,14 @@ class LoginContainer extends Component {
           // Todo: Check for specific error when receiving the not authenticated message
           .catch((error) =>{
             console.log(error);
+            console.log(error.response);
             this.setState({showFailureModal : true});
           });
       })
       // Todo: Check for specific error when receiving the not authenticated message
       .catch((error) =>{
         console.log(error);
+        console.log(error.response);
         this.setState({showFailureModal : true});
       });
 

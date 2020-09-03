@@ -28,8 +28,7 @@ const AuthRouter = () => {
               <MessagingPage />
             </RoomContextProvider></Route>
           <Route path="/users"><UsersPage /></Route>
-          // Todo: Set default page back to community
-          <Redirect from="/" to="/market" />
+          <Redirect from="/" to="/community" />
         </Switch>
       </Router>
     );

@@ -18,9 +18,7 @@ class NavigationBarContainer extends Component {
   componentDidMount = () => {
     let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
 
-    Axios.get(BASE_URL + USERS_ENDPOINT + userId, {
-      withCredentials: true,
-    })
+    Axios.get(BASE_URL + USERS_ENDPOINT + userId)
       .then((response) => {
         console.log(response);
         this.setState({ displayName: response.data.first_name });
@@ -29,7 +27,7 @@ class NavigationBarContainer extends Component {
       .catch((error) => {
         console.log(error);
         if(error.response.status === 401){
-          console.log(error);
+          console.log(error.response);
           this.context.setAuthenticated(true);
           this.context.setRegistered(false);
         }

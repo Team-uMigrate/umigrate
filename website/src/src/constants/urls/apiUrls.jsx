@@ -1,6 +1,6 @@
 // Base URL
 export const BASE_URL = process.env.NODE_ENV === "development" ?
-  "http://localhost:8000"
+  "https://dev.umigrate.ca"
   : "https://" + window.location.host;
 
 // Endpoints
@@ -16,7 +16,7 @@ export const POSTS_ENDPOINT = "/api/posts/";
 export const LOGIN_ENDPOINT = "/auth/login/";
 export const LOGOUT_ENDPOINT = "/auth/logout/";
 export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
-  "ws://localhost:8000/ws/messaging/"
+  "wss://dev.umigrate.ca/ws/messaging/"
   : "wss://" + window.location.host + "/ws/messaging/";
 export const REGISTER_ENDPOINT = "/auth/registration/";
 

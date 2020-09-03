@@ -79,8 +79,7 @@ class ProfileContainer extends Component {
     const formData = new FormData();
     formData.append("photo", this.state.file);
     Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, formData, {
-      headers : {'content-type': 'multipart/form-data'},
-      withCredentials: true })
+      headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
         this.setState({
           userData: response.data,
@@ -89,6 +88,7 @@ class ProfileContainer extends Component {
         });
       })
       .catch((error) => {
+        console.log(error);
         console.log(error.response);
       });
   };

@@ -23,13 +23,14 @@ class VerificationContainer extends Component {
       "password2" : document.getElementById("confirm_password").value,
     };
 
-    Axios.post(BASE_URL + REGISTER_ENDPOINT, data, { withCredentials: true })
+    Axios.post(BASE_URL + REGISTER_ENDPOINT, data)
       .then((response) => {
         this.setState({showSuccessModal : true});
       })
       .catch((error) => {
         // Todo: Check for specific error when receiving the not authenticated message
         console.log(error);
+        console.log(error.response);
         this.setState({showFailureModal : true});
       });
 

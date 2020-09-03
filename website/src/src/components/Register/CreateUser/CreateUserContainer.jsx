@@ -32,13 +32,13 @@ class CreateUserContainer extends Component {
     data.append("photo", this.state.file);
 
     Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, data, {
-      headers : {'content-type': 'multipart/form-data'},
-      withCredentials: true })
+      headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
         this.context.setRegistered(true);
         localStorage.setItem(USER_DATA, JSON.stringify(response.data));
       })
       .catch((error) => {
+        console.log(error);
         console.log(error.response);
         this.setState({showFailureModal : true});
       });

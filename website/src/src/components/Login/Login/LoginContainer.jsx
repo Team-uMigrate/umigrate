@@ -28,6 +28,8 @@ class LoginContainer extends Component {
 
     Axios.post(BASE_URL + LOGIN_ENDPOINT, data, { withCredentials: true})
       .then((response) => {
+        Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
+
         Axios.get(BASE_URL + USER_PROFILE_ENDPOINT, { withCredentials: true})
           .then((response) => {
             this.context.setAuthenticated(true);

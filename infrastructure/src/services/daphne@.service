@@ -1,0 +1,17 @@
+
+[Unit]
+Description=daphne server script #%i
+After=network.target
+
+[Service]
+WorkingDirectory=/home/umigrate/api
+Environment=DJANGO_SETTINGS_MODULE=umigrate.settings
+EnvironmentFile=/home/umigrate/venv/.env
+ExecStart=/home/umigrate/venv/bin/daphne \
+        --bind 0.0.0.0 \
+        --port 8001 \
+        umigrate.asgi:application
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

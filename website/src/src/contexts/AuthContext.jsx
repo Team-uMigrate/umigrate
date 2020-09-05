@@ -1,28 +1,41 @@
 import React, { Component, createContext } from "react";
 import Axios from "axios";
-import { BASE_URL, LOGIN_ENDPOINT } from "../constants/urls/apiUrls";
-import {USER_ID} from "../constants/misc/localStorageKeys";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/urls/apiUrls";
+import { USER_DATA } from "../constants/misc/localStorageKeys";
 
 const AuthContext = createContext();
 
+// Allows other components to access the 'isAuthenticated' and 'isRegistered' states
 class AuthContextProvider extends Component {
   state = {
     isAuthenticated: null,
+    isRegistered: null,
     setAuthenticated: (isAuth) => {
       this.setState({isAuthenticated: isAuth})
+    },
+    setRegistered: (isReg) => {
+      this.setState({isRegistered: isReg})
     }
   };
 
   componentDidMount = () => {
-    Axios.get(BASE_URL + LOGIN_ENDPOINT, { withCredentials: true })
+    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
       .then((response) => {
-        console.log("Success! " + response.data);
-        localStorage.setItem(USER_ID, response.data.id);
         this.setState({isAuthenticated: true});
+        if (response.data.first_name === "") {
+          this.setState({isRegistered: false});
+        }
+        else {
+          localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+          this.setState({isRegistered: true});
+        }
       })
+      // Todo: Check for specific error when receiving the 'not authenticated' message
       .catch((error) => {
+        console.log(error);
         console.log(error.response);
         this.setState({isAuthenticated: false});
+        this.setState({isRegistered: false});
       });
   };
 

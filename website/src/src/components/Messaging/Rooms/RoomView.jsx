@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
 import "./RoomStyles.css";
-import {USER_ID} from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import RoomContext from "../../../contexts/RoomContext";
 
-const RoomView = props =>
-  <ListGroup.Item>
-    <h6 onClick={() => props.setCurrentRoom(props)}>
-      {props.isDirectMessaging ?
-        (localStorage.getItem(USER_ID) === props.members[0].id ?
-          props.members[0].preferred_name : props.members[1].preferred_name)
-        : props.title}
-    </h6>
-  </ListGroup.Item>
-;
+const RoomView = props => {
+  const roomContext = useContext(RoomContext);
+
+  return (
+    <ListGroup.Item>
+      <h6 onClick={() => roomContext.setRoom(props)}>
+        {props.isDirectMessaging ?
+          (JSON.parse(localStorage.getItem(USER_DATA)).id === props.members[0].id ?
+            props.members[0].preferred_name : props.members[1].preferred_name)
+          : props.title}
+      </h6>
+    </ListGroup.Item>
+  );
+};
 
 export default RoomView;

@@ -1,9 +1,8 @@
 import Axios from "axios";
 import { LIKE_EXTENSION } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
 
 const likeResource = (obj, setData, url, id) => {
-  Axios.get(url + id + LIKE_EXTENSION, {withCredentials : true})
+  Axios.get(url + id + LIKE_EXTENSION)
     .then((response) => {
       console.log(response);
       return response.data.liked;
@@ -16,25 +15,29 @@ const likeResource = (obj, setData, url, id) => {
       else {
         data = {"liked" :  true};
       }
-      Axios.patch(url + id + LIKE_EXTENSION, data, {withCredentials : true })
+      Axios.patch(url + id + LIKE_EXTENSION, data)
         .then((response) => {
           console.log(response);
           setData(data);
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log(error);
           if(error.response.status === 401){
-            localStorage.removeItem(USER_ID);
-            obj.context.setAuthenticated(false);
+            console.log(error.response);
+            obj.setAuthenticated(true);
+            obj.setRegistered(false);
           }
+          return error.response;
         });
     })
     .catch((error) => {
-      console.log(error.response);
+      console.log(error);
       if(error.response.status === 401){
-        localStorage.removeItem(USER_ID);
-        obj.context.setAuthenticated(false);
+        console.log(error.response);
+        obj.setAuthenticated(true);
+        obj.setRegistered(false);
       }
+      return error.response;
     });
 };
 

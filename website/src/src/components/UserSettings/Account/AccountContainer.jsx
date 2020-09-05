@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import AccountView from "./AccountView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";
@@ -16,8 +15,6 @@ class AccountContainer extends Component {
   };
 
   handleSubmit = () => {
-    let userId = localStorage.getItem(USER_ID);
-
     const data = {
       first_name: document.getElementById("first_name").value,
       last_name: document.getElementById("last_name").value,
@@ -29,14 +26,12 @@ class AccountContainer extends Component {
     };
 
     updateResource(this, (data) => (this.setState({userData: data, sex: data.sex, region: data.region})),
-      BASE_URL + USERS_ENDPOINT, userId, data);
+      BASE_URL + USER_PROFILE_ENDPOINT, "", data);
   };
 
   componentDidMount = () => {
-    let userId = localStorage.getItem(USER_ID);
-
     retrieveResource(this, (data) => (this.setState({userData: data, sex: data.sex, region: data.region})),
-      BASE_URL + USERS_ENDPOINT, userId);
+      BASE_URL + USER_PROFILE_ENDPOINT, "");
   };
 
   handleSexInputChange = (evt) => {

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import ProfileView from "./ProfileView";
 import updateResource from "../../../utils/api/resources/updateResource";
 import retrieveResource from "../../../utils/api/resources/retrieveResource";
 import AuthContext from "../../../contexts/AuthContext";
+import Axios from "axios";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -19,8 +19,6 @@ class ProfileContainer extends Component {
     filename: "",
   };
   componentDidMount = () => {
-    let userId = localStorage.getItem(USER_ID);
-
     retrieveResource(
       this,
       (data) =>
@@ -29,8 +27,8 @@ class ProfileContainer extends Component {
           current_term: data.current_term,
           enrolled_program: data.enrolled_program,
         }),
-      BASE_URL + USERS_ENDPOINT,
-      userId
+      BASE_URL + USER_PROFILE_ENDPOINT,
+      ""
     );
   };
 
@@ -58,8 +56,6 @@ class ProfileContainer extends Component {
   };
 
   handleSubmit = () => {
-    let userId = localStorage.getItem(USER_ID);
-
     const data = {
       bio: document.getElementById("bio").value,
       city: document.getElementById("city").value,
@@ -75,10 +71,26 @@ class ProfileContainer extends Component {
           enrolled_program: data.enrolled_program,
           current_term: data.current_term,
         }),
-      BASE_URL + USERS_ENDPOINT,
-      userId,
+      BASE_URL + USER_PROFILE_ENDPOINT,
+      "",
       data
     );
+
+    const formData = new FormData();
+    formData.append("photo", this.state.file);
+    Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, formData, {
+      headers : {'content-type': 'multipart/form-data'}})
+      .then((response) => {
+        this.setState({
+          userData: response.data,
+          enrolled_program: response.data.enrolled_program,
+          current_term: response.data.current_term,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
   };
 
   handleTermInputChange = (evt) => {
@@ -92,13 +104,15 @@ class ProfileContainer extends Component {
   render() {
     if (this.state.photo) {
       this.state.imageElem = (
-        <img src={this.state.photo} style={{ height: "100%", width: "100%" }} />
+        <img src={this.state.photo} style={{ height: "100%", width: "100%" }}  alt="Image not found"/>
       );
-    } else {
+    }
+    else {
       this.state.imageElem = (
         <img
           src={this.state.userData.photo}
           style={{ height: "100%", width: "100%" }}
+          alt="Image not found"
         />
       );
     }

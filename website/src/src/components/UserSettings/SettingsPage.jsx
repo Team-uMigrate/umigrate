@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MenuBar from "../Common/MenuBar";
 import AccountContainer  from "./Account";
 import BlockingContainer from "./Blocking";
 import DevicesContainer from "./Devices";
@@ -11,12 +10,13 @@ import PasswordContainer from "./Password";
 import ProfileContainer from "./Profile";
 import { Route, Switch, Redirect } from "react-router-dom";
 import SettingsSidebar from "./Common/SettingsBar";
+import NavigationBarContainer from "../Common/NavigationBar";
 
 class SettingsPage extends Component {
   render() {
     return (
       <div>
-        <MenuBar />
+        <NavigationBarContainer title="Settings" />
         <SettingsSidebar />
         <Switch>
           <Route path="/settings/account"><AccountContainer /></Route>

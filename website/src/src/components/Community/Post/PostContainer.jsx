@@ -145,9 +145,8 @@ class PostContainer extends Component {
         combinedList.postsPage++;
         combinedList.eventsPage++;
       }
-
-      return combinedList;
     }
+    return combinedList;
   };
 
   sortLists = (posts, events) => {

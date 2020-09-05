@@ -1,3 +1,3 @@
-import MenuBar from "./MenuBar";
+import MenuBarView from "./MenuBarView";
 
-export default MenuBar;
+export default MenuBarView;

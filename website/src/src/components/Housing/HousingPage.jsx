@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import HousingContainer from "./Housing";
-import MenuBar from "../Common/MenuBar";
+import ListingContainer from "./Listings";
+import NavigationBarContainer from "../Common/NavigationBar";
 
 class HousingPage extends Component {
   render() {
     return (
       <div>
-        <MenuBar type = "housing"/>
+        <NavigationBarContainer title="Housing" />
         <div className="row">
           <div className="col-lg-6">
-            <HousingContainer />
+            <ListingContainer />
           </div>
         </div>
       </div>

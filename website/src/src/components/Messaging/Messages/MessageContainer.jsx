@@ -6,21 +6,19 @@ import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
 import {
   BASE_URL,
-  MESSAGES_ENDPOINT,
+  ROOMS_ENDPOINT,
   MESSAGES_EXTENSION,
-  MESSAGING_ROOMS_ENDPOINT, MESSAGING_WEBSOCKET
+  MESSAGING_WEBSOCKET
 } from "../../../constants/urls/apiUrls";
 import likeResource from "../../../utils/api/resources/likeResource";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
 import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
-
+import { USER_DATA } from "../../../constants/misc/localStorageKeys";
 
 class MessageContainer extends Component {
   static contextType = AuthContext;
 
   state = {
     messages: [],
-    currentRoom: null,
     text: "",
     page: 0,
     prevY: 0
@@ -29,44 +27,47 @@ class MessageContainer extends Component {
   ws;
 
   componentDidMount = () => {
+    listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
+      BASE_URL + ROOMS_ENDPOINT + this.props.room.id + MESSAGES_EXTENSION);
+
+    this.ws = new WebSocket(MESSAGING_WEBSOCKET + this.props.room.id + "/");
+
+    this.ws.onopen = () => {
+      console.log("Connected");
+      this.setState({prevY: 0});
+    };
+
+    this.ws.onmessage = (ev) => {
+      let message = JSON.parse(ev.data);
+      this.setState({messages: [...this.state.messages, message]});
+    };
+
+    this.ws.onclose = () => {
+      this.setState({ws: new WebSocket(MESSAGING_WEBSOCKET + this.props.room.id + "/")});
+    };
 
     window.onscroll = () => {
-
       if(window.pageYOffset === 0) {
-        if(this.state.currentRoom != null){
-          let options = {
-            root: null,
-            rootMargin: '200px',
-            threshold: 1.0
-          };
+        let options = {
+          root: null,
+          rootMargin: '200px',
+          threshold: 1.0
+        };
 
-          this.observer = new IntersectionObserver(
-            this.handleObserver,
-            options
-          );
+        this.observer = new IntersectionObserver(
+          this.handleObserver,
+          options
+        );
 
-          this.observer.observe(this.loadingRef);
-
-        } else {
-            // do nothing
-        }
+        this.observer.observe(this.loadingRef);
       }
     }
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.currentRoom !== prevState.currentRoom) {
-      this.setState({
-        messages: [],
-        page: 0
-      });
-    }
-  }
-
   loadPosts = () => {
     listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-    BASE_URL + MESSAGING_ROOMS_ENDPOINT + this.state.currentRoom.id + MESSAGES_EXTENSION, this.state.page)
-    };
+    BASE_URL + ROOMS_ENDPOINT + this.props.room.id + MESSAGES_EXTENSION, this.state.page);
+  };
 
   handleObserver = (entities, options) => {
     const y = entities[0].boundingClientRect.y;
@@ -76,34 +77,12 @@ class MessageContainer extends Component {
     this.setState({prevY: y});
   };
 
-  setCurrentRoom = (room) => {
-    listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-      BASE_URL + MESSAGING_ROOMS_ENDPOINT + room.id + MESSAGES_EXTENSION);
-
-    this.ws = new WebSocket(MESSAGING_WEBSOCKET + room.id + "/");
-
-    this.ws.onopen = () => {
-      console.log("Connected");
-      this.setState({prevY: 0});
-      this.setState({currentRoom: room});
-    };
-
-    this.ws.onmessage = (ev) => {
-      let message = JSON.parse(ev.data);
-      this.setState({messages: [...this.state.messages, message]});
-    };
-
-    this.ws.onclose = () => {
-      this.setState({ws: new WebSocket(MESSAGING_WEBSOCKET + room.id + "/")});
-    };
-  };
-
   handleSend = () => {
-    let content = this.state.text.trim();
+    let messageBody = this.state.text.trim();
 
-    if(content.length !== 0){
+    if(messageBody.length !== 0){
       this.ws.send(JSON.stringify({
-        'content': content
+        'message_body': messageBody
       }));
       this.setState({text: ""})
     }
@@ -114,22 +93,14 @@ class MessageContainer extends Component {
   };
 
   handleLike = (id) => {
-    likeResource(this, BASE_URL + MESSAGES_ENDPOINT, id);
+    likeResource(this, BASE_URL + ROOMS_ENDPOINT + "messages/", id);
   };
 
   render() {
-    if(this.state.currentRoom === null){
-      return (
-        <div>
-          Please select a room
-        </div>
-      )
-    }
-
-    let room = this.state.currentRoom;
+    let room = this.props.room;
 
     let roomTitle = room.isDirectMessaging ?
-      (localStorage.getItem(USER_ID) === room.members[0].id ?
+      (JSON.parse(localStorage.getItem(USER_DATA)).id === room.members[0].id ?
         room.members[0].preferred_name : room.members[1].preferred_name)
       : room.title;
 
@@ -147,7 +118,7 @@ class MessageContainer extends Component {
               <MessageView
                 key={message.id}
                 id={message.id}
-                content={message.content}
+                messageBody={message.message_body}
                 creator={message.creator}
                 datetimeCreated={message.datetime_created}
                 handleLike={this.handleLike}
@@ -161,10 +132,8 @@ class MessageContainer extends Component {
           text={this.state.text}
         />
       </div>
-    )
+    );
   }
-
-
 }
 
-export default MessageContainer
+export default MessageContainer;

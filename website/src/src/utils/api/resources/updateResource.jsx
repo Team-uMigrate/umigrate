@@ -2,16 +2,17 @@ import Axios from "axios";
 import { USER_ID } from "../../../constants/misc/localStorageKeys";
 
 const updateResource = (obj, setData, url, id, data) => {
-  Axios.patch(url + id, data, { withCredentials: true })
+  Axios.patch(url + id, data)
     .then((response) => {
       console.log(response.data);
       setData(response.data);
     })
     .catch((error) => {
-      console.log(error.response);
+      console.log(error);
       if(error.response.status === 401){
-        localStorage.removeItem(USER_ID);
-        obj.context.setAuthenticated(false);
+        console.log(error.response);
+        obj.setAuthenticated(true);
+        obj.setRegistered(false);
       }
       return error.response;
     });

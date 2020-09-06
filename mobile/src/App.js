@@ -1,23 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { AuthContextProvider } from "./src/contexts/AuthContext";
+import AuthNavigator from "./src/navigators/AuthNavigator";
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Welcome to uMigrate!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContextProvider>
+      <AuthNavigator />
+    </AuthContextProvider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import AuthContext from "../contexts/AuthContext";
 import TabNavigator from "./TabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -35,10 +35,10 @@ const AuthNavigator = () => {
     return (
       <View style={styles.waitContainer}>
         <Text>Please Wait</Text>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
-
 };
 
 export default AuthNavigator;

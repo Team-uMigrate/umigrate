@@ -19,6 +19,8 @@ const App = () => {
         initialRouteName="Community"
         activeColor="#333333"
         inactiveColor="#888888"
+        // Todo: Determine if we want to keep labeled set to false
+        labeled={false}
         barStyle={styles.TabNavigator}
       >
         <Tab.Screen

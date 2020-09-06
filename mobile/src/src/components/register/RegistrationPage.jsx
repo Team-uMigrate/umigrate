@@ -1,16 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import AuthContext from "../../contexts/AuthContext";
+import Axios from "axios";
+import { BASE_URL, REGISTER_ENDPOINT } from "../../constants/apiEndpoints";
 
 const RegistrationPage = ({navigation}) => {
-  const auth = useContext(AuthContext);
-
-  const handleSignUp = () => {
-
-  };
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirm, setConfirm] = useState();
 
   const signInRedirect = () => {
     navigation.navigate('Login');
+  };
+
+  const handleSignUp = () => {
+    Axios.post(BASE_URL + REGISTER_ENDPOINT, {email, password, confirm})
+      .then((response) => {
+        // Set authentication token to the header
+        signInRedirect();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
   };
 
   return (
@@ -21,23 +33,26 @@ const RegistrationPage = ({navigation}) => {
           <Text>Email: </Text>
           <TextInput
             style={styles.textInput}
+            onChangeText={text => setEmail(text)}
           />
         </View>
         <View style={styles.row}>
           <Text>Password: </Text>
           <TextInput
             style={styles.textInput}
+            onChangeText={text => setPassword(text)}
           />
         </View>
         <View style={styles.row}>
           <Text>Confirm Password: </Text>
           <TextInput
             style={styles.textInput}
+            onChangeText={text => setConfirm(text)}
           />
         </View>
       </View>
-      <Button title="Sign up!" onPress={handleSignUp} />
-      <Button title="Sign in!" onPress={signInRedirect} />
+      <Button title="Sign up" onPress={handleSignUp} />
+      <Button title="Sign in" onPress={signInRedirect} />
     </View>
   );
 };
@@ -56,8 +71,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   textInput: {
-    height: 30,
-    width: 100,
+    height: 40,
+    width: 200,
+    padding: 10,
     borderColor: "#000000",
     borderWidth: 2
   }

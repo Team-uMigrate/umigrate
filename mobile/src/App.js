@@ -43,7 +43,6 @@ const App = () => {
           name="Housing"
           component={HousingPage}
           options={{
-
             tabBarIcon: ({color}) => (
               <MaterialCommunityIcons name="home" color={color} size={24}/>
             )

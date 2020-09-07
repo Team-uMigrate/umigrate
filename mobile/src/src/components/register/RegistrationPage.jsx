@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
-import AuthContext from "../../contexts/AuthContext";
 import Axios from "axios";
 import { BASE_URL, REGISTER_ENDPOINT } from "../../constants/apiEndpoints";
 
@@ -15,7 +14,7 @@ const RegistrationPage = ({navigation}) => {
 
   const handleSignUp = () => {
     Axios.post(BASE_URL + REGISTER_ENDPOINT, {email, password, confirm})
-      .then((response) => {
+      .then(() => {
         // Set authentication token to the header
         signInRedirect();
       })
@@ -27,7 +26,7 @@ const RegistrationPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>Registration Page!</Text>
+      <Text style={styles.title}>Registration Page!</Text>
       <View>
         <View style={styles.row}>
           <Text>Email: </Text>
@@ -51,8 +50,10 @@ const RegistrationPage = ({navigation}) => {
           />
         </View>
       </View>
-      <Button title="Sign up" onPress={handleSignUp} />
-      <Button title="Sign in" onPress={signInRedirect} />
+      <View style={styles.buttonContainer}>
+        <Button title="Sign up" onPress={handleSignUp} />
+        <Button title="Sign in" onPress={signInRedirect} />
+      </View>
     </View>
   );
 };
@@ -66,9 +67,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  title: {
+    marginTop: "40%"
+  },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 10,
+    marginBottom: 10
   },
   textInput: {
     height: 40,
@@ -76,5 +82,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#000000",
     borderWidth: 2
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "space-around",
+    marginBottom: "50%"
   }
 });

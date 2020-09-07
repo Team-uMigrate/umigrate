@@ -6,6 +6,8 @@ import TabNavigator from "./TabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginPage from "../components/login/LoginPage";
 import RegistrationPage from "../components/register/RegistrationPage";
+import MessagingPage from "../components/messaging";
+import { NavContextProvider } from "../contexts/NavContext";
 
 const Stack = createStackNavigator();
 
@@ -14,9 +16,14 @@ const AuthNavigator = () => {
 
   if (auth.isAuthenticated === true) {
     return (
-      <NavigationContainer>
-        <TabNavigator/>
-      </NavigationContainer>
+      <NavContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{headerShown: false}} gestureDirection={'horizontal-inverted'}>
+            <Stack.Screen name="Tabs" component={TabNavigator} />
+            <Stack.Screen name="Messaging" component={MessagingPage} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NavContextProvider>
     );
   }
 
@@ -24,8 +31,8 @@ const AuthNavigator = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginPage}/>
-          <Stack.Screen name="Register" component={RegistrationPage}/>
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="Register" component={RegistrationPage} />
         </Stack.Navigator>
       </NavigationContainer>
     );

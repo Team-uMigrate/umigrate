@@ -15,7 +15,7 @@ const LoginPage = ({navigation}) => {
         // Set authentication token to the header
         Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
         Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-          .then((response) => {
+          .then(() => {
             auth.setAuthenticated(true);
           })
           .catch((error) => {
@@ -35,7 +35,7 @@ const LoginPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>Login Page!</Text>
+      <Text style={styles.title}>Login Page!</Text>
       <View>
         <View style={styles.row}>
           <Text>Email: </Text>
@@ -52,8 +52,10 @@ const LoginPage = ({navigation}) => {
           />
         </View>
       </View>
-      <Button title="Sign in" onPress={handleSignIn} />
-      <Button title="Sign up" onPress={signUpRedirect} />
+      <View style={styles.buttonContainer}>
+        <Button title="Sign in" onPress={handleSignIn} />
+        <Button title="Sign up" onPress={signUpRedirect} />
+      </View>
     </View>
   );
 };
@@ -65,11 +67,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eeeeee',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
+  },
+  title: {
+    marginTop: "40%"
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 10,
+    marginBottom: 10
   },
   textInput: {
     height: 40,
@@ -77,5 +84,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#000000",
     borderWidth: 2
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "space-around",
+    marginBottom: "50%"
   }
 });

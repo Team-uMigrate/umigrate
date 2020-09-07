@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import CommunityPage from "../components/community";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -7,10 +7,16 @@ import HousingPage from "../components/housing";
 import NotificationPage from "../components/notifications";
 import MenuPage from "../components/menu";
 import { StyleSheet } from "react-native";
+import NavContext from "../contexts/NavContext";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigator = ({navigation}) => {
+  const nav = useContext(NavContext);
+  useEffect(() => {
+    nav.setNavigation(navigation);
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="Community"

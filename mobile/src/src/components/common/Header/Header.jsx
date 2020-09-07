@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Appbar } from "react-native-paper";
 import { StyleSheet, Image } from "react-native";
 import Logo from "../../../../assets/favicon.png";
+import NavContext from "../../../contexts/NavContext";
 
-const Header = ({title}) => {
+const Header = ({title, isMessagingPage = false}) => {
+  const nav = useContext(NavContext);
+  console.log(nav.navigation);
+
   return (
     <Appbar.Header style={styles.header} statusBarHeight={0}>
+      {isMessagingPage &&
+        <Appbar.BackAction color="#555555" onPress={() => nav.navigation.goBack()} />
+      }
       <Image style={styles.image} source={Logo} />
       <Appbar.Content color="#555555" title={title} />
       <Appbar.Action color="#555555" icon="magnify" />
-      <Appbar.Action color="#555555"  icon="message" />
+      {!isMessagingPage &&
+      <Appbar.Action color="#555555"  icon="message" onPress={() => nav.navigation.navigate("Messaging")} />
+      }
     </Appbar.Header>
   );
 };

@@ -17,7 +17,7 @@ const MenuBarView = ({show, click}) => {
           <NavLink to="/housing">Housing</NavLink>
         </Nav.Item>
         <Nav.Item>
-          <NavLink to="/advertisements">Advertisements</NavLink>
+          <NavLink to="/market">Market</NavLink>
         </Nav.Item>
         <Nav.Item>
           <NavLink to="/messaging">Messaging</NavLink>

@@ -6,7 +6,6 @@ import NavContext from "../../../contexts/NavContext";
 
 const Header = ({title, isMessagingPage = false}) => {
   const nav = useContext(NavContext);
-  console.log(nav.navigation);
 
   return (
     <Appbar.Header style={styles.header} statusBarHeight={0}>

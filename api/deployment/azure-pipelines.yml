@@ -56,7 +56,7 @@ jobs:
   #- script: pip install Django djangorestframework django-filter Pillow psycopg2 bcrypt django-cors-headers channels channels-redis sendgrid
     #displayName: 'Install requirements'
   
-  - script: pip install -r requirements.txt
+  - script: pip install -r api/src/requirements.txt
     displayName: 'Install requirements'
       
   - task: PythonScript@0

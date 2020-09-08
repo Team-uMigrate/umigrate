@@ -55,10 +55,10 @@ jobs:
  
   - script: pip install Django djangorestframework django-filter Pillow psycopg2 bcrypt django-cors-headers channels channels-redis sendgrid
     displayName: 'Install requirements'
-  #- task: PythonScript@0
-   # inputs:
-    # scriptPath: 'api/src/manage.py'
-      #arguments: 'test'
+  - task: PythonScript@0
+    inputs:
+     scriptPath: 'api/src/manage.py'
+     arguments: 'test'
 
   - task: CopyFiles@2
     inputs:

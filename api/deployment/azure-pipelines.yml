@@ -52,10 +52,7 @@ jobs:
 
   - script: python -m pip install --upgrade pip setuptools wheel
     displayName: 'Install tools'
- 
-  #- script: pip install Django djangorestframework django-filter Pillow psycopg2 bcrypt django-cors-headers channels channels-redis sendgrid
-    #displayName: 'Install requirements'
-  
+
   - script: pip install -r api/src/requirements.txt
     displayName: 'Install requirements'
       

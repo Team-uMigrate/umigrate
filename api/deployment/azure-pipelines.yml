@@ -56,13 +56,11 @@ jobs:
   - script: pip install -r api/src/requirements.txt
     displayName: 'Install requirements'
 
-  - script: python api/src/manage.py test
-    displayName: 'test v2'
-
-  # - task: PythonScript@0
-  #   inputs:
-  #    scriptPath: 'api/src/manage.py'
-  #    arguments: 'test'
+  - task: PythonScript@0
+    inputs:
+     scriptPath: 'api/src/manage.py'
+     arguments: 'test'
+     
   - task: CopyFiles@2
     inputs:
       SourceFolder: 'api/src'

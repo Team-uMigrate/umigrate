@@ -8,8 +8,8 @@ django-cors-headers
 channels
 channels-redis
 sendgrid
-
+pytest-django
+uwaterloodriver
 psycopg2
 gunicorn
 daphne
-uwaterloodriver

@@ -63,7 +63,9 @@ jobs:
 
   - task: PublishTestResults@2
     inputs:
+      testResultsFormat: 'JUnit'
       testResultsFiles: 'test-results.xml'
+      failTaskOnFailedTests: true
       testRunTitle: '$(Agent.OS) - $(Build.DefinitionName) - Python $(python.version)'
     condition: succeededOrFailed()
      
@@ -78,3 +80,4 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+

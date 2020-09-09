@@ -30,17 +30,13 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
 
         GenericPostTestCase.setUp(self)
 
-#     @skip('Not needed for rooms')
-#     def test_get_like(self):
-#         pass
+    @skip('Not needed for rooms')
+    def test_get_like(self):
+        pass
 
-#     @skip('Not needed for rooms')
-#     def test_post_like(self):
-#         pass
-
-#TESTING PURPOSES ONLY
-    def test_this_will_fail():
-        fail
+    @skip('Not needed for rooms')
+    def test_post_like(self):
+        pass
 
     def test_create(self):
         super().test_create()

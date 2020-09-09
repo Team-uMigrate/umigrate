@@ -56,10 +56,16 @@ jobs:
   - script: pip install -r api/src/requirements.txt
     displayName: 'Install requirements'
 
-  - task: PythonScript@0
+  - script: |
+      cd api/src
+      pytest --junitxml=../../test-results.xml
+    displayName: 'Run tests'
+
+  - task: PublishTestResults@2
     inputs:
-     scriptPath: 'api/src/manage.py'
-     arguments: 'test'
+      testResultsFiles: 'test-results.xml'
+      testRunTitle: '$(Agent.OS) - $(Build.DefinitionName) - Python $(python.version)'
+    condition: succeededOrFailed()
      
   - task: CopyFiles@2
     inputs:

@@ -8,7 +8,7 @@ const CommunityPage = () => {
 
   let data = [];
   for (let i = 0; i < 10; i++) {
-    data[i] = {id: i, title: `Item ${i}`};
+    data[i] = {id: i.toString(), title: `Item ${i}`};
   }
 
   const handleScroll = (e) => {
@@ -19,7 +19,6 @@ const CommunityPage = () => {
     else if (velocity > 0.5) {
       setShowCreate(false);
     }
-    console.log(velocity);
   };
 
   return (

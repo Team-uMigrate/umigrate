@@ -1,7 +1,7 @@
 import React, { Component, createContext } from "react";
 import Axios from "axios";
 import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/urls/apiUrls";
-import { USER_DATA } from "../constants/misc/localStorageKeys";
+import { USER_DATA, AUTH_TOKEN } from "../constants/misc/sessionStorageKeys";
 
 const AuthContext = createContext();
 
@@ -19,6 +19,12 @@ class AuthContextProvider extends Component {
   };
 
   componentDidMount = () => {
+    // Set authentication token to the header
+    const authToken = sessionStorage.getItem(AUTH_TOKEN);
+    if (authToken !== null) {
+      Axios.defaults.headers.common['Authorization'] = `Token ${authToken}`;
+    }
+
     Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
       .then((response) => {
         this.setState({isAuthenticated: true});
@@ -26,7 +32,7 @@ class AuthContextProvider extends Component {
           this.setState({isRegistered: false});
         }
         else {
-          localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+          sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
           this.setState({isRegistered: true});
         }
       })

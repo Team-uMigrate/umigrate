@@ -12,7 +12,7 @@ import {
 } from "../../../constants/urls/apiUrls";
 import likeResource from "../../../utils/api/resources/likeResource";
 import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
-import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 class MessageContainer extends Component {
   static contextType = AuthContext;
@@ -100,7 +100,7 @@ class MessageContainer extends Component {
     let room = this.props.room;
 
     let roomTitle = room.isDirectMessaging ?
-      (JSON.parse(localStorage.getItem(USER_DATA)).id === room.members[0].id ?
+      (JSON.parse(sessionStorage.getItem(USER_DATA)).id === room.members[0].id ?
         room.members[0].preferred_name : room.members[1].preferred_name)
       : room.title;
 

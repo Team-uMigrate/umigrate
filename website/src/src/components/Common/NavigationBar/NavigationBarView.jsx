@@ -3,10 +3,10 @@ import { Navbar, Image, NavDropdown, Form, FormControl } from "react-bootstrap";
 import "./NavigationBarStyles.css"
 import { Menu, Search, Notifications, AccountCircle } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 const NavigationBarView = ({title, drawerClickHandler}) => {
-  const userData = JSON.parse(localStorage.getItem(USER_DATA));
+  const userData = JSON.parse(sessionStorage.getItem(USER_DATA));
 
   return (
     <Navbar className="bg-white">

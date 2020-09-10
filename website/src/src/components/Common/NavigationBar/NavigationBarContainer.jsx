@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AuthContext from "../../../contexts/AuthContext";
-import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 import Axios from "axios";
 import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import NavigationBarView from "./NavigationBarView";
@@ -16,7 +16,7 @@ class NavigationBarContainer extends Component {
   };
 
   componentDidMount = () => {
-    let userId = JSON.parse(localStorage.getItem(USER_DATA)).id;
+    let userId = JSON.parse(sessionStorage.getItem(USER_DATA)).id;
 
     Axios.get(BASE_URL + USERS_ENDPOINT + userId)
       .then((response) => {

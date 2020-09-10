@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import Axios from 'axios';
 import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import { USER_DATA, AUTH_TOKEN } from "../../../constants/misc/sessionStorageKeys";
 import LoginView from "./LoginView";
 import AuthContext from "../../../contexts/AuthContext";
 
@@ -30,6 +30,7 @@ class LoginContainer extends Component {
       .then((response) => {
         // Set authentication token to the header
         Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
+        sessionStorage.setItem(AUTH_TOKEN, response.data.key);
 
         Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
           .then((response) => {
@@ -39,7 +40,7 @@ class LoginContainer extends Component {
               this.context.setRegistered(false);
             }
             else {
-              localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+              sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
               this.context.setRegistered(true);
             }
           })

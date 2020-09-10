@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { USER_ID } from "../../../constants/misc/localStorageKeys";
 
 const updateResource = (obj, setData, url, id, data) => {
   Axios.patch(url + id, data)

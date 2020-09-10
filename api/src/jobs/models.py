@@ -9,6 +9,7 @@ from datetime import datetime
 class Job(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE)
+    description = models.CharField(max_length=100, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='images/job_photos', blank=True)
     position = models.CharField(max_length=100)

@@ -9,6 +9,7 @@ from datetime import date, timedelta
 # Test case for the jobs API views
 class JobTestCase(APITestCase):
     create_data = {
+        'description': 1,
         'position': 'My new job',
         'company': 'Big company',
         'job_type': 0,
@@ -19,6 +20,7 @@ class JobTestCase(APITestCase):
         'country': 'Canada',
     }
     update_data = {
+        'description': 2,
         'position': 'My new job (edited)',
         'company': 'Big company (edited)',
         'job_type': 1,

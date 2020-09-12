@@ -1,8 +1,9 @@
 
 from django_filters import rest_framework as filters
-from .models import Housing
+from .models import Listing
 
-class HousingFilter(filters.FilterSet):
+
+class ListingFilter(filters.FilterSet):
     # More on lookup_expr syntax: https://django-filter.readthedocs.io/en/latest/ref/filters.html
     # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups
     # gte = greater than or equal to
@@ -14,7 +15,7 @@ class HousingFilter(filters.FilterSet):
     max_date = filters.DateTimeFilter(field_name='datetime_created', lookup_expr='lte')
 
     class Meta: 
-        model = Housing
+        model = Listing
         fields = ['min_price', 'max_price', 'min_date', 'max_date', 
                 'region', 'datetime_created', 'creator', 'category', 
                 'price', 'term', 'street_address', 'city', 

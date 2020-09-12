@@ -87,7 +87,7 @@ INSTALLED_APPS = [
     # Project apps
     'ads',
     'events',
-    'housing',
+    'listings',
     'jobs',
     'messaging',
     'polls',

@@ -1,22 +1,21 @@
 from common.generics.generic_post_tests import GenericPostTestCase, GenericCommentTestCase
 from rest_framework.test import APITestCase
-from .models import Housing, HousingComment
-from common.utils.create_resources import create_housing, create_housing_comments
-from datetime import datetime, timedelta
+from .models import Listing, ListingComment
+from common.utils.create_resources import create_listing, create_listing_comments
 
 
-# Test case for the housing API views
-class HousingTestCase(GenericPostTestCase, APITestCase):
+# Test case for the listing API views
+class ListingTestCase(GenericPostTestCase, APITestCase):
 
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.resource_name = 'housing'
-        self.model = Housing
-        self.create_resource = create_housing
+        self.model = Listing
+        self.create_resource = create_listing
         self.create_data = {
-            'title': 'My first housing',
-            'description': 'This is my first housing',
+            'title': 'My first listing',
+            'description': 'This is my first listing',
             'region': 0,
             'category': 0,
             'features': 'feature1, feature2, feature3',
@@ -28,8 +27,8 @@ class HousingTestCase(GenericPostTestCase, APITestCase):
             'term': 0,
         }
         self.update_data = {
-            'title': 'My first housing (edited)',
-            'description': 'This is my first housing  (edited)',
+            'title': 'My first listing (edited)',
+            'description': 'This is my first listing  (edited)',
             'region': 1,
             'category': 1,
             'features': 'new feature1, new feature3',
@@ -44,16 +43,16 @@ class HousingTestCase(GenericPostTestCase, APITestCase):
         GenericPostTestCase.setUp(self)
 
 
-# Test case for the housing comment API views
-class HousingCommentTestCase(GenericCommentTestCase, APITestCase):
+# Test case for the listing comment API views
+class ListingCommentTestCase(GenericCommentTestCase, APITestCase):
 
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
-        self.resource_name = 'housing'
-        self.parent_name = 'housing'
-        self.model = HousingComment
-        self.create_resource = create_housing_comments
-        self.create_parent = create_housing
+        self.resource_name = 'listing'
+        self.parent_name = 'listing'
+        self.model = ListingComment
+        self.create_resource = create_listing_comments
+        self.create_parent = create_listing
 
         GenericCommentTestCase.setUp(self)

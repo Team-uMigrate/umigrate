@@ -1,6 +1,6 @@
 from ads.models import Ad, AdComment
 from events.models import Event, EventComment
-from housing.models import Housing, HousingComment
+from listings.models import Listing, ListingComment
 from jobs.models import Job
 from messaging.models import Room, Message
 from polls.models import Poll, PollComment, Option, Vote
@@ -64,12 +64,12 @@ def create_event_comments(num):
         event_comment.save()
 
 
-# Creates housing instances
-def create_housing(num):
+# Creates listing instances
+def create_listing(num):
     for i in range(num):
-        housing = Housing.objects.create(
-            title=f'Housing {i}',
-            description=f'This is Housing post {i}',
+        listing = Listing.objects.create(
+            title=f'listing {i}',
+            description=f'This is listing post {i}',
             region=0,
             creator_id=1,
             category=0,
@@ -81,18 +81,18 @@ def create_housing(num):
             country='Canada',
             term=0,
         )
-        housing.save()
+        listing.save()
 
 
-# Creates housing comment instances
-def create_housing_comments(num):
+# Creates listing comment instances
+def create_listing_comments(num):
     for i in range(num):
-        housing_comment = HousingComment.objects.create(
+        listing_comment = ListingComment.objects.create(
             comment_body=f'Comment {i}',
-            housing_id=1,
+            listing_id=1,
             creator_id=1,
         )
-        housing_comment.save()
+        listing_comment.save()
 
 
 # Creates poll instances

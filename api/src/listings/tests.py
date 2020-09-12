@@ -10,7 +10,7 @@ class ListingTestCase(GenericPostTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
-        self.resource_name = 'housing'
+        self.resource_name = 'listings'
         self.model = Listing
         self.create_resource = create_listing
         self.create_data = {
@@ -49,7 +49,7 @@ class ListingCommentTestCase(GenericCommentTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
-        self.resource_name = 'listing'
+        self.resource_name = 'listings'
         self.parent_name = 'listing'
         self.model = ListingComment
         self.create_resource = create_listing_comments

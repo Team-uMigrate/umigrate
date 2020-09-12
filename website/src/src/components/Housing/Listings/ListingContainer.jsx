@@ -35,7 +35,7 @@ class ListingContainer extends Component {
   };
 
   loadPosts = () => {
-    listResource(this, (data) => this.setState({housingPosts: cleanLoadedResources(this.state.listings, data), page: this.state.page + 1}),
+    listResource(this, (data) => this.setState({listings: cleanLoadedResources(this.state.listings, data), page: this.state.page + 1}),
       BASE_URL + LISTINGS_ENDPOINT, this.state.page)
     };
 

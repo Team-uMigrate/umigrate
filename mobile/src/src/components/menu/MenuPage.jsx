@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Axios from "axios";
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { BASE_URL, LOGOUT_ENDPOINT } from "../../constants/apiEndpoints";
+import { BASE_URL, LOGOUT_ENDPOINT } from "../../constants/endpoints";
 import AuthContext from "../../contexts/AuthContext";
 import Header from "../common/Header";
 

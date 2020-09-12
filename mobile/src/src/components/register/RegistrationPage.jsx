@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import Axios from "axios";
-import { BASE_URL, REGISTER_ENDPOINT } from "../../constants/apiEndpoints";
+import { BASE_URL, REGISTER_ENDPOINT } from "../../constants/endpoints";
 
 const RegistrationPage = ({navigation}) => {
   const [email, setEmail] = useState();

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import AuthContext from "../../contexts/AuthContext";
-import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../constants/apiEndpoints";
+import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../constants/endpoints";
 import Axios from "axios";
 
 const LoginPage = ({navigation}) => {

@@ -1,7 +1,7 @@
 // Base URL
 export const BASE_URL = process.env.NODE_ENV === "development" ?
   "https://dev.umigrate.ca"
-  : "https://" + "umigrate.ca";
+  : "https://umigrate.ca";
 
 // Endpoints
 export const USER_PROFILE_ENDPOINT = "/auth/user/";

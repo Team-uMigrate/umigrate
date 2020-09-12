@@ -1,6 +1,6 @@
 import React, { Component, createContext } from "react";
 import Axios from "axios";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/apiEndpoints";
+import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/endpoints";
 
 const AuthContext = createContext();
 

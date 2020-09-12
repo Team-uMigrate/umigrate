@@ -48,7 +48,7 @@ if STAGE_ENVIRONMENT is None:
     STAGE_ENVIRONMENT = 'local'
 
 
-if STAGE_ENVIRONMENT is 'local':
+if STAGE_ENVIRONMENT == 'local':
     SECRET_KEY = 'n_jfl6&v4^9ik8w9324in$&#$gmj5+%n3@ln5d0!cv^%vzsz_x'
     DATABASE_PASSWORD = None
     REDIS_PASSWORD = None

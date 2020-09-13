@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UsersView from "./UsersView";
+import UserView from "./UserView";
 import { ListGroup } from "react-bootstrap";
 import { REGION_CHOICES, SEX_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import AuthContext from "../../../contexts/AuthContext";
@@ -74,7 +74,7 @@ class UsersContainer extends Component {
             // if we ever want to add more info, just get from the API
             // ie term, email, etc
 
-          <UsersView
+          <UserView
             key={user.id}
             id={user.id}
             firstName={user.first_name}

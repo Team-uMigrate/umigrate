@@ -6,7 +6,7 @@ import { REGION_CHOICES } from "../../../constants/misc/resourceChoices";
 import { RoomsEndpoint } from "../../../utils/endpoints";
 import cleanLoadedResources from "../../../utils/cleanLoadedResources";
 
-class RoomContainer extends Component {
+class RoomsContainer extends Component {
   static contextType = AuthContext;
 
   state = {
@@ -58,4 +58,4 @@ class RoomContainer extends Component {
 
 }
 
-export default RoomContainer;
+export default RoomsContainer;

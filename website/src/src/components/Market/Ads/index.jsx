@@ -1,3 +1,3 @@
-import AdContainer from "./AdContainer";
+import AdsContainer from "./AdsContainer";
 
-export default AdContainer;
+export default AdsContainer;

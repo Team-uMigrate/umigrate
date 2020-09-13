@@ -7,7 +7,7 @@ import cleanLoadedResources from "../../../utils/cleanLoadedResources";
 import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 import { MessagesEndpoint, MESSAGING_WEBSOCKET } from "../../../utils/endpoints";
 
-class MessageContainer extends Component {
+class MessagesContainer extends Component {
   static contextType = AuthContext;
 
   state = {
@@ -137,4 +137,4 @@ class MessageContainer extends Component {
   }
 }
 
-export default MessageContainer;
+export default MessagesContainer;

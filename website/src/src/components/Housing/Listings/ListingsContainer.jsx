@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import ListingView from "./ListingView";
 import { ListGroup } from "react-bootstrap";
-import AdView from "./AdView";
-import { AD_CATEGORY_CHOICES, REGION_CHOICES } from "../../../constants/misc/resourceChoices";
+import { HOUSING_CATEGORY_CHOICES, REGION_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import AuthContext from "../../../contexts/AuthContext";
 import cleanLoadedResources from "../../../utils/cleanLoadedResources";
-import { AdsEndpoint } from "../../../utils/endpoints";
+import { ListingsEndpoint } from "../../../utils/endpoints";
 
-class AdContainer extends Component {
+class ListingsContainer extends Component {
   static contextType = AuthContext;
 
   state = {
-    ads: [],
+    listings: [],
     page: 1,
     prevY: 0
   };
@@ -33,10 +33,10 @@ class AdContainer extends Component {
   };
 
   loadPosts = () => {
-    AdsEndpoint.list(
+    ListingsEndpoint.list(
       this.state.page,
       {},
-      (response) => this.setState({ads: cleanLoadedResources(this.state.ads, response.data.results), page: this.state.page + 1}),
+      (response) => this.setState({listings: cleanLoadedResources(this.state.listings, response.data.results), page: this.state.page + 1}),
       (error) => {
         if (error.response != null && error.response.status === 401) {
           this.context.setAuthenticated(false);
@@ -54,28 +54,33 @@ class AdContainer extends Component {
     this.setState({prevY: y});
   };
 
-  // Todo: fix liking
+  // todo
   handleLike = (id) => {
   };
 
-  render() {
+  render(){
     return (
       <div>
       <ListGroup>
-        {this.state.ads.map((ad) => (
-          <AdView
-            key={ad.id}
-            id={ad.id}
-            title={ad.title}
-            description={ad.description}
-            region={REGION_CHOICES[ad.region]}
-            datetimeCreated={ad.datetime_created}
-            category ={AD_CATEGORY_CHOICES[ad.category]}
-            features={ad.features}
-            price ={ad.price}
-            creator={ad.creator}
-            likedUsers= {ad.liked_users}
-            taggedUsers={ad.tagged_users}
+        {this.state.listings.map((listing) => (
+          <ListingView
+            key={listing.id}
+            id={listing.id}
+            title={listing.title}
+            description={listing.description}
+            region={REGION_CHOICES[listing.region]}
+            datetimeCreated={listing.datetime_created}
+            category ={HOUSING_CATEGORY_CHOICES[listing.category]}
+            features={listing.features}
+            price={listing.price}
+            term={TERM_CHOICES[listing.term]}
+            streetAddress={listing.street_address}
+            city={listing.city}
+            division={listing.division}
+            country={listing.country}
+            creator={listing.creator}
+            likedUsers= {listing.liked_users}
+            taggedUsers={listing.tagged_users}
             handleLike={this.handleLike}
           />
         ))}
@@ -88,4 +93,4 @@ class AdContainer extends Component {
   }
 }
 
-export default AdContainer;
+export default ListingsContainer;

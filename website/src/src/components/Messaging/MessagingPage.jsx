@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import RoomContainer from "./Rooms";
-import MessageContainer from "./Messages";
+import RoomsContainer from "./Rooms";
+import MessagesContainer from "./Messages";
 import RoomContext from "../../contexts/RoomContext";
 import NavigationBarContainer from "../Common/NavigationBar";
 
@@ -12,7 +12,7 @@ const MessagingPage = () => {
       <NavigationBarContainer title="Messaging" />
       <div className="row">
         <div className="col-lg-4">
-          <RoomContainer />
+          <RoomsContainer />
         </div>
         <div className="col-lg-6">
           {roomContext.room === null ?
@@ -20,7 +20,7 @@ const MessagingPage = () => {
               Please select a room
             </div>
             :
-            <MessageContainer room={roomContext.room} />
+            <MessagesContainer room={roomContext.room} />
           }
         </div>
       </div>

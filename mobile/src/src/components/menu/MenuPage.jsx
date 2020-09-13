@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import Axios from "axios";
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { BASE_URL, LOGOUT_ENDPOINT } from "../../constants/endpoints";
+import { AuthEndpoint } from "../../utils/endpoints";
 import AuthContext from "../../contexts/AuthContext";
 import Header from "../common/Header";
 
@@ -9,10 +8,13 @@ const MenuPage = () => {
   const auth = useContext(AuthContext);
 
   const handleSignOut = () => {
-    Axios.post(BASE_URL + LOGOUT_ENDPOINT)
-      .then(() => {
-        auth.setAuthenticated(false);
-      });
+    AuthEndpoint.logout(
+      (response) => auth.setAuthenticated(false),
+      (error) => {
+        console.log(error);
+        console.log(error.response);
+      }
+    );
   };
 
   return (

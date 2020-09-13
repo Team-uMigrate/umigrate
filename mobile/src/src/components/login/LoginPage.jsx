@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import AuthContext from "../../contexts/AuthContext";
-import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../constants/endpoints";
+import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
 import Axios from "axios";
 
 const LoginPage = ({navigation}) => {
@@ -10,23 +10,24 @@ const LoginPage = ({navigation}) => {
   const [password, setPassword] = useState();
 
   const handleSignIn = () => {
-    Axios.post(BASE_URL + LOGIN_ENDPOINT, {email, password})
-      .then((response) => {
+    AuthEndpoint.login(
+      {email, password},
+      (response) => {
         // Set authentication token to the header
         Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
-        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-          .then(() => {
-            auth.setAuthenticated(true);
-          })
-          .catch((error) => {
+        ProfileEndpoint.get(
+          (response) => auth.setAuthenticated(true),
+          (error) => {
             console.log(error);
             console.log(error.response);
-          })
-      })
-      .catch((error) => {
+          }
+        );
+      },
+      (error) => {
         console.log(error);
         console.log(error.response);
-      });
+      }
+    );
   };
 
   const signUpRedirect = () => {

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { ListGroup } from "react-bootstrap";
 import RoomView from "./RoomView";
-import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
-import { BASE_URL, ROOMS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { REGION_CHOICES } from "../../../constants/misc/resourceChoices";
+import { RoomsEndpoint } from "../../../utils/endpoints";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
 
 class RoomContainer extends Component {
   static contextType = AuthContext;
 
   state = {
-    rooms: []
+    rooms: [],
+    page: 1
   };
 
   componentDidMount = () => {
@@ -18,7 +19,17 @@ class RoomContainer extends Component {
   };
 
   loadRooms = () => {
-    listResource(this, (data) => this.setState({rooms: data}), BASE_URL + ROOMS_ENDPOINT);
+    RoomsEndpoint.list(
+      this.state.page,
+      {},
+      (response) => this.setState({messages: cleanLoadedResources(this.state.rooms, response.data).reverse(), page: this.state.page + 1}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   render () {

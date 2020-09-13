@@ -1,12 +1,12 @@
 import Axios from "axios";
 
 // Base URL
-const BASE_URL = process.env.NODE_ENV === "development" ?
+export const BASE_URL = process.env.NODE_ENV === "development" ?
   "https://dev.umigrate.ca"
   : "https://umigrate.ca";
 
 // Websocket URLs
-const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
+export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
   "wss://dev.umigrate.ca/ws/messaging/"
   : "wss://umigrate.ca/ws/messaging/";
 

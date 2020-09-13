@@ -1,7 +1,7 @@
 import React, { Component, createContext } from "react";
-import Axios from "axios";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/urls/apiUrls";
 import { USER_DATA, AUTH_TOKEN } from "../constants/misc/sessionStorageKeys";
+import { ProfileEndpoint } from "../utils/endpoints";
+import Axios from "axios";
 
 const AuthContext = createContext();
 
@@ -25,24 +25,23 @@ class AuthContextProvider extends Component {
       Axios.defaults.headers.common['Authorization'] = `Token ${authToken}`;
     }
 
-    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-      .then((response) => {
-        this.setState({isAuthenticated: true});
+    ProfileEndpoint.get(
+      (response) => {
         if (response.data.first_name === "") {
-          this.setState({isRegistered: false});
+          this.setState({isRegistered: false, isAuthenticated: true});
         }
         else {
           sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
-          this.setState({isRegistered: true});
+          this.setState({isRegistered: true, isAuthenticated: true});
         }
-      })
-      // Todo: Check for specific error when receiving the 'not authenticated' message
-      .catch((error) => {
+      },
+      (error) => {
         console.log(error);
         console.log(error.response);
         this.setState({isAuthenticated: false});
         this.setState({isRegistered: false});
-      });
+      }
+    );
   };
 
   render() {

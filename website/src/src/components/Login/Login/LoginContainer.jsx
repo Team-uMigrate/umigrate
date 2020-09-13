@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import Axios from 'axios';
-import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { USER_DATA, AUTH_TOKEN } from "../../../constants/misc/sessionStorageKeys";
 import LoginView from "./LoginView";
 import AuthContext from "../../../contexts/AuthContext";
+import { AuthEndpoint, ProfileEndpoint } from "../../../utils/endpoints";
+import Axios from "axios";
 
 class LoginContainer extends Component {
   static contextType = AuthContext;
@@ -26,37 +26,36 @@ class LoginContainer extends Component {
       "password" : document.getElementById("password").value
     };
 
-    Axios.post(BASE_URL + LOGIN_ENDPOINT, data)
-      .then((response) => {
+    AuthEndpoint.login(
+      data,
+      (response) => {
         // Set authentication token to the header
         Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
         sessionStorage.setItem(AUTH_TOKEN, response.data.key);
 
-        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-          .then((response) => {
-            this.context.setAuthenticated(true);
-
-            if(response.data.first_name === ""){
-              this.context.setRegistered(false);
+        ProfileEndpoint.get(
+          (response) => {
+            if (response.data.first_name === "") {
+              this.setState({isRegistered: false, isAuthenticated: true});
             }
             else {
               sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
-              this.context.setRegistered(true);
+              this.setState({isRegistered: true, isAuthenticated: true});
             }
-          })
-          // Todo: Check for specific error when receiving the not authenticated message
-          .catch((error) =>{
+          },
+          (error) => {
             console.log(error);
             console.log(error.response);
             this.setState({showFailureModal : true});
-          });
-      })
-      // Todo: Check for specific error when receiving the not authenticated message
-      .catch((error) =>{
+          }
+        );
+      },
+      (error) => {
         console.log(error);
         console.log(error.response);
         this.setState({showFailureModal : true});
-      });
+      }
+    );
 
     e.preventDefault();
   };

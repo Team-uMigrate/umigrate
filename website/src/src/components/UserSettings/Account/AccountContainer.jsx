@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import AccountView from "./AccountView";
-import updateResource from "../../../utils/api/resources/updateResource";
-import retrieveResource from "../../../utils/api/resources/retrieveResource";
 import AuthContext from "../../../contexts/AuthContext";
+import { ProfileEndpoint } from "../../../utils/endpoints";
+import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 class AccountContainer extends Component {
   static contextType = AuthContext;
@@ -25,13 +24,34 @@ class AccountContainer extends Component {
       region: this.state.region
     };
 
-    updateResource(this, (data) => (this.setState({userData: data, sex: data.sex, region: data.region})),
-      BASE_URL + USER_PROFILE_ENDPOINT, "", data);
+    ProfileEndpoint.patch(
+      data,
+      (response) => {
+        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   componentDidMount = () => {
-    retrieveResource(this, (data) => (this.setState({userData: data, sex: data.sex, region: data.region})),
-      BASE_URL + USER_PROFILE_ENDPOINT, "");
+    ProfileEndpoint.get(
+      (response) => {
+        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   handleSexInputChange = (evt) => {

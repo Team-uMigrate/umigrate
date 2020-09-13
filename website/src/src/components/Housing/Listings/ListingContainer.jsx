@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import ListingView from "./ListingView";
-import { BASE_URL, LISTINGS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { ListGroup } from "react-bootstrap";
-import likeResource from "../../../utils/api/resources/likeResource";
-import listResource from "../../../utils/api/resources/listResource";
 import { HOUSING_CATEGORY_CHOICES, REGION_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
 import AuthContext from "../../../contexts/AuthContext";
-import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
+import { ListingsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   static contextType = AuthContext;
 
   state = {
     listings: [],
-    page: 0,
+    page: 1,
     prevY: 0
   };
 
@@ -35,9 +33,18 @@ class ListingContainer extends Component {
   };
 
   loadPosts = () => {
-    listResource(this, (data) => this.setState({listings: cleanLoadedResources(this.state.listings, data), page: this.state.page + 1}),
-      BASE_URL + LISTINGS_ENDPOINT, this.state.page)
-    };
+    ListingsEndpoint.list(
+      this.state.page,
+      {},
+      (response) => this.setState({listings: cleanLoadedResources(this.state.listings, response.data.results), page: this.state.page + 1}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
+  };
 
   handleObserver = (entities, options) => {
     const y = entities[0].boundingClientRect.y;
@@ -49,7 +56,6 @@ class ListingContainer extends Component {
 
   // todo
   handleLike = (id) => {
-    likeResource(this, BASE_URL + LISTINGS_ENDPOINT, id);
   };
 
   render(){

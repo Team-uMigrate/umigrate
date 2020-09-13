@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { ListGroup } from "react-bootstrap";
 import AdView from "./AdView";
-import { BASE_URL, ADS_ENDPOINT } from "../../../constants/urls/apiUrls";
-import likeResource from "../../../utils/api/resources/likeResource";
-import listResource from "../../../utils/api/resources/listResource";
 import { AD_CATEGORY_CHOICES, REGION_CHOICES } from "../../../constants/misc/resourceChoices";
 import AuthContext from "../../../contexts/AuthContext";
-import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
+import { AdsEndpoint } from "../../../utils/endpoints";
 
 class AdContainer extends Component {
   static contextType = AuthContext;
 
   state = {
     ads: [],
-    page: 0,
+    page: 1,
     prevY: 0
   };
 
@@ -35,9 +33,18 @@ class AdContainer extends Component {
   };
 
   loadPosts = () => {
-    listResource(this, (data) => this.setState({ads: cleanLoadedResources(this.state.ads, data), page: this.state.page + 1}),
-      BASE_URL + ADS_ENDPOINT, this.state.page)
-    };
+    AdsEndpoint.list(
+      this.state.page,
+      {},
+      (response) => this.setState({ads: cleanLoadedResources(this.state.ads, response.data.results), page: this.state.page + 1}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
+  };
 
   handleObserver = (entities, options) => {
     const y = entities[0].boundingClientRect.y;
@@ -49,7 +56,6 @@ class AdContainer extends Component {
 
   // Todo: fix liking
   handleLike = (id) => {
-    likeResource(this, BASE_URL + ADS_ENDPOINT, id);
   };
 
   render() {

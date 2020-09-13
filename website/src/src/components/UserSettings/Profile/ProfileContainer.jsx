@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import ProfileView from "./ProfileView";
-import updateResource from "../../../utils/api/resources/updateResource";
-import retrieveResource from "../../../utils/api/resources/retrieveResource";
 import AuthContext from "../../../contexts/AuthContext";
 import Axios from "axios";
+import { ProfileEndpoint, BASE_URL } from "../../../utils/endpoints";
+import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -18,17 +17,23 @@ class ProfileContainer extends Component {
     imageElem: null,
     filename: "",
   };
+
   componentDidMount = () => {
-    retrieveResource(
-      this,
-      (data) =>
+    ProfileEndpoint.get(
+      (response) => {
+        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({
-          userData: data,
-          current_term: data.current_term,
-          enrolled_program: data.enrolled_program,
-        }),
-      BASE_URL + USER_PROFILE_ENDPOINT,
-      ""
+          userData: response.data,
+          current_term: response.data.current_term,
+          enrolled_program: response.data.enrolled_program
+        });
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
     );
   };
 
@@ -63,24 +68,30 @@ class ProfileContainer extends Component {
       enrolled_program: this.state.enrolled_program,
     };
 
-    updateResource(
-      this,
-      (data) =>
+    ProfileEndpoint.patch(
+      data,
+      (response) => {
+        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({
-          userData: data,
-          enrolled_program: data.enrolled_program,
-          current_term: data.current_term,
-        }),
-      BASE_URL + USER_PROFILE_ENDPOINT,
-      "",
-      data
+          userData: response.data,
+          current_term: response.data.current_term,
+          enrolled_program: response.data.enrolled_program
+        });
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
     );
 
     const formData = new FormData();
     formData.append("photo", this.state.file);
-    Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, formData, {
+    Axios.patch(BASE_URL + "/auth/user/", formData, {
       headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
+        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({
           userData: response.data,
           enrolled_program: response.data.enrolled_program,
@@ -88,8 +99,10 @@ class ProfileContainer extends Component {
         });
       })
       .catch((error) => {
-        console.log(error);
-        console.log(error.response);
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
       });
   };
 

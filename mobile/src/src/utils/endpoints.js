@@ -1,14 +1,45 @@
 import Axios from "axios";
 
 // Base URL
-const BASE_URL = process.env.NODE_ENV === "development" ?
+export const BASE_URL = process.env.NODE_ENV === "development" ?
   "https://dev.umigrate.ca"
-  : "https://umigrate.ca";
+  : "https://dev.umigrate.ca"; // Todo: Change this to prod server
 
 // Websocket URLs
-const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
+export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
   "wss://dev.umigrate.ca/ws/messaging/"
-  : "wss://umigrate.ca/ws/messaging/";
+  : "wss://dev.umigrate.ca/ws/messaging/"; // Todo: Change this to prod server
+
+// Session Storage functions
+
+const AUTH_TOKEN = "AUTH_TOKEN";
+const USER_DATA = "USER_DATA";
+
+export const getAuthToken = () => {
+  // return sessionStorage.getItem(AUTH_TOKEN);
+};
+
+export const setAuthToken = (token) => {
+  Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+  // sessionStorage.setItem(AUTH_TOKEN, token);
+};
+
+export const removeAuthToken = () => {
+  Axios.defaults.headers.common['Authorization'] = null;
+  // sessionStorage.removeItem(AUTH_TOKEN);
+}
+
+export const getUserData = () => {
+  // return JSON.parse(sessionStorage.getItem(USER_DATA));
+};
+
+export const setUserData = (userData) => {
+  // sessionStorage.setItem(USER_DATA, JSON.stringify(userData));
+};
+
+export const removeUserData = () => {
+  // sessionStorage.removeItem(USER_DATA);
+};
 
 // Base endpoint class
 class BaseEndpoint {
@@ -138,8 +169,12 @@ export class PostCommentsEndpoint extends BaseEndpoint {
 
 export class AuthEndpoint {
   static login(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+    removeAuthToken();
+    removeUserData();
+
     Axios.post(BASE_URL + "/auth/login/", data)
       .then((response) => {
+        setAuthToken(response.data.key);
         handleSuccess(response);
       })
       .catch((error) => {
@@ -150,6 +185,8 @@ export class AuthEndpoint {
   static logout(handleSuccess = (response) => {}, handleError = (error) => {}) {
     Axios.post(BASE_URL + "/auth/logout/")
       .then((response) => {
+        removeAuthToken();
+        removeUserData();
         handleSuccess(response);
       })
       .catch((error) => {
@@ -158,6 +195,9 @@ export class AuthEndpoint {
   }
 
   static register(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+    removeAuthToken();
+    removeUserData();
+
     Axios.post(BASE_URL + "/auth/registration/", data)
       .then((response) => {
         handleSuccess(response);
@@ -199,6 +239,7 @@ export class ProfileEndpoint {
   static get(handleSuccess = (response) => {}, handleError = (error) => {}) {
     Axios.get(BASE_URL + "/auth/user/")
       .then((response) => {
+        setUserData(response.data);
         handleSuccess(response);
       })
       .catch((error) => {
@@ -209,6 +250,7 @@ export class ProfileEndpoint {
   static patch(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
     Axios.patch(BASE_URL + "/auth/user/", data)
       .then((response) => {
+        setUserData(response.data);
         handleSuccess(response);
       })
       .catch((error) => {

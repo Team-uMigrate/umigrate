@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import PostView from "./PostView";
 import EventView from "../Event/EventView";
-import { BASE_URL, POSTS_ENDPOINT, EVENTS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { ListGroup } from "react-bootstrap";
-import likeResource from "../../../utils/api/resources/likeResource";
-import listResource from "../../../utils/api/resources/listResource";
 import { REGION_CHOICES } from "../../../constants/misc/resourceChoices";
 import AuthContext from "../../../contexts/AuthContext";
-import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
+import { EventsEndpoint, PostsEndpoint } from "../../../utils/endpoints";
 
 class PostContainer extends Component {
   static contextType = AuthContext;
@@ -19,8 +17,8 @@ class PostContainer extends Component {
     eventsLoaded: false,
     renderedPosts: [],
     renderedEvents: [],
-    postsPage: 0,
-    eventsPage: 0,
+    postsPage: 1,
+    eventsPage: 1,
     prevY: 0
   };
 
@@ -57,13 +55,31 @@ class PostContainer extends Component {
   };
 
   loadPosts = () => {
-    listResource(this, (data) => this.setState({posts: cleanLoadedResources(this.state.posts, data), postsLoaded: true}),
-      BASE_URL + POSTS_ENDPOINT, this.state.postsPage);
+    PostsEndpoint.list(
+      this.state.postsPage,
+      {},
+      (response) => this.setState({posts: cleanLoadedResources(this.state.posts, response.data.results), postsLoaded: true}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   loadEvents = () => {
-    listResource(this, (data) => this.setState({events: cleanLoadedResources(this.state.events, data), eventsLoaded: true}),
-      BASE_URL + EVENTS_ENDPOINT, this.state.eventsPage);
+    EventsEndpoint.list(
+      this.state.eventsPage,
+      {},
+      (response) => this.setState({events: cleanLoadedResources(this.state.events, response.data.results), eventsLoaded: true}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   handleObserver = (entities, options) => {
@@ -77,11 +93,9 @@ class PostContainer extends Component {
 
   // TODO: figure out how to handle liking posts properly
   handleLikePosts = (id) => {
-    likeResource(this, () => {}, BASE_URL + POSTS_ENDPOINT, id);
   };
 
   handleLikeEvents = (id) => {
-    likeResource(this, () => {}, BASE_URL + EVENTS_ENDPOINT, id);
   };
 
   getLists = () => {

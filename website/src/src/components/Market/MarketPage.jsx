@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AdContainer from "./Ads";
+import AdsContainer from "./Ads";
 import NavigationBarContainer from "../Common/NavigationBar";
 
 class MarketPage extends Component {
@@ -9,7 +9,7 @@ class MarketPage extends Component {
         <NavigationBarContainer title="Market" />
         <div className="row">
           <div className="col-lg-6">
-            <AdContainer />
+            <AdsContainer />
           </div>
         </div>
       </div>

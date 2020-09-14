@@ -4,9 +4,9 @@ import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import AuthContext from "../contexts/AuthContext";
 import TabNavigator from "./TabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginPage from "../components/login/LoginPage";
-import RegistrationPage from "../components/register/RegistrationPage";
-import MessagingPage from "../components/messaging";
+import LoginPage from "../components/Login";
+import RegistrationPage from "../components/Register";
+import MessagingPage from "../components/Messaging";
 import { NavContextProvider } from "../contexts/NavContext";
 
 const Stack = createStackNavigator();

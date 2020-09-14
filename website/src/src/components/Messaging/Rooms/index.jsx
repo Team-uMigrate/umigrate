@@ -1,3 +1,3 @@
-import RoomContainer from "./RoomContainer";
+import RoomsContainer from "./RoomsContainer";
 
-export default RoomContainer;
+export default RoomsContainer;

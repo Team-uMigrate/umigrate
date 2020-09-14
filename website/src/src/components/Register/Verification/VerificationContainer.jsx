@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import Axios from "axios";
-import { BASE_URL, REGISTER_ENDPOINT } from "../../../constants/urls/apiUrls";
 import VerificationView from "./VerificationView";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
+import { AuthEndpoint } from "../../../utils/endpoints";
 
 class VerificationContainer extends Component {
   state = {
@@ -23,16 +22,15 @@ class VerificationContainer extends Component {
       "password2" : document.getElementById("confirm_password").value,
     };
 
-    Axios.post(BASE_URL + REGISTER_ENDPOINT, data)
-      .then((response) => {
-        this.setState({showSuccessModal : true});
-      })
-      .catch((error) => {
-        // Todo: Check for specific error when receiving the not authenticated message
+    AuthEndpoint.register(
+      data,
+      (response) => this.setState({showSuccessModal : true}),
+      (error) => {
         console.log(error);
         console.log(error.response);
         this.setState({showFailureModal : true});
-      });
+      }
+    );
 
     e.preventDefault();
   };

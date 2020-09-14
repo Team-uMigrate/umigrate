@@ -1,18 +1,17 @@
 import React, { Component } from "react";
-import UsersView from "./UsersView";
-import { BASE_URL, USERS_ENDPOINT } from "../../../constants/urls/apiUrls";
+import UserView from "./UserView";
 import { ListGroup } from "react-bootstrap";
 import { REGION_CHOICES, SEX_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
-import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
-import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
+import { UsersEndpoint } from "../../../utils/endpoints";
 
 class UsersContainer extends Component {
   static contextType = AuthContext;
 
   state = {
     users: [],
-    page: 0,
+    page: 1,
     prevY: 0,
     show: false,
     currentUser: []
@@ -36,9 +35,18 @@ class UsersContainer extends Component {
   };
 
   loadUsers = () => {
-    listResource(this, (data) => this.setState({users: cleanLoadedResources(this.state.users, data), page: this.state.page + 1}),
-      BASE_URL + USERS_ENDPOINT, this.state.page)
-    };
+    UsersEndpoint.list(
+      this.state.page,
+      {},
+      (response) => this.setState({users: cleanLoadedResources(this.state.users, response.data), page: this.state.page + 1}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
+  };
 
   handleObserver = (entities, options) => {
     const y = entities[0].boundingClientRect.y;
@@ -66,7 +74,7 @@ class UsersContainer extends Component {
             // if we ever want to add more info, just get from the API
             // ie term, email, etc
 
-          <UsersView
+          <UserView
             key={user.id}
             id={user.id}
             firstName={user.first_name}

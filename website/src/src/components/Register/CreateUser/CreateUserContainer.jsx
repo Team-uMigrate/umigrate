@@ -3,10 +3,9 @@ import Axios from 'axios';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 import AuthContext from "../../../contexts/AuthContext";
 import CreateUserView from "./CreateUserView";
+import { BASE_URL } from "../../../utils/endpoints";
 
 class CreateUserContainer extends Component {
   static contextType = AuthContext;
@@ -31,11 +30,11 @@ class CreateUserContainer extends Component {
     data.append("current_term", document.getElementById("term").value);
     data.append("photo", this.state.file);
 
-    Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, data, {
+    Axios.patch(BASE_URL + "auth/user/", data, {
       headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
         this.context.setRegistered(true);
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        sessionStorage.setItem("USER_DATA", JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log(error);

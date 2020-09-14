@@ -2,33 +2,24 @@ import React, { Component } from "react";
 import { ListGroup } from "react-bootstrap";
 import MessageView from "./MessageView";
 import TextBoxContainer from "../TextBox";
-import listResource from "../../../utils/api/resources/listResource";
 import AuthContext from "../../../contexts/AuthContext";
-import {
-  BASE_URL,
-  ROOMS_ENDPOINT,
-  MESSAGES_EXTENSION,
-  MESSAGING_WEBSOCKET
-} from "../../../constants/urls/apiUrls";
-import likeResource from "../../../utils/api/resources/likeResource";
-import cleanLoadedResources from "../../../utils/api/misc/cleanLoadedResources";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
+import cleanLoadedResources from "../../../utils/cleanLoadedResources";
+import { MessagesEndpoint, MESSAGING_WEBSOCKET, getUserData } from "../../../utils/endpoints";
 
-class MessageContainer extends Component {
+class MessagesContainer extends Component {
   static contextType = AuthContext;
 
   state = {
     messages: [],
     text: "",
-    page: 0,
+    page: 1,
     prevY: 0
   };
 
   ws;
 
   componentDidMount = () => {
-    listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-      BASE_URL + ROOMS_ENDPOINT + this.props.room.id + MESSAGES_EXTENSION);
+    this.loadMessages();
 
     this.ws = new WebSocket(MESSAGING_WEBSOCKET + this.props.room.id + "/");
 
@@ -64,15 +55,24 @@ class MessageContainer extends Component {
     }
   };
 
-  loadPosts = () => {
-    listResource(this, (data) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), data).reverse(), page: this.state.page + 1}),
-    BASE_URL + ROOMS_ENDPOINT + this.props.room.id + MESSAGES_EXTENSION, this.state.page);
+  loadMessages = () => {
+    MessagesEndpoint.list(
+      this.state.page,
+      {},
+      (response) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), response.data).reverse(), page: this.state.page + 1}),
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   handleObserver = (entities, options) => {
     const y = entities[0].boundingClientRect.y;
     if (this.state.prevY < y) {
-      this.loadPosts();
+      this.loadMessages();
     }
     this.setState({prevY: y});
   };
@@ -92,15 +92,16 @@ class MessageContainer extends Component {
     this.setState({text: e.target.value});
   };
 
+  // Todo: Come fix this
   handleLike = (id) => {
-    likeResource(this, BASE_URL + ROOMS_ENDPOINT + "messages/", id);
   };
 
   render() {
     let room = this.props.room;
+    const userData = getUserData();
 
     let roomTitle = room.isDirectMessaging ?
-      (JSON.parse(sessionStorage.getItem(USER_DATA)).id === room.members[0].id ?
+      (userData.id === room.members[0].id ?
         room.members[0].preferred_name : room.members[1].preferred_name)
       : room.title;
 
@@ -136,4 +137,4 @@ class MessageContainer extends Component {
   }
 }
 
-export default MessageContainer;
+export default MessagesContainer;

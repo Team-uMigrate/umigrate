@@ -1,9 +1,9 @@
 import React from "react";
 import { ListGroup, Button, Modal } from "react-bootstrap";
 import { ThumbUp } from "@material-ui/icons";
-import "./UsersStyles.css"
+import "./UserStyles.css"
 
-const UsersView = props =>
+const UserView = props =>
   <ListGroup.Item>
     <div className="row">
       <div className="col-lg-2 col-md-3 col-sm-6">
@@ -76,7 +76,7 @@ const UsersView = props =>
   </ListGroup.Item>
 ;
 
-export default UsersView;
+export default UserView;
 
 
 const firstBlock = {

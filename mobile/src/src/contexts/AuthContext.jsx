@@ -1,6 +1,5 @@
 import React, { Component, createContext } from "react";
-import Axios from "axios";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/apiEndpoints";
+import { ProfileEndpoint } from "../utils/endpoints";
 
 const AuthContext = createContext();
 
@@ -13,15 +12,14 @@ class AuthContextProvider extends Component {
   };
 
   componentDidMount = () => {
-    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-      .then((response) => {
-        this.setState({isAuthenticated: true});
-      })
-      .catch((error) => {
+    ProfileEndpoint.get(
+      (response) => this.setState({isAuthenticated: true}),
+      (error) => {
         console.log(error);
         console.log(error.response);
         this.setState({isAuthenticated: false});
-      });
+      }
+    );
   };
 
   render() {

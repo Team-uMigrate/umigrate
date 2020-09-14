@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import {Button, StyleSheet, Text, View, TextInput, Modal} from 'react-native';
-import Axios from "axios";
-import { BASE_URL, REGISTER_ENDPOINT } from "../../constants/apiEndpoints";
+import { AuthEndpoint } from "../../utils/endpoints";
+import { Button, StyleSheet, Text, View, TextInput, Modal} from 'react-native';
 
 const RegistrationPage = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -15,12 +14,10 @@ const RegistrationPage = ({navigation}) => {
   };
 
   const handleSignUp = () => {
-    Axios.post(BASE_URL + REGISTER_ENDPOINT, {email, password, confirm})
-      .then(() => {
-        // Set authentication token to the header
-        signInRedirect();
-      })
-      .catch((error) => {
+    AuthEndpoint.register(
+      {email, password, confirm},
+      (response) => signInRedirect(),
+      (error) => {
         console.log(error);
         console.log(error.response);
 

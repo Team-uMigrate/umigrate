@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from "react"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import CommunityPage from "../components/community";
+import CommunityPage from "../components/Community";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import MarketPage from "../components/market";
-import HousingPage from "../components/housing";
-import NotificationPage from "../components/notifications";
-import MenuPage from "../components/menu";
+import MarketPage from "../components/Market";
+import HousingPage from "../components/Housing";
+import NotificationPage from "../components/Notifications";
+import MenuPage from "../components/Menu";
 import { StyleSheet } from "react-native";
 import NavContext from "../contexts/NavContext";
 
@@ -22,7 +22,6 @@ const TabNavigator = ({navigation}) => {
       initialRouteName="Community"
       activeColor="#333333"
       inactiveColor="#888888"
-      // Todo: Determine if we want to keep labeled set to false
       labeled={false}
       barStyle={styles.TabNavigator}
     >

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Modal } from 'react-native';
 import AuthContext from "../../contexts/AuthContext";
 import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
 import Axios from "axios";
@@ -8,6 +8,8 @@ const LoginPage = ({navigation}) => {
   const auth = useContext(AuthContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSignIn = () => {
     AuthEndpoint.login(
@@ -26,8 +28,24 @@ const LoginPage = ({navigation}) => {
       (error) => {
         console.log(error);
         console.log(error.response);
-      }
-    );
+
+        // Populate error messages
+        let errors = [];
+        let count = 0;
+        // Loops through all error messages in the data of the response field in the error object to generate error messages
+        for(let errorType in error.response.data){
+          errors.push(
+            <Text key={count} >
+              {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
+              errorType.substring(1) + ": " + error.response.data[errorType]}
+            </Text>
+          );
+          count ++;
+        }
+
+        setErrorMessage(errors);
+        setModalVisible(true);
+      });
   };
 
   const signUpRedirect = () => {
@@ -57,6 +75,20 @@ const LoginPage = ({navigation}) => {
         <Button title="Sign in" onPress={handleSignIn} />
         <Button title="Sign up" onPress={signUpRedirect} />
       </View>
+      <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
+        <View style={styles.container}>
+          <View style={styles.modalView}>
+            <Text style={{alignItems: "center"}}>Error:</Text>
+            {errorMessage}
+            <Button
+                title="Close"
+                style={styles.buttonContainer}
+                onPress={() => setModalVisible(false)}
+            >
+            </Button>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -90,5 +122,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     marginBottom: "50%"
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   }
 });

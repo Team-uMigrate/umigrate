@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import { AuthEndpoint } from "../../utils/endpoints";
+import { Button, StyleSheet, Text, View, TextInput, Modal} from 'react-native';
 
 const RegistrationPage = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const signInRedirect = () => {
     navigation.navigate('Login');
@@ -18,8 +20,25 @@ const RegistrationPage = ({navigation}) => {
       (error) => {
         console.log(error);
         console.log(error.response);
-      }
-    );
+
+        // Populate error messages
+        let errors = [];
+        let count = 0;
+        // Loops through all error messages in the data of the response field in the error object to generate error messages
+        for(let errorType in error.response.data){
+          errors.push(
+              <Text key={count} >
+                {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
+                errorType.substring(1) + ": " + error.response.data[errorType]}
+              </Text>
+          );
+          count ++;
+        }
+
+        setErrorMessage(errors);
+        setModalVisible(true);
+
+      });
   };
 
   return (
@@ -52,6 +71,20 @@ const RegistrationPage = ({navigation}) => {
         <Button title="Sign up" onPress={handleSignUp} />
         <Button title="Sign in" onPress={signInRedirect} />
       </View>
+      <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
+        <View style={styles.container}>
+          <View style={styles.modalView}>
+            <Text style={{alignItems: "center"}}>Error:</Text>
+            {errorMessage}
+            <Button
+                title="Close"
+                style={styles.buttonContainer}
+                onPress={() => setModalVisible(false)}
+            >
+            </Button>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -84,6 +117,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: "50%"
+    marginBottom: "25%"
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   }
 });

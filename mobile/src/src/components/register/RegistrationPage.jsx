@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: "50%"
+    marginBottom: "25%"
   },
   modalView: {
     margin: 20,

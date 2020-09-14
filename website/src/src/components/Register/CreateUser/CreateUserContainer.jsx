@@ -3,7 +3,6 @@ import Axios from 'axios';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 import AuthContext from "../../../contexts/AuthContext";
 import CreateUserView from "./CreateUserView";
 import { BASE_URL } from "../../../utils/endpoints";
@@ -35,7 +34,7 @@ class CreateUserContainer extends Component {
       headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
         this.context.setRegistered(true);
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        sessionStorage.setItem("USER_DATA", JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log(error);

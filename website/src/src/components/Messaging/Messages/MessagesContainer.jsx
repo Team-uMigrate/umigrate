@@ -4,8 +4,7 @@ import MessageView from "./MessageView";
 import TextBoxContainer from "../TextBox";
 import AuthContext from "../../../contexts/AuthContext";
 import cleanLoadedResources from "../../../utils/cleanLoadedResources";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
-import { MessagesEndpoint, MESSAGING_WEBSOCKET } from "../../../utils/endpoints";
+import { MessagesEndpoint, MESSAGING_WEBSOCKET, getUserData } from "../../../utils/endpoints";
 
 class MessagesContainer extends Component {
   static contextType = AuthContext;
@@ -99,9 +98,10 @@ class MessagesContainer extends Component {
 
   render() {
     let room = this.props.room;
+    const userData = getUserData();
 
     let roomTitle = room.isDirectMessaging ?
-      (JSON.parse(sessionStorage.getItem(USER_DATA)).id === room.members[0].id ?
+      (userData.id === room.members[0].id ?
         room.members[0].preferred_name : room.members[1].preferred_name)
       : room.title;
 

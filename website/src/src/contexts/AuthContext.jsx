@@ -38,6 +38,10 @@ class AuthContextProvider extends Component {
         }
       );
     }
+
+    else {
+      this.setState({isAuthenticated: false, isRegistered: false});
+    }
   };
 
   render() {

@@ -55,7 +55,7 @@ class Choices:
         'Food',
         'Other',
     ])
-    HOUSING_CATEGORY_CHOICES = convert_to_tuple([
+    LISTING_CATEGORY_CHOICES = convert_to_tuple([
         'Condominium',
         'Townhouse',
         'Apartment',

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ListingView from "./ListingView";
-import { BASE_URL, HOUSING_ENDPOINT } from "../../../constants/urls/apiUrls";
+import { BASE_URL, LISTINGS_ENDPOINT } from "../../../constants/urls/apiUrls";
 import { ListGroup } from "react-bootstrap";
 import likeResource from "../../../utils/api/resources/likeResource";
 import listResource from "../../../utils/api/resources/listResource";
@@ -12,7 +12,7 @@ class ListingContainer extends Component {
   static contextType = AuthContext;
 
   state = {
-    housingPosts: [],
+    listings: [],
     page: 0,
     prevY: 0
   };
@@ -35,8 +35,8 @@ class ListingContainer extends Component {
   };
 
   loadPosts = () => {
-    listResource(this, (data) => this.setState({housingPosts: cleanLoadedResources(this.state.housingPosts, data), page: this.state.page + 1}),
-      BASE_URL + HOUSING_ENDPOINT, this.state.page)
+    listResource(this, (data) => this.setState({listings: cleanLoadedResources(this.state.listings, data), page: this.state.page + 1}),
+      BASE_URL + LISTINGS_ENDPOINT, this.state.page)
     };
 
   handleObserver = (entities, options) => {
@@ -49,32 +49,32 @@ class ListingContainer extends Component {
 
   // todo
   handleLike = (id) => {
-    likeResource(this, BASE_URL + HOUSING_ENDPOINT, id);
+    likeResource(this, BASE_URL + LISTINGS_ENDPOINT, id);
   };
 
   render(){
     return (
       <div>
       <ListGroup>
-        {this.state.housingPosts.map((housing) => (
+        {this.state.listings.map((listing) => (
           <ListingView
-            key={housing.id}
-            id={housing.id}
-            title={housing.title}
-            description={housing.description}
-            region={REGION_CHOICES[housing.region]}
-            datetimeCreated={housing.datetime_created}
-            category ={HOUSING_CATEGORY_CHOICES[housing.category]}
-            features={housing.features}
-            price={housing.price}
-            term={TERM_CHOICES[housing.term]}
-            streetAddress={housing.street_address}
-            city={housing.city}
-            division={housing.division}
-            country={housing.country}
-            creator={housing.creator}
-            likedUsers= {housing.liked_users}
-            taggedUsers={housing.tagged_users}
+            key={listing.id}
+            id={listing.id}
+            title={listing.title}
+            description={listing.description}
+            region={REGION_CHOICES[listing.region]}
+            datetimeCreated={listing.datetime_created}
+            category ={HOUSING_CATEGORY_CHOICES[listing.category]}
+            features={listing.features}
+            price={listing.price}
+            term={TERM_CHOICES[listing.term]}
+            streetAddress={listing.street_address}
+            city={listing.city}
+            division={listing.division}
+            country={listing.country}
+            creator={listing.creator}
+            likedUsers= {listing.liked_users}
+            taggedUsers={listing.tagged_users}
             handleLike={this.handleLike}
           />
         ))}

@@ -1,7 +1,5 @@
 import React, { Component, createContext } from "react";
-import { USER_DATA, AUTH_TOKEN } from "../constants/misc/sessionStorageKeys";
-import { ProfileEndpoint } from "../utils/endpoints";
-import Axios from "axios";
+import { ProfileEndpoint, getAuthToken, setAuthToken } from "../utils/endpoints";
 
 const AuthContext = createContext();
 
@@ -19,29 +17,27 @@ class AuthContextProvider extends Component {
   };
 
   componentDidMount = () => {
-    // Set authentication token to the header
-    const authToken = sessionStorage.getItem(AUTH_TOKEN);
-    if (authToken !== null) {
-      Axios.defaults.headers.common['Authorization'] = `Token ${authToken}`;
-    }
+    const authToken = getAuthToken();
 
-    ProfileEndpoint.get(
-      (response) => {
-        if (response.data.first_name === "") {
-          this.setState({isRegistered: false, isAuthenticated: true});
+    if (authToken !== null) {
+      setAuthToken(authToken);
+
+      ProfileEndpoint.get(
+        (response) => {
+          if (response.data.first_name === "") {
+            this.setState({isAuthenticated: true, isRegistered: false});
+          }
+          else {
+            this.setState({isAuthenticated: true, isRegistered: true});
+          }
+        },
+        (error) => {
+          console.log(error);
+          console.log(error.response);
+          this.setState({isAuthenticated: false, isRegistered: false});
         }
-        else {
-          sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
-          this.setState({isRegistered: true, isAuthenticated: true});
-        }
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-        this.setState({isAuthenticated: false});
-        this.setState({isRegistered: false});
-      }
-    );
+      );
+    }
   };
 
   render() {

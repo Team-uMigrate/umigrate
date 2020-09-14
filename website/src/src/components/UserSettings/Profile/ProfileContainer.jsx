@@ -3,7 +3,6 @@ import ProfileView from "./ProfileView";
 import AuthContext from "../../../contexts/AuthContext";
 import Axios from "axios";
 import { ProfileEndpoint, BASE_URL } from "../../../utils/endpoints";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -21,7 +20,6 @@ class ProfileContainer extends Component {
   componentDidMount = () => {
     ProfileEndpoint.get(
       (response) => {
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({
           userData: response.data,
           current_term: response.data.current_term,
@@ -71,7 +69,6 @@ class ProfileContainer extends Component {
     ProfileEndpoint.patch(
       data,
       (response) => {
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({
           userData: response.data,
           current_term: response.data.current_term,
@@ -91,7 +88,7 @@ class ProfileContainer extends Component {
     Axios.patch(BASE_URL + "/auth/user/", formData, {
       headers : {'content-type': 'multipart/form-data'}})
       .then((response) => {
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
+        sessionStorage.setItem("USER_DATA", JSON.stringify(response.data));
         this.setState({
           userData: response.data,
           enrolled_program: response.data.enrolled_program,
@@ -116,19 +113,18 @@ class ProfileContainer extends Component {
 
   render() {
     if (this.state.photo) {
-      this.state.imageElem = (
-        <img src={this.state.photo} style={{ height: "100%", width: "100%" }}  alt="Image not found"/>
-      );
+      this.setState({imageElem: <img src={this.state.photo} style={{ height: "100%", width: "100%" }}  alt="Not found"/>});
     }
     else {
-      this.state.imageElem = (
+      this.setState({imageElem: 
         <img
           src={this.state.userData.photo}
           style={{ height: "100%", width: "100%" }}
-          alt="Image not found"
+          alt="Not found"
         />
-      );
+      });
     }
+
     return (
       <ProfileView
         userData={this.state.userData}

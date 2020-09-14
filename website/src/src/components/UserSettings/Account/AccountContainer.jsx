@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import AccountView from "./AccountView";
 import AuthContext from "../../../contexts/AuthContext";
 import { ProfileEndpoint } from "../../../utils/endpoints";
-import { USER_DATA } from "../../../constants/misc/sessionStorageKeys";
 
 class AccountContainer extends Component {
   static contextType = AuthContext;
@@ -27,7 +26,6 @@ class AccountContainer extends Component {
     ProfileEndpoint.patch(
       data,
       (response) => {
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
       },
       (error) => {
@@ -42,7 +40,6 @@ class AccountContainer extends Component {
   componentDidMount = () => {
     ProfileEndpoint.get(
       (response) => {
-        sessionStorage.setItem(USER_DATA, JSON.stringify(response.data));
         this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
       },
       (error) => {

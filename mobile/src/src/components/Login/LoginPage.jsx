@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Modal } from 'react-native';
 import AuthContext from "../../contexts/AuthContext";
 import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
-import Axios from "axios";
 
 const LoginPage = ({navigation}) => {
   const auth = useContext(AuthContext);
@@ -15,8 +14,6 @@ const LoginPage = ({navigation}) => {
     AuthEndpoint.login(
       {email, password},
       (response) => {
-        // Set authentication token to the header
-        Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
         ProfileEndpoint.get(
           (response) => auth.setAuthenticated(true),
           (error) => {

@@ -3,12 +3,12 @@ import Axios from "axios";
 // Base URL
 export const BASE_URL = process.env.NODE_ENV === "development" ?
   "https://dev.umigrate.ca"
-  : "https://umigrate.ca";
+  : "https://" + window.location.host;
 
 // Websocket URLs
 export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
   "wss://dev.umigrate.ca/ws/messaging/"
-  : "wss://umigrate.ca/ws/messaging/";
+  : "wss://" + window.location.host + "/ws/messaging/";
 
 // Session Storage functions
 

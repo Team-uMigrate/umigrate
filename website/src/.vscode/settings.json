@@ -1,0 +1,29 @@
+{
+    "workbench.settings.editor": "json",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "editor.codeActionsOnSaveTimeout": 4000,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "prettier.disableLanguages": [
+      "js",
+      "jsx"
+    ],
+    "eslint.alwaysShowStatus": true,
+    "eslint.packageManager": "npm",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact"
+    ],
+    "eslint.workingDirectories": [
+      {
+        "mode": "auto"
+      }
+    ],
+    "javascript.format.enable": false,
+    "[javascript]": {
+      "editor.formatOnSave": false
+    }
+  }

@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AuthRouter from "../routers/AuthRouter";
 import { AuthContextProvider } from "../contexts/AuthContext";
 

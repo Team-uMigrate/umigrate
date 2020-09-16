@@ -9,9 +9,7 @@ const cleanLoadedResources = (list, data) => {
       if (data[i].id === list[j].id) {
         isUnique = false;
         break;
-      }
-
-      else if (data[i].datetime_created > list[0].datetime_created) {
+      } else if (data[i].datetime_created > list[0].datetime_created) {
         isNew = true;
         break;
       }

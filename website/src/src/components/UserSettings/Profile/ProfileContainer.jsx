@@ -23,7 +23,7 @@ class ProfileContainer extends Component {
         this.setState({
           userData: response.data,
           current_term: response.data.current_term,
-          enrolled_program: response.data.enrolled_program
+          enrolled_program: response.data.enrolled_program,
         });
       },
       (error) => {
@@ -72,7 +72,7 @@ class ProfileContainer extends Component {
         this.setState({
           userData: response.data,
           current_term: response.data.current_term,
-          enrolled_program: response.data.enrolled_program
+          enrolled_program: response.data.enrolled_program,
         });
       },
       (error) => {
@@ -86,7 +86,8 @@ class ProfileContainer extends Component {
     const formData = new FormData();
     formData.append("photo", this.state.file);
     Axios.patch(BASE_URL + "/auth/user/", formData, {
-      headers : {'content-type': 'multipart/form-data'}})
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         sessionStorage.setItem("USER_DATA", JSON.stringify(response.data));
         this.setState({
@@ -113,15 +114,24 @@ class ProfileContainer extends Component {
 
   render() {
     if (this.state.photo) {
-      this.setState({imageElem: <img src={this.state.photo} style={{ height: "100%", width: "100%" }}  alt="Not found"/>});
-    }
-    else {
-      this.setState({imageElem: 
-        <img
-          src={this.state.userData.photo}
-          style={{ height: "100%", width: "100%" }}
-          alt="Not found"
-        />
+      this.setState({
+        imageElem: (
+          <img
+            src={this.state.photo}
+            style={{ height: "100%", width: "100%" }}
+            alt="Not found"
+          />
+        ),
+      });
+    } else {
+      this.setState({
+        imageElem: (
+          <img
+            src={this.state.userData.photo}
+            style={{ height: "100%", width: "100%" }}
+            alt="Not found"
+          />
+        ),
       });
     }
 

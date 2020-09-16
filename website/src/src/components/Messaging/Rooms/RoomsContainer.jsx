@@ -11,7 +11,7 @@ class RoomsContainer extends Component {
 
   state = {
     rooms: [],
-    page: 1
+    page: 1,
   };
 
   componentDidMount = () => {
@@ -22,7 +22,14 @@ class RoomsContainer extends Component {
     RoomsEndpoint.list(
       this.state.page,
       {},
-      (response) => this.setState({messages: cleanLoadedResources(this.state.rooms, response.data).reverse(), page: this.state.page + 1}),
+      (response) =>
+        this.setState({
+          messages: cleanLoadedResources(
+            this.state.rooms,
+            response.data
+          ).reverse(),
+          page: this.state.page + 1,
+        }),
       (error) => {
         if (error.response != null && error.response.status === 401) {
           this.context.setAuthenticated(false);
@@ -32,7 +39,7 @@ class RoomsContainer extends Component {
     );
   };
 
-  render () {
+  render() {
     return (
       <div>
         <h1>rooms</h1>
@@ -52,10 +59,8 @@ class RoomsContainer extends Component {
           ))}
         </ListGroup>
       </div>
-
-    )
+    );
   }
-
 }
 
 export default RoomsContainer;

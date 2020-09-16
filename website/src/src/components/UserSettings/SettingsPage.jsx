@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AccountContainer  from "./Account";
+import AccountContainer from "./Account";
 import BlockingContainer from "./Blocking";
 import DevicesContainer from "./Devices";
 import DisplayAndThemeContainer from "./DisplayAndTheme";
@@ -19,19 +19,37 @@ class SettingsPage extends Component {
         <NavigationBarContainer title="Settings" />
         <SettingsSidebar />
         <Switch>
-          <Route path="/settings/account"><AccountContainer /></Route>
-          <Route path="/settings/blocking"><BlockingContainer /></Route>
-          <Route path="/settings/devices"><DevicesContainer /></Route>
-          <Route path="/settings/display-and-theme"><DisplayAndThemeContainer /></Route>
-          <Route path="/settings/language-and-region"><LanguageAndRegionContainer /></Route>
-          <Route path="/settings/location"><LocationContainer /></Route>
-          <Route path="/settings/notifications"><NotificationsContainer /></Route>
-          <Route path="/settings/password"><PasswordContainer /></Route>
-          <Route path="/settings/profile"><ProfileContainer /></Route>
+          <Route path="/settings/account">
+            <AccountContainer />
+          </Route>
+          <Route path="/settings/blocking">
+            <BlockingContainer />
+          </Route>
+          <Route path="/settings/devices">
+            <DevicesContainer />
+          </Route>
+          <Route path="/settings/display-and-theme">
+            <DisplayAndThemeContainer />
+          </Route>
+          <Route path="/settings/language-and-region">
+            <LanguageAndRegionContainer />
+          </Route>
+          <Route path="/settings/location">
+            <LocationContainer />
+          </Route>
+          <Route path="/settings/notifications">
+            <NotificationsContainer />
+          </Route>
+          <Route path="/settings/password">
+            <PasswordContainer />
+          </Route>
+          <Route path="/settings/profile">
+            <ProfileContainer />
+          </Route>
           <Redirect from="/settings/" to="/settings/account" />;
         </Switch>
       </div>
-    )
+    );
   }
 }
 

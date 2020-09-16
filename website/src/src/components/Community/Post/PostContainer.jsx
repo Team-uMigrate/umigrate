@@ -19,7 +19,7 @@ class PostContainer extends Component {
     renderedEvents: [],
     postsPage: 1,
     eventsPage: 1,
-    prevY: 0
+    prevY: 0,
   };
 
   componentDidMount = () => {
@@ -28,14 +28,11 @@ class PostContainer extends Component {
 
     let options = {
       root: null,
-      rootMargin: '100px',
-      threshold: 1.0
+      rootMargin: "100px",
+      threshold: 1.0,
     };
 
-    this.observer = new IntersectionObserver(
-      this.handleObserver,
-      options
-    );
+    this.observer = new IntersectionObserver(this.handleObserver, options);
 
     this.observer.observe(this.loadingRef);
   };
@@ -49,7 +46,7 @@ class PostContainer extends Component {
         postsPage: combinedList.postsPage,
         eventsPage: combinedList.eventsPage,
         postsLoaded: false,
-        eventsLoaded: false
+        eventsLoaded: false,
       });
     }
   };
@@ -58,7 +55,11 @@ class PostContainer extends Component {
     PostsEndpoint.list(
       this.state.postsPage,
       {},
-      (response) => this.setState({posts: cleanLoadedResources(this.state.posts, response.data.results), postsLoaded: true}),
+      (response) =>
+        this.setState({
+          posts: cleanLoadedResources(this.state.posts, response.data.results),
+          postsLoaded: true,
+        }),
       (error) => {
         if (error.response != null && error.response.status === 401) {
           this.context.setAuthenticated(false);
@@ -72,7 +73,14 @@ class PostContainer extends Component {
     EventsEndpoint.list(
       this.state.eventsPage,
       {},
-      (response) => this.setState({events: cleanLoadedResources(this.state.events, response.data.results), eventsLoaded: true}),
+      (response) =>
+        this.setState({
+          events: cleanLoadedResources(
+            this.state.events,
+            response.data.results
+          ),
+          eventsLoaded: true,
+        }),
       (error) => {
         if (error.response != null && error.response.status === 401) {
           this.context.setAuthenticated(false);
@@ -88,20 +96,23 @@ class PostContainer extends Component {
       this.loadPosts();
       this.loadEvents();
     }
-    this.setState({prevY: y});
+    this.setState({ prevY: y });
   };
 
   // TODO: figure out how to handle liking posts properly
-  handleLikePosts = (id) => {
-  };
+  handleLikePosts = (id) => {};
 
-  handleLikeEvents = (id) => {
-  };
+  handleLikeEvents = (id) => {};
 
   getLists = () => {
     let posts = this.state.posts;
     let events = this.state.events;
-    let combinedList = {posts: [], events: [], postsPage: this.state.postsPage, eventsPage: this.state.postsPage};
+    let combinedList = {
+      posts: [],
+      events: [],
+      postsPage: this.state.postsPage,
+      eventsPage: this.state.postsPage,
+    };
     let toDate = (post) => Date.parse(post.datetime_created);
 
     // Checks if posts or events are empty
@@ -109,15 +120,11 @@ class PostContainer extends Component {
       if (posts.length !== 0) {
         combinedList.posts = posts;
         combinedList.postsPage++;
-      }
-
-      else if (events.length !== 0) {
+      } else if (events.length !== 0) {
         combinedList.events = events;
         combinedList.eventsPage++;
       }
-    }
-
-    else {
+    } else {
       // Keeps only all the posts if the last post is more recent than the first event
       if (toDate(posts[posts.length - 1]) >= toDate(events[0])) {
         combinedList.posts = posts;
@@ -131,7 +138,9 @@ class PostContainer extends Component {
       }
 
       // Keeps all the posts and only the events that are more recent than the last post if the last post is more recent than the last event
-      else if (toDate(posts[posts.length - 1]) > toDate(events[events.length -1])){
+      else if (
+        toDate(posts[posts.length - 1]) > toDate(events[events.length - 1])
+      ) {
         combinedList.posts = posts;
         combinedList.postsPage++;
         for (let i = 0; i < events.length; i++) {
@@ -142,7 +151,9 @@ class PostContainer extends Component {
       }
 
       // Keeps all events and only the posts that are more recent than the event if the last event is more recent than the last post
-      else if (toDate(events[events.length - 1]) > toDate(posts[posts.length -1])) {
+      else if (
+        toDate(events[events.length - 1]) > toDate(posts[posts.length - 1])
+      ) {
         combinedList.events = events;
         combinedList.eventsPage++;
         for (let i = 0; i < posts.length; i++) {
@@ -164,56 +175,49 @@ class PostContainer extends Component {
   };
 
   sortLists = (posts, events) => {
+    let postCount = posts.length;
+    let eventCount = events.length;
+    let array = [];
 
-      let postCount = posts.length;
-      let eventCount = events.length;
-      let array = [];
-
-      while(postCount !== 0 || eventCount !== 0){
-
-          if(postCount === 0){
-
-              array = [events[eventCount-1], ...array];
-              eventCount--;
-              continue;
-
-            } else if (eventCount === 0){
-
-              array = [posts[postCount-1], ...array];
-              postCount--;
-              continue;
-
-            }
-
-            let postDate = new Date(posts[postCount-1].datetime_created);
-            let eventDate = new Date(events[eventCount-1].datetime_created);
-
-            if(postDate < eventDate){
-
-              array = [posts[postCount-1], ...array];
-              postCount--;
-
-            } else {
-              // means event object is older, also if they were made at the same
-              // time, default to event
-              array = [events[eventCount-1], ...array];
-              eventCount--;
-
-            }
+    while (postCount !== 0 || eventCount !== 0) {
+      if (postCount === 0) {
+        array = [events[eventCount - 1], ...array];
+        eventCount--;
+        continue;
+      } else if (eventCount === 0) {
+        array = [posts[postCount - 1], ...array];
+        postCount--;
+        continue;
       }
-      return array;
+
+      let postDate = new Date(posts[postCount - 1].datetime_created);
+      let eventDate = new Date(events[eventCount - 1].datetime_created);
+
+      if (postDate < eventDate) {
+        array = [posts[postCount - 1], ...array];
+        postCount--;
+      } else {
+        // means event object is older, also if they were made at the same
+        // time, default to event
+        array = [events[eventCount - 1], ...array];
+        eventCount--;
+      }
+    }
+    return array;
   };
 
   render() {
     let community = [];
-    community = this.sortLists(this.state.renderedPosts, this.state.renderedEvents);
+    community = this.sortLists(
+      this.state.renderedPosts,
+      this.state.renderedEvents
+    );
 
     return (
       <div>
         <ListGroup>
-          {community.map((post) => (
-
-            post.start_datetime == null ?
+          {community.map((post) =>
+            post.start_datetime == null ? (
               <PostView
                 key={post.id}
                 id={post.id}
@@ -222,11 +226,11 @@ class PostContainer extends Component {
                 region={REGION_CHOICES[post.region]}
                 datetimeCreated={post.datetime_created}
                 creator={post.creator}
-                likedUsers= {post.liked_users}
+                likedUsers={post.liked_users}
                 taggedUsers={post.tagged_users}
                 handleLike={this.handleLikePosts}
               />
-              :
+            ) : (
               <EventView
                 key={post.id}
                 id={post.id}
@@ -244,17 +248,18 @@ class PostContainer extends Component {
                 creator={post.creator}
                 likedUsers={post.liked_users}
                 taggedUsers={post.tagged_users}
-                interestedUsers= {post.interested_users}
+                interestedUsers={post.interested_users}
                 attendingUsers={post.attending_users}
                 handleLike={this.handleLikeEvents}
               />
-          ))}
+            )
+          )}
         </ListGroup>
-        <div ref={loadingRef => (this.loadingRef = loadingRef)}>
+        <div ref={(loadingRef) => (this.loadingRef = loadingRef)}>
           <span>Loading...</span>
         </div>
       </div>
-    )
+    );
   }
 }
 

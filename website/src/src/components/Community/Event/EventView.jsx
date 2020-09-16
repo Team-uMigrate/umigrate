@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import { ThumbUp } from "@material-ui/icons";
-import "./EventStyles.css"
+import "./EventStyles.css";
 
-const EventView = props =>
+const EventView = (props) => (
   <ListGroup.Item>
     <div className="row">
       <div className="col-lg-2 col-md-3 col-sm-6">
@@ -11,15 +11,21 @@ const EventView = props =>
       </div>
       <div className="col-lg-10">
         <div className="d-flex w-100 justify-content-between">
-          <h3 className="mb-1">{props.creator.first_name} {props.creator.last_name} - {props.title}</h3>
+          <h3 className="mb-1">
+            {props.creator.first_name} {props.creator.last_name} - {props.title}
+          </h3>
           {/*Todo: Use <IconButton> instead of <Button>*/}
-          <Button onClick={() => props.handleLike(props.id)}><ThumbUp /></Button>
+          <Button onClick={() => props.handleLike(props.id)}>
+            <ThumbUp />
+          </Button>
         </div>
         <hr />
         <h5 className="mb-1"> {props.description}</h5>
         <p className="mb-1">{props.region}</p>
         <p className="mb-1">${props.price}</p>
-        <small>Location: {props.streetAddress}, {props.city}</small>
+        <small>
+          Location: {props.streetAddress}, {props.city}
+        </small>
         <br />
         <small>Created: {props.datetimeCreated}</small>
         <br />
@@ -29,11 +35,12 @@ const EventView = props =>
         <hr />
         <small>{props.likedUsers.length} Likes : </small>
         {props.likedUsers.map((user) => (
-          <small>{user.first_name} {user.last_name} </small>
+          <small>
+            {user.first_name} {user.last_name}{" "}
+          </small>
         ))}
       </div>
     </div>
   </ListGroup.Item>
-;
-
+);
 export default EventView;

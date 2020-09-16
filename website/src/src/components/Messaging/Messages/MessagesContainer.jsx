@@ -4,7 +4,11 @@ import MessageView from "./MessageView";
 import TextBoxContainer from "../TextBox";
 import AuthContext from "../../../contexts/AuthContext";
 import cleanLoadedResources from "../../../utils/cleanLoadedResources";
-import { MessagesEndpoint, MESSAGING_WEBSOCKET, getUserData } from "../../../utils/endpoints";
+import {
+  MessagesEndpoint,
+  MESSAGING_WEBSOCKET,
+  getUserData,
+} from "../../../utils/endpoints";
 
 class MessagesContainer extends Component {
   static contextType = AuthContext;
@@ -13,7 +17,7 @@ class MessagesContainer extends Component {
     messages: [],
     text: "",
     page: 1,
-    prevY: 0
+    prevY: 0,
   };
 
   ws;
@@ -25,41 +29,47 @@ class MessagesContainer extends Component {
 
     this.ws.onopen = () => {
       console.log("Connected");
-      this.setState({prevY: 0});
+      this.setState({ prevY: 0 });
     };
 
     this.ws.onmessage = (ev) => {
       let message = JSON.parse(ev.data);
-      this.setState({messages: [...this.state.messages, message]});
+      this.setState({ messages: [...this.state.messages, message] });
     };
 
     this.ws.onclose = () => {
-      this.setState({ws: new WebSocket(MESSAGING_WEBSOCKET + this.props.room.id + "/")});
+      this.setState({
+        ws: new WebSocket(MESSAGING_WEBSOCKET + this.props.room.id + "/"),
+      });
     };
 
     window.onscroll = () => {
-      if(window.pageYOffset === 0) {
+      if (window.pageYOffset === 0) {
         let options = {
           root: null,
-          rootMargin: '200px',
-          threshold: 1.0
+          rootMargin: "200px",
+          threshold: 1.0,
         };
 
-        this.observer = new IntersectionObserver(
-          this.handleObserver,
-          options
-        );
+        this.observer = new IntersectionObserver(this.handleObserver, options);
 
         this.observer.observe(this.loadingRef);
       }
-    }
+    };
   };
 
   loadMessages = () => {
     MessagesEndpoint.list(
       this.state.page,
       {},
-      (response) => this.setState({messages: cleanLoadedResources(this.state.messages.reverse(), response.data).reverse(), page: this.state.page + 1}),
+      (response) =>
+        this.setState({
+          messages: cleanLoadedResources(
+            this.state.messages.reverse(),
+            response.data
+          ).reverse(),
+          page: this.state.page + 1,
+        }),
       (error) => {
         if (error.response != null && error.response.status === 401) {
           this.context.setAuthenticated(false);
@@ -74,45 +84,45 @@ class MessagesContainer extends Component {
     if (this.state.prevY < y) {
       this.loadMessages();
     }
-    this.setState({prevY: y});
+    this.setState({ prevY: y });
   };
 
   handleSend = () => {
     let messageBody = this.state.text.trim();
 
-    if(messageBody.length !== 0){
-      this.ws.send(JSON.stringify({
-        'message_body': messageBody
-      }));
-      this.setState({text: ""})
+    if (messageBody.length !== 0) {
+      this.ws.send(
+        JSON.stringify({
+          message_body: messageBody,
+        })
+      );
+      this.setState({ text: "" });
     }
   };
 
   handleChange = (e) => {
-    this.setState({text: e.target.value});
+    this.setState({ text: e.target.value });
   };
 
   // Todo: Come fix this
-  handleLike = (id) => {
-  };
+  handleLike = (id) => {};
 
   render() {
     let room = this.props.room;
     const userData = getUserData();
 
-    let roomTitle = room.isDirectMessaging ?
-      (userData.id === room.members[0].id ?
-        room.members[0].preferred_name : room.members[1].preferred_name)
+    let roomTitle = room.isDirectMessaging
+      ? userData.id === room.members[0].id
+        ? room.members[0].preferred_name
+        : room.members[1].preferred_name
       : room.title;
 
     return (
       <div>
-        <h3>
-          {roomTitle}
-        </h3>
+        <h3>{roomTitle}</h3>
         <div>
-          <div ref={loadingRef => (this.loadingRef = loadingRef)}>
-              <span>Scroll up from below to retrieve previous messages.</span>
+          <div ref={(loadingRef) => (this.loadingRef = loadingRef)}>
+            <span>Scroll up from below to retrieve previous messages.</span>
           </div>
           <ListGroup>
             {this.state.messages.map((message) => (

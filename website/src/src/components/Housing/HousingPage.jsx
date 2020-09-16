@@ -13,7 +13,7 @@ class HousingPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

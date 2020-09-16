@@ -9,7 +9,7 @@ class AccountContainer extends Component {
   state = {
     userData: [],
     sex: null,
-    region: null
+    region: null,
   };
 
   handleSubmit = () => {
@@ -20,13 +20,17 @@ class AccountContainer extends Component {
       phone_number: document.getElementById("phone_number").value,
       birthday: document.getElementById("birthday").value,
       sex: this.state.sex,
-      region: this.state.region
+      region: this.state.region,
     };
 
     ProfileEndpoint.patch(
       data,
       (response) => {
-        this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
+        this.setState({
+          userData: response.data,
+          sex: response.data.sex,
+          region: response.data.region,
+        });
       },
       (error) => {
         if (error.response != null && error.response.status === 401) {
@@ -40,7 +44,11 @@ class AccountContainer extends Component {
   componentDidMount = () => {
     ProfileEndpoint.get(
       (response) => {
-        this.setState({userData: response.data, sex: response.data.sex, region: response.data.region});
+        this.setState({
+          userData: response.data,
+          sex: response.data.sex,
+          region: response.data.region,
+        });
       },
       (error) => {
         if (error.response != null && error.response.status === 401) {
@@ -52,11 +60,11 @@ class AccountContainer extends Component {
   };
 
   handleSexInputChange = (evt) => {
-    this.setState({sex: evt.target.value});
+    this.setState({ sex: evt.target.value });
   };
 
   handleRegionInputChange = (evt) => {
-    this.setState({region: evt.target.value});
+    this.setState({ region: evt.target.value });
   };
 
   render() {

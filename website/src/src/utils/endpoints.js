@@ -1,14 +1,16 @@
 import Axios from "axios";
 
 // Base URL
-export const BASE_URL = process.env.NODE_ENV === "development" ?
-  "https://dev.umigrate.ca"
-  : "https://" + window.location.host;
+export const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "https://dev.umigrate.ca"
+    : "https://" + window.location.host;
 
 // Websocket URLs
-export const MESSAGING_WEBSOCKET = process.env.NODE_ENV === "development" ?
-  "wss://dev.umigrate.ca/ws/messaging/"
-  : "wss://" + window.location.host + "/ws/messaging/";
+export const MESSAGING_WEBSOCKET =
+  process.env.NODE_ENV === "development"
+    ? "wss://dev.umigrate.ca/ws/messaging/"
+    : "wss://" + window.location.host + "/ws/messaging/";
 
 // Session Storage functions
 
@@ -20,14 +22,14 @@ export const getAuthToken = () => {
 };
 
 export const setAuthToken = (token) => {
-  Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+  Axios.defaults.headers.common["Authorization"] = `Token ${token}`;
   sessionStorage.setItem(AUTH_TOKEN, token);
 };
 
 export const removeAuthToken = () => {
-  Axios.defaults.headers.common['Authorization'] = null;
+  Axios.defaults.headers.common["Authorization"] = null;
   sessionStorage.removeItem(AUTH_TOKEN);
-}
+};
 
 export const getUserData = () => {
   return JSON.parse(sessionStorage.getItem(USER_DATA));
@@ -45,7 +47,12 @@ export const removeUserData = () => {
 class BaseEndpoint {
   static endpoint = "";
 
-  static list(page, filters = {}, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static list(
+    page,
+    filters = {},
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     let queryString = "?page=" + page;
     for (let key in filters) {
       queryString += "&" + key + "=" + filters[key];
@@ -60,7 +67,11 @@ class BaseEndpoint {
       });
   }
 
-  static post(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static post(
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.post(BASE_URL + this.endpoint, data)
       .then((response) => {
         handleSuccess(response);
@@ -70,7 +81,11 @@ class BaseEndpoint {
       });
   }
 
-  static get(id, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static get(
+    id,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.get(BASE_URL + this.endpoint + id)
       .then((response) => {
         handleSuccess(response);
@@ -80,7 +95,12 @@ class BaseEndpoint {
       });
   }
 
-  static patch(id, data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static patch(
+    id,
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.patch(BASE_URL + this.endpoint + id, data)
       .then((response) => {
         handleSuccess(response);
@@ -90,7 +110,11 @@ class BaseEndpoint {
       });
   }
 
-  static delete(id, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static delete(
+    id,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.delete(BASE_URL + this.endpoint + id)
       .then((response) => {
         handleSuccess(response);
@@ -135,7 +159,12 @@ export class RoomsEndpoint extends BaseEndpoint {
 }
 
 export class MessagesEndpoint {
-  static list(page, filters = {}, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static list(
+    page,
+    filters = {},
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     let queryString = "?page=" + page;
     for (let key in filters) {
       queryString += "&" + key + "=" + filters[key];
@@ -168,7 +197,11 @@ export class PostCommentsEndpoint extends BaseEndpoint {
 }
 
 export class AuthEndpoint {
-  static login(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static login(
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     removeAuthToken();
     removeUserData();
 
@@ -194,7 +227,11 @@ export class AuthEndpoint {
       });
   }
 
-  static register(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static register(
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     removeAuthToken();
     removeUserData();
 
@@ -209,7 +246,12 @@ export class AuthEndpoint {
 }
 
 export class UsersEndpoint {
-  static list(page, filters = {}, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static list(
+    page,
+    filters = {},
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     let queryString = "?page=" + page;
     for (let key in filters) {
       queryString += "&" + key + "=" + filters[key];
@@ -224,7 +266,11 @@ export class UsersEndpoint {
       });
   }
 
-  static get(id, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static get(
+    id,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.get(BASE_URL + "/api/users/" + id)
       .then((response) => {
         handleSuccess(response);
@@ -247,7 +293,11 @@ export class ProfileEndpoint {
       });
   }
 
-  static patch(data, handleSuccess = (response) => {}, handleError = (error) => {}) {
+  static patch(
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
     Axios.patch(BASE_URL + "/auth/user/", data)
       .then((response) => {
         setUserData(response.data);

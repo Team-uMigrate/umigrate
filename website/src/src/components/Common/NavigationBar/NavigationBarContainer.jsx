@@ -4,7 +4,7 @@ import MenuBarView from "../MenuBar";
 
 class NavigationBarContainer extends Component {
   state = {
-    sideDrawerOpen: false
+    sideDrawerOpen: false,
   };
 
   drawerToggleClickHandler = () => {
@@ -20,7 +20,10 @@ class NavigationBarContainer extends Component {
           drawerClickHandler={this.drawerToggleClickHandler}
           title={this.props.title}
         />
-        <MenuBarView show={this.state.sideDrawerOpen} click={this.drawerToggleClickHandler}/>
+        <MenuBarView
+          show={this.state.sideDrawerOpen}
+          click={this.drawerToggleClickHandler}
+        />
       </div>
     );
   }

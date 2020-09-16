@@ -7,7 +7,7 @@ import NavigationBarContainer from "../Common/NavigationBar";
 const MessagingPage = () => {
   const roomContext = useContext(RoomContext);
 
-  return(
+  return (
     <div>
       <NavigationBarContainer title="Messaging" />
       <div className="row">
@@ -15,13 +15,11 @@ const MessagingPage = () => {
           <RoomsContainer />
         </div>
         <div className="col-lg-6">
-          {roomContext.room === null ?
-            <div>
-              Please select a room
-            </div>
-            :
+          {roomContext.room === null ? (
+            <div>Please select a room</div>
+          ) : (
             <MessagesContainer room={roomContext.room} />
-          }
+          )}
         </div>
       </div>
     </div>

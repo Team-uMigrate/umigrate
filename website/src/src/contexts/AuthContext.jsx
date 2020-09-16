@@ -1,5 +1,9 @@
 import React, { Component, createContext } from "react";
-import { ProfileEndpoint, getAuthToken, setAuthToken } from "../utils/endpoints";
+import {
+  ProfileEndpoint,
+  getAuthToken,
+  setAuthToken,
+} from "../utils/endpoints";
 
 const AuthContext = createContext();
 
@@ -9,11 +13,11 @@ class AuthContextProvider extends Component {
     isAuthenticated: null,
     isRegistered: null,
     setAuthenticated: (isAuth) => {
-      this.setState({isAuthenticated: isAuth})
+      this.setState({ isAuthenticated: isAuth });
     },
     setRegistered: (isReg) => {
-      this.setState({isRegistered: isReg})
-    }
+      this.setState({ isRegistered: isReg });
+    },
   };
 
   componentDidMount = () => {
@@ -25,22 +29,19 @@ class AuthContextProvider extends Component {
       ProfileEndpoint.get(
         (response) => {
           if (response.data.first_name === "") {
-            this.setState({isAuthenticated: true, isRegistered: false});
-          }
-          else {
-            this.setState({isAuthenticated: true, isRegistered: true});
+            this.setState({ isAuthenticated: true, isRegistered: false });
+          } else {
+            this.setState({ isAuthenticated: true, isRegistered: true });
           }
         },
         (error) => {
           console.log(error);
           console.log(error.response);
-          this.setState({isAuthenticated: false, isRegistered: false});
+          this.setState({ isAuthenticated: false, isRegistered: false });
         }
       );
-    }
-
-    else {
-      this.setState({isAuthenticated: false, isRegistered: false});
+    } else {
+      this.setState({ isAuthenticated: false, isRegistered: false });
     }
   };
 

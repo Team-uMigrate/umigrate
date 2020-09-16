@@ -1,9 +1,12 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { PROGRAM_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
+import {
+  PROGRAM_CHOICES,
+  TERM_CHOICES,
+} from "../../../constants/misc/resourceChoices";
 import "./ProfileStyles.css";
 
-const ProfileView = (props) =>
+const ProfileView = (props) => (
   <div className="Style">
     <h2>Profile Settings</h2>
     <div className="StyleForm">
@@ -35,7 +38,11 @@ const ProfileView = (props) =>
                 Program
               </Form.Label>
               <Col sm="8">
-                <Form.Control as="select" value={props.enrolled_program} onChange={props.handleProgramInputChange}>
+                <Form.Control
+                  as="select"
+                  value={props.enrolled_program}
+                  onChange={props.handleProgramInputChange}
+                >
                   {PROGRAM_CHOICES.map((choice, index) => (
                     <option value={index}>{choice}</option>
                   ))}
@@ -81,8 +88,7 @@ const ProfileView = (props) =>
       </nav>
     </div>
   </div>
-;
-
+);
 const imgPreviewStyle = {
   textAlign: "center",
   marginTop: "5px",

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Header from "../common/Header";
 
 const NotificationPage = () => {
@@ -16,10 +16,10 @@ export default NotificationPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#eeeeee",
   },
   title: {
     alignSelf: "center",
-    marginTop: "80%"
-  }
+    marginTop: "80%",
+  },
 });

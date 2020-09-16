@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useContext } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { AuthEndpoint } from "../../utils/endpoints";
 import AuthContext from "../../contexts/AuthContext";
 import Header from "../common/Header";
@@ -31,11 +31,11 @@ export default MenuPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#eeeeee",
   },
   title: {
     alignSelf: "center",
     marginTop: "80%",
-    paddingBottom: "30%"
-  }
+    paddingBottom: "30%",
+  },
 });

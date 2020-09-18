@@ -43,6 +43,16 @@ export const removeUserData = () => {
   // sessionStorage.removeItem(USER_DATA);
 };
 
+// Helper functions
+
+const toFormData = (data = {}) => {
+  const formData = new FormData();
+  for (let key in data) {
+    formData.append(key, data[key]);
+  }
+  return formData;
+};
+
 // Base endpoint class
 class BaseEndpoint {
   static endpoint = "";
@@ -72,7 +82,11 @@ class BaseEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    Axios.post(BASE_URL + this.endpoint, data)
+    const formData = toFormData(data);
+
+    Axios.post(BASE_URL + this.endpoint, formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         handleSuccess(response);
       })
@@ -101,7 +115,11 @@ class BaseEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    Axios.patch(BASE_URL + this.endpoint + id, data)
+    const formData = toFormData(data);
+
+    Axios.patch(BASE_URL + this.endpoint + id, formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         handleSuccess(response);
       })
@@ -205,7 +223,11 @@ export class AuthEndpoint {
     removeAuthToken();
     removeUserData();
 
-    Axios.post(BASE_URL + "/auth/login/", data)
+    const formData = toFormData(data);
+
+    Axios.post(BASE_URL + "/auth/login/", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         setAuthToken(response.data.key);
         handleSuccess(response);
@@ -235,7 +257,11 @@ export class AuthEndpoint {
     removeAuthToken();
     removeUserData();
 
-    Axios.post(BASE_URL + "/auth/registration/", data)
+    const formData = toFormData(data);
+
+    Axios.post(BASE_URL + "/auth/registration/", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         handleSuccess(response);
       })
@@ -298,7 +324,11 @@ export class ProfileEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    Axios.patch(BASE_URL + "/auth/user/", data)
+    const formData = toFormData(data);
+
+    Axios.patch(BASE_URL + "/auth/user/", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
       .then((response) => {
         setUserData(response.data);
         handleSuccess(response);

@@ -17,27 +17,19 @@ class EventTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_events
         self.create_data = {
             'title': 'My first event',
-            'description': 'This is my first event',
+            'content': 'This is my first event',
             'region': 0,
-            'price': 9976.00,
+            'price_scale': 1,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-            'street_address': '400 University avenue',
-            'city': 'Waterloo',
-            'division': 'Ontario',
-            'country': 'Canada',
         }
         self.update_data = {
             'title': 'My first event (edited)',
-            'description': 'This is my first event (edited)',
+            'content': 'This is my first event (edited)',
             'region': 1,
-            'price': 99,
+            'price_scale': 2,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-            'street_address': '2 College west road',
-            'city': 'Brampton',
-            'division': 'Nunavut',
-            'country': 'England',
         }
 
         GenericPostTestCase.setUp(self)

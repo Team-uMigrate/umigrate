@@ -5,10 +5,25 @@ def convert_to_tuple(choices):
 
 # Choices for model fields
 class Choices:
-    SEX_CHOICES = convert_to_tuple([
+    PRONOUN_CHOICES = convert_to_tuple([
+        'None',
+        'He/Him',
+        'She/Her',
+        'They/Them',
         'Other',
-        'Male',
-        'Female',
+    ])
+    SEASON_CHOICES = convert_to_tuple([
+        'Winter',
+        'Spring',
+        'Fall',
+    ])
+    PRICE_CHOICES = convert_to_tuple([
+        'Free',
+        '$',
+        '$$',
+        '$$$',
+        '$$$$',
+        '$$$$$',
     ])
     REGION_CHOICES = convert_to_tuple([
         'Waterloo',

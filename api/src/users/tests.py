@@ -28,6 +28,8 @@ class UserTestCase(APITestCase):
         obj['datetime_created'] = obj['datetime_created'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         obj['birthday'] = obj['birthday'].strftime('%Y-%m-%d')
         obj['photo'] = None
+        print(response_dict)
+        print(obj)
         for key in response_dict:
             self.assertEqual(obj[key], response_dict[key])
 
@@ -44,10 +46,10 @@ class UserTestCase(APITestCase):
         followed_response = self.client.post('/api/users/1/follow', followed_data, format='json')
         self.assertEqual(followed_response.status_code, status.HTTP_200_OK)
         self.assertEqual(followed_response.data, {'followed': True})
-        self.assertEqual(len(CustomUser.objects.get(id=1).followed_users.filter(id=1)), 1)
+        self.assertEqual(len(CustomUser.objects.get(id=1).connected_users.filter(id=1)), 1)
 
         obj = CustomUser.objects.get(id=2)
-        obj.followed_users.add(1)
+        obj.connected_users.add(1)
 
         unfollowed_data = {
             'followed': False
@@ -56,7 +58,7 @@ class UserTestCase(APITestCase):
         unfollowed_response = self.client.post('/api/users/2/follow', unfollowed_data, format='json')
         self.assertEqual(unfollowed_response.status_code, status.HTTP_200_OK)
         self.assertEqual(unfollowed_response.data, {'followed': False})
-        self.assertEqual(len(CustomUser.objects.get(id=2).followed_users.filter(id=1)), 0)
+        self.assertEqual(len(CustomUser.objects.get(id=2).connected_users.filter(id=1)), 0)
 
     def test_get_blocked_user(self):
         response = self.client.get('/api/users/1/block')

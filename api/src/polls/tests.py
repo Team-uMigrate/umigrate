@@ -17,12 +17,12 @@ class PollTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_polls
         self.create_data = {
             'title': 'My first post',
-            'description': 'This is my first poll',
+            'content': 'This is my first poll',
             'region': 0,
         }
         self.update_data = {
             'title': 'My first post (edited)',
-            'description': 'This is my first poll (edited)',
+            'content': 'This is my first poll (edited)',
             'region': 1,
         }
 
@@ -63,7 +63,7 @@ class OptionTestCase(APITestCase):
 
     def test_create(self):
         data = {
-            'description': 'Option'
+            'content': 'Option'
         }
 
         response = self.client.post('/api/polls/1/options/', data, format='json')

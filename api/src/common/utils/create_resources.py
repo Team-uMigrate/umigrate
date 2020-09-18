@@ -13,11 +13,10 @@ def create_ads(num):
     for i in range(num):
         ad = Ad.objects.create(
             title=f'Ad {i}',
-            description=f'This is Ad {i}',
+            content=f'This is Ad {i}',
             region=0,
             creator_id=1,
             category=0,
-            features='There are a lot of features',
             price=123.45,
         )
         ad.save()
@@ -27,7 +26,7 @@ def create_ads(num):
 def create_ad_comments(num):
     for i in range(num):
         ad_comment = AdComment.objects.create(
-            comment_body=f'Comment {i}',
+            content=f'Comment {i}',
             ad_id=1,
             creator_id=1,
         )
@@ -39,16 +38,12 @@ def create_events(num):
     for i in range(num):
         event = Event.objects.create(
             title=f'Event {i}',
-            description=f'This is Event {i}',
+            content=f'This is Event {i}',
             region=0,
             creator_id=1,
-            price=123.45,
+            price_scale=0,
             start_datetime=datetime.now(),
             end_datetime=datetime.now() + timedelta(days=1),
-            street_address='123 King street',
-            city='Waterloo',
-            division='Ontario',
-            country='Canada',
         )
         event.save()
 
@@ -57,7 +52,7 @@ def create_events(num):
 def create_event_comments(num):
     for i in range(num):
         event_comment = EventComment.objects.create(
-            comment_body=f'Comment {i}',
+            content=f'Comment {i}',
             event_id=1,
             creator_id=1,
         )
@@ -69,17 +64,13 @@ def create_listing(num):
     for i in range(num):
         listing = Listing.objects.create(
             title=f'listing {i}',
-            description=f'This is listing post {i}',
+            content=f'This is listing post {i}',
             region=0,
             creator_id=1,
             category=0,
-            features='There are a lot of features',
             price=123.45,
-            street_address='123 King street',
-            city='Waterloo',
-            division='Ontario',
-            country='Canada',
-            term=0,
+            season=0,
+            year=2020,
         )
         listing.save()
 
@@ -88,7 +79,7 @@ def create_listing(num):
 def create_listing_comments(num):
     for i in range(num):
         listing_comment = ListingComment.objects.create(
-            comment_body=f'Comment {i}',
+            content=f'Comment {i}',
             listing_id=1,
             creator_id=1,
         )
@@ -100,7 +91,7 @@ def create_polls(num):
     for i in range(num):
         poll = Poll.objects.create(
             title=f'Poll {i}',
-            description=f'This is Poll {i}',
+            content=f'This is Poll {i}',
             region=0,
             creator_id=1,
         )
@@ -111,7 +102,7 @@ def create_polls(num):
 def create_poll_comments(num):
     for i in range(num):
         poll_comment = PollComment.objects.create(
-            comment_body=f'Comment {i}',
+            content=f'Comment {i}',
             poll_id=1,
             creator_id=1,
         )
@@ -122,7 +113,7 @@ def create_poll_comments(num):
 def create_options(num):
     for i in range(num):
         option = Option.objects.create(
-            description=f'This is Option {i}',
+            content=f'This is Option {i}',
             creator_id=1,
             poll_id=1
         )
@@ -144,7 +135,7 @@ def create_posts(num):
     for i in range(num):
         post = Post.objects.create(
             title=f'Post {i}',
-            description=f'This is Post {i}',
+            content=f'This is Post {i}',
             region=0,
             creator_id=1,
         )
@@ -155,7 +146,7 @@ def create_posts(num):
 def create_post_comments(num):
     for i in range(num):
         post_comment = PostComment.objects.create(
-            comment_body=f'Comment {i}',
+            content=f'Comment {i}',
             post_id=1,
             creator_id=1,
         )
@@ -178,7 +169,7 @@ def create_rooms(num):
 def create_messages(num):
     for i in range(num):
         message = Message.objects.create(
-            message_body=f'Message {i}',
+            content=f'Message {i}',
             creator_id=1,
             room_id=1,
         )
@@ -196,7 +187,5 @@ def create_jobs(num):
             start_date=date.today(),
             end_date=date.today() + timedelta(days=1),
             city='Waterloo',
-            division='Ontario',
-            country='Canada',
         )
         job.save()

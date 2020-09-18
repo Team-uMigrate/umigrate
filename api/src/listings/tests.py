@@ -15,29 +15,21 @@ class ListingTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_listing
         self.create_data = {
             'title': 'My first listing',
-            'description': 'This is my first listing',
+            'content': 'This is my first listing',
             'region': 0,
             'category': 0,
-            'features': 'feature1, feature2, feature3',
             'price': 9976.00,
-            'street_address': '400 University avenue',
-            'city': 'Waterloo',
-            'division': 'Ontario',
-            'country': 'Canada',
-            'term': 0,
+            'season': 2,
+            'year': 2021
         }
         self.update_data = {
             'title': 'My first listing (edited)',
-            'description': 'This is my first listing  (edited)',
+            'content': 'This is my first listing  (edited)',
             'region': 1,
             'category': 1,
-            'features': 'new feature1, new feature3',
             'price': 997,
-            'street_address': '400 College west road',
-            'city': 'Brampton',
-            'division': 'Quebec',
-            'country': 'France',
-            'term': 1,
+            'season': 1,
+            'year': 2023
         }
 
         GenericPostTestCase.setUp(self)

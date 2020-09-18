@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import ProfileView from "./ProfileView";
 import AuthContext from "../../../contexts/AuthContext";
-import Axios from "axios";
-import { ProfileEndpoint, BASE_URL } from "../../../utils/endpoints";
+import { ProfileEndpoint } from "../../../utils/endpoints";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -11,10 +10,9 @@ class ProfileContainer extends Component {
     userData: [],
     current_term: null,
     enrolled_program: null,
-    file: "",
-    photo: "",
-    imageElem: null,
-    filename: "",
+    file: null,
+    photo: null,
+    filename: null,
   };
 
   componentDidMount = () => {
@@ -42,8 +40,9 @@ class ProfileContainer extends Component {
     //if no file detected, reset the state
     if (!file) {
       this.setState({
-        file: "",
-        photo: "",
+        file: null,
+        photo: null,
+        filename: null,
       });
       return;
     }
@@ -64,6 +63,7 @@ class ProfileContainer extends Component {
       city: document.getElementById("city").value,
       current_term: this.state.current_term,
       enrolled_program: this.state.enrolled_program,
+      photo: this.state.file ?? "",
     };
 
     ProfileEndpoint.patch(
@@ -82,26 +82,6 @@ class ProfileContainer extends Component {
         }
       }
     );
-
-    const formData = new FormData();
-    formData.append("photo", this.state.file);
-    Axios.patch(BASE_URL + "/auth/user/", formData, {
-      headers: { "content-type": "multipart/form-data" },
-    })
-      .then((response) => {
-        sessionStorage.setItem("USER_DATA", JSON.stringify(response.data));
-        this.setState({
-          userData: response.data,
-          enrolled_program: response.data.enrolled_program,
-          current_term: response.data.current_term,
-        });
-      })
-      .catch((error) => {
-        if (error.response != null && error.response.status === 401) {
-          this.context.setAuthenticated(false);
-          this.context.setRegistered(false);
-        }
-      });
   };
 
   handleTermInputChange = (evt) => {
@@ -113,27 +93,13 @@ class ProfileContainer extends Component {
   };
 
   render() {
-    if (this.state.photo) {
-      this.setState({
-        imageElem: (
-          <img
-            src={this.state.photo}
-            style={{ height: "100%", width: "100%" }}
-            alt="Not found"
-          />
-        ),
-      });
-    } else {
-      this.setState({
-        imageElem: (
-          <img
-            src={this.state.userData.photo}
-            style={{ height: "100%", width: "100%" }}
-            alt="Not found"
-          />
-        ),
-      });
-    }
+    let imageElem = (
+      <img
+        src={this.state.photo ?? this.state.userData.photo}
+        style={{ height: "100%", width: "100%" }}
+        alt="Not found"
+      />
+    );
 
     return (
       <ProfileView
@@ -144,7 +110,7 @@ class ProfileContainer extends Component {
         handleProgramInputChange={this.handleProgramInputChange}
         handleTermInputChange={this.handleTermInputChange}
         handleImgUpload={this.handleImgUpload}
-        imageElem={this.state.imageElem}
+        imageElem={imageElem}
       />
     );
   }

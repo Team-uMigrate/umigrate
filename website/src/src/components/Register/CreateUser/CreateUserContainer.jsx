@@ -17,6 +17,8 @@ class CreateUserContainer extends Component {
   };
 
   handleSubmit = (e) => {
+
+    //Todo: fix this
     const data = new FormData();
     data.append("first_name", document.getElementById("firstName").value);
     data.append("last_name", document.getElementById("lastName").value);

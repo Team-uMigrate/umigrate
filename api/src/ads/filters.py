@@ -17,4 +17,4 @@ class AdFilter(filters.FilterSet):
         model = Ad
         fields = ['min_price', 'max_price', 'min_date', 'max_date', 
                 'region', 'datetime_created', 'creator', 'category', 
-                'price', 'title', 'features']
+                'price', 'title',]

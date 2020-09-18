@@ -24,7 +24,7 @@ class UserSerializer(GenericSerializer):
             'currency',
             'language',
             'dark_theme',
-            'followed_users',
+            'connected_users',
             'blocked_users',
             'user_permissions',
         ]

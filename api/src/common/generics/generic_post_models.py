@@ -18,12 +18,14 @@ class IsCreatorOrReadOnly(BasePermission):
 class GenericPostModel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=500, blank=True)
+    content = models.CharField(max_length=1000, blank=True)
     region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
-    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE)
+    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
+    likes_count = models.PositiveSmallIntegerField(default=0, blank=True)
+    comments_count = models.PositiveSmallIntegerField(default=0, blank=True)
 
     class Meta:
         abstract = True
@@ -36,15 +38,16 @@ class GenericPostModel(models.Model):
 # An abstract model that represents a generic comment object
 class GenericCommentModel(models.Model):
     id = models.AutoField(primary_key=True)
-    comment_body = models.TextField(max_length=1000)
+    content = models.TextField(max_length=1000)
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_comment_set", on_delete=models.CASCADE)
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
+    likes_count = models.PositiveSmallIntegerField(default=0, blank=True)
 
     class Meta:
         ordering = ['-datetime_created']
         abstract = True
 
     def __str__(self):
-        return f'{self.comment_body}'
+        return f'{self.content}'

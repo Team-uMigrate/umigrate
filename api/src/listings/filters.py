@@ -18,5 +18,4 @@ class ListingFilter(filters.FilterSet):
         model = Listing
         fields = ['min_price', 'max_price', 'min_date', 'max_date', 
                 'region', 'datetime_created', 'creator', 'category', 
-                'price', 'term', 'street_address', 'city', 
-                'division', 'country', 'title', 'features']
+                'price', 'title',]

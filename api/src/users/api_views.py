@@ -33,20 +33,18 @@ class UserRetrieve(RetrieveAPIView):
     lookup_field = 'id'
 
 
-# HTTP GET: Returns true or false if a user is following another user
-# HTTP POST: Follow or unfollow another user
-class FollowUser(GenericUserExtension):
-    response_string = 'followed'
+# HTTP POST: Connect or disconnect from another user
+class ConnectUser(GenericUserExtension):
+    field_string = 'connect'
 
     @staticmethod
     def field_func(obj_id):
         return CustomUser.objects.get(id=obj_id).connected_users
 
 
-# HTTP GET: Returns true or false if a user is blocking another user
 # HTTP POST: Block or unblock another user
 class BlockUser(GenericUserExtension):
-    response_string = 'blocked'
+    field_string = 'block'
 
     @staticmethod
     def field_func(obj_id):

@@ -95,7 +95,6 @@ class JobTestCase(APITestCase):
             else:
                 self.assertEqual(self.update_data[key], response_dict[key])
 
-
     def test_destroy(self):
         response = self.client.delete(f'/api/users/jobs/1')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

@@ -1,9 +1,9 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
 from .models import Event, EventComment
 
 
 # Serializes the event model
-class EventSerializer(GenericSerializer):
+class EventSerializer(GenericPostSerializer):
 
     class Meta:
         model = Event
@@ -11,7 +11,7 @@ class EventSerializer(GenericSerializer):
 
 
 # Serializes the event model
-class EventCommentSerializer(GenericSerializer):
+class EventCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = EventComment

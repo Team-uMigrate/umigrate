@@ -1,9 +1,9 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
 from .models import Post, PostComment
 
 
 # Serializes the post model
-class PostSerializer(GenericSerializer):
+class PostSerializer(GenericPostSerializer):
 
     class Meta:
         model = Post
@@ -11,7 +11,7 @@ class PostSerializer(GenericSerializer):
 
 
 # Serializes the post comment model
-class PostCommentSerializer(GenericSerializer):
+class PostCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = PostComment

@@ -1,9 +1,9 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
 from .models import Ad, AdComment
 
 
 # Serializes the ad model
-class AdSerializer(GenericSerializer):
+class AdSerializer(GenericPostSerializer):
 
     class Meta:
         model = Ad
@@ -11,7 +11,7 @@ class AdSerializer(GenericSerializer):
 
 
 # Serializes the ad comment model
-class AdCommentSerializer(GenericSerializer):
+class AdCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = AdComment

@@ -58,20 +58,18 @@ class EventCommentLike(GenericUserExtension):
         return EventComment.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user is interested in going to an event
 # HTTP POST: Sets or removes a user's status to interested
 class EventInterestedUser(GenericUserExtension):
-    response_string = 'interested'
+    field_string = 'interested'
 
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).interested_users
 
 
-# HTTP GET: Returns true or false if a user is attending an event
 # HTTP POST: Sets or removes a user's status to attending
 class EventAttendingUser(GenericUserExtension):
-    response_string = 'attending'
+    field_string = 'attending'
 
     @staticmethod
     def field_func(obj_id):

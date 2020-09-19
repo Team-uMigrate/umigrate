@@ -5,6 +5,7 @@ from .serializers import AdSerializer, AdCommentSerializer
 from django_filters import rest_framework as filters
 from ads.filters import AdFilter
 
+
 # HTTP GET: Returns a list of ads
 # HTTP POST: Creates an ad
 class AdListCreate(GenericPostListCreate):
@@ -42,7 +43,6 @@ class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'ad'
 
 
-# HTTP GET: Returns true or false if a user has liked an ad
 # HTTP POST: Like or unlike an ad
 class AdLike(GenericUserExtension):
     field_string = 'like'
@@ -52,7 +52,6 @@ class AdLike(GenericUserExtension):
         return Ad.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked an ad comment
 # HTTP POST: Like or unlike an ad comment
 class AdCommentLike(GenericUserExtension):
     field_string = 'like'

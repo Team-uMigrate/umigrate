@@ -40,7 +40,6 @@ class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'poll'
 
 
-# HTTP GET: Returns true or false if a user has liked a poll
 # HTTP POST: Like or unlike a poll
 class PollLike(GenericUserExtension):
     field_string = 'like'
@@ -50,7 +49,6 @@ class PollLike(GenericUserExtension):
         return Poll.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked a poll comment
 # HTTP POST: Like or unlike a poll comment
 class PollCommentLike(GenericUserExtension):
     field_string = 'like'

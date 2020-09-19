@@ -40,7 +40,6 @@ class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'post'
 
 
-# HTTP GET: Returns true or false if a user has liked a post
 # HTTP POST: Like or unlike a post
 class PostLike(GenericUserExtension):
     field_string = 'like'
@@ -50,7 +49,6 @@ class PostLike(GenericUserExtension):
         return Post.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked a post comment
 # HTTP POST: Like or unlike a post comment
 class PostCommentLike(GenericUserExtension):
     field_string = 'like'

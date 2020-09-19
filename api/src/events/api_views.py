@@ -40,7 +40,6 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'event'
 
 
-# HTTP GET: Returns true or false if a user has liked an event
 # HTTP POST: Like or unlike an event
 class EventLike(GenericUserExtension):
     field_string = 'like'
@@ -50,7 +49,6 @@ class EventLike(GenericUserExtension):
         return Event.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked an event comment
 # HTTP POST: Like or unlike an event comment
 class EventCommentLike(GenericUserExtension):
     field_string = 'like'

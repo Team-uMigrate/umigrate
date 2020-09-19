@@ -88,7 +88,6 @@ class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
         return GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)
 
 
-# HTTP GET: Returns true or false if a user is a member of a related field on a model
 # HTTP POST: Adds or removes a user from a related field on a model
 class GenericUserExtension(APIView):
     # Override required for field_string; it should be a string for the field in the request
@@ -100,23 +99,38 @@ class GenericUserExtension(APIView):
     ]
 
     def post(self, request, *args, **kwargs):
-        try:
-            add_user = request.data[self.field_string]
-            assert(isinstance(add_user, bool))
+        error_response = self.validate_data(request.data)
+        if error_response != {}:
+            return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
 
+        add_user = request.data[self.field_string]
+        obj_id = request.data['id']
+
+        try:
             if add_user:
-                self.field_func(obj_id=kwargs['id']).add(request.user.id)
+                self.field_func(obj_id=obj_id).add(request.user.id)
 
             else:
-                self.field_func(obj_id=kwargs['id']).remove(request.user.id)
+                self.field_func(obj_id=obj_id).remove(request.user.id)
 
-            return Response({self.field_string: add_user})
-
-        except KeyError:
-            return Response({self.field_string: ['This field may not be blank.']}, status=status.HTTP_400_BAD_REQUEST)
-
-        except AssertionError:
-            return Response({self.field_string: ['This field must be have a boolean value.']}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({self.field_string: add_user, 'id': obj_id})
 
         except ObjectDoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    def validate_data(self, data):
+        response = {}
+
+        if self.field_string not in data.keys():
+            response.update({self.field_string: ['This field is required']})
+
+        elif not isinstance(data[self.field_string], bool):
+            response.update({self.field_string: ['Must be a bool']})
+
+        if 'id' not in data.keys():
+            response.update({'id': ['This field is required']})
+
+        elif not isinstance(data['id'], int):
+            response.update({'id': ['Must be a positive int']})
+
+        return response

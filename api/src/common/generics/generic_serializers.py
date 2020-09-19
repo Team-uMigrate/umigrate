@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-# Serializes a generic resource model
+# Serializes a generic model
 class GenericSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -24,3 +24,19 @@ class GenericSerializer(serializers.ModelSerializer):
             fields = [field for field in fields if field not in self.Meta.exclude_fields]
         
         return fields
+
+
+# Serializes a generic resource model
+class GenericPostSerializer(GenericSerializer):
+    is_liked = serializers.SerializerMethodField()
+
+    def get_is_liked(self, instance):
+        return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+
+
+# Serializes a generic comment model
+class GenericCommentSerializer(GenericSerializer):
+    is_liked = serializers.SerializerMethodField()
+
+    def get_is_liked(self, instance):
+        return instance.liked_users.filter(id=self.context['request'].user.id).exists()

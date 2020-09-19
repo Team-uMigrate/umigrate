@@ -43,7 +43,7 @@ class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
 # HTTP GET: Returns true or false if a user has liked a poll
 # HTTP POST: Like or unlike a poll
 class PollLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
@@ -53,7 +53,7 @@ class PollLike(GenericUserExtension):
 # HTTP GET: Returns true or false if a user has liked a poll comment
 # HTTP POST: Like or unlike a poll comment
 class PollCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

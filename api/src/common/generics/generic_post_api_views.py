@@ -91,27 +91,17 @@ class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 # HTTP GET: Returns true or false if a user is a member of a related field on a model
 # HTTP POST: Adds or removes a user from a related field on a model
 class GenericUserExtension(APIView):
-    # Override required for response_string; it should be a string for the field in the response
-    response_string = None
+    # Override required for field_string; it should be a string for the field in the request
+    field_string = None
     # Override required for field_func; it should be a related field for a model instance
     field_func = None
     permission_classes = [
         IsAuthenticated,
     ]
 
-    def get(self, request, *args, **kwargs):
-        try:
-            if self.field_func(obj_id=kwargs['id']).filter(id=request.user.id):
-                return Response({self.response_string: True})
-
-            return Response({self.response_string: False})
-
-        except ObjectDoesNotExist:
-            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
-
     def post(self, request, *args, **kwargs):
         try:
-            add_user = request.data[self.response_string]
+            add_user = request.data[self.field_string]
             assert(isinstance(add_user, bool))
 
             if add_user:
@@ -120,13 +110,13 @@ class GenericUserExtension(APIView):
             else:
                 self.field_func(obj_id=kwargs['id']).remove(request.user.id)
 
-            return Response({self.response_string: add_user})
+            return Response({self.field_string: add_user})
 
         except KeyError:
-            return Response({self.response_string: ['This field may not be blank.']}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({self.field_string: ['This field may not be blank.']}, status=status.HTTP_400_BAD_REQUEST)
 
         except AssertionError:
-            return Response({self.response_string: ['This field must be have a boolean value.']}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({self.field_string: ['This field must be have a boolean value.']}, status=status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)

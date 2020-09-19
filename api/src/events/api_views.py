@@ -43,7 +43,7 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
 # HTTP GET: Returns true or false if a user has liked an event
 # HTTP POST: Like or unlike an event
 class EventLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
@@ -53,7 +53,7 @@ class EventLike(GenericUserExtension):
 # HTTP GET: Returns true or false if a user has liked an event comment
 # HTTP POST: Like or unlike an event comment
 class EventCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

@@ -45,7 +45,7 @@ class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
 # HTTP GET: Returns true or false if a user has liked an ad
 # HTTP POST: Like or unlike an ad
 class AdLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
@@ -55,7 +55,7 @@ class AdLike(GenericUserExtension):
 # HTTP GET: Returns true or false if a user has liked an ad comment
 # HTTP POST: Like or unlike an ad comment
 class AdCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

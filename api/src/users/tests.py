@@ -28,8 +28,6 @@ class UserTestCase(APITestCase):
         obj['datetime_created'] = obj['datetime_created'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         obj['birthday'] = obj['birthday'].strftime('%Y-%m-%d')
         obj['photo'] = None
-        print(response_dict)
-        print(obj)
         for key in response_dict:
             self.assertEqual(obj[key], response_dict[key])
 

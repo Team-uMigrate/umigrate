@@ -26,6 +26,7 @@ class GenericPostTestCase:
         'tagged_users',
         'interested_users',
         'attending_users',
+        'is_liked',
         'members',
     ]
 
@@ -152,6 +153,7 @@ class GenericCommentTestCase:
     ignored_keys = [
         'liked_users',
         'tagged_users',
+        'is_liked',
     ]
 
     def setUp(self):

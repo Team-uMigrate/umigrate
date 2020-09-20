@@ -24,8 +24,6 @@ class GenericPostModel(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
-    likes_count = models.PositiveSmallIntegerField(default=0, blank=True)
-    comments_count = models.PositiveSmallIntegerField(default=0, blank=True)
 
     class Meta:
         abstract = True
@@ -43,7 +41,6 @@ class GenericCommentModel(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
-    likes_count = models.PositiveSmallIntegerField(default=0, blank=True)
 
     class Meta:
         ordering = ['-datetime_created']

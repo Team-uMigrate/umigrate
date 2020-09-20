@@ -43,20 +43,18 @@ class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'listing'
 
 
-# HTTP GET: Returns true or false if a user has liked a listing
 # HTTP POST: Like or unlike a listing
 class ListingLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
         return Listing.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked a listing comment
 # HTTP POST: Like or unlike a listing comment
 class ListingCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

@@ -1,9 +1,9 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
 from .models import Listing, ListingComment
 
 
 # Serializes the listing model
-class ListingSerializer(GenericSerializer):
+class ListingSerializer(GenericPostSerializer):
 
     class Meta:
         model = Listing
@@ -11,7 +11,7 @@ class ListingSerializer(GenericSerializer):
 
 
 # Serializes the listing comment model
-class ListingCommentSerializer(GenericSerializer):
+class ListingCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = ListingComment

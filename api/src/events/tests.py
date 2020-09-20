@@ -17,83 +17,69 @@ class EventTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_events
         self.create_data = {
             'title': 'My first event',
-            'description': 'This is my first event',
+            'content': 'This is my first event',
             'region': 0,
-            'price': 9976.00,
+            'price_scale': 1,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-            'street_address': '400 University avenue',
-            'city': 'Waterloo',
-            'division': 'Ontario',
-            'country': 'Canada',
         }
         self.update_data = {
             'title': 'My first event (edited)',
-            'description': 'This is my first event (edited)',
+            'content': 'This is my first event (edited)',
             'region': 1,
-            'price': 99,
+            'price_scale': 2,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-            'street_address': '2 College west road',
-            'city': 'Brampton',
-            'division': 'Nunavut',
-            'country': 'England',
         }
 
         GenericPostTestCase.setUp(self)
 
-    def test_get_interested_user(self):
-        response = self.api_client.get(f'/api/{self.resource_name}/1/interested')
-        self.assert_equal(response.status_code, status.HTTP_200_OK)
-        self.assert_equal(response.data, {'interested': False})
-
-    def test_post_interested_user(self):
+    def test_interested_user(self):
         interested_data = {
-            'interested': True
+            'interested': True,
+            'id': 1
         }
 
-        interested_response = self.api_client.post(f'/api/{self.resource_name}/1/interested', interested_data, format='json')
+        interested_response = self.api_client.post(f'/api/{self.resource_name}/interested', interested_data, format='json')
         self.assert_equal(interested_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(interested_response.data, {'interested': True})
+        self.assert_equal(interested_response.data, interested_data)
         self.assert_equal(len(self.model.objects.get(id=1).interested_users.filter(id=1)), 1)
 
         obj = self.model.objects.get(id=2)
         obj.interested_users.add(1)
 
         uninterested_data = {
-            'interested': False
+            'interested': False,
+            'id': 2
         }
 
-        uninterested_response = self.api_client.post(f'/api/{self.resource_name}/2/interested', uninterested_data, format='json')
+        uninterested_response = self.api_client.post(f'/api/{self.resource_name}/interested', uninterested_data, format='json')
         self.assert_equal(uninterested_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(uninterested_response.data, {'interested': False})
+        self.assert_equal(uninterested_response.data, uninterested_data)
         self.assert_equal(len(self.model.objects.get(id=2).interested_users.filter(id=1)), 0)
 
-    def test_get_attending_user(self):
-        response = self.api_client.get(f'/api/{self.resource_name}/1/attending')
-        self.assert_equal(response.status_code, status.HTTP_200_OK)
-        self.assert_equal(response.data, {'attending': False})
-
-    def test_post_attending_user(self):
+    def test_attending_user(self):
         attending_data = {
-            'attending': True
+            'attending': True,
+            'id': 1
         }
 
-        attending_response = self.api_client.post(f'/api/{self.resource_name}/1/attending', attending_data, format='json')
+        attending_response = self.api_client.post(f'/api/{self.resource_name}/attending', attending_data, format='json')
         self.assert_equal(attending_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(attending_response.data, {'attending': True})
+        self.assert_equal(attending_response.data, attending_data)
         self.assert_equal(len(self.model.objects.get(id=1).attending_users.filter(id=1)), 1)
 
         obj = self.model.objects.get(id=2)
         obj.attending_users.add(1)
 
-        unattended_data = {
-            'attending': False
+        unattending_data = {
+            'attending': False,
+            'id': 2
         }
 
-        unnattending_response = self.api_client.post(f'/api/{self.resource_name}/2/attending', unattended_data, format='json')
+        unnattending_response = self.api_client.post(f'/api/{self.resource_name}/attending', unattending_data, format='json')
         self.assert_equal(unnattending_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(unnattending_response.data, {'attending': False})
+        self.assert_equal(unnattending_response.data, unattending_data)
         self.assert_equal(len(self.model.objects.get(id=2).attending_users.filter(id=1)), 0)
 
 

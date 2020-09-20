@@ -26,7 +26,14 @@ class GenericPostTestCase:
         'tagged_users',
         'interested_users',
         'attending_users',
+        'is_liked',
+        'is_interested',
+        'is_attending',
         'members',
+        'likes',
+        'comments',
+        'interested',
+        'attending',
     ]
 
     def setUp(self):
@@ -104,31 +111,28 @@ class GenericPostTestCase:
         response = self.api_client.delete(f'/api/{self.resource_name}/1')
         self.assert_equal(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_get_like(self):
-        response = self.api_client.get(f'/api/{self.resource_name}/1/like')
-        self.assert_equal(response.status_code, status.HTTP_200_OK)
-        self.assert_equal(response.data, {'liked': False})
-
-    def test_post_like(self):
+    def test_like(self):
         like_data = {
-            'liked': True
+            'like': True,
+            'id': 1
         }
 
-        like_response = self.api_client.post(f'/api/{self.resource_name}/1/like', like_data, format='json')
+        like_response = self.api_client.post(f'/api/{self.resource_name}/like', like_data, format='json')
         self.assert_equal(like_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(like_response.data, {'liked': True})
+        self.assert_equal(like_response.data, like_data)
         self.assert_equal(len(self.model.objects.get(id=1).liked_users.filter(id=1)), 1)
 
         obj = self.model.objects.get(id=2)
         obj.liked_users.add(1)
 
         unlike_data = {
-            'liked': False
+            'like': False,
+            'id': 2
         }
 
-        unlike_response = self.api_client.post(f'/api/{self.resource_name}/2/like', unlike_data, format='json')
+        unlike_response = self.api_client.post(f'/api/{self.resource_name}/like', unlike_data, format='json')
         self.assert_equal(unlike_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(unlike_response.data, {'liked': False})
+        self.assert_equal(unlike_response.data, unlike_data)
         self.assert_equal(len(self.model.objects.get(id=2).liked_users.filter(id=1)), 0)
 
 
@@ -152,6 +156,8 @@ class GenericCommentTestCase:
     ignored_keys = [
         'liked_users',
         'tagged_users',
+        'is_liked',
+        'likes',
     ]
 
     def setUp(self):
@@ -170,7 +176,7 @@ class GenericCommentTestCase:
 
     def test_create(self):
         data = {
-            'comment_body': 'My comment',
+            'content': 'My comment',
         }
 
         response = self.api_client.post(f'/api/{self.resource_name}/1/comments/', data, format='json')
@@ -201,7 +207,7 @@ class GenericCommentTestCase:
 
     def test_update(self):
         data = {
-            'comment_body': 'My new comment',
+            'content': 'My new comment',
         }
         response = self.api_client.put(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
@@ -216,7 +222,7 @@ class GenericCommentTestCase:
 
     def test_update_partial(self):
         data = {
-            'comment_body': 'My new comment',
+            'content': 'My new comment',
         }
         response = self.api_client.patch(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
@@ -233,30 +239,26 @@ class GenericCommentTestCase:
         response = self.api_client.delete(f'/api/{self.resource_name}/comments/1')
         self.assert_equal(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_get_like(self):
-        response = self.api_client.get(f'/api/{self.resource_name}/comments/1/like')
-        self.assert_equal(response.status_code, status.HTTP_200_OK)
-        self.assert_equal(response.data, {'liked': False})
-
-    def test_post_like(self):
+    def test_like(self):
         like_data = {
-            'liked': True
+            'like': True,
+            'id': 1
         }
 
-        like_response = self.api_client.post(f'/api/{self.resource_name}/comments/1/like', like_data, format='json')
+        like_response = self.api_client.post(f'/api/{self.resource_name}/comments/like', like_data, format='json')
         self.assert_equal(like_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(like_response.data, {'liked': True})
+        self.assert_equal(like_response.data, like_data)
         self.assert_equal(len(self.model.objects.get(id=1).liked_users.filter(id=1)), 1)
 
         obj = self.model.objects.get(id=2)
         obj.liked_users.add(1)
 
         unlike_data = {
-            'liked': False
+            'like': False,
+            'id': 2
         }
 
-        unlike_response = self.api_client.post(f'/api/{self.resource_name}/comments/2/like', unlike_data, format='json')
+        unlike_response = self.api_client.post(f'/api/{self.resource_name}/comments/like', unlike_data, format='json')
         self.assert_equal(unlike_response.status_code, status.HTTP_200_OK)
-        self.assert_equal(unlike_response.data, {'liked': False})
+        self.assert_equal(unlike_response.data, unlike_data)
         self.assert_equal(len(self.model.objects.get(id=2).liked_users.filter(id=1)), 0)
-

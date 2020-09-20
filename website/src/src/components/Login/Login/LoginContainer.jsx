@@ -1,67 +1,61 @@
-import React, { Component } from 'react';
-import { Button, Modal } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
-import Axios from 'axios';
-import { BASE_URL, LOGIN_ENDPOINT, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
-import { USER_DATA } from "../../../constants/misc/localStorageKeys";
+import React, { Component } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import LoginView from "./LoginView";
 import AuthContext from "../../../contexts/AuthContext";
+import { AuthEndpoint, ProfileEndpoint } from "../../../utils/endpoints";
 
 class LoginContainer extends Component {
   static contextType = AuthContext;
 
   state = {
-    makeAccountRedirect : false,
-    showFailureModal : false
+    makeAccountRedirect: false,
+    showFailureModal: false,
   };
 
   handleNewAccSubmit = (e) => {
-    this.setState({makeAccountRedirect : true});
+    this.setState({ makeAccountRedirect: true });
     e.preventDefault();
   };
 
   handleSubmit = (e) => {
     const data = {
-      "email" : document.getElementById("email").value,
-      "password" : document.getElementById("password").value
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
     };
 
-    Axios.post(BASE_URL + LOGIN_ENDPOINT, data)
-      .then((response) => {
-        // Set authentication token to the header
-        Axios.defaults.headers.common['Authorization'] = `Token ${response.data.key}`;
-
-        Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-          .then((response) => {
-            this.context.setAuthenticated(true);
-
-            if(response.data.first_name === ""){
+    AuthEndpoint.login(
+      data,
+      (response) => {
+        ProfileEndpoint.get(
+          (response) => {
+            if (response.data.first_name === "") {
+              this.context.setAuthenticated(true);
               this.context.setRegistered(false);
-            }
-            else {
-              localStorage.setItem(USER_DATA, JSON.stringify(response.data));
+            } else {
+              this.context.setAuthenticated(true);
               this.context.setRegistered(true);
             }
-          })
-          // Todo: Check for specific error when receiving the not authenticated message
-          .catch((error) =>{
+          },
+          (error) => {
             console.log(error);
             console.log(error.response);
-            this.setState({showFailureModal : true});
-          });
-      })
-      // Todo: Check for specific error when receiving the not authenticated message
-      .catch((error) =>{
+            this.setState({ showFailureModal: true });
+          }
+        );
+      },
+      (error) => {
         console.log(error);
         console.log(error.response);
-        this.setState({showFailureModal : true});
-      });
+        this.setState({ showFailureModal: true });
+      }
+    );
 
     e.preventDefault();
   };
 
   handleClose = () => {
-    this.setState({showFailureModal : false});
+    this.setState({ showFailureModal: false });
   };
 
   getFailureModal = () => {
@@ -69,7 +63,9 @@ class LoginContainer extends Component {
       <Modal show={this.state.showFailureModal} onHide={this.handleClose}>
         <Modal.Body>Login failed</Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={this.handleClose}>Close</Button>
+          <Button variant="danger" onClick={this.handleClose}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -77,12 +73,8 @@ class LoginContainer extends Component {
 
   render() {
     if (this.state.makeAccountRedirect) {
-      return (
-        <Redirect to="/register/verification"/>
-      )
-    }
-
-    else {
+      return <Redirect to="/register/verification" />;
+    } else {
       return (
         <div>
           {this.getFailureModal()}
@@ -91,7 +83,7 @@ class LoginContainer extends Component {
             handleNewAccSubmit={this.handleNewAccSubmit}
           />
         </div>
-      )
+      );
     }
   }
 }

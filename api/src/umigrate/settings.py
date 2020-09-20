@@ -48,7 +48,7 @@ if STAGE_ENVIRONMENT is None:
     STAGE_ENVIRONMENT = 'local'
 
 
-if STAGE_ENVIRONMENT is 'local':
+if STAGE_ENVIRONMENT == 'local':
     SECRET_KEY = 'n_jfl6&v4^9ik8w9324in$&#$gmj5+%n3@ln5d0!cv^%vzsz_x'
     DATABASE_PASSWORD = None
     REDIS_PASSWORD = None
@@ -87,7 +87,7 @@ INSTALLED_APPS = [
     # Project apps
     'ads',
     'events',
-    'housing',
+    'listings',
     'jobs',
     'messaging',
     'polls',
@@ -126,7 +126,7 @@ CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = ALLOWED_HOSTS
 
-if STAGE_ENVIRONMENT is 'local' or STAGE_ENVIRONMENT is 'dev':
+if STAGE_ENVIRONMENT == 'local' or STAGE_ENVIRONMENT == 'dev':
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SAMESITE = None
@@ -139,7 +139,7 @@ ROOT_URLCONF = 'umigrate.urls'
 # Rest framework settings
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -158,7 +158,7 @@ EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-if STAGE_ENVIRONMENT is 'local':
+if STAGE_ENVIRONMENT == 'local':
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Templates
@@ -257,11 +257,11 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT is 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
 SITE_ID = 1
 
-if STAGE_ENVIRONMENT is 'local':
+if STAGE_ENVIRONMENT == 'local':
     ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
 REST_AUTH_SERIALIZERS = {

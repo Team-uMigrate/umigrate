@@ -6,6 +6,9 @@ from users.models import CustomUser
 # Serializes the custom user model
 class UserSerializer(GenericSerializer):
     email = serializers.ReadOnlyField()
+    is_connected = serializers.SerializerMethodField()
+    is_blocked = serializers.SerializerMethodField()
+    connected = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -24,10 +27,19 @@ class UserSerializer(GenericSerializer):
             'currency',
             'language',
             'dark_theme',
-            'followed_users',
+            'connected_users',
             'blocked_users',
             'user_permissions',
         ]
+
+    def get_is_connected(self, instance):
+        return instance.connected_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_is_blocked(self, instance):
+        return instance.blocked_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_connected(self, instance):
+        return instance.connected_users.count()
 
 
 # Serializes the custom user model with user settings fields

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ListingContainer from "./Listings";
+import ListingsContainer from "./Listings";
 import NavigationBarContainer from "../Common/NavigationBar";
 
 class HousingPage extends Component {
@@ -9,11 +9,11 @@ class HousingPage extends Component {
         <NavigationBarContainer title="Housing" />
         <div className="row">
           <div className="col-lg-6">
-            <ListingContainer />
+            <ListingsContainer />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

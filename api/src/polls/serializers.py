@@ -1,4 +1,4 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer
 from .models import Poll, PollComment, Option, Vote
 
 
@@ -23,7 +23,7 @@ class OptionSerializer(GenericSerializer):
 
 
 # Serializes the poll model
-class PollSerializer(GenericSerializer):
+class PollSerializer(GenericPostSerializer):
     option_set = OptionSerializer(read_only=True, many=True)
 
     class Meta:
@@ -35,7 +35,7 @@ class PollSerializer(GenericSerializer):
 
 
 # Serializes the poll comment model
-class PollCommentSerializer(GenericSerializer):
+class PollCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = PollComment

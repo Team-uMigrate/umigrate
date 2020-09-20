@@ -9,24 +9,22 @@ from datetime import date, timedelta
 # Test case for the jobs API views
 class JobTestCase(APITestCase):
     create_data = {
+        'content': "Sanitational engineering is my passion",
         'position': 'My new job',
         'company': 'Big company',
         'job_type': 0,
         'start_date': date.today().strftime('%Y-%m-%d'),
         'end_date': (date.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
         'city': 'Waterloo',
-        'division': 'Ontario',
-        'country': 'Canada',
     }
     update_data = {
+        'content': "Sanitational engineering is my passion",
         'position': 'My new job (edited)',
         'company': 'Big company (edited)',
         'job_type': 1,
         'start_date': date.today().strftime('%Y-%m-%d'),
         'end_date': (date.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
         'city': 'Brampton',
-        'division': 'Nunavut',
-        'country': 'England',
     }
     ignored_keys = [
         'photo',
@@ -96,7 +94,6 @@ class JobTestCase(APITestCase):
                 continue
             else:
                 self.assertEqual(self.update_data[key], response_dict[key])
-
 
     def test_destroy(self):
         response = self.client.delete(f'/api/users/jobs/1')

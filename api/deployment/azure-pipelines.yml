@@ -52,14 +52,23 @@ jobs:
 
   - script: python -m pip install --upgrade pip setuptools wheel
     displayName: 'Install tools'
- 
-  - script: pip install Django djangorestframework django-filter Pillow psycopg2 bcrypt django-cors-headers channels channels-redis sendgrid
-    displayName: 'Install requirements'
-  #- task: PythonScript@0
-   # inputs:
-    # scriptPath: 'api/src/manage.py'
-      #arguments: 'test'
 
+  - script: pip install -r api/src/requirements.txt
+    displayName: 'Install requirements'
+
+  - script: |
+      cd api/src
+      pytest --junitxml=../../test-results.xml
+    displayName: 'Run tests'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'test-results.xml'
+      failTaskOnFailedTests: true
+      testRunTitle: '$(Agent.OS) - $(Build.DefinitionName) - Python $(python.version)'
+    condition: succeededOrFailed()
+     
   - task: CopyFiles@2
     inputs:
       SourceFolder: 'api/src'
@@ -71,3 +80,4 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+

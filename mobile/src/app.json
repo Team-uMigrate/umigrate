@@ -1,12 +1,13 @@
 {
   "expo": {
     "name": "umigrate",
+    "description": "The uMigrate Mobile App!",
     "slug": "umigrate",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/favicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

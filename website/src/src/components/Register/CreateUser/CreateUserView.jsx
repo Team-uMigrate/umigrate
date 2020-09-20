@@ -1,12 +1,21 @@
 import React from "react";
 import { Alert, Button, Col, Form } from "react-bootstrap";
-import { PROGRAM_CHOICES, REGION_CHOICES, SEX_CHOICES, TERM_CHOICES } from "../../../constants/misc/resourceChoices";
-import "./CreateUserStyles.css"
+import {
+  PROGRAM_CHOICES,
+  REGION_CHOICES,
+  SEX_CHOICES,
+  TERM_CHOICES,
+} from "../../../constants/misc/resourceChoices";
+import "./CreateUserStyles.css";
 
-const CreateUserView = ({handleSubmit, handleImageUpload, imagePreviewUrl}) => {
+const CreateUserView = ({
+  handleSubmit,
+  handleImageUpload,
+  imagePreviewUrl,
+}) => {
   return (
     <div>
-      <Alert className="headerAlertStyle" variant='success'>
+      <Alert className="headerAlertStyle" variant="success">
         👋 Hey there! Let's try to get you up and flying! 🦆
       </Alert>
       <Form className="formStyle" onSubmit={handleSubmit}>
@@ -41,15 +50,19 @@ const CreateUserView = ({handleSubmit, handleImageUpload, imagePreviewUrl}) => {
         <Form.Row>
           <Form.Group as={Col} controlId="profilePicture">
             <Form.Label>Profile Picture</Form.Label>
-            <Form.Control type="file"
-                          onChange={handleImageUpload}/>
+            <Form.Control type="file" onChange={handleImageUpload} />
           </Form.Group>
 
           <div className="imgPreviewStyle">
-            {imagePreviewUrl === ""
-              ? <span>Upload an Image!</span>
-              : <img src={imagePreviewUrl} style={{height: "100%", width: "100%"}} alt="image not found"/>
-            }
+            {imagePreviewUrl === "" ? (
+              <span>Upload an Image!</span>
+            ) : (
+              <img
+                src={imagePreviewUrl}
+                style={{ height: "100%", width: "100%" }}
+                alt="image not found"
+              />
+            )}
           </div>
         </Form.Row>
 
@@ -100,7 +113,11 @@ const CreateUserView = ({handleSubmit, handleImageUpload, imagePreviewUrl}) => {
         <Form.Row>
           <Form.Group as={Col} controlId="bio">
             <Form.Label>Bio</Form.Label>
-            <Form.Control as="textarea" rows="8" placeholder="I long walks around UWP, hissing at stupid first years stuck in a build without air conditioning and proper water." />
+            <Form.Control
+              as="textarea"
+              rows="8"
+              placeholder="I long walks around UWP, hissing at stupid first years stuck in a build without air conditioning and proper water."
+            />
           </Form.Group>
         </Form.Row>
 
@@ -109,8 +126,7 @@ const CreateUserView = ({handleSubmit, handleImageUpload, imagePreviewUrl}) => {
         </Button>
       </Form>
     </div>
-  )
+  );
 };
 
 export default CreateUserView;
-

@@ -10,19 +10,25 @@ const RegistrationPage = () => {
   if (auth.isAuthenticated === true) {
     return (
       <switch>
-        <Route path="/register/create-user"><CreateUserContainer /></Route>
-        <Redirect from="/" to="/register/create-user"><CreateUserContainer /></Redirect>
+        <Route path="/register/create-user">
+          <CreateUserContainer />
+        </Route>
+        <Redirect from="/" to="/register/create-user">
+          <CreateUserContainer />
+        </Redirect>
       </switch>
-    )
-  }
-
-  else {
+    );
+  } else {
     return (
       <switch>
-        <Route path="/register/verification"><VerificationContainer /></Route>
-        <Redirect from="/" to="/register/verification"><VerificationContainer /></Redirect>
+        <Route path="/register/verification">
+          <VerificationContainer />
+        </Route>
+        <Redirect from="/" to="/register/verification">
+          <VerificationContainer />
+        </Redirect>
       </switch>
-    )
+    );
   }
 };
 

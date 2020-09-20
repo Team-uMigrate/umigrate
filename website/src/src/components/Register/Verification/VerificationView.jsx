@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import "./VerificationStyles.css"
+import "./VerificationStyles.css";
 
 const VerificationView = ({ handleSubmit }) => {
   return (
@@ -9,7 +9,11 @@ const VerificationView = ({ handleSubmit }) => {
         <Form.Row>
           <Form.Group as={Col} controlId="email">
             <Form.Label>Your Waterloo Email</Form.Label>
-            <Form.Control required type="email" placeholder="quack3@uwaterloo.ca" />
+            <Form.Control
+              required
+              type="email"
+              placeholder="quack3@uwaterloo.ca"
+            />
           </Form.Group>
         </Form.Row>
         <Form.Row>
@@ -31,7 +35,7 @@ const VerificationView = ({ handleSubmit }) => {
         </Button>
       </Form>
     </div>
-  )
+  );
 };
 
 export default VerificationView;

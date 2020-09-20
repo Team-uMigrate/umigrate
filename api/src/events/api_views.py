@@ -9,9 +9,8 @@ from .serializers import EventSerializer, EventCommentSerializer
 class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price',
-                     'street_address', 'city', 'division', 'country', ]
-    search_fields = ['title', 'city', 'division', 'country', ]
+    filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price_scale', ]
+    search_fields = ['title', ]
 
 
 # HTTP GET: Returns an event
@@ -41,40 +40,36 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     parent_string = 'event'
 
 
-# HTTP GET: Returns true or false if a user has liked an event
 # HTTP POST: Like or unlike an event
 class EventLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked an event comment
 # HTTP POST: Like or unlike an event comment
 class EventCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
         return EventComment.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user is interested in going to an event
 # HTTP POST: Sets or removes a user's status to interested
 class EventInterestedUser(GenericUserExtension):
-    response_string = 'interested'
+    field_string = 'interested'
 
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).interested_users
 
 
-# HTTP GET: Returns true or false if a user is attending an event
 # HTTP POST: Sets or removes a user's status to attending
 class EventAttendingUser(GenericUserExtension):
-    response_string = 'attending'
+    field_string = 'attending'
 
     @staticmethod
     def field_func(obj_id):

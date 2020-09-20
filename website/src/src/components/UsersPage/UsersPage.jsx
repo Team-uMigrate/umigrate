@@ -13,7 +13,7 @@ class UsersPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

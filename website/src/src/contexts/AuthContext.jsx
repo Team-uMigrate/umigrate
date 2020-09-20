@@ -1,7 +1,9 @@
 import React, { Component, createContext } from "react";
-import Axios from "axios";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../constants/urls/apiUrls";
-import { USER_DATA } from "../constants/misc/localStorageKeys";
+import {
+  ProfileEndpoint,
+  getAuthToken,
+  setAuthToken,
+} from "../utils/endpoints";
 
 const AuthContext = createContext();
 
@@ -11,32 +13,36 @@ class AuthContextProvider extends Component {
     isAuthenticated: null,
     isRegistered: null,
     setAuthenticated: (isAuth) => {
-      this.setState({isAuthenticated: isAuth})
+      this.setState({ isAuthenticated: isAuth });
     },
     setRegistered: (isReg) => {
-      this.setState({isRegistered: isReg})
-    }
+      this.setState({ isRegistered: isReg });
+    },
   };
 
   componentDidMount = () => {
-    Axios.get(BASE_URL + USER_PROFILE_ENDPOINT)
-      .then((response) => {
-        this.setState({isAuthenticated: true});
-        if (response.data.first_name === "") {
-          this.setState({isRegistered: false});
+    const authToken = getAuthToken();
+
+    if (authToken !== null) {
+      setAuthToken(authToken);
+
+      ProfileEndpoint.get(
+        (response) => {
+          if (response.data.first_name === "") {
+            this.setState({ isAuthenticated: true, isRegistered: false });
+          } else {
+            this.setState({ isAuthenticated: true, isRegistered: true });
+          }
+        },
+        (error) => {
+          console.log(error);
+          console.log(error.response);
+          this.setState({ isAuthenticated: false, isRegistered: false });
         }
-        else {
-          localStorage.setItem(USER_DATA, JSON.stringify(response.data));
-          this.setState({isRegistered: true});
-        }
-      })
-      // Todo: Check for specific error when receiving the 'not authenticated' message
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-        this.setState({isAuthenticated: false});
-        this.setState({isRegistered: false});
-      });
+      );
+    } else {
+      this.setState({ isAuthenticated: false, isRegistered: false });
+    }
   };
 
   render() {

@@ -8,6 +8,6 @@ urlpatterns = [
     path('<int:id>', PostRetrieveUpdateDestroy.as_view()),
     path('<int:id>/comments/', PostCommentListCreate.as_view()),
     path('comments/<int:id>', PostCommentRetrieveUpdateDestroy.as_view()),
-    path('<int:id>/like', PostLike.as_view()),
-    path('comments/<int:id>/like', PostCommentLike.as_view()),
+    path('like', PostLike.as_view()),
+    path('comments/like', PostCommentLike.as_view()),
 ]

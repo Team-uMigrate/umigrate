@@ -7,8 +7,8 @@ class RoomContextProvider extends Component {
   state = {
     room: null,
     setRoom: (room) => {
-      this.setState({room: room})
-    }
+      this.setState({ room: room });
+    },
   };
 
   render() {

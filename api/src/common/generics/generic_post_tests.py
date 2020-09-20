@@ -30,6 +30,10 @@ class GenericPostTestCase:
         'is_interested',
         'is_attending',
         'members',
+        'likes',
+        'comments',
+        'interested',
+        'attending',
     ]
 
     def setUp(self):
@@ -153,6 +157,7 @@ class GenericCommentTestCase:
         'liked_users',
         'tagged_users',
         'is_liked',
+        'likes',
     ]
 
     def setUp(self):

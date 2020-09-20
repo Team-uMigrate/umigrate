@@ -29,7 +29,7 @@ class UserTestCase(APITestCase):
         obj['birthday'] = obj['birthday'].strftime('%Y-%m-%d')
         obj['photo'] = None
         for key in response_dict:
-            if key == 'is_connected' or key == 'is_blocked':
+            if key == 'is_connected' or key == 'is_blocked' or key == 'connected':
                 continue
             self.assertEqual(obj[key], response_dict[key])
 

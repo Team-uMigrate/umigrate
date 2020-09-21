@@ -168,10 +168,6 @@ export class ListingCommentsEndpoint extends BaseEndpoint {
   static endpoint = "/api/listings/comments/";
 }
 
-export class HousingEndpoint extends BaseEndpoint {
-  static endpoint = "/api/housing/"
-}
-
 export class JobsEndpoint extends BaseEndpoint {
   static endpoint = "/api/jobs/";
 }

@@ -2,18 +2,20 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from drf_yasg.utils import swagger_auto_schema
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Room, Message, IsCreatorOrMemberReadOnly
 from .serializers import RoomSerializer, MessageSerializer
 from users.models import CustomUser
+from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of rooms that the user can see
 # HTTP POST: Creates a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomListCreate(GenericPostListCreate):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -35,19 +37,15 @@ class RoomListCreate(GenericPostListCreate):
 
         return response
 
-    @swagger_auto_schema(tags=['Messaging'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
 
 # HTTP GET: Returns a room
 # HTTP PUT: Updates a room
 # HTTP PATCH: Partially updates a room
 # HTTP DELETE: Deletes a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -65,24 +63,9 @@ class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
         return response
 
-    @swagger_auto_schema(tags=['Messaging'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def put(self, request, *args, **kwargs):
-        return super().put(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def patch(self, request, *args, **kwargs):
-        return super().patch(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def delete(self, request, *args, **kwargs):
-        return super().delete(request, *args, **kwargs)
-
 
 # HTTP GET: Returns a list of messages for a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
 class MessageList(ListAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
@@ -101,19 +84,16 @@ class MessageList(ListAPIView):
         except ObjectDoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-    @swagger_auto_schema(tags=['Messaging'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
 
 # HTTP GET: Returns the members of a room
 # HTTP POST: Add or remove members from a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomMembers(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
 
-    @swagger_auto_schema(tags=['Messaging'])
     def get(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])
@@ -122,7 +102,6 @@ class RoomMembers(APIView):
 
         return Response(room.members.values('id'))
 
-    @swagger_auto_schema(tags=['Messaging'])
     def post(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])

@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 from common.generics.generic_post_api_views import GenericUserExtension
 from .models import CustomUser
 from .serializers import UserSerializer
-from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of users
@@ -23,10 +22,6 @@ class UserList(ListAPIView):
     def list(self, request, *args, **kwargs):
         return ListAPIView.list(self, request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['users'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-        
 
 # HTTP GET: Returns a user
 class UserRetrieve(RetrieveAPIView):
@@ -37,7 +32,6 @@ class UserRetrieve(RetrieveAPIView):
     ]
     lookup_field = 'id'
 
-    @swagger_auto_schema(tags=['users'])
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 

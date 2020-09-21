@@ -9,7 +9,6 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Room, Message, IsCreatorOrMemberReadOnly
 from .serializers import RoomSerializer, MessageSerializer
 from users.models import CustomUser
-from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of rooms that the user can see
@@ -35,14 +34,6 @@ class RoomListCreate(GenericPostListCreate):
 
         return response
 
-    @swagger_auto_schema(tags=['Messaging'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
 
 # HTTP GET: Returns a room
 # HTTP PUT: Updates a room
@@ -65,22 +56,6 @@ class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
         return response
 
-    @swagger_auto_schema(tags=['Messaging'])
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def put(self, request, *args, **kwargs):
-        return super().put(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def patch(self, request, *args, **kwargs):
-        return super().patch(request, *args, **kwargs)
-
-    @swagger_auto_schema(tags=['Messaging'])
-    def delete(self, request, *args, **kwargs):
-        return super().delete(request, *args, **kwargs)
-
 
 # HTTP GET: Returns a list of messages for a room
 class MessageList(ListAPIView):
@@ -101,7 +76,7 @@ class MessageList(ListAPIView):
         except ObjectDoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-    @swagger_auto_schema(tags=['Messaging'])
+    @swagger_auto_schema(tags=['messaging'])
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
@@ -113,7 +88,7 @@ class RoomMembers(APIView):
         IsAuthenticated,
     ]
 
-    @swagger_auto_schema(tags=['Messaging'])
+    @swagger_auto_schema(tags=['messaging'])
     def get(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])
@@ -122,7 +97,7 @@ class RoomMembers(APIView):
 
         return Response(room.members.values('id'))
 
-    @swagger_auto_schema(tags=['Messaging'])
+    @swagger_auto_schema(tags=['messaging'])
     def post(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])

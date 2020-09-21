@@ -23,7 +23,7 @@ class UserList(ListAPIView):
     def list(self, request, *args, **kwargs):
         return ListAPIView.list(self, request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Users'])
+    @swagger_auto_schema(tags=['users'])
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
         
@@ -37,7 +37,7 @@ class UserRetrieve(RetrieveAPIView):
     ]
     lookup_field = 'id'
 
-    @swagger_auto_schema(tags=['Users'])
+    @swagger_auto_schema(tags=['users'])
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
@@ -50,10 +50,6 @@ class ConnectUser(GenericUserExtension):
     def field_func(obj_id):
         return CustomUser.objects.get(id=obj_id).connected_users
 
-    @swagger_auto_schema(tags=['Users'])
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
 
 # HTTP POST: Block or unblock another user
 class BlockUser(GenericUserExtension):
@@ -62,7 +58,3 @@ class BlockUser(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return CustomUser.objects.get(id=obj_id).blocked_users
-
-    @swagger_auto_schema(tags=['Users'])
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)

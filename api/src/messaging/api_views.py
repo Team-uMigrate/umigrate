@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from drf_yasg.utils import swagger_auto_schema
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -76,6 +76,10 @@ class MessageList(ListAPIView):
         except ObjectDoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(tags=['messaging'])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
 
 # HTTP GET: Returns the members of a room
 # HTTP POST: Add or remove members from a room
@@ -84,6 +88,7 @@ class RoomMembers(APIView):
         IsAuthenticated,
     ]
 
+    @swagger_auto_schema(tags=['messaging'])
     def get(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])
@@ -92,6 +97,7 @@ class RoomMembers(APIView):
 
         return Response(room.members.values('id'))
 
+    @swagger_auto_schema(tags=['messaging'])
     def post(self, request, *args, **kwargs):
         try:
             room = Room.objects.get(id=kwargs['id'])

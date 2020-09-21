@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .generic_post_models import IsCreatorOrReadOnly
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of generic resource
@@ -22,6 +23,7 @@ class GenericPostListCreate(ListCreateAPIView):
         IsCreatorOrReadOnly,
     ]
     filter_backends = [DjangoFilterBackend, SearchFilter]
+    tag = None
 
     def create(self, request, *args, **kwargs):
         if isinstance(request.data, QueryDict):
@@ -29,6 +31,14 @@ class GenericPostListCreate(ListCreateAPIView):
         request.data['creator'] = request.user.id
 
         return ListCreateAPIView.create(self, request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 # HTTP GET: Returns a generic resource
@@ -45,6 +55,7 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         IsCreatorOrReadOnly,
     ]
     lookup_field = 'id'
+    tag = None
 
     def update(self, request, *args, **kwargs):
         if isinstance(request.data, QueryDict):
@@ -53,12 +64,29 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
         return RetrieveUpdateDestroyAPIView.update(self, request, *args, **kwargs)
 
+    @swagger_auto_schema(tags=[tag])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
+
 
 # HTTP GET: Returns a list of comments for the generic resource with the ID matching the ID in the URL
 # HTTP POST: Creates a comment for the generic resource with the ID matching the ID in the URL
 class GenericCommentListCreate(GenericPostListCreate):
     # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
     parent_string = None
+    tag = None
 
     def list(self, request, *args, **kwargs):
         self.queryset = self.queryset.model.objects.filter(**{self.parent_string: kwargs['id']})
@@ -71,6 +99,14 @@ class GenericCommentListCreate(GenericPostListCreate):
 
         return GenericPostListCreate.create(self, request, *args, **kwargs)
 
+    @swagger_auto_schema(tags=[tag])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 # HTTP GET: Returns a generic resource comment
 # HTTP PUT: Updates a generic resource comment
@@ -79,6 +115,7 @@ class GenericCommentListCreate(GenericPostListCreate):
 class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
     parent_string = None
+    tag = None
 
     def update(self, request, *args, **kwargs):
         if isinstance(request.data, QueryDict):
@@ -86,6 +123,22 @@ class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
         request.data[self.parent_string] = self.get_object().__dict__[f'{self.parent_string}_id']
 
         return GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=[tag])
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
 
 
 # HTTP POST: Adds or removes a user from a related field on a model
@@ -97,7 +150,9 @@ class GenericUserExtension(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
+    tag = None
 
+    @swagger_auto_schema(tags=[tag])
     def post(self, request, *args, **kwargs):
         error_response = self.validate_data(request.data)
         if error_response != {}:

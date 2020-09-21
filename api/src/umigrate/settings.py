@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Rest framework apps
     'rest_framework',
     'django_filters',
+    'drf_yasg',
 
     # User registration and authentication apps
     'rest_framework.authtoken',

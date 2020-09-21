@@ -8,10 +8,14 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Room, Message, IsCreatorOrMemberReadOnly
 from .serializers import RoomSerializer, MessageSerializer
 from users.models import CustomUser
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of rooms that the user can see
 # HTTP POST: Creates a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomListCreate(GenericPostListCreate):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -38,6 +42,10 @@ class RoomListCreate(GenericPostListCreate):
 # HTTP PUT: Updates a room
 # HTTP PATCH: Partially updates a room
 # HTTP DELETE: Deletes a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -57,6 +65,7 @@ class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 
 # HTTP GET: Returns a list of messages for a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
 class MessageList(ListAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
@@ -78,6 +87,8 @@ class MessageList(ListAPIView):
 
 # HTTP GET: Returns the members of a room
 # HTTP POST: Add or remove members from a room
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Messaging']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Messaging']))
 class RoomMembers(APIView):
     permission_classes = [
         IsAuthenticated,

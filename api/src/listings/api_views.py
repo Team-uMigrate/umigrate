@@ -4,10 +4,14 @@ from .models import Listing, ListingComment
 from .serializers import ListingSerializer, ListingCommentSerializer
 from django_filters import rest_framework as filters
 from listings.filters import ListingFilter
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of listings
 # HTTP POST: Creates a listing
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingListCreate(GenericPostListCreate):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
@@ -20,6 +24,10 @@ class ListingListCreate(GenericPostListCreate):
 # HTTP PUT: Updates a listing
 # HTTP PATCH: Partially updates a listing
 # HTTP DELETE: Deletes a listing
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
@@ -27,6 +35,8 @@ class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentListCreate(GenericCommentListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
@@ -37,6 +47,10 @@ class ListingCommentListCreate(GenericCommentListCreate):
 # HTTP PUT: Updates a listing comment
 # HTTP PATCH: Partially updates a listing comment
 # HTTP DELETE: Deletes a listing comment
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
@@ -44,6 +58,7 @@ class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
 
 
 # HTTP POST: Like or unlike a listing
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingLike(GenericUserExtension):
     field_string = 'like'
 
@@ -53,6 +68,7 @@ class ListingLike(GenericUserExtension):
 
 
 # HTTP POST: Like or unlike a listing comment
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentLike(GenericUserExtension):
     field_string = 'like'
 

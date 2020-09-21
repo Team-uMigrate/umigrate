@@ -2,6 +2,7 @@ from common.generics.generic_post_api_views import GenericPostListCreate, Generi
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Event, EventComment
 from .serializers import EventSerializer, EventCommentSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of events
@@ -12,6 +13,14 @@ class EventListCreate(GenericPostListCreate):
     filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price_scale', ]
     search_fields = ['title', ]
 
+    @swagger_auto_schema(tags=['Events'])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 # HTTP GET: Returns an event
 # HTTP PUT: Updates an event
@@ -21,6 +30,22 @@ class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+    @swagger_auto_schema(tags=['Events'])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
+
 
 # HTTP GET: Returns a list of event comments for the event with the ID that matches the ID in the URL
 # HTTP POST: Creates a event comment for the event with the ID that matches the ID in the URL
@@ -28,6 +53,14 @@ class EventCommentListCreate(GenericCommentListCreate):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
     parent_string = 'event'
+
+    @swagger_auto_schema(tags=['Events'])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 # HTTP GET: Returns an event comment
@@ -39,6 +72,22 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     serializer_class = EventCommentSerializer
     parent_string = 'event'
 
+    @swagger_auto_schema(tags=['Events'])
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
+
+    @swagger_auto_schema(tags=['Events'])
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
+
 
 # HTTP POST: Like or unlike an event
 class EventLike(GenericUserExtension):
@@ -47,6 +96,10 @@ class EventLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).liked_users
+
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 # HTTP POST: Like or unlike an event comment
@@ -57,6 +110,10 @@ class EventCommentLike(GenericUserExtension):
     def field_func(obj_id):
         return EventComment.objects.get(id=obj_id).liked_users
 
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 # HTTP POST: Sets or removes a user's status to interested
 class EventInterestedUser(GenericUserExtension):
@@ -66,6 +123,10 @@ class EventInterestedUser(GenericUserExtension):
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).interested_users
 
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 # HTTP POST: Sets or removes a user's status to attending
 class EventAttendingUser(GenericUserExtension):
@@ -74,3 +135,7 @@ class EventAttendingUser(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).attending_users
+
+    @swagger_auto_schema(tags=['Events'])
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)

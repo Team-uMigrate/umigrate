@@ -47,14 +47,5 @@ class GenericCommentModel(models.Model):
         abstract = True
 
     def __str__(self):
-<<<<<<< Updated upstream
         return f'{self.content}'
-=======
-        return f'{self.comment_body}'
 
-    @classmethod
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
-        post_save.connect(post_comment_post_save, cls)
-
->>>>>>> Stashed changes

@@ -51,11 +51,11 @@ steps:
     command: 'install'
     workingDir: 'website/src'
 
-#- task: Npm@1
-#  inputs:
-#    command: 'custom'
-#    workingDir: 'website/src'
-#    customCommand: 'test -- a q'
+- task: Npm@1
+ inputs:
+   command: 'custom'
+   workingDir: 'website/src'
+   customCommand: 'test -- a q'
 
 - task: Npm@1
   inputs:

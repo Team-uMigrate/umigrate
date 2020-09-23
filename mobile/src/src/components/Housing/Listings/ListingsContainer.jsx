@@ -54,6 +54,6 @@ export default ListingContainer;
 const styles = StyleSheet.create({
     listingContainer: {
         flexDirection: "column",
-        marginBottom: "15%" // To make sure a bit of the bottom post
+        marginBottom: "15%" // To make sure a bit of the bottom post isn't cut off
     }
 });

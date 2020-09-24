@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView"
-import {ListingsEndpoint} from "../../../utils/endpoints";
+import { ListingsEndpoint, UsersEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component{
 
@@ -12,7 +12,8 @@ class ListingContainer extends Component{
                 listings: this.state.listings.concat(newListings),
             });
         },
-        page: 1
+        page: 1,
+        hasMoreListings: true
     };
 
     constructor(props) {
@@ -25,9 +26,11 @@ class ListingContainer extends Component{
 
         ListingsEndpoint.list(
             page,
-            filters,             //TODO add filter functionality and proper success/failure handling
+            filters,             //TODO add filter functionality and proper failure handling
             (response) => {
-                console.log(response.data);
+                if (response.data.next === null){
+                    this.state.hasMoreListings = false;
+                }
                 this.state.extendListings(response.data.results);
             },
             (error) => {console.log("error: ", error)}
@@ -46,9 +49,10 @@ class ListingContainer extends Component{
                     keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
                     renderItem={this.renderItem}
                     onEndReached={ () => {
-                            console.log("end reached!");
-                            this.state.page += 1;
-                            this.fetchListings(this.state.page, {});
+                            if (this.state.hasMoreListings) {
+                                this.state.page += 1;
+                                this.fetchListings(this.state.page, {});
+                            }
                         }
                     }
                 />

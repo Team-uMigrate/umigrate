@@ -1,8 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Dimensions, Image} from "react-native";
 import { Card, Title, Paragraph } from 'react-native-paper';
 
 const ListingView = (props) => {
+
+    const {width, height} = Dimensions.get('window');
 
     return (
         <Card style={styles.container}>
@@ -10,6 +12,11 @@ const ListingView = (props) => {
                 <Title style={styles.title}>{props.title}</Title>
                 <Paragraph>{props.content}</Paragraph>
                 <Paragraph>{"$" + props.price}</Paragraph>
+                <Image source={{uri: props.photo}}
+                       style={ (props.photo===null)?
+                           {width: 0, height:0} : {width: 0.88*width, height: 300}
+                       }
+                />
             </Card.Content>
         </Card>
     )

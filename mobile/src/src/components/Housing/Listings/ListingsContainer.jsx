@@ -8,8 +8,11 @@ class ListingContainer extends Component{
     state = {
         listings: [],
         extendListings: (newListings) => {
-            this.setState({listings: this.state.listings.concat(newListings)});
-        }
+            this.setState({
+                listings: this.state.listings.concat(newListings),
+            });
+        },
+        page: 1
     };
 
     constructor(props) {
@@ -26,7 +29,6 @@ class ListingContainer extends Component{
             (response) => {
                 console.log(response.data);
                 this.state.extendListings(response.data.results);
-                console.log("after adding the array from the API call:", this.state.listings);
             },
             (error) => {console.log("error: ", error)}
         );
@@ -41,8 +43,14 @@ class ListingContainer extends Component{
             <View style={styles.listingContainer}>
                 <FlatList
                     data={this.state.listings}
-                    keyExtractor={(item) => {item.id}}
+                    keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
                     renderItem={this.renderItem}
+                    onEndReached={ () => {
+                            console.log("end reached!");
+                            this.state.page += 1;
+                            this.fetchListings(this.state.page, {});
+                        }
+                    }
                 />
             </View>
         )

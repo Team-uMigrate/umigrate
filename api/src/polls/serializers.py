@@ -1,4 +1,4 @@
-from common.generics.generic_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer
+from common.generics.generic_post_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer
 from .models import Poll, PollComment, Option, Vote
 
 

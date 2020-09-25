@@ -58,3 +58,15 @@ class UserDetailSerializer(GenericSerializer):
             'groups',
             'user_permissions',
         ]
+
+
+# Serializes the user model with basic information
+class BasicUserSerializer(GenericSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            'id',
+            'preferred_name',
+            'photo',
+        ]

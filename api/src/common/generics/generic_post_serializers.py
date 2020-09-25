@@ -19,6 +19,10 @@ class GenericPostSerializer(GenericSerializer):
     def get_comments(self, instance):
         return instance.comment_set.count()
 
+    def create(self, validated_data):
+        instance = self.Meta.model.objects.create(creator_id=self.context['request'].user.id, **validated_data)
+        return instance
+
 
 # Serializes a generic comment model
 class GenericCommentSerializer(GenericSerializer):
@@ -31,3 +35,7 @@ class GenericCommentSerializer(GenericSerializer):
 
     def get_likes(self, instance):
         return instance.liked_users.count()
+
+    def create(self, validated_data):
+        instance = self.Meta.model.objects.create(creator_id=self.context['request'].user.id, **validated_data)
+        return instance

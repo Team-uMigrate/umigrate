@@ -1,7 +1,8 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Listing, ListingComment
-from .serializers import ListingSerializer, ListingCommentSerializer
+from .serializers import ListingSerializer, ListingCommentSerializer, ListingDetailSerializer, \
+    ListingCommentDetailSerializer
 from django_filters import rest_framework as filters
 from listings.filters import ListingFilter
 from django.utils.decorators import method_decorator
@@ -15,6 +16,7 @@ from drf_yasg.utils import swagger_auto_schema
 class ListingListCreate(GenericPostListCreate):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
     search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ListingFilter
@@ -31,6 +33,7 @@ class ListingListCreate(GenericPostListCreate):
 class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
 
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
@@ -40,6 +43,7 @@ class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 class ListingCommentListCreate(GenericCommentListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
+    detail_serializer_class = ListingCommentDetailSerializer
     parent_string = 'listing'
 
 
@@ -54,6 +58,7 @@ class ListingCommentListCreate(GenericCommentListCreate):
 class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
+    detail_serializer_class = ListingCommentDetailSerializer
     parent_string = 'listing'
 
 

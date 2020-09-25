@@ -14,6 +14,7 @@ from drf_yasg.utils import swagger_auto_schema
 class JobListCreate(GenericCommentListCreate):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+    detail_serializer_class = JobSerializer
     parent_string = 'creator'
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filter_fields = ['datetime_created', 'job_type', 'start_date', 'end_date', ]
@@ -31,4 +32,5 @@ class JobListCreate(GenericCommentListCreate):
 class JobRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+    detail_serializer_class = JobSerializer
     parent_string = 'creator'

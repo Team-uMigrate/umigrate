@@ -1,4 +1,5 @@
-from common.generics.generic_post_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer
+from common.generics.generic_post_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer, \
+    GenericPostDetailSerializer, GenericCommentDetailSerializer
 from .models import Poll, PollComment, Option, Vote
 
 
@@ -34,9 +35,19 @@ class PollSerializer(GenericPostSerializer):
         ]
 
 
+# Serialize the poll model with detail
+class PollDetailSerializer(PollSerializer, GenericPostDetailSerializer):
+    pass
+
+
 # Serializes the poll comment model
 class PollCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = PollComment
         fields = '__all__'
+
+
+# Serialize the poll comment model with detail
+class PollCommentDetailSerializer(PollCommentSerializer, GenericCommentDetailSerializer):
+    pass

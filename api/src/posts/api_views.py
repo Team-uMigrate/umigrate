@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Post, PostComment
-from .serializers import PostSerializer, PostCommentSerializer
+from .serializers import PostSerializer, PostCommentSerializer, PostDetailSerializer, PostCommentDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -13,6 +13,7 @@ from drf_yasg.utils import swagger_auto_schema
 class PostListCreate(GenericPostListCreate):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    detail_serializer_class = PostDetailSerializer
     filter_fields = ['region', 'datetime_created', 'creator', ]
     search_fields = ['title', ]
 
@@ -28,6 +29,7 @@ class PostListCreate(GenericPostListCreate):
 class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    detail_serializer_class = PostDetailSerializer
 
 
 # HTTP GET: Returns a list of post comments for the post with the ID that matches the ID in the URL
@@ -37,6 +39,7 @@ class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 class PostCommentListCreate(GenericCommentListCreate):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    detail_serializer_class = PostCommentDetailSerializer
     parent_string = 'post'
 
 
@@ -51,6 +54,7 @@ class PostCommentListCreate(GenericCommentListCreate):
 class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    detail_serializer_class = PostCommentDetailSerializer
     parent_string = 'post'
 
 

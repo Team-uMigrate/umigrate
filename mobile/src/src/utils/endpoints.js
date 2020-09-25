@@ -338,3 +338,98 @@ export class ProfileEndpoint {
       });
   }
 }
+
+export class Choices {
+  pronouns = [
+    'None',
+    'He/Him',
+    'She/Her',
+    'They/Them',
+    'Other',
+  ]
+  seasons = [
+    'Winter',
+    'Spring',
+    'Fall',
+  ]
+  prices = [
+    'Free',
+    '$',
+    '$$',
+    '$$$',
+    '$$$$',
+    '$$$$$',
+  ]
+  regions = [
+    'Waterloo',
+    'Toronto',
+    'Brampton',
+    'Ottawa',
+  ]
+  programs = [
+    'Unknown',
+    'Engineering',
+    'Arts',
+    'Mathematics',
+    'Science',
+    'Applied Health Sciences',
+    'Environment',
+    'Theology',
+    'Graduate Studies',
+    'Independent Studies',
+    'Interdisciplinary',
+    'Conrad Grebel',
+    'Renison',
+    'St. Pauls',
+    'St. Jeromes',
+  ]
+  terms = [
+    '1A',
+    '1B',
+    'W1',
+    '2A',
+    'W2',
+    '2B',
+    'W3',
+    '3A',
+    'W4',
+    '3B',
+    'W5',
+    'W6',
+    '4A',
+    '4B',
+  ]
+  adCategories = [
+    'Electronics',
+    'Books',
+    'Food',
+    'Other',
+  ]
+  listingCategories = [
+    'Condominium',
+    'Townhouse',
+    'Apartment',
+  ]
+  notificationLevels = [
+    'All',
+    'Following',
+    'None',
+  ]
+  currencies = [
+    'CAD',
+    'USD',
+  ]
+  languages = [
+    'English',
+    'French',
+  ]
+  jobTypes = [
+    'Full-time',
+    'Internship',
+  ]
+  roomPrivacy = [
+    'Public',
+    'Private',
+    'Direct Messaging',
+  ]
+}

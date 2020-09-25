@@ -6,6 +6,8 @@ from .generic_serializers import GenericSerializer
 # Serializes a generic resource model
 class GenericPostSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
+    liked_users = BasicUserSerializer(read_only=True, many=True)
+    tagged_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
@@ -27,6 +29,8 @@ class GenericPostSerializer(GenericSerializer):
 # Serializes a generic comment model
 class GenericCommentSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
+    liked_users = BasicUserSerializer(read_only=True, many=True)
+    tagged_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
 

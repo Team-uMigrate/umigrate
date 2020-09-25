@@ -24,31 +24,3 @@ class GenericSerializer(serializers.ModelSerializer):
             fields = [field for field in fields if field not in self.Meta.exclude_fields]
         
         return fields
-
-
-# Serializes a generic resource model
-class GenericPostSerializer(GenericSerializer):
-    is_liked = serializers.SerializerMethodField()
-    likes = serializers.SerializerMethodField()
-    comments = serializers.SerializerMethodField()
-
-    def get_is_liked(self, instance):
-        return instance.liked_users.filter(id=self.context['request'].user.id).exists()
-
-    def get_likes(self, instance):
-        return instance.liked_users.count()
-
-    def get_comments(self, instance):
-        return instance.comment_set.count()
-
-
-# Serializes a generic comment model
-class GenericCommentSerializer(GenericSerializer):
-    is_liked = serializers.SerializerMethodField()
-    likes = serializers.SerializerMethodField()
-
-    def get_is_liked(self, instance):
-        return instance.liked_users.filter(id=self.context['request'].user.id).exists()
-
-    def get_likes(self, instance):
-        return instance.liked_users.count()

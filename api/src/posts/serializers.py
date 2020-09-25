@@ -1,4 +1,4 @@
-from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
+from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer
 from .models import Post, PostComment
 
 

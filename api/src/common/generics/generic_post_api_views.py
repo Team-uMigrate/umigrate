@@ -15,8 +15,9 @@ from .generic_post_models import IsCreatorOrReadOnly
 class GenericPostListCreate(ListCreateAPIView):
     # Override required for queryset; it should be a model query
     queryset = None
-    # Override required for serializer_class; it should be a model class
+    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
     serializer_class = None
+    detail_serializer_class = None
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
@@ -30,6 +31,11 @@ class GenericPostListCreate(ListCreateAPIView):
 
         return ListCreateAPIView.create(self, request, *args, **kwargs)
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return self.detail_serializer_class
+        return self.serializer_class
+
 
 # HTTP GET: Returns a generic resource
 # HTTP PUT: Updates a generic resource
@@ -38,8 +44,9 @@ class GenericPostListCreate(ListCreateAPIView):
 class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     # Override required for queryset; it should be a model query
     queryset = None
-    # Override required for serializer_class; it should be a model class
+    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
     serializer_class = None
+    detail_serializer_class = None
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
@@ -52,6 +59,11 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         request.data['creator'] = request.user.id
 
         return RetrieveUpdateDestroyAPIView.update(self, request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return self.detail_serializer_class
+        return self.serializer_class
 
 
 # HTTP GET: Returns a list of comments for the generic resource with the ID matching the ID in the URL

@@ -340,96 +340,48 @@ export class ProfileEndpoint {
 }
 
 export class Choices {
-  pronouns = [
-    'None',
-    'He/Him',
-    'She/Her',
-    'They/Them',
-    'Other',
-  ]
-  seasons = [
-    'Winter',
-    'Spring',
-    'Fall',
-  ]
-  prices = [
-    'Free',
-    '$',
-    '$$',
-    '$$$',
-    '$$$$',
-    '$$$$$',
-  ]
-  regions = [
-    'Waterloo',
-    'Toronto',
-    'Brampton',
-    'Ottawa',
-  ]
-  programs = [
-    'Unknown',
-    'Engineering',
-    'Arts',
-    'Mathematics',
-    'Science',
-    'Applied Health Sciences',
-    'Environment',
-    'Theology',
-    'Graduate Studies',
-    'Independent Studies',
-    'Interdisciplinary',
-    'Conrad Grebel',
-    'Renison',
-    'St. Pauls',
-    'St. Jeromes',
-  ]
-  terms = [
-    '1A',
-    '1B',
-    'W1',
-    '2A',
-    'W2',
-    '2B',
-    'W3',
-    '3A',
-    'W4',
-    '3B',
-    'W5',
-    'W6',
-    '4A',
-    '4B',
-  ]
-  adCategories = [
-    'Electronics',
-    'Books',
-    'Food',
-    'Other',
-  ]
-  listingCategories = [
-    'Condominium',
-    'Townhouse',
-    'Apartment',
-  ]
-  notificationLevels = [
-    'All',
-    'Following',
-    'None',
-  ]
-  currencies = [
-    'CAD',
-    'USD',
-  ]
-  languages = [
-    'English',
-    'French',
-  ]
-  jobTypes = [
-    'Full-time',
-    'Internship',
-  ]
-  roomPrivacy = [
-    'Public',
-    'Private',
-    'Direct Messaging',
-  ]
+  static pronouns = ["None", "He/Him", "She/Her", "They/Them", "Other"];
+  static seasons = ["Winter", "Spring", "Fall"];
+  static prices = ["Free", "$", "$$", "$$$", "$$$$", "$$$$$"];
+  static regions = ["Waterloo", "Toronto", "Brampton", "Ottawa"];
+  static programs = [
+    "Unknown",
+    "Engineering",
+    "Arts",
+    "Mathematics",
+    "Science",
+    "Applied Health Sciences",
+    "Environment",
+    "Theology",
+    "Graduate Studies",
+    "Independent Studies",
+    "Interdisciplinary",
+    "Conrad Grebel",
+    "Renison",
+    "St. Pauls",
+    "St. Jeromes",
+  ];
+  static terms = [
+    "1A",
+    "1B",
+    "W1",
+    "2A",
+    "W2",
+    "2B",
+    "W3",
+    "3A",
+    "W4",
+    "3B",
+    "W5",
+    "W6",
+    "4A",
+    "4B",
+  ];
+  static adCategories = ["Electronics", "Books", "Food", "Other"];
+  static listingCategories = ["Condominium", "Townhouse", "Apartment"];
+  static notificationLevels = ["All", "Following", "None"];
+  static currencies = ["CAD", "USD"];
+  static languages = ["English", "French"];
+  static jobTypes = ["Full-time", "Internship"];
+  static roomPrivacy = ["Public", "Private", "Direct Messaging"];
 }

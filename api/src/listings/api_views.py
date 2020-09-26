@@ -1,16 +1,22 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Listing, ListingComment
-from .serializers import ListingSerializer, ListingCommentSerializer
+from .serializers import ListingSerializer, ListingCommentSerializer, ListingDetailSerializer, \
+    ListingCommentDetailSerializer
 from django_filters import rest_framework as filters
 from listings.filters import ListingFilter
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of listings
 # HTTP POST: Creates a listing
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingListCreate(GenericPostListCreate):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
     search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ListingFilter
@@ -20,16 +26,24 @@ class ListingListCreate(GenericPostListCreate):
 # HTTP PUT: Updates a listing
 # HTTP PATCH: Partially updates a listing
 # HTTP DELETE: Deletes a listing
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
 
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentListCreate(GenericCommentListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
+    detail_serializer_class = ListingCommentDetailSerializer
     parent_string = 'listing'
 
 
@@ -37,26 +51,31 @@ class ListingCommentListCreate(GenericCommentListCreate):
 # HTTP PUT: Updates a listing comment
 # HTTP PATCH: Partially updates a listing comment
 # HTTP DELETE: Deletes a listing comment
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
+    detail_serializer_class = ListingCommentDetailSerializer
     parent_string = 'listing'
 
 
-# HTTP GET: Returns true or false if a user has liked a listing
 # HTTP POST: Like or unlike a listing
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
         return Listing.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked a listing comment
 # HTTP POST: Like or unlike a listing comment
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

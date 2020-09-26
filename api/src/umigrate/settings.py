@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Rest framework apps
     'rest_framework',
     'django_filters',
+    'drf_yasg',
 
     # User registration and authentication apps
     'rest_framework.authtoken',
@@ -257,8 +258,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
 SITE_ID = 1
 
 if STAGE_ENVIRONMENT == 'local':
@@ -266,6 +267,13 @@ if STAGE_ENVIRONMENT == 'local':
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailSerializer',
+}
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'DOC_EXPANSION': False,
+    'LOGIN_URL': 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/auth/login/',
+    'LOGOUT_URL': 'http://127.0.0.1:8000/auth/logout/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/auth/logout/',
 }
 
 # Internationalization

@@ -31,12 +31,22 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
         GenericPostTestCase.setUp(self)
 
     @skip('Not needed for rooms')
-    def test_get_like(self):
+    def test_like(self):
         pass
 
-    @skip('Not needed for rooms')
-    def test_post_like(self):
-        pass
+    def test_retrieve(self):
+        response = self.api_client.get(f'/api/{self.resource_name}/1')
+        self.assert_equal(response.status_code, status.HTTP_200_OK)
+
+        response_dict = dict(response.data)
+        obj = self.model.objects.get(id=1).__dict__
+        obj['datetime_created'] = obj['datetime_created'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        obj['creator'] = obj['creator_id']
+        for key in response_dict:
+            if key in self.ignored_keys:
+                continue
+            else:
+                self.assert_equal(obj[key], response_dict[key])
 
     def test_create(self):
         super().test_create()

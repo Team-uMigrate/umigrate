@@ -36,7 +36,7 @@ class CustomUser(AbstractUser, GenericPhotoModel):
     currency = models.PositiveSmallIntegerField(default=0, choices=Choices.CURRENCY_CHOICES)
     language = models.PositiveSmallIntegerField(default=0, choices=Choices.LANGUAGE_CHOICES)
     dark_theme = models.BooleanField(default=False)
-    connected_users = models.ManyToManyField(to='self', related_name="followed_user_set", blank=True)
+    connected_users = models.ManyToManyField(to='self', related_name="connected_user_set", blank=True)
     blocked_users = models.ManyToManyField(to='self', related_name="blocked_user_set", blank=True)
 
     objects = CustomUserManager()    

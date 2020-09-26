@@ -1,14 +1,19 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Post, PostComment
-from .serializers import PostSerializer, PostCommentSerializer
+from .serializers import PostSerializer, PostCommentSerializer, PostDetailSerializer, PostCommentDetailSerializer
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of posts
 # HTTP POST: Creates a post
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostListCreate(GenericPostListCreate):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    detail_serializer_class = PostDetailSerializer
     filter_fields = ['region', 'datetime_created', 'creator', ]
     search_fields = ['title', ]
 
@@ -17,16 +22,24 @@ class PostListCreate(GenericPostListCreate):
 # HTTP PUT: Updates a post
 # HTTP PATCH: Partially updates a post
 # HTTP DELETE: Deletes a post
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Posts']))
 class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    detail_serializer_class = PostDetailSerializer
 
 
 # HTTP GET: Returns a list of post comments for the post with the ID that matches the ID in the URL
 # HTTP POST: Creates a post comment for the post with the ID that matches the ID in the URL
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostCommentListCreate(GenericCommentListCreate):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    detail_serializer_class = PostCommentDetailSerializer
     parent_string = 'post'
 
 
@@ -34,26 +47,31 @@ class PostCommentListCreate(GenericCommentListCreate):
 # HTTP PUT: Updates a post comment
 # HTTP PATCH: Partially updates a post comment
 # HTTP DELETE: Deletes a post comment
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Posts']))
 class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    detail_serializer_class = PostCommentDetailSerializer
     parent_string = 'post'
 
 
-# HTTP GET: Returns true or false if a user has liked a post
 # HTTP POST: Like or unlike a post
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):
         return Post.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns true or false if a user has liked a post comment
 # HTTP POST: Like or unlike a post comment
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostCommentLike(GenericUserExtension):
-    response_string = 'liked'
+    field_string = 'like'
 
     @staticmethod
     def field_func(obj_id):

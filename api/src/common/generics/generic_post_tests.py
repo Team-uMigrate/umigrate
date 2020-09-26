@@ -74,6 +74,8 @@ class GenericPostTestCase:
         for key in response_dict:
             if key in self.ignored_keys:
                 continue
+            elif key == 'creator':
+                self.assert_equal(obj[key], response_dict[key]['id'])
             elif key == 'price':
                 self.assert_equal(float(obj[key]), float(response_dict[key]))
             elif key == 'start_datetime' or key == 'end_datetime':
@@ -202,6 +204,8 @@ class GenericCommentTestCase:
         for key in response_dict:
             if key in self.ignored_keys:
                 continue
+            elif key == 'creator':
+                self.assert_equal(obj[key], response_dict[key]['id'])
             else:
                 self.assert_equal(obj[key], response_dict[key])
 

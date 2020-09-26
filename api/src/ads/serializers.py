@@ -1,4 +1,5 @@
-from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
+from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
+    GenericPostDetailSerializer, GenericCommentDetailSerializer
 from .models import Ad, AdComment
 
 
@@ -10,9 +11,19 @@ class AdSerializer(GenericPostSerializer):
         fields = '__all__'
 
 
+# Serializers the ad model with detail
+class AdDetailSerializer(AdSerializer, GenericPostDetailSerializer):
+    pass
+
+
 # Serializes the ad comment model
 class AdCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = AdComment
         fields = '__all__'
+
+
+# Serializers the ad comment model with detail
+class AdCommentDetailSerializer(AdCommentSerializer, GenericCommentDetailSerializer):
+    pass

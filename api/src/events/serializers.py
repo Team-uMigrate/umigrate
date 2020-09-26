@@ -1,4 +1,5 @@
-from common.generics.generic_serializers import GenericPostSerializer, GenericCommentSerializer
+from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
+    GenericPostDetailSerializer, GenericCommentDetailSerializer
 from .models import Event, EventComment
 from rest_framework import serializers
 
@@ -27,9 +28,19 @@ class EventSerializer(GenericPostSerializer):
         return instance.attending_users.count()
 
 
+# Serializes the event model with detail
+class EventDetailSerializer(EventSerializer, GenericPostDetailSerializer):
+    pass
+
+
 # Serializes the event model
 class EventCommentSerializer(GenericCommentSerializer):
 
     class Meta:
         model = EventComment
         fields = '__all__'
+
+
+# Serializes the event comment model with detail
+class EventCommentDetailSerializer(EventCommentSerializer, GenericCommentDetailSerializer):
+    pass

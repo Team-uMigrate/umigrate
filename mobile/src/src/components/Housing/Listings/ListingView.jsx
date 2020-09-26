@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
+import ProfilePhoto from "./ProfilePhoto";
 
 const ListingView = (props) => {
 
@@ -10,11 +11,12 @@ const ListingView = (props) => {
         <Card style={styles.container}>
             <Card.Content>
                 <View style={{ flexDirection: "row" }}>
-                    {/* The below grey view is a placeholder for the profile photo */}
-                    <View style={{ backgroundColor: "#eeeeee", borderRadius: 50, flex: 1, marginRight: 5 }} />
-                    <View style={{flex: 6, flexDirection: "column"}}>
-                        <Text>User Name</Text>
-                        <Text>{props.datetime_created}</Text>
+                    <View style={{flex: 1}}>
+                        <ProfilePhoto photo={props.creator.photo}></ProfilePhoto>
+                    </View>
+                    <View style={{flex: 5, flexDirection: "column"}}>
+                        <Text>{props.creator.preferred_name}</Text>
+                        <Text style={{color: "grey"}}>{props.datetime_created.substring(0, "YYYY-MM-DD".length)}</Text>
                     </View>
                 </View>
                 <Title style={styles.title}>{props.title}</Title>

@@ -2,10 +2,14 @@ from common.generics.generic_post_api_views import GenericPostListCreate, Generi
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Event, EventComment
 from .serializers import EventSerializer, EventCommentSerializer
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
 # HTTP GET: Returns a list of events
 # HTTP POST: Creates an events
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -17,6 +21,10 @@ class EventListCreate(GenericPostListCreate):
 # HTTP PUT: Updates an event
 # HTTP PATCH: Partially updates an event
 # HTTP DELETE: Deletes an event
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Events']))
 class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -24,6 +32,8 @@ class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of event comments for the event with the ID that matches the ID in the URL
 # HTTP POST: Creates a event comment for the event with the ID that matches the ID in the URL
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventCommentListCreate(GenericCommentListCreate):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
@@ -34,6 +44,10 @@ class EventCommentListCreate(GenericCommentListCreate):
 # HTTP PUT: Updates an event comment
 # HTTP PATCH: Partially updates an event comment
 # HTTP DELETE: Deletes an event comment
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Events']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Events']))
 class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
@@ -41,6 +55,7 @@ class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
 
 
 # HTTP POST: Like or unlike an event
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventLike(GenericUserExtension):
     field_string = 'like'
 
@@ -50,6 +65,7 @@ class EventLike(GenericUserExtension):
 
 
 # HTTP POST: Like or unlike an event comment
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventCommentLike(GenericUserExtension):
     field_string = 'like'
 
@@ -59,6 +75,7 @@ class EventCommentLike(GenericUserExtension):
 
 
 # HTTP POST: Sets or removes a user's status to interested
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventInterestedUser(GenericUserExtension):
     field_string = 'interested'
 
@@ -68,6 +85,7 @@ class EventInterestedUser(GenericUserExtension):
 
 
 # HTTP POST: Sets or removes a user's status to attending
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventAttendingUser(GenericUserExtension):
     field_string = 'attending'
 

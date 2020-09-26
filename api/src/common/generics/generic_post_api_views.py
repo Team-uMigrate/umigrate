@@ -97,6 +97,7 @@ class GenericUserExtension(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
+    tag = None
 
     def post(self, request, *args, **kwargs):
         error_response = self.validate_data(request.data)

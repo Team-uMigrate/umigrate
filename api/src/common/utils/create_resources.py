@@ -18,6 +18,7 @@ def create_ads(num):
             creator_id=1,
             category=0,
             price=123.45,
+            postal_code="L3R8K5"
         )
         ad.save()
 
@@ -44,6 +45,7 @@ def create_events(num):
             price_scale=0,
             start_datetime=datetime.now(),
             end_datetime=datetime.now() + timedelta(days=1),
+            location="TEST LOCATION"
         )
         event.save()
 
@@ -71,6 +73,7 @@ def create_listing(num):
             price=123.45,
             season=0,
             year=2020,
+            location="TEST LOCATION"
         )
         listing.save()
 

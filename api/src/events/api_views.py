@@ -10,7 +10,7 @@ class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price_scale', ]
-    search_fields = ['title', ]
+    search_fields = ['title', 'location']
 
 
 # HTTP GET: Returns an event

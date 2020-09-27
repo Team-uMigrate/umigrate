@@ -21,7 +21,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .settings import ALLOWED_HOSTS, STAGE_ENVIRONMENT
-from common.constants import trigger_error
+from common.constants.choices import trigger_error
 
 schema_view = get_schema_view(
     openapi.Info(

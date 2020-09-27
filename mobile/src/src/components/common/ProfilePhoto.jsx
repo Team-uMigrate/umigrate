@@ -1,6 +1,5 @@
 import React from "react";
 import {Avatar} from "react-native-paper";
-import {Image} from "react-native";
 
 const ProfilePhoto = ({photo}) => {
     const PROFILEIMAGESIZE = 45;

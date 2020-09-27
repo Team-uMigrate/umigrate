@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
-import ProfilePhoto from "./ProfilePhoto";
+import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 
 const ListingView = (props) => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView"
-import { ListingsEndpoint, UsersEndpoint } from "../../../utils/endpoints";
+import { ListingsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component{
 

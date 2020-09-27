@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from "./ProfilePhoto";
+import { Choices } from "../../../utils/endpoints";
 
 const ListingView = (props) => {
 
@@ -20,11 +21,11 @@ const ListingView = (props) => {
                     </View>
                 </View>
                 <Title style={styles.title}>{props.title}</Title>
-                <Paragraph>{props.content}</Paragraph>
-                <Paragraph>{"Region: " + props.region}</Paragraph>
-                <Paragraph>{"Price: $" + props.price}</Paragraph>
-                <Paragraph>{"Season " + props.season + " of " + props.year}</Paragraph>
-                <Paragraph>{"Category: " + props.category}</Paragraph>
+                <Paragraph style={styles.bodyText}>{props.content}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Region: " + Choices.regions[props.region]}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Price: $" + props.price}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Term: " + Choices.seasons[props.season] + " " + props.year}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Category: " + Choices.listingCategories[props.category]}</Paragraph>
                 <Image source={{uri: props.photo}}
                        style={ (props.photo===null)?
                            {width: 0, height: 0} : {width: 0.88*width, height: 300}
@@ -50,5 +51,8 @@ const styles = StyleSheet.create({
     },
     title: {
         alignSelf: "flex-start"
+    },
+    bodyText: {
+        marginBottom: 0
     }
 });

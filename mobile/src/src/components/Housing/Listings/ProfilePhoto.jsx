@@ -7,7 +7,7 @@ const ProfilePhoto = ({photo}) => {
 
     if(photo === null) {
         return (
-            <Avatar.Icon size={PROFILEIMAGESIZE} icon={"folder"} />
+            <Avatar.Icon size={PROFILEIMAGESIZE} icon={"account"} />
         );
     }
     else {

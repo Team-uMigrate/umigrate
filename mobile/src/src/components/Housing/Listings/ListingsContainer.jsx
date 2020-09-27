@@ -18,7 +18,7 @@ class ListingContainer extends Component{
 
     constructor(props) {
         super(props);
-        this.setState({listings: []})
+        this.state.listings = [];
         this.fetchListings(1, {});
     }
 
@@ -31,7 +31,14 @@ class ListingContainer extends Component{
                 if (response.data.next === null){
                     this.state.hasMoreListings = false;
                 }
-                this.state.extendListings(response.data.results);
+
+                let newListings = response.data.results;
+
+                for (let i in newListings){
+                    newListings[i].key = newListings[i].id.toString();
+                }
+
+                this.state.extendListings(newListings);
             },
             (error) => {console.log("error: ", error)}
         );
@@ -46,7 +53,7 @@ class ListingContainer extends Component{
             <View style={styles.listingContainer}>
                 <FlatList
                     data={this.state.listings}
-                    keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
+                    // keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
                     renderItem={this.renderItem}
                     onEndReached={ () => {
                             if (this.state.hasMoreListings) {

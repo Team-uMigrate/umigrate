@@ -19,6 +19,7 @@ class AdTestCase(GenericPostTestCase, APITestCase):
             'region': 0,
             'category': 0,
             'price': 9976.00,
+            'postal_code': "L3R8K5"
         }
         self.update_data = {
             'title': 'My first post (edited)',
@@ -26,6 +27,7 @@ class AdTestCase(GenericPostTestCase, APITestCase):
             'region': 1,
             'category': 1,
             'price': 123,
+            'postal_code': "L3R8K6"
         }
 
         GenericPostTestCase.setUp(self)

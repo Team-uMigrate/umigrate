@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Ad, AdComment
-from .serializers import AdSerializer, AdCommentSerializer
+from .serializers import AdSerializer, AdCommentSerializer, AdDetailSerializer, AdCommentDetailSerializer
 from django_filters import rest_framework as filters
 from ads.filters import AdFilter
 from django.utils.decorators import method_decorator
@@ -15,6 +15,7 @@ from drf_yasg.utils import swagger_auto_schema
 class AdListCreate(GenericPostListCreate):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    detail_serializer_class = AdDetailSerializer
     search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = AdFilter
@@ -31,6 +32,7 @@ class AdListCreate(GenericPostListCreate):
 class AdRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    detail_serializer_class = AdDetailSerializer
 
 
 # HTTP GET: Returns a list of ad comments for the ad with the ID that matches the ID in the URL
@@ -40,6 +42,7 @@ class AdRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 class AdCommentListCreate(GenericCommentListCreate):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
+    detail_serializer_class = AdCommentDetailSerializer
     parent_string = 'ad'
 
 
@@ -54,6 +57,7 @@ class AdCommentListCreate(GenericCommentListCreate):
 class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
+    detail_serializer_class = AdCommentDetailSerializer
     parent_string = 'ad'
 
 

@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Event, EventComment
-from .serializers import EventSerializer, EventCommentSerializer
+from .serializers import EventSerializer, EventCommentSerializer, EventDetailSerializer, EventCommentDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -13,8 +13,9 @@ from drf_yasg.utils import swagger_auto_schema
 class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    detail_serializer_class = EventDetailSerializer
     filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price_scale', ]
-    search_fields = ['title', ]
+    search_fields = ['title', 'location']
 
 
 # HTTP GET: Returns an event
@@ -28,6 +29,7 @@ class EventListCreate(GenericPostListCreate):
 class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    detail_serializer_class = EventDetailSerializer
 
 
 # HTTP GET: Returns a list of event comments for the event with the ID that matches the ID in the URL
@@ -37,6 +39,7 @@ class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 class EventCommentListCreate(GenericCommentListCreate):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
+    detail_serializer_class = EventCommentDetailSerializer
     parent_string = 'event'
 
 
@@ -51,6 +54,7 @@ class EventCommentListCreate(GenericCommentListCreate):
 class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
+    detail_serializer_class = EventCommentDetailSerializer
     parent_string = 'event'
 
 

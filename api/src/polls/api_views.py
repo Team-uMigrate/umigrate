@@ -1,7 +1,8 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
 from .models import Poll, PollComment, Option, Vote
-from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer
+from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer, \
+    PollCommentDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -13,6 +14,7 @@ from drf_yasg.utils import swagger_auto_schema
 class PollListCreate(GenericPostListCreate):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
+    detail_serializer_class = PollDetailSerializer
     filter_fields = ['region', 'datetime_created', 'creator', ]
     search_fields = ['title', ]
 
@@ -28,6 +30,7 @@ class PollListCreate(GenericPostListCreate):
 class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
+    detail_serializer_class = PollDetailSerializer
 
 
 # HTTP GET: Returns a list of poll comments for the poll with the ID that matches the ID in the URL
@@ -37,6 +40,7 @@ class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 class PollCommentListCreate(GenericCommentListCreate):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
+    detail_serializer_class = PollCommentDetailSerializer
     parent_string = 'poll'
 
 
@@ -51,6 +55,7 @@ class PollCommentListCreate(GenericCommentListCreate):
 class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
+    detail_serializer_class = PollCommentDetailSerializer
     parent_string = 'poll'
 
 
@@ -81,6 +86,7 @@ class PollCommentLike(GenericUserExtension):
 class OptionListCreate(GenericCommentListCreate):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
+    detail_serializer_class = OptionSerializer
     parent_string = 'poll'
 
 
@@ -91,4 +97,5 @@ class OptionListCreate(GenericCommentListCreate):
 class VoteListCreate(GenericCommentListCreate):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    detail_serializer_class = VoteSerializer
     parent_string = 'option'

@@ -1,9 +1,12 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { REGION_CHOICES, SEX_CHOICES } from "../../../constants/misc/resourceChoices";
-import "./AccountStyles.css"
+import {
+  REGION_CHOICES,
+  SEX_CHOICES,
+} from "../../../constants/misc/resourceChoices";
+import "./AccountStyles.css";
 
-const AccountView = (props) =>
+const AccountView = (props) => (
   <div className="Style">
     <h2>Account Settings</h2>
     <div className="StyleForm">
@@ -90,7 +93,11 @@ const AccountView = (props) =>
                 Sex
               </Form.Label>
               <Col sm="8">
-                <Form.Control as="select" value={props.sex} onChange={props.handleSexInputChange}>
+                <Form.Control
+                  as="select"
+                  value={props.sex}
+                  onChange={props.handleSexInputChange}
+                >
                   {SEX_CHOICES.map((choice, index) => (
                     <option value={index}>{choice}</option>
                   ))}
@@ -102,14 +109,22 @@ const AccountView = (props) =>
                 Region
               </Form.Label>
               <Col sm="8">
-                <Form.Control as="select" value={props.region} onChange={props.handleRegionInputChange}>
+                <Form.Control
+                  as="select"
+                  value={props.region}
+                  onChange={props.handleRegionInputChange}
+                >
                   {REGION_CHOICES.map((choice, index) => (
                     <option value={index}>{choice}</option>
                   ))}
                 </Form.Control>
               </Col>
             </Form.Group>
-            <Button className="button" variant="primary" onClick ={props.handleSubmit}>
+            <Button
+              className="button"
+              variant="primary"
+              onClick={props.handleSubmit}
+            >
               Save Changes
             </Button>
           </Form>
@@ -117,6 +132,5 @@ const AccountView = (props) =>
       </nav>
     </div>
   </div>
-;
-
+);
 export default AccountView;

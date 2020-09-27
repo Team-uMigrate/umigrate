@@ -8,8 +8,8 @@ urlpatterns = [
     path('<int:id>', EventRetrieveUpdateDestroy.as_view()),
     path('comments/', EventCommentListCreate.as_view()),
     path('comments/<int:id>', EventCommentRetrieveUpdateDestroy.as_view()),
-    path('<int:id>/like', EventLike.as_view()),
-    path('comments/<int:id>/like', EventCommentLike.as_view()),
-    path('<int:id>/interested', EventInterestedUser.as_view()),
-    path('<int:id>/attending', EventAttendingUser.as_view()),
+    path('like', EventLike.as_view()),
+    path('comments/like', EventCommentLike.as_view()),
+    path('interested', EventInterestedUser.as_view()),
+    path('attending', EventAttendingUser.as_view()),
 ]

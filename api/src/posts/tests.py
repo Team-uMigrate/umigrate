@@ -15,12 +15,12 @@ class PostTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_posts
         self.create_data = {
             'title': 'My first post',
-            'description': 'This is my first post',
+            'content': 'This is my first post',
             'region': 0,
         }
         self.update_data = {
             'title': 'My first post (edited)',
-            'description': 'This is my first post (edited)',
+            'content': 'This is my first post (edited)',
             'region': 1,
         }
 

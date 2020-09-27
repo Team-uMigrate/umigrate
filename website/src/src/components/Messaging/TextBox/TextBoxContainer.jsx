@@ -4,8 +4,12 @@ import TextBoxView from "./TextBoxView";
 class TextBoxContainer extends Component {
   render() {
     return (
-      <TextBoxView text={this.props.text} handleChange={this.props.handleChange} handleSend={this.props.handleSend} />
-    )
+      <TextBoxView
+        text={this.props.text}
+        handleChange={this.props.handleChange}
+        handleSend={this.props.handleSend}
+      />
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-# Serializes a generic resource model
+# Serializes a generic model
 class GenericSerializer(serializers.ModelSerializer):
 
     class Meta:

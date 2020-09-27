@@ -8,6 +8,6 @@ urlpatterns = [
     path('<int:id>', AdRetrieveUpdateDestroy.as_view()),
     path('comments/', AdCommentListCreate.as_view()),
     path('comments/<int:id>', AdCommentRetrieveUpdateDestroy.as_view()),
-    path('<int:id>/like', AdLike.as_view()),
-    path('comments/<int:id>/like', AdCommentLike.as_view()),
+    path('like', AdLike.as_view()),
+    path('comments/like', AdCommentLike.as_view()),
 ]

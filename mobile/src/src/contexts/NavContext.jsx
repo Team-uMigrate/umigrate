@@ -6,8 +6,8 @@ class NavContextProvider extends Component {
   state = {
     navigation: null,
     setNavigation: (navigation) => {
-      this.setState({navigation: navigation});
-    }
+      this.setState({ navigation: navigation });
+    },
   };
 
   render() {

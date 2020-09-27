@@ -1,11 +1,10 @@
-import React, { useRef, useEffect }from "react";
+import React, { useRef, useEffect } from "react";
 import "./TextBoxStyles.css";
 
 const TextBoxView = (props) => {
   const divRef = useRef(null);
 
-
-  // this function will smoothly bring a user down to the 
+  // this function will smoothly bring a user down to the
   // newest message in a chat. its intent is for when a new
   // message is sent from another, but with the current scrolling
   // upward to see messages, it will kick the user to the bottom
@@ -23,7 +22,7 @@ const TextBoxView = (props) => {
         value={props.text}
         onChange={props.handleChange}
         autoFocus="true"
-        onKeyUp={(e) => e.keyCode === 13 ? props.handleSend() : null}
+        onKeyUp={(e) => (e.keyCode === 13 ? props.handleSend() : null)}
       />
       <input
         id="chat-message-submit"
@@ -32,7 +31,7 @@ const TextBoxView = (props) => {
         onClick={props.handleSend}
       />
     </div>
-  )
+  );
 };
 
-  export default TextBoxView;
+export default TextBoxView;

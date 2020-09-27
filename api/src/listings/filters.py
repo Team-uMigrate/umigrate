@@ -13,10 +13,10 @@ class ListingFilter(filters.FilterSet):
     max_price = filters.NumberFilter(field_name='price', lookup_expr='lte')
     min_date = filters.DateTimeFilter(field_name='datetime_created', lookup_expr='gte')
     max_date = filters.DateTimeFilter(field_name='datetime_created', lookup_expr='lte')
+    location = filters.CharFilter(field_name='location', lookup_expr='icontains')
 
     class Meta: 
         model = Listing
         fields = ['min_price', 'max_price', 'min_date', 'max_date', 
                 'region', 'datetime_created', 'creator', 'category', 
-                'price', 'term', 'street_address', 'city', 
-                'division', 'country', 'title', 'features']
+                'price', 'title', 'location']

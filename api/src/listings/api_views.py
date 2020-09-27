@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+  GenericUserExtension
 from .models import Listing, ListingComment
 from .serializers import ListingSerializer, ListingCommentSerializer
 from django_filters import rest_framework as filters
@@ -27,20 +27,19 @@ class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
-class ListingCommentListCreate(GenericCommentListCreate):
+class ListingCommentListCreate(GenericPostListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
-    parent_string = 'listing'
+    filter_fields = ['listing', ]
 
 
 # HTTP GET: Returns a listing comment
 # HTTP PUT: Updates a listing comment
 # HTTP PATCH: Partially updates a listing comment
 # HTTP DELETE: Deletes a listing comment
-class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class ListingCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
-    parent_string = 'listing'
 
 
 # HTTP GET: Returns true or false if a user has liked a listing

@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+GenericUserExtension
 from .models import Post, PostComment
 from .serializers import PostSerializer, PostCommentSerializer
 
@@ -24,20 +24,19 @@ class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of post comments for the post with the ID that matches the ID in the URL
 # HTTP POST: Creates a post comment for the post with the ID that matches the ID in the URL
-class PostCommentListCreate(GenericCommentListCreate):
+class PostCommentListCreate(GenericPostListCreate):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
-    parent_string = 'post'
+    filter_fields = ['post', ]
 
 
 # HTTP GET: Returns a post comment
 # HTTP PUT: Updates a post comment
 # HTTP PATCH: Partially updates a post comment
 # HTTP DELETE: Deletes a post comment
-class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
-    parent_string = 'post'
 
 
 # HTTP GET: Returns true or false if a user has liked a post

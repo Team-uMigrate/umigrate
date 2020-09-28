@@ -65,8 +65,7 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             return self.detail_serializer_class
         return self.serializer_class
 
-
-# HTTP GET: Returns true or false if a user is a member of a related field on a model
+    
 # HTTP POST: Adds or removes a user from a related field on a model
 class GenericUserExtension(APIView):
     # Override required for field_string; it should be a string for the field in the request

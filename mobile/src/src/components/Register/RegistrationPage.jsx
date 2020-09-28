@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   textInput: {
-    height: 40,
+    height: 50,
     width: 250,
   },
   buttonContainer: {

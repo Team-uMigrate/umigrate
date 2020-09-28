@@ -1,7 +1,14 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, View, Modal, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Modal,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import AuthContext from "../../contexts/AuthContext";
 import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInput, Text, Button } from "react-native-paper";
 
 const LoginPage = ({ navigation }) => {
@@ -54,68 +61,70 @@ const LoginPage = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Image
-          style={styles.imageStyle}
-          source={require("../../../assets/templatedLogin.png")}
-        />
-      </View>
-      <View style={styles.inputBoxes}>
-        <View style={styles.row}>
-          <TextInput
-            style={styles.textInput}
-            label="uWaterloo Email"
-            onChangeText={(text) => setEmail(text)}
+    <KeyboardAwareScrollView>
+      <View style={styles.container}>
+        <View>
+          <Image
+            style={styles.imageStyle}
+            source={require("../../../assets/templatedLogin.png")}
           />
         </View>
-        <View style={styles.row}>
-          <TextInput
-            style={styles.textInput}
-            label="Password..."
-            style={styles.textInput}
-            onChangeText={(text) => setPassword(text)}
-          />
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          compact={true}
-          style={styles.buttonStyle}
-          mode="contained"
-          title="Sign in"
-          onPress={handleSignIn}
-        >
-          Login
-        </Button>
-        <View style={styles.divider}>
-          <Text>or</Text>
-        </View>
-        <Button
-          compact={true}
-          style={styles.buttonStyle}
-          mode="outlined"
-          title="Sign up"
-          onPress={signUpRedirect}
-        >
-          Register
-        </Button>
-      </View>
-      <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
-        <View style={styles.container}>
-          <View style={styles.modalView}>
-            <Text style={{ alignItems: "center" }}>Error:</Text>
-            {errorMessage}
-            <Button
-              mode="contained"
-              title="Close"
-              style={styles.buttonContainer}
-              onPress={() => setModalVisible(false)}
-            ></Button>
+        <View style={styles.inputBoxes}>
+          <View style={styles.row}>
+            <TextInput
+              style={styles.textInput}
+              label="uWaterloo Email"
+              onChangeText={(text) => setEmail(text)}
+            />
+          </View>
+          <View style={styles.row}>
+            <TextInput
+              style={styles.textInput}
+              label="Password..."
+              style={styles.textInput}
+              onChangeText={(text) => setPassword(text)}
+            />
           </View>
         </View>
-      </Modal>
-    </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            compact={true}
+            style={styles.buttonStyle}
+            mode="contained"
+            title="Sign in"
+            onPress={handleSignIn}
+          >
+            Login
+          </Button>
+          <View style={styles.divider}>
+            <Text>or</Text>
+          </View>
+          <Button
+            compact={true}
+            style={styles.buttonStyle}
+            mode="outlined"
+            title="Sign up"
+            onPress={signUpRedirect}
+          >
+            Register
+          </Button>
+        </View>
+        <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
+          <View style={styles.container}>
+            <View style={styles.modalView}>
+              <Text style={{ alignItems: "center" }}>Error:</Text>
+              {errorMessage}
+              <Button
+                mode="contained"
+                title="Close"
+                style={styles.buttonContainer}
+                onPress={() => setModalVisible(false)}
+              ></Button>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -132,10 +141,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputBoxes: {
-    marginTop: "20%",
+    marginTop: "15%",
   },
   textInput: {
-    height: 40,
+    height: 50,
     width: 250,
   },
   divider: {

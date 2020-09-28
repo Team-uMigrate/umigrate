@@ -9,6 +9,7 @@ channels
 channels-redis
 sendgrid
 drf_yasg
+packaging
 pytest-django
 uwaterloodriver
 psycopg2

@@ -47,7 +47,6 @@ class PostCommentListCreate(GenericPostListCreate):
 # HTTP PUT: Updates a post comment
 # HTTP PATCH: Partially updates a post comment
 # HTTP DELETE: Deletes a post comment
-
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Posts']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Posts']))

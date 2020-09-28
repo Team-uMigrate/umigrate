@@ -8,8 +8,8 @@ django-cors-headers
 channels
 channels-redis
 sendgrid
-drf_yasg
 packaging
+drf_yasg
 pytest-django
 uwaterloodriver
 psycopg2

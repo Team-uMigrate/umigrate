@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+    GenericUserExtension
 from .models import Poll, PollComment, Option, Vote
 from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer, \
     PollCommentDetailSerializer
@@ -37,11 +37,11 @@ class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 # HTTP POST: Creates a poll comment for the poll with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class PollCommentListCreate(GenericCommentListCreate):
+class PollCommentListCreate(GenericPostListCreate):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
+    filter_fields = ['poll', ]
     detail_serializer_class = PollCommentDetailSerializer
-    parent_string = 'poll'
 
 
 # HTTP GET: Returns a poll comment
@@ -52,11 +52,10 @@ class PollCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Polls']))
-class PollCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class PollCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = PollComment.objects.all()
     serializer_class = PollCommentSerializer
     detail_serializer_class = PollCommentDetailSerializer
-    parent_string = 'poll'
 
 
 # HTTP POST: Like or unlike a poll
@@ -83,19 +82,19 @@ class PollCommentLike(GenericUserExtension):
 # HTTP POST: Creates an options for the poll with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class OptionListCreate(GenericCommentListCreate):
+class OptionListCreate(GenericPostListCreate):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
+    filter_fields = ['poll', ]
     detail_serializer_class = OptionSerializer
-    parent_string = 'poll'
 
 
 # HTTP GET: Returns a list of votes for the option with the ID that matches the ID in the URL
 # HTTP POST: Creates a vote for the option with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class VoteListCreate(GenericCommentListCreate):
+class VoteListCreate(GenericPostListCreate):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    filter_fields = ['option', ]
     detail_serializer_class = VoteSerializer
-    parent_string = 'option'

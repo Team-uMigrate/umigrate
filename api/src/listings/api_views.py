@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+  GenericUserExtension
 from .models import Listing, ListingComment
 from .serializers import ListingSerializer, ListingCommentSerializer, ListingDetailSerializer, \
     ListingCommentDetailSerializer
@@ -38,13 +38,14 @@ class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
+
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
-class ListingCommentListCreate(GenericCommentListCreate):
+class ListingCommentListCreate(GenericPostListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
+    filter_fields = ['listing', ]
     detail_serializer_class = ListingCommentDetailSerializer
-    parent_string = 'listing'
 
 
 # HTTP GET: Returns a listing comment
@@ -55,11 +56,10 @@ class ListingCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
-class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class ListingCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
     detail_serializer_class = ListingCommentDetailSerializer
-    parent_string = 'listing'
 
 
 # HTTP POST: Like or unlike a listing

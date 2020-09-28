@@ -65,57 +65,7 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             return self.detail_serializer_class
         return self.serializer_class
 
-
-# HTTP GET: Returns a list of comments for the generic resource with the ID matching the ID in the URL
-# HTTP POST: Creates a comment for the generic resource with the ID matching the ID in the URL
-class GenericCommentListCreate(GenericPostListCreate):
-    # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
-    parent_string = None
-    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
-    serializer_class = None
-    detail_serializer_class = None
-
-    def list(self, request, *args, **kwargs):
-        self.queryset = self.queryset.model.objects.filter(**{self.parent_string: kwargs['id']})
-        return GenericPostListCreate.list(self, request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data[self.parent_string] = kwargs['id']
-
-        return GenericPostListCreate.create(self, request, *args, **kwargs)
-
-    def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return self.detail_serializer_class
-        return self.serializer_class
-
-
-# HTTP GET: Returns a generic resource comment
-# HTTP PUT: Updates a generic resource comment
-# HTTP PATCH: Partially updates a generic resource comment
-# HTTP DELETE: Deletes a generic resource comment
-class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
-    parent_string = None
-    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
-    serializer_class = None
-    detail_serializer_class = None
-
-    def update(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data[self.parent_string] = self.get_object().__dict__[f'{self.parent_string}_id']
-
-        return GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)
-
-    def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return self.detail_serializer_class
-        return self.serializer_class
-
-
+    
 # HTTP POST: Adds or removes a user from a related field on a model
 class GenericUserExtension(APIView):
     # Override required for field_string; it should be a string for the field in the request

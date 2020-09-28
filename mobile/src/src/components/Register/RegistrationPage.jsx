@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AuthEndpoint } from "../../utils/endpoints";
-import { Button, StyleSheet, Text, View, TextInput, Modal } from "react-native";
+import { StyleSheet, Text, View, Modal, Image } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 
 const RegistrationPage = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -45,33 +46,51 @@ const RegistrationPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Registration Page!</Text>
-      <View>
+      <Image
+        style={styles.imageStyle}
+        source={require("../../../assets/templatedRegister.png")}
+      />
+      <Text style={styles.title}>Get started by registering</Text>
+      <View style={styles.inputBoxes}>
         <View style={styles.row}>
-          <Text>Email: </Text>
           <TextInput
             style={styles.textInput}
+            label="uWaterloo Email..."
             onChangeText={(text) => setEmail(text)}
           />
         </View>
         <View style={styles.row}>
-          <Text>Password: </Text>
           <TextInput
             style={styles.textInput}
+            label="Password..."
             onChangeText={(text) => setPassword(text)}
           />
         </View>
         <View style={styles.row}>
-          <Text>Confirm Password: </Text>
           <TextInput
             style={styles.textInput}
+            label="Confirm Password..."
             onChangeText={(text) => setConfirm(text)}
           />
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Sign up" onPress={handleSignUp} />
-        <Button title="Sign in" onPress={signInRedirect} />
+        <Button
+          style={styles.buttonStyle}
+          mode="contained"
+          title="Sign up"
+          onPress={handleSignUp}
+        >
+          Send Email Link
+        </Button>
+        <Button
+          style={styles.buttonStyle}
+          mode="outlined"
+          title="Back"
+          onPress={signInRedirect}
+        >
+          Back
+        </Button>
       </View>
       <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
         <View style={styles.container}>
@@ -93,32 +112,40 @@ const RegistrationPage = ({ navigation }) => {
 export default RegistrationPage;
 
 const styles = StyleSheet.create({
+  imageStyle: {
+    marginTop: "5%",
+    width: "80%",
+    height: "35%",
+  },
+  inputBoxes: {
+    marginTop: "10%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
-    marginTop: "40%",
+    marginTop: "10%",
+    fontSize: 23,
+    fontWeight: "bold",
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
-    marginBottom: 10,
   },
   textInput: {
     height: 40,
-    width: 200,
-    padding: 10,
-    borderColor: "#000000",
-    borderWidth: 2,
+    width: 250,
   },
   buttonContainer: {
-    flex: 1,
+    marginTop: "5%",
     justifyContent: "space-around",
-    marginBottom: "25%",
+  },
+  buttonStyle: {
+    height: 40,
+    width: 250,
   },
   modalView: {
     margin: 20,

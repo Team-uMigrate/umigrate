@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, Modal } from "react-native";
+import { StyleSheet, View, Modal, Image } from "react-native";
 import AuthContext from "../../contexts/AuthContext";
 import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
+import { TextInput, Text, Button } from "react-native-paper";
 
 const LoginPage = ({ navigation }) => {
   const auth = useContext(AuthContext);
@@ -54,26 +55,51 @@ const LoginPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login Page!</Text>
       <View>
+        <Image
+          style={styles.imageStyle}
+          source={require("../../../assets/templatedLogin.png")}
+        />
+      </View>
+      <View style={styles.inputBoxes}>
         <View style={styles.row}>
-          <Text>Email: </Text>
           <TextInput
             style={styles.textInput}
+            label="uWaterloo Email"
             onChangeText={(text) => setEmail(text)}
           />
         </View>
         <View style={styles.row}>
-          <Text>Password: </Text>
           <TextInput
+            style={styles.textInput}
+            label="Password..."
             style={styles.textInput}
             onChangeText={(text) => setPassword(text)}
           />
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Sign in" onPress={handleSignIn} />
-        <Button title="Sign up" onPress={signUpRedirect} />
+        <Button
+          compact={true}
+          style={styles.buttonStyle}
+          mode="contained"
+          title="Sign in"
+          onPress={handleSignIn}
+        >
+          Login
+        </Button>
+        <View style={styles.divider}>
+          <Text>or</Text>
+        </View>
+        <Button
+          compact={true}
+          style={styles.buttonStyle}
+          mode="outlined"
+          title="Sign up"
+          onPress={signUpRedirect}
+        >
+          Register
+        </Button>
       </View>
       <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
         <View style={styles.container}>
@@ -81,6 +107,7 @@ const LoginPage = ({ navigation }) => {
             <Text style={{ alignItems: "center" }}>Error:</Text>
             {errorMessage}
             <Button
+              mode="contained"
               title="Close"
               style={styles.buttonContainer}
               onPress={() => setModalVisible(false)}
@@ -95,32 +122,38 @@ const LoginPage = ({ navigation }) => {
 export default LoginPage;
 
 const styles = StyleSheet.create({
+  imageStyle: {
+    marginTop: "5%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    marginTop: "40%",
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-    marginBottom: 10,
+  inputBoxes: {
+    marginTop: "20%",
   },
   textInput: {
     height: 40,
-    width: 200,
-    padding: 10,
-    borderColor: "#000000",
-    borderWidth: 2,
+    width: 250,
+  },
+  divider: {
+    marginTop: "5%",
+    marginBottom: "5%",
+    alignItems: "center",
+  },
+  row: {
+    flexDirection: "row",
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: "space-around",
-    marginBottom: "50%",
+    alignItems: "center",
+    marginTop: "10%",
+  },
+  buttonStyle: {
+    height: 40,
+    width: 250,
   },
   modalView: {
     margin: 20,

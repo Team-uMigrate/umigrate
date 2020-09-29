@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "jest-junit": "^11.1.0",
     "prettier": "2.1.2"
   }
 }

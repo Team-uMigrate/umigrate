@@ -57,6 +57,12 @@ steps:
     workingDir: 'website/src'
     customCommand: 'test -- a --watchAll=false'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/Website-Test.xml'
+    failTaskOnFailedTests: true
+
 - task: Npm@1
   inputs:
     command: 'custom'

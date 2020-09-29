@@ -60,17 +60,16 @@ steps:
       exit 0
     errorActionPreference: 'continue'
 
-# - task: Npm@1
-#   inputs:
-#     command: 'custom'
-#     workingDir: 'website/src'
-#     customCommand: 'test -- a --watchAll=false'
-#     failTaskOnFailedTests: false
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'website/src'
+    customCommand: 'test -- a --watchAll=false --silent'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/Website-Test.xml'
+    testResultsFiles: '**/test-results.xml'
     failTaskOnFailedTests: true
 
 - task: Npm@1

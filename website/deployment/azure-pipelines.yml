@@ -51,12 +51,20 @@ steps:
     command: 'install'
     workingDir: 'website/src'
 
-- task: Npm@1
+- task: PowerShell@2
   inputs:
-    command: 'custom'
-    workingDir: 'website/src'
-    customCommand: 'test -- a --watchAll=false'
-    failTaskOnFailedTests: false
+    targetType: 'inline'
+    script: |
+      cd website/src
+      npm test -- a --watchAll=false
+    errorActionPreference: 'continue'
+
+# - task: Npm@1
+#   inputs:
+#     command: 'custom'
+#     workingDir: 'website/src'
+#     customCommand: 'test -- a --watchAll=false'
+#     failTaskOnFailedTests: false
 
 - task: PublishTestResults@2
   inputs:

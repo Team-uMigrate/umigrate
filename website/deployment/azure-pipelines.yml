@@ -55,11 +55,12 @@ steps:
     cd website/src
     npm test -- a --watchAll=false
 
-# - task: Npm@1
-#   inputs:
-#     command: 'custom'
-#     workingDir: 'website/src'
-#     customCommand: 'test -- a --watchAll=false'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'website/src'
+    customCommand: 'test -- a --watchAll=false'
+    failTaskOnFailedTests: false
 
 - task: PublishTestResults@2
   inputs:

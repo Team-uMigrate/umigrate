@@ -112,7 +112,7 @@ const LoginPage = ({ navigation }) => {
         <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
           <View style={styles.container}>
             <View style={styles.modalView}>
-              <Text style={{ alignItems: "center" }}>Error:</Text>
+              <Text style={styles.errorText}>Error:</Text>
               {errorMessage}
               <Button
                 mode="contained"
@@ -163,6 +163,9 @@ const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
     width: 250,
+  },
+  errorText: {
+    alignItems: "center",
   },
   modalView: {
     margin: 20,

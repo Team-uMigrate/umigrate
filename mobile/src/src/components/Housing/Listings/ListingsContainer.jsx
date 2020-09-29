@@ -7,14 +7,15 @@ class ListingContainer extends Component{
 
     state = {
         listings: [],
-        extendListings: (newListings) => {
-            this.setState({
-                listings: this.state.listings.concat(newListings),
-            });
-        },
         page: 1,
         hasMoreListings: true
     };
+
+    extendListings = (newListings) => {
+        this.setState({
+                          listings: this.state.listings.concat(newListings),
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -38,7 +39,7 @@ class ListingContainer extends Component{
                     newListings[i].key = newListings[i].id.toString();
                 }
 
-                this.state.extendListings(newListings);
+                this.extendListings(newListings);
             },
             (error) => {console.log("error: ", error)}
         );

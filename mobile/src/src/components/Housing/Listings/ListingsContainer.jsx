@@ -22,7 +22,7 @@ class ListingContainer extends Component{
         this.fetchListings(1, {});
     }
 
-    fetchListings(page, filters) {
+    fetchListings = (page, filters) => {
 
         ListingsEndpoint.list(
             page,

@@ -4,36 +4,32 @@ import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 
-const ListingView = (props) => {
+const ListingView = ({creator, likes, comments, title, content, region, datetime_created, photo, category, price, season, year}) => {
 
     const {width, height} = Dimensions.get('window');
 
     return (
         <Card style={styles.container}>
             <Card.Content>
-                <View style={{ flexDirection: "row" }}>
+                <View style={styles.userInfoContainer}>
                     <View style={{flex: 1}}>
-                        <ProfilePhoto photo={props.creator.photo}></ProfilePhoto>
+                        <ProfilePhoto photo={creator.photo}></ProfilePhoto>
                     </View>
                     <View style={{flex: 5, flexDirection: "column"}}>
-                        <Text>{props.creator.preferred_name}</Text>
-                        <Text style={{color: "grey"}}>{props.datetime_created.substring(0, "YYYY-MM-DD".length)}</Text>
+                        <Text>{creator.preferred_name}</Text>
+                        <Text style={{color: "grey"}}>{datetime_created.substring(0, "YYYY-MM-DD".length)}</Text>
                     </View>
                 </View>
-                <Title style={styles.title}>{props.title}</Title>
-                <Paragraph style={styles.bodyText}>{props.content}</Paragraph>
-                <Paragraph style={styles.bodyText}>{"Region: " + Choices.regions[props.region]}</Paragraph>
-                <Paragraph style={styles.bodyText}>{"Price: $" + props.price}</Paragraph>
-                <Paragraph style={styles.bodyText}>{"Term: " + Choices.seasons[props.season] + " " + props.year}</Paragraph>
-                <Paragraph style={styles.bodyText}>{"Category: " + Choices.listingCategories[props.category]}</Paragraph>
-                <Image source={{uri: props.photo}}
-                       style={ (props.photo===null)?
-                           {width: 0, height: 0} : {width: 0.88*width, height: 300}
-                       }
-                />
+                <Title style={styles.title}>{title}</Title>
+                <Paragraph style={styles.bodyText}>{content}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Region: " + Choices.regions[region]}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Price: $" + price}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Term: " + Choices.seasons[season] + " " + year}</Paragraph>
+                <Paragraph style={styles.bodyText}>{"Category: " + Choices.listingCategories[category]}</Paragraph>
+                { photo && <Image source={{ uri: photo }} style={{ width: 0.88 * width, height: 300 }} /> }
                 <View style={{ flexDirection: "row" }}>
-                    <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Likes: " + props.likes}</Paragraph>
-                    <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Comments: " + props.comments}</Paragraph>
+                    <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Likes: " + likes}</Paragraph>
+                    <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Comments: " + comments}</Paragraph>
                 </View>
             </Card.Content>
         </Card>
@@ -48,6 +44,9 @@ const styles = StyleSheet.create({
         padding: 5,
         flexDirection: "column",
         backgroundColor: "#ffffff",
+    },
+    userInfoContainer: {
+        flexDirection: "row"
     },
     title: {
         alignSelf: "flex-start"

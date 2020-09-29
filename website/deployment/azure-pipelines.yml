@@ -60,11 +60,11 @@ steps:
       exit 0
     errorActionPreference: 'continue'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'website/src'
-    customCommand: 'test -- a --watchAll=false --silent'
+# - task: Npm@1
+#   inputs:
+#     command: 'custom'
+#     workingDir: 'website/src'
+#     customCommand: 'test -- a --watchAll=false --silent'
 
 - task: PublishTestResults@2
   inputs:

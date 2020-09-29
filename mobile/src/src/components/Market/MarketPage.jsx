@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Header from "../common/Header";
+import AdsContainer from "./Ads/AdsContainer";
 
 const MarketPage = () => {
   return (
     <View style={styles.container}>
       <Header title="Market" />
-      <Text style={styles.title}>Market Page!</Text>
+      <AdsContainer />
     </View>
   );
 };
@@ -17,9 +18,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#eeeeee",
-  },
-  title: {
-    alignSelf: "center",
-    marginTop: "80%",
   },
 });

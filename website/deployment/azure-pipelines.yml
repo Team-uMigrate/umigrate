@@ -71,6 +71,7 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/junit.xml'
     failTaskOnFailedTests: true
+    testRunTitle: 'Website Test'
 
 - task: Npm@1
   inputs:

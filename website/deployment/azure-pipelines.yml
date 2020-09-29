@@ -51,11 +51,15 @@ steps:
     command: 'install'
     workingDir: 'website/src'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'website/src'
-    customCommand: 'test -- a --watchAll=false'
+- script: |
+    cd website/src
+    npm test -- a --watchAll=false
+
+# - task: Npm@1
+#   inputs:
+#     command: 'custom'
+#     workingDir: 'website/src'
+#     customCommand: 'test -- a --watchAll=false'
 
 - task: PublishTestResults@2
   inputs:

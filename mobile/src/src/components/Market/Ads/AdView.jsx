@@ -51,15 +51,12 @@ const AdView = ({
           {Choices.adCategories[category]}
         </Paragraph>
 
-        {photo === null ? (
-          <Image style={{ width: 0, height: 0 }} />
-        ) : (
+        {photo && (
           <Image
             source={{ uri: photo }}
             style={{ width: 0.88 * width, height: 300 }}
           />
         )}
-
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}

@@ -44,8 +44,8 @@ class GenericCommentSerializer(GenericSerializer):
         return instance.liked_users.count()
 
     def create(self, validated_data):
-        instance = self.Meta.model.objects.create(creator_id=self.context['request'].user.id, **validated_data)
-        return instance
+        validated_data['creator'] = self.context['request'].user
+        return GenericSerializer.create(self, validated_data)
 
 
 # Serializes a generic resource model with detail

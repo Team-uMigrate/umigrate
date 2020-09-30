@@ -9,6 +9,7 @@ class Ad(GenericPostModel, GenericPhotoModel):
     photo = models.ImageField(upload_to='images/ad_photos', blank=True)
     category = models.PositiveSmallIntegerField(choices=Choices.AD_CATEGORY_CHOICES)
     price = models.DecimalField(max_digits=9, decimal_places=2)
+    postal_code = models.CharField(max_length=6)
 
 
 # Represents an ad comment object

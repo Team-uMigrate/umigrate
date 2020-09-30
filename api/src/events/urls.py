@@ -6,7 +6,7 @@ from .api_views import EventListCreate, EventRetrieveUpdateDestroy, EventComment
 urlpatterns = [
     path('', EventListCreate.as_view()),
     path('<int:id>', EventRetrieveUpdateDestroy.as_view()),
-    path('<int:id>/comments/', EventCommentListCreate.as_view()),
+    path('comments/', EventCommentListCreate.as_view()),
     path('comments/<int:id>', EventCommentRetrieveUpdateDestroy.as_view()),
     path('like', EventLike.as_view()),
     path('comments/like', EventCommentLike.as_view()),

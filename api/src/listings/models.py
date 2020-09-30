@@ -11,6 +11,7 @@ class Listing(GenericPostModel, GenericPhotoModel):
     price = models.DecimalField(max_digits=9, decimal_places=2)
     season = models.PositiveSmallIntegerField(choices=Choices.SEASON_CHOICES)
     year = models.PositiveSmallIntegerField()
+    location = models.CharField(max_length=100)
 
 
 # Represents a listing comment object

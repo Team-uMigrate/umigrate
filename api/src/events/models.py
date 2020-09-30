@@ -14,6 +14,7 @@ class Event(GenericPostModel, GenericPhotoModel):
     end_datetime = models.DateTimeField(blank=True, null=True)
     interested_users = models.ManyToManyField(to=CustomUser, related_name='interested_event_set', blank=True)
     attending_users = models.ManyToManyField(to=CustomUser, related_name='attending_event_set', blank=True)
+    location = models.CharField(max_length=100)
 
 
 # Represents an event comment object

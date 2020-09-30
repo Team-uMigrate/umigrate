@@ -20,7 +20,7 @@ const LoginPage = ({ navigation }) => {
 
   const handleSignIn = () => {
     AuthEndpoint.login(
-      { email, password },
+      { email: email, password: password },
       (response) => {
         ProfileEndpoint.get(
           (response) => auth.setAuthenticated(true),

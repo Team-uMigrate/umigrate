@@ -1,7 +1,7 @@
 import React, { createRef } from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Avatar } from "react-native-paper";
-// import ProfilePhoto from "../../common/ProfilePhoto";
+import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 
 const AdView = ({
@@ -24,7 +24,7 @@ const AdView = ({
       <Card.Content>
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
-            {/* <ProfilePhoto photo={creator.photo}></ProfilePhoto> */}
+            <ProfilePhoto photo={creator.photo}></ProfilePhoto>
           </View>
           <View style={styles.column}>
             <Text>{creator.preferred_name}</Text>

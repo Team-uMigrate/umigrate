@@ -43,6 +43,7 @@ urlpatterns = [
     path('auth/', include('rest_auth.urls')),
     path('auth/registration/', include('registration.urls')),
     url(r'^account/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
     path('api/ads/', include('ads.urls')),
     path('api/events/', include('events.urls')),

@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+GenericUserExtension
 from .models import Post, PostComment
 from .serializers import PostSerializer, PostCommentSerializer, PostDetailSerializer, PostCommentDetailSerializer
 from django.utils.decorators import method_decorator
@@ -36,11 +36,11 @@ class PostRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 # HTTP POST: Creates a post comment for the post with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
-class PostCommentListCreate(GenericCommentListCreate):
+class PostCommentListCreate(GenericPostListCreate):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
+    filter_fields = ['post', ]
     detail_serializer_class = PostCommentDetailSerializer
-    parent_string = 'post'
 
 
 # HTTP GET: Returns a post comment
@@ -51,11 +51,10 @@ class PostCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Posts']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Posts']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Posts']))
-class PostCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = PostComment.objects.all()
     serializer_class = PostCommentSerializer
     detail_serializer_class = PostCommentDetailSerializer
-    parent_string = 'post'
 
 
 # HTTP POST: Like or unlike a post

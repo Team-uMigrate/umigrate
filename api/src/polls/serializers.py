@@ -10,6 +10,10 @@ class VoteSerializer(GenericSerializer):
         model = Vote
         fields = '__all__'
 
+    def create(self, validated_data):
+        validated_data['creator'] = self.context['request'].user
+        return GenericSerializer.create(self, validated_data)
+
 
 # Serializes the option model
 class OptionSerializer(GenericSerializer):
@@ -21,6 +25,10 @@ class OptionSerializer(GenericSerializer):
         extra_fields = [
             'vote_set',
         ]
+
+    def create(self, validated_data):
+        validated_data['creator'] = self.context['request'].user
+        return GenericSerializer.create(self, validated_data)
 
 
 # Serializes the poll model

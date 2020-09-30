@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+   GenericUserExtension
 from .models import Ad, AdComment
 from .serializers import AdSerializer, AdCommentSerializer, AdDetailSerializer, AdCommentDetailSerializer
 from django_filters import rest_framework as filters
@@ -39,11 +39,11 @@ class AdRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 # HTTP POST: Creates an ad comment for the ad with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Ads']))
-class AdCommentListCreate(GenericCommentListCreate):
+class AdCommentListCreate(GenericPostListCreate):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
+    filter_fields = ['ad', ]
     detail_serializer_class = AdCommentDetailSerializer
-    parent_string = 'ad'
 
 
 # HTTP GET: Returns an ad comment
@@ -54,11 +54,10 @@ class AdCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Ads']))
-class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class AdCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
     detail_serializer_class = AdCommentDetailSerializer
-    parent_string = 'ad'
 
 
 # HTTP POST: Like or unlike an ad

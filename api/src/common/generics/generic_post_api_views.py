@@ -1,5 +1,4 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import QueryDict
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework import status
@@ -15,20 +14,19 @@ from .generic_post_models import IsCreatorOrReadOnly
 class GenericPostListCreate(ListCreateAPIView):
     # Override required for queryset; it should be a model query
     queryset = None
-    # Override required for serializer_class; it should be a model class
+    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
     serializer_class = None
+    detail_serializer_class = None
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
     ]
     filter_backends = [DjangoFilterBackend, SearchFilter]
 
-    def create(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data['creator'] = request.user.id
-
-        return ListCreateAPIView.create(self, request, *args, **kwargs)
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return self.detail_serializer_class
+        return self.serializer_class
 
 
 # HTTP GET: Returns a generic resource
@@ -38,54 +36,19 @@ class GenericPostListCreate(ListCreateAPIView):
 class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     # Override required for queryset; it should be a model query
     queryset = None
-    # Override required for serializer_class; it should be a model class
+    # Override required for serializer_class and detail_serializer_class; both it should be a model serializer class
     serializer_class = None
+    detail_serializer_class = None
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
     ]
     lookup_field = 'id'
 
-    def update(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data['creator'] = request.user.id
-
-        return RetrieveUpdateDestroyAPIView.update(self, request, *args, **kwargs)
-
-
-# HTTP GET: Returns a list of comments for the generic resource with the ID matching the ID in the URL
-# HTTP POST: Creates a comment for the generic resource with the ID matching the ID in the URL
-class GenericCommentListCreate(GenericPostListCreate):
-    # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
-    parent_string = None
-
-    def list(self, request, *args, **kwargs):
-        self.queryset = self.queryset.model.objects.filter(**{self.parent_string: kwargs['id']})
-        return GenericPostListCreate.list(self, request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data[self.parent_string] = kwargs['id']
-
-        return GenericPostListCreate.create(self, request, *args, **kwargs)
-
-
-# HTTP GET: Returns a generic resource comment
-# HTTP PUT: Updates a generic resource comment
-# HTTP PATCH: Partially updates a generic resource comment
-# HTTP DELETE: Deletes a generic resource comment
-class GenericCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    # Override require for parent_string; should be the name of the parent the comment is attached to (e.g. post)
-    parent_string = None
-
-    def update(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data[self.parent_string] = self.get_object().__dict__[f'{self.parent_string}_id']
-
-        return GenericPostRetrieveUpdateDestroy.update(self, request, *args, **kwargs)
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return self.detail_serializer_class
+        return self.serializer_class
 
 
 # HTTP POST: Adds or removes a user from a related field on a model

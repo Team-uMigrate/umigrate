@@ -338,3 +338,50 @@ export class ProfileEndpoint {
       });
   }
 }
+
+export class Choices {
+  static pronouns = ["None", "He/Him", "She/Her", "They/Them", "Other"];
+  static seasons = ["Winter", "Spring", "Fall"];
+  static prices = ["Free", "$", "$$", "$$$", "$$$$", "$$$$$"];
+  static regions = ["Waterloo", "Toronto", "Brampton", "Ottawa"];
+  static programs = [
+    "Unknown",
+    "Engineering",
+    "Arts",
+    "Mathematics",
+    "Science",
+    "Applied Health Sciences",
+    "Environment",
+    "Theology",
+    "Graduate Studies",
+    "Independent Studies",
+    "Interdisciplinary",
+    "Conrad Grebel",
+    "Renison",
+    "St. Pauls",
+    "St. Jeromes",
+  ];
+  static terms = [
+    "1A",
+    "1B",
+    "W1",
+    "2A",
+    "W2",
+    "2B",
+    "W3",
+    "3A",
+    "W4",
+    "3B",
+    "W5",
+    "W6",
+    "4A",
+    "4B",
+  ];
+  static adCategories = ["Electronics", "Books", "Food", "Other"];
+  static listingCategories = ["Condominium", "Townhouse", "Apartment"];
+  static notificationLevels = ["All", "Following", "None"];
+  static currencies = ["CAD", "USD"];
+  static languages = ["English", "French"];
+  static jobTypes = ["Full-time", "Internship"];
+  static roomPrivacy = ["Public", "Private", "Direct Messaging"];
+}

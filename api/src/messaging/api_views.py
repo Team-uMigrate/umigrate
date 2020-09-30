@@ -19,6 +19,7 @@ from drf_yasg.utils import swagger_auto_schema
 class RoomListCreate(GenericPostListCreate):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    detail_serializer_class = RoomSerializer
     permission_classes = [
         IsCreatorOrMemberReadOnly,
     ] + GenericPostListCreate.permission_classes
@@ -49,6 +50,7 @@ class RoomListCreate(GenericPostListCreate):
 class RoomRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    detail_serializer_class = RoomSerializer
     permission_classes = [
         IsCreatorOrMemberReadOnly,
     ] + GenericPostRetrieveUpdateDestroy.permission_classes

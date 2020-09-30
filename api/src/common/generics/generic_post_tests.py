@@ -74,6 +74,8 @@ class GenericPostTestCase:
         for key in response_dict:
             if key in self.ignored_keys:
                 continue
+            elif key == 'creator':
+                self.assert_equal(obj[key], response_dict[key]['id'])
             elif key == 'price':
                 self.assert_equal(float(obj[key]), float(response_dict[key]))
             elif key == 'start_datetime' or key == 'end_datetime':
@@ -167,7 +169,7 @@ class GenericCommentTestCase:
         self.create_resource(3)
 
     def test_list(self):
-        response = self.api_client.get(f'/api/{self.resource_name}/1/comments/')
+        response = self.api_client.get(f'/api/{self.resource_name}/comments/')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
 
         response_list = response.data['results']
@@ -177,9 +179,10 @@ class GenericCommentTestCase:
     def test_create(self):
         data = {
             'content': 'My comment',
+            self.parent_name: 1
         }
 
-        response = self.api_client.post(f'/api/{self.resource_name}/1/comments/', data, format='json')
+        response = self.api_client.post(f'/api/{self.resource_name}/comments/', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_201_CREATED)
         self.assert_equal(response.data[self.parent_name], 1)
 
@@ -202,12 +205,15 @@ class GenericCommentTestCase:
         for key in response_dict:
             if key in self.ignored_keys:
                 continue
+            elif key == 'creator':
+                self.assert_equal(obj[key], response_dict[key]['id'])
             else:
                 self.assert_equal(obj[key], response_dict[key])
 
     def test_update(self):
         data = {
             'content': 'My new comment',
+            self.parent_name: 1
         }
         response = self.api_client.put(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)
@@ -223,6 +229,7 @@ class GenericCommentTestCase:
     def test_update_partial(self):
         data = {
             'content': 'My new comment',
+            self.parent_name: 1
         }
         response = self.api_client.patch(f'/api/{self.resource_name}/comments/1', data, format='json')
         self.assert_equal(response.status_code, status.HTTP_200_OK)

@@ -1,7 +1,8 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+  GenericUserExtension
 from .models import Listing, ListingComment
-from .serializers import ListingSerializer, ListingCommentSerializer
+from .serializers import ListingSerializer, ListingCommentSerializer, ListingDetailSerializer, \
+    ListingCommentDetailSerializer
 from django_filters import rest_framework as filters
 from listings.filters import ListingFilter
 from django.utils.decorators import method_decorator
@@ -15,6 +16,7 @@ from drf_yasg.utils import swagger_auto_schema
 class ListingListCreate(GenericPostListCreate):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
     search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ListingFilter
@@ -31,16 +33,19 @@ class ListingListCreate(GenericPostListCreate):
 class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    detail_serializer_class = ListingDetailSerializer
 
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
+
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
-class ListingCommentListCreate(GenericCommentListCreate):
+class ListingCommentListCreate(GenericPostListCreate):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
-    parent_string = 'listing'
+    filter_fields = ['listing', ]
+    detail_serializer_class = ListingCommentDetailSerializer
 
 
 # HTTP GET: Returns a listing comment
@@ -51,10 +56,10 @@ class ListingCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Listings']))
-class ListingCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class ListingCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = ListingComment.objects.all()
     serializer_class = ListingCommentSerializer
-    parent_string = 'listing'
+    detail_serializer_class = ListingCommentDetailSerializer
 
 
 # HTTP POST: Like or unlike a listing

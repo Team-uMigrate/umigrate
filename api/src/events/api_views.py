@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+ GenericUserExtension
 from .models import Event, EventComment
-from .serializers import EventSerializer, EventCommentSerializer
+from .serializers import EventSerializer, EventCommentSerializer, EventDetailSerializer, EventCommentDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -13,8 +13,9 @@ from drf_yasg.utils import swagger_auto_schema
 class EventListCreate(GenericPostListCreate):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    detail_serializer_class = EventDetailSerializer
     filter_fields = ['region', 'datetime_created', 'creator', 'start_datetime', 'end_datetime', 'price_scale', ]
-    search_fields = ['title', ]
+    search_fields = ['title', 'location']
 
 
 # HTTP GET: Returns an event
@@ -28,16 +29,18 @@ class EventListCreate(GenericPostListCreate):
 class EventRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    detail_serializer_class = EventDetailSerializer
 
 
 # HTTP GET: Returns a list of event comments for the event with the ID that matches the ID in the URL
 # HTTP POST: Creates a event comment for the event with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Events']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
-class EventCommentListCreate(GenericCommentListCreate):
+class EventCommentListCreate(GenericPostListCreate):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
-    parent_string = 'event'
+    filter_fields = ['event', ]
+    detail_serializer_class = EventCommentDetailSerializer
 
 
 # HTTP GET: Returns an event comment
@@ -48,10 +51,10 @@ class EventCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Events']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Events']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Events']))
-class EventCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class EventCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = EventComment.objects.all()
     serializer_class = EventCommentSerializer
-    parent_string = 'event'
+    detail_serializer_class = EventCommentDetailSerializer
 
 
 # HTTP POST: Like or unlike an event

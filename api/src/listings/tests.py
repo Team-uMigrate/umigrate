@@ -20,7 +20,8 @@ class ListingTestCase(GenericPostTestCase, APITestCase):
             'category': 0,
             'price': 9976.00,
             'season': 2,
-            'year': 2021
+            'year': 2021, 
+            'location': "TEST LOCATION"
         }
         self.update_data = {
             'title': 'My first listing (edited)',
@@ -29,7 +30,8 @@ class ListingTestCase(GenericPostTestCase, APITestCase):
             'category': 1,
             'price': 997,
             'season': 1,
-            'year': 2023
+            'year': 2023, 
+            'location': "NEW TEST LOCATION"
         }
 
         GenericPostTestCase.setUp(self)

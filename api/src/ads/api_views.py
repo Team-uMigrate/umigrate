@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericCommentListCreate, GenericCommentRetrieveUpdateDestroy, GenericUserExtension
+   GenericUserExtension
 from .models import Ad, AdComment
-from .serializers import AdSerializer, AdCommentSerializer
+from .serializers import AdSerializer, AdCommentSerializer, AdDetailSerializer, AdCommentDetailSerializer
 from django_filters import rest_framework as filters
 from ads.filters import AdFilter
 from django.utils.decorators import method_decorator
@@ -15,6 +15,7 @@ from drf_yasg.utils import swagger_auto_schema
 class AdListCreate(GenericPostListCreate):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    detail_serializer_class = AdDetailSerializer
     search_fields = ['title', 'features']
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = AdFilter
@@ -31,16 +32,18 @@ class AdListCreate(GenericPostListCreate):
 class AdRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    detail_serializer_class = AdDetailSerializer
 
 
 # HTTP GET: Returns a list of ad comments for the ad with the ID that matches the ID in the URL
 # HTTP POST: Creates an ad comment for the ad with the ID that matches the ID in the URL
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Ads']))
-class AdCommentListCreate(GenericCommentListCreate):
+class AdCommentListCreate(GenericPostListCreate):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
-    parent_string = 'ad'
+    filter_fields = ['ad', ]
+    detail_serializer_class = AdCommentDetailSerializer
 
 
 # HTTP GET: Returns an ad comment
@@ -51,10 +54,10 @@ class AdCommentListCreate(GenericCommentListCreate):
 @method_decorator(name='put', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Ads']))
-class AdCommentRetrieveUpdateDestroy(GenericCommentRetrieveUpdateDestroy):
+class AdCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = AdComment.objects.all()
     serializer_class = AdCommentSerializer
-    parent_string = 'ad'
+    detail_serializer_class = AdCommentDetailSerializer
 
 
 # HTTP POST: Like or unlike an ad

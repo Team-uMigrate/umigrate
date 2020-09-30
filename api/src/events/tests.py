@@ -22,6 +22,7 @@ class EventTestCase(GenericPostTestCase, APITestCase):
             'price_scale': 1,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+            'location': "TEST LOCATION"
         }
         self.update_data = {
             'title': 'My first event (edited)',
@@ -30,6 +31,7 @@ class EventTestCase(GenericPostTestCase, APITestCase):
             'price_scale': 2,
             'start_datetime': datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'end_datetime': (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+            'location': "NEW TEST LOCATION"
         }
 
         GenericPostTestCase.setUp(self)

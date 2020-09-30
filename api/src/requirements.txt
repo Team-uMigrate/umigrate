@@ -14,3 +14,4 @@ uwaterloodriver
 psycopg2
 gunicorn
 daphne
+sentry-sdk

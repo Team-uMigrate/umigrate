@@ -1,11 +1,11 @@
 from django.db import models
+from common.generics.generic_models import GenericPhotoCollectionModel
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
-from common.generics.generic_models import GenericPhotoModel
 from common.constants.choices import Choices
 
 
 # Represents an ad object
-class Ad(GenericPostModel, GenericPhotoModel):
+class Ad(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/ad_photos', blank=True)
     category = models.PositiveSmallIntegerField(choices=Choices.AD_CATEGORY_CHOICES)
     price = models.DecimalField(max_digits=9, decimal_places=2)

@@ -1,13 +1,13 @@
 from django.db import models
+from common.generics.generic_models import GenericPhotoCollectionModel
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
-from common.generics.generic_models import GenericPhotoModel
 from users.models import CustomUser
 from datetime import datetime
 from common.constants.choices import Choices
 
 
 # Represents an event object
-class Event(GenericPostModel, GenericPhotoModel):
+class Event(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/event_photos', blank=True)
     price_scale = models.PositiveSmallIntegerField(choices=Choices.PRICE_CHOICES)
     start_datetime = models.DateTimeField(default=datetime.today)

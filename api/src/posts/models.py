@@ -1,10 +1,10 @@
 from django.db import models
+from common.generics.generic_models import GenericPhotoCollectionModel
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
-from common.generics.generic_models import GenericPhotoModel
 
 
 # Represents a post object
-class Post(GenericPostModel, GenericPhotoModel):
+class Post(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/post_photos', blank=True)
 
 

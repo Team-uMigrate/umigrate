@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import Header from "../common/Header";
 import FeedContainer from "./Feed/FeedContainer.jsx";
 
-const MarketPage = () => {
+const CommunityPage = () => {
   return (
     <View style={styles.container}>
       <Header title="Community Page" />

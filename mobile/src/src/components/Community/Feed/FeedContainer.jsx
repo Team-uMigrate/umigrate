@@ -86,77 +86,7 @@ class FeedContainer extends Component {
     );
   };
 
-  // merging of posts and events
-
-  // getLists = () => {
-  //   let posts = this.state.posts;
-  //   let events = this.state.events;
-  //   let combinedList = {
-  //     posts: [],
-  //     events: [],
-  //     postsPage: this.state.pageP,
-  //     eventsPage: this.state.pageE,
-  //   };
-  //   let toDate = (post) => Date.parse(post.datetime_created);
-
-  //   // Checks if posts or events are empty
-  //   if (posts.length === 0 || events.length === 0) {
-  //     if (posts.length !== 0) {
-  //       combinedList.posts = posts;
-  //       combinedList.postsPage++;
-  //     } else if (events.length !== 0) {
-  //       combinedList.events = events;
-  //       combinedList.eventsPage++;
-  //     }
-  //   } else {
-  //     // Keeps only all the posts if the last post is more recent than the first event
-  //     if (toDate(posts[posts.length - 1]) >= toDate(events[0])) {
-  //       combinedList.posts = posts;
-  //       combinedList.postsPage++;
-  //     }
-
-  //     // Keeps only all the events if the last event is more recent than the first post
-  //     else if (toDate(events[events.length - 1]) >= toDate(posts[0])) {
-  //       combinedList.events = events;
-  //       combinedList.eventsPage++;
-  //     }
-
-  //     // Keeps all the posts and only the events that are more recent than the last post if the last post is more recent than the last event
-  //     else if (
-  //       toDate(posts[posts.length - 1]) > toDate(events[events.length - 1])
-  //     ) {
-  //       combinedList.posts = posts;
-  //       combinedList.postsPage++;
-  //       for (let i = 0; i < events.length; i++) {
-  //         if (toDate(events[i]) > toDate(posts[posts.length - 1])) {
-  //           combinedList.events.push(events[i]);
-  //         }
-  //       }
-  //     }
-
-  //     // Keeps all events and only the posts that are more recent than the event if the last event is more recent than the last post
-  //     else if (
-  //       toDate(events[events.length - 1]) > toDate(posts[posts.length - 1])
-  //     ) {
-  //       combinedList.events = events;
-  //       combinedList.eventsPage++;
-  //       for (let i = 0; i < posts.length; i++) {
-  //         if (toDate(posts[i]) > toDate(events[events.length - 1])) {
-  //           combinedList.posts.push(posts[i]);
-  //         }
-  //       }
-  //     }
-
-  //     // Keeps all posts and events if the last post and event were made at the same time
-  //     else {
-  //       combinedList.posts = posts;
-  //       combinedList.events = events;
-  //       combinedList.postsPage++;
-  //       combinedList.eventsPage++;
-  //     }
-  //   }
-  //   return combinedList;
-  // };
+  // to sort the posts and events into one arrayc
 
   sortLists = (posts, events) => {
     let postCount = posts.length;
@@ -189,6 +119,7 @@ class FeedContainer extends Component {
         eventCount--;
       }
     }
+
     return array;
   };
 

@@ -12,7 +12,7 @@ const CommunityPage = () => {
   );
 };
 
-export default MarketPage;
+export default CommunityPage;
 
 const styles = StyleSheet.create({
   container: {

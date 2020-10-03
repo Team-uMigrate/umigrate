@@ -16,7 +16,7 @@ const RegistrationPage = ({ navigation }) => {
 
   const handleSignUp = () => {
     AuthEndpoint.register(
-      { email, password, confirm },
+      { email: email, password1: password, password2: confirm },
       (response) => signInRedirect(),
       (error) => {
         console.log(error);

@@ -1,6 +1,7 @@
 node_modules/
 .expo/
 npm-debug.*
+junit.xml
 *.jks
 *.p8
 *.p12

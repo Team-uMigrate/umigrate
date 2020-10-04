@@ -21,11 +21,6 @@ class FeedContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.state.posts = [];
-    this.state.events = [];
-    this.state.list = [];
-    this.fetchEvents(1, {});
-    this.fetchPosts(1, {});
   }
 
   // posts

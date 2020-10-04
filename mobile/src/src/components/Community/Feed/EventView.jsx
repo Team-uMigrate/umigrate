@@ -56,7 +56,9 @@ const EventView = ({
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End Time: </Text>
-          {end_datetime.substring(0, "YYYY-MM-DD".length)}
+          {end_datetime
+            ? end_datetime.substring(0, "YYYY-MM-DD".length)
+            : "N/A"}
         </Paragraph>
 
         {photo && (

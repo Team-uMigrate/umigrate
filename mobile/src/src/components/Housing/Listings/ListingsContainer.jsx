@@ -6,7 +6,7 @@ import { ListingsEndpoint } from "../../../utils/endpoints";
 class ListingContainer extends Component {
   state = {
     listings: [],
-    page: 1,
+    nextPage: 1,
     filters: {},
     nextPageExists: true,
   };
@@ -18,7 +18,7 @@ class ListingContainer extends Component {
 
   getListings = () => {
     ListingsEndpoint.list(
-      this.state.page,
+      this.state.nextPage,
       this.state.filters, //TODO add filter functionality and proper failure handling
       (response) => {
         const nextPageExists = response.data.next !== null;
@@ -30,7 +30,7 @@ class ListingContainer extends Component {
             .filter((t) =>
               seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
             ),
-          page: nextPageExists ? this.state.page + 1 : this.state.page,
+          nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
           nextPageExists: nextPageExists,
         });
       },

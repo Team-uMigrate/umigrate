@@ -6,7 +6,7 @@ import { AdsEndpoint } from "../../../utils/endpoints";
 class AdsContainer extends Component {
   state = {
     ads: [],
-    page: 1,
+    nextPage: 1,
     filters: {},
     nextPageExists: true,
   };
@@ -18,7 +18,7 @@ class AdsContainer extends Component {
 
   getAds = () => {
     AdsEndpoint.list(
-      this.state.page,
+      this.state.nextPage,
       this.state.filters,
       (response) => {
         const nextPageExists = response.data.next !== null;
@@ -30,7 +30,7 @@ class AdsContainer extends Component {
             .filter((t) =>
               seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
             ),
-          page: nextPageExists ? this.state.page + 1 : this.state.page,
+          nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
           nextPageExists: nextPageExists,
         });
       },

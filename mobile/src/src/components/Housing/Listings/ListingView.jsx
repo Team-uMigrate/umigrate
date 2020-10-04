@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
+import CommentBar from "../../common/CommentBar/CommentBar";
 
 const ListingView = ({creator, likes, comments, title, content, region, datetime_created, photo, category, price, season, year}) => {
 
@@ -31,6 +32,7 @@ const ListingView = ({creator, likes, comments, title, content, region, datetime
                     <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Likes: " + likes}</Paragraph>
                     <Paragraph style={{ flex: 1, alignSelf: "center" }}>{"Comments: " + comments}</Paragraph>
                 </View>
+                <CommentBar/>
             </Card.Content>
         </Card>
     )

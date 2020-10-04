@@ -25,11 +25,7 @@ class FeedContainer extends Component {
 
   // posts
 
-  extendPosts = (newPosts) => {
-    this.setState({
-      posts: this.state.posts.concat(newPosts),
-    });
-  };
+  // posts
 
   fetchPosts = (pageP, filters) => {
     PostsEndpoint.list(
@@ -47,6 +43,17 @@ class FeedContainer extends Component {
         }
 
         this.extendPosts(newPosts);
+        let seen = {};
+
+        this.setState({
+          posts: this.state.posts
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          hasNewPosts: true,
+          nextPageExistsP: response.data.next !== null,
+        });
       },
       (error) => {
         console.log("error: ", error);
@@ -56,13 +63,7 @@ class FeedContainer extends Component {
 
   // events
 
-  extendEvents = (newEvents) => {
-    this.setState({
-      events: this.state.events.concat(newEvents),
-    });
-  };
-
-  fetchEvents = (pageE, filters) => {
+  getEvents = () => {
     EventsEndpoint.list(
       pageE,
       filters,
@@ -78,6 +79,17 @@ class FeedContainer extends Component {
         }
 
         this.extendEvents(newEvents);
+        let seen = {};
+
+        this.setState({
+          events: this.state.events
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          hasNewEvents: true,
+          nextPageExistsE: response.data.next !== null,
+        });
       },
       (error) => {
         console.log("error: ", error);

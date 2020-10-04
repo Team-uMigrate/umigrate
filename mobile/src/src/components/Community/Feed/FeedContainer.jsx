@@ -105,21 +105,27 @@ class FeedContainer extends Component {
     }
   };
 
-      let postDate = new Date(posts[postCount - 1].datetime_created);
-      let eventDate = new Date(events[eventCount - 1].datetime_created);
+  // to sort the posts and events into one array
 
-      if (postDate < eventDate) {
-        array = [posts[postCount - 1], ...array];
-        postCount--;
-      } else {
-        // means event object is older, also if they were made at the same
-        // time, default to event
-        array = [events[eventCount - 1], ...array];
-        eventCount--;
-      }
+  getList = () => {
+    let list = [...this.state.posts, ...this.state.events];
+
+    if (this.state.posts.length > 0 && this.state.events.length > 0) {
+      const lastPost = this.state.posts[this.state.posts.length - 1];
+      const lastEvent = this.state.events[this.state.events.length - 1];
+      const lastPostDate = Date.parse(lastPost.datetime_created);
+      const lastEventDate = Date.parse(lastEvent.datetime_created);
+      const lastListDate = Math.max(lastPostDate, lastEventDate);
+
+      list = list
+        .filter((t) => Date.parse(t.datetime_created) >= lastListDate)
+        .sort(
+          (a, b) =>
+            Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
+        );
     }
 
-    return array;
+    return list;
   };
 
   renderItem({ item }) {

@@ -137,22 +137,18 @@ class FeedContainer extends Component {
   }
 
   render() {
-    let list = [];
-    list = this.sortLists(this.state.posts, this.state.events);
     return (
       <View style={styles.feedContainer}>
         <FlatList
-          data={list}
-          // keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
+          data={this.getList()}
+          keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
           onEndReached={() => {
-            if (this.state.hasMoreEvents) {
-              this.state.pageE += 1;
-              this.fetchEvents(this.state.pageE, {});
+            if (this.state.nextPageExistsP) {
+              this.getPosts();
             }
-            if (this.state.hasMorePosts) {
-              this.state.pageP += 1;
-              this.fetchPosts(this.state.pageP, {});
+            if (this.state.nextPageExistsE) {
+              this.getEvents();
             }
           }}
         />

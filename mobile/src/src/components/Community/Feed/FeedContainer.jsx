@@ -25,7 +25,11 @@ class FeedContainer extends Component {
     this.getEvents();
   }
 
-  // posts
+  componentDidUpdate() {
+    if (this.state.hasNewPosts && this.state.hasNewEvents) {
+      this.setPages();
+    }
+  }
 
   // posts
 
@@ -77,25 +81,29 @@ class FeedContainer extends Component {
     );
   };
 
-  // to sort the posts and events into one arrayc
+  // set the new pages for posts and events
 
-  sortLists = (posts, events) => {
-    let postCount = posts.length;
-    let eventCount = events.length;
-    let array = [];
-    let totalCount = postCount + eventCount;
-    let id = 1;
+  setPages = () => {
+    if (this.state.posts.length > 0 && this.state.events.length > 0) {
+      const lastPost = this.state.posts[this.state.posts.length - 1];
+      const lastEvent = this.state.events[this.state.events.length - 1];
+      const lastPostDate = Date.parse(lastPost.datetime_created);
+      const lastEventDate = Date.parse(lastEvent.datetime_created);
 
-    while (postCount !== 0 || eventCount !== 0) {
-      if (postCount === 0) {
-        array = [events[eventCount - 1], ...array];
-        eventCount--;
-        continue;
-      } else if (eventCount === 0) {
-        array = [posts[postCount - 1], ...array];
-        postCount--;
-        continue;
-      }
+      this.setState({
+        pageP:
+          lastPostDate >= lastEventDate && this.state.nextPageExistsP
+            ? this.state.pageP + 1
+            : this.state.pageP,
+        pageE:
+          lastPostDate <= lastEventDate && this.state.nextPageExistsE
+            ? this.state.pageE + 1
+            : this.state.pageE,
+        hasNewPosts: false,
+        hasNewEvents: false,
+      });
+    }
+  };
 
       let postDate = new Date(posts[postCount - 1].datetime_created);
       let eventDate = new Date(events[eventCount - 1].datetime_created);

@@ -7,37 +7,32 @@ class AdsContainer extends Component {
   state = {
     ads: [],
     page: 1,
-    hasMoreAds: true,
+    filters: {},
+    nextPageExists: true,
   };
 
   constructor(props) {
     super(props);
-    this.state.ads = [];
-    this.fetchAds(1, {});
+    this.getAds();
   }
 
-  extendAds = (newAds) => {
-    this.setState({
-      ads: this.state.ads.concat(newAds),
-    });
-  };
-
-  fetchAds = (page, filters) => {
+  getAds = () => {
     AdsEndpoint.list(
-      page,
-      filters,
+      this.state.page,
+      this.state.filters,
       (response) => {
-        if (response.data.next === null) {
-          this.state.hasMoreAds = false;
-        }
+        const nextPageExists = response.data.next !== null;
+        let seen = {};
 
-        let newAds = response.data.results;
-
-        for (let i in newAds) {
-          newAds[i].key = newAds[i].id.toString();
-        }
-
-        this.extendAds(newAds);
+        this.setState({
+          ads: this.state.ads
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          page: nextPageExists ? this.state.page + 1 : this.state.page,
+          nextPageExists: nextPageExists,
+        });
       },
       (error) => {
         console.log("error: ", error);
@@ -54,12 +49,11 @@ class AdsContainer extends Component {
       <View style={styles.adsContainer}>
         <FlatList
           data={this.state.ads}
-          // keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
+          keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
           onEndReached={() => {
-            if (this.state.hasMoreAds) {
-              this.state.page += 1;
-              this.fetchAds(this.state.page, {});
+            if (this.state.nextPageExists) {
+              this.getAds();
             }
           }}
         />

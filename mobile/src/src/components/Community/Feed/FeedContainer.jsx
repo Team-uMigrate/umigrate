@@ -8,11 +8,15 @@ class FeedContainer extends Component {
   state = {
     posts: [],
     events: [],
-    list: [],
     pageP: 1,
     pageE: 1,
-    hasMoreEvents: true,
-    hasMorePosts: true,
+    filtersP: {},
+    filtersE: {},
+    hasNewPosts: false,
+    hasNewEvents: false,
+    nextPageExistsP: true,
+    nextPageExistsE: true,
+    lastListDate: null,
   };
 
   constructor(props) {

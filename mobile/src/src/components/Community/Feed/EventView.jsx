@@ -27,7 +27,7 @@ const EventView = ({
       <Card.Content>
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
-            <ProfilePhoto photo={creator.photo}></ProfilePhoto>
+            <ProfilePhoto photo={creator.photo} />
           </View>
           <View style={styles.column}>
             <Text>{creator.preferred_name}</Text>
@@ -56,7 +56,9 @@ const EventView = ({
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End Time: </Text>
-          {end_datetime.substring(0, "YYYY-MM-DD".length)}
+          {end_datetime
+            ? end_datetime.substring(0, "YYYY-MM-DD".length)
+            : "N/A"}
         </Paragraph>
 
         {photo && (
@@ -67,7 +69,7 @@ const EventView = ({
         )}
 
         <View style={styles.buttonContainer}>
-          {is_attending == true ? (
+          {is_attending === true ? (
             <Button
               compact={true}
               style={styles.buttonStyle}

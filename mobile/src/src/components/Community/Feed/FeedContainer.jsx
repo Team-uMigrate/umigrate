@@ -8,46 +8,47 @@ class FeedContainer extends Component {
   state = {
     posts: [],
     events: [],
-    list: [],
     pageP: 1,
     pageE: 1,
-    hasMoreEvents: true,
-    hasMorePosts: true,
+    filtersP: {},
+    filtersE: {},
+    hasNewPosts: false,
+    hasNewEvents: false,
+    nextPageExistsP: true,
+    nextPageExistsE: true,
+    lastListDate: null,
   };
 
   constructor(props) {
     super(props);
-    this.state.posts = [];
-    this.state.events = [];
-    this.state.list = [];
-    this.fetchEvents(1, {});
-    this.fetchPosts(1, {});
+    this.getPosts();
+    this.getEvents();
+  }
+
+  componentDidUpdate() {
+    if (this.state.hasNewPosts && this.state.hasNewEvents) {
+      this.setPages();
+    }
   }
 
   // posts
 
-  extendPosts = (newPosts) => {
-    this.setState({
-      posts: this.state.posts.concat(newPosts),
-    });
-  };
-
-  fetchPosts = (pageP, filters) => {
+  getPosts = () => {
     PostsEndpoint.list(
-      pageP,
-      filters,
+      this.state.pageP,
+      this.state.filtersP,
       (response) => {
-        if (response.data.next === null) {
-          this.state.hasMorePosts = false;
-        }
+        let seen = {};
 
-        let newPosts = response.data.results;
-
-        for (let i in newPosts) {
-          newPosts[i].key = newPosts[i].id.toString();
-        }
-
-        this.extendPosts(newPosts);
+        this.setState({
+          posts: this.state.posts
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          hasNewPosts: true,
+          nextPageExistsP: response.data.next !== null,
+        });
       },
       (error) => {
         console.log("error: ", error);
@@ -57,28 +58,22 @@ class FeedContainer extends Component {
 
   // events
 
-  extendEvents = (newEvents) => {
-    this.setState({
-      events: this.state.events.concat(newEvents),
-    });
-  };
-
-  fetchEvents = (pageE, filters) => {
+  getEvents = () => {
     EventsEndpoint.list(
-      pageE,
-      filters,
+      this.state.pageE,
+      this.state.filtersE,
       (response) => {
-        if (response.data.next === null) {
-          this.state.hasMoreEvents = false;
-        }
+        let seen = {};
 
-        let newEvents = response.data.results;
-
-        for (let i in newEvents) {
-          newEvents[i].key = newEvents[i].id.toString();
-        }
-
-        this.extendEvents(newEvents);
+        this.setState({
+          events: this.state.events
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          hasNewEvents: true,
+          nextPageExistsE: response.data.next !== null,
+        });
       },
       (error) => {
         console.log("error: ", error);
@@ -86,41 +81,51 @@ class FeedContainer extends Component {
     );
   };
 
-  // to sort the posts and events into one arrayc
+  // set the new pages for posts and events
 
-  sortLists = (posts, events) => {
-    let postCount = posts.length;
-    let eventCount = events.length;
-    let array = [];
-    let totalCount = postCount + eventCount;
-    let id = 1;
+  setPages = () => {
+    if (this.state.posts.length > 0 && this.state.events.length > 0) {
+      const lastPost = this.state.posts[this.state.posts.length - 1];
+      const lastEvent = this.state.events[this.state.events.length - 1];
+      const lastPostDate = Date.parse(lastPost.datetime_created);
+      const lastEventDate = Date.parse(lastEvent.datetime_created);
 
-    while (postCount !== 0 || eventCount !== 0) {
-      if (postCount === 0) {
-        array = [events[eventCount - 1], ...array];
-        eventCount--;
-        continue;
-      } else if (eventCount === 0) {
-        array = [posts[postCount - 1], ...array];
-        postCount--;
-        continue;
-      }
+      this.setState({
+        pageP:
+          lastPostDate >= lastEventDate && this.state.nextPageExistsP
+            ? this.state.pageP + 1
+            : this.state.pageP,
+        pageE:
+          lastPostDate <= lastEventDate && this.state.nextPageExistsE
+            ? this.state.pageE + 1
+            : this.state.pageE,
+        hasNewPosts: false,
+        hasNewEvents: false,
+      });
+    }
+  };
 
-      let postDate = new Date(posts[postCount - 1].datetime_created);
-      let eventDate = new Date(events[eventCount - 1].datetime_created);
+  // to sort the posts and events into one array
 
-      if (postDate < eventDate) {
-        array = [posts[postCount - 1], ...array];
-        postCount--;
-      } else {
-        // means event object is older, also if they were made at the same
-        // time, default to event
-        array = [events[eventCount - 1], ...array];
-        eventCount--;
-      }
+  getList = () => {
+    let list = [...this.state.posts, ...this.state.events];
+
+    if (this.state.posts.length > 0 && this.state.events.length > 0) {
+      const lastPost = this.state.posts[this.state.posts.length - 1];
+      const lastEvent = this.state.events[this.state.events.length - 1];
+      const lastPostDate = Date.parse(lastPost.datetime_created);
+      const lastEventDate = Date.parse(lastEvent.datetime_created);
+      const lastListDate = Math.max(lastPostDate, lastEventDate);
+
+      list = list
+        .filter((t) => Date.parse(t.datetime_created) >= lastListDate)
+        .sort(
+          (a, b) =>
+            Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
+        );
     }
 
-    return array;
+    return list;
   };
 
   renderItem({ item }) {
@@ -132,22 +137,18 @@ class FeedContainer extends Component {
   }
 
   render() {
-    let list = [];
-    list = this.sortLists(this.state.posts, this.state.events);
     return (
       <View style={styles.feedContainer}>
         <FlatList
-          data={list}
-          // keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
+          data={this.getList()}
+          keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
           onEndReached={() => {
-            if (this.state.hasMoreEvents) {
-              this.state.pageE += 1;
-              this.fetchEvents(this.state.pageE, {});
+            if (this.state.nextPageExistsP) {
+              this.getPosts();
             }
-            if (this.state.hasMorePosts) {
-              this.state.pageP += 1;
-              this.fetchPosts(this.state.pageP, {});
+            if (this.state.nextPageExistsE) {
+              this.getEvents();
             }
           }}
         />

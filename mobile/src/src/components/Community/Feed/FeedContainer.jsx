@@ -21,28 +21,19 @@ class FeedContainer extends Component {
 
   constructor(props) {
     super(props);
+    this.getPosts();
+    this.getEvents();
   }
 
   // posts
 
   // posts
 
-  fetchPosts = (pageP, filters) => {
+  getPosts = () => {
     PostsEndpoint.list(
-      pageP,
-      filters,
+      this.state.pageP,
+      this.state.filtersP,
       (response) => {
-        if (response.data.next === null) {
-          this.state.hasMorePosts = false;
-        }
-
-        let newPosts = response.data.results;
-
-        for (let i in newPosts) {
-          newPosts[i].key = newPosts[i].id.toString();
-        }
-
-        this.extendPosts(newPosts);
         let seen = {};
 
         this.setState({
@@ -65,20 +56,9 @@ class FeedContainer extends Component {
 
   getEvents = () => {
     EventsEndpoint.list(
-      pageE,
-      filters,
+      this.state.pageE,
+      this.state.filtersE,
       (response) => {
-        if (response.data.next === null) {
-          this.state.hasMoreEvents = false;
-        }
-
-        let newEvents = response.data.results;
-
-        for (let i in newEvents) {
-          newEvents[i].key = newEvents[i].id.toString();
-        }
-
-        this.extendEvents(newEvents);
         let seen = {};
 
         this.setState({

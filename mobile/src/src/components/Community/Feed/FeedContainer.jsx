@@ -8,8 +8,8 @@ class FeedContainer extends Component {
   state = {
     posts: [],
     events: [],
-    pageP: 1,
-    pageE: 1,
+    nextPageP: 1,
+    nextPageE: 1,
     filtersP: {},
     filtersE: {},
     hasNewPosts: false,
@@ -35,7 +35,7 @@ class FeedContainer extends Component {
 
   getPosts = () => {
     PostsEndpoint.list(
-      this.state.pageP,
+      this.state.nextPageP,
       this.state.filtersP,
       (response) => {
         let seen = {};
@@ -60,7 +60,7 @@ class FeedContainer extends Component {
 
   getEvents = () => {
     EventsEndpoint.list(
-      this.state.pageE,
+      this.state.nextPageE,
       this.state.filtersE,
       (response) => {
         let seen = {};
@@ -91,14 +91,14 @@ class FeedContainer extends Component {
       const lastEventDate = Date.parse(lastEvent.datetime_created);
 
       this.setState({
-        pageP:
+        nextPageP:
           lastPostDate >= lastEventDate && this.state.nextPageExistsP
-            ? this.state.pageP + 1
-            : this.state.pageP,
-        pageE:
+            ? this.state.nextPageP + 1
+            : this.state.nextPageP,
+        nextPageE:
           lastPostDate <= lastEventDate && this.state.nextPageExistsE
-            ? this.state.pageE + 1
-            : this.state.pageE,
+            ? this.state.nextPageE + 1
+            : this.state.nextPageE,
         hasNewPosts: false,
         hasNewEvents: false,
       });

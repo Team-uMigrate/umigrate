@@ -20,6 +20,9 @@ class Job(GenericPhotoModel):
     city = models.CharField(max_length=30)
 
     class Meta:
+        
+        
+        
         ordering = ['-datetime_created']
 
     def __str__(self):

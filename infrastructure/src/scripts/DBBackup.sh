@@ -10,4 +10,4 @@ if ["$1" = ""]
 fi
 
 # Backing up the DB
-sudo -u postgres pg_dump -U postgres -w -F t umigratedb > /psqlBackup/$fileName.tar
+sudo -u postgres pg_dump -U postgres -w -F t umigratedb > /home/umigrate/$fileName.tar

@@ -21,7 +21,8 @@ class GenericPostTestCase:
     user = None
     ignored_keys = [
         'option_set',
-        'photo',
+        'profile_photo',
+        'background_photo',
         'liked_users',
         'tagged_users',
         'interested_users',

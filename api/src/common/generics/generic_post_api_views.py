@@ -1,5 +1,4 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import QueryDict
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework import status
@@ -24,13 +23,6 @@ class GenericPostListCreate(ListCreateAPIView):
     ]
     filter_backends = [DjangoFilterBackend, SearchFilter]
 
-    def create(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data['creator'] = request.user.id
-
-        return ListCreateAPIView.create(self, request, *args, **kwargs)
-
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return self.detail_serializer_class
@@ -53,19 +45,12 @@ class GenericPostRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     ]
     lookup_field = 'id'
 
-    def update(self, request, *args, **kwargs):
-        if isinstance(request.data, QueryDict):
-            request.data._mutable = True
-        request.data['creator'] = request.user.id
-
-        return RetrieveUpdateDestroyAPIView.update(self, request, *args, **kwargs)
-
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return self.detail_serializer_class
         return self.serializer_class
 
-    
+
 # HTTP POST: Adds or removes a user from a related field on a model
 class GenericUserExtension(APIView):
     # Override required for field_string; it should be a string for the field in the request

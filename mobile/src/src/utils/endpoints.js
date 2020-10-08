@@ -143,28 +143,72 @@ class BaseEndpoint {
   }
 }
 
+// Base posting endpoint class
+class BasePostingEndpoint extends BaseEndpoint {
+  static like(
+    id,
+    shouldLike,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = toFormData({ id: id, like: shouldLike });
+
+    Axios.post(BASE_URL + this.endpoint + "like", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+}
+
+// Base comment endpoint class
+class BaseCommentEndpoint extends BaseEndpoint {
+  static like(
+    id,
+    shouldLike,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = toFormData({ id: id, like: shouldLike });
+
+    Axios.post(BASE_URL + this.endpoint + "like", formData, {
+      headers: { "content-type": "multipart/form-data" },
+    })
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+}
+
 // Endpoints
-export class AdsEndpoint extends BaseEndpoint {
+export class AdsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/ads/";
 }
 
-export class AdCommentsEndpoint extends BaseEndpoint {
+export class AdCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/ads/comments/";
 }
 
-export class EventsEndpoint extends BaseEndpoint {
+export class EventsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/events/";
 }
 
-export class EventCommentsEndpoint extends BaseEndpoint {
+export class EventCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/events/comments/";
 }
 
-export class ListingsEndpoint extends BaseEndpoint {
+export class ListingsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/listings/";
 }
 
-export class ListingCommentsEndpoint extends BaseEndpoint {
+export class ListingCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/listings/comments/";
 }
 
@@ -198,19 +242,19 @@ export class MessagesEndpoint {
   }
 }
 
-export class PollsEndpoint extends BaseEndpoint {
+export class PollsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/polls/";
 }
 
-export class PollCommentsEndpoint extends BaseEndpoint {
+export class PollCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/polls/comments/";
 }
 
-export class PostsEndpoint extends BaseEndpoint {
+export class PostsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/posts/";
 }
 
-export class PostCommentsEndpoint extends BaseEndpoint {
+export class PostCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/posts/comments/";
 }
 

@@ -21,6 +21,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .settings import ALLOWED_HOSTS, STAGE_ENVIRONMENT
+from common.constants.choices import trigger_error
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,6 +43,7 @@ urlpatterns = [
     path('auth/', include('rest_auth.urls')),
     path('auth/registration/', include('registration.urls')),
     url(r'^account/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
     path('api/ads/', include('ads.urls')),
     path('api/events/', include('events.urls')),
@@ -51,4 +53,6 @@ urlpatterns = [
     path('api/polls/', include('polls.urls')),
     path('api/posts/', include('posts.urls')),
     path('api/users/', include('users.urls')),
+
+    path('sentry-debug/', trigger_error)
 ]

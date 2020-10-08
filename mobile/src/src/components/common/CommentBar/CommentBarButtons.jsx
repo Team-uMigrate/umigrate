@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Button } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 
 const CommentBarButtons = ({ sendButtonVisible }) => {
 
-    if(sendButtonVisible) {
+    const [liked, setLiked] = useState(false);
 
+    const likePost = () => {
+        setLiked(!liked);
+
+    };
+
+    if(sendButtonVisible) {
         return(
-            <View style={ [styles.buttonView] }>
-                <Button icon={"send"} style={styles.sendButton}/>
-            </View>
+                <View style={ styles.sendButtonView }>
+                    <IconButton icon={"send"} style={styles.sendButton}/>
+                </View>
         )
     }
     else{
         return(
             <>
                 <View style={styles.buttonView}>
-                    <Button icon={"heart"} color={"red"} />
+                    <IconButton icon={"heart"} color={liked? "red":"black"} style={styles.button} onPress={likePost}/>
                 </View>
                 <View style={styles.buttonView}>
-                    <Button icon={"comment"} color={"black"} />
+                    <IconButton icon={"comment"} color={"black"} style={styles.button}/>
                 </View>
             </>
         )
@@ -35,11 +41,22 @@ const styles = StyleSheet.create({
         marginRight: 5,
         alignContent: "center"
     },
-    likeButton: {
-        color: "red"
+    sendButtonView: {
+        flex: 2,
+        marginLeft: 10,
+        marginRight: 5,
+        alignContent: "center",
+        backgroundColor: "#47e9ff",
+        borderRadius: 20,
+    },
+    button: {
+        height: 20
     },
     sendButton: {
         color: "white",
+        alignSelf: "center",
+        height: 20,
+        padding: 5
     }
 });
 

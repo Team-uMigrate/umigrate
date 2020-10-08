@@ -11,6 +11,9 @@ const CommentBar = () => {
             <TextInput
                 value={text}
                 clearTextOnFocus={true}
+                autoCorrect={true}
+                multiline={true}
+                scrollEnabled={true}
                 onChangeText={setText}
                 placeholder={"Comment..."}
                 placeholderTextColor={"#636363"}
@@ -29,12 +32,16 @@ export default CommentBar;
 const styles = StyleSheet.create({
     commentBarContainer: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 10
     },
     textInput: {
         flex: 9,
         borderRadius: 30,
-        paddingLeft: 10
+        paddingLeft: 16,
+        paddingRight: 6,
+        paddingTop: 2,
+        paddingBottom: 2
     },
 
 });

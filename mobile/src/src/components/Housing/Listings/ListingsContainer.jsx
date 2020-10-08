@@ -1,79 +1,72 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
-import ListingView from "./ListingView"
+import ListingView from "./ListingView";
 import { ListingsEndpoint } from "../../../utils/endpoints";
 
-class ListingContainer extends Component{
+class ListingContainer extends Component {
+  state = {
+    listings: [],
+    nextPage: 1,
+    filters: {},
+    nextPageExists: true,
+  };
 
-    state = {
-        listings: [],
-        page: 1,
-        hasMoreListings: true
-    };
+  constructor(props) {
+    super(props);
+    this.getListings();
+  }
 
-    extendListings = (newListings) => {
+  getListings = () => {
+    ListingsEndpoint.list(
+      this.state.nextPage,
+      this.state.filters, //TODO add filter functionality and proper failure handling
+      (response) => {
+        const nextPageExists = response.data.next !== null;
+        let seen = {};
+
         this.setState({
-                          listings: this.state.listings.concat(newListings),
+          listings: this.state.listings
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
+          nextPageExists: nextPageExists,
         });
-    }
+      },
+      (error) => {
+        console.log("error: ", error);
+      }
+    );
+  };
 
-    constructor(props) {
-        super(props);
-        this.state.listings = [];
-        this.fetchListings(1, {});
-    }
+  renderItem({ item }) {
+    return <ListingView {...item} />;
+  }
 
-    fetchListings = (page, filters) => {
-
-        ListingsEndpoint.list(
-            page,
-            filters,             //TODO add filter functionality and proper failure handling
-            (response) => {
-                if (response.data.next === null){
-                    this.state.hasMoreListings = false;
-                }
-
-                let newListings = response.data.results;
-
-                for (let i in newListings){
-                    newListings[i].key = newListings[i].id.toString();
-                }
-
-                this.extendListings(newListings);
-            },
-            (error) => {console.log("error: ", error)}
-        );
-    }
-
-    renderItem({item}) {
-        return(<ListingView {...item}/>);
-    }
-
-    render () {
-        return (
-            <View style={styles.listingContainer}>
-                <FlatList
-                    data={this.state.listings}
-                    // keyExtractor={(item) => {item.id} /* Tell react native to use the id field as the key prop */}
-                    renderItem={this.renderItem}
-                    onEndReached={ () => {
-                            if (this.state.hasMoreListings) {
-                                this.state.page += 1;
-                                this.fetchListings(this.state.page, {});
-                            }
-                        }
-                    }
-                />
-            </View>
-        )
-    }
+  render() {
+    return (
+      <View style={styles.listingContainer}>
+        <FlatList
+          data={this.state.listings}
+          keyExtractor={(item, i) => i.toString()}
+          renderItem={this.renderItem}
+          onEndReached={() => {
+            if (this.state.nextPageExists) {
+              this.getListings();
+            }
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 export default ListingContainer;
 
 const styles = StyleSheet.create({
-    listingContainer: {
-        flexDirection: "column",
-        marginBottom: "15%" // To make sure a bit of the bottom post isn't cut off
-    }
+  listingContainer: {
+    flexDirection: "column",
+    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+  },
 });

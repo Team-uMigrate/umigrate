@@ -46,6 +46,13 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'api/src'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.6'
@@ -68,13 +75,7 @@ jobs:
       failTaskOnFailedTests: true
       testRunTitle: '$(Agent.OS) - $(Build.DefinitionName) - Python $(python.version)'
     condition: succeededOrFailed()
-     
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: 'api/src'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      
+
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'

@@ -3,6 +3,11 @@ def convert_to_tuple(choices):
     return [(i, choice) for i, choice in enumerate(choices)]
 
 
+# Trigger a division-by-zero error
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 # Choices for model fields
 class Choices:
     PRONOUN_CHOICES = convert_to_tuple([

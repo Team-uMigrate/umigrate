@@ -12,8 +12,7 @@ class CustomManager(models.Manager):
 class GenericPhotoModel(models.Model):
     # id field should be overridden
     id = None
-    # Photo field should be overridden
-    # Separating photo -> profile and background
+    # Background and Profile photo fields should be overridden
     profile_photo = None
     background_photo = None
     objects = CustomManager()

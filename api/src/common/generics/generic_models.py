@@ -22,7 +22,6 @@ class GenericPhotoModel(models.Model):
         abstract = True
 
     def delete(self, using=None, keep_parents=False):
-        # adding delete functionality for profile_photo and background_photo
         self.profile_photo.delete()
         self.background_photo.delete()
         super().delete()

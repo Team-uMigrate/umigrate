@@ -29,7 +29,7 @@ class JobTestCase(APITestCase):
         'creator': 1
     }
     ignored_keys = [
-        'photo',
+        'photo'
     ]
 
     def setUp(self):

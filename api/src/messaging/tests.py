@@ -29,6 +29,7 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
         }
         self.ignored_keys.append('profile_photo')
         self.ignored_keys.append('background_photo')
+        
         GenericPostTestCase.setUp(self)
 
     @skip('Not needed for rooms')

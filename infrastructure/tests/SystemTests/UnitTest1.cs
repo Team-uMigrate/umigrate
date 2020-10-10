@@ -28,11 +28,7 @@ namespace SystemTests
 
             IWebElement searchText = driver.FindElement(By.CssSelector("[name = 'q']"));
 
-            searchText.SendKeys("LambdaTest");
-
-            //IWebElement searchButton = driver.FindElement(By.XPath("//div[@class='FPdoLc tfB0Bf']//input[@name='btnK']"));
-
-            //searchButton.Click();
+            searchText.SendKeys("LambdaTest\n");
 
             System.Threading.Thread.Sleep(6000);
 

@@ -30,9 +30,9 @@ namespace SystemTests
 
             searchText.SendKeys("LambdaTest");
 
-            IWebElement searchButton = driver.FindElement(By.XPath("//div[@class='FPdoLc tfB0Bf']//input[@name='btnK']"));
+            //IWebElement searchButton = driver.FindElement(By.XPath("//div[@class='FPdoLc tfB0Bf']//input[@name='btnK']"));
 
-            searchButton.Click();
+            //searchButton.Click();
 
             System.Threading.Thread.Sleep(6000);
 

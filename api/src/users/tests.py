@@ -27,7 +27,8 @@ class UserTestCase(APITestCase):
         obj = CustomUser.objects.get(id=1).__dict__
         obj['datetime_created'] = obj['datetime_created'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         obj['birthday'] = obj['birthday'].strftime('%Y-%m-%d')
-        obj['photo'] = None
+        obj['profile_photo'] = None
+        obj['background_photo'] = None
         for key in response_dict:
             if key == 'is_connected' or key == 'is_blocked' or key == 'connected':
                 continue

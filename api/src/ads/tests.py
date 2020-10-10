@@ -15,19 +15,19 @@ class AdTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_ads
         self.create_data = {
             'title': 'My first event',
-            'description': 'This is my first event',
+            'content': 'This is my first event',
             'region': 0,
             'category': 0,
-            'features': 'feature1, feature2, feature3',
             'price': 9976.00,
+            'postal_code': "L3R8K5"
         }
         self.update_data = {
             'title': 'My first post (edited)',
-            'description': 'This is my first post (edited)',
+            'content': 'This is my first post (edited)',
             'region': 1,
             'category': 1,
-            'features': 'new feature1, new feature2',
             'price': 123,
+            'postal_code': "L3R8K6"
         }
 
         GenericPostTestCase.setUp(self)

@@ -1,11 +1,11 @@
 from django.urls import path
-from .api_views import UserList, UserRetrieve, FollowUser, BlockUser
+from .api_views import UserList, UserRetrieve, ConnectUser, BlockUser
 
 
 # Users url patterns
 urlpatterns = [
     path('', UserList.as_view()),
     path('<int:id>', UserRetrieve.as_view()),
-    path('<int:id>/follow', FollowUser.as_view()),
-    path('<int:id>/block', BlockUser.as_view()),
+    path('connect', ConnectUser.as_view()),
+    path('block', BlockUser.as_view()),
 ]

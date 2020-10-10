@@ -8,18 +8,17 @@ from datetime import datetime
 # Represents a job object
 class Job(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
-    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE)
-    description = models.CharField(max_length=100, blank=True)
+    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE, blank=True)
+    content = models.CharField(max_length=300, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to='images/job_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/job_background_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/job_profile_photos', blank=True)
     position = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
     job_type = models.PositiveSmallIntegerField(choices=Choices.JOB_TYPE_CHOICES)
     start_date = models.DateField(default=datetime.today)
     end_date = models.DateField(blank=True, null=True)
-    city = models.CharField(max_length=30, blank=True)
-    division = models.CharField(max_length=30, blank=True)
-    country = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30)
 
     class Meta:
         ordering = ['-datetime_created']

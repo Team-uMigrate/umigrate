@@ -21,9 +21,10 @@ class IsCreatorOrMemberReadOnly(BasePermission):
 class Room(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE)
+    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to='images/room_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/room_background_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/room_profile_photos', blank=True)
     members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
     privacy_level = models.IntegerField(default=1, choices=Choices.ROOM_CHOICES)
 
@@ -37,8 +38,8 @@ class Room(GenericPhotoModel):
 # Represents a message object
 class Message(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
-    message_body = models.CharField(max_length=500)
-    creator = models.ForeignKey(to=CustomUser, related_name="message_created_set", on_delete=models.CASCADE)
+    content = models.CharField(max_length=500)
+    creator = models.ForeignKey(to=CustomUser, related_name="message_created_set", on_delete=models.CASCADE, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
@@ -49,4 +50,4 @@ class Message(GenericPhotoModel):
         ordering = ['-datetime_created']
 
     def __str__(self):
-        return f'{self.message_body}'
+        return f'{self.content}'

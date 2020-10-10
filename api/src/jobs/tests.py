@@ -9,29 +9,28 @@ from datetime import date, timedelta
 # Test case for the jobs API views
 class JobTestCase(APITestCase):
     create_data = {
-        'description': "Sanitational engineering is my passion",
+        'content': "Sanitational engineering is my passion",
         'position': 'My new job',
         'company': 'Big company',
         'job_type': 0,
         'start_date': date.today().strftime('%Y-%m-%d'),
         'end_date': (date.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
         'city': 'Waterloo',
-        'division': 'Ontario',
-        'country': 'Canada',
+        'creator': 1
     }
     update_data = {
-        'description': "Sanitational engineering is my passion",
+        'content': "Sanitational engineering is my passion",
         'position': 'My new job (edited)',
         'company': 'Big company (edited)',
         'job_type': 1,
         'start_date': date.today().strftime('%Y-%m-%d'),
         'end_date': (date.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
         'city': 'Brampton',
-        'division': 'Nunavut',
-        'country': 'England',
+        'creator': 1
     }
     ignored_keys = [
-        'photo',
+        'profile_photo',
+        'background_photo'
     ]
 
     def setUp(self):
@@ -40,7 +39,7 @@ class JobTestCase(APITestCase):
         create_jobs(3)
 
     def test_list(self):
-        response = self.client.get(f'/api/users/1/jobs/')
+        response = self.client.get(f'/api/users/jobs/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_list = response.data['results']
@@ -48,7 +47,7 @@ class JobTestCase(APITestCase):
         self.assertEqual(len(response_list), len(resource_list))
 
     def test_create(self):
-        response = self.client.post(f'/api/users/1/jobs/',  self.create_data, format='json')
+        response = self.client.post(f'/api/users/jobs/',  self.create_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['creator'], 1)
 
@@ -98,7 +97,6 @@ class JobTestCase(APITestCase):
                 continue
             else:
                 self.assertEqual(self.update_data[key], response_dict[key])
-
 
     def test_destroy(self):
         response = self.client.delete(f'/api/users/jobs/1')

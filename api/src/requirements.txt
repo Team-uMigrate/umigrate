@@ -1,5 +1,5 @@
 Django
-djangorestframework
+djangorestframework==3.11.1
 django-rest-auth
 django-allauth
 django-filter
@@ -8,8 +8,10 @@ django-cors-headers
 channels
 channels-redis
 sendgrid
+drf_yasg
 pytest-django
 uwaterloodriver
 psycopg2
 gunicorn
 daphne
+sentry-sdk

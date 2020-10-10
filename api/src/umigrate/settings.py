@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -70,6 +72,7 @@ INSTALLED_APPS = [
     # Rest framework apps
     'rest_framework',
     'django_filters',
+    'drf_yasg',
 
     # User registration and authentication apps
     'rest_framework.authtoken',
@@ -139,7 +142,7 @@ ROOT_URLCONF = 'umigrate.urls'
 # Rest framework settings
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -257,8 +260,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:3000/login' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/login'
 SITE_ID = 1
 
 if STAGE_ENVIRONMENT == 'local':
@@ -266,6 +269,13 @@ if STAGE_ENVIRONMENT == 'local':
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserDetailSerializer',
+}
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'DOC_EXPANSION': False,
+    'LOGIN_URL': 'http://127.0.0.1:8000/auth/login/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/auth/login/',
+    'LOGOUT_URL': 'http://127.0.0.1:8000/auth/logout/' if STAGE_ENVIRONMENT == 'local' else f'https://{ALLOWED_HOSTS[0]}/auth/logout/',
 }
 
 # Internationalization
@@ -294,3 +304,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
+
+# Sentry Initialization
+sentry_sdk.init(
+    dsn="https://a4946255ae774d7e9c0dd8b5adfa9526@o442315.ingest.sentry.io/5413903",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)

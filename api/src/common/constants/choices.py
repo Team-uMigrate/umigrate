@@ -3,12 +3,32 @@ def convert_to_tuple(choices):
     return [(i, choice) for i, choice in enumerate(choices)]
 
 
+# Trigger a division-by-zero error
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 # Choices for model fields
 class Choices:
-    SEX_CHOICES = convert_to_tuple([
+    PRONOUN_CHOICES = convert_to_tuple([
+        'None',
+        'He/Him',
+        'She/Her',
+        'They/Them',
         'Other',
-        'Male',
-        'Female',
+    ])
+    SEASON_CHOICES = convert_to_tuple([
+        'Winter',
+        'Spring',
+        'Fall',
+    ])
+    PRICE_CHOICES = convert_to_tuple([
+        'Free',
+        '$',
+        '$$',
+        '$$$',
+        '$$$$',
+        '$$$$$',
     ])
     REGION_CHOICES = convert_to_tuple([
         'Waterloo',

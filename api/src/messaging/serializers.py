@@ -1,4 +1,4 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.generics.generic_post_serializers import GenericSerializer
 from .models import Room, Message
 
 
@@ -8,6 +8,10 @@ class RoomSerializer(GenericSerializer):
     class Meta:
         model = Room
         fields = '__all__'
+
+    def create(self, validated_data):
+        validated_data['creator'] = self.context['request'].user
+        return GenericSerializer.create(self, validated_data)
 
 
 # Serializes the message model

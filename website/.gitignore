@@ -113,6 +113,9 @@ dist
 # production
 /build
 
+# jest
+junit.xml
+
 # misc
 .DS_*
 .env.local

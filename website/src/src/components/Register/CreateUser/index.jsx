@@ -1,3 +1,3 @@
 import CreateUserContainer from "./CreateUserContainer";
 
-export default  CreateUserContainer;
+export default CreateUserContainer;

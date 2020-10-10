@@ -19,14 +19,15 @@ class CustomUser(AbstractUser, GenericPhotoModel):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    preferred_name = models.CharField(max_length=30, blank=True)
-    sex = models.PositiveSmallIntegerField(default=0, choices=Choices.SEX_CHOICES)
-    bio = models.CharField(max_length=500, blank=True)
+    preferred_name = models.CharField(max_length=30)
+    pronouns = models.PositiveSmallIntegerField(default=0, choices=Choices.PRONOUN_CHOICES, blank=True)
+    bio = models.CharField(max_length=1000, blank=True)
     birthday = models.DateField(default=date.today)
     current_term = models.PositiveSmallIntegerField(default=0, choices=Choices.TERM_CHOICES)
     enrolled_program = models.PositiveSmallIntegerField(default=0, choices=Choices.PROGRAM_CHOICES)
     phone_number = models.CharField(max_length=15, blank=True)
-    photo = models.ImageField(upload_to='images/user_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/user_profile_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/user_background_photos', blank=True)
     region = models.PositiveSmallIntegerField(default=0, choices=Choices.REGION_CHOICES)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
@@ -36,10 +37,10 @@ class CustomUser(AbstractUser, GenericPhotoModel):
     currency = models.PositiveSmallIntegerField(default=0, choices=Choices.CURRENCY_CHOICES)
     language = models.PositiveSmallIntegerField(default=0, choices=Choices.LANGUAGE_CHOICES)
     dark_theme = models.BooleanField(default=False)
-    followed_users = models.ManyToManyField(to='self', related_name="followed_user_set", blank=True)
+    connected_users = models.ManyToManyField(to='self', related_name="connected_user_set", blank=True)
     blocked_users = models.ManyToManyField(to='self', related_name="blocked_user_set", blank=True)
 
-    objects = CustomUserManager()    
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.preferred_name

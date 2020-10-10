@@ -27,16 +27,28 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
                 2,
             ],
         }
-
+        self.ignored_keys.append('profile_photo')
+        self.ignored_keys.append('background_photo')
+        
         GenericPostTestCase.setUp(self)
 
     @skip('Not needed for rooms')
-    def test_get_like(self):
+    def test_like(self):
         pass
 
-    @skip('Not needed for rooms')
-    def test_post_like(self):
-        pass
+    def test_retrieve(self):
+        response = self.api_client.get(f'/api/{self.resource_name}/1')
+        self.assert_equal(response.status_code, status.HTTP_200_OK)
+
+        response_dict = dict(response.data)
+        obj = self.model.objects.get(id=1).__dict__
+        obj['datetime_created'] = obj['datetime_created'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        obj['creator'] = obj['creator_id']
+        for key in response_dict:
+            if key in self.ignored_keys:
+                continue
+            else:
+                self.assert_equal(obj[key], response_dict[key])
 
     def test_create(self):
         super().test_create()
@@ -67,7 +79,8 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
             ],
         }
 
-        add_members_response = self.api_client.post(f'/api/{self.resource_name}/1/members', add_members_data, format='json')
+        add_members_response = self.api_client.post(f'/api/{self.resource_name}/1/members', add_members_data,
+                                                    format='json')
         self.assert_equal(add_members_response.status_code, status.HTTP_200_OK)
         self.assert_equal(add_members_response.data[0], {'id': 1})
         self.assert_equal(add_members_response.data[1], {'id': 2})
@@ -86,7 +99,8 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
             ],
         }
 
-        remove_members_response = self.api_client.post(f'/api/{self.resource_name}/2/members', remove_members_data, format='json')
+        remove_members_response = self.api_client.post(f'/api/{self.resource_name}/2/members', remove_members_data,
+                                                       format='json')
         self.assert_equal(remove_members_response.status_code, status.HTTP_200_OK)
         self.assert_equal(remove_members_response.data[0], {'id': 1})
         self.assert_equal(len(self.model.objects.get(id=2).members.filter(id=1)), 1)

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { BASE_URL, USER_PROFILE_ENDPOINT } from "../../../constants/urls/apiUrls";
 import ProfileView from "./ProfileView";
-import updateResource from "../../../utils/api/resources/updateResource";
-import retrieveResource from "../../../utils/api/resources/retrieveResource";
 import AuthContext from "../../../contexts/AuthContext";
-import Axios from "axios";
+import { ProfileEndpoint } from "../../../utils/endpoints";
 
 class ProfileContainer extends Component {
   static contextType = AuthContext;
@@ -13,22 +10,26 @@ class ProfileContainer extends Component {
     userData: [],
     current_term: null,
     enrolled_program: null,
-    file: "",
-    photo: "",
-    imageElem: null,
-    filename: "",
+    file: null,
+    photo: null,
+    filename: null,
   };
+
   componentDidMount = () => {
-    retrieveResource(
-      this,
-      (data) =>
+    ProfileEndpoint.get(
+      (response) => {
         this.setState({
-          userData: data,
-          current_term: data.current_term,
-          enrolled_program: data.enrolled_program,
-        }),
-      BASE_URL + USER_PROFILE_ENDPOINT,
-      ""
+          userData: response.data,
+          current_term: response.data.current_term,
+          enrolled_program: response.data.enrolled_program,
+        });
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
     );
   };
 
@@ -39,8 +40,9 @@ class ProfileContainer extends Component {
     //if no file detected, reset the state
     if (!file) {
       this.setState({
-        file: "",
-        photo: "",
+        file: null,
+        photo: null,
+        filename: null,
       });
       return;
     }
@@ -61,36 +63,25 @@ class ProfileContainer extends Component {
       city: document.getElementById("city").value,
       current_term: this.state.current_term,
       enrolled_program: this.state.enrolled_program,
+      photo: this.state.file ?? "",
     };
 
-    updateResource(
-      this,
-      (data) =>
-        this.setState({
-          userData: data,
-          enrolled_program: data.enrolled_program,
-          current_term: data.current_term,
-        }),
-      BASE_URL + USER_PROFILE_ENDPOINT,
-      "",
-      data
-    );
-
-    const formData = new FormData();
-    formData.append("photo", this.state.file);
-    Axios.patch(BASE_URL + USER_PROFILE_ENDPOINT, formData, {
-      headers : {'content-type': 'multipart/form-data'}})
-      .then((response) => {
+    ProfileEndpoint.patch(
+      data,
+      (response) => {
         this.setState({
           userData: response.data,
-          enrolled_program: response.data.enrolled_program,
           current_term: response.data.current_term,
+          enrolled_program: response.data.enrolled_program,
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-      });
+      },
+      (error) => {
+        if (error.response != null && error.response.status === 401) {
+          this.context.setAuthenticated(false);
+          this.context.setRegistered(false);
+        }
+      }
+    );
   };
 
   handleTermInputChange = (evt) => {
@@ -102,20 +93,14 @@ class ProfileContainer extends Component {
   };
 
   render() {
-    if (this.state.photo) {
-      this.state.imageElem = (
-        <img src={this.state.photo} style={{ height: "100%", width: "100%" }}  alt="Image not found"/>
-      );
-    }
-    else {
-      this.state.imageElem = (
-        <img
-          src={this.state.userData.photo}
-          style={{ height: "100%", width: "100%" }}
-          alt="Image not found"
-        />
-      );
-    }
+    let imageElem = (
+      <img
+        src={this.state.photo ?? this.state.userData.photo}
+        style={{ height: "100%", width: "100%" }}
+        alt="Not found"
+      />
+    );
+
     return (
       <ProfileView
         userData={this.state.userData}
@@ -125,7 +110,7 @@ class ProfileContainer extends Component {
         handleProgramInputChange={this.handleProgramInputChange}
         handleTermInputChange={this.handleTermInputChange}
         handleImgUpload={this.handleImgUpload}
-        imageElem={this.state.imageElem}
+        imageElem={imageElem}
       />
     );
   }

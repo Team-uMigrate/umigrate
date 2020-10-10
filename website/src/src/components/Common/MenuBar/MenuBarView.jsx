@@ -3,12 +3,10 @@ import "./MenuBarStyles.css";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-const MenuBarView = ({show, click}) => {
+const MenuBarView = ({ show, click }) => {
   return (
     <div>
-      { show &&
-        <div className="backdrop" onClick={click} />
-      }
+      {show && <div className="backdrop" onClick={click} />}
       <nav className={show ? "sidebar open" : "sidebar"}>
         <Nav.Item>
           <NavLink to="/community">Community</NavLink>

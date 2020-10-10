@@ -1,11 +1,11 @@
 from django.db import models
+from common.generics.generic_models import GenericPhotoCollectionModel
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
-from common.generics.generic_models import GenericPhotoModel
 from users.models import CustomUser
 
 
 # Represents a poll object
-class Poll(GenericPostModel, GenericPhotoModel):
+class Poll(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/poll_photos', blank=True)
 
 
@@ -17,27 +17,27 @@ class PollComment(GenericCommentModel):
 # Represents an option object
 class Option(models.Model):
     id = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=30)
+    content = models.CharField(max_length=30)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    creator = models.ForeignKey(to=CustomUser, related_name='option_set', on_delete=models.CASCADE)
+    creator = models.ForeignKey(to=CustomUser, related_name='option_set', on_delete=models.CASCADE, blank=True)
     poll = models.ForeignKey(to=Poll, related_name='option_set', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-datetime_created']
 
     def __str__(self):
-        return f'{self.description}'
+        return f'{self.content}'
 
 
 # Represents a vote object
 class Vote(models.Model):
     id = models.AutoField(primary_key=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    creator = models.ForeignKey(to=CustomUser, related_name='vote_set', on_delete=models.CASCADE)
+    creator = models.ForeignKey(to=CustomUser, related_name='vote_set', on_delete=models.CASCADE, blank=True)
     option = models.ForeignKey(to=Option, related_name='vote_set', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-datetime_created']
 
     def __str__(self):
-        return f"{str(self.creator)}'s vote"
+        return f"{str(self.creator)} voted for {str(self.option)}"

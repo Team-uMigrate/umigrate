@@ -17,12 +17,12 @@ class PollTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_polls
         self.create_data = {
             'title': 'My first post',
-            'description': 'This is my first poll',
+            'content': 'This is my first poll',
             'region': 0,
         }
         self.update_data = {
             'title': 'My first post (edited)',
-            'description': 'This is my first poll (edited)',
+            'content': 'This is my first poll (edited)',
             'region': 1,
         }
 
@@ -54,7 +54,7 @@ class OptionTestCase(APITestCase):
         create_options(3)
 
     def test_list(self):
-        response = self.client.get('/api/polls/1/options/')
+        response = self.client.get('/api/polls/options/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_list = response.data['results']
@@ -63,10 +63,11 @@ class OptionTestCase(APITestCase):
 
     def test_create(self):
         data = {
-            'description': 'Option'
+            'content': 'Option',
+            'poll': 1
         }
 
-        response = self.client.post('/api/polls/1/options/', data, format='json')
+        response = self.client.post('/api/polls/options/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['poll'], 1)
 
@@ -86,7 +87,7 @@ class VoteTestCase(APITestCase):
         create_votes(3)
 
     def test_list(self):
-        response = self.client.get('/api/polls/options/1/votes/')
+        response = self.client.get('/api/polls/options/votes/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response_list = response.data['results']
@@ -94,6 +95,9 @@ class VoteTestCase(APITestCase):
         self.assertEqual(len(response_list), len(resource_list))
 
     def test_create(self):
-        response = self.client.post('/api/polls/options/1/votes/', format='json')
+        data = {
+            'option': 1
+        }
+        response = self.client.post('/api/polls/options/votes/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['option'], 1)

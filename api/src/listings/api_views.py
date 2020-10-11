@@ -38,7 +38,6 @@ class ListingRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 
 # HTTP GET: Returns a list of listing comments for the listing with the ID that matches the ID in the URL
 # HTTP POST: Creates a listing comment for the listing with the ID that matches the ID in the URL
-
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentListCreate(GenericPostListCreate):
@@ -62,6 +61,7 @@ class ListingCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     detail_serializer_class = ListingCommentDetailSerializer
 
 
+# HTTP GET: Returns a list of liked users that liked a listing
 # HTTP POST: Like or unlike a listing
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingLike(GenericUserExtension):
@@ -72,6 +72,7 @@ class ListingLike(GenericUserExtension):
         return Listing.objects.get(id=obj_id).liked_users
 
 
+# HTTP GET: Returns a list of liked users that liked a listing comment
 # HTTP POST: Like or unlike a listing comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentLike(GenericUserExtension):

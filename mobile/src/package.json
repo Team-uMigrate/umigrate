@@ -3,7 +3,6 @@
   "scripts": {
     "start": "expo start",
     "build": "expo build:web",
-    "test": "jest",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -32,13 +31,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "babel-preset-expo": "^8.2.3",
-    "jest-expo": "^39.0.0",
-    "prettier": "^2.1.2",
-    "react-test-renderer": "^16.13.1"
+    "prettier": "^2.1.2"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
-  "private": true,
-  "type": "module"
+  "private": true
 }

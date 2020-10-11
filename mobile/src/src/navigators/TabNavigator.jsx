@@ -5,9 +5,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MarketPage from "../components/Market";
 import HousingPage from "../components/Housing";
 import NotificationPage from "../components/Notifications";
-import MenuPage from "../components/Menu";
 import { StyleSheet } from "react-native";
 import NavContext from "../contexts/NavContext";
+import MenuNavigator from "./MenuNavigator";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -73,7 +73,7 @@ const TabNavigator = ({ navigation }) => {
       />
       <Tab.Screen
         name="Menu"
-        component={MenuPage}
+        component={MenuNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

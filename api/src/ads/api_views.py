@@ -71,7 +71,7 @@ class AdLike(GenericUserExtension):
         return Ad.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns a list of liked users that liked a ad comment
+# HTTP GET: Returns a list of liked users that liked an ad comment
 # HTTP POST: Like or unlike an ad comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Ads']))
 class AdCommentLike(GenericUserExtension):

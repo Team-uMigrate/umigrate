@@ -32,10 +32,10 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/plugin-transform-flow-strip-types": "^7.10.4",
+    "axios-mock-adapter": "^1.18.2",
     "babel-preset-expo": "^8.2.3",
     "jest": "^26.5.2",
     "jest-expo": "^39.0.0",
-    "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.1.2",
     "react-native-testing-library": "^6.0.0",
     "react-test-renderer": "^16.13.1"

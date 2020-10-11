@@ -72,7 +72,7 @@ class ListingLike(GenericUserExtension):
         return Listing.objects.get(id=obj_id).liked_users
 
 
-# HTTP GET: Returns a list of liked users that liked a post listing
+# HTTP GET: Returns a list of liked users that liked a listing comment
 # HTTP POST: Like or unlike a listing comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingCommentLike(GenericUserExtension):

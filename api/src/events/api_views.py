@@ -57,6 +57,7 @@ class EventCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     detail_serializer_class = EventCommentDetailSerializer
 
 
+# HTTP GET: Returns a list of liked users that liked an event
 # HTTP POST: Like or unlike an event
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventLike(GenericUserExtension):
@@ -66,7 +67,7 @@ class EventLike(GenericUserExtension):
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).liked_users
 
-
+# HTTP GET: Returns a list of liked users that liked an event comment
 # HTTP POST: Like or unlike an event comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Events']))
 class EventCommentLike(GenericUserExtension):

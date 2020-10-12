@@ -151,11 +151,9 @@ class BasePostingEndpoint extends BaseEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    const formData = toFormData({ id: id, like: shouldLike });
+    const formData = { id: id, like: shouldLike };
 
-    Axios.post(BASE_URL + this.endpoint + "like", formData, {
-      headers: { "content-type": "multipart/form-data" },
-    })
+    Axios.post(BASE_URL + this.endpoint + "like", formData)
       .then((response) => {
         handleSuccess(response);
       })

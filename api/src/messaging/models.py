@@ -26,7 +26,7 @@ class Room(GenericPhotoModel):
     background_photo = models.ImageField(upload_to='images/room_background_photos', blank=True)
     profile_photo = models.ImageField(upload_to='images/room_profile_photos', blank=True)
     members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
-    privacy_level = models.IntegerField(default=1, choices=Choices.ROOM_CHOICES)
+    privacy_level = models.IntegerField(choices=Choices.ROOM_CHOICES, default=0)
 
     class Meta:
         ordering = ['-datetime_created']

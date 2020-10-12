@@ -10,19 +10,26 @@ import ProfilePage from "../components/Menu/ProfilePage";
 
 const Stack = createStackNavigator();
 const MenuNavigator = () => {
-        return (
-            <NavContextProvider>
-                <NavigationContainer independent = {true} /* need independent={true} or else there's nested stack errors */ >
-                    <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="Menu" component={MenuPage} />
-                        <Stack.Screen name="Profile" component={ProfilePage} />
-                        <Stack.Screen name="Settings" component={SettingsPage} />
-                        <Stack.Screen name="SavedPosts" component={SavedPostsPage} />
-                        <Stack.Screen name="HousingListings" component={HousingListingsPage} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </NavContextProvider>
-        );
+  return (
+    <NavContextProvider>
+      <NavigationContainer
+        independent={
+          true
+        } /* need independent={true} or else there's nested stack errors */
+      >
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Menu" component={MenuPage} />
+          <Stack.Screen name="Profile" component={ProfilePage} />
+          <Stack.Screen name="Settings" component={SettingsPage} />
+          <Stack.Screen name="SavedPosts" component={SavedPostsPage} />
+          <Stack.Screen
+            name="HousingListings"
+            component={HousingListingsPage}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NavContextProvider>
+  );
 };
 
 export default MenuNavigator;

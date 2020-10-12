@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import CommentBarButtons from "./CommentBarButtons";
 
-const CommentBar = () => {
+/*
+To add the comment bar to your components, you need to pass in 2 callback functions:
+    1. likePost, which makes the HTTP request to the appropriate like endpoint
+    2. createComment, which makes the HTTP request to the appropriate comment endpoint
+See src/components/Housing/Listings/ListingsContainer.jsx for an example
+ */
+const CommentBar = ({ postId, isLiked, likePost, createComment }) => {
     const [text, setText] = useState("");
     const [sendButtonVisible, setSendButtonVisible] = useState(false);
 
@@ -19,10 +25,21 @@ const CommentBar = () => {
                 placeholderTextColor={"#636363"}
                 backgroundColor={"#EBEBEB"}
                 onFocus={() => { setSendButtonVisible(true) }}
-                onEndEditing={() => { setSendButtonVisible(false); }}
+                onEndEditing={() => {
+                    if(text == "")
+                        setSendButtonVisible(false);
+                }}
                 style={styles.textInput}
             />
-            <CommentBarButtons sendButtonVisible={sendButtonVisible}/>
+            <CommentBarButtons
+                postId={postId}
+                sendButtonVisible={sendButtonVisible}
+                setSendButtonVisible={setSendButtonVisible}
+                likePost={likePost} isLiked={isLiked}
+                createComment={createComment}
+                text={text}
+                setText={setText}
+            />
         </View>
     )
 }

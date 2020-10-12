@@ -146,5 +146,6 @@ const styles = StyleSheet.create({
     },
     iconPic:{
         alignSelf: "center",
+        marginBottom: "-15%",
     }
 });

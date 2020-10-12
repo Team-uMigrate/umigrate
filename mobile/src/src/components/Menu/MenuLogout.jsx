@@ -18,7 +18,7 @@ const MenuLogout = () => {
 
     return (
         <IconButton
-            icon="logout" size={70} style={{alignSelf: "center"}} onPress={ handleSignOut }/>
+            icon="logout" size={70} style={{alignSelf: "center", marginBottom: "-15%",}} onPress={ handleSignOut }/>
     );
 };
 

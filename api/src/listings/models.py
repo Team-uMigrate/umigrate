@@ -8,7 +8,7 @@ from common.constants.choices import Choices
 class Listing(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/listing_photos', blank=True)
     category = models.PositiveSmallIntegerField(choices=Choices.LISTING_CATEGORY_CHOICES, default=0)
-    price = models.DecimalField(max_digits=9, decimal_places=2, default=0.0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
     season = models.PositiveSmallIntegerField(choices=Choices.SEASON_CHOICES, default=0)
     year = models.PositiveSmallIntegerField(default=2020)
     location = models.CharField(max_length=100, default='123 Goose st, Waterloo, ON')

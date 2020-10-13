@@ -13,6 +13,6 @@ class JobFactory(factory.django.DjangoModelFactory):
     position = factory.Faker('job')
     company = factory.Faker('company')
     job_type = factory.Faker('random_int', min=0, max=get_length(Choices.JOB_TYPE_CHOICES)-1)
-    start_datetime = factory.Faker('date')
-    end_datetime = factory.Faker('date')
+    start_date = factory.Faker('date')
+    end_date = factory.Faker('date')
     city = factory.Faker('city')

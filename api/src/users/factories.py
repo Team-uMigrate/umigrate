@@ -38,7 +38,7 @@ class UserFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.connected_users.add(UserFactory())
+                    self.connected_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
     @factory.post_generation
     def blocked_users(self, create, extracted, **kwargs):
@@ -49,4 +49,4 @@ class UserFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.blocked_users.add(UserFactory())
+                    self.blocked_users.add(UserFactory(connected_users=[], blocked_users=[]))

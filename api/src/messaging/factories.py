@@ -11,7 +11,6 @@ class RoomFactory(factory.django.DjangoModelFactory):
 
     title = factory.Faker('text', max_nb_chars=100)
     creator = factory.SubFactory(UserFactory)
-    region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES)-1)
     privacy_level = factory.Faker('random_int', min=0, max=get_length(Choices.NOTIFICATION_PRIVACY_CHOICES)-1)
 
     @factory.post_generation

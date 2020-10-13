@@ -22,7 +22,7 @@ class RoomFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.members.add(UserFactory())
+                    self.members.add(UserFactory(connected_users=[], blocked_users=[]))
 
 
 class MessageFactory(factory.django.DjangoModelFactory):
@@ -42,7 +42,7 @@ class MessageFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.liked_users.add(UserFactory())
+                    self.liked_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
     @factory.post_generation
     def tagged_users(self, create, extracted, **kwargs):
@@ -53,4 +53,4 @@ class MessageFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.tagged_users.add(UserFactory())
+                    self.tagged_users.add(UserFactory(connected_users=[], blocked_users=[]))

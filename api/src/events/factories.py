@@ -24,7 +24,7 @@ class EventFactory(GenericPostFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.interested_users.add(UserFactory())
+                    self.interested_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
     @factory.post_generation
     def attending_users(self, create, extracted, **kwargs):
@@ -35,7 +35,7 @@ class EventFactory(GenericPostFactory):
             else:
                 rand_int = random.randint(0, 4)
                 for i in range(rand_int):
-                    self.attending_users.add(UserFactory())
+                    self.attending_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
 
 class EventCommentFactory(GenericCommentFactory):

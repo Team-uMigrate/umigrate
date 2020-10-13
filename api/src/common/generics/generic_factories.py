@@ -17,7 +17,7 @@ class GenericPostFactory(factory.django.DjangoModelFactory):
                 for user in extracted:
                     self.liked_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.liked_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
@@ -28,7 +28,7 @@ class GenericPostFactory(factory.django.DjangoModelFactory):
                 for user in extracted:
                     self.tagged_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.tagged_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
@@ -45,7 +45,7 @@ class GenericCommentFactory(factory.django.DjangoModelFactory):
                 for user in extracted:
                     self.liked_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.liked_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
@@ -56,6 +56,6 @@ class GenericCommentFactory(factory.django.DjangoModelFactory):
                 for user in extracted:
                     self.tagged_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.tagged_users.add(UserFactory(connected_users=[], blocked_users=[]))

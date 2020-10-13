@@ -22,7 +22,7 @@ class EventFactory(GenericPostFactory):
                 for user in extracted:
                     self.interested_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.interested_users.add(UserFactory(connected_users=[], blocked_users=[]))
 
@@ -33,7 +33,7 @@ class EventFactory(GenericPostFactory):
                 for user in extracted:
                     self.attending_users.add(user)
             else:
-                rand_int = random.randint(0, 4)
+                rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.attending_users.add(UserFactory(connected_users=[], blocked_users=[]))
 

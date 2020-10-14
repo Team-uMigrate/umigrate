@@ -12,12 +12,8 @@ class CustomManager(models.Manager):
 class GenericPhotoModel(models.Model):
     # id field should be overridden
     id = None
-<<<<<<< HEAD
-    # Photo field should be overridden
-    # Separating photo -> profile and background
-=======
+
     # Background and Profile photo fields should be overridden
->>>>>>> master
     profile_photo = None
     background_photo = None
     objects = CustomManager()
@@ -27,10 +23,6 @@ class GenericPhotoModel(models.Model):
         abstract = True
 
     def delete(self, using=None, keep_parents=False):
-<<<<<<< HEAD
-        # adding delete functionality for profile_photo and background_photo
-=======
->>>>>>> master
         self.profile_photo.delete()
         self.background_photo.delete()
         super().delete()

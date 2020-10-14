@@ -10,6 +10,7 @@ class GenericPostSerializer(GenericSerializer):
     is_liked = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
+    most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context['request'].user.id).exists()
@@ -19,6 +20,9 @@ class GenericPostSerializer(GenericSerializer):
 
     def get_comments(self, instance):
         return instance.comment_set.count()
+
+    def get_most_liked_comment(self, instance):
+        return instance.comment_set.order_by('liked_users.count()', 'datetime_created').first()
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user

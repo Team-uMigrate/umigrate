@@ -57,7 +57,8 @@ class PollCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     serializer_class = PollCommentSerializer
     detail_serializer_class = PollCommentDetailSerializer
 
-
+    
+# HTTP GET: Returns a list of liked users who liked a poll
 # HTTP POST: Like or unlike a poll
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
 class PollLike(GenericUserExtension):
@@ -67,7 +68,8 @@ class PollLike(GenericUserExtension):
     def field_func(obj_id):
         return Poll.objects.get(id=obj_id).liked_users
 
-
+    
+# HTTP GET: Returns a list of liked users who liked a poll comment
 # HTTP POST: Like or unlike a poll comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
 class PollCommentLike(GenericUserExtension):

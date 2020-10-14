@@ -22,7 +22,7 @@ class GenericPostSerializer(GenericSerializer):
         return instance.comment_set.count()
 
     def get_most_liked_comment(self, instance):
-        return instance.comment_set.order_by('liked_users.count()', 'datetime_created').first()
+        return instance.comment_set.order_by('liked_users', 'datetime_created').first()
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user

@@ -57,6 +57,7 @@ class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     detail_serializer_class = PostCommentDetailSerializer
 
 
+# HTTP GET: Returns a list of liked users that liked a post
 # HTTP POST: Like or unlike a post
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostLike(GenericUserExtension):
@@ -67,6 +68,7 @@ class PostLike(GenericUserExtension):
         return Post.objects.get(id=obj_id).liked_users
 
 
+# HTTP GET: Returns a list of liked users that liked a post comment
 # HTTP POST: Like or unlike a post comment
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
 class PostCommentLike(GenericUserExtension):

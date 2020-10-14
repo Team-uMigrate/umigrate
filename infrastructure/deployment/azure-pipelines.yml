@@ -43,6 +43,17 @@ steps:
     SourceFolder: 'infrastructure/src'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'mkdir tests'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'infrastructure/tests'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/tests'
     
 - task: PublishBuildArtifacts@1
   inputs:

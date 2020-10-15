@@ -4,7 +4,7 @@ from .models import Event, EventComment
 from rest_framework import serializers
 
 
-# Serializes the event model
+# Serializes the event model hehe xd
 class EventSerializer(GenericPostSerializer):
     is_interested = serializers.SerializerMethodField()
     is_attending = serializers.SerializerMethodField()

@@ -3,12 +3,15 @@ import { Appbar } from "react-native-paper";
 import { StyleSheet, Image } from "react-native";
 import Logo from "../../../../assets/favicon.png";
 import NavContext from "../../../contexts/NavContext";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+
+const statusHeight = getStatusBarHeight(true);
 
 const Header = ({ title, isMessagingPage = false }) => {
   const nav = useContext(NavContext);
 
   return (
-    <Appbar.Header style={styles.header} statusBarHeight={0}>
+    <Appbar.Header style={styles.header} statusBarHeight={statusHeight}>
       {isMessagingPage && (
         <Appbar.BackAction
           color="#555555"

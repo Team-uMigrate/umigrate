@@ -1,1 +1,2 @@
-0 4 * * * export $(egrep -v '^#' /home/umigrate/venv/.env | xargs) && python3 /home/umigrate/api/manage.py clearsessions
+0 0 * * * export $(egrep -v '^#' /home/umigrate/venv/.env | xargs) && python3 /home/umigrate/api/manage.py clearsessions
+0 0 * * 0 /home/umigrate/maintenance/scripts/DBBackup.sh

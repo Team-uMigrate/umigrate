@@ -5,7 +5,6 @@ import CommunityPage from "../components/Community";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MarketPage from "../components/Market";
 import HousingPage from "../components/Housing";
-// import NotificationPage from "../components/Notifications";
 import MenuPage from "../components/Menu";
 import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";

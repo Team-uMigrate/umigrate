@@ -10,7 +10,6 @@ import MenuPage from "../components/Menu";
 import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";
 import CreatePage from "../components/Create"; 
-// import LinearGradient from 'react-native-linear-gradient';
 
 const Tab = createMaterialBottomTabNavigator();
 

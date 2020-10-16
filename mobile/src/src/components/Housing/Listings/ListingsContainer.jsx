@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView";
-import { ListingsEndpoint, ListingCommentsEndpoint } from "../../../utils/endpoints";
+import {
+  ListingsEndpoint,
+  ListingCommentsEndpoint,
+} from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   state = {
@@ -30,7 +33,9 @@ class ListingContainer extends Component {
             .filter((t) =>
               seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
             ),
-          nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
+          nextPage: nextPageExists
+            ? this.state.nextPage + 1
+            : this.state.nextPage,
           nextPageExists: nextPageExists,
         });
       },
@@ -41,9 +46,13 @@ class ListingContainer extends Component {
   };
 
   likeListing = (id, shouldLike) => {
-    ListingsEndpoint.like(id, shouldLike,
-        () => {},
-        (err) => {console.log(err);}
+    ListingsEndpoint.like(
+      id,
+      shouldLike,
+      () => {},
+      (err) => {
+        console.log(err);
+      }
     );
   };
 
@@ -51,13 +60,15 @@ class ListingContainer extends Component {
     let data = {
       listing: id,
       content: content,
-      tagged_users: taggedUsers
-    }
+      tagged_users: taggedUsers,
+    };
 
     ListingCommentsEndpoint.post(
       data,
       () => {},
-      (err) => {console.log(err)}
+      (err) => {
+        console.log(err);
+      }
     );
   };
 
@@ -65,7 +76,7 @@ class ListingContainer extends Component {
     item.likeListing = this.likeListing;
     item.createComment = this.createComment;
     return <ListingView {...item} />;
-  }
+  };
 
   render() {
     return (

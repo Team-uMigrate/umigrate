@@ -30,7 +30,7 @@ const ListingView = ({
       <Card.Content>
         <View style={styles.userInfoContainer}>
           <View style={{ flex: 1 }}>
-            <ProfilePhoto photo={creator.photo}></ProfilePhoto>
+            <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={{ flex: 5, flexDirection: "column" }}>
             <Text>{creator.preferred_name}</Text>

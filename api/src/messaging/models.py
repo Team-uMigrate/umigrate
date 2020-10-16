@@ -23,7 +23,8 @@ class Room(GenericPhotoModel):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to='images/room_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/room_background_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/room_profile_photos', blank=True)
     members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
     privacy_level = models.IntegerField(default=1, choices=Choices.ROOM_CHOICES)
 

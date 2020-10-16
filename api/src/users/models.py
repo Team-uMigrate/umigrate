@@ -26,7 +26,8 @@ class CustomUser(AbstractUser, GenericPhotoModel):
     current_term = models.PositiveSmallIntegerField(default=0, choices=Choices.TERM_CHOICES)
     enrolled_program = models.PositiveSmallIntegerField(default=0, choices=Choices.PROGRAM_CHOICES)
     phone_number = models.CharField(max_length=15, blank=True)
-    photo = models.ImageField(upload_to='images/user_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/user_profile_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/user_background_photos', blank=True)
     region = models.PositiveSmallIntegerField(default=0, choices=Choices.REGION_CHOICES)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
@@ -39,7 +40,7 @@ class CustomUser(AbstractUser, GenericPhotoModel):
     connected_users = models.ManyToManyField(to='self', related_name="connected_user_set", blank=True)
     blocked_users = models.ManyToManyField(to='self', related_name="blocked_user_set", blank=True)
 
-    objects = CustomUserManager()    
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.preferred_name

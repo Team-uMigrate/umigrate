@@ -34,7 +34,6 @@ class GenericPostTestCase:
         'comments',
         'interested',
         'attending',
-        'most_liked_comment',
     ]
 
     def setUp(self):

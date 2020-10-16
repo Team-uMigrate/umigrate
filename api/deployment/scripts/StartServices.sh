@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Start only if ALL services exist
 # Start services
 systemctl start gunicorn.socket
 systemctl start gunicorn

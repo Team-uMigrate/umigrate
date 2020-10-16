@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
-import { Card, Title, Paragraph, Avatar } from "react-native-paper";
+import { Card, Title, Paragraph } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
+import CommentBar from "../../common/CommentBar/CommentBar";
 
 const ListingView = ({
+  id,
   creator,
   likes,
   comments,
@@ -17,6 +19,9 @@ const ListingView = ({
   price,
   season,
   year,
+  is_liked,
+  likeListing,
+  createComment
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -60,6 +65,7 @@ const ListingView = ({
             {"Comments: " + comments}
           </Paragraph>
         </View>
+        <CommentBar postId={id} likePost={likeListing} isLiked={is_liked} createComment={createComment}/>
       </Card.Content>
     </Card>
   );

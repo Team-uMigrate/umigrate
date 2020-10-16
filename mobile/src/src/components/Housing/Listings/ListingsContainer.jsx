@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView";
-import { ListingsEndpoint, ListingCommentsEndpoint } from "../../../utils/endpoints";
+import { ListingsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   state = {
@@ -40,30 +40,7 @@ class ListingContainer extends Component {
     );
   };
 
-  likeListing = (id, shouldLike) => {
-    ListingsEndpoint.like(id, shouldLike,
-        () => {},
-        (err) => {console.log(err);}
-    );
-  };
-
-  createComment = (id, content, taggedUsers) => {
-    let data = {
-      listing: id,
-      content: content,
-      tagged_users: taggedUsers
-    }
-
-    ListingCommentsEndpoint.post(
-      data,
-      () => {},
-      (err) => {console.log(err)}
-    );
-  };
-
-  renderItem = ({ item }) => {
-    item.likeListing = this.likeListing;
-    item.createComment = this.createComment;
+  renderItem({ item }) {
     return <ListingView {...item} />;
   }
 

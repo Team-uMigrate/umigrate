@@ -65,12 +65,14 @@ class BasicUserSerializer(GenericSerializer):
     is_connected = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
 
+    # photo -> profile and background photo
     class Meta:
         model = CustomUser
         fields = [
             'id',
             'preferred_name',
-            'photo',
+            'profile_photo',
+            'background_photo',
             'is_connected',
             'is_blocked',
         ]

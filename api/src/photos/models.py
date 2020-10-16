@@ -3,6 +3,13 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
+# Custom manager for multiple deletions at once
+class CustomManager(models.Manager):
+    def delete(self):
+        for obj in self.get_queryset():
+            obj.delete()
+
+
 # An image model that serves as a child/member of the GenericPhotoCollectionModel. 
 # It's sole purpose is for GenericPhotoCollectionModel to support multiple imagefields
 class PhotoCollectionMember(models.Model):
@@ -12,7 +19,6 @@ class PhotoCollectionMember(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id') 
     
-    """
     objects = CustomManager()
    
     def delete(self, using=None, keep_parents=False):
@@ -29,7 +35,6 @@ class PhotoCollectionMember(models.Model):
             pass
 
         super().save(*args, **kwargs)
-    """
 
     def __str__(self):
         return f'{self.content}'

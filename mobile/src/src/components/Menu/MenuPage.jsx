@@ -6,7 +6,7 @@ import Header from "../common/Header";
 import MenuLogout from "./MenuLogout";
 
 class MenuPage extends Component {
-  state = { user: [] };
+  state = { user: {} };
 
   constructor(props) {
     super(props);

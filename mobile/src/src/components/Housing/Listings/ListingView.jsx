@@ -21,7 +21,7 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
-  createComment
+  createComment,
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -65,7 +65,12 @@ const ListingView = ({
             {"Comments: " + comments}
           </Paragraph>
         </View>
-        <CommentBar postId={id} likePost={likeListing} isLiked={is_liked} createComment={createComment}/>
+        <CommentBar
+          postId={id}
+          likePost={likeListing}
+          isLiked={is_liked}
+          createComment={createComment}
+        />
       </Card.Content>
     </Card>
   );

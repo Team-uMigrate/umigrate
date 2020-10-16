@@ -1,6 +1,7 @@
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from .generic_serializers import GenericSerializer
+from photos.serializers import PhotoRetrieveSerializer
 
 
 # Serializes a generic resource model
@@ -28,6 +29,7 @@ class GenericPostSerializer(GenericSerializer):
 # Serializes a generic resource model with detail
 class GenericPostDetailSerializer(GenericPostSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
+    photos = PhotoRetrieveSerializer(read_only=True, many=True)
 
 
 # Serializes a generic comment model

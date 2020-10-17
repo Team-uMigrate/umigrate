@@ -35,6 +35,8 @@ class GenericPostTestCase:
         'interested',
         'attending',
         'most_liked_comment',
+        'saved_users',
+        'is_saved'
     ]
 
     def setUp(self):

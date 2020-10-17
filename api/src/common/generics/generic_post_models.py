@@ -20,10 +20,14 @@ class GenericPostModel(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000, blank=True)
     region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
-    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE, blank=True)
+    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE,
+                                blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
-    tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
+    liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_set",
+                                         blank=True)
+    tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_set",
+                                          blank=True)
+    saved_users = models.ManyToManyField(to=CustomUser, related_name="saved_%(app_label)s_%(class)s_set", blank=True)
 
     class Meta:
         abstract = True
@@ -37,10 +41,15 @@ class GenericPostModel(models.Model):
 class GenericCommentModel(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.TextField(max_length=1000)
-    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_comment_set", on_delete=models.CASCADE)
+    creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_comment_set",
+                                on_delete=models.CASCADE)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
-    tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
+    liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set",
+                                         blank=True)
+    tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set",
+                                          blank=True)
+    saved_users = models.ManyToManyField(to=CustomUser, related_name="saved_%(app_label)s_%(class)s_comment_set",
+                                         blank=True)
 
     class Meta:
         ordering = ['-datetime_created']

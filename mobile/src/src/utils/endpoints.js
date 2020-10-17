@@ -187,40 +187,37 @@ class BaseCommentEndpoint extends BaseEndpoint {
   // The only difference between these functions and the post and patch functions of the parent class is that
   // these send json data instead of form-data
   static post(
-      data,
-      handleSuccess = (response) => {},
-      handleError = (error) => {}
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
   ) {
-
     Axios.post(BASE_URL + this.endpoint, data, {
       headers: { "content-type": "application/json" },
     })
-        .then((response) => {
-          handleSuccess(response);
-        })
-        .catch((error) => {
-          handleError(error);
-        });
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
   }
 
   static patch(
-      id,
-      data,
-      handleSuccess = (response) => {},
-      handleError = (error) => {}
+    id,
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
   ) {
-
     Axios.patch(BASE_URL + this.endpoint + id, data, {
       headers: { "content-type": "application/json" },
     })
-        .then((response) => {
-          handleSuccess(response);
-        })
-        .catch((error) => {
-          handleError(error);
-        });
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
   }
-
 }
 
 // Endpoints

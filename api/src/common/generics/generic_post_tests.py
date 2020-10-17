@@ -163,6 +163,8 @@ class GenericCommentTestCase:
         'tagged_users',
         'is_liked',
         'likes',
+        'saved_users',
+        'is_saved'
     ]
 
     def setUp(self):

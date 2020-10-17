@@ -7,7 +7,10 @@ from common.generics.generic_post_models import GenericPostModel, GenericComment
 class Post(GenericPostModel, GenericPhotoCollectionModel):
     photo = models.ImageField(upload_to='images/post_photos', blank=True)
 
-
 # Represents a post comment object
 class PostComment(GenericCommentModel):
     post = models.ForeignKey(to=Post, related_name='comment_set', on_delete=models.CASCADE)
+
+# Represents a reply object 
+class PostCommentReply(GenericCommentModel): 
+    comment = models.ForeignKey(to=PostComment, related_name='reply_set', on_delete=models.CASCADE)

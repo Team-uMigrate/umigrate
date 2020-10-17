@@ -4,6 +4,8 @@ from .models import Post, PostComment
 from .serializers import PostSerializer, PostCommentSerializer, PostDetailSerializer, PostCommentDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
+from api.src.posts.models import PostCommentReply
+from api.src.posts.serializers import PostCommentReplySerializer
 
 
 # HTTP GET: Returns a list of posts
@@ -56,6 +58,28 @@ class PostCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     serializer_class = PostCommentSerializer
     detail_serializer_class = PostCommentDetailSerializer
 
+# HTTP GET: Returns a list of post comments for the post with the ID that matches the ID in the URL
+# HTTP POST: Creates a post comment for the post with the ID that matches the ID in the URL
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Posts']))
+class PostCommentReplyListCreate(GenericPostListCreate):
+    queryset = PostCommentReply.objects.all()
+    serializer_class = PostCommentReplySerializer
+    filter_fields = ['comment']
+    detail_serializer_class = PostCommentDetailSerializer
+
+# HTTP GET: Returns a post comment
+# HTTP PUT: Updates a post comment
+# HTTP PATCH: Partially updates a post comment
+# HTTP DELETE: Deletes a post comment
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Posts']))
+@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Posts']))
+class PostCommentReplyRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
+    queryset = PostCommentReply.objects.all()
+    serializer_class = PostCommentReplySerializer
+    detail_serializer_class = PostCommentDetailSerializer
 
 # HTTP GET: Returns a list of liked users that liked a post
 # HTTP POST: Like or unlike a post

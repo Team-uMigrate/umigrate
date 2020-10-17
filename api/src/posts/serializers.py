@@ -1,6 +1,7 @@
 from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
     GenericPostDetailSerializer, GenericCommentDetailSerializer
 from .models import Post, PostComment
+from api.src.posts.models import PostCommentReply
 
 
 # Serializes the post model
@@ -23,6 +24,10 @@ class PostCommentSerializer(GenericCommentSerializer):
         model = PostComment
         fields = '__all__'
 
+class PostCommentReplySerializer(GenericCommentSerializer):
+    class Meta:
+        model = PostCommentReply
+        fields = '__all__'
 
 # Serializes the post model with detail
 class PostCommentDetailSerializer(PostCommentSerializer, GenericCommentDetailSerializer):

@@ -8,11 +8,15 @@ class GenericPostSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
+    is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_is_saved(self, instance):
+        return instance.saved_users.filter(id=self.context['request'].user.id).exists()
 
     def get_likes(self, instance):
         return instance.liked_users.count()
@@ -35,10 +39,14 @@ class GenericCommentSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
+    is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_is_saved(self, instance):
+        return instance.saved_users.filter(id=self.context['request'].user.id).exists()
 
     def get_likes(self, instance):
         return instance.liked_users.count()

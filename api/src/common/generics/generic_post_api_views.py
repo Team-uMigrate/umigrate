@@ -59,6 +59,9 @@ class GenericUserExtension(APIView):
     field_string = None
     # Override required for field_func; it should be a related field for a model instance
     field_func = None
+    users_func = None
+    # Override required for serializer when users_func is None
+    serializer = None
     permission_classes = [
         IsAuthenticated,
     ]
@@ -66,9 +69,13 @@ class GenericUserExtension(APIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            obj_id = int(request.query_params['id'])
-            serializer = BasicUserSerializer(self.field_func(obj_id=obj_id).all(), many=True,
-                                             context={'request': request})
+            if self.users_func is None:
+                obj_id = int(request.query_params['id'])
+                serializer = BasicUserSerializer(self.field_func(obj_id=obj_id).all(), many=True,
+                                                 context={'request': request})
+            else:
+                serializer = self.serializer(self.users_func(user_id=self.request.user.id).all(), many=True,
+                                                 context={'request': request})
             return Response(serializer.data)
         except ObjectDoesNotExist:
             return Response({'detail': 'Item does not exist'}, status=status.HTTP_404_NOT_FOUND)

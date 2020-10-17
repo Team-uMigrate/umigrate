@@ -30,7 +30,9 @@ class AdsContainer extends Component {
             .filter((t) =>
               seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
             ),
-          nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
+          nextPage: nextPageExists
+            ? this.state.nextPage + 1
+            : this.state.nextPage,
           nextPageExists: nextPageExists,
         });
       },

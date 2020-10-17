@@ -60,6 +60,7 @@ class GenericUserExtension(APIView):
     # Override required for field_func; it should be a related field for a model instance
     field_func = None
     users_func = None
+    # Override required for serializer when users_func is None
     serializer = None
     permission_classes = [
         IsAuthenticated,

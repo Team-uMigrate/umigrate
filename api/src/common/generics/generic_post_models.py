@@ -19,7 +19,7 @@ class GenericPostModel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000, blank=True)
-    region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES, default=0)
+    region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
     creator = models.ForeignKey(to=CustomUser, related_name="%(app_label)s_%(class)s_set", on_delete=models.CASCADE,
                                 blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)

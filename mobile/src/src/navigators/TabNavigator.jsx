@@ -8,7 +8,7 @@ import HousingPage from "../components/Housing";
 import MenuPage from "../components/Menu";
 import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";
-import CreatePage from "../components/Create"; 
+import CreatePage from "../components/Create";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -52,12 +52,12 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-      
+
       <Tab.Screen
         name="Create"
         component={CreatePage}
         options={{
-          tabBarIcon: ({ color}) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="plus-circle-outline"
               color={color}
@@ -80,10 +80,10 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-      
+
       <Tab.Screen
         name="Menu"
-        component={MenuNavigator}
+        component={MenuPage}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

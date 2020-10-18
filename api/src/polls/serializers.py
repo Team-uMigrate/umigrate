@@ -41,7 +41,7 @@ class PollSerializer(GenericPostSerializer):
         extra_fields = [
             'option_set',
         ]
-        exclude_fields = ['saved_users']
+        exclude_fields = ['saved_users', 'liked_users']
 
 
 # Serialize the poll model with detail

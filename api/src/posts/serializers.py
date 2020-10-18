@@ -13,7 +13,7 @@ class PostSerializer(GenericPostSerializer):
     class Meta:
         model = Post
         fields = '__all__'
-        exclude_fields = ['saved_users']
+        exclude_fields = ['saved_users', 'liked_users']
 
     def get_most_liked_comment(self, instance):
         most_liked_comment = instance.comment_set.order_by(Length('liked_users').desc(), '-datetime_created').first()

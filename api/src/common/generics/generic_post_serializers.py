@@ -8,21 +8,21 @@ class GenericPostSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
+    is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
-    most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_is_saved(self, instance):
+        return instance.saved_users.filter(id=self.context['request'].user.id).exists()
 
     def get_likes(self, instance):
         return instance.liked_users.count()
 
     def get_comments(self, instance):
         return instance.comment_set.count()
-
-    def get_most_liked_comment(self, instance):
-        return instance.comment_set.order_by('liked_users', 'datetime_created').first()
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
@@ -39,10 +39,14 @@ class GenericCommentSerializer(GenericSerializer):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
+    is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+
+    def get_is_saved(self, instance):
+        return instance.saved_users.filter(id=self.context['request'].user.id).exists()
 
     def get_likes(self, instance):
         return instance.liked_users.count()

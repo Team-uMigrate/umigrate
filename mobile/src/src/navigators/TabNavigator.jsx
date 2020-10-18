@@ -83,7 +83,7 @@ const TabNavigator = ({ navigation }) => {
       
       <Tab.Screen
         name="Menu"
-        component={MenuPage}
+        component={MenuNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

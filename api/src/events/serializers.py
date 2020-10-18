@@ -1,11 +1,10 @@
 from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
     GenericPostDetailSerializer, GenericCommentDetailSerializer
-from users.serializers import BasicUserSerializer
 from .models import Event, EventComment
 from rest_framework import serializers
 
 
-# Serializes the event model hehe xd
+# Serializes the event model
 class EventSerializer(GenericPostSerializer):
     is_interested = serializers.SerializerMethodField()
     is_attending = serializers.SerializerMethodField()
@@ -32,8 +31,7 @@ class EventSerializer(GenericPostSerializer):
 
 # Serializes the event model with detail
 class EventDetailSerializer(EventSerializer, GenericPostDetailSerializer):
-    interested_users = BasicUserSerializer(read_only=True, many=True)
-    attending_users = BasicUserSerializer(read_only=True, many=True)
+    pass
 
 
 # Serializes the event model

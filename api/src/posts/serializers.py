@@ -1,13 +1,9 @@
 from rest_framework.renderers import JSONRenderer
 from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
     GenericPostDetailSerializer, GenericCommentDetailSerializer
-from .models import Post, PostComment
-<<<<<<< HEAD
-from api.src.posts.models import PostCommentReply
-=======
+from .models import Post, PostComment, PostCommentReply
 from django.db.models.functions import Length
 from rest_framework import serializers
->>>>>>> 844284cf0fa45454468778513c65f2678a1ff8a3
 
 
 # Serializes the post model
@@ -28,19 +24,24 @@ class PostSerializer(GenericPostSerializer):
 class PostDetailSerializer(PostSerializer, GenericPostDetailSerializer):
     pass
 
-
-# Serializes the post comment model
-class PostCommentSerializer(GenericCommentSerializer):
-
-    class Meta:
-        model = PostComment
-        fields = '__all__'
-
+#Serializes the post comment reply model
 class PostCommentReplySerializer(GenericCommentSerializer):
     class Meta:
         model = PostCommentReply
         fields = '__all__'
 
+# Serializes the post comment model
+class PostCommentSerializer(GenericCommentSerializer):
+    reply_set = PostCommentReplySerializer(read_only=True,many=True)
+    class Meta:
+        model = PostComment
+        fields = '__all__'
+        extra_fields = ['reply_set']
+
 # Serializes the post model with detail
 class PostCommentDetailSerializer(PostCommentSerializer, GenericCommentDetailSerializer):
+    pass
+
+# Serializes the post comment reply model with detail
+class PostCommentReplyDetailSerializer(PostCommentReplySerializer, GenericCommentDetailSerializer):
     pass

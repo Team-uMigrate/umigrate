@@ -22,7 +22,6 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .settings import ALLOWED_HOSTS, STAGE_ENVIRONMENT
 from common.constants.choices import trigger_error
-from photos.api_views import ImageCreate
 
 
 schema_view = get_schema_view(
@@ -55,7 +54,7 @@ urlpatterns = [
     path('api/polls/', include('polls.urls')),
     path('api/posts/', include('posts.urls')),
     path('api/users/', include('users.urls')),
-    path('api/upload', ImageCreate.as_view()),
+    path('api/upload/', include('photos.urls')),
 
     path('sentry-debug/', trigger_error)
 ]

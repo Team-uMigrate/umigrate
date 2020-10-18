@@ -24,7 +24,7 @@ const AdView = ({
       <Card.Content>
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
-            <ProfilePhoto photo={creator.photo}></ProfilePhoto>
+            <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
             <Text>{creator.preferred_name}</Text>

@@ -27,7 +27,8 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
                 2,
             ],
         }
-
+        self.ignored_keys.append('profile_photo')
+        self.ignored_keys.append('background_photo')
         GenericPostTestCase.setUp(self)
 
     @skip('Not needed for rooms')
@@ -77,7 +78,8 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
             ],
         }
 
-        add_members_response = self.api_client.post(f'/api/{self.resource_name}/1/members', add_members_data, format='json')
+        add_members_response = self.api_client.post(f'/api/{self.resource_name}/1/members', add_members_data,
+                                                    format='json')
         self.assert_equal(add_members_response.status_code, status.HTTP_200_OK)
         self.assert_equal(add_members_response.data[0], {'id': 1})
         self.assert_equal(add_members_response.data[1], {'id': 2})
@@ -96,7 +98,8 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
             ],
         }
 
-        remove_members_response = self.api_client.post(f'/api/{self.resource_name}/2/members', remove_members_data, format='json')
+        remove_members_response = self.api_client.post(f'/api/{self.resource_name}/2/members', remove_members_data,
+                                                       format='json')
         self.assert_equal(remove_members_response.status_code, status.HTTP_200_OK)
         self.assert_equal(remove_members_response.data[0], {'id': 1})
         self.assert_equal(len(self.model.objects.get(id=2).members.filter(id=1)), 1)

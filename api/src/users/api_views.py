@@ -3,6 +3,8 @@ from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from common.generics.generic_post_api_views import GenericUserExtension
+from posts.models import Post
+from posts.serializers import PostDetailSerializer
 from .models import CustomUser
 from .serializers import UserSerializer
 from django.utils.decorators import method_decorator
@@ -58,3 +60,18 @@ class BlockUser(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return CustomUser.objects.get(id=obj_id).blocked_users
+
+
+# HTTP GET: returns saved posts for a user
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Users']))
+class SavedPosts(GenericUserExtension):
+    field_string = 'save'
+    serializer = PostDetailSerializer
+
+    @staticmethod
+    def field_func(obj_id):
+        return Post.objects.get(id=obj_id).saved_users
+
+    @staticmethod
+    def users_func(user_id):
+        return CustomUser.objects.get(id=user_id).saved_posts_post_set

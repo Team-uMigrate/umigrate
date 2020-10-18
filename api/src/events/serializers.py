@@ -1,5 +1,6 @@
 from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
     GenericPostDetailSerializer, GenericCommentDetailSerializer
+from users.serializers import BasicUserSerializer
 from .models import Event, EventComment
 from rest_framework import serializers
 
@@ -14,6 +15,7 @@ class EventSerializer(GenericPostSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+        exclude_fields = ['interested_users', 'attending_users', 'liked_users']
 
     def get_is_interested(self, instance):
         return instance.interested_users.filter(id=self.context['request'].user.id).exists()
@@ -30,7 +32,8 @@ class EventSerializer(GenericPostSerializer):
 
 # Serializes the event model with detail
 class EventDetailSerializer(EventSerializer, GenericPostDetailSerializer):
-    pass
+    interested_users = BasicUserSerializer(read_only=True, many=True)
+    attending_users = BasicUserSerializer(read_only=True, many=True)
 
 
 # Serializes the event model

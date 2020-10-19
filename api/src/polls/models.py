@@ -1,12 +1,12 @@
 from django.db import models
-from common.generics.generic_models import GenericPhotoCollectionModel
+from common.generics.generic_models import GenericPhotoCollection
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
 from users.models import CustomUser
 
 
 # Represents a poll object
-class Poll(GenericPostModel, GenericPhotoCollectionModel):
-    photo = models.ImageField(upload_to='images/poll_photos', blank=True)
+class Poll(GenericPostModel, GenericPhotoCollection):
+    pass
 
 
 # Represents a poll comment object

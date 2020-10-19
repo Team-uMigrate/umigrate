@@ -1,52 +1,45 @@
-from common.generics.generic_post_tests import GenericPostTestCase, GenericCommentTestCase
 from rest_framework.test import APITestCase
-from .models import Listing, ListingComment
-from common.utils.create_resources import create_listing, create_listing_comments
+from common.abstract_tests import AbstractAPITestCase
+from .models import Listing
+from .serializers import ListingSerializer, ListingDetailSerializer
+from .factories import ListingFactory
 
 
-# Test case for the listing API views
-class ListingTestCase(GenericPostTestCase, APITestCase):
-
-    def setUp(self):
-        self.api_client = self.client
-        self.assert_equal = self.assertEqual
-        self.resource_name = 'listings'
-        self.model = Listing
-        self.create_resource = create_listing
-        self.create_data = {
-            'title': 'My first listing',
-            'content': 'This is my first listing',
-            'region': 0,
-            'category': 0,
-            'price': 9976.00,
-            'season': 2,
-            'year': 2021, 
-            'location': "TEST LOCATION"
-        }
-        self.update_data = {
-            'title': 'My first listing (edited)',
-            'content': 'This is my first listing  (edited)',
-            'region': 1,
-            'category': 1,
-            'price': 997,
-            'season': 1,
-            'year': 2023, 
-            'location': "NEW TEST LOCATION"
-        }
-
-        GenericPostTestCase.setUp(self)
-
-
-# Test case for the listing comment API views
-class ListingCommentTestCase(GenericCommentTestCase, APITestCase):
+# Test case for the listings endpoints
+class ListingTestCase(AbstractAPITestCase, APITestCase):
 
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
-        self.resource_name = 'listings'
-        self.parent_name = 'listing'
-        self.model = ListingComment
-        self.create_resource = create_listing_comments
-        self.create_parent = create_listing
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = '/api/listings/'
+        self.model_class = Listing
+        self.serializer_class = ListingSerializer
+        self.detail_serializer_class = ListingDetailSerializer
+        self.factory_class = ListingFactory
+        self.pop_keys = [
+            'id',
+            'likes',
+            'datetime_created',
+        ]
+        self.maxDiff = self.max_diff
 
-        GenericCommentTestCase.setUp(self)
+        AbstractAPITestCase.setUp(self)
+
+    def test_list(self):
+        AbstractAPITestCase.test_list(self)
+
+    def test_create(self):
+        AbstractAPITestCase.test_create(self)
+
+    def test_retrieve(self):
+        AbstractAPITestCase.test_retrieve(self)
+
+    def test_update(self):
+        AbstractAPITestCase.test_update(self)
+
+    def test_update_partial(self):
+        AbstractAPITestCase.test_update_partial(self)
+
+    def test_destroy(self):
+        AbstractAPITestCase.test_destroy(self)

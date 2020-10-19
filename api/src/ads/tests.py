@@ -1,48 +1,45 @@
-from common.generics.generic_post_tests import GenericPostTestCase, GenericCommentTestCase
 from rest_framework.test import APITestCase
-from .models import Ad, AdComment
-from common.utils.create_resources import create_ads, create_ad_comments
+from common.abstract_tests import AbstractAPITestCase
+from .models import Ad
+from .serializers import AdSerializer, AdDetailSerializer
+from .factories import AdFactory
 
 
-# Test case for the ads API views
-class AdTestCase(GenericPostTestCase, APITestCase):
-
-    def setUp(self):
-        self.api_client = self.client
-        self.assert_equal = self.assertEqual
-        self.resource_name = 'ads'
-        self.model = Ad
-        self.create_resource = create_ads
-        self.create_data = {
-            'title': 'My first event',
-            'content': 'This is my first event',
-            'region': 0,
-            'category': 0,
-            'price': 9976.00,
-            'postal_code': "L3R8K5"
-        }
-        self.update_data = {
-            'title': 'My first post (edited)',
-            'content': 'This is my first post (edited)',
-            'region': 1,
-            'category': 1,
-            'price': 123,
-            'postal_code': "L3R8K6"
-        }
-
-        GenericPostTestCase.setUp(self)
-
-
-# Test case for the ad comment API views
-class AdCommentTestCase(GenericCommentTestCase, APITestCase):
+# Test case for the ads endpoints
+class AdTestCase(AbstractAPITestCase, APITestCase):
 
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
-        self.resource_name = 'ads'
-        self.parent_name = 'ad'
-        self.model = AdComment
-        self.create_resource = create_ad_comments
-        self.create_parent = create_ads
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = '/api/ads/'
+        self.model_class = Ad
+        self.serializer_class = AdSerializer
+        self.detail_serializer_class = AdDetailSerializer
+        self.factory_class = AdFactory
+        self.pop_keys = [
+            'id',
+            'likes',
+            'datetime_created',
+        ]
+        self.maxDiff = self.max_diff
 
-        GenericCommentTestCase.setUp(self)
+        AbstractAPITestCase.setUp(self)
+
+    def test_list(self):
+        AbstractAPITestCase.test_list(self)
+
+    def test_create(self):
+        AbstractAPITestCase.test_create(self)
+
+    def test_retrieve(self):
+        AbstractAPITestCase.test_retrieve(self)
+
+    def test_update(self):
+        AbstractAPITestCase.test_update(self)
+
+    def test_update_partial(self):
+        AbstractAPITestCase.test_update_partial(self)
+
+    def test_destroy(self):
+        AbstractAPITestCase.test_destroy(self)

@@ -9,6 +9,7 @@ class AdSerializer(GenericPostSerializer):
     class Meta:
         model = Ad
         fields = '__all__'
+        exclude_fields = ['saved_users', 'liked_users']
 
 
 # Serializers the ad model with detail

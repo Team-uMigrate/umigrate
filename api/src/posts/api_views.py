@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
 GenericUserExtension
 from .models import Post
-from .serializers import PostSerializer, PostCommentSerializer, PostDetailSerializer, PostCommentDetailSerializer, PostCommentReplySerializer, PostCommentReplyDetailSerializer
+from .serializers import PostSerializer, PostDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 

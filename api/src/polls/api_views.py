@@ -1,8 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericUserExtension
 from .models import Poll, Option, Vote
-from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer, \
-    PollCommentDetailSerializer
+from .serializers import PollSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 

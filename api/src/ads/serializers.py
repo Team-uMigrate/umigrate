@@ -1,6 +1,6 @@
 from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
     GenericPostDetailSerializer, GenericCommentDetailSerializer
-from .models import Ad, AdComment
+from .models import Ad
 
 
 # Serializes the ad model

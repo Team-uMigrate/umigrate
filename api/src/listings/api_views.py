@@ -1,8 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
   GenericUserExtension
 from .models import Listing
-from .serializers import ListingSerializer, ListingCommentSerializer, ListingDetailSerializer, \
-    ListingCommentDetailSerializer
+from .serializers import ListingSerializer, ListingDetailSerializer
 from django_filters import rest_framework as filters
 from listings.filters import ListingFilter
 from django.utils.decorators import method_decorator

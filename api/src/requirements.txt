@@ -9,6 +9,7 @@ channels
 channels-redis
 sendgrid
 drf_yasg
+factory_boy
 pytest-django
 uwaterloodriver
 psycopg2

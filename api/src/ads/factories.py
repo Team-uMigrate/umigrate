@@ -1,5 +1,5 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory, GenericCommentFactory
+from common.generics.generic_factories import GenericPostFactory
 from .models import Ad
 from common.constants.choices import Choices, get_length
 from string import ascii_uppercase

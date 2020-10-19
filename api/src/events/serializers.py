@@ -1,5 +1,4 @@
-from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
-    GenericPostDetailSerializer, GenericCommentDetailSerializer
+from common.generics.generic_post_serializers import GenericPostSerializer, GenericPostDetailSerializer
 from .models import Event
 from rest_framework import serializers
 

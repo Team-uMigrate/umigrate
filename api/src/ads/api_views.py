@@ -1,38 +1,23 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-   GenericUserExtension
+from common.abstract_api_views import AbstractModelViewSet
+from common.generics.generic_post_api_views import GenericUserExtension
+from .filters import AdFilter
 from .models import Ad
 from .serializers import AdSerializer, AdDetailSerializer
-from django_filters import rest_framework as filters
-from ads.filters import AdFilter
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
 
-# HTTP GET: Returns a list of ads
-# HTTP POST: Creates an ad
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Ads']))
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Ads']))
-class AdListCreate(GenericPostListCreate):
+@method_decorator(name='list', decorator=swagger_auto_schema(tags=['Ads']))
+@method_decorator(name='create', decorator=swagger_auto_schema(tags=['Ads']))
+@method_decorator(name='update', decorator=swagger_auto_schema(tags=['Ads']))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(tags=['Ads']))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(tags=['Ads']))
+class AdViewSet(AbstractModelViewSet):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
     detail_serializer_class = AdDetailSerializer
-    search_fields = ['title', 'features']
-    filter_backends = (filters.DjangoFilterBackend,)
+    search_fields = ['title', ]
     filterset_class = AdFilter
-
-
-# HTTP GET: Returns an ad
-# HTTP PUT: Updates an ad
-# HTTP PATCH: Partially updates an ad
-# HTTP DELETE: Deletes an ad
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Ads']))
-@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Ads']))
-@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Ads']))
-@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Ads']))
-class AdRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    queryset = Ad.objects.all()
-    serializer_class = AdSerializer
-    detail_serializer_class = AdDetailSerializer
 
 
 # HTTP GET: Returns a list of liked users that liked an ad

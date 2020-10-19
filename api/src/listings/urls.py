@@ -1,9 +1,10 @@
 from django.urls import path
-from .api_views import ListingListCreate, ListingRetrieveUpdateDestroy, ListingLike
+from rest_framework.routers import DefaultRouter
+from .api_views import ListingViewSet, ListingLike
 
-# Listing listings url patterns
-urlpatterns = [
-    path('', ListingListCreate.as_view()),
-    path('<int:id>', ListingRetrieveUpdateDestroy.as_view()),
+# Listings url patterns
+router = DefaultRouter(trailing_slash=False)
+router.register(r'', ListingViewSet, basename='listings')
+urlpatterns = router.urls + [
     path('like', ListingLike.as_view()),
 ]

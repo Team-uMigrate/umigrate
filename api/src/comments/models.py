@@ -1,5 +1,4 @@
 from django.db import models
-from common.abstract_models import AbstractPostModel
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from common.constants.choices import Choices

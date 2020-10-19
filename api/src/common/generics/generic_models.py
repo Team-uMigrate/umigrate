@@ -46,7 +46,7 @@ class GenericPhotoModel(models.Model):
 class GenericPhotoCollection(models.Model):
     # id field should be overridden
     id = None
-    photos = GenericRelation(Photo)
+    photos = GenericRelation(Photo, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

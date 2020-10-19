@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
-from photos.models import PhotoCollectionMember
+from photos.models import Photo
 
 
 # Custom manager for multiple deletions at once
@@ -14,7 +14,6 @@ class CustomManager(models.Manager):
 class GenericPhotoModel(models.Model):
     # id field should be overridden
     id = None
-
     # Background and Profile photo fields should be overridden
     profile_photo = None
     background_photo = None
@@ -44,11 +43,10 @@ class GenericPhotoModel(models.Model):
 
 
 # An abstract model that represents a generic object with a photo member
-class GenericPhotoCollectionModel(models.Model):
+class GenericPhotoCollection(models.Model):
     # id field should be overridden
     id = None
-    photos = GenericRelation(PhotoCollectionMember)
+    photos = GenericRelation(Photo)
 
     class Meta:
         abstract = True
-

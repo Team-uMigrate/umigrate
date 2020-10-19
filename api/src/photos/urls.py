@@ -1,8 +1,8 @@
 from django.urls import path
-from .api_views import ImageCreate, ImageRetrieveUpdateDestroy
+from .api_views import PhotoCreate, PhotoRetrieveUpdateDestroy
 
-# Image url patterns
+# Photo url patterns
 urlpatterns = [
-    path('', ImageCreate.as_view()),
-    path('<int:id>', ImageRetrieveUpdateDestroy.as_view()),
+    path('', PhotoCreate.as_view()),
+    path('<int:id>', PhotoRetrieveUpdateDestroy.as_view()),
 ]

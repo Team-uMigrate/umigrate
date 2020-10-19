@@ -54,7 +54,7 @@ urlpatterns = [
     path('api/polls/', include('polls.urls')),
     path('api/posts/', include('posts.urls')),
     path('api/users/', include('users.urls')),
-    path('api/upload/', include('photos.urls')),
+    path('api/uploads/photos/', include('photos.urls')),
 
     path('sentry-debug/', trigger_error)
 ]

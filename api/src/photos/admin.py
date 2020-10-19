@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import PhotoCollectionMember
+from .models import Photo
 
-# Register your models here.
 
-admin.site.register(PhotoCollectionMember)
+# Registers the photo collection member model with the admin site
+admin.site.register(Photo)

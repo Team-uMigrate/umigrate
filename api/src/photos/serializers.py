@@ -1,19 +1,19 @@
 from common.generics.generic_serializers import GenericSerializer
-from .models import PhotoCollectionMember
+from .models import Photo
 
 
-# Serializes the PhotoCollectionMember model
-class PhotoCollectionMemberSerializer(GenericSerializer):
+# Serializes the Photo model
+class PhotoSerializer(GenericSerializer):
 
     class Meta:
-        model = PhotoCollectionMember
+        model = Photo
         fields = '__all__'
 
-# Serializes the PhotCollectionmember model with only the image field
-class PhotoRetrieveSerializer(PhotoCollectionMemberSerializer):
+
+# Serializes the Photo model with only the image field
+class PhotoRetrieveSerializer(PhotoSerializer):
 
     class Meta:
-        model = PhotoCollectionMember
+        model = Photo
         fields = '__all__'
         exclude_fields = ['id', 'object_id', 'content_type']
-        

@@ -1,6 +1,5 @@
-from common.generics.generic_post_serializers import GenericPostSerializer, GenericCommentSerializer, \
-    GenericPostDetailSerializer, GenericCommentDetailSerializer
-from .models import Event, EventComment
+from common.generics.generic_post_serializers import GenericPostSerializer, GenericPostDetailSerializer
+from .models import Event
 from rest_framework import serializers
 
 
@@ -31,17 +30,4 @@ class EventSerializer(GenericPostSerializer):
 
 # Serializes the event model with detail
 class EventDetailSerializer(EventSerializer, GenericPostDetailSerializer):
-    pass
-
-
-# Serializes the event model
-class EventCommentSerializer(GenericCommentSerializer):
-
-    class Meta:
-        model = EventComment
-        fields = '__all__'
-
-
-# Serializes the event comment model with detail
-class EventCommentDetailSerializer(EventCommentSerializer, GenericCommentDetailSerializer):
     pass

@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'posts',
     'users',
     'photos',
+    'comments',
 ]
 
 # Middleware

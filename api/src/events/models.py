@@ -1,5 +1,5 @@
 from django.db import models
-from common.generics.generic_models import GenericPhotoCollectionModel
+from common.generics.generic_models import GenericPhotoCollection
 from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
 from users.models import CustomUser
 from datetime import datetime
@@ -7,8 +7,7 @@ from common.constants.choices import Choices
 
 
 # Represents an event object
-class Event(GenericPostModel, GenericPhotoCollectionModel):
-    photo = models.ImageField(upload_to='images/event_photos', blank=True)
+class Event(GenericPostModel, GenericPhotoCollection):
     price_scale = models.PositiveSmallIntegerField(choices=Choices.PRICE_CHOICES, default=0)
     start_datetime = models.DateTimeField(default=datetime.today)
     end_datetime = models.DateTimeField(blank=True, null=True)

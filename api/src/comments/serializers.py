@@ -1,5 +1,5 @@
 from django.db.models.functions import Length
-from .models import Comment
+from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.generics.generic_serializers import GenericSerializer
@@ -60,7 +60,7 @@ class ReplySerializer(GenericSerializer):
     likes = serializers.SerializerMethodField()
 
     class Meta:
-        model = Comment
+        model = Reply
         fields = '__all__'
         exclude_fields = ['saved_users', 'liked_users']
 
@@ -79,5 +79,5 @@ class ReplySerializer(GenericSerializer):
 
 
 # Serializes the reply model with detail
-class ReplyDetailSerializer(CommentSerializer):
+class ReplyDetailSerializer(ReplySerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)

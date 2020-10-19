@@ -1,11 +1,12 @@
 from django.urls import path
-from .api_views import CommentListCreate, CommentRetrieveUpdateDestroy, ReplyListCreate, \
-    ReplyRetrieveUpdateDestroy
+from rest_framework.routers import DefaultRouter
+from .api_views import CommentViewSet, ReplyViewSet, CommentLike, ReplyLike
 
 # Comments url patterns
-urlpatterns = [
-    path('', CommentListCreate.as_view()),
-    path('<int:id>', CommentRetrieveUpdateDestroy.as_view()),
-    path('replies/', ReplyListCreate.as_view()),
-    path('replies/<int:id>', ReplyRetrieveUpdateDestroy.as_view()),
+router = DefaultRouter(trailing_slash=False)
+router.register(r'', CommentViewSet, basename='comments')
+router.register(r'replies', ReplyViewSet, basename='replies')
+urlpatterns = router.urls + [
+    path('like', CommentLike.as_view()),
+    path('replies/like', ReplyLike.as_view()),
 ]

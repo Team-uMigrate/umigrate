@@ -19,9 +19,8 @@ class AdTestCase(AbstractAPITestCase, APITestCase):
         self.factory_class = AdFactory
         self.pop_keys = [
             'id',
-            'liked_users',
+            'likes',
             'datetime_created',
-            'likes'
         ]
         self.maxDiff = self.max_diff
 

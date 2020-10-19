@@ -19,9 +19,8 @@ class ListingTestCase(AbstractAPITestCase, APITestCase):
         self.factory_class = ListingFactory
         self.pop_keys = [
             'id',
-            'liked_users',
+            'likes',
             'datetime_created',
-            'likes'
         ]
         self.maxDiff = self.max_diff
 

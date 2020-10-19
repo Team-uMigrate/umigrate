@@ -19,9 +19,10 @@ class EventTestCase(AbstractAPITestCase, APITestCase):
         self.factory_class = EventFactory
         self.pop_keys = [
             'id',
-            'liked_users',
+            'likes',
+            'interested',
+            'attending',
             'datetime_created',
-            'likes'
         ]
         self.maxDiff = self.max_diff
 

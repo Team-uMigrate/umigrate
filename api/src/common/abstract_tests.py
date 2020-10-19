@@ -10,7 +10,7 @@ def create_data(factory_class, serializer_class, pop_keys):
     data = serialized_data.copy()
 
     for key in serialized_data:
-        if isinstance(data[key], dict) or data[key] is None:
+        if isinstance(data[key], dict) or data[key] is None or data[key] == []:
             data.pop(key)
 
     for key in pop_keys:

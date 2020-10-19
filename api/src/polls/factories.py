@@ -1,19 +1,12 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory, GenericCommentFactory
-from .models import Poll, PollComment, Option, Vote
+from common.generics.generic_factories import GenericPostFactory
+from .models import Poll, Option, Vote
 from users.factories import UserFactory
 
 
 class PollFactory(GenericPostFactory):
     class Meta:
         model = Poll
-
-
-class PollCommentFactory(GenericCommentFactory):
-    class Meta:
-        model = PollComment
-
-    poll = factory.SubFactory(PollFactory)
 
 
 class OptionFactory(factory.django.DjangoModelFactory):

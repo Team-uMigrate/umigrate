@@ -1,8 +1,8 @@
 import random
 import factory
-from common.generics.generic_factories import GenericPostFactory, GenericCommentFactory
+from common.generics.generic_factories import GenericPostFactory
 from users.factories import UserFactory
-from .models import Event, EventComment
+from .models import Event
 from common.constants.choices import Choices, get_length
 
 
@@ -36,10 +36,3 @@ class EventFactory(GenericPostFactory):
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
                     self.attending_users.add(UserFactory(connected_users=[], blocked_users=[]))
-
-
-class EventCommentFactory(GenericCommentFactory):
-    class Meta:
-        model = EventComment
-
-    event = factory.SubFactory(EventFactory)

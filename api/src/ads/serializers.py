@@ -15,16 +15,3 @@ class AdSerializer(GenericPostSerializer):
 # Serializers the ad model with detail
 class AdDetailSerializer(AdSerializer, GenericPostDetailSerializer):
     pass
-
-
-# Serializes the ad comment model
-class AdCommentSerializer(GenericCommentSerializer):
-
-    class Meta:
-        model = AdComment
-        fields = '__all__'
-
-
-# Serializers the ad comment model with detail
-class AdCommentDetailSerializer(AdCommentSerializer, GenericCommentDetailSerializer):
-    pass

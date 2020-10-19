@@ -1,15 +1,8 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory, GenericCommentFactory
-from .models import Post, PostComment
+from common.generics.generic_factories import GenericPostFactory
+from .models import Post
 
 
 class PostFactory(GenericPostFactory):
     class Meta:
         model = Post
-
-
-class PostCommentFactory(GenericCommentFactory):
-    class Meta:
-        model = PostComment
-
-    post = factory.SubFactory(PostFactory)

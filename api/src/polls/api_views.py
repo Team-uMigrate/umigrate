@@ -1,6 +1,6 @@
 from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
     GenericUserExtension
-from .models import Poll, PollComment, Option, Vote
+from .models import Poll, Option, Vote
 from .serializers import PollSerializer, PollCommentSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer, \
     PollCommentDetailSerializer
 from django.utils.decorators import method_decorator
@@ -32,31 +32,6 @@ class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     serializer_class = PollSerializer
     detail_serializer_class = PollDetailSerializer
 
-
-# HTTP GET: Returns a list of poll comments for the poll with the ID that matches the ID in the URL
-# HTTP POST: Creates a poll comment for the poll with the ID that matches the ID in the URL
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class PollCommentListCreate(GenericPostListCreate):
-    queryset = PollComment.objects.all()
-    serializer_class = PollCommentSerializer
-    filter_fields = ['poll', ]
-    detail_serializer_class = PollCommentDetailSerializer
-
-
-# HTTP GET: Returns a poll comment
-# HTTP PUT: Updates a poll comment
-# HTTP PATCH: Partially updates a poll comment
-# HTTP DELETE: Deletes a poll comment
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Polls']))
-class PollCommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    queryset = PollComment.objects.all()
-    serializer_class = PollCommentSerializer
-    detail_serializer_class = PollCommentDetailSerializer
-
     
 # HTTP GET: Returns a list of liked users who liked a poll
 # HTTP POST: Like or unlike a poll
@@ -67,17 +42,6 @@ class PollLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Poll.objects.get(id=obj_id).liked_users
-
-    
-# HTTP GET: Returns a list of liked users who liked a poll comment
-# HTTP POST: Like or unlike a poll comment
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class PollCommentLike(GenericUserExtension):
-    field_string = 'like'
-
-    @staticmethod
-    def field_func(obj_id):
-        return PollComment.objects.get(id=obj_id).liked_users
 
 
 # HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL

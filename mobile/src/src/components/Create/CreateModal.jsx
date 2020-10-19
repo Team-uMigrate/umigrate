@@ -1,15 +1,12 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
-import Header from "../common/Header";
 import { TextInput, Text, Button } from "react-native-paper";
-import CreateModal from "./";
 
-const CreatePage = () => {
+const CreateModal = () => {
   return (
-    <View style={styles.container}>
-      <Header title="Create" />
+    <View>
       <Modal>
-        <View style={styles.modalView}>
+        <View>
           <Text>Where would you like to post...</Text>
         </View>
       </Modal>
@@ -17,19 +14,18 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateModal;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    marginTop: "2.5%",
+    padding: 5,
+    flexDirection: "column",
     backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
   },
   modalView: {
     margin: 20,
-    flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "red",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",

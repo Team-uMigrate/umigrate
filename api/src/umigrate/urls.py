@@ -23,6 +23,7 @@ from drf_yasg import openapi
 from .settings import ALLOWED_HOSTS, STAGE_ENVIRONMENT
 from common.constants.choices import trigger_error
 
+
 schema_view = get_schema_view(
     openapi.Info(
         title='uMigrate API',
@@ -46,6 +47,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
     path('api/ads/', include('ads.urls')),
+    path('api/comments/', include('comments.urls')),
     path('api/events/', include('events.urls')),
     path('api/listings/', include('listings.urls')),
     path('api/', include('jobs.urls')),
@@ -53,6 +55,7 @@ urlpatterns = [
     path('api/polls/', include('polls.urls')),
     path('api/posts/', include('posts.urls')),
     path('api/users/', include('users.urls')),
+    path('api/uploads/photos/', include('photos.urls')),
 
     path('sentry-debug/', trigger_error)
 ]

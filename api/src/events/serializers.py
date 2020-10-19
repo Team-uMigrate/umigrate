@@ -14,6 +14,7 @@ class EventSerializer(GenericPostSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+        exclude_fields = ['saved_users', 'liked_users', 'interested_users', 'attending_users']
 
     def get_is_interested(self, instance):
         return instance.interested_users.filter(id=self.context['request'].user.id).exists()

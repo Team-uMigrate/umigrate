@@ -26,7 +26,7 @@ class Room(GenericPhotoModel):
     background_photo = models.ImageField(upload_to='images/room_background_photos', blank=True)
     profile_photo = models.ImageField(upload_to='images/room_profile_photos', blank=True)
     members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
-    privacy_level = models.IntegerField(default=1, choices=Choices.ROOM_CHOICES)
+    privacy_level = models.IntegerField(choices=Choices.ROOM_CHOICES, default=0)
 
     class Meta:
         ordering = ['-datetime_created']
@@ -43,7 +43,8 @@ class Message(GenericPhotoModel):
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(to=CustomUser, related_name="liked_%(app_label)s_%(class)s_comment_set", blank=True)
     tagged_users = models.ManyToManyField(to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_comment_set", blank=True)
-    photo = models.ImageField(upload_to='images/message_photos', blank=True)
+    profile_photo = models.ImageField(upload_to='images/message_profile_photos', blank=True)
+    background_photo = models.ImageField(upload_to='images/message_background_photos', blank=True)
     room = models.ForeignKey(to=Room, related_name="message_set", on_delete=models.CASCADE)
 
     class Meta:

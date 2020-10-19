@@ -30,6 +30,10 @@ class GenericPostSerializer(GenericSerializer):
 
     def get_most_liked_comment(self, instance):
         most_liked_comment = instance.comments.order_by(Length('liked_users').desc(), '-datetime_created').first()
+
+        if most_liked_comment is None:
+            return None
+
         most_liked_comment_serializer = CommentDetailSerializer(most_liked_comment, context=self.context)
         return most_liked_comment_serializer.data
 

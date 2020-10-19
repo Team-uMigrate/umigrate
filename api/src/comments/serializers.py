@@ -33,7 +33,11 @@ class CommentSerializer(GenericSerializer):
         return instance.reply_set.count()
 
     def get_most_liked_reply(self, instance):
-        most_liked_reply = instance.comment_set.order_by(Length('liked_users').desc(), '-datetime_created').first()
+        most_liked_reply = instance.reply_set.order_by(Length('liked_users').desc(), '-datetime_created').first()
+
+        if most_liked_reply is None:
+            return None
+
         most_liked_reply_serializer = ReplySerializer(most_liked_reply, context=self.context)
         return most_liked_reply_serializer.data
 

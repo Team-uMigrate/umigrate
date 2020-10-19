@@ -1,4 +1,3 @@
-// github test
 import React, { useEffect, useContext } from "react";
 import Text from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";

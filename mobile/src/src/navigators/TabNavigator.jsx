@@ -66,10 +66,6 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-      {/* <LinearGradient
-        colors={['#00FFA3', '#FAFF00', '#FF00E5', '#0038FF', '#FF0000']}
-        style={{ flex: 1 }}
-      /> */}
 
       <Tab.Screen
         name="Housing"

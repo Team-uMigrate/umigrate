@@ -128,13 +128,37 @@ class FeedContainer extends Component {
     return list;
   };
 
-  renderItem({ item }) {
+  attendEvent = (id, shouldAttend) => {
+    EventsEndpoint.attend(
+      id,
+      shouldAttend,
+      () => {},
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  interestedEvent = (id, shouldInterested) => {
+    EventsEndpoint.interested(
+      id,
+      shouldInterested,
+      () => {},
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  renderItem = ({ item }) => {
     if (item.start_datetime == null) {
       return <PostView {...item} />;
     } else {
+      item.attendEvent = this.attendEvent;
+      item.interestedEvent = this.interestedEvent;
       return <EventView {...item} />;
     }
-  }
+  };
 
   render() {
     return (

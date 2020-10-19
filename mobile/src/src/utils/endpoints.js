@@ -161,6 +161,38 @@ class BasePostingEndpoint extends BaseEndpoint {
         handleError(error);
       });
   }
+
+  static attend(
+    id,
+    shouldAttend,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, attending: shouldAttend };
+    Axios.post(BASE_URL + this.endpoint + "attending", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+
+  static interested(
+    id,
+    shouldInterested,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, interested: shouldInterested };
+    Axios.post(BASE_URL + this.endpoint + "interested", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
 }
 
 // Base comment endpoint class

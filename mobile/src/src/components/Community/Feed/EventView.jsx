@@ -3,8 +3,10 @@ import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Button } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
+import EventButtonsBar from "../Feed/EventButtonsContainer";
 
 const EventView = ({
+  id,
   creator,
   price_scale,
   title,
@@ -19,6 +21,8 @@ const EventView = ({
   photo,
   is_interested,
   is_attending,
+  attendEvent,
+  interestedEvent,
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -68,58 +72,14 @@ const EventView = ({
           />
         )}
 
-        <View style={styles.buttonContainer}>
-          {is_attending === true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="contained"
-              title="Attending"
-              color="green"
-              // todo handle press
-              // onPress={}
-            >
-              Attending
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="text"
-              title="Attending"
-              color="green"
-              // todo handle press
-              // onPress={}
-            >
-              Attending
-            </Button>
-          )}
-          {is_interested == true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="contained"
-              title="Interested"
-              color="purple"
-              // todo handle press
-              // onPress={}
-            >
-              Interested
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="text"
-              title="Interested"
-              color="purple"
-              // todo handle press
-              // onPress={}
-            >
-              Interested
-            </Button>
-          )}
-        </View>
+        <EventButtonsBar
+          postId={id}
+          attendEvent={attendEvent}
+          isAttending={is_attending}
+          interestedEvent={interestedEvent}
+          isInterested={is_interested}
+        />
+
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}

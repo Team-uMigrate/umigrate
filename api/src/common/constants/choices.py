@@ -8,6 +8,10 @@ def trigger_error(request):
     division_by_zero = 1 / 0
 
 
+def get_length(choices):
+    return len(convert_to_tuple(choices=choices))
+
+
 # Choices for model fields
 class Choices:
     PRONOUN_CHOICES = convert_to_tuple([

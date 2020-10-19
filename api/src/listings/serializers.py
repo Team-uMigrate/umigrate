@@ -9,6 +9,7 @@ class ListingSerializer(GenericPostSerializer):
     class Meta:
         model = Listing
         fields = '__all__'
+        exclude_fields = ['saved_users', 'liked_users']
 
 
 # Serializes the listing model with detail

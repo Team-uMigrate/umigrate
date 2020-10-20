@@ -1,5 +1,5 @@
 from django.db import models
-from common.generics.generic_models import GenericPhotoModel
+from common.model_extensions import GenericPhotoModel
 from users.models import CustomUser
 from common.constants.choices import Choices
 from datetime import datetime

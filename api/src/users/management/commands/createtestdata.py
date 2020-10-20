@@ -12,8 +12,8 @@ from posts.factories import PostFactory
 from users.factories import UserFactory, CustomUser
 
 
-USER_COUNT = 100
-ITEM_COUNT = 100
+USER_COUNT = 120
+ITEM_COUNT = 120
 
 
 def random_users(max_users=3, min_users=0, total_users=USER_COUNT):
@@ -54,15 +54,15 @@ class Command(BaseCommand):
         for user in users:
             connect_users = random_users()
             blocked_users = random_users()
-            for i in connect_users:
-                user.connected_users.add(i)
-            for j in blocked_users:
-                user.blocked_users.add(j)
+            for a in connect_users:
+                user.connected_users.add(a)
+            for b in blocked_users:
+                user.blocked_users.add(b)
 
         print(f'Creating {ITEM_COUNT} items...')
         for i in range(ITEM_COUNT):
-            rand_int1 = random.randint(0, 10)
-            rand_int2 = random.randint(0, 3)
+            rand_int1 = random.randint(0, 12)
+            rand_int2 = random.randint(0, 12)
 
             ad = AdFactory(liked_users=random_users(), tagged_users=random_users(),
                            saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))

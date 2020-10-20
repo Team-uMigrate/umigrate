@@ -1,4 +1,5 @@
 import factory
+from django.db.models.query import QuerySet
 from common.constants.choices import Choices, get_length
 from users.factories import UserFactory
 import random
@@ -13,7 +14,7 @@ class GenericPostFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def liked_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.liked_users.add(user)
             else:
@@ -24,7 +25,7 @@ class GenericPostFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def tagged_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.tagged_users.add(user)
             else:
@@ -35,7 +36,7 @@ class GenericPostFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def saved_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.saved_users.add(user)
             else:

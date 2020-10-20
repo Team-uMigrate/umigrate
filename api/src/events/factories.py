@@ -1,5 +1,6 @@
 import random
 import factory
+from django.db.models import QuerySet
 from common.generics.generic_factories import GenericPostFactory
 from users.factories import UserFactory
 from .models import Event
@@ -18,7 +19,7 @@ class EventFactory(GenericPostFactory):
     @factory.post_generation
     def interested_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.interested_users.add(user)
             else:
@@ -29,7 +30,7 @@ class EventFactory(GenericPostFactory):
     @factory.post_generation
     def attending_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.attending_users.add(user)
             else:

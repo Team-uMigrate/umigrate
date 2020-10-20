@@ -1,5 +1,6 @@
-from django.core.management.base import BaseCommand, CommandError
 import random
+from datetime import datetime
+from django.core.management.base import BaseCommand
 from ads.factories import AdFactory
 from comments.factories import CommentFactory, ReplyFactory
 from events.factories import EventFactory
@@ -9,7 +10,17 @@ from messaging.factories import RoomFactory, MessageFactory
 from polls.factories import PollFactory, OptionFactory, VoteFactory
 from posts.factories import PostFactory
 from users.factories import UserFactory, CustomUser
-from datetime import datetime
+
+USER_COUNT = 100
+ITEM_COUNT = 100
+
+
+def random_users(max_users=3, min_users=0, total_users=USER_COUNT):
+    num_of_users = random.randint(min_users, max_users)
+    list_of_ids = []
+    for i in range(num_of_users):
+        list_of_ids = list_of_ids + [random.randint(1, total_users)]
+    return CustomUser.objects.filter(id__in=list_of_ids)
 
 
 class Command(BaseCommand):
@@ -27,71 +38,65 @@ class Command(BaseCommand):
         last_name = options['lastname']
         preferred_name = options['preferredname']
 
-        starttime = datetime.now()
+        start_time = datetime.now()
         print('Task begin!')
 
         print('Creating your account...')
-        user = UserFactory(email=email, first_name=first_name, last_name=last_name, preferred_name=preferred_name)
-        exclude_list = [user.id]
+        UserFactory(email=email, first_name=first_name, last_name=last_name, preferred_name=preferred_name,
+                    connected_users=[], blocked_users=[])
 
-        num = 20
-        for i in range(num):
-            print(f'Iteration {i} out of {num}')
+        print('Creating users...')
+        UserFactory.create_batch(USER_COUNT - 1, connected_users=[], blocked_users=[])
+        users = CustomUser.objects.all()
 
-            post = PostFactory()
-            creator = post.creator
-            exclude_list = exclude_list + [creator.id]
-            liked_users = post.liked_users.all()
-            tagged_users = post.tagged_users.all()
-            saved_users = post.saved_users.all()
+        print('Assigning connected and blocked users...')
+        for user in users:
+            connect_users = random_users()
+            blocked_users = random_users()
+            for i in connect_users:
+                user.connected_users.add(i)
+            for j in blocked_users:
+                user.blocked_users.add(j)
 
-            print('Creating ads...')
-            AdFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                   creator=creator)
-            print('Creating comments...')
-            CommentFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                        creator=creator)
-            print('Creating replies...')
-            ReplyFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                      creator=creator)
-            print('Creating events...')
-            EventFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                      creator=creator, interested_users=liked_users, attending_users=saved_users)
-            print('Creating jobs...')
-            JobFactory.create_batch(5, creator=creator)
-            print('Creating listings...')
-            ListingFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                        creator=creator)
-            print('Creating rooms...')
-            RoomFactory.create_batch(5, members=saved_users, creator=creator)
-            print('Creating messages...')
-            MessageFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, creator=creator)
-            print('Creating polls...')
-            PollFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                     creator=creator)
-            print('Creating options...')
-            OptionFactory.create_batch(5, creator=creator)
-            print('Creating votes...')
-            VoteFactory.create_batch(5, creator=creator)
-            print('Creating posts...')
-            PostFactory.create_batch(5, liked_users=liked_users, tagged_users=tagged_users, saved_users=saved_users,
-                                     creator=creator)
+        print(f'Creating {ITEM_COUNT} items...')
+        for i in range(ITEM_COUNT):
+            AdFactory(liked_users=random_users(), tagged_users=random_users(), 
+                      saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
 
-        users = CustomUser.objects.exclude(id__in=exclude_list)
-        total_count = users.count()
-        print(f'Deleting {total_count - 1000} excess users...')
+            # CommentFactory(liked_users=random_users(), tagged_users=random_users(),
+            #                saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+            #
+            # ReplyFactory(liked_users=random_users(), tagged_users=random_users(),
+            #              saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
 
-        while total_count > 1000:
-            rand_int = random.randint(0, total_count - 1)
-            delete_user = users[rand_int]
-            users = users.exclude(id=delete_user.id)
-            delete_user.delete()
-            total_count = total_count - 1
+            EventFactory(liked_users=random_users(), tagged_users=random_users(),
+                         saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)),
+                         interested_users=random_users(), attending_users=random_users())
 
-            if total_count % 100 == 0:
-                print(f'{total_count - 1000} users left to delete...')
+            JobFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
 
-        endtime = datetime.now()
-        timediff = endtime - starttime
-        total_seconds = timediff.total_seconds()
+            ListingFactory(liked_users=random_users(), tagged_users=random_users(),
+                           saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            RoomFactory(members=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            # MessageFactory(liked_users=random_users(), tagged_users=random_users(),
+            #                creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            PollFactory(liked_users=random_users(), tagged_users=random_users(),
+                        saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            # OptionFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
+            #
+            # VoteFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            PostFactory(liked_users=random_users(), tagged_users=random_users(),
+                        saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            if (i + 1) % 10 == 0:
+                print(f'{i + 1} items created...')
+
+        end_time = datetime.now()
+        time_diff = end_time - start_time
+        total_seconds = time_diff.total_seconds()
         print(f'Task complete after {total_seconds // 60} min and {total_seconds // 1 % 60} seconds!')

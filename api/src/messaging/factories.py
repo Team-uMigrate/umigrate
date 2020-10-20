@@ -1,5 +1,6 @@
 import factory
 import random
+from django.db.models import QuerySet
 from .models import Room, Message
 from common.constants.choices import Choices, get_length
 from users.factories import UserFactory
@@ -16,7 +17,7 @@ class RoomFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def members(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.members.add(user)
             else:
@@ -36,7 +37,7 @@ class MessageFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def liked_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.liked_users.add(user)
             else:
@@ -47,7 +48,7 @@ class MessageFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def tagged_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.tagged_users.add(user)
             else:

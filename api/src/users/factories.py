@@ -1,5 +1,6 @@
 import factory
 import random
+from django.db.models import QuerySet
 from .models import CustomUser
 from common.constants.choices import Choices, get_length
 from allauth.account.models import EmailAddress
@@ -32,7 +33,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def connected_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.connected_users.add(user)
             else:
@@ -43,7 +44,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     @factory.post_generation
     def blocked_users(self, create, extracted, **kwargs):
         if create:
-            if isinstance(extracted, list):
+            if isinstance(extracted, (list, QuerySet)):
                 for user in extracted:
                     self.blocked_users.add(user)
             else:

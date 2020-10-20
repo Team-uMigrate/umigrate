@@ -1,6 +1,6 @@
 from common.abstract_api_views import AbstractModelViewSet
 from common.generics.generic_post_api_views import GenericUserExtension
-from .filters import AdFilter
+from .filters import AdFilterSet
 from .models import Ad
 from .serializers import AdSerializer, AdDetailSerializer
 from django.utils.decorators import method_decorator
@@ -16,12 +16,13 @@ class AdViewSet(AbstractModelViewSet):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
     detail_serializer_class = AdDetailSerializer
+    filterset_class = AdFilterSet
     search_fields = ['title', ]
-    filterset_class = AdFilter
 
 
 # HTTP GET: Returns a list of liked users that liked an ad
 # HTTP POST: Like or unlike an ad
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Ads']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Ads']))
 class AdLike(GenericUserExtension):
     field_string = 'like'

@@ -16,12 +16,13 @@ class ListingViewSet(AbstractModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     detail_serializer_class = ListingDetailSerializer
-    search_fields = ['title', ]
     filterset_class = ListingFilter
+    search_fields = ['title', ]
 
 
 # HTTP GET: Returns a list of liked users that liked a listing
 # HTTP POST: Like or unlike a listing
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Listings']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Listings']))
 class ListingLike(GenericUserExtension):
     field_string = 'like'

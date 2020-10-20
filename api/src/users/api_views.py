@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from common.generics.generic_post_api_views import GenericUserExtension
 from posts.models import Post
 from posts.serializers import PostDetailSerializer
+from .filters import UserFilterSet
 from .models import CustomUser
 from .serializers import UserSerializer
 from django.utils.decorators import method_decorator
@@ -20,8 +21,7 @@ class UserList(ListAPIView):
         IsAuthenticated,
     ]
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['email', 'pronouns', 'datetime_created', 'birthday', 'current_term', 'enrolled_program',
-                     'region', 'phone_number', ]
+    filterset_class = UserFilterSet
     search_fields = ['first_name', 'last_name', 'preferred_name', 'email', ]
 
     def list(self, request, *args, **kwargs):

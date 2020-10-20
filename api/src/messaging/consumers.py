@@ -55,7 +55,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if self.member['id'] == user_id:
             create_message = database_sync_to_async(lambda: Message.objects.create(
                 creator_id=user_id,
-                message_body=message_body,
+                content=message_body,
                 room_id=self.room_id
             ))
             messageObject = await create_message()

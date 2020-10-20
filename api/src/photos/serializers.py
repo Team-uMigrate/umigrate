@@ -1,9 +1,9 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.extensions import ModelSerializerExtension
 from .models import Photo
 
 
 # Serializes the Photo model
-class PhotoSerializer(GenericSerializer):
+class PhotoSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Photo

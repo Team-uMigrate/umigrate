@@ -1,10 +1,10 @@
-from common.abstract_serializers import GenericSerializer, AbstractModelSerializer,\
+from common.abstract_serializers import ModelSerializerExtension, AbstractModelSerializer,\
     AbstractModelDetailSerializer
 from .models import Poll, Option, Vote
 
 
 # Serializes the vote model
-class VoteSerializer(GenericSerializer):
+class VoteSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Vote
@@ -12,11 +12,11 @@ class VoteSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the option model
-class OptionSerializer(GenericSerializer):
+class OptionSerializer(ModelSerializerExtension):
     vote_set = VoteSerializer(read_only=True, many=True)
 
     class Meta:
@@ -28,7 +28,7 @@ class OptionSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the poll model

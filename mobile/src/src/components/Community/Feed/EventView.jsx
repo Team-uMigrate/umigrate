@@ -1,9 +1,8 @@
-import React, { createRef } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Button } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
-import EventButtonsBar from "../Feed/EventButtonsContainer";
 
 const EventView = ({
   id,
@@ -25,6 +24,8 @@ const EventView = ({
   interestedEvent,
 }) => {
   const { width, height } = Dimensions.get("window");
+  const [attending, setAttending] = useState(is_attending);
+  const [interested, setInterested] = useState(is_interested);
 
   return (
     <Card style={styles.container}>
@@ -71,15 +72,70 @@ const EventView = ({
             style={{ width: 0.88 * width, height: 300 }}
           />
         )}
-
-        <EventButtonsBar
-          postId={id}
-          attendEvent={attendEvent}
-          isAttending={is_attending}
-          interestedEvent={interestedEvent}
-          isInterested={is_interested}
-        />
-
+        <View style={styles.buttonContainer}>
+          {attending === true ? (
+            <Button
+              compact={true}
+              style={styles.buttonStyleFade}
+              mode="contained"
+              title="Unattend"
+              color="white"
+              dark={true}
+              onPress={() => {
+                attendEvent(id, !attending);
+                setAttending(!attending);
+              }}
+            >
+              Unattend
+            </Button>
+          ) : (
+            <Button
+              compact={true}
+              style={styles.buttonStyle}
+              mode="outlined"
+              title="Attending"
+              color="white"
+              dark={true}
+              onPress={() => {
+                attendEvent(id, !attending);
+                setAttending(!attending);
+              }}
+            >
+              Attending?
+            </Button>
+          )}
+          {interested == true ? (
+            <Button
+              compact={true}
+              style={styles.buttonStyleFade}
+              mode="contained"
+              title="uninterest"
+              color="white"
+              dark={true}
+              onPress={() => {
+                interestedEvent(id, !interested);
+                setInterested(!interested);
+              }}
+            >
+              Uninterest
+            </Button>
+          ) : (
+            <Button
+              compact={true}
+              style={styles.buttonStyle}
+              mode="outlined"
+              title="Interested"
+              color="white"
+              dark={true}
+              onPress={() => {
+                interestedEvent(id, !interested);
+                setInterested(!interested);
+              }}
+            >
+              Interested?
+            </Button>
+          )}
+        </View>
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}
@@ -127,14 +183,21 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   buttonStyle: {
-    height: 40,
-    width: 50,
+    height: 36,
+    width: 120,
     flex: 1,
+    backgroundColor: "steelblue",
+  },
+  buttonStyleFade: {
+    height: 36,
+    width: 120,
+    flex: 1,
+    backgroundColor: "rgba(70,130,180,0.5)",
   },
   buttonContainer: {
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-    marginTop: "10%",
+    marginTop: "3%",
   },
 });

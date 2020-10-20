@@ -9,6 +9,7 @@ import MenuPage from "../components/Menu";
 import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";
 import CreatePage from "../components/Create";
+import CreateModalComponent from "./CreateModalComponent";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -17,7 +18,6 @@ const TabNavigator = ({ navigation }) => {
   useEffect(() => {
     nav.setNavigation(navigation);
   }, []);
-
   return (
     <Tab.Navigator
       initialRouteName="Community"
@@ -55,8 +55,9 @@ const TabNavigator = ({ navigation }) => {
 
       <Tab.Screen
         name="Create"
-        component={CreatePage}
+        component={CreateModalComponent}
         options={{
+          tabBarButton: () => <CreateModalComponent />,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="plus-circle-outline"

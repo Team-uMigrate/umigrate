@@ -1,10 +1,10 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from .models import Poll, Option, Vote
 from users.factories import UserFactory
 
 
-class PollFactory(GenericPostFactory):
+class PollFactory(AbstractFactory):
     class Meta:
         model = Poll
 

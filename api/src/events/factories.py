@@ -1,13 +1,13 @@
 import random
 import factory
 from django.db.models import QuerySet
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from users.factories import UserFactory
 from .models import Event
 from common.constants.choices import Choices, get_length
 
 
-class EventFactory(GenericPostFactory):
+class EventFactory(AbstractFactory):
     class Meta:
         model = Event
 

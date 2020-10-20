@@ -5,7 +5,7 @@ from users.factories import UserFactory
 import random
 
 
-class GenericPostFactory(factory.django.DjangoModelFactory):
+class AbstractFactory(factory.django.DjangoModelFactory):
     title = factory.Faker('text', max_nb_chars=100)
     content = factory.Faker('paragraph')
     region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES)-1)

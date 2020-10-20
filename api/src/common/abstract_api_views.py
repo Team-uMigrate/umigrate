@@ -17,7 +17,8 @@ class AbstractModelViewSet(ModelViewSet):
         DjangoFilterBackend,
         SearchFilter,
     ]
-    lookup_value_regex = '[0-9]'
+    lookup_field = 'id'
+    lookup_value_regex = '(\\d+)'
 
     def get_serializer_class(self):
         if self.request.method == 'GET':

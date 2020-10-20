@@ -2,12 +2,12 @@ from django.db.models.functions import Length
 from comments.serializers import CommentDetailSerializer
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
-from .generic_serializers import GenericSerializer
+from common.serializer_extensions import ModelSerializerExtension
 from photos.serializers import PhotoRetrieveSerializer
 
 
-# Serializes a generic resource model
-class GenericPostSerializer(GenericSerializer):
+# Serializes an abstract resource model
+class AbstractModelSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
@@ -39,10 +39,10 @@ class GenericPostSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
-# Serializes a generic resource model with detail
-class GenericPostDetailSerializer(GenericPostSerializer):
+# Serializes an abstract resource model with detail
+class AbstractModelDetailSerializer(AbstractModelSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
     photos = PhotoRetrieveSerializer(read_only=True, many=True)

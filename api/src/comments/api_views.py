@@ -1,16 +1,18 @@
-from rest_framework.viewsets import ModelViewSet
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy
+from common.abstract_api_views import AbstractModelViewSet
+from common.generics.generic_post_api_views import GenericUserExtension
 from .models import Comment, Reply
 from .serializers import CommentSerializer, CommentDetailSerializer, ReplySerializer, ReplyDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
 
-# HTTP GET: Returns a list of comments
-# HTTP POST: Creates a comment
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Comments']))
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Comments']))
-class CommentListCreate(GenericPostListCreate):
+@method_decorator(name='list', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='create', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='update', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(tags=['Comments']))
+class CommentViewSet(AbstractModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     detail_serializer_class = CommentDetailSerializer
@@ -18,25 +20,13 @@ class CommentListCreate(GenericPostListCreate):
     search_fields = ['content', ]
 
 
-# HTTP GET: Returns a comment
-# HTTP PUT: Updates a comment
-# HTTP PATCH: Partially updates a comment
-# HTTP DELETE: Deletes a comment
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Comments']))
-@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Comments']))
-@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Comments']))
-@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Comments']))
-class CommentRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    detail_serializer_class = CommentDetailSerializer
-
-
-# HTTP GET: Returns a list of replies
-# HTTP POST: Creates a reply
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Replies']))
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Replies']))
-class ReplyListCreate(GenericPostListCreate):
+@method_decorator(name='list', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='create', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='update', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(tags=['Comments']))
+class ReplyViewSet(AbstractModelViewSet):
     queryset = Reply.objects.all()
     serializer_class = ReplySerializer
     detail_serializer_class = ReplyDetailSerializer
@@ -44,15 +34,25 @@ class ReplyListCreate(GenericPostListCreate):
     search_fields = ['content', ]
 
 
-# HTTP GET: Returns a reply
-# HTTP PUT: Updates a reply
-# HTTP PATCH: Partially updates a reply
-# HTTP DELETE: Deletes a reply
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Replies']))
-@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Replies']))
-@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Replies']))
-@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Replies']))
-class ReplyRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    queryset = Reply.objects.all()
-    serializer_class = ReplySerializer
-    detail_serializer_class = ReplyDetailSerializer
+# HTTP GET: Returns a list of liked users that liked a post
+# HTTP POST: Like or unlike a post
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Comments']))
+class CommentLike(GenericUserExtension):
+    field_string = 'like'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Comment.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns a list of liked users that liked a post
+# HTTP POST: Like or unlike a post
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Comments']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Comments']))
+class ReplyLike(GenericUserExtension):
+    field_string = 'like'
+
+    @staticmethod
+    def field_func(obj_id):
+        return Reply.objects.get(id=obj_id).liked_users

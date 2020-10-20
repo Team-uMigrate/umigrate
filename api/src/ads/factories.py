@@ -1,11 +1,11 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from .models import Ad
 from common.constants.choices import Choices, get_length
 from string import ascii_uppercase
 
 
-class AdFactory(GenericPostFactory):
+class AdFactory(AbstractFactory):
     class Meta:
         model = Ad
 

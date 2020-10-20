@@ -1,10 +1,10 @@
-from common.generics.generic_post_serializers import GenericPostSerializer, GenericPostDetailSerializer
+from common.abstract_serializers import AbstractModelSerializer, AbstractModelDetailSerializer
 from .models import Event
 from rest_framework import serializers
 
 
 # Serializes the event model
-class EventSerializer(GenericPostSerializer):
+class EventSerializer(AbstractModelSerializer):
     is_interested = serializers.SerializerMethodField()
     is_attending = serializers.SerializerMethodField()
     interested = serializers.SerializerMethodField()
@@ -29,5 +29,5 @@ class EventSerializer(GenericPostSerializer):
 
 
 # Serializes the event model with detail
-class EventDetailSerializer(EventSerializer, GenericPostDetailSerializer):
+class EventDetailSerializer(EventSerializer, AbstractModelDetailSerializer):
     pass

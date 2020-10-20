@@ -1,10 +1,10 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from .models import Listing
 from common.constants.choices import Choices, get_length
 
 
-class ListingFactory(GenericPostFactory):
+class ListingFactory(AbstractFactory):
     class Meta:
         model = Listing
 

@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from common.generics.generic_post_api_views import GenericUserExtension
 from posts.models import Post
 from posts.serializers import PostDetailSerializer
+from .filters import UserFilterSet
 from .models import CustomUser
 from .serializers import UserSerializer
 from django.utils.decorators import method_decorator
@@ -20,8 +21,7 @@ class UserList(ListAPIView):
         IsAuthenticated,
     ]
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_fields = ['email', 'pronouns', 'datetime_created', 'birthday', 'current_term', 'enrolled_program',
-                     'region', 'phone_number', ]
+    filterset_class = UserFilterSet
     search_fields = ['first_name', 'last_name', 'preferred_name', 'email', ]
 
     def list(self, request, *args, **kwargs):
@@ -42,7 +42,9 @@ class UserRetrieve(RetrieveAPIView):
         return super().get(request, *args, **kwargs)
 
 
+# HTTP GET: Returns a list of connected users
 # HTTP POST: Connect or disconnect from another user
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Users']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Users']))
 class ConnectUser(GenericUserExtension):
     field_string = 'connect'
@@ -52,7 +54,9 @@ class ConnectUser(GenericUserExtension):
         return CustomUser.objects.get(id=obj_id).connected_users
 
 
+# HTTP GET: Returns a list of blocked users
 # HTTP POST: Block or unblock another user
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Users']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Users']))
 class BlockUser(GenericUserExtension):
     field_string = 'block'
@@ -64,6 +68,7 @@ class BlockUser(GenericUserExtension):
 
 # HTTP GET: returns saved posts for a user
 @method_decorator(name='get', decorator=swagger_auto_schema(tags=['Users']))
+@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Users']))
 class SavedPosts(GenericUserExtension):
     field_string = 'save'
     serializer = PostDetailSerializer

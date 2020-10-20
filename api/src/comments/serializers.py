@@ -1,12 +1,12 @@
 from django.db.models.functions import Length
-from .models import Comment
+from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
-from common.generics.generic_serializers import GenericSerializer
+from common.serializer_extensions import ModelSerializerExtension
 
 
 # Serializes the reply model with detail
-class CommentSerializer(GenericSerializer):
+class CommentSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
@@ -43,7 +43,7 @@ class CommentSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the comment model with detail
@@ -52,7 +52,7 @@ class CommentDetailSerializer(CommentSerializer):
 
 
 # Serializes the reply model
-class ReplySerializer(GenericSerializer):
+class ReplySerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
@@ -60,7 +60,7 @@ class ReplySerializer(GenericSerializer):
     likes = serializers.SerializerMethodField()
 
     class Meta:
-        model = Comment
+        model = Reply
         fields = '__all__'
         exclude_fields = ['saved_users', 'liked_users']
 
@@ -75,9 +75,9 @@ class ReplySerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the reply model with detail
-class ReplyDetailSerializer(CommentSerializer):
+class ReplyDetailSerializer(ReplySerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)

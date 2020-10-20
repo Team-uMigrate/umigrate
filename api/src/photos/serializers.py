@@ -1,4 +1,4 @@
-from common.extensions import ModelSerializerExtension
+from common.serializer_extensions import ModelSerializerExtension
 from .models import Photo
 
 

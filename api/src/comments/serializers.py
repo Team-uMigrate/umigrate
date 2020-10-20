@@ -2,7 +2,7 @@ from django.db.models.functions import Length
 from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
-from common.extensions import ModelSerializerExtension
+from common.serializer_extensions import ModelSerializerExtension
 
 
 # Serializes the reply model with detail

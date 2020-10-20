@@ -1,9 +1,9 @@
-from common.generics.generic_post_serializers import GenericPostSerializer, GenericPostDetailSerializer
+from common.abstract_serializers import AbstractModelSerializer, AbstractModelDetailSerializer
 from .models import Post
 
 
 # Serializes the post model
-class PostSerializer(GenericPostSerializer):
+class PostSerializer(AbstractModelSerializer):
 
     class Meta:
         model = Post
@@ -12,5 +12,5 @@ class PostSerializer(GenericPostSerializer):
 
 
 # Serializes the post model with detail
-class PostDetailSerializer(PostSerializer, GenericPostDetailSerializer):
+class PostDetailSerializer(PostSerializer, AbstractModelDetailSerializer):
     pass

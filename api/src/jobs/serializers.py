@@ -1,4 +1,4 @@
-from common.generics.generic_post_serializers import GenericSerializer
+from common.abstract_serializers import GenericSerializer
 from .models import Job
 
 

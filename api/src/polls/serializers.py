@@ -1,5 +1,5 @@
-from common.generics.generic_post_serializers import GenericSerializer, GenericPostSerializer,\
-    GenericPostDetailSerializer
+from common.abstract_serializers import GenericSerializer, AbstractModelSerializer,\
+    AbstractModelDetailSerializer
 from .models import Poll, Option, Vote
 
 
@@ -32,7 +32,7 @@ class OptionSerializer(GenericSerializer):
 
 
 # Serializes the poll model
-class PollSerializer(GenericPostSerializer):
+class PollSerializer(AbstractModelSerializer):
     option_set = OptionSerializer(read_only=True, many=True)
 
     class Meta:
@@ -45,5 +45,5 @@ class PollSerializer(GenericPostSerializer):
 
 
 # Serialize the poll model with detail
-class PollDetailSerializer(PollSerializer, GenericPostDetailSerializer):
+class PollDetailSerializer(PollSerializer, AbstractModelDetailSerializer):
     pass

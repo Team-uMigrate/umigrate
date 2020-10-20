@@ -11,6 +11,7 @@ from polls.factories import PollFactory, OptionFactory, VoteFactory
 from posts.factories import PostFactory
 from users.factories import UserFactory, CustomUser
 
+
 USER_COUNT = 100
 ITEM_COUNT = 100
 
@@ -60,38 +61,51 @@ class Command(BaseCommand):
 
         print(f'Creating {ITEM_COUNT} items...')
         for i in range(ITEM_COUNT):
-            AdFactory(liked_users=random_users(), tagged_users=random_users(), 
-                      saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+            rand_int1 = random.randint(0, 10)
+            rand_int2 = random.randint(0, 3)
 
-            # CommentFactory(liked_users=random_users(), tagged_users=random_users(),
-            #                saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
-            #
-            # ReplyFactory(liked_users=random_users(), tagged_users=random_users(),
-            #              saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
-
-            EventFactory(liked_users=random_users(), tagged_users=random_users(),
-                         saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)),
-                         interested_users=random_users(), attending_users=random_users())
-
-            JobFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
-
-            ListingFactory(liked_users=random_users(), tagged_users=random_users(),
+            ad = AdFactory(liked_users=random_users(), tagged_users=random_users(),
                            saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
 
-            RoomFactory(members=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+            event = EventFactory(liked_users=random_users(), tagged_users=random_users(),
+                                 saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)),
+                                 interested_users=random_users(), attending_users=random_users())
 
-            # MessageFactory(liked_users=random_users(), tagged_users=random_users(),
-            #                creator=users.get(id=random.randint(1, USER_COUNT)))
+            job = JobFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
 
-            PollFactory(liked_users=random_users(), tagged_users=random_users(),
-                        saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+            listing = ListingFactory(liked_users=random_users(), tagged_users=random_users(),
+                                     saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
 
-            # OptionFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
-            #
-            # VoteFactory(creator=users.get(id=random.randint(1, USER_COUNT)))
+            room = RoomFactory(members=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
 
-            PostFactory(liked_users=random_users(), tagged_users=random_users(),
-                        saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+            for j in range(rand_int1):
+                message = MessageFactory(liked_users=random_users(), tagged_users=random_users(),
+                                         creator=users.get(id=random.randint(1, USER_COUNT)), room=room)
+
+            poll = PollFactory(liked_users=random_users(), tagged_users=random_users(),
+                               saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            for m in range(rand_int2):
+                option = OptionFactory(creator=users.get(id=random.randint(1, USER_COUNT)), poll=poll)
+
+                for n in range(rand_int1):
+                    vote = VoteFactory(creator=users.get(id=random.randint(1, USER_COUNT)), option=option)
+
+            post = PostFactory(liked_users=random_users(), tagged_users=random_users(),
+                               saved_users=random_users(), creator=users.get(id=random.randint(1, USER_COUNT)))
+
+            postings = [ad, event, listing, poll, post]
+
+            for x in range(rand_int1):
+                comment = CommentFactory(liked_users=random_users(), tagged_users=random_users(),
+                                         saved_users=random_users(),
+                                         creator=users.get(id=random.randint(1, USER_COUNT)),
+                                         content_object=postings[random.randint(0, len(postings) - 1)])
+
+                for y in range(rand_int2):
+                    reply = ReplyFactory(liked_users=random_users(), tagged_users=random_users(),
+                                         saved_users=random_users(),
+                                         creator=users.get(id=random.randint(1, USER_COUNT)), comment=comment)
 
             if (i + 1) % 10 == 0:
                 print(f'{i + 1} items created...')

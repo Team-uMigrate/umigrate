@@ -1,10 +1,10 @@
-from common.generics.generic_serializers import GenericSerializer
+from common.serializer_extensions import ModelSerializerExtension
 from rest_framework import serializers
 from users.models import CustomUser
 
 
 # Serializes the custom user model
-class UserSerializer(GenericSerializer):
+class UserSerializer(ModelSerializerExtension):
     email = serializers.ReadOnlyField()
     is_connected = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
@@ -43,7 +43,7 @@ class UserSerializer(GenericSerializer):
 
 
 # Serializes the custom user model with user settings fields
-class UserDetailSerializer(GenericSerializer):
+class UserDetailSerializer(ModelSerializerExtension):
     email = serializers.ReadOnlyField()
 
     class Meta:
@@ -61,7 +61,7 @@ class UserDetailSerializer(GenericSerializer):
 
 
 # Serializes the user model with basic information
-class BasicUserSerializer(GenericSerializer):
+class BasicUserSerializer(ModelSerializerExtension):
     is_connected = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
 

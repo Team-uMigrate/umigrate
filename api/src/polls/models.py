@@ -1,17 +1,12 @@
 from django.db import models
-from common.generics.generic_models import GenericPhotoCollectionModel
-from common.generics.generic_post_models import GenericPostModel, GenericCommentModel
+from common.abstract_models import AbstractPostModel
+from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
 
 
 # Represents a poll object
-class Poll(GenericPostModel, GenericPhotoCollectionModel):
-    photo = models.ImageField(upload_to='images/poll_photos', blank=True)
-
-
-# Represents a poll comment object
-class PollComment(GenericCommentModel):
-    poll = models.ForeignKey(to=Poll, related_name='comment_set', on_delete=models.CASCADE)
+class Poll(AbstractPostModel, PhotoCollectionExtension):
+    pass
 
 
 # Represents an option object

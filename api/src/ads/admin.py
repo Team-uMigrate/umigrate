@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Ad, AdComment
+from .models import Ad
 
 
-# Registers the ad and ad comment models with the admin site
+# Registers the Ad model with the admin site
 admin.site.register(Ad)
-admin.site.register(AdComment)

@@ -1,13 +1,10 @@
 from django.urls import path
-from .api_views import AdListCreate, AdRetrieveUpdateDestroy, AdCommentListCreate, AdCommentRetrieveUpdateDestroy, AdLike, AdCommentLike
-
+from rest_framework.routers import DefaultRouter
+from .api_views import AdViewSet, AdLike
 
 # Ads url patterns
-urlpatterns = [
-    path('', AdListCreate.as_view()),
-    path('<int:id>', AdRetrieveUpdateDestroy.as_view()),
-    path('comments/', AdCommentListCreate.as_view()),
-    path('comments/<int:id>', AdCommentRetrieveUpdateDestroy.as_view()),
+router = DefaultRouter(trailing_slash=False)
+router.register(r'', AdViewSet, basename='ads')
+urlpatterns = router.urls + [
     path('like', AdLike.as_view()),
-    path('comments/like', AdCommentLike.as_view()),
 ]

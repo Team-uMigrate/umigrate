@@ -50,6 +50,11 @@ steps:
     command: 'install'
     workingDir: 'mobile/src'
 
+- task: Npm@1
+  inputs:
+    command: 'install expo-cli'
+    workingDir: 'mobile/src'
+
 # - task: PowerShell@2
 #   inputs:
 #     targetType: 'inline'

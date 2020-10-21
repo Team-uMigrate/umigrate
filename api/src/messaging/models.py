@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from users.models import CustomUser
-from common.generics.generic_models import GenericPhotoModel
+from common.model_extensions import GenericPhotoModel
 from common.constants.choices import Choices
 
 

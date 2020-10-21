@@ -1,8 +1,7 @@
-import factory
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from .models import Post
 
 
-class PostFactory(GenericPostFactory):
+class PostFactory(AbstractFactory):
     class Meta:
         model = Post

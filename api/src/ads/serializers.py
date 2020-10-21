@@ -1,9 +1,9 @@
-from common.generics.generic_post_serializers import GenericPostSerializer, GenericPostDetailSerializer
+from common.abstract_serializers import AbstractModelSerializer, AbstractModelDetailSerializer
 from .models import Ad
 
 
 # Serializes the ad model
-class AdSerializer(GenericPostSerializer):
+class AdSerializer(AbstractModelSerializer):
 
     class Meta:
         model = Ad
@@ -12,5 +12,5 @@ class AdSerializer(GenericPostSerializer):
 
 
 # Serializers the ad model with detail
-class AdDetailSerializer(AdSerializer, GenericPostDetailSerializer):
+class AdDetailSerializer(AdSerializer, AbstractModelDetailSerializer):
     pass

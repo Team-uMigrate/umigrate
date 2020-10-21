@@ -1,8 +1,8 @@
-
 from django_filters import rest_framework as filters
 from .models import Ad
 
-class AdFilter(filters.FilterSet):
+
+class AdFilterSet(filters.FilterSet):
     # More on lookup_expr syntax: https://django-filter.readthedocs.io/en/latest/ref/filters.html
     # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups
     # gte = greater than or equal to
@@ -16,6 +16,5 @@ class AdFilter(filters.FilterSet):
 
     class Meta: 
         model = Ad
-        fields = ['min_price', 'max_price', 'min_date', 'max_date', 
-                'region', 'datetime_created', 'creator', 'category', 
-                'price', 'title', 'postal_code']
+        fields = ['min_price', 'max_price', 'min_date', 'max_date', 'region', 'datetime_created', 'creator', 'category',
+                  'price', 'title', 'postal_code']

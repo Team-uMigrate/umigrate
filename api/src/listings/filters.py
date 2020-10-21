@@ -1,4 +1,3 @@
-
 from django_filters import rest_framework as filters
 from .models import Listing
 
@@ -17,6 +16,5 @@ class ListingFilter(filters.FilterSet):
 
     class Meta: 
         model = Listing
-        fields = ['min_price', 'max_price', 'min_date', 'max_date', 
-                'region', 'datetime_created', 'creator', 'category', 
-                'price', 'title', 'location']
+        fields = ['min_price', 'max_price', 'min_date', 'max_date', 'region', 'datetime_created', 'creator', 'category',
+                  'price', 'title', 'location']

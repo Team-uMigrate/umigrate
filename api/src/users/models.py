@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from .managers import CustomUserManager
-from common.generics.generic_models import GenericPhotoModel
+from common.model_extensions import GenericPhotoModel
 from common.constants.choices import Choices
-from common.generics.generic_models import GenericPhotoModel
+from common.model_extensions import GenericPhotoModel
 from datetime import date
 
 

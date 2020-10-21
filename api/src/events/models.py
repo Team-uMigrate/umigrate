@@ -1,6 +1,6 @@
 from django.db import models
 from common.abstract_models import AbstractPostModel
-from common.generics.generic_models import GenericPhotoCollection
+from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
 from datetime import datetime
 from common.constants.choices import Choices
@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 # Represents an event object
-class Event(AbstractPostModel, GenericPhotoCollection):
+class Event(AbstractPostModel, PhotoCollectionExtension):
     price_scale = models.PositiveSmallIntegerField(choices=Choices.PRICE_CHOICES, default=0)
     start_datetime = models.DateTimeField(default=datetime.today)
     end_datetime = models.DateTimeField(blank=True, null=True)

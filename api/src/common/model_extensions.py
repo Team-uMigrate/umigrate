@@ -43,7 +43,7 @@ class GenericPhotoModel(models.Model):
 
 
 # An abstract model that represents a generic object with a photo member
-class GenericPhotoCollection(models.Model):
+class PhotoCollectionExtension(models.Model):
     # id field should be overridden
     id = None
     photos = GenericRelation(Photo)

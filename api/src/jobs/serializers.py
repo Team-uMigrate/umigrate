@@ -1,9 +1,9 @@
-from common.generics.generic_post_serializers import GenericSerializer
+from common.abstract_serializers import ModelSerializerExtension
 from .models import Job
 
 
 # Serializes the job model
-class JobSerializer(GenericSerializer):
+class JobSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Job

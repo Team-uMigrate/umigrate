@@ -1,9 +1,9 @@
-from common.generics.generic_post_serializers import GenericSerializer
+from common.abstract_serializers import ModelSerializerExtension
 from .models import Room, Message
 
 
 # Serializes the room model
-class RoomSerializer(GenericSerializer):
+class RoomSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Room
@@ -11,11 +11,11 @@ class RoomSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the message model
-class MessageSerializer(GenericSerializer):
+class MessageSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Message

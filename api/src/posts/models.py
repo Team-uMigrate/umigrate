@@ -1,8 +1,7 @@
-from django.db import models
 from common.abstract_models import AbstractPostModel
-from common.generics.generic_models import GenericPhotoCollection
+from common.model_extensions import PhotoCollectionExtension
 
 
 # Represents a post object
-class Post(AbstractPostModel, GenericPhotoCollection):
+class Post(AbstractPostModel, PhotoCollectionExtension):
     pass

@@ -1,39 +1,30 @@
-from common.generics.generic_post_api_views import GenericPostListCreate, GenericPostRetrieveUpdateDestroy, \
-    GenericUserExtension
+from common.generics.generic_post_api_views import GenericPostListCreate
+from common.abstract_api_views import AbstractModelViewSet
+from common.generics.generic_post_api_views import GenericUserExtension
+from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
 from .models import Poll, Option, Vote
-from .serializers import PollSerializer, OptionSerializer, VoteSerializer, PollDetailSerializer
+from .serializers import PollSerializer, PollDetailSerializer, OptionSerializer, VoteSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
 
-# HTTP GET: Returns a list of polls
-# HTTP POST: Creates a polls
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
-class PollListCreate(GenericPostListCreate):
+@method_decorator(name='list', decorator=swagger_auto_schema(tags=['Polls']))
+@method_decorator(name='create', decorator=swagger_auto_schema(tags=['Polls']))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(tags=['Polls']))
+@method_decorator(name='update', decorator=swagger_auto_schema(tags=['Polls']))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(tags=['Polls']))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(tags=['Polls']))
+class PollViewSet(AbstractModelViewSet):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
     detail_serializer_class = PollDetailSerializer
-    filter_fields = ['region', 'datetime_created', 'creator', ]
+    filterset_class = PollFilterSet
     search_fields = ['title', ]
-
-
-# HTTP GET: Returns a poll
-# HTTP PUT: Updates a poll
-# HTTP PATCH: Partially updates a poll
-# HTTP DELETE: Deletes a poll
-@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='put', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='patch', decorator=swagger_auto_schema(tags=['Polls']))
-@method_decorator(name='delete', decorator=swagger_auto_schema(tags=['Polls']))
-class PollRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
-    queryset = Poll.objects.all()
-    serializer_class = PollSerializer
-    detail_serializer_class = PollDetailSerializer
 
     
 # HTTP GET: Returns a list of liked users who liked a poll
 # HTTP POST: Like or unlike a poll
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=['Polls']))
 @method_decorator(name='post', decorator=swagger_auto_schema(tags=['Polls']))
 class PollLike(GenericUserExtension):
     field_string = 'like'
@@ -50,7 +41,7 @@ class PollLike(GenericUserExtension):
 class OptionListCreate(GenericPostListCreate):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
-    filter_fields = ['poll', ]
+    filterset_class = OptionFilterSet
     detail_serializer_class = OptionSerializer
 
 
@@ -61,5 +52,5 @@ class OptionListCreate(GenericPostListCreate):
 class VoteListCreate(GenericPostListCreate):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
-    filter_fields = ['option', ]
+    filterset_class = VoteFilterSet
     detail_serializer_class = VoteSerializer

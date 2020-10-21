@@ -1,11 +1,11 @@
 from django.db import models
 from common.abstract_models import AbstractPostModel
-from common.generics.generic_models import GenericPhotoCollection
+from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
 
 
 # Represents a poll object
-class Poll(AbstractPostModel, GenericPhotoCollection):
+class Poll(AbstractPostModel, PhotoCollectionExtension):
     pass
 
 

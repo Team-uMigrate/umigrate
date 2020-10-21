@@ -7,6 +7,7 @@ from common.constants.choices import Choices
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+
 # Represents an event object
 class Event(AbstractPostModel, PhotoCollectionExtension):
     price_scale = models.PositiveSmallIntegerField(choices=Choices.PRICE_CHOICES, default=0)

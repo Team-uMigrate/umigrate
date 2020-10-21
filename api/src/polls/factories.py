@@ -13,7 +13,7 @@ class OptionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Option
 
-    content = factory.Faker('paragraph')
+    content = factory.Faker('sentence')
     creator = factory.SubFactory(UserFactory)
     poll = factory.SubFactory(PollFactory)
 

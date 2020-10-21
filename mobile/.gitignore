@@ -1,7 +1,10 @@
 node_modules/
 .expo/
 npm-debug.*
-junit.xml
+
+# Coverage directory used by tools like istanbul
+coverage/
+
 *.jks
 *.p8
 *.p12

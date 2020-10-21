@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 
 const CommentBarButtons = ({
+  navigation,
   postId,
   sendButtonVisible,
   setSendButtonVisible,
@@ -11,6 +12,7 @@ const CommentBarButtons = ({
   isLiked,
   text,
   setText,
+  fetchComments,
 }) => {
   const [liked, setLiked] = useState(isLiked);
 
@@ -47,7 +49,17 @@ const CommentBarButtons = ({
           />
         </View>
         <View style={styles.buttonView}>
-          <IconButton icon={"comment"} color={"black"} style={styles.button} />
+          <IconButton
+            icon={"comment"}
+            color={"black"}
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Comments", {
+                fetchComments: fetchComments,
+                postId: postId,
+              });
+            }}
+          />
         </View>
       </>
     );

@@ -1,18 +1,21 @@
-import React from "react";
+import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const CommentsContainer = ({ shouldRender }) => {
-  if (shouldRender) {
+class CommentsContainer extends Component {
+  state = {};
+
+  CommentsContainer({ postId, fetchComments }) {
+    this.state.postId = postId;
+    this.state.fetchComments = fetchComments;
+  }
+
+  render() {
     return (
       <View>
         <Text>This is a comment</Text>
       </View>
     );
-  } else {
-    return <></>;
   }
-};
+}
 
 export default CommentsContainer;
-
-styles = StyleSheet.create({});

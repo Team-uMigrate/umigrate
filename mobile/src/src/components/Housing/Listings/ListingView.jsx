@@ -6,6 +6,7 @@ import { Choices } from "../../../utils/endpoints";
 import CommentBar from "../../common/CommentBar/CommentBar";
 
 const ListingView = ({
+  navigation,
   id,
   creator,
   likes,
@@ -22,6 +23,7 @@ const ListingView = ({
   is_liked,
   likeListing,
   createComment,
+  fetchComments,
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -66,10 +68,12 @@ const ListingView = ({
           </Paragraph>
         </View>
         <CommentBar
+          navigation={navigation}
           postId={id}
           likePost={likeListing}
           isLiked={is_liked}
           createComment={createComment}
+          fetchComments={fetchComments}
         />
       </Card.Content>
     </Card>

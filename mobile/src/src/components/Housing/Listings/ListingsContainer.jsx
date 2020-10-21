@@ -72,9 +72,22 @@ class ListingContainer extends Component {
     );
   };
 
+  fetchComments = (page, filters) => {
+    ListingCommentsEndpoint.list(
+      page,
+      filters,
+      () => {},
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
   renderItem = ({ item }) => {
     item.likeListing = this.likeListing;
     item.createComment = this.createComment;
+    item.fetchComments = this.fetchComments;
+    item.navigation = this.props.navigation;
     return <ListingView {...item} />;
   };
 

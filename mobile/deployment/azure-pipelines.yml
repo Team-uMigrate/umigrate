@@ -52,7 +52,7 @@ steps:
 
 - task: Npm@1
   inputs:
-    command: 'install expo-cli'
+    command: 'install -g expo-cli'
     workingDir: 'mobile/src'
 
 # - task: PowerShell@2

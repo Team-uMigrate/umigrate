@@ -4,7 +4,8 @@ from common.generics.generic_models import GenericPhotoCollection
 from users.models import CustomUser
 from datetime import datetime
 from common.constants.choices import Choices
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 # Represents an event object
 class Event(AbstractPostModel, GenericPhotoCollection):

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Button } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
@@ -71,64 +71,32 @@ const EventView = ({
           />
         )}
         <View style={styles.buttonContainer}>
-          {is_attending === true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyleFade}
-              mode="contained"
-              title="Unattend"
-              color="white"
-              dark={true}
-              onPress={() => {
-                attendEvent(id, !is_attending);
-              }}
-            >
-              Unattend
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="outlined"
-              title="Attending"
-              color="white"
-              dark={true}
-              onPress={() => {
-                attendEvent(id, !is_attending);
-              }}
-            >
-              Attending?
-            </Button>
-          )}
-          {is_interested == true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyleFade}
-              mode="contained"
-              title="uninterest"
-              color="white"
-              dark={true}
-              onPress={() => {
-                interestedEvent(id, !is_interested);
-              }}
-            >
-              Uninterest
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="outlined"
-              title="Interested"
-              color="white"
-              dark={true}
-              onPress={() => {
-                interestedEvent(id, !is_interested);
-              }}
-            >
-              Interested?
-            </Button>
-          )}
+          <Button
+            compact={true}
+            style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
+            mode={is_attending ? "contained" : "outlined"}
+            title={is_attending ? "Unattend" : "Attend"}
+            color="white"
+            dark={true}
+            onPress={() => {
+              attendEvent(id, !is_attending);
+            }}
+          >
+            {is_attending ? "Unattend" : "Attend?"}
+          </Button>
+          <Button
+            compact={true}
+            style={is_interested ? styles.buttonStyleFade : styles.buttonStyle}
+            mode={is_interested ? "contained" : "outlined"}
+            title={is_interested ? "Uninterest" : "Interested?"}
+            color="white"
+            dark={true}
+            onPress={() => {
+              interestedEvent(id, !is_interested);
+            }}
+          >
+            {is_interested ? "Uninterest" : "Interested?"}
+          </Button>
         </View>
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>

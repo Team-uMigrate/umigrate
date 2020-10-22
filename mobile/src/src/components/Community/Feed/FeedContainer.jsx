@@ -130,16 +130,17 @@ class FeedContainer extends Component {
 
   attendEvent = (id, shouldAttend) => {
     let index = this.state.events.findIndex((obj) => obj.id == id);
-    let copyList = this.state.events;
-
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
     copyList[index].is_attending = !this.state.events[index].is_attending;
-    this.setState({ copyList: this.state.events });
+    this.setState({ events: copyList });
 
     EventsEndpoint.attend(
       id,
       shouldAttend,
       () => {},
       (err) => {
+        copyList[index].is_attending = !this.state.events[index].is_attending;
+        this.setState({ events: copyList });
         console.log(err);
       }
     );
@@ -147,16 +148,17 @@ class FeedContainer extends Component {
 
   interestedEvent = (id, shouldInterested) => {
     let index = this.state.events.findIndex((obj) => obj.id == id);
-    let copyList = this.state.events;
-
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
     copyList[index].is_interested = !this.state.events[index].is_interested;
-    this.setState({ copyList: this.state.events });
+    this.setState({ events: copyList });
 
     EventsEndpoint.interested(
       id,
       shouldInterested,
       () => {},
       (err) => {
+        copyList[index].is_interested = !this.state.events[index].is_interested;
+        this.setState({ events: copyList });
         console.log(err);
       }
     );

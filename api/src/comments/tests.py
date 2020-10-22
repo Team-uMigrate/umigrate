@@ -17,6 +17,11 @@ class CommentTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = CommentSerializer
         self.detail_serializer_class = CommentDetailSerializer
         self.factory_class = CommentFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',
@@ -57,6 +62,11 @@ class ReplyTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = ReplySerializer
         self.detail_serializer_class = ReplyDetailSerializer
         self.factory_class = ReplyFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

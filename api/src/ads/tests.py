@@ -17,6 +17,11 @@ class AdTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = AdSerializer
         self.detail_serializer_class = AdDetailSerializer
         self.factory_class = AdFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

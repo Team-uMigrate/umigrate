@@ -1,6 +1,7 @@
 import json
 from rest_framework import status
 from types import SimpleNamespace
+from users.factories import UserFactory
 
 
 def create_data(factory_class, serializer_class, pop_keys):
@@ -28,12 +29,14 @@ class AbstractAPITestCase:
     serializer_class = None
     detail_serializer_class = None
     factory_class = None
+    factory_kwargs = None
     pop_keys = None
     max_diff = None
 
     def setUp(self):
-        items = self.factory_class.create_batch(5)
-        self.api_client.login(email=items[0].creator.email, password='Top$ecret150')
+        user = UserFactory(connected_users=[], blocked_users=[])
+        items = self.factory_class.create_batch(5, creator=user, **self.factory_kwargs)
+        self.api_client.login(email=user.email, password='Top$ecret150')
 
     def test_list(self):
         response = self.api_client.get(self.endpoint)

@@ -17,6 +17,11 @@ class PostTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = PostSerializer
         self.detail_serializer_class = PostDetailSerializer
         self.factory_class = PostFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

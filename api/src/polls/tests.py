@@ -17,6 +17,11 @@ class PollTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = PollSerializer
         self.detail_serializer_class = PollDetailSerializer
         self.factory_class = PollFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

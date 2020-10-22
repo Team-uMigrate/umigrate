@@ -17,6 +17,11 @@ class ListingTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = ListingSerializer
         self.detail_serializer_class = ListingDetailSerializer
         self.factory_class = ListingFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

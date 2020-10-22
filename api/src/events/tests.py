@@ -17,6 +17,13 @@ class EventTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = EventSerializer
         self.detail_serializer_class = EventDetailSerializer
         self.factory_class = EventFactory
+        self.factory_kwargs = {
+            'liked_users': [],
+            'tagged_users': [],
+            'saved_users': [],
+            'interested_users': [],
+            'attending_users': [],
+        }
         self.pop_keys = [
             'id',
             'likes',

@@ -129,6 +129,12 @@ class FeedContainer extends Component {
   };
 
   attendEvent = (id, shouldAttend) => {
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = this.state.events;
+
+    copyList[index].is_attending = !this.state.events[index].is_attending;
+    this.setState({ copyList: this.state.events });
+
     EventsEndpoint.attend(
       id,
       shouldAttend,
@@ -140,6 +146,12 @@ class FeedContainer extends Component {
   };
 
   interestedEvent = (id, shouldInterested) => {
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = this.state.events;
+
+    copyList[index].is_interested = !this.state.events[index].is_interested;
+    this.setState({ copyList: this.state.events });
+
     EventsEndpoint.interested(
       id,
       shouldInterested,

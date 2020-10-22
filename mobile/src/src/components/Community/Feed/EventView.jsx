@@ -24,8 +24,6 @@ const EventView = ({
   interestedEvent,
 }) => {
   const { width, height } = Dimensions.get("window");
-  const [attending, setAttending] = useState(is_attending);
-  const [interested, setInterested] = useState(is_interested);
 
   return (
     <Card style={styles.container}>
@@ -73,7 +71,7 @@ const EventView = ({
           />
         )}
         <View style={styles.buttonContainer}>
-          {attending === true ? (
+          {is_attending === true ? (
             <Button
               compact={true}
               style={styles.buttonStyleFade}
@@ -82,8 +80,7 @@ const EventView = ({
               color="white"
               dark={true}
               onPress={() => {
-                attendEvent(id, !attending);
-                setAttending(!attending);
+                attendEvent(id, !is_attending);
               }}
             >
               Unattend
@@ -97,14 +94,13 @@ const EventView = ({
               color="white"
               dark={true}
               onPress={() => {
-                attendEvent(id, !attending);
-                setAttending(!attending);
+                attendEvent(id, !is_attending);
               }}
             >
               Attending?
             </Button>
           )}
-          {interested == true ? (
+          {is_interested == true ? (
             <Button
               compact={true}
               style={styles.buttonStyleFade}
@@ -113,8 +109,7 @@ const EventView = ({
               color="white"
               dark={true}
               onPress={() => {
-                interestedEvent(id, !interested);
-                setInterested(!interested);
+                interestedEvent(id, !is_interested);
               }}
             >
               Uninterest
@@ -128,8 +123,7 @@ const EventView = ({
               color="white"
               dark={true}
               onPress={() => {
-                interestedEvent(id, !interested);
-                setInterested(!interested);
+                interestedEvent(id, !is_interested);
               }}
             >
               Interested?

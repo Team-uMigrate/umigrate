@@ -14,8 +14,9 @@ class CommentFactory(factory.django.DjangoModelFactory):
 
     content = factory.Faker('paragraph')
     region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES) - 1)
-    creator = factory.SubFactory(UserFactory)
-    content_object = factory.SubFactory(PostFactory)
+    creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
+    content_object = factory.SubFactory(PostFactory, liked_users=[], tagged_users=[], saved_users=[],
+                                        creator=creator)
     object_id = factory.SelfAttribute('content_object.id')
     content_type = factory.LazyAttribute(
         lambda o: ContentType.objects.get_for_model(o.content_object))
@@ -60,8 +61,9 @@ class ReplyFactory(factory.django.DjangoModelFactory):
 
     content = factory.Faker('paragraph')
     region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES) - 1)
-    creator = factory.SubFactory(UserFactory)
-    comment = factory.SubFactory(CommentFactory)
+    creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
+    comment = factory.SubFactory(CommentFactory, liked_users=[], tagged_users=[], saved_users=[],
+                                 creator=creator)
 
     @factory.post_generation
     def liked_users(self, create, extracted, **kwargs):

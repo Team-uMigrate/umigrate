@@ -9,7 +9,7 @@ class AbstractFactory(factory.django.DjangoModelFactory):
     title = factory.Faker('text', max_nb_chars=100)
     content = factory.Faker('paragraph')
     region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES)-1)
-    creator = factory.SubFactory(UserFactory)
+    creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
 
     @factory.post_generation
     def liked_users(self, create, extracted, **kwargs):

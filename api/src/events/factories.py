@@ -12,8 +12,8 @@ class EventFactory(AbstractFactory):
         model = Event
 
     price_scale = factory.Faker('random_int', min=0, max=get_length(Choices.PRICE_CHOICES)-1)
-    start_datetime = factory.Faker('date_time')
-    end_datetime = factory.Faker('date_time')
+    start_datetime = factory.Faker('date_time_between', start_date='-30y', end_date='now')
+    end_datetime = factory.Faker('date_time_between', start_date='now', end_date='+30y')
     location = factory.Faker('address')
 
     @factory.post_generation

@@ -3,6 +3,7 @@
 # Variables passed through using pipelines
 DATABASE_PASSWORD=$1
 
+# Only create database if database doesn't exist
 sudo -u postgres psql \
     -c "CREATE DATABASE umigratedb;" \
     -c "CREATE USER umigrate WITH PASSWORD '$DATABASE_PASSWORD';" \

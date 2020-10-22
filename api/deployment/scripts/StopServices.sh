@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Stop only if ALL services exists
 # Stop services
 systemctl stop nginx
 systemctl stop redis-server

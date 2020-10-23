@@ -91,7 +91,7 @@ class ListingContainer extends Component {
     return <ListingView {...item} />;
   };
 
-  render() {
+  ListingsList = () => {
     return (
       <View style={styles.listingContainer}>
         <FlatList
@@ -106,6 +106,10 @@ class ListingContainer extends Component {
         />
       </View>
     );
+  };
+
+  render() {
+    return <ListingsList />;
   }
 }
 

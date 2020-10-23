@@ -5,6 +5,7 @@ import {
   ListingsEndpoint,
   ListingCommentsEndpoint,
 } from "../../../utils/endpoints";
+import CommentNavigator from "../../../navigators/CommentNavigator";
 
 class ListingContainer extends Component {
   state = {
@@ -108,9 +109,9 @@ class ListingContainer extends Component {
     );
   };
 
-  render() {
-    return <ListingsList />;
-  }
+  render = () => {
+    return <CommentNavigator postComponent={this.ListingsList} />;
+  };
 }
 
 export default ListingContainer;

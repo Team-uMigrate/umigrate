@@ -63,6 +63,9 @@ jobs:
   - script: pip install -r api/src/requirements.txt
     displayName: 'Install requirements'
 
+  - script: black --check --exclude \env ..\src
+    displayName: 'Check formatting'
+
   - script: |
       cd api/src
       pytest --junitxml=../../test-results.xml

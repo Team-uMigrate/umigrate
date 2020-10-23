@@ -65,7 +65,7 @@ jobs:
 
   - script: |
       cd api/src
-      black --check --exclude \env ..\src
+      black --check --exclude env ../src
     displayName: 'Check formatting'
 
   - script: |

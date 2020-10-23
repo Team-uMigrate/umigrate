@@ -4,7 +4,7 @@ from .api_views import PostViewSet, PostLike
 
 # Posts url patterns
 router = DefaultRouter(trailing_slash=False)
-router.register(r'', PostViewSet, basename='posts')
+router.register(r"", PostViewSet, basename="posts")
 urlpatterns = router.urls + [
-    path('like', PostLike.as_view()),
+    path("like", PostLike.as_view()),
 ]

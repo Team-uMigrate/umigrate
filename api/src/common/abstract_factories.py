@@ -6,9 +6,11 @@ import random
 
 
 class AbstractFactory(factory.django.DjangoModelFactory):
-    title = factory.Faker('text', max_nb_chars=100)
-    content = factory.Faker('paragraph')
-    region = factory.Faker('random_int', min=0, max=get_length(Choices.REGION_CHOICES)-1)
+    title = factory.Faker("text", max_nb_chars=100)
+    content = factory.Faker("paragraph")
+    region = factory.Faker(
+        "random_int", min=0, max=get_length(Choices.REGION_CHOICES) - 1
+    )
     creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
 
     @factory.post_generation
@@ -20,7 +22,9 @@ class AbstractFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.liked_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.liked_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )
 
     @factory.post_generation
     def tagged_users(self, create, extracted, **kwargs):
@@ -31,7 +35,9 @@ class AbstractFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.tagged_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.tagged_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )
 
     @factory.post_generation
     def saved_users(self, create, extracted, **kwargs):
@@ -42,4 +48,6 @@ class AbstractFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.saved_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.saved_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )

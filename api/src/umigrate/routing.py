@@ -4,10 +4,10 @@ from channels.auth import AuthMiddlewareStack
 
 
 # Maps asynchronous connections to routers
-application = ProtocolTypeRouter({
-    'websocket': AuthMiddlewareStack(
-        URLRouter(
-            messaging.routing.websocket_urlpatterns
+application = ProtocolTypeRouter(
+    {
+        "websocket": AuthMiddlewareStack(
+            URLRouter(messaging.routing.websocket_urlpatterns)
         )
-    )
-})
+    }
+)

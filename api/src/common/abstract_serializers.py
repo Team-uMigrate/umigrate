@@ -13,14 +13,15 @@ class AbstractModelSerializer(ModelSerializerExtension):
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
+
     comments = serializers.SerializerMethodField()
     # most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
-        return instance.liked_users.filter(id=self.context['request'].user.id).exists()
+        return instance.liked_users.filter(id=self.context["request"].user.id).exists()
 
     def get_is_saved(self, instance):
-        return instance.saved_users.filter(id=self.context['request'].user.id).exists()
+        return instance.saved_users.filter(id=self.context["request"].user.id).exists()
 
     def get_likes(self, instance):
         return instance.liked_users.count()
@@ -38,7 +39,7 @@ class AbstractModelSerializer(ModelSerializerExtension):
     #     return most_liked_comment_serializer.data
 
     def create(self, validated_data):
-        validated_data['creator'] = self.context['request'].user
+        validated_data["creator"] = self.context["request"].user
         return ModelSerializerExtension.create(self, validated_data)
 
 

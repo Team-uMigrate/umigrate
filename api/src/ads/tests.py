@@ -7,25 +7,24 @@ from .factories import AdFactory
 
 # Test case for the ads endpoints
 class AdTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/ads/'
+        self.endpoint = "/api/ads/"
         self.model_class = Ad
         self.serializer_class = AdSerializer
         self.detail_serializer_class = AdDetailSerializer
         self.factory_class = AdFactory
         self.factory_kwargs = {
-            'liked_users': [],
-            'tagged_users': [],
-            'saved_users': [],
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
         }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

@@ -8,27 +8,46 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Job',
+            name="Job",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(blank=True, max_length=300)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('background_photo', models.ImageField(blank=True, upload_to='images/job_background_photos')),
-                ('profile_photo', models.ImageField(blank=True, upload_to='images/job_profile_photos')),
-                ('position', models.CharField(default='Software Engineer Associate', max_length=100)),
-                ('company', models.CharField(default='uMigrate', max_length=100)),
-                ('job_type', models.PositiveSmallIntegerField(choices=[(0, 'Full-time'), (1, 'Internship')], default=0)),
-                ('start_date', models.DateField(default=datetime.datetime.today)),
-                ('end_date', models.DateField(blank=True, null=True)),
-                ('city', models.CharField(default='Waterloo', max_length=30)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(blank=True, max_length=300)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "background_photo",
+                    models.ImageField(
+                        blank=True, upload_to="images/job_background_photos"
+                    ),
+                ),
+                (
+                    "profile_photo",
+                    models.ImageField(
+                        blank=True, upload_to="images/job_profile_photos"
+                    ),
+                ),
+                (
+                    "position",
+                    models.CharField(
+                        default="Software Engineer Associate", max_length=100
+                    ),
+                ),
+                ("company", models.CharField(default="uMigrate", max_length=100)),
+                (
+                    "job_type",
+                    models.PositiveSmallIntegerField(
+                        choices=[(0, "Full-time"), (1, "Internship")], default=0
+                    ),
+                ),
+                ("start_date", models.DateField(default=datetime.datetime.today)),
+                ("end_date", models.DateField(blank=True, null=True)),
+                ("city", models.CharField(default="Waterloo", max_length=30)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

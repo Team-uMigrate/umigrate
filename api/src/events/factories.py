@@ -11,10 +11,14 @@ class EventFactory(AbstractFactory):
     class Meta:
         model = Event
 
-    price_scale = factory.Faker('random_int', min=0, max=get_length(Choices.PRICE_CHOICES)-1)
-    start_datetime = factory.Faker('date_time_between', start_date='-30y', end_date='now')
-    end_datetime = factory.Faker('date_time_between', start_date='now', end_date='+30y')
-    location = factory.Faker('address')
+    price_scale = factory.Faker(
+        "random_int", min=0, max=get_length(Choices.PRICE_CHOICES) - 1
+    )
+    start_datetime = factory.Faker(
+        "date_time_between", start_date="-30y", end_date="now"
+    )
+    end_datetime = factory.Faker("date_time_between", start_date="now", end_date="+30y")
+    location = factory.Faker("address")
 
     @factory.post_generation
     def interested_users(self, create, extracted, **kwargs):
@@ -25,7 +29,9 @@ class EventFactory(AbstractFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.interested_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.interested_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )
 
     @factory.post_generation
     def attending_users(self, create, extracted, **kwargs):
@@ -36,4 +42,6 @@ class EventFactory(AbstractFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.attending_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.attending_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )

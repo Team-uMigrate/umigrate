@@ -1,17 +1,19 @@
-from common.abstract_serializers import ModelSerializerExtension, AbstractModelSerializer,\
-    AbstractModelDetailSerializer
+from common.abstract_serializers import (
+    ModelSerializerExtension,
+    AbstractModelSerializer,
+    AbstractModelDetailSerializer,
+)
 from .models import Poll, Option, Vote
 
 
 # Serializes the vote model
 class VoteSerializer(ModelSerializerExtension):
-
     class Meta:
         model = Vote
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
-        validated_data['creator'] = self.context['request'].user
+        validated_data["creator"] = self.context["request"].user
         return ModelSerializerExtension.create(self, validated_data)
 
 
@@ -21,13 +23,13 @@ class OptionSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Option
-        fields = '__all__'
+        fields = "__all__"
         extra_fields = [
-            'vote_set',
+            "vote_set",
         ]
 
     def create(self, validated_data):
-        validated_data['creator'] = self.context['request'].user
+        validated_data["creator"] = self.context["request"].user
         return ModelSerializerExtension.create(self, validated_data)
 
 
@@ -37,11 +39,11 @@ class PollSerializer(AbstractModelSerializer):
 
     class Meta:
         model = Poll
-        fields = '__all__'
+        fields = "__all__"
         extra_fields = [
-            'option_set',
+            "option_set",
         ]
-        exclude_fields = ['saved_users', 'liked_users']
+        exclude_fields = ["saved_users", "liked_users"]
 
 
 # Serialize the poll model with detail

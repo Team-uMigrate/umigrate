@@ -6,7 +6,9 @@ from users.factories import UserFactory
 
 def create_data(factory_class, serializer_class, pop_keys):
     post_item = factory_class()
-    serializer = serializer_class(post_item, context={'request': SimpleNamespace(user=post_item.creator)})
+    serializer = serializer_class(
+        post_item, context={"request": SimpleNamespace(user=post_item.creator)}
+    )
     serialized_data = json.loads(json.dumps(serializer.data))
     data = serialized_data.copy()
 
@@ -36,57 +38,87 @@ class AbstractAPITestCase:
     def setUp(self):
         user = UserFactory(connected_users=[], blocked_users=[])
         items = self.factory_class.create_batch(5, creator=user, **self.factory_kwargs)
-        self.api_client.login(email=user.email, password='Top$ecret150')
+        self.api_client.login(email=user.email, password="Top$ecret150")
 
     def test_list(self):
         response = self.api_client.get(self.endpoint)
-        self.assert_equal(response.status_code, status.HTTP_200_OK, 'Status code should be 200. '
-                                                                    f'Error: {response.data}')
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
 
-        results = response.data['results']
+        results = response.data["results"]
         items = self.model_class.objects.all()
-        self.assert_equal(len(results), len(items), f"There should be {len(items)} results")
+        self.assert_equal(
+            len(results), len(items), f"There should be {len(items)} results"
+        )
 
-        context = {'request': SimpleNamespace(user=items[0].creator)}
-        serialized_items = self.detail_serializer_class(items, context=context, many=True).data
-        self.assert_list_equal(results, serialized_items, "Results should match items in the database")
+        context = {"request": SimpleNamespace(user=items[0].creator)}
+        serialized_items = self.detail_serializer_class(
+            items, context=context, many=True
+        ).data
+        self.assert_list_equal(
+            results, serialized_items, "Results should match items in the database"
+        )
 
     def test_create(self):
-        data = create_data(factory_class=self.factory_class, serializer_class=self.serializer_class,
-                           pop_keys=self.pop_keys)
+        data = create_data(
+            factory_class=self.factory_class,
+            serializer_class=self.serializer_class,
+            pop_keys=self.pop_keys,
+        )
         response = self.api_client.post(self.endpoint, data)
-        self.assert_equal(response.status_code, status.HTTP_201_CREATED, 'Status code should be 201. '
-                                                                         f'Error: {response.data}')
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_201_CREATED,
+            "Status code should be 201. " f"Error: {response.data}",
+        )
 
         result = response.data
-        item = self.model_class.objects.get(id=result['id'])
-        context = {'request': SimpleNamespace(user=item.creator)}
+        item = self.model_class.objects.get(id=result["id"])
+        context = {"request": SimpleNamespace(user=item.creator)}
         serialized_item = self.serializer_class(item, context=context).data
-        self.assert_equal(result, serialized_item, "Result should match item in the database")
+        self.assert_equal(
+            result, serialized_item, "Result should match item in the database"
+        )
 
     def test_retrieve(self):
-        response = self.api_client.get(f'{self.endpoint}1')
-        self.assert_equal(response.status_code, status.HTTP_200_OK, 'Status code should be 200. '
-                                                                    f'Error: {response.data}')
+        response = self.api_client.get(f"{self.endpoint}1")
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {'request': SimpleNamespace(user=item.creator)}
+        context = {"request": SimpleNamespace(user=item.creator)}
         serialized_item = self.detail_serializer_class(item, context=context).data
-        self.assert_equal(result, serialized_item, "Result should match item in the database")
+        self.assert_equal(
+            result, serialized_item, "Result should match item in the database"
+        )
 
     def test_update(self):
-        data = create_data(factory_class=self.factory_class, serializer_class=self.serializer_class,
-                           pop_keys=self.pop_keys)
-        response = self.api_client.put(f'{self.endpoint}1', data)
-        self.assert_equal(response.status_code, status.HTTP_200_OK, 'Status code should be 200. '
-                                                                    f'Error: {response.data}')
+        data = create_data(
+            factory_class=self.factory_class,
+            serializer_class=self.serializer_class,
+            pop_keys=self.pop_keys,
+        )
+        response = self.api_client.put(f"{self.endpoint}1", data)
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {'request': SimpleNamespace(user=item.creator)}
+        context = {"request": SimpleNamespace(user=item.creator)}
         serialized_item = self.serializer_class(item, context=context).data
-        self.assert_equal(result, serialized_item, "Result should match item in the database")
+        self.assert_equal(
+            result, serialized_item, "Result should match item in the database"
+        )
 
         result = json.loads(json.dumps(result))
         result_copy = result.copy()
@@ -94,20 +126,28 @@ class AbstractAPITestCase:
             if key not in data:
                 result.pop(key)
 
-        self.assert_equal(result, data, 'Result should match request data')
+        self.assert_equal(result, data, "Result should match request data")
 
     def test_update_partial(self):
-        data = create_data(factory_class=self.factory_class, serializer_class=self.serializer_class,
-                           pop_keys=self.pop_keys)
-        response = self.api_client.patch(f'{self.endpoint}1', data)
-        self.assert_equal(response.status_code, status.HTTP_200_OK, 'Status code should be 200. '
-                                                                    f'Error: {response.data}')
+        data = create_data(
+            factory_class=self.factory_class,
+            serializer_class=self.serializer_class,
+            pop_keys=self.pop_keys,
+        )
+        response = self.api_client.patch(f"{self.endpoint}1", data)
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {'request': SimpleNamespace(user=item.creator)}
+        context = {"request": SimpleNamespace(user=item.creator)}
         serialized_item = self.serializer_class(item, context=context).data
-        self.assert_equal(result, serialized_item, "Result should match item in the database")
+        self.assert_equal(
+            result, serialized_item, "Result should match item in the database"
+        )
 
         result = json.loads(json.dumps(result))
         result_copy = result.copy()
@@ -115,12 +155,15 @@ class AbstractAPITestCase:
             if key not in data:
                 result.pop(key)
 
-        self.assert_equal(result, data, 'Result should match request data')
+        self.assert_equal(result, data, "Result should match request data")
 
     def test_destroy(self):
-        response = self.api_client.delete(f'{self.endpoint}1')
-        self.assert_equal(response.status_code, status.HTTP_204_NO_CONTENT, 'Status code should be 204. '
-                                                                            f'Error: {response.data}')
+        response = self.api_client.delete(f"{self.endpoint}1")
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT,
+            "Status code should be 204. " f"Error: {response.data}",
+        )
 
         item = self.model_class.objects.filter(id=1)
-        self.assert_equal(len(item), 0, 'Item should be removed from the database')
+        self.assert_equal(len(item), 0, "Item should be removed from the database")

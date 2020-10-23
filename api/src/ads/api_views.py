@@ -25,7 +25,7 @@ class AdViewSet(AbstractModelViewSet):
 
 # HTTP GET: Returns a list of liked users that liked an ad
 # HTTP POST: Like or unlike an ad
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
+@method_decorator(name='get', decorator=swagger_auto_schema(tags=["Ads"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Ads"]))
 class AdLike(GenericUserExtension):
     field_string = "like"

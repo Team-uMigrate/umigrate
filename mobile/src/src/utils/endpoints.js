@@ -231,6 +231,38 @@ export class AdCommentsEndpoint extends BaseCommentEndpoint {
 
 export class EventsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/events/";
+
+  static attend(
+    id,
+    shouldAttend,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, attending: shouldAttend };
+    Axios.post(BASE_URL + this.endpoint + "attending", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+
+  static interested(
+    id,
+    shouldInterested,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, interested: shouldInterested };
+    Axios.post(BASE_URL + this.endpoint + "interested", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
 }
 
 export class EventCommentsEndpoint extends BaseCommentEndpoint {

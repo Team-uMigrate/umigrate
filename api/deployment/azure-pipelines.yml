@@ -26,16 +26,20 @@ pr:
       - api/deployment/azure-pipelines.yml
 
 variables:
-- name: MajorVersion
-  value: 0.0
-- name: MinorVersion
-  value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
 - name: IsMaster
   value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 - name: IsPr
   value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
+- name: MajorVersion
+  ${{ if IsMaster }}:
+    value: 0.0
+  ${{ if not(IsMaster) }}:
+    value: PR-$(System.PullRequest.PullRequestNumber)
+- name: MinorVersion
+  value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
+
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -46,13 +50,6 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
-
-  - task: UpdateBuildNumber@0
-    displayName: "pull request naming"
-    condition: eq(variables.is_pr, 'True')
-    inputs:
-      buildNumber: PR[$(System.PullRequest.PullRequestNumber)]-$(Build.SourceBranchName)-$(minor_version)
-
   - task: CopyFiles@2
     inputs:
       SourceFolder: 'api/src'

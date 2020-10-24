@@ -56,11 +56,6 @@ steps:
     script: |
       npm install -g expo-cli
 
-# - task: Npm@1
-#   inputs:
-#     command: 'install -g expo-cli'
-#     workingDir: 'mobile/src'
-
 # - task: PowerShell@2
 #   inputs:
 #     targetType: 'inline'

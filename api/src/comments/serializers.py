@@ -1,4 +1,4 @@
-# from django.db.models.functions import Length
+from django.db.models.functions import Length
 from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
@@ -13,7 +13,7 @@ class CommentSerializer(ModelSerializerExtension):
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
-    # most_liked_reply = serializers.SerializerMethodField()
+    most_liked_reply = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
@@ -32,14 +32,14 @@ class CommentSerializer(ModelSerializerExtension):
     def get_replies(self, instance):
         return instance.reply_set.count()
 
-    # def get_most_liked_reply(self, instance):
-    #     most_liked_reply = instance.reply_set.order_by(Length('liked_users').desc(), '-datetime_created').first()
+    def get_most_liked_reply(self, instance):
+        most_liked_reply = instance.reply_set.order_by(Length('liked_users').desc(), '-datetime_created').first()
 
-    #     if most_liked_reply is None:
-    #         return None
+        if most_liked_reply is None:
+            return None
 
-    #     most_liked_reply_serializer = ReplySerializer(most_liked_reply, context=self.context)
-    #     return most_liked_reply_serializer.data
+        most_liked_reply_serializer = ReplySerializer(most_liked_reply, context=self.context)
+        return most_liked_reply_serializer.data
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user

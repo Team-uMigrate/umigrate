@@ -33,9 +33,9 @@ variables:
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
 - name: MajorVersion
-  ${{ if IsMaster }}:
+  ${{ if $(IsMaster) }}:
     value: 0.0
-  ${{ if not(IsMaster) }}:
+  ${{ if not($(IsMaster)) }}:
     value: PR-$(System.PullRequest.PullRequestNumber)
 - name: MinorVersion
   value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]

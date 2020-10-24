@@ -47,6 +47,12 @@ jobs:
 
   steps:
 
+  - task: UpdateBuildNumber@0
+    displayName: "pull request naming"
+    condition: eq(variables.is_pr, 'True')
+    inputs:
+      buildNumber: PR[$(System.PullRequest.PullRequestNumber)]-$(Build.SourceBranchName)-$(minor_version)
+
   - task: CopyFiles@2
     inputs:
       SourceFolder: 'api/src'

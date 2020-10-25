@@ -32,12 +32,12 @@ variables:
   value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
-# - name: MajorVersion
-#   value: 0.0
+- name: MajorVersion
+  # value: 0.0
   $[ if eq(variables['IsMaster'], 'True') ]:
-    MajorVersion: 0.0
+    value: 0.0
   $[ if eq(variables['IsMaster'], 'False') ]:
-    MajorVersion: PR-$(System.PullRequest.PullRequestNumber)
+    value: PR-$(System.PullRequest.PullRequestNumber)
 
 - name: MinorVersion
   value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]

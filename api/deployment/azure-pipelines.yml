@@ -33,11 +33,11 @@ variables:
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
 - name: MajorVersion
-  # value: 0.0
-  $[ if eq(variables['IsMaster'], 'True') ]:
-    value: 0.0
-  $[ if eq(variables['IsMaster'], 'False') ]:
-    value: PR-$(System.PullRequest.PullRequestNumber)
+  value: 0.0
+  # $[ if eq(variables['IsMaster'], 'True') ]:
+  #   value: 0.0
+  # $[ if eq(variables['IsMaster'], 'False') ]:
+  #   value: PR-$(System.PullRequest.PullRequestNumber)
 
 - name: MinorVersion
   value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
@@ -52,14 +52,14 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
-  # - powershell: |
-  #     if ($env:Build_SourceBranchName -eq 'master') {
-  #       Write-Host ##vso[task.setvariable variable=env;isOutput=true]a
-  #       return
-  #     } else {
-  #       Write-Host ##vso[task.setvariable variable=env;isOutput=true]b
-  #     }      
-  #   displayName: "Set Env Value"
+  - powershell: |
+      if ($env:Build_SourceBranchName -eq 'master') {
+        Write-Host ##vso[task.setvariable variable=env;isOutput=true]a
+        return
+      } else {
+        Write-Host ##vso[task.setvariable variable=env;isOutput=true]b
+      }      
+    displayName: "Set Env Value"
 
   - task: CopyFiles@2
     inputs:

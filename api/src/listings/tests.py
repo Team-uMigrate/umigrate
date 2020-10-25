@@ -7,20 +7,24 @@ from .factories import ListingFactory
 
 # Test case for the listings endpoints
 class ListingTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/listings/'
+        self.endpoint = "/api/listings/"
         self.model_class = Listing
         self.serializer_class = ListingSerializer
         self.detail_serializer_class = ListingDetailSerializer
         self.factory_class = ListingFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

@@ -7,20 +7,24 @@ from .factories import PostFactory
 
 # Test case for the posts endpoints
 class PostTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/posts/'
+        self.endpoint = "/api/posts/"
         self.model_class = Post
         self.serializer_class = PostSerializer
         self.detail_serializer_class = PostDetailSerializer
         self.factory_class = PostFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

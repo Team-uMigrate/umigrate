@@ -128,13 +128,51 @@ class FeedContainer extends Component {
     return list;
   };
 
-  renderItem({ item }) {
+  attendEvent = (id, shouldAttend) => {
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
+    copyList[index].is_attending = !this.state.events[index].is_attending;
+    this.setState({ events: copyList });
+
+    EventsEndpoint.attend(
+      id,
+      shouldAttend,
+      () => {},
+      (err) => {
+        copyList[index].is_attending = !this.state.events[index].is_attending;
+        this.setState({ events: copyList });
+        console.log(err);
+      }
+    );
+  };
+
+  interestedEvent = (id, shouldInterested) => {
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
+    copyList[index].is_interested = !this.state.events[index].is_interested;
+    this.setState({ events: copyList });
+
+    EventsEndpoint.interested(
+      id,
+      shouldInterested,
+      () => {},
+      (err) => {
+        copyList[index].is_interested = !this.state.events[index].is_interested;
+        this.setState({ events: copyList });
+        console.log(err);
+      }
+    );
+  };
+
+  renderItem = ({ item }) => {
     if (item.start_datetime == null) {
       return <PostView {...item} />;
     } else {
+      item.attendEvent = this.attendEvent;
+      item.interestedEvent = this.interestedEvent;
       return <EventView {...item} />;
     }
-  }
+  };
 
   render() {
     return (

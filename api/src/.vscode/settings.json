@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true
+}

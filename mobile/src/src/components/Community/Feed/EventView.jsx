@@ -1,10 +1,11 @@
-import React, { createRef } from "react";
+import React from "react";
 import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Button } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 
 const EventView = ({
+  id,
   creator,
   price_scale,
   title,
@@ -19,6 +20,8 @@ const EventView = ({
   photo,
   is_interested,
   is_attending,
+  attendEvent,
+  interestedEvent,
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -67,58 +70,33 @@ const EventView = ({
             style={{ width: 0.88 * width, height: 300 }}
           />
         )}
-
         <View style={styles.buttonContainer}>
-          {is_attending === true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="contained"
-              title="Attending"
-              color="green"
-              // todo handle press
-              // onPress={}
-            >
-              Attending
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="text"
-              title="Attending"
-              color="green"
-              // todo handle press
-              // onPress={}
-            >
-              Attending
-            </Button>
-          )}
-          {is_interested == true ? (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="contained"
-              title="Interested"
-              color="purple"
-              // todo handle press
-              // onPress={}
-            >
-              Interested
-            </Button>
-          ) : (
-            <Button
-              compact={true}
-              style={styles.buttonStyle}
-              mode="text"
-              title="Interested"
-              color="purple"
-              // todo handle press
-              // onPress={}
-            >
-              Interested
-            </Button>
-          )}
+          <Button
+            compact={true}
+            style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
+            mode={is_attending ? "contained" : "outlined"}
+            title={is_attending ? "Unattend" : "Attend"}
+            color="white"
+            dark={true}
+            onPress={() => {
+              attendEvent(id, !is_attending);
+            }}
+          >
+            {is_attending ? "Unattend" : "Attend?"}
+          </Button>
+          <Button
+            compact={true}
+            style={is_interested ? styles.buttonStyleFade : styles.buttonStyle}
+            mode={is_interested ? "contained" : "outlined"}
+            title={is_interested ? "Uninterest" : "Interested?"}
+            color="white"
+            dark={true}
+            onPress={() => {
+              interestedEvent(id, !is_interested);
+            }}
+          >
+            {is_interested ? "Uninterest" : "Interested?"}
+          </Button>
         </View>
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
@@ -167,14 +145,21 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   buttonStyle: {
-    height: 40,
-    width: 50,
+    height: 36,
+    width: 120,
     flex: 1,
+    backgroundColor: "steelblue",
+  },
+  buttonStyleFade: {
+    height: 36,
+    width: 120,
+    flex: 1,
+    backgroundColor: "rgba(70,130,180,0.5)",
   },
   buttonContainer: {
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-    marginTop: "10%",
+    marginTop: "3%",
   },
 });

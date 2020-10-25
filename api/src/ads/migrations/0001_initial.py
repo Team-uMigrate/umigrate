@@ -7,25 +7,48 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Ad',
+            name="Ad",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.CharField(blank=True, max_length=1000)),
-                ('region', models.PositiveSmallIntegerField(choices=[(0, 'Waterloo'), (1, 'Toronto'), (2, 'Brampton'), (3, 'Ottawa')])),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('category', models.PositiveSmallIntegerField(choices=[(0, 'Electronics'), (1, 'Books'), (2, 'Food'), (3, 'Other')], default=0)),
-                ('price', models.DecimalField(decimal_places=2, default=0.0, max_digits=8)),
-                ('postal_code', models.CharField(default='A1B2C3', max_length=6)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.CharField(blank=True, max_length=1000)),
+                (
+                    "region",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Waterloo"),
+                            (1, "Toronto"),
+                            (2, "Brampton"),
+                            (3, "Ottawa"),
+                        ]
+                    ),
+                ),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "category",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Electronics"),
+                            (1, "Books"),
+                            (2, "Food"),
+                            (3, "Other"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                (
+                    "price",
+                    models.DecimalField(decimal_places=2, default=0.0, max_digits=8),
+                ),
+                ("postal_code", models.CharField(default="A1B2C3", max_length=6)),
             ],
             options={
-                'ordering': ['-datetime_created'],
-                'abstract': False,
+                "ordering": ["-datetime_created"],
+                "abstract": False,
             },
         ),
     ]

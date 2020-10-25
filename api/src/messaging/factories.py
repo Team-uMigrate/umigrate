@@ -10,9 +10,11 @@ class RoomFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Room
 
-    title = factory.Faker('text', max_nb_chars=100)
+    title = factory.Faker("text", max_nb_chars=100)
     creator = factory.SubFactory(UserFactory)
-    privacy_level = factory.Faker('random_int', min=0, max=get_length(Choices.NOTIFICATION_PRIVACY_CHOICES)-1)
+    privacy_level = factory.Faker(
+        "random_int", min=0, max=get_length(Choices.NOTIFICATION_PRIVACY_CHOICES) - 1
+    )
 
     @factory.post_generation
     def members(self, create, extracted, **kwargs):
@@ -30,7 +32,7 @@ class MessageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Message
 
-    content = factory.Faker('paragraph')
+    content = factory.Faker("paragraph")
     creator = factory.SubFactory(UserFactory)
     room = factory.SubFactory(RoomFactory)
 
@@ -43,7 +45,9 @@ class MessageFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.liked_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.liked_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )
 
     @factory.post_generation
     def tagged_users(self, create, extracted, **kwargs):
@@ -54,4 +58,6 @@ class MessageFactory(factory.django.DjangoModelFactory):
             else:
                 rand_int = random.randint(0, 2)
                 for i in range(rand_int):
-                    self.tagged_users.add(UserFactory(connected_users=[], blocked_users=[]))
+                    self.tagged_users.add(
+                        UserFactory(connected_users=[], blocked_users=[])
+                    )

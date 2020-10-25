@@ -32,8 +32,8 @@ variables:
   value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
-- name: MajorVersion
-  value: 0.0
+# - name: MajorVersion
+#   value: 0.0
   $[ if eq(variables['IsMaster'], 'True') ]:
     MajorVersion: 0.0
   $[ if eq(variables['IsMaster'], 'False') ]:

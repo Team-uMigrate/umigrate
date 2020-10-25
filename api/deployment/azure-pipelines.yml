@@ -32,10 +32,11 @@ variables:
   value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
-# - name: MajorVersion
-  ${{ if eq(variables['IsMaster'], 'True') }}:
+- name: MajorVersion
+  value: 0.0
+  $[ if eq(variables['IsMaster'], 'True') ]:
     MajorVersion: 0.0
-  ${{ if eq(variables['IsMaster'], 'False') }}:
+  $[ if eq(variables['IsMaster'], 'False') ]:
     MajorVersion: PR-$(System.PullRequest.PullRequestNumber)
 
 - name: MinorVersion
@@ -51,6 +52,15 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
+  # - powershell: |
+  #     if ($env:Build_SourceBranchName -eq 'master') {
+  #       Write-Host ##vso[task.setvariable variable=env;isOutput=true]a
+  #       return
+  #     } else {
+  #       Write-Host ##vso[task.setvariable variable=env;isOutput=true]b
+  #     }      
+  #   displayName: "Set Env Value"
+
   - task: CopyFiles@2
     inputs:
       SourceFolder: 'api/src'
@@ -90,4 +100,5 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+
 

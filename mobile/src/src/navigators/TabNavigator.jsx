@@ -1,13 +1,14 @@
 import React, { useEffect, useContext } from "react";
+import Text from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import CommunityPage from "../components/Community";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MarketPage from "../components/Market";
 import HousingPage from "../components/Housing";
-import NotificationPage from "../components/Notifications";
 import MenuPage from "../components/Menu";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";
+import CreatePage from "../components/Create";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -51,26 +52,31 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
+
+      <Tab.Screen
+        name="Create"
+        component={CreatePage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="plus-circle-outline"
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Housing"
         component={HousingPage}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={24} />
+            <MaterialCommunityIcons name="domain" color={color} size={24} />
           ),
         }}
       />
-      <Tab.Screen
-        name="Notifications"
-        component={NotificationPage}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={24} />
-          ),
-          // Todo: Configure tabBarBadge to show number of notifications
-          tabBarBadge: 3,
-        }}
-      />
+
       <Tab.Screen
         name="Menu"
         component={MenuPage}

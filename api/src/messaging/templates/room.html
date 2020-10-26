@@ -43,7 +43,7 @@
             const data = JSON.parse(e.data);
             console.log(roomMembers);
             document.querySelector('#chat-log').value += (
-                roomMembers[data.creator.id] + ": " + data.message_body + ": " + data.datetime_created + '\n');
+                data.creator.preferred_name + ": " + data.message_body + ": " + data.datetime_created + '\n');
         };
 
         chatSocket.onclose = function(e) {

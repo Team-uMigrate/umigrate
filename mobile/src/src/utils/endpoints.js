@@ -151,11 +151,9 @@ class BasePostingEndpoint extends BaseEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    const formData = toFormData({ id: id, like: shouldLike });
+    const formData = { id: id, like: shouldLike };
 
-    Axios.post(BASE_URL + this.endpoint + "like", formData, {
-      headers: { "content-type": "multipart/form-data" },
-    })
+    Axios.post(BASE_URL + this.endpoint + "like", formData)
       .then((response) => {
         handleSuccess(response);
       })
@@ -173,10 +171,45 @@ class BaseCommentEndpoint extends BaseEndpoint {
     handleSuccess = (response) => {},
     handleError = (error) => {}
   ) {
-    const formData = toFormData({ id: id, like: shouldLike });
+    const formData = { id: id, like: shouldLike };
 
     Axios.post(BASE_URL + this.endpoint + "like", formData, {
-      headers: { "content-type": "multipart/form-data" },
+      headers: { "content-type": "application/json" },
+    })
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+
+  // The only difference between these functions and the post and patch functions of the parent class is that
+  // these send json data instead of form-data
+  static post(
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    Axios.post(BASE_URL + this.endpoint, data, {
+      headers: { "content-type": "application/json" },
+    })
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+
+  static patch(
+    id,
+    data,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    Axios.patch(BASE_URL + this.endpoint + id, data, {
+      headers: { "content-type": "application/json" },
     })
       .then((response) => {
         handleSuccess(response);
@@ -198,6 +231,38 @@ export class AdCommentsEndpoint extends BaseCommentEndpoint {
 
 export class EventsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/events/";
+
+  static attend(
+    id,
+    shouldAttend,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, attending: shouldAttend };
+    Axios.post(BASE_URL + this.endpoint + "attending", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
+
+  static interested(
+    id,
+    shouldInterested,
+    handleSuccess = (response) => {},
+    handleError = (error) => {}
+  ) {
+    const formData = { id: id, interested: shouldInterested };
+    Axios.post(BASE_URL + this.endpoint + "interested", formData)
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }
 }
 
 export class EventCommentsEndpoint extends BaseCommentEndpoint {

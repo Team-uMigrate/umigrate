@@ -5,7 +5,6 @@ import {
   ListingsEndpoint,
   ListingCommentsEndpoint,
 } from "../../../utils/endpoints";
-import CommentNavigator from "../../../navigators/CommentNavigator";
 
 class ListingContainer extends Component {
   state = {
@@ -88,11 +87,10 @@ class ListingContainer extends Component {
     item.likeListing = this.likeListing;
     item.createComment = this.createComment;
     item.fetchComments = this.fetchComments;
-    item.navigation = this.props.navigation;
     return <ListingView {...item} />;
   };
 
-  ListingsList = () => {
+  render = () => {
     return (
       <View style={styles.listingContainer}>
         <FlatList
@@ -107,10 +105,6 @@ class ListingContainer extends Component {
         />
       </View>
     );
-  };
-
-  render = () => {
-    return <CommentNavigator postComponent={this.ListingsList} />;
   };
 }
 

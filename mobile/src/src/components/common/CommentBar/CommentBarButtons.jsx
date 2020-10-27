@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
+import NavContext from "../../../contexts/NavContext";
 
 const CommentBarButtons = ({
-  navigation,
   postId,
   sendButtonVisible,
   setSendButtonVisible,
@@ -15,9 +15,11 @@ const CommentBarButtons = ({
   fetchComments,
 }) => {
   const [liked, setLiked] = useState(isLiked);
+  const nav = useContext(NavContext);
 
   if (sendButtonVisible) {
     return (
+      // Button to submit comments
       <View style={styles.sendButtonView}>
         <IconButton
           icon={"send"}
@@ -36,6 +38,7 @@ const CommentBarButtons = ({
   } else {
     return (
       <>
+        {/* Like button */}
         <View style={styles.buttonView}>
           <IconButton
             icon={"heart"}
@@ -48,14 +51,15 @@ const CommentBarButtons = ({
             }}
           />
         </View>
+        {/* Button to view comments */}
         <View style={styles.buttonView}>
           <IconButton
             icon={"comment"}
             color={"black"}
             style={styles.button}
             onPress={() => {
-              navigation.navigate("Comments", {
-                fetchComments: fetchComments,
+              nav.navigation.setOptions({ fetchComments: fetchComments });
+              nav.navigation.navigate("Comments", {
                 postId: postId,
               });
             }}

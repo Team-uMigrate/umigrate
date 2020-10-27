@@ -6,7 +6,6 @@ import { Choices } from "../../../utils/endpoints";
 import CommentBar from "../../common/CommentBar/CommentBar";
 
 const ListingView = ({
-  navigation,
   id,
   creator,
   likes,
@@ -68,7 +67,6 @@ const ListingView = ({
           </Paragraph>
         </View>
         <CommentBar
-          navigation={navigation}
           postId={id}
           likePost={likeListing}
           isLiked={is_liked}

@@ -9,7 +9,6 @@ To add the comment bar to your components, you need to pass in 2 callback functi
 See src/components/Housing/Listings/ListingsContainer.jsx for an example
  */
 const CommentBar = ({
-  navigation,
   postId,
   isLiked,
   likePost,
@@ -40,7 +39,6 @@ const CommentBar = ({
         style={styles.textInput}
       />
       <CommentBarButtons
-        navigation={navigation}
         postId={postId}
         sendButtonVisible={sendButtonVisible}
         setSendButtonVisible={setSendButtonVisible}

@@ -4,10 +4,11 @@ import { StyleSheet, Text, View } from "react-native";
 class CommentsContainer extends Component {
   state = {};
 
-  CommentsContainer({ postId, fetchComments }) {
+  CommentsContainer({ postId }) {
     this.state.postId = postId;
-    this.state.fetchComments = fetchComments;
   }
+
+  // TODO use this.props.navigation.fetchComments() to load and render comments
 
   render() {
     return (

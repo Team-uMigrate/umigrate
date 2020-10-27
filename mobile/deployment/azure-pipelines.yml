@@ -80,7 +80,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'mobile/src/web-build'
+    SourceFolder: 'mobile/src/'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 

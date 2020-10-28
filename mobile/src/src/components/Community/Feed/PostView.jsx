@@ -9,10 +9,7 @@ const PostView = ({
   creator,
   datetime_created,
   content,
-  price,
   region,
-  postal_code,
-  category,
   photo,
   likes,
   comments,
@@ -36,19 +33,7 @@ const PostView = ({
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price: </Text>${price}
-        </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Region: </Text>
-          {Choices.regions[region]}
-        </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Postal Code: </Text>
-          {postal_code}
-        </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Category: </Text>
-          {Choices.adCategories[category]}
+          <Text style={styles.bold}>Region: {Choices.regions[region]}</Text>
         </Paragraph>
 
         {photo && (

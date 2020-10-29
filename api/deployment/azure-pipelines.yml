@@ -65,6 +65,11 @@ jobs:
 
   - script: |
       cd api/src
+      black --check --exclude env ../src
+    displayName: 'Check formatting'
+
+  - script: |
+      cd api/src
       pytest --junitxml=../../test-results.xml
     displayName: 'Run tests'
 

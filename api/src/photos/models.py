@@ -14,10 +14,10 @@ class CustomManager(models.Manager):
 # It's sole purpose is for AbstractPhotoCollection to support multiple image fields
 class Photo(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to='images/photos', blank=True)
+    image = models.ImageField(upload_to="images/photos", blank=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id') 
+    content_object = GenericForeignKey("content_type", "object_id")
 
     objects = CustomManager()
 

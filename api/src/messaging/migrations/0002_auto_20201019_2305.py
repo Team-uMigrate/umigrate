@@ -10,39 +10,63 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('messaging', '0001_initial'),
+        ("messaging", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='room',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='messaging_room_set', to=settings.AUTH_USER_MODEL),
+            model_name="room",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="messaging_room_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='room',
-            name='members',
-            field=models.ManyToManyField(blank=True, related_name='room_set', to=settings.AUTH_USER_MODEL),
+            model_name="room",
+            name="members",
+            field=models.ManyToManyField(
+                blank=True, related_name="room_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='message_created_set', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="message_created_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_messaging_message_comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_messaging_message_comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='room',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='message_set', to='messaging.Room'),
+            model_name="message",
+            name="room",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="message_set",
+                to="messaging.Room",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_messaging_message_comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_messaging_message_comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

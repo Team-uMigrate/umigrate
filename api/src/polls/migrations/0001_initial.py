@@ -7,43 +7,52 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Option',
+            name="Option",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=30)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=30)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
         migrations.CreateModel(
-            name='Poll',
+            name="Poll",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.CharField(blank=True, max_length=1000)),
-                ('region', models.PositiveSmallIntegerField(choices=[(0, 'Waterloo'), (1, 'Toronto'), (2, 'Brampton'), (3, 'Ottawa')])),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.CharField(blank=True, max_length=1000)),
+                (
+                    "region",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Waterloo"),
+                            (1, "Toronto"),
+                            (2, "Brampton"),
+                            (3, "Ottawa"),
+                        ]
+                    ),
+                ),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
-                'abstract': False,
+                "ordering": ["-datetime_created"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Vote',
+            name="Vote",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

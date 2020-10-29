@@ -486,6 +486,34 @@ export class Choices {
     "4A",
     "4B",
   ];
+  static contentTypes = {
+    logentry: 1,
+    permission: 2,
+    group: 3,
+    contentType: 4,
+    session: 5,
+    token: 6,
+    site: 7,
+    emailAddress: 8,
+    emailConfiguration: 9,
+    socialAccount: 10,
+    socialApp: 11,
+    socialToken: 12,
+    ad: 13,
+    event: 14,
+    listing: 15,
+    job: 16,
+    message: 17,
+    messagingRoom: 18,
+    pollOption: 19,
+    poll: 20,
+    pollVote: 21,
+    post: 22,
+    user: 23,
+    photo: 24,
+    comment: 25,
+    reply: 26,
+  };
   static adCategories = ["Electronics", "Books", "Food", "Other"];
   static listingCategories = ["Condominium", "Townhouse", "Apartment"];
   static notificationLevels = ["All", "Following", "None"];

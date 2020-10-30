@@ -242,7 +242,6 @@ class BasePostingEndpoint extends BaseEndpoint {
 class BaseCommentEndpoint extends BaseEndpoint {
   static contentType = null;
 
-  // objectId is nullable, you can omit it to get all comments if you need it for some reason
   static list(
     objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
     handleSuccess = () => {},

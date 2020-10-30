@@ -12,6 +12,81 @@ export const MESSAGING_WEBSOCKET =
     ? "wss://dev.umigrate.ca/ws/messaging/"
     : "wss://dev.umigrate.ca/ws/messaging/"; // Todo: Change this to prod server
 
+export class Choices {
+  static pronouns = ["None", "He/Him", "She/Her", "They/Them", "Other"];
+  static seasons = ["Winter", "Spring", "Fall"];
+  static prices = ["Free", "$", "$$", "$$$", "$$$$", "$$$$$"];
+  static regions = ["Waterloo", "Toronto", "Brampton", "Ottawa"];
+  static programs = [
+    "Unknown",
+    "Engineering",
+    "Arts",
+    "Mathematics",
+    "Science",
+    "Applied Health Sciences",
+    "Environment",
+    "Theology",
+    "Graduate Studies",
+    "Independent Studies",
+    "Interdisciplinary",
+    "Conrad Grebel",
+    "Renison",
+    "St. Pauls",
+    "St. Jeromes",
+  ];
+  static terms = [
+    "1A",
+    "1B",
+    "W1",
+    "2A",
+    "W2",
+    "2B",
+    "W3",
+    "3A",
+    "W4",
+    "3B",
+    "W5",
+    "W6",
+    "4A",
+    "4B",
+  ];
+  static contentTypes = {
+    logEntry: 1,
+    permission: 2,
+    group: 3,
+    contentType: 4,
+    session: 5,
+    token: 6,
+    site: 7,
+    emailAddress: 8,
+    emailConfiguration: 9,
+    socialAccount: 10,
+    socialApp: 11,
+    socialToken: 12,
+    ad: 13,
+    event: 14,
+    listing: 15,
+    job: 16,
+    message: 17,
+    messagingRoom: 18,
+    pollOption: 19,
+    poll: 20,
+    pollVote: 21,
+    post: 22,
+    user: 23,
+    photo: 24,
+    comment: 25,
+    reply: 26,
+  };
+  static adCategories = ["Electronics", "Books", "Food", "Other"];
+  static listingCategories = ["Condominium", "Townhouse", "Apartment"];
+  static notificationLevels = ["All", "Following", "None"];
+  static currencies = ["CAD", "USD"];
+  static languages = ["English", "French"];
+  static jobTypes = ["Full-time", "Internship"];
+  static roomPrivacy = ["Public", "Private", "Direct Messaging"];
+}
+
 // Session Storage functions
 
 const AUTH_TOKEN = "AUTH_TOKEN";
@@ -165,6 +240,30 @@ class BasePostingEndpoint extends BaseEndpoint {
 
 // Base comment endpoint class
 class BaseCommentEndpoint extends BaseEndpoint {
+  static contentType = null;
+
+  // objectId is nullable, you can omit it to get all comments if you need it for some reason
+  static list(
+    objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
+    handleSuccess = () => {},
+    handleError = () => {}
+  ) {
+    Axios.get(
+      BASE_URL +
+        "?" +
+        "content_type=" +
+        this.contentType.toString() +
+        "&object_id=" +
+        objectId.toString()
+    )
+      .then((response) => {
+        handleSuccess(response);
+      })
+      .catch((error) => {
+        handleError();
+      });
+  }
+
   static like(
     id,
     shouldLike,
@@ -227,6 +326,7 @@ export class AdsEndpoint extends BasePostingEndpoint {
 
 export class AdCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/ads/comments/";
+  static contentType = Choices.contentTypes["ad"];
 }
 
 export class EventsEndpoint extends BasePostingEndpoint {
@@ -267,6 +367,7 @@ export class EventsEndpoint extends BasePostingEndpoint {
 
 export class EventCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/events/comments/";
+  static contentType = Choices.contentTypes["event"];
 }
 
 export class ListingsEndpoint extends BasePostingEndpoint {
@@ -275,6 +376,7 @@ export class ListingsEndpoint extends BasePostingEndpoint {
 
 export class ListingCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/listings/comments/";
+  static contentType = Choices.contentTypes["listing"];
 }
 
 export class JobsEndpoint extends BaseEndpoint {
@@ -313,6 +415,7 @@ export class PollsEndpoint extends BasePostingEndpoint {
 
 export class PollCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/polls/comments/";
+  static contentType = Choices.contentTypes["poll"];
 }
 
 export class PostsEndpoint extends BasePostingEndpoint {
@@ -321,6 +424,7 @@ export class PostsEndpoint extends BasePostingEndpoint {
 
 export class PostCommentsEndpoint extends BaseCommentEndpoint {
   static endpoint = "/api/posts/comments/";
+  static contentType = Choices.contentTypes["post"];
 }
 
 export class AuthEndpoint {
@@ -446,79 +550,4 @@ export class ProfileEndpoint {
         handleError(error);
       });
   }
-}
-
-export class Choices {
-  static pronouns = ["None", "He/Him", "She/Her", "They/Them", "Other"];
-  static seasons = ["Winter", "Spring", "Fall"];
-  static prices = ["Free", "$", "$$", "$$$", "$$$$", "$$$$$"];
-  static regions = ["Waterloo", "Toronto", "Brampton", "Ottawa"];
-  static programs = [
-    "Unknown",
-    "Engineering",
-    "Arts",
-    "Mathematics",
-    "Science",
-    "Applied Health Sciences",
-    "Environment",
-    "Theology",
-    "Graduate Studies",
-    "Independent Studies",
-    "Interdisciplinary",
-    "Conrad Grebel",
-    "Renison",
-    "St. Pauls",
-    "St. Jeromes",
-  ];
-  static terms = [
-    "1A",
-    "1B",
-    "W1",
-    "2A",
-    "W2",
-    "2B",
-    "W3",
-    "3A",
-    "W4",
-    "3B",
-    "W5",
-    "W6",
-    "4A",
-    "4B",
-  ];
-  static contentTypes = {
-    logentry: 1,
-    permission: 2,
-    group: 3,
-    contentType: 4,
-    session: 5,
-    token: 6,
-    site: 7,
-    emailAddress: 8,
-    emailConfiguration: 9,
-    socialAccount: 10,
-    socialApp: 11,
-    socialToken: 12,
-    ad: 13,
-    event: 14,
-    listing: 15,
-    job: 16,
-    message: 17,
-    messagingRoom: 18,
-    pollOption: 19,
-    poll: 20,
-    pollVote: 21,
-    post: 22,
-    user: 23,
-    photo: 24,
-    comment: 25,
-    reply: 26,
-  };
-  static adCategories = ["Electronics", "Books", "Food", "Other"];
-  static listingCategories = ["Condominium", "Townhouse", "Apartment"];
-  static notificationLevels = ["All", "Following", "None"];
-  static currencies = ["CAD", "USD"];
-  static languages = ["English", "French"];
-  static jobTypes = ["Full-time", "Internship"];
-  static roomPrivacy = ["Public", "Private", "Direct Messaging"];
 }

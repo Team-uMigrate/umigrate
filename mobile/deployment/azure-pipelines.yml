@@ -41,6 +41,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'mobile/src/'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: UseNode@1
   inputs:
     version: '12.x'
@@ -77,12 +84,6 @@ steps:
     command: 'custom'
     workingDir: 'mobile/src'
     customCommand: 'run build'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'mobile/src/'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:

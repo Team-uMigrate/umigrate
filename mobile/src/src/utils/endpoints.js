@@ -243,18 +243,21 @@ class BaseCommentEndpoint extends BaseEndpoint {
   static contentType = null;
 
   static list(
+    page,
+    filters = {},
     objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
     handleSuccess = () => {},
     handleError = () => {}
   ) {
-    Axios.get(
-      BASE_URL +
-        "?" +
-        "content_type=" +
-        this.contentType.toString() +
-        "&object_id=" +
-        objectId.toString()
-    )
+    filters["object_id"] = objectId;
+    filters["content_type"] = this.contentType;
+    let queryString = "?page=" + page;
+
+    for (let key in filters) {
+      queryString += "&" + key + "=" + filters[key];
+    }
+
+    Axios.get(BASE_URL + this.endpoint + queryString)
       .then((response) => {
         handleSuccess(response);
       })

@@ -5,7 +5,7 @@ import Header from "../common/Header";
 const NotificationPage = () => {
   return (
     <View style={styles.container}>
-      <Header title="Notifications" />
+      <Header title="Notifications" isNotificationPage={true} />
       <Text style={styles.title}>Notification Page!</Text>
     </View>
   );

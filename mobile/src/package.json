@@ -3,6 +3,7 @@
   "scripts": {
     "start": "expo start",
     "build": "expo build:web",
+    "test": "jest --coverage=true",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -32,8 +33,31 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@babel/plugin-transform-flow-strip-types": "^7.10.4",
+    "axios-mock-adapter": "^1.18.2",
     "babel-preset-expo": "^8.2.3",
-    "prettier": "^2.1.2"
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "jest": "^26.5.2",
+    "jest-expo": "^39.0.0",
+    "prettier": "^2.1.2",
+    "react-native-testing-library": "^6.0.0",
+    "react-test-renderer": "^16.13.1"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.[jt]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
+  },
+  "prettier": {
+    "endOfLine": "crlf"
+  }
 }

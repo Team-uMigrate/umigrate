@@ -60,5 +60,4 @@ class RegistrationView(RegisterView):
         }.get(uwResponse["department"].split("/")[0], 0)
         if uwResponse["telephone_numbers"]:
             user.phone_number = uwResponse["telephone_numbers"][0]
-        print(uwResponse)
         user.save()

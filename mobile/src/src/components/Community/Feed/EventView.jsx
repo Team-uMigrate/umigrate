@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Button } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
+import ImageCollection from "../../common/ImageCollection";
 
 const EventView = ({
   id,
@@ -17,7 +18,7 @@ const EventView = ({
   datetime_created,
   start_datetime,
   end_datetime,
-  photo,
+  photos,
   is_interested,
   is_attending,
   attendEvent,
@@ -64,12 +65,8 @@ const EventView = ({
             : "N/A"}
         </Paragraph>
 
-        {photo && (
-          <Image
-            source={{ uri: photo }}
-            style={{ width: 0.88 * width, height: 300 }}
-          />
-        )}
+        {photos && <ImageCollection photos={photos}> </ImageCollection>}
+
         <View style={styles.buttonContainer}>
           <Button
             compact={true}

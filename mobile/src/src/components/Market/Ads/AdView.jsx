@@ -51,7 +51,6 @@ const AdView = ({
           <Text style={styles.bold}>Category: </Text>
           {Choices.adCategories[category]}
         </Paragraph>
-
         {photos && <ImageCollection photos={photos} />}
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>

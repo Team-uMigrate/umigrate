@@ -64,9 +64,7 @@ const EventView = ({
             ? end_datetime.substring(0, "YYYY-MM-DD".length)
             : "N/A"}
         </Paragraph>
-
         {photos && <ImageCollection photos={photos} />}
-
         <View style={styles.buttonContainer}>
           <Button
             compact={true}

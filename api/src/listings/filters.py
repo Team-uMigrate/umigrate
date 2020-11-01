@@ -1,4 +1,3 @@
-
 from django_filters import rest_framework as filters
 from .models import Listing
 
@@ -9,14 +8,24 @@ class ListingFilter(filters.FilterSet):
     # gte = greater than or equal to
     # lte = less than or equal to
 
-    min_price = filters.NumberFilter(field_name='price', lookup_expr='gte')
-    max_price = filters.NumberFilter(field_name='price', lookup_expr='lte')
-    min_date = filters.DateTimeFilter(field_name='datetime_created', lookup_expr='gte')
-    max_date = filters.DateTimeFilter(field_name='datetime_created', lookup_expr='lte')
-    location = filters.CharFilter(field_name='location', lookup_expr='icontains')
+    min_price = filters.NumberFilter(field_name="price", lookup_expr="gte")
+    max_price = filters.NumberFilter(field_name="price", lookup_expr="lte")
+    min_date = filters.DateTimeFilter(field_name="datetime_created", lookup_expr="gte")
+    max_date = filters.DateTimeFilter(field_name="datetime_created", lookup_expr="lte")
+    location = filters.CharFilter(field_name="location", lookup_expr="icontains")
 
-    class Meta: 
+    class Meta:
         model = Listing
-        fields = ['min_price', 'max_price', 'min_date', 'max_date', 
-                'region', 'datetime_created', 'creator', 'category', 
-                'price', 'title', 'location']
+        fields = [
+            "min_price",
+            "max_price",
+            "min_date",
+            "max_date",
+            "region",
+            "datetime_created",
+            "creator",
+            "category",
+            "price",
+            "title",
+            "location",
+        ]

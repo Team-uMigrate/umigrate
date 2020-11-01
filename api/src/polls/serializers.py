@@ -1,61 +1,51 @@
-from common.generics.generic_post_serializers import GenericSerializer, GenericPostSerializer, GenericCommentSerializer, \
-    GenericPostDetailSerializer, GenericCommentDetailSerializer
-from .models import Poll, PollComment, Option, Vote
+from common.abstract_serializers import (
+    ModelSerializerExtension,
+    AbstractModelSerializer,
+    AbstractModelDetailSerializer,
+)
+from .models import Poll, Option, Vote
 
 
 # Serializes the vote model
-class VoteSerializer(GenericSerializer):
-
+class VoteSerializer(ModelSerializerExtension):
     class Meta:
         model = Vote
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
-        validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        validated_data["creator"] = self.context["request"].user
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the option model
-class OptionSerializer(GenericSerializer):
+class OptionSerializer(ModelSerializerExtension):
     vote_set = VoteSerializer(read_only=True, many=True)
 
     class Meta:
         model = Option
-        fields = '__all__'
+        fields = "__all__"
         extra_fields = [
-            'vote_set',
+            "vote_set",
         ]
 
     def create(self, validated_data):
-        validated_data['creator'] = self.context['request'].user
-        return GenericSerializer.create(self, validated_data)
+        validated_data["creator"] = self.context["request"].user
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 # Serializes the poll model
-class PollSerializer(GenericPostSerializer):
+class PollSerializer(AbstractModelSerializer):
     option_set = OptionSerializer(read_only=True, many=True)
 
     class Meta:
         model = Poll
-        fields = '__all__'
+        fields = "__all__"
         extra_fields = [
-            'option_set',
+            "option_set",
         ]
+        exclude_fields = ["saved_users", "liked_users"]
 
 
 # Serialize the poll model with detail
-class PollDetailSerializer(PollSerializer, GenericPostDetailSerializer):
-    pass
-
-
-# Serializes the poll comment model
-class PollCommentSerializer(GenericCommentSerializer):
-
-    class Meta:
-        model = PollComment
-        fields = '__all__'
-
-
-# Serialize the poll comment model with detail
-class PollCommentDetailSerializer(PollCommentSerializer, GenericCommentDetailSerializer):
+class PollDetailSerializer(PollSerializer, AbstractModelDetailSerializer):
     pass

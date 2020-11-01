@@ -62,7 +62,7 @@ steps:
     targetType: 'inline'
     script: |
       cd mobile/src
-      npm check-format
+      npm run check-format
     errorActionPreference: 'continue'
 
 - task: PowerShell@2

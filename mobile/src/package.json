@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start",
     "build": "expo build:web",
-    "test": "jest",
+    "test": "jest --coverage=true",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -52,9 +52,11 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
     ],
-    "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
   },
-  "prettier":{
+  "prettier": {
     "endOfLine": "crlf"
   }
 }

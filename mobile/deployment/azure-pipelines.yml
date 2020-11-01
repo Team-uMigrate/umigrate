@@ -11,9 +11,9 @@ trigger:
     - master
   paths:
     include:
-      - infrastructure/*
+      - mobile/*
     exclude:
-      - infrastructure/deployment/azure-pipelines.yml
+      - mobile/deployment/azure-pipelines.yml
 
 pr:      
   branches:
@@ -21,9 +21,9 @@ pr:
     - master
   paths:
     include:
-      - infrastructure/*
+      - mobile/*
     exclude:
-      - infrastructure/deployment/azure-pipelines.yml
+      - mobile/deployment/azure-pipelines.yml
 
 variables:
 - name: MajorVersion
@@ -37,30 +37,54 @@ variables:
 - name: IsBranch
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 steps:
+
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'infrastructure/src'
+    SourceFolder: 'mobile/src/'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'infrastructure/deployment/scripts'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
 
-- task: Bash@3
+- task: UseNode@1
+  inputs:
+    version: '12.x'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'mobile/src'
+
+- task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: 'mkdir tests'
+    script: |
+      npm install -g expo-cli
 
-- task: CopyFiles@2
+- task: PowerShell@2
   inputs:
-    SourceFolder: 'infrastructure/tests'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/tests'
-    
+    targetType: 'inline'
+    script: |
+      cd mobile/src
+      npm test
+      exit 0
+    errorActionPreference: 'continue'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/clover.xml'
+    failTaskOnFailedTests: true
+    testRunTitle: 'Mobile Test'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'mobile/src'
+    customCommand: 'run build'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'

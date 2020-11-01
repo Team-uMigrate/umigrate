@@ -63,21 +63,21 @@ steps:
     script: |
       npm install -g expo-cli
 
-# - task: PowerShell@2
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       cd website/src
-#       npm test -- a --watchAll=false
-#       exit 0
-#     errorActionPreference: 'continue'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd mobile/src
+      npm test
+      exit 0
+    errorActionPreference: 'continue'
 
-# - task: PublishTestResults@2
-#   inputs:
-#     testResultsFormat: 'JUnit'
-#     testResultsFiles: '**/junit.xml'
-#     failTaskOnFailedTests: true
-#     testRunTitle: 'Website Test'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/clover.xml'
+    failTaskOnFailedTests: true
+    testRunTitle: 'Mobile Test'
 
 - task: Npm@1
   inputs:

@@ -53,6 +53,12 @@ jobs:
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'api/deployment/scripts'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
+
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.6'

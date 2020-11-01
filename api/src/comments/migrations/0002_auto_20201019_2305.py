@@ -10,55 +10,86 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('comments', '0001_initial'),
+        ("comments", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("contenttypes", "0002_remove_content_type_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='reply',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='reply_set', to=settings.AUTH_USER_MODEL),
+            model_name="reply",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="reply_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='reply',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_reply_set', to=settings.AUTH_USER_MODEL),
+            model_name="reply",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="liked_reply_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='reply',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_reply_set', to=settings.AUTH_USER_MODEL),
+            model_name="reply",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="saved_reply_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='reply',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_reply_set', to=settings.AUTH_USER_MODEL),
+            model_name="reply",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="tagged_reply_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='content_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType'),
+            model_name="comment",
+            name="content_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="contenttypes.ContentType",
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="comment",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="comment",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="comment",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="saved_comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='comment',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_comment_set', to=settings.AUTH_USER_MODEL),
+            model_name="comment",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_comment_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

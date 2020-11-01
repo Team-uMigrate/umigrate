@@ -2,11 +2,11 @@ from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
 
 
-class RegistrationSerializer (RegisterSerializer):
+class RegistrationSerializer(RegisterSerializer):
     # Adds additional email checks for a valid email
     def validate_email(self, email):
         email = super().validate_email(email)
-        if not str(email).endswith('@uwaterloo.ca'):
+        if not str(email).endswith("@uwaterloo.ca"):
             raise serializers.ValidationError("Must be a uwaterloo.ca e-mail address.")
         return email
 

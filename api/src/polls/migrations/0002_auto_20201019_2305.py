@@ -10,49 +10,84 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('polls', '0001_initial'),
+        ("polls", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='vote',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='vote_set', to=settings.AUTH_USER_MODEL),
+            model_name="vote",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="vote_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='vote',
-            name='option',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vote_set', to='polls.Option'),
+            model_name="vote",
+            name="option",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="vote_set",
+                to="polls.Option",
+            ),
         ),
         migrations.AddField(
-            model_name='poll',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='polls_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="polls_poll_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='poll',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_polls_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_polls_poll_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='poll',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_polls_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="saved_polls_poll_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='poll',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_polls_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_polls_poll_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='option',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='option_set', to=settings.AUTH_USER_MODEL),
+            model_name="option",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="option_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='option',
-            name='poll',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='option_set', to='polls.Poll'),
+            model_name="option",
+            name="poll",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="option_set",
+                to="polls.Poll",
+            ),
         ),
     ]

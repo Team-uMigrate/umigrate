@@ -10,29 +10,46 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('posts', '0001_initial'),
+        ("posts", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='posts_post_set', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="posts_post_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_posts_post_set', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_posts_post_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_posts_post_set', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="saved_posts_post_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_posts_post_set', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_posts_post_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

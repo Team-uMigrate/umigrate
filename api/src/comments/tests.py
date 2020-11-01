@@ -1,26 +1,35 @@
 from rest_framework.test import APITestCase
 from common.abstract_tests import AbstractAPITestCase
 from .models import Comment, Reply
-from .serializers import CommentSerializer, CommentDetailSerializer, ReplySerializer, ReplyDetailSerializer
+from .serializers import (
+    CommentSerializer,
+    CommentDetailSerializer,
+    ReplySerializer,
+    ReplyDetailSerializer,
+)
 from .factories import CommentFactory, ReplyFactory
 
 
 # Test case for the comments endpoints
 class CommentTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/comments/'
+        self.endpoint = "/api/comments/"
         self.model_class = Comment
         self.serializer_class = CommentSerializer
         self.detail_serializer_class = CommentDetailSerializer
         self.factory_class = CommentFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 
@@ -47,20 +56,24 @@ class CommentTestCase(AbstractAPITestCase, APITestCase):
 
 # Test case for the replies endpoints
 class ReplyTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/comments/replies/'
+        self.endpoint = "/api/comments/replies/"
         self.model_class = Reply
         self.serializer_class = ReplySerializer
         self.detail_serializer_class = ReplyDetailSerializer
         self.factory_class = ReplyFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

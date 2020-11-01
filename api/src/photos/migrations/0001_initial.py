@@ -9,17 +9,23 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("contenttypes", "0002_remove_content_type_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Photo',
+            name="Photo",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('image', models.ImageField(blank=True, upload_to='images/photos')),
-                ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("image", models.ImageField(blank=True, upload_to="images/photos")),
+                ("object_id", models.PositiveIntegerField()),
+                (
+                    "content_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="contenttypes.ContentType",
+                    ),
+                ),
             ],
         ),
     ]

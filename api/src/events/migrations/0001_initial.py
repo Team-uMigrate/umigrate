@@ -8,26 +8,56 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.CharField(blank=True, max_length=1000)),
-                ('region', models.PositiveSmallIntegerField(choices=[(0, 'Waterloo'), (1, 'Toronto'), (2, 'Brampton'), (3, 'Ottawa')])),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('price_scale', models.PositiveSmallIntegerField(choices=[(0, 'Free'), (1, '$'), (2, '$$'), (3, '$$$'), (4, '$$$$'), (5, '$$$$$')], default=0)),
-                ('start_datetime', models.DateTimeField(default=datetime.datetime.today)),
-                ('end_datetime', models.DateTimeField(blank=True, null=True)),
-                ('location', models.CharField(blank=True, default='123 Goose st, Waterloo, ON', max_length=100)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.CharField(blank=True, max_length=1000)),
+                (
+                    "region",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Waterloo"),
+                            (1, "Toronto"),
+                            (2, "Brampton"),
+                            (3, "Ottawa"),
+                        ]
+                    ),
+                ),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "price_scale",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Free"),
+                            (1, "$"),
+                            (2, "$$"),
+                            (3, "$$$"),
+                            (4, "$$$$"),
+                            (5, "$$$$$"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                (
+                    "start_datetime",
+                    models.DateTimeField(default=datetime.datetime.today),
+                ),
+                ("end_datetime", models.DateTimeField(blank=True, null=True)),
+                (
+                    "location",
+                    models.CharField(
+                        blank=True, default="123 Goose st, Waterloo, ON", max_length=100
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-datetime_created'],
-                'abstract': False,
+                "ordering": ["-datetime_created"],
+                "abstract": False,
             },
         ),
     ]

@@ -4,7 +4,6 @@ from .models import Job
 
 # Serializes the job model
 class JobSerializer(ModelSerializerExtension):
-
     class Meta:
         model = Job
-        fields = '__all__'
+        fields = "__all__"

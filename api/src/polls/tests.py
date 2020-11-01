@@ -7,20 +7,24 @@ from .factories import PollFactory
 
 # Test case for the polls endpoints
 class PollTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/polls/'
+        self.endpoint = "/api/polls/"
         self.model_class = Poll
         self.serializer_class = PollSerializer
         self.detail_serializer_class = PollDetailSerializer
         self.factory_class = PollFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'datetime_created',
+            "id",
+            "likes",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

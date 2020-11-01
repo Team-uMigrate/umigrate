@@ -5,4 +5,8 @@ from .models import Post
 class PostFilterSet(filters.FilterSet):
     class Meta:
         model = Post
-        fields = ['region', 'datetime_created', 'creator', ]
+        fields = [
+            "region",
+            "datetime_created",
+            "creator",
+        ]

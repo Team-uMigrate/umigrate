@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Event, EventComment
+from .models import Event
 
 
-# Registers the event and event models model with the admin site
+# Registers the Event model with the admin site
 admin.site.register(Event)
-admin.site.register(EventComment)

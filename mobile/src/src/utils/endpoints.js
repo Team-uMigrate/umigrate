@@ -334,7 +334,7 @@ export class AuthEndpoint {
 
     const formData = toFormData(data);
 
-    Axios.post(BASE_URL + "/auth/login/", formData, {
+    Axios.post(BASE_URL + "/api/login/", formData, {
       headers: { "content-type": "multipart/form-data" },
     })
       .then((response) => {
@@ -347,7 +347,7 @@ export class AuthEndpoint {
   }
 
   static logout(handleSuccess = (response) => {}, handleError = (error) => {}) {
-    Axios.post(BASE_URL + "/auth/logout/")
+    Axios.post(BASE_URL + "/api/logout/")
       .then((response) => {
         removeAuthToken();
         removeUserData();
@@ -368,7 +368,7 @@ export class AuthEndpoint {
 
     const formData = toFormData(data);
 
-    Axios.post(BASE_URL + "/auth/registration/", formData, {
+    Axios.post(BASE_URL + "/api/registration/", formData, {
       headers: { "content-type": "multipart/form-data" },
     })
       .then((response) => {
@@ -418,7 +418,7 @@ export class UsersEndpoint {
 
 export class ProfileEndpoint {
   static get(handleSuccess = (response) => {}, handleError = (error) => {}) {
-    Axios.get(BASE_URL + "/auth/user/")
+    Axios.get(BASE_URL + "/api/user/")
       .then((response) => {
         setUserData(response.data);
         handleSuccess(response);
@@ -435,7 +435,7 @@ export class ProfileEndpoint {
   ) {
     const formData = toFormData(data);
 
-    Axios.patch(BASE_URL + "/auth/user/", formData, {
+    Axios.patch(BASE_URL + "/api/user/", formData, {
       headers: { "content-type": "multipart/form-data" },
     })
       .then((response) => {

@@ -33,8 +33,9 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 # Set default SendGrid API key
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
-# Set allowed hosts
-ALLOWED_HOSTS = [os.environ.get("DOMAIN_NAME")]
+# Set site and allowed hosts
+SITE = os.environ.get("DOMAIN_NAME")
+ALLOWED_HOSTS = [SITE]
 
 # Set default database password
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
@@ -54,6 +55,7 @@ if STAGE_ENVIRONMENT == "local":
     SECRET_KEY = "n_jfl6&v4^9ik8w9324in$&#$gmj5+%n3@ln5d0!cv^%vzsz_x"
     DATABASE_PASSWORD = None
     REDIS_PASSWORD = None
+    SITE = "127.0.0.1:8000"
     ALLOWED_HOSTS = ["*"]
     os.environ["UW_API_KEY"] = "6e73072cfa18f652ff28aa8f2ef82aca"
 
@@ -247,6 +249,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
+LOGIN_URL = "/api/login/"
+
 # Authentication
 AUTH_USER_MODEL = "users.CustomUser"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -257,15 +261,16 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+OLD_PASSWORD_FIELD_ENABLED = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = (
-    "http://127.0.0.1:8000/auth/login/"
+    f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{ALLOWED_HOSTS[0]}/login"
+    else f"https://{SITE}{LOGIN_URL}"
 )
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = (
-    "http://127.0.0.1:8000/auth/login/"
+    f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{ALLOWED_HOSTS[0]}/login"
+    else f"https://{SITE}{LOGIN_URL}"
 )
 SITE_ID = 1
 
@@ -279,12 +284,15 @@ REST_AUTH_SERIALIZERS = {
 # Swagger
 SWAGGER_SETTINGS = {
     "DOC_EXPANSION": False,
-    "LOGIN_URL": "http://127.0.0.1:8000/auth/login/"
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"},
+    },
+    "LOGIN_URL": f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{ALLOWED_HOSTS[0]}/auth/login/",
-    "LOGOUT_URL": "http://127.0.0.1:8000/auth/logout/"
+    else f"https://{SITE}{LOGIN_URL}",
+    "LOGOUT_URL": f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{ALLOWED_HOSTS[0]}/auth/logout/",
+    else f"https://{SITE}{LOGIN_URL}",
 }
 
 # Internationalization
@@ -314,11 +322,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "../static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
 
-# Sentry Initialization
-sentry_sdk.init(
-    dsn="https://a4946255ae774d7e9c0dd8b5adfa9526@o442315.ingest.sentry.io/5413903",
-    integrations=[DjangoIntegration()],
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True,
-)
+# # Sentry Initialization
+# sentry_sdk.init(
+#     dsn="https://a4946255ae774d7e9c0dd8b5adfa9526@o442315.ingest.sentry.io/5413903",
+#     integrations=[DjangoIntegration()],
+#     # If you wish to associate users to errors (assuming you are using
+#     # django.contrib.auth) you may enable sending PII data.
+#     send_default_pii=True,
+# )

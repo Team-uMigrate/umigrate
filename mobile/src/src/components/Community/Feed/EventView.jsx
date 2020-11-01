@@ -65,7 +65,7 @@ const EventView = ({
             : "N/A"}
         </Paragraph>
 
-        {photos && <ImageCollection photos={photos}> </ImageCollection>}
+        {photos && <ImageCollection photos={photos} />}
 
         <View style={styles.buttonContainer}>
           <Button

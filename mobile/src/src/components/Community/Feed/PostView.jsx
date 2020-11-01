@@ -52,7 +52,7 @@ const PostView = ({
           {Choices.adCategories[category]}
         </Paragraph>
 
-        {photos && <ImageCollection photos={photos}> </ImageCollection>}
+        {photos && <ImageCollection photos={photos} />}
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}

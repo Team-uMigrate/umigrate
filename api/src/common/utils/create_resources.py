@@ -7,7 +7,7 @@ from datetime import date, timedelta
 def create_rooms(num):
     for i in range(num):
         room = Room.objects.create(
-            title=f'Room {i}',
+            title=f"Room {i}",
             creator_id=1,
             privacy_level=0,
         )
@@ -19,7 +19,7 @@ def create_rooms(num):
 def create_messages(num):
     for i in range(num):
         message = Message.objects.create(
-            content=f'Message {i}',
+            content=f"Message {i}",
             creator_id=1,
             room_id=1,
         )
@@ -31,11 +31,11 @@ def create_jobs(num):
     for i in range(num):
         job = Job.objects.create(
             creator_id=1,
-            position=f'Job {i}',
-            company=f'Company {i}',
+            position=f"Job {i}",
+            company=f"Company {i}",
             job_type=0,
             start_date=date.today(),
             end_date=date.today() + timedelta(days=1),
-            city='Waterloo',
+            city="Waterloo",
         )
         job.save()

@@ -1,5 +1,5 @@
 Django
-djangorestframework==3.11.1
+djangorestframework
 django-rest-auth
 django-allauth
 django-filter
@@ -16,3 +16,4 @@ psycopg2
 gunicorn
 daphne
 sentry-sdk
+black

@@ -1,11 +1,12 @@
 from django.urls import path
-from .api_views import PollListCreate, PollRetrieveUpdateDestroy, OptionListCreate, VoteListCreate, PollLike
+from rest_framework.routers import DefaultRouter
+from .api_views import PollViewSet, PollLike, OptionListCreate, VoteListCreate
 
 # Polls url patterns
-urlpatterns = [
-    path('', PollListCreate.as_view()),
-    path('<int:id>', PollRetrieveUpdateDestroy.as_view()),
-    path('like', PollLike.as_view()),
-    path('options/', OptionListCreate.as_view()),
-    path('options/votes/', VoteListCreate.as_view()),
+router = DefaultRouter(trailing_slash=False)
+router.register(r"", PollViewSet, basename="polls")
+urlpatterns = router.urls + [
+    path("like", PollLike.as_view()),
+    path("options/", OptionListCreate.as_view()),
+    path("options/votes/", VoteListCreate.as_view()),
 ]

@@ -1,10 +1,10 @@
 import factory
-from common.generics.generic_factories import GenericPostFactory
+from common.abstract_factories import AbstractFactory
 from .models import Poll, Option, Vote
 from users.factories import UserFactory
 
 
-class PollFactory(GenericPostFactory):
+class PollFactory(AbstractFactory):
     class Meta:
         model = Poll
 
@@ -13,7 +13,7 @@ class OptionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Option
 
-    content = factory.Faker('paragraph')
+    content = factory.Faker("sentence", nb_words=3)
     creator = factory.SubFactory(UserFactory)
     poll = factory.SubFactory(PollFactory)
 

@@ -43,6 +43,12 @@ steps:
     SourceFolder: 'infrastructure/src'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'infrastructure/deployment/scripts'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
 
 - task: Bash@3
   inputs:

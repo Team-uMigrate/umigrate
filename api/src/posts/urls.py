@@ -1,9 +1,10 @@
 from django.urls import path
-from .api_views import PostListCreate, PostRetrieveUpdateDestroy, PostLike
+from rest_framework.routers import DefaultRouter
+from .api_views import PostViewSet, PostLike
 
 # Posts url patterns
-urlpatterns = [
-    path('', PostListCreate.as_view()),
-    path('<int:id>', PostRetrieveUpdateDestroy.as_view()),
-    path('like', PostLike.as_view()),
+router = DefaultRouter(trailing_slash=False)
+router.register(r"", PostViewSet, basename="posts")
+urlpatterns = router.urls + [
+    path("like", PostLike.as_view()),
 ]

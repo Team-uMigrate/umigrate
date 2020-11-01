@@ -7,22 +7,28 @@ from .factories import EventFactory
 
 # Test case for the events endpoints
 class EventTestCase(AbstractAPITestCase, APITestCase):
-
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
         self.assert_list_equal = self.assertListEqual
-        self.endpoint = '/api/events/'
+        self.endpoint = "/api/events/"
         self.model_class = Event
         self.serializer_class = EventSerializer
         self.detail_serializer_class = EventDetailSerializer
         self.factory_class = EventFactory
+        self.factory_kwargs = {
+            "liked_users": [],
+            "tagged_users": [],
+            "saved_users": [],
+            "interested_users": [],
+            "attending_users": [],
+        }
         self.pop_keys = [
-            'id',
-            'likes',
-            'interested',
-            'attending',
-            'datetime_created',
+            "id",
+            "likes",
+            "interested",
+            "attending",
+            "datetime_created",
         ]
         self.maxDiff = self.max_diff
 

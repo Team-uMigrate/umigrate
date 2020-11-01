@@ -18,7 +18,7 @@ if [ "$STATUS_REDIS" = "active" ]; then
 	systemctl stop redis-server
 fi
 
-if [ "$STATUS_DAPHNE0" = "active" ] && [ "$STATUS_DAPHNE1" = "active"] && [ "$STATUS_DAPHNE2" = "active" ]; then
+if [ "$STATUS_DAPHNE0" = "active" ] && [ "$STATUS_DAPHNE1" = "active" ] && [ "$STATUS_DAPHNE2" = "active" ]; then
 	systemctl stop daphne@{0..2}
 fi
 

@@ -61,6 +61,14 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      cd mobile/src
+      npm check-format
+    errorActionPreference: 'continue'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
       npm install -g expo-cli
 
 - task: PowerShell@2

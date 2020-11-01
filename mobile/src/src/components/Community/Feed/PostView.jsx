@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
 import { Card, Title, Paragraph, Avatar } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
+import ImageCollection from "../../common/ImageCollection";
 
 const PostView = ({
   title,
@@ -10,7 +11,9 @@ const PostView = ({
   datetime_created,
   content,
   region,
-  photo,
+  postal_code,
+  category,
+  photos,
   likes,
   comments,
 }) => {
@@ -35,13 +38,7 @@ const PostView = ({
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Region: {Choices.regions[region]}</Text>
         </Paragraph>
-
-        {photo && (
-          <Image
-            source={{ uri: photo }}
-            style={{ width: 0.88 * width, height: 300 }}
-          />
-        )}
+        {photos && <ImageCollection photos={photos} />}
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}

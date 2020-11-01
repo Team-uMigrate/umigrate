@@ -54,17 +54,7 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-    url(
-        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
-    ),
     path("api/admin/", admin.site.urls),
-    #   url(r"^api/account/", include("allauth.urls")),
-    #   path("api/accounts/", include("allauth.urls")),
-    #   url(
-    #       r"^api/accounts-rest/registration/account-confirm-email/(?P<key>.+)/$",
-    #       confirm_email,
-    #       name="account_confirm_email",
-    #   ),
     path("api/ads/", include("ads.urls")),
     path("api/comments/", include("comments.urls")),
     path("api/events/", include("events.urls")),
@@ -76,7 +66,6 @@ urlpatterns = [
     path("api/users/", include("users.urls")),
     path("api/uploads/photos/", include("photos.urls")),
     path("api/sentry-debug/", trigger_error),
-    #    path("api/registration/", include("registration.urls")),
     path("api/", include("rest_auth.urls")),
     url(r"^api/", include("django.contrib.auth.urls")),
     re_path(
@@ -84,8 +73,7 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
+    path("api/registration/", include("registration.urls")),
     path("api/registration/", include("rest_auth.registration.urls")),
     path("api/", include("allauth.urls")),
 ]
-
-#     url(r'password_reset/$',auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html',email_template_name='registration/password_reset_email.html',subject_template_name='registration/password_reset_email.txt',success_url='/accounts/password_reset_done/',from_email='mpho.maleka3@gmail.com')),

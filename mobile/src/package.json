@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "check-format": "prettier --check {**/*,*}.{js,ts,jsx,tsx}"
+    "check-format": "prettier --check {**/*,*}.{js,ts,jsx,tsx} --end-of-line crlf"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

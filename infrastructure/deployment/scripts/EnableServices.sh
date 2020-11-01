@@ -6,4 +6,4 @@ systemctl daemon-reload
 systemctl enable daphne@{0..2}
 systemctl enable gunicorn.socket
 systemctl enable redis-server
-systemctl reload nginx
+systemctl enable nginx

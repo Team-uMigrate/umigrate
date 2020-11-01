@@ -154,7 +154,7 @@ REST_FRAMEWORK = {
 # Email settings
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = "support@umigrate.ca"
+DEFAULT_FROM_EMAIL = "teamumigrate@gmail.com"
 EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY

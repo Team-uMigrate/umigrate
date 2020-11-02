@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { StyleSheet, FlatList, Text, View } from "react-native";
 import CommentView from "./CommentView";
+import { CommentsEndpoint } from "../../../utils/endpoints";
 
 class CommentsContainer extends Component {
   state = {
     comments: [
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-      { id: 4 },
-      { id: 5 },
-      { id: 6 },
+      // { id: 1 },
+      // { id: 2 },
+      // { id: 3 },
+      // { id: 4 },
+      // { id: 5 },
+      // { id: 6 },
     ],
     nextPage: 1,
     nextPageExists: true,
@@ -19,8 +20,26 @@ class CommentsContainer extends Component {
   constructor(props) {
     super(props);
     this.state.postId = props.postId;
-    //this.state.comments.concat(this.props.navigation.fetchComments());
+    // this.state.comments.concat(this.props.navigation.fetchComments());
+    this.fetchComments();
     console.log(this.state.comments);
+  }
+
+  fetchComments(contentType, objectId, page) {
+    let newComments;
+
+    CommentsEndpoint.list(
+      contentType,
+      objectId,
+      page,
+      {},
+      (response) => {
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   renderItem = ({ item }) => {

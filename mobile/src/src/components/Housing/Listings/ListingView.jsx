@@ -21,8 +21,6 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
-  createComment,
-  fetchComments,
 }) => {
   const { width, height } = Dimensions.get("window");
 

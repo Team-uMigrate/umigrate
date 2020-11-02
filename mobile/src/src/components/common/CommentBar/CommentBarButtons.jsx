@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import NavContext from "../../../contexts/NavContext";
+import { Choices } from "../../../utils/endpoints";
 
 const CommentBarButtons = ({
   postId,
@@ -12,7 +13,6 @@ const CommentBarButtons = ({
   isLiked,
   text,
   setText,
-  fetchComments,
 }) => {
   const [liked, setLiked] = useState(isLiked);
   const nav = useContext(NavContext);
@@ -58,9 +58,9 @@ const CommentBarButtons = ({
             color={"black"}
             style={styles.button}
             onPress={() => {
-              nav.navigation.setOptions({ fetchComments: fetchComments });
               nav.navigation.navigate("Comments", {
                 postId: postId,
+                contentType: Choices.contentTypes,
               });
             }}
           />

@@ -238,14 +238,17 @@ class BasePostingEndpoint extends BaseEndpoint {
   }
 }
 
-// Base comment endpoint class
-class BaseCommentEndpoint extends BaseEndpoint {
-  static contentType = null;
+// Endpoints
+
+// General endpoint for all types of comments
+export class CommentsEndpoint extends BaseEndpoint {
+  static endpoint = "/api/comments/";
 
   static list(
+    contentType,
+    objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
     page,
     filters = {},
-    objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
     handleSuccess = () => {},
     handleError = () => {}
   ) {
@@ -285,6 +288,7 @@ class BaseCommentEndpoint extends BaseEndpoint {
       });
   }
 
+  // TODO change this endpoint to work with how it be now
   // The only difference between these functions and the post and patch functions of the parent class is that
   // these send json data instead of form-data
   static post(
@@ -321,14 +325,8 @@ class BaseCommentEndpoint extends BaseEndpoint {
   }
 }
 
-// Endpoints
 export class AdsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/ads/";
-}
-
-export class AdCommentsEndpoint extends BaseCommentEndpoint {
-  static endpoint = "/api/ads/comments/";
-  static contentType = Choices.contentTypes["ad"];
 }
 
 export class EventsEndpoint extends BasePostingEndpoint {
@@ -367,18 +365,8 @@ export class EventsEndpoint extends BasePostingEndpoint {
   }
 }
 
-export class EventCommentsEndpoint extends BaseCommentEndpoint {
-  static endpoint = "/api/events/comments/";
-  static contentType = Choices.contentTypes["event"];
-}
-
 export class ListingsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/listings/";
-}
-
-export class ListingCommentsEndpoint extends BaseCommentEndpoint {
-  static endpoint = "/api/listings/comments/";
-  static contentType = Choices.contentTypes["listing"];
 }
 
 export class JobsEndpoint extends BaseEndpoint {
@@ -415,18 +403,8 @@ export class PollsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/polls/";
 }
 
-export class PollCommentsEndpoint extends BaseCommentEndpoint {
-  static endpoint = "/api/polls/comments/";
-  static contentType = Choices.contentTypes["poll"];
-}
-
 export class PostsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/posts/";
-}
-
-export class PostCommentsEndpoint extends BaseCommentEndpoint {
-  static endpoint = "/api/posts/comments/";
-  static contentType = Choices.contentTypes["post"];
 }
 
 export class AuthEndpoint {

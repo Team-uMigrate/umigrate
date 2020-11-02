@@ -2,45 +2,39 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const ProfileComponents = ({ label, val, row }) => {
-  const isRow = ({ label, val, row }) => {
-    if (row) {
-      if (val == "" || val === null) {
-        return (
-          <View>
-            <Text style={styles.textLabelRow}>{label}</Text>
-            <Text style={styles.textValRowValNull}>
-              Edit to add your {label}
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View>
-            <Text style={styles.textLabelRow}>{label}</Text>
-            <Text style={styles.textValRow}>{val}</Text>
-          </View>
-        );
-      }
+  if (row) {
+    if (val == "" || val === null) {
+      return (
+        <View>
+          <Text style={styles.textLabelRow}>{label}</Text>
+          <Text style={styles.textValRowValNull}>Edit to add your {label}</Text>
+        </View>
+      );
     } else {
-      if (val == "" || val === null) {
-        return (
-          <View>
-            <Text style={styles.textLabel}>{label}</Text>
-            <Text style={styles.textValNull}>Edit to add your {label}</Text>
-          </View>
-        );
-      } else {
-        return (
-          <View>
-            <Text style={styles.textLabel}>{label}</Text>
-            <Text style={styles.textVal}>{val}</Text>
-          </View>
-        );
-      }
+      return (
+        <View>
+          <Text style={styles.textLabelRow}>{label}</Text>
+          <Text style={styles.textValRow}>{val}</Text>
+        </View>
+      );
     }
-  };
-
-  return isRow({ label, val, row });
+  } else {
+    if (val == "" || val === null) {
+      return (
+        <View>
+          <Text style={styles.textLabel}>{label}</Text>
+          <Text style={styles.textValNull}>Edit to add your {label}</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text style={styles.textLabel}>{label}</Text>
+          <Text style={styles.textVal}>{val}</Text>
+        </View>
+      );
+    }
+  }
 };
 
 export default ProfileComponents;

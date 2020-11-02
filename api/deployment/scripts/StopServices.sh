@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Stopping nginx, redis-server, daphne, gunicorn
+# Stop services
 systemctl stop nginx
 systemctl stop redis-server
 systemctl stop daphne@{0..2}

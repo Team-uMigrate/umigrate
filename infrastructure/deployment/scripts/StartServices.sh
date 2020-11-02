@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Starting gunicorn, daphne, redis-server, and nginx
+# This is always run
 systemctl daemon-reload
 systemctl start gunicorn.socket
 systemctl start gunicorn

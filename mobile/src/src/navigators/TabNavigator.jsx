@@ -8,13 +8,19 @@ import HousingPage from "../components/Housing";
 import MenuPage from "../components/Menu";
 import { StyleSheet, View } from "react-native";
 import NavContext from "../contexts/NavContext";
+import ModalContext from "../contexts/CreateModalContext";
+import { ModalContextProvider } from "../contexts/CreateModalContext";
+import CreateModal from "../components/Create/CreateModal";
 import CreatePage from "../components/Create";
-import CreateModalComponent from "./CreateModalComponent";
 
 const Tab = createMaterialBottomTabNavigator();
-
+const nullPage = () => {
+  return null;
+};
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(NavContext);
+  const modal = useContext(ModalContext);
+
   useEffect(() => {
     nav.setNavigation(navigation);
   }, []);
@@ -52,12 +58,11 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Create"
-        component={CreateModalComponent}
+        component={nullPage}
+        // children={() => <CreateModal />}
         options={{
-          tabBarButton: () => <CreateModalComponent />,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="plus-circle-outline"
@@ -66,8 +71,13 @@ const TabNavigator = ({ navigation }) => {
             />
           ),
         }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            console.log("Create button woohoo");
+            modal.setModalVisible(true);
+          },
+        })}
       />
-
       <Tab.Screen
         name="Housing"
         component={HousingPage}

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Alert, Modal, StyleSheet, View } from "react-native";
+import { Text, Alert, Modal, StyleSheet, View } from "react-native";
 import Header from "../common/Header";
 
 const CreatePage = () => {
@@ -7,6 +7,7 @@ const CreatePage = () => {
   return (
     <View style={styles.container}>
       <Header title="Create" />
+      <Text>Hello world</Text>
     </View>
   );
 };

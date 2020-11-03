@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "751941433885",
+    "firebase_url": "https://umigrate.firebaseio.com",
+    "project_id": "umigrate",
+    "storage_bucket": "umigrate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751941433885:android:c02e7972e0d772b8ece4f4",
+        "android_client_info": {
+          "package_name": "com.teamumigrate.umigrate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751941433885-4ugf1laehm3o4vr7j3ahmhhjsfoeue2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByWssvY4KOxjIEW0EGcDdlNSBcGqcxtQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "751941433885-4ugf1laehm3o4vr7j3ahmhhjsfoeue2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ from users.factories import UserFactory
 import random
 
 
+# For FactoryBoy documentation visit: https://faker.readthedocs.io/en/master/providers/faker.providers.python.html
 class AbstractFactory(factory.django.DjangoModelFactory):
     title = factory.Faker("text", max_nb_chars=100)
     content = factory.Faker("paragraph")

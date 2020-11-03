@@ -3,6 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 from .models import Photo
 from .serializers import PhotoSerializer
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 
 # HTTP POST: Creates an photo
@@ -10,6 +11,9 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 class PhotoCreate(CreateAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
 
 # HTTP GET: Returns an photo
@@ -24,3 +28,6 @@ class PhotoRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
     lookup_field = "id"
+    permission_classes = [
+        IsAuthenticated,
+    ]

@@ -74,7 +74,8 @@ const LoginPage = ({ navigation }) => {
             <TextInput
               style={styles.textInput}
               label="uWaterloo Email"
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setEmail(text.toLowerCase().trim())}
+              autoCompleteType="email"
             />
           </View>
           <View style={styles.row}>
@@ -83,6 +84,8 @@ const LoginPage = ({ navigation }) => {
               label="Password..."
               style={styles.textInput}
               onChangeText={(text) => setPassword(text)}
+              autoCompleteType="password"
+              secureTextEntry={true}
             />
           </View>
         </View>

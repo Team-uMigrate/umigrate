@@ -3,11 +3,10 @@ import { Text, Alert, Modal, StyleSheet, View } from "react-native";
 import Header from "../common/Header";
 
 const CreatePage = () => {
-  const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.container}>
       <Header title="Create" />
-      <Text>Hello world</Text>
+      <Text>Create page!</Text>
     </View>
   );
 };

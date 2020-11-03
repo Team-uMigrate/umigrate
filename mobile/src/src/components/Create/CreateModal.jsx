@@ -7,17 +7,14 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { Button, Text } from "react-native-paper";
-import ModalContext, {
-  ModalContextProvider,
-} from "../../contexts/CreateModalContext";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ModalContext from "../../contexts/CreateModalContext";
 
 const CreateModal = () => {
   const modal = useContext(ModalContext);
-  console.log(modal);
+
   return (
     <Modal
-      // onBackdropPress={() => modal.setModalVisible(false)} //Should hide modal when pressed on background but doesnt work
+      onBackdropPress={() => modal.setModalVisible(false)} //Should hide modal when pressed on background but doesnt work
       animationType="slide"
       visible={modal.isVisible}
       transparent={true}

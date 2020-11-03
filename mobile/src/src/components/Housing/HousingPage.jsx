@@ -9,7 +9,6 @@ const HousingPage = () => {
     <View style={styles.container}>
       <Header title="Housing" />
       <ListingContainer />
-      <CreateModal /> #testing out Dre's idea about putting it in each page
     </View>
   );
 };

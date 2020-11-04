@@ -106,6 +106,18 @@ export const removeAuthToken = () => {
   // sessionStorage.removeItem(AUTH_TOKEN);
 };
 
+export const getPushToken = () => {
+  // get push notification
+};
+
+export const setPushToken = (token) => {
+  // set push notification
+};
+
+export const removePushToken = () => {
+  // remove push notification
+};
+
 export const getUserData = () => {
   // return JSON.parse(sessionStorage.getItem(USER_DATA));
 };

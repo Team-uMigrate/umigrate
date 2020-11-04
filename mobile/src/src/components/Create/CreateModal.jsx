@@ -1,17 +1,12 @@
 import React, { useState, useContext } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  View,
-  TouchableHighlight,
-} from "react-native";
+import { Alert, StyleSheet, View, TouchableHighlight } from "react-native";
 import { Button, Text } from "react-native-paper";
+import Modal from "react-native-modal";
 import ModalContext from "../../contexts/CreateModalContext";
 
 const CreateModal = () => {
   const modal = useContext(ModalContext);
-
+  //please run
   return (
     <Modal
       onBackdropPress={() => modal.setModalVisible(false)} //Should hide modal when pressed on background but doesnt work

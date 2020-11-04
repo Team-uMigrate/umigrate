@@ -24,9 +24,5 @@
       "favicon": "./assets/favicon.png"
     },
     "sdkVersion": "38.0.0"
-  },
-  "android": {
-    "package": "com.teamumigrate.umigrate",
-    "googleServicesFile": "./google-services.json"
   }
 }

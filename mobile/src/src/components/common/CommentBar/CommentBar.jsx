@@ -8,7 +8,7 @@ To add the comment bar to your components, you need to pass in 2 callback functi
     2. createComment, which makes the HTTP request to the appropriate comment endpoint
 See src/components/Housing/Listings/ListingsContainer.jsx for an example
  */
-const CommentBar = ({ postId, isLiked, likePost }) => {
+const CommentBar = ({ postId, contentType, isLiked, region, likePost }) => {
   const [text, setText] = useState("");
   const [sendButtonVisible, setSendButtonVisible] = useState(false);
 
@@ -34,14 +34,14 @@ const CommentBar = ({ postId, isLiked, likePost }) => {
       />
       <CommentBarButtons
         postId={postId}
+        contentType={contentType}
         sendButtonVisible={sendButtonVisible}
         setSendButtonVisible={setSendButtonVisible}
         likePost={likePost}
         isLiked={isLiked}
-        createComment={createComment}
         text={text}
         setText={setText}
-        fetchComments={fetchComments}
+        region={region}
       />
     </View>
   );

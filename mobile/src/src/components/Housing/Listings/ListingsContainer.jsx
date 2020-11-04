@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView";
-import { ListingsEndpoint } from "../../../utils/endpoints";
+import { Choices, ListingsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   state = {
@@ -53,21 +53,9 @@ class ListingContainer extends Component {
     );
   };
 
-  fetchComments = (page, filters) => {
-    ListingCommentsEndpoint.list(
-      page,
-      filters,
-      () => {},
-      (err) => {
-        console.log(err);
-      }
-    );
-  };
-
   renderItem = ({ item }) => {
     item.likeListing = this.likeListing;
-    item.createComment = this.createComment;
-    item.fetchComments = this.fetchComments;
+    item.contentType = Choices.contentTypes["listing"];
     return <ListingView {...item} />;
   };
 

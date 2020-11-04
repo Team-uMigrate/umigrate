@@ -253,7 +253,7 @@ export class CommentsEndpoint extends BaseEndpoint {
     handleError = () => {}
   ) {
     filters["object_id"] = objectId;
-    filters["content_type"] = this.contentType;
+    filters["content_type"] = contentType;
     let queryString = "?page=" + page;
 
     for (let key in filters) {
@@ -288,7 +288,6 @@ export class CommentsEndpoint extends BaseEndpoint {
       });
   }
 
-  // TODO change this endpoint to work with how it be now
   // The only difference between these functions and the post and patch functions of the parent class is that
   // these send json data instead of form-data
   static post(

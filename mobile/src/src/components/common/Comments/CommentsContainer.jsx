@@ -5,48 +5,42 @@ import { CommentsEndpoint } from "../../../utils/endpoints";
 
 class CommentsContainer extends Component {
   state = {
-    comments: [
-      // { id: 1 },
-      // { id: 2 },
-      // { id: 3 },
-      // { id: 4 },
-      // { id: 5 },
-      // { id: 6 },
-    ],
+    comments: [],
     nextPage: 1,
+    incrementPage: () => {
+      this.setState({ nextPage: this.state.nextPage + 1 });
+    },
     nextPageExists: true,
   };
 
   constructor(props) {
     super(props);
-    this.state.postId = props.postId;
-    // this.state.comments.concat(this.props.navigation.fetchComments());
-    this.fetchComments();
-    console.log(this.state.comments);
+
+    this.postId = props.route.params.postId;
+    this.contentType = props.route.params.contentType;
+    this.fetchComments(this.contentType, this.postId);
   }
 
-  fetchComments(contentType, objectId, page) {
-    let newComments;
-
+  fetchComments = (contentType, objectId) => {
     CommentsEndpoint.list(
       contentType,
       objectId,
-      page,
+      this.state.nextPage,
       {},
       (response) => {
-        console.log(response.data);
+        this.setState({
+          comments: this.state.comments.concat(response.data.results),
+        });
       },
       (error) => {
-        console.log(error);
+        console.log("error: " + error);
       }
     );
-  }
+  };
 
   renderItem = ({ item }) => {
     return <CommentView {...item} />;
   };
-
-  // TODO use this.props.navigation.fetchComments() to load and render comments
 
   render() {
     return (

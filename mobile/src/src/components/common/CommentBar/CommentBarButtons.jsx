@@ -2,17 +2,18 @@ import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import NavContext from "../../../contexts/NavContext";
-import { Choices } from "../../../utils/endpoints";
+import { Choices, CommentsEndpoint } from "../../../utils/endpoints";
 
 const CommentBarButtons = ({
   postId,
+  contentType,
   sendButtonVisible,
   setSendButtonVisible,
   likePost,
-  createComment,
   isLiked,
   text,
   setText,
+  region,
 }) => {
   const [liked, setLiked] = useState(isLiked);
   const nav = useContext(NavContext);
@@ -27,7 +28,23 @@ const CommentBarButtons = ({
           color={"white"}
           onPress={() => {
             if (text !== "") {
-              createComment(postId, text, []); // TODO add ability to tag users
+              // TODO add location and ability to tag users
+              let data = {
+                content: text,
+                object_id: postId,
+                content_type: contentType,
+                region: region,
+                tagged_users: [],
+              };
+
+              CommentsEndpoint.post(
+                data,
+                () => {},
+                (error) => {
+                  console.log(error);
+                }
+              );
+
               setText("");
               setSendButtonVisible(false);
             }
@@ -60,7 +77,7 @@ const CommentBarButtons = ({
             onPress={() => {
               nav.navigation.navigate("Comments", {
                 postId: postId,
-                contentType: Choices.contentTypes,
+                contentType: contentType,
               });
             }}
           />

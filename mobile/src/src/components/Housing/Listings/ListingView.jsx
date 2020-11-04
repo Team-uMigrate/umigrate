@@ -22,6 +22,7 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
+  contentType,
 }) => {
   const { width, height } = Dimensions.get("window");
 
@@ -62,10 +63,10 @@ const ListingView = ({
         </View>
         <CommentBar
           postId={id}
+          contentType={contentType}
           likePost={likeListing}
           isLiked={is_liked}
-          createComment={createComment}
-          fetchComments={fetchComments}
+          region={region}
         />
       </Card.Content>
     </Card>

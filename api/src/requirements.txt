@@ -6,7 +6,6 @@ django-filter
 Pillow
 django-cors-headers
 channels
-django-push-notifications
 channels-redis
 sendgrid
 drf_yasg

@@ -33,9 +33,6 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 # Get default SendGrid API key
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
-# FCM_API_KEY
-FCM_API_KEY = os.environ.get("FCM_API_KEY")
-
 # Set site and allowed hosts
 SITE = os.environ.get("DOMAIN_NAME")
 ALLOWED_HOSTS = [SITE]
@@ -100,7 +97,6 @@ INSTALLED_APPS = [
     "photos",
     "comments",
     "notifications",
-    "push_notifications",
 ]
 
 # Middleware
@@ -233,21 +229,6 @@ else:
             },
         },
     }
-
-PUSH_NOTIFICATIONS_SETTINGS = {
-    "FCM_API_KEY": FCM_API_KEY,
-    # "GCM_API_KEY": "[your api key]",
-    # "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
-    # "APNS_TOPIC": "com.example.push_test",
-    # "WNS_PACKAGE_SECURITY_ID": "[your package security id, e.g: 'ms-app://e-3-4-6234...']",
-    # "WNS_SECRET_KEY": "[your app secret key, e.g.: 'KDiejnLKDUWodsjmewuSZkk']",
-    # "WP_PRIVATE_KEY": "/path/to/your/private.pem",
-    # "WP_CLAIMS": {"sub": "mailto: development@example.com"},
-    # General
-    # "USER_MODEL": "users.CustomUser", We probably don't need this
-    "UPDATE_ON_DUPLICATE_REG_ID": True,
-    "UNIQUE_REG_ID": True,
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Create backups folder
+DIR="/home/umigrate/backups"
+if [ ! -d "$DIR" ]
+	then
+		mkdir /home/umigrate/backups
+fi
+
 # Clean backups folder
 rm -rf /home/umigrate/backups/*.tar
 
@@ -20,4 +27,3 @@ sudo -u postgres pg_dump -U postgres -w -F t umigratedb > /home/umigrate/backups
 
 # Sending backup to Azure
 /home/umigrate/maintenance/azcopy/azcopy copy "/home/umigrate/backups/${fileName}" "https://umigratefilestorage.blob.core.windows.net/databasebackups/${SAS_TOKEN}"
-

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Create backups folder
+mkdir /home/umigrate/backups
+
 # Clean backups folder
 rm -rf /home/umigrate/backups/*.tar
 

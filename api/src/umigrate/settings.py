@@ -296,9 +296,9 @@ SWAGGER_SETTINGS = {
     "LOGIN_URL": f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
     else f"https://{SITE}{LOGIN_URL}",
-    "LOGOUT_URL": f"http://{SITE}{LOGIN_URL}"
+    "LOGOUT_URL": f"http://{SITE}/api/logout/"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{SITE}{LOGIN_URL}",
+    else f"https://{SITE}/api/logout/",
 }
 
 # Internationalization

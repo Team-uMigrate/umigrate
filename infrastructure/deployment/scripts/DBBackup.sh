@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Clean backups folder
+rm -rf /home/umigrate/backups/*.tar
+
 # Intake environment variable
 export $(egrep -v '^#' /home/umigrate/venv/.env | xargs)
 
 # Differentiating between weekly and version backup
 fileName=""
-if ["$1" = ""]
+if [ -z "$1" ]
 	then	
 		fileName=$STAGE_ENVIRONMENT-umigratedb-$(date --iso-8601).tar
 	else

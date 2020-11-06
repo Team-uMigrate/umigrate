@@ -1,13 +1,29 @@
 #!/bin/bash
 
+# Create backups folder
+DIR="/home/umigrate/backups"
+if [ ! -d "$DIR" ]
+	then
+		mkdir /home/umigrate/backups
+fi
+
+# Clean backups folder
+rm -rf /home/umigrate/backups/*.tar
+
+# Intake environment variable
+export $(egrep -v '^#' /home/umigrate/venv/.env | xargs)
+
 # Differentiating between weekly and version backup
 fileName=""
-if ["$1" = ""]
+if [ -z "$1" ]
 	then	
-		fileName=uMigrateDB-$(date --iso-8601)
+		fileName=$STAGE_ENVIRONMENT-umigratedb-$(date --iso-8601).tar
 	else
-		fileName=uMigrateDB-$1
+		fileName=$STAGE_ENVIRONMENT-umigratedb-$1.tar
 fi
 
 # Backing up the DB
-sudo -u postgres pg_dump -U postgres -w -F t umigratedb > /home/umigrate/backups/$fileName.tar
+sudo -u postgres pg_dump -U postgres -w -F t umigratedb > /home/umigrate/backups/$fileName
+
+# Sending backup to Azure
+/home/umigrate/maintenance/azcopy/azcopy copy "/home/umigrate/backups/${fileName}" "https://umigratefilestorage.blob.core.windows.net/databasebackups/${SAS_TOKEN}"

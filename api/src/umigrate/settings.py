@@ -53,7 +53,7 @@ if STAGE_ENVIRONMENT is None:
 
 if STAGE_ENVIRONMENT == "local":
     SECRET_KEY = "n_jfl6&v4^9ik8w9324in$&#$gmj5+%n3@ln5d0!cv^%vzsz_x"
-    DATABASE_PASSWORD = None
+    DATABASE_PASSWORD = "postgres"
     REDIS_PASSWORD = None
     SITE = "127.0.0.1:8000"
     ALLOWED_HOSTS = ["*"]
@@ -189,45 +189,30 @@ ASGI_APPLICATION = "umigrate.routing.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if STAGE_ENVIRONMENT == "local":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        },
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "umigratedb",
-            "USER": "umigrate",
-            "PASSWORD": DATABASE_PASSWORD,
-            "HOST": "localhost",
-            "PORT": "",
-        },
-    }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "umigratedb",
+        "USER": "postgres" if STAGE_ENVIRONMENT == "local" else "umigrate",
+        "PASSWORD": DATABASE_PASSWORD,
+        "HOST": "localhost",
+        "PORT": "",
+    },
+}
 
 # Channels configuration
 
-if STAGE_ENVIRONMENT == "local":
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [("127.0.0.1", 6379)],
-            },
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)]
+            if STAGE_ENVIRONMENT == "local"
+            else [f"redis://:{REDIS_PASSWORD}@127.0.0.1:6379/0"],
         },
-    }
-else:
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [f"redis://:{REDIS_PASSWORD}@127.0.0.1:6379/0"],
-            },
-        },
-    }
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -8,6 +8,7 @@ import LoginPage from "../components/Login";
 import RegistrationPage from "../components/Register";
 import MessagingPage from "../components/Messaging";
 import { NavContextProvider } from "../contexts/NavContext";
+import NotificationPage from "../components/Notifications/NotificationsPage";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,13 @@ const AuthNavigator = () => {
           >
             <Stack.Screen name="Tabs" component={TabNavigator} />
             <Stack.Screen name="Messaging" component={MessagingPage} />
+            <Stack.Screen
+              name="Notifications"
+              options={{
+                gestureDirection: "horizontal-inverted",
+              }}
+              component={NotificationPage}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </NavContextProvider>

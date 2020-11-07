@@ -8,10 +8,9 @@ import MenuLogout from "./MenuLogout";
 class MenuPage extends Component {
   state = { user: {} };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getProfile();
-  }
+  };
 
   getProfile = () => {
     ProfileEndpoint.get(

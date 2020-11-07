@@ -19,17 +19,16 @@ class FeedContainer extends Component {
     lastListDate: null,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getPosts();
     this.getEvents();
-  }
+  };
 
-  componentDidUpdate() {
+  componentDidUpdate = () => {
     if (this.state.hasNewPosts && this.state.hasNewEvents) {
       this.setPages();
     }
-  }
+  };
 
   // posts
 

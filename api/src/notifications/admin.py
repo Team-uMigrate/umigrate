@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Notification, Device
 
-# Register your models here.
+# Registers the Notification and Device models with the admin site
+admin.site.register(Notification)
+admin.site.register(Device)

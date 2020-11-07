@@ -10,7 +10,7 @@ class Notification(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
     datetime_created = models.DateTimeField(auto_now_add=True)
-    recievers = models.ManyToManyField(
+    receivers = models.ManyToManyField(
         to=CustomUser, related_name="received_notification_set", blank=True
     )
     viewers = models.ManyToManyField(

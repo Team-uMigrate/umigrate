@@ -65,6 +65,7 @@ urlpatterns = [
     path("api/posts/", include("posts.urls")),
     path("api/users/", include("users.urls")),
     path("api/uploads/photos/", include("photos.urls")),
+    path("api/notifications/", include("notifications.urls")),
     path("api/sentry-debug/", trigger_error),
     path("api/", include("rest_auth.urls")),
     url(r"^api/", include("django.contrib.auth.urls")),

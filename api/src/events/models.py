@@ -40,6 +40,3 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
             raise ValidationError({"end_datetime": _("End date before start date")})
         if not location_check:
             raise ValidationError({"location": _("Invalid location")})
-
-
-

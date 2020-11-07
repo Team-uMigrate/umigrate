@@ -1,57 +1,62 @@
 import React, { useState, useContext } from "react";
-import { Alert, StyleSheet, View, TouchableHighlight } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text, Alert, StyleSheet, View } from "react-native";
 import Modal from "react-native-modal";
 import ModalContext from "../../contexts/CreateModalContext";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import GradientButton from "react-native-gradient-buttons";
 
 const CreateModal = () => {
   const modal = useContext(ModalContext);
-  //please run
   return (
-    <Modal
-      onBackdropPress={() => modal.setModalVisible(false)} //Should hide modal when pressed on background but doesnt work
-      animationType="slide"
-      visible={modal.isVisible}
-      transparent={true}
-      style={styles.modalContent}
-    >
-      <View style={styles.modalView}>
-        <Text style={styles.text}>Where would you like to post...</Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            compact={true}
-            style={styles.buttonStyle}
-            mode="contained"
-            title="Community"
-            onPress={() => Alert.alert("Simple Button pressed")}
-          >
-            Community
-          </Button>
-          <Button
-            compact={true}
-            style={styles.buttonStyle}
-            mode="contained"
-            title="Community"
-            onPress={() => Alert.alert("Simple Button pressed")}
-          >
-            Market
-          </Button>
-          <Button
-            compact={true}
-            style={styles.buttonStyle}
-            mode="contained"
-            title="Community"
-            onPress={() => Alert.alert("Simple Button pressed")}
-          >
-            Housing
-          </Button>
+    <View>
+      <Modal
+        onBackdropPress={() => modal.setModalVisible(false)}
+        // animationType="slide"
+        visible={modal.isVisible}
+        transparent={true}
+        style={styles.modalContent}
+        // backdropOpacity={0.3}
+        backdropOpacity={modal.isVisible ? 0.2 : 1}
+      >
+        <View style={styles.modalView}>
+          <Text style={styles.text}>Where would you like to post...</Text>
+          <View style={styles.buttonContainer}>
+            <GradientButton
+              style={styles.buttonStyle}
+              gradientBegin="#FF3465"
+              gradientEnd="#292462"
+              gradientDirection="diagonal"
+              onPressAction={() => Alert.alert("Simple Button pressed")}
+              icon={<MaterialCommunityIcons name="public" size={50} />}
+            >
+              <MaterialCommunityIcons name="earth" size={30} />
+              <Text style={styles.buttonText}> </Text>
+              <Text style={styles.buttonText}>Community</Text>
+            </GradientButton>
+            <GradientButton
+              style={styles.buttonStyle}
+              textStyle={{ fontSize: 16 }}
+              gradientBegin="#FF3465"
+              gradientEnd="#292462"
+              gradientDirection="diagonal"
+              onPressAction={() => Alert.alert("Simple Button pressed")}
+            >
+              Market
+            </GradientButton>
+            <GradientButton
+              style={styles.buttonStyle}
+              textStyle={{ fontSize: 16 }}
+              gradientBegin="#FF3465"
+              gradientEnd="#292462"
+              gradientDirection="diagonal"
+              onPressAction={() => Alert.alert("Simple Button pressed")}
+            >
+              Housing
+            </GradientButton>
+          </View>
         </View>
-
-        <TouchableHighlight onPress={() => modal.setModalVisible(false)}>
-          <Text style={styles.text}>Hide</Text>
-        </TouchableHighlight>
-      </View>
-    </Modal>
+      </Modal>
+    </View>
   );
 };
 
@@ -65,19 +70,27 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   modalContent: {
-    height: 2,
     margin: 0,
   },
   buttonStyle: {
     flex: 1,
     height: 100,
     width: 100,
-    backgroundColor: "#F1E6FF",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 5,
     marginRight: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  buttonText: {
+    fontSize: 15,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -87,11 +100,11 @@ const styles = StyleSheet.create({
     margin: 20,
     width: 340,
     flexDirection: "column",
-    backgroundColor: "#E7FCFF",
+    backgroundColor: "#FFFFFF",
     borderRadius: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 30,
+    borderColor: "#CDCBEC",
+    paddingHorizontal: 10,
+    paddingVertical: 30,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -99,7 +112,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowRadius: 4,
     elevation: 5,
     position: "absolute",
     bottom: 50,

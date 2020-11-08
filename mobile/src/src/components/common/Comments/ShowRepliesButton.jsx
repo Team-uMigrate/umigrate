@@ -1,4 +1,4 @@
-import { Text, TouchableHighlight } from "react-native";
+import { Text, TouchableHighlight, StyleSheet } from "react-native";
 import React from "react";
 
 // My current plan is for this component to accept 2 callbacks:
@@ -11,10 +11,17 @@ const ShowRepliesButton = ({
   if (buttonVisible) {
     return (
       <TouchableHighlight onPress={fetchReplies}>
-        <Text>Show more replies</Text>
+        <Text style={styles.buttonText}>Show more replies</Text>
       </TouchableHighlight>
     );
   } else return null;
 };
 
 export default ShowRepliesButton;
+
+const styles = StyleSheet.create({
+  buttonText: {
+    color: "blue",
+    textDecorationLine: "underline",
+  },
+});

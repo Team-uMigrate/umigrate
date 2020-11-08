@@ -11,8 +11,11 @@ class CommentView extends Component {
     setReplies: (newReplies) => {
       this.setState({ replies: newReplies });
     },
-    nextPageExists: true,
+    nextPageExists: false,
     nextPage: 1,
+    incrementPage: () => {
+      this.setState({ nextPage: this.state.nextPage + 1 });
+    },
   };
 
   constructor(props) {
@@ -23,19 +26,19 @@ class CommentView extends Component {
   }
 
   componentDidMount() {
-    this.fetchReplies(1);
+    this.fetchReplies();
   }
 
-  fetchReplies = (page) => {
+  fetchReplies = () => {
     CommentRepliesEndpoint.list(
-      page,
+      this.state.nextPage,
       this.props.id,
       {},
       (response) => {
         // Check if there's another page after this one
-        this.setState({ nextPageExists: response.data.next != null });
+        this.setState({ nextPageExists: response.data.next !== null });
         this.state.setReplies(this.state.replies.concat(response.data.results));
-        this.setState({ nextPage: this.state.nextPage + 1 });
+        this.state.incrementPage();
       },
       (error) => {
         console.log(error);
@@ -75,7 +78,7 @@ class CommentView extends Component {
 
           {/* Button to fetch more replies */}
           <ShowRepliesButton
-            buttonVisible={this.state.nextPageExists}
+            buttonVisible={this.state.nextPageExists} //
             fetchReplies={this.fetchReplies}
           />
         </View>

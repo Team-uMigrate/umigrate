@@ -8,5 +8,5 @@ apt update
 apt-get install python3.7 python3-pip python3-dev libpq-dev postgresql-13 postgresql-contrib-13 nginx tree virtualenv redis-server python-certbot-nginx -y
 
 # Symlink python version
-ln -s /usr/bin/python3.7 /usr/bin/py
+ln -sf /usr/bin/python3.7 /usr/bin/py
 

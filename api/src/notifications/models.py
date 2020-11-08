@@ -28,7 +28,7 @@ class Notification(models.Model):
 class Device(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30)
-    owner = models.ForeignKey(
+    creator = models.ForeignKey(
         to=CustomUser, related_name="device_set", on_delete=models.CASCADE, blank=True
     )
     expo_push_token = models.CharField(max_length=50)

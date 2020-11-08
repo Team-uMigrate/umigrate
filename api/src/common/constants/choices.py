@@ -132,3 +132,18 @@ class Choices:
             "Direct Messaging",
         ]
     )
+
+
+class MockData:
+    MOCK_ADDRESSES = [
+        "28 Lade St, Coorparoo, QLD 4151",
+        "297 Randall Dr Riverview NB E1B",
+        "30a, High St, Lyndhurst, SO43 7BG",
+        "500 Kingston Rd Toronto ON M4L",
+        "17 Whitaker Ave Toronto ON M6J",
+        "127 Scarborough Rd Toronto ON M4E",
+        "1210 Don Mills Rd North York ON M3B",
+        "717 Broadview Ave Toronto ON M4K",
+        "48 Norwood Rd Toronto ON M4E 2S2",
+        "300 Silver Birch Ave Toronto ON M4E",
+    ]

@@ -1,10 +1,12 @@
 import random
+
 import factory
 from django.db.models import QuerySet
+
 from common.abstract_factories import AbstractFactory
+from common.constants.choices import Choices, get_length, MockData
 from users.factories import UserFactory
 from .models import Event
-from common.constants.choices import Choices, get_length
 
 
 class EventFactory(AbstractFactory):
@@ -18,7 +20,11 @@ class EventFactory(AbstractFactory):
         "date_time_between", start_date="-30y", end_date="now"
     )
     end_datetime = factory.Faker("date_time_between", start_date="now", end_date="+30y")
-    location = factory.Faker("address")
+    location = factory.lazy_attribute(
+        lambda a: MockData.MOCK_ADDRESSES[
+            random.randint(0, len(MockData.MOCK_ADDRESSES) - 1)
+        ]
+    )
 
     @factory.post_generation
     def interested_users(self, create, extracted, **kwargs):

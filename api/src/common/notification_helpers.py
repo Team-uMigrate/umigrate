@@ -1,5 +1,4 @@
 from types import SimpleNamespace
-
 from django.contrib.contenttypes.models import ContentType
 from exponent_server_sdk import PushMessage, PushClient
 from comments.models import Comment, Reply

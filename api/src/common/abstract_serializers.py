@@ -4,7 +4,7 @@ from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
 from photos.serializers import PhotoRetrieveSerializer
-from notifications.serializers import NotificationSerializer
+from notifications.models import create_tagged_user_notification
 
 
 # Serializes an abstract resource model
@@ -48,8 +48,7 @@ class AbstractModelSerializer(ModelSerializerExtension):
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
         created_data = ModelSerializerExtension.create(self, validated_data)
-        notification_serializer = NotificationSerializer()
-        notification_serializer.save()
+        create_tagged_user_notification(created_data)
         return created_data
 
 

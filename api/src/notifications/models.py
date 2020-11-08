@@ -1,5 +1,7 @@
 from django.db import models
+from comments.models import Comment
 from common.abstract_models import AbstractPostModel
+from messaging.models import Message
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -32,7 +34,9 @@ class Notification(models.Model):
         return f"{self.content}"
 
 
-def create_tagged_user_notification(created_data: AbstractPostModel):
+def create_tagged_user_notification(
+    created_data: AbstractPostModel or Comment or Message,
+) -> None:
     if created_data.tagged_users.count() > 0:
         content_type = ContentType.objects.get_for_model(created_data)
         if content_type.model in ["ad", "event"]:

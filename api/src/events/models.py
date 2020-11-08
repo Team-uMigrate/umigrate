@@ -1,17 +1,18 @@
+from datetime import datetime
+
+import requests
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 from common.abstract_models import AbstractPostModel
+from common.constants.choices import Choices
 from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
-from datetime import datetime
-from common.constants.choices import Choices
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-import requests
 
 
 # Represents an event object
 class Event(AbstractPostModel, PhotoCollectionExtension):
-
     price_scale = models.PositiveSmallIntegerField(
         choices=Choices.PRICE_CHOICES, default=0
     )
@@ -34,8 +35,9 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
     # Validation for start & end dates, and location of event
     def clean(self):
         location_validation = requests.get(
-            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg")
-        location_check = location_validation.json()['features']
+            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg"
+        )
+        location_check = location_validation.json()["features"]
         if self.start_datetime is None:
             raise ValidationError({"start_datetime": _("Start Date cannot be null")})
         if self.start_datetime > self.end_datetime:

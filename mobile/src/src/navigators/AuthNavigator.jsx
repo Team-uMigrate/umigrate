@@ -3,7 +3,13 @@ import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+  Platform,
+} from "react-native";
 import AuthContext from "../contexts/AuthContext";
 import TabNavigator from "./TabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -81,7 +87,10 @@ const styles = StyleSheet.create({
 
 const registerForPushNotificationsAsync = async () => {
   let token;
-  if (Constants.isDevice) {
+  if (
+    Constants.isDevice &&
+    (Platform.OS === "ios" || Platform.OS === "android")
+  ) {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );

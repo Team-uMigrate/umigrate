@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
 });
 
-registerForPushNotificationsAsync = async () => {
+const registerForPushNotificationsAsync = async () => {
   let token;
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(

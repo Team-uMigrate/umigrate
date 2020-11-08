@@ -17,7 +17,7 @@ pip3 install virtualenv
 # Run only if path /home/umigrate/venv doesn't exist.
 DIR="/home/umigrate/venv/"
 if [ ! -d "$DIR" ]; then
-	virtualenv --python=/usr/bin/python3 /home/umigrate/venv
+	virtualenv --python=/usr/bin/py /home/umigrate/venv
 fi
 
 # Send pipeline variables to environment variables file

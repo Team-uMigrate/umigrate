@@ -11,10 +11,6 @@ class NotificationSerializer(ModelSerializerExtension):
         fields = "__all__"
         exclude_fields = ["receivers", "viewers"]
 
-    def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
-
 
 class DeviceSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)

@@ -18,14 +18,14 @@ const Stack = createStackNavigator();
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
   const [expoPushToken, setExpoPushToken] = useState("");
-
-  if (auth.isAuthenticated === true) {
-    useEffect(() => {
+  useEffect(() => {
+    auth.isAuthenticated &&
       registerForPushNotificationsAsync().then((token) =>
         setExpoPushToken(token)
       );
-    }, []);
+  }, [auth.isAuthenticated]);
 
+  if (auth.isAuthenticated === true) {
     return (
       <NavContextProvider>
         <NavigationContainer>

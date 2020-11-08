@@ -11,6 +11,7 @@ import requests
 
 # Represents an event object
 class Event(AbstractPostModel, PhotoCollectionExtension):
+
     price_scale = models.PositiveSmallIntegerField(
         choices=Choices.PRICE_CHOICES, default=0
     )

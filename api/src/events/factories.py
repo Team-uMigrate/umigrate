@@ -8,6 +8,7 @@ from common.constants.choices import Choices, get_length, MockData
 
 
 class EventFactory(AbstractFactory):
+
     class Meta:
         model = Event
 

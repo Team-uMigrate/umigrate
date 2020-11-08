@@ -14,15 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from allauth.account.views import confirm_email
-from django.conf.urls import url
+from django.conf.urls import url, re_path
 from django.contrib import admin
 from django.urls import path, include
+from rest_auth.views import PasswordResetConfirmView
 from rest_framework import permissions
+from django.contrib.sites.models import Site
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .settings import ALLOWED_HOSTS, STAGE_ENVIRONMENT
+from .settings import STAGE_ENVIRONMENT, SITE, SITE_ID
 from common.constants.choices import trigger_error
 
+# Set site
+# site = Site.objects.get(id=SITE_ID)
+# site.name = SITE
+# site.domain = SITE
+# site.save()
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -31,7 +38,7 @@ schema_view = get_schema_view(
     ),
     public=False,
     permission_classes=(permissions.AllowAny,),
-    url=None if STAGE_ENVIRONMENT == "local" else f"https://{ALLOWED_HOSTS[0]}",
+    url=None if STAGE_ENVIRONMENT == "local" else f"https://{SITE}",
 )
 
 
@@ -47,19 +54,7 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-    url(
-        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
-    ),
     path("admin/", admin.site.urls),
-    path("auth/", include("rest_auth.urls")),
-    path("auth/registration/", include("registration.urls")),
-    url(r"^account/", include("allauth.urls")),
-    path("accounts/", include("allauth.urls")),
-    url(
-        r"^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$",
-        confirm_email,
-        name="account_confirm_email",
-    ),
     path("api/ads/", include("ads.urls")),
     path("api/comments/", include("comments.urls")),
     path("api/events/", include("events.urls")),
@@ -70,5 +65,15 @@ urlpatterns = [
     path("api/posts/", include("posts.urls")),
     path("api/users/", include("users.urls")),
     path("api/uploads/photos/", include("photos.urls")),
-    path("sentry-debug/", trigger_error),
+    path("api/sentry-debug/", trigger_error),
+    path("api/", include("rest_auth.urls")),
+    url(r"^api/", include("django.contrib.auth.urls")),
+    re_path(
+        r"^api/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path("api/registration/", include("registration.urls")),
+    path("api/registration/", include("rest_auth.registration.urls")),
+    path("api/", include("allauth.urls")),
 ]

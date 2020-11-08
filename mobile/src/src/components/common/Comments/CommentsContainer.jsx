@@ -18,6 +18,9 @@ class CommentsContainer extends Component {
 
     this.postId = props.route.params.postId;
     this.contentType = props.route.params.contentType;
+  }
+
+  componentDidMount() {
     this.fetchComments(this.contentType, this.postId);
   }
 
@@ -30,12 +33,15 @@ class CommentsContainer extends Component {
       (response) => {
         this.setState({
           comments: this.state.comments.concat(response.data.results),
+          nextPageExists: response.data.next !== null,
         });
       },
       (error) => {
         console.log("error: " + error);
       }
     );
+
+    this.state.incrementPage();
   };
 
   renderItem = ({ item }) => {
@@ -49,6 +55,10 @@ class CommentsContainer extends Component {
           data={this.state.comments}
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
+          onEndReached={() => {
+            if (this.state.nextPageExists)
+              this.fetchComments(this.contentType, this.postId);
+          }}
         />
       </View>
     );

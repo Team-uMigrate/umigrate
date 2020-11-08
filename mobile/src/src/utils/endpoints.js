@@ -324,6 +324,28 @@ export class CommentsEndpoint extends BaseEndpoint {
   }
 }
 
+export class CommentRepliesEndpoint extends BaseEndpoint {
+  static endpoint = "/api/comments/replies/";
+
+  static list(
+    page,
+    commentId,
+    filters = {}, // Add post_id
+    handleSuccess = () => {},
+    handleFailure = () => {}
+  ) {
+    let queryString = "?page=" + page + "&comment=" + commentId;
+
+    for (let key in filters) {
+      queryString += "&" + key + "=" + filters[key].toString();
+    }
+
+    Axios.get(BASE_URL + this.endpoint + queryString)
+      .then(handleSuccess)
+      .catch(handleFailure);
+  }
+}
+
 export class AdsEndpoint extends BasePostingEndpoint {
   static endpoint = "/api/ads/";
 }

@@ -26,10 +26,10 @@ from .settings import STAGE_ENVIRONMENT, SITE, SITE_ID
 from common.constants.choices import trigger_error
 
 # Set site
-site = Site.objects.get(id=SITE_ID)
-site.name = SITE
-site.domain = SITE
-site.save()
+# site = Site.objects.get(id=SITE_ID)
+# site.name = SITE
+# site.domain = SITE
+# site.save()
 
 schema_view = get_schema_view(
     openapi.Info(

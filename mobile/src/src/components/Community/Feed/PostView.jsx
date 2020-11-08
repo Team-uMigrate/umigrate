@@ -38,7 +38,7 @@ const PostView = ({
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Region: {Choices.regions[region]}</Text>
         </Paragraph>
-        {photos && <ImageCollection photos={photos} />}
+        <ImageCollection photos={photos} />
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
             {"Likes: " + likes}

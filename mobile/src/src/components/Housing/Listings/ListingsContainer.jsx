@@ -11,10 +11,9 @@ class ListingContainer extends Component {
     nextPageExists: true,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getListings();
-  }
+  };
 
   getListings = () => {
     ListingsEndpoint.list(

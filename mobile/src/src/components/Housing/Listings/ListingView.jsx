@@ -52,7 +52,7 @@ const ListingView = ({
         <Paragraph style={styles.bodyText}>
           {"Category: " + Choices.listingCategories[category]}
         </Paragraph>
-        {photos && <ImageCollection photos={photos} />}
+        <ImageCollection photos={photos} />
         <View style={{ flexDirection: "row" }}>
           <Paragraph style={{ flex: 1, alignSelf: "center" }}>
             {"Likes: " + likes}

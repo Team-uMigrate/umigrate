@@ -56,7 +56,8 @@ const RegistrationPage = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             label="uWaterloo Email..."
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => setEmail(text.toLowerCase().trim())}
+            autoCompleteType="email"
           />
         </View>
         <View style={styles.row}>
@@ -64,6 +65,8 @@ const RegistrationPage = ({ navigation }) => {
             style={styles.textInput}
             label="Password..."
             onChangeText={(text) => setPassword(text)}
+            autoCompleteType="password"
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.row}>
@@ -71,6 +74,8 @@ const RegistrationPage = ({ navigation }) => {
             style={styles.textInput}
             label="Confirm Password..."
             onChangeText={(text) => setConfirm(text)}
+            autoCompleteType="password"
+            secureTextEntry={true}
           />
         </View>
       </View>

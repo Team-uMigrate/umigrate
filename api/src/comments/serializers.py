@@ -1,4 +1,6 @@
 from django.db.models import Count
+
+from notifications.models import create_tagged_user_notification
 from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
@@ -49,7 +51,9 @@ class CommentSerializer(ModelSerializerExtension):
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
+        created_data = ModelSerializerExtension.create(self, validated_data)
+        create_tagged_user_notification(created_data)
+        return created_data
 
 
 # Serializes the comment model with detail

@@ -32,7 +32,8 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
 
     # Validation for start & end dates, and location of event
     def clean(self):
-        location_validation = requests.get(f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg")
+        location_validation = requests.get(
+            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg")
         location_check = location_validation.json()['features']
         if self.start_datetime is None:
             raise ValidationError({"start_datetime": _("Start Date cannot be null")})
@@ -40,6 +41,3 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
             raise ValidationError({"end_datetime": _("End date before start date")})
         if not location_check:
             raise ValidationError({"location": _("Invalid location")})
-
-
-

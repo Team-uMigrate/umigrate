@@ -22,7 +22,6 @@ class EventFactory(AbstractFactory):
         lambda a: MockData.MOCK_ADDRESSES[random.randint(0, len(MockData.MOCK_ADDRESSES) - 1)]
     )
 
-
     @factory.post_generation
     def interested_users(self, create, extracted, **kwargs):
         if create:

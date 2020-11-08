@@ -4,6 +4,7 @@ from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
 from photos.serializers import PhotoRetrieveSerializer
+from notifications.serializers import NotificationSerializer
 
 
 # Serializes an abstract resource model
@@ -46,7 +47,10 @@ class AbstractModelSerializer(ModelSerializerExtension):
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
+        created_data = ModelSerializerExtension.create(self, validated_data)
+        notification_serializer = NotificationSerializer()
+        notification_serializer.save()
+        return created_data
 
 
 # Serializes an abstract resource model with detail

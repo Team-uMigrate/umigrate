@@ -7,9 +7,6 @@ class CommentsContainer extends Component {
   state = {
     comments: [],
     nextPage: 1,
-    incrementPage: () => {
-      this.setState({ nextPage: this.state.nextPage + 1 });
-    },
     nextPageExists: true,
   };
 
@@ -31,17 +28,26 @@ class CommentsContainer extends Component {
       this.state.nextPage,
       {},
       (response) => {
+        let seen = {};
+        let nextPageExists = response.data.next !== null;
+
         this.setState({
-          comments: this.state.comments.concat(response.data.results),
-          nextPageExists: response.data.next !== null,
+          // This extends the comment list and filters out any duplicates that happen to show up
+          comments: this.state.comments
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          nextPageExists: nextPageExists,
+          nextPage: nextPageExists
+            ? this.state.nextPage + 1
+            : this.state.nextPage,
         });
       },
       (error) => {
         console.log("error: " + error);
       }
     );
-
-    this.state.incrementPage();
   };
 
   renderItem = ({ item }) => {

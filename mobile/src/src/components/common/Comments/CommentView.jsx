@@ -8,14 +8,8 @@ import ShowRepliesButton from "./ShowRepliesButton";
 class CommentView extends Component {
   state = {
     replies: [],
-    setReplies: (newReplies) => {
-      this.setState({ replies: newReplies });
-    },
     nextPageExists: false,
     nextPage: 1,
-    incrementPage: () => {
-      this.setState({ nextPage: this.state.nextPage + 1 });
-    },
   };
 
   constructor(props) {
@@ -35,10 +29,21 @@ class CommentView extends Component {
       this.props.id,
       {},
       (response) => {
+        let seen = {};
+        let nextPageExists = response.data.next !== null;
         // Check if there's another page after this one
-        this.setState({ nextPageExists: response.data.next !== null });
-        this.state.setReplies(this.state.replies.concat(response.data.results));
-        this.state.incrementPage();
+        this.setState({
+          nextPageExists: nextPageExists,
+          // This extends the comment list and filters out any duplicates that happen to show up
+          replies: this.state.replies
+            .concat(response.data.results)
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          nextPage: nextPageExists
+            ? this.state.nextPage + 1
+            : this.state.nextPage,
+        });
       },
       (error) => {
         console.log(error);

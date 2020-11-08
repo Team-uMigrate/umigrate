@@ -3,10 +3,16 @@ import { StyleSheet, View, TextInput } from "react-native";
 import CommentBarButtons from "./CommentBarButtons";
 
 /*
-To add the comment bar to your components, you need to pass in 2 callback functions:
-    1. likePost, which makes the HTTP request to the appropriate like endpoint
-    2. createComment, which makes the HTTP request to the appropriate comment endpoint
-See src/components/Housing/Listings/ListingsContainer.jsx for an example
+To add the comment bar to your components, you need to pass in the callback function
+likePost, which makes the HTTP request to the appropriate like endpoint.
+See src/components/Housing/Listings/ListingsContainer.jsx for an example.
+
+Note that you also need a contentType prop. This refers to the numeric type of
+the content you're attaching this commentBar to (e.g. the number for listings is, at
+the time of writing this, 15). You can use the map in the Choices class of endpoints.js
+to pass in the right number.
+
+The other props are self-explanatory enough.
  */
 const CommentBar = ({ postId, contentType, isLiked, region, likePost }) => {
   const [text, setText] = useState("");

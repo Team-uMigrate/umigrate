@@ -11,31 +11,67 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("contenttypes", "0002_remove_content_type_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=100)),
-                ('object_id', models.PositiveIntegerField()),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
-                ('creator', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_notification_set', to=settings.AUTH_USER_MODEL)),
-                ('receivers', models.ManyToManyField(blank=True, related_name='received_notification_set', to=settings.AUTH_USER_MODEL)),
-                ('viewers', models.ManyToManyField(blank=True, related_name='viewed_notification_set', to=settings.AUTH_USER_MODEL)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=100)),
+                ("object_id", models.PositiveIntegerField()),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "content_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="contenttypes.contenttype",
+                    ),
+                ),
+                (
+                    "creator",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="created_notification_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "receivers",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="received_notification_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "viewers",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="viewed_notification_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Device',
+            name="Device",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=30)),
-                ('expo_push_token', models.CharField(max_length=50)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('creator', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='device_set', to=settings.AUTH_USER_MODEL)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=30)),
+                ("expo_push_token", models.CharField(max_length=50)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "creator",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="device_set",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

@@ -34,25 +34,6 @@ class Notification(models.Model):
         return f"{self.content}"
 
 
-def create_tagged_user_notification(
-    created_data: AbstractPostModel or Comment or Message,
-) -> None:
-    if created_data.tagged_users.count() > 0:
-        content_type = ContentType.objects.get_for_model(created_data)
-        if content_type.model in ["ad", "event"]:
-            content = f"{created_data.creator.preferred_name} has tagged you in an {content_type.model}!"
-        else:
-            content = f"{created_data.creator.preferred_name} has tagged you in a {content_type.model}!"
-        tagged_notification = Notification(
-            content=content,
-            content_type=content_type,
-            object_id=created_data.id,
-            creator_id=created_data.creator.id,
-        )
-        tagged_notification.save()
-        tagged_notification.receivers.add(*created_data.tagged_users.all())
-
-
 class Device(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30)

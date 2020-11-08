@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from django.contrib.contenttypes.models import ContentType
 from exponent_server_sdk import PushMessage, PushClient
 from comments.models import Comment, Reply
@@ -29,13 +31,19 @@ def create_tagged_user_notification(
 
 def send_push_notifications(notification: Notification) -> None:
     push_messages = []
+    request = SimpleNamespace()
+    request.user = notification.creator
     for receiver in notification.receivers.all():
         for device in receiver.device_set.all():
             push_messages.append(
                 PushMessage(
                     to=device.expo_push_token,
                     body=notification.content,
-                    data=dict(NotificationSerializer(notification).data),
+                    data=dict(
+                        NotificationSerializer(
+                            notification, context={"request": request}
+                        ).data
+                    ),
                 )
             )
 

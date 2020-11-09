@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Text, Alert, StyleSheet, View } from "react-native";
 import Modal from "react-native-modal";
-import ModalContext from "../../contexts/CreateModalContext";
+import ModalContext from "../../contexts/ModalContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientButton from "react-native-gradient-buttons";
 

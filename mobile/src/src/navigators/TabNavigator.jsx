@@ -7,7 +7,7 @@ import HousingPage from "../components/Housing";
 import MenuPage from "../components/Menu";
 import { StyleSheet } from "react-native";
 import NavContext from "../contexts/NavContext";
-import ModalContext from "../contexts/CreateModalContext";
+import ModalContext from "../contexts/ModalContext";
 import CreatePage from "../components/Create";
 import CreateModal from "../components/Create/CreateModal";
 

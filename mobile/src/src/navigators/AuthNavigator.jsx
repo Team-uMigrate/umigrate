@@ -9,7 +9,7 @@ import RegistrationPage from "../components/Register";
 import MessagingPage from "../components/Messaging";
 import { NavContextProvider } from "../contexts/NavContext";
 import NotificationPage from "../components/Notifications/NotificationsPage";
-import { ModalContextProvider } from "../contexts/CreateModalContext";
+import { ModalContextProvider } from "../contexts/ModalContext";
 
 const Stack = createStackNavigator();
 

@@ -70,7 +70,7 @@ const TabNavigator = ({ navigation }) => {
           }}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => {
-              modal.setModalVisible(true);
+              modal.setVisible(true);
               e.preventDefault();
             },
           })}

@@ -9,7 +9,6 @@ import { StyleSheet } from "react-native";
 import NavContext from "../contexts/NavContext";
 import ModalContext from "../contexts/ModalContext";
 import CreatePage from "../components/Create";
-import CreateModal from "../components/Create/CreateModal";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -22,7 +21,6 @@ const TabNavigator = ({ navigation }) => {
   }, []);
 
   return (
-    <>
       <Tab.Navigator
         initialRouteName="Community"
         activeColor="#333333"
@@ -94,8 +92,6 @@ const TabNavigator = ({ navigation }) => {
           }}
         />
       </Tab.Navigator>
-      <CreateModal />
-    </>
   );
 };
 

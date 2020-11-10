@@ -4,7 +4,7 @@ const ModalContext = createContext();
 
 class ModalContextProvider extends Component {
   state = {
-    isVisible: null,
+    isVisible: false,
     setVisible: (isVisible) => {
       this.setState({ isVisible: isVisible });
     },

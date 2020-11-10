@@ -5,8 +5,14 @@ import ModalContext from "../../contexts/ModalContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientButton from "react-native-gradient-buttons";
 
-const CreateModal = () => {
+const CreateModal = ({ navigation }) => {
   const modal = useContext(ModalContext);
+
+  const navigate = (page) => {
+    modal.setVisible(false);
+    navigation.navigate("Create", { page: page });
+  };
+
   return (
     <View>
       <Modal
@@ -26,11 +32,11 @@ const CreateModal = () => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => Alert.alert("Simple Button pressed")}
-              icon={<MaterialCommunityIcons name="public" size={50} />}
+              onPressAction={() => navigate("Community")}
+              // icon={<MaterialCommunityIcons name="public" size={50} />}
             >
-              <MaterialCommunityIcons name="earth" size={30} />
-              <Text style={styles.buttonText}> </Text>
+              {/* <MaterialCommunityIcons name="earth" size={30} />
+              <Text style={styles.buttonText}> </Text> */}
               <Text style={styles.buttonText}>Community</Text>
             </GradientButton>
             <GradientButton
@@ -39,7 +45,7 @@ const CreateModal = () => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => Alert.alert("Simple Button pressed")}
+              onPressAction={() => navigate("Market")}
             >
               Market
             </GradientButton>
@@ -49,7 +55,7 @@ const CreateModal = () => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => Alert.alert("Simple Button pressed")}
+              onPressAction={() => navigate("Housing")}
             >
               Housing
             </GradientButton>

@@ -4,11 +4,12 @@ import Header from "../common/Header";
 import ListingContainer from "./Listings/ListingsContainer";
 import CreateModal from "../Create/CreateModal";
 
-const HousingPage = () => {
+const HousingPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Housing" />
       <ListingContainer />
+      <CreateModal navigation={navigation} />
     </View>
   );
 };

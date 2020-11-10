@@ -1,23 +1,22 @@
-import React, { useContext, useState } from "react";
-import { Text, Alert, Modal, StyleSheet, View } from "react-native";
-import Header from "../common/Header";
+import React from "react";
+import CommunityContainer from "./CreateCommunity/CommunityContainer";
+import MarketContainer from "./CreateMarket/MarketContainer";
+import HousingContainer from "./CreateHousing/HousingContainer";
 
 const CreatePage = ({ route }) => {
-  const { page } = route.params;
-  console.dir(page);
-  return (
-    <View style={styles.container}>
-      <Header title="Create" />
-      <Text>Create page! {page}</Text>
-    </View>
-  );
+  switch (route.params.page) {
+    case "Community":
+      return <CommunityContainer />;
+
+    case "Market":
+      return <MarketContainer />;
+
+    case "Housing":
+      return <HousingContainer />;
+
+    default:
+      break;
+  }
 };
 
 export default CreatePage;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#eeeeee",
-  },
-});

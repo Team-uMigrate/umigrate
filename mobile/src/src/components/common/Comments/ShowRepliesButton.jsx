@@ -6,7 +6,7 @@ import React from "react";
 const ShowRepliesButton = ({
   buttonVisible,
   fetchReplies,
-  collapseReplies,
+  collapseReplies, //TODO add functionality for this
 }) => {
   if (buttonVisible) {
     return (

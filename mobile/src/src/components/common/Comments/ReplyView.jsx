@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import ProfilePhoto from "../ProfilePhoto";
 
-const CommentReplyView = ({ creator, content, datetime_created }) => {
+const ReplyView = ({ creator, content, datetime_created }) => {
   let date = datetime_created.substring(0, 10);
   let time = datetime_created.substring(11, 16);
 
@@ -32,7 +32,7 @@ const CommentReplyView = ({ creator, content, datetime_created }) => {
   );
 };
 
-export default CommentReplyView;
+export default ReplyView;
 
 const styles = StyleSheet.create({
   profilePhotoView: {

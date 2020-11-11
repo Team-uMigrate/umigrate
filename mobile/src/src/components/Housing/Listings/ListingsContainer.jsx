@@ -54,11 +54,10 @@ class ListingContainer extends Component {
 
   renderItem = ({ item }) => {
     item.likeListing = this.likeListing;
-    item.contentType = Choices.contentTypes["listing"];
     return <ListingView {...item} />;
   };
 
-  render = () => {
+  render() {
     return (
       <View style={styles.listingContainer}>
         <FlatList
@@ -73,7 +72,7 @@ class ListingContainer extends Component {
         />
       </View>
     );
-  };
+  }
 }
 
 export default ListingContainer;

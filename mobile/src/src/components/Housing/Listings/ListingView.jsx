@@ -22,9 +22,9 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
-  contentType,
 }) => {
   const { width, height } = Dimensions.get("window");
+  const contentType = Choices.contentTypes["listing"];
 
   return (
     <Card style={styles.container}>

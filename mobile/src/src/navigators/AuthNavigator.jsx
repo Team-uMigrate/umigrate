@@ -8,6 +8,7 @@ import LoginPage from "../components/Login";
 import RegistrationPage from "../components/Register";
 import MessagingPage from "../components/Messaging";
 import { NavContextProvider } from "../contexts/NavContext";
+import CommentsContainer from "../components/common/Comments/CommentsContainer";
 import NotificationPage from "../components/Notifications/NotificationsPage";
 
 const Stack = createStackNavigator();
@@ -25,6 +26,7 @@ const AuthNavigator = () => {
           >
             <Stack.Screen name="Tabs" component={TabNavigator} />
             <Stack.Screen name="Messaging" component={MessagingPage} />
+            <Stack.Screen name="Comments" component={CommentsContainer} />
             <Stack.Screen
               name="Notifications"
               options={{

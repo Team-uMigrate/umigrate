@@ -22,9 +22,9 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
-  createComment,
 }) => {
   const { width, height } = Dimensions.get("window");
+  const contentType = Choices.contentTypes["listing"];
 
   return (
     <Card style={styles.container}>
@@ -63,9 +63,10 @@ const ListingView = ({
         </View>
         <CommentBar
           postId={id}
+          contentType={contentType}
           likePost={likeListing}
           isLiked={is_liked}
-          createComment={createComment}
+          region={region}
         />
       </Card.Content>
     </Card>

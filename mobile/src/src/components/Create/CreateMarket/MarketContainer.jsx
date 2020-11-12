@@ -1,8 +1,12 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 const MarketContainer = () => {
-  return <View styles={styles}>Create a post in market!</View>;
+  return (
+    <View styles={styles}>
+      <Text>Create a post in market!</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

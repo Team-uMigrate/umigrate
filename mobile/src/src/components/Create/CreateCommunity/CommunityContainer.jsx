@@ -1,8 +1,12 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 const CommunityContainer = () => {
-  return <View styles={styles}>Create a post in community!</View>;
+  return (
+    <View styles={styles}>
+      <Text>Create a post in community!</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

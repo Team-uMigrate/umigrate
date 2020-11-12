@@ -23,6 +23,6 @@ module.exports = {
       extensions: ['.js', '.jsx'],
     }],
     'linebreak-style': ['error', 'windows'],
-    'max-classes-per-file': ['error', '10']
+    'max-classes-per-file': ['error', 10],
   },
 };

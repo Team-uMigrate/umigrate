@@ -17,7 +17,6 @@ const CreateModal = ({ navigation }) => {
     <View>
       <Modal
         onBackdropPress={() => modal.setVisible(false)}
-        animationType="slide"
         visible={modal.isVisible}
         transparent={true}
         style={styles.modalContent}

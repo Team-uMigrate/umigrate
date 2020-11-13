@@ -10,6 +10,7 @@ import MessagingPage from "../components/Messaging";
 import { NavContextProvider } from "../contexts/NavContext";
 import CommentsContainer from "../components/common/Comments/CommentsContainer";
 import NotificationPage from "../components/Notifications/NotificationsPage";
+import { ModalContextProvider } from "../contexts/ModalContext";
 
 const Stack = createStackNavigator();
 
@@ -19,23 +20,25 @@ const AuthNavigator = () => {
   if (auth.isAuthenticated === true) {
     return (
       <NavContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{ headerShown: false }}
-            gestureDirection={"horizontal-inverted"}
-          >
-            <Stack.Screen name="Tabs" component={TabNavigator} />
-            <Stack.Screen name="Messaging" component={MessagingPage} />
-            <Stack.Screen name="Comments" component={CommentsContainer} />
-            <Stack.Screen
-              name="Notifications"
-              options={{
-                gestureDirection: "horizontal-inverted",
-              }}
-              component={NotificationPage}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <ModalContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{ headerShown: false }}
+              gestureDirection={"horizontal-inverted"}
+            >
+              <Stack.Screen name="Tabs" component={TabNavigator} />
+              <Stack.Screen name="Messaging" component={MessagingPage} />
+              <Stack.Screen name="Comments" component={CommentsContainer} />
+              <Stack.Screen
+                name="Notifications"
+                options={{
+                  gestureDirection: "horizontal-inverted",
+                }}
+                component={NotificationPage}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ModalContextProvider>
       </NavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {

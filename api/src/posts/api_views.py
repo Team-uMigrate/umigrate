@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PostFilterSet
 from .models import Post
@@ -33,3 +33,11 @@ class PostLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Post.objects.get(id=obj_id).liked_users
+
+
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Posts"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
+class SavedPost(AbstractSavedView):
+    query_string = "saved_posts_post_set"
+    serializer_class = PostSerializer
+    model_class = Post

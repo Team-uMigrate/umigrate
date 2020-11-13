@@ -22,6 +22,7 @@ const ListingView = ({
   year,
   is_liked,
   likeListing,
+  sendComment,
 }) => {
   const { width, height } = Dimensions.get("window");
   const contentType = Choices.contentTypes["listing"];
@@ -53,20 +54,15 @@ const ListingView = ({
           {"Category: " + Choices.listingCategories[category]}
         </Paragraph>
         <ImageCollection photos={photos} />
-        <View style={{ flexDirection: "row" }}>
-          <Paragraph style={{ flex: 1, alignSelf: "center" }}>
-            {"Likes: " + likes}
-          </Paragraph>
-          <Paragraph style={{ flex: 1, alignSelf: "center" }}>
-            {"Comments: " + comments}
-          </Paragraph>
-        </View>
         <CommentBar
           postId={id}
           contentType={contentType}
+          sendComment={sendComment}
           likePost={likeListing}
           isLiked={is_liked}
           region={region}
+          likes={likes}
+          comments={comments}
         />
       </Card.Content>
     </Card>

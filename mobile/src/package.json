@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint **/*.jsx **/*.js",
+    "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

@@ -1,13 +1,9 @@
-import React, { createRef } from 'react';
-import {
-  StyleSheet, Dimensions, Image, View, Text,
-} from 'react-native';
-import {
-  Card, Title, Paragraph, Avatar,
-} from 'react-native-paper';
-import ProfilePhoto from '../../common/ProfilePhoto';
-import { Choices } from '../../../utils/endpoints';
-import ImageCollection from '../../common/ImageCollection';
+import React, { createRef } from "react";
+import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
+import { Card, Title, Paragraph, Avatar } from "react-native-paper";
+import ProfilePhoto from "../../common/ProfilePhoto";
+import { Choices } from "../../../utils/endpoints";
+import ImageCollection from "../../common/ImageCollection";
 
 const AdView = ({
   title,
@@ -22,7 +18,7 @@ const AdView = ({
   likes,
   comments,
 }) => {
-  const { width, height } = Dimensions.get('window');
+  const { width, height } = Dimensions.get("window");
 
   return (
     <Card style={styles.container}>
@@ -34,16 +30,14 @@ const AdView = ({
           <View style={styles.column}>
             <Text>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
+              {datetime_created.substring(0, "YYYY-MM-DD".length)}
             </Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price: </Text>
-          $
-          {price}
+          <Text style={styles.bold}>Price: </Text>${price}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Region: </Text>
@@ -60,10 +54,10 @@ const AdView = ({
         <ImageCollection photos={photos} />
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
-            {`Likes: ${likes}`}
+            {"Likes: " + likes}
           </Paragraph>
           <Paragraph style={styles.likesComments}>
-            {`Comments: ${comments}`}
+            {"Comments: " + comments}
           </Paragraph>
         </View>
       </Card.Content>
@@ -75,31 +69,31 @@ export default AdView;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '2.5%',
+    marginTop: "2.5%",
     padding: 5,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   column: {
     flex: 5,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   date: {
-    color: 'grey',
+    color: "grey",
   },
   likesComments: {
     flex: 1,
     paddingTop: 15,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   title: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   bodyText: {
     marginBottom: 0,

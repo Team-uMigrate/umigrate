@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import ListingView from './ListingView';
-import { Choices, ListingsEndpoint } from '../../../utils/endpoints';
+import React, { Component } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import ListingView from "./ListingView";
+import { Choices, ListingsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   state = {
@@ -18,24 +18,26 @@ class ListingContainer extends Component {
   getListings = () => {
     ListingsEndpoint.list(
       this.state.nextPage,
-      this.state.filters, // TODO add filter functionality and proper failure handling
+      this.state.filters, //TODO add filter functionality and proper failure handling
       (response) => {
         const nextPageExists = response.data.next !== null;
-        const seen = {};
+        let seen = {};
 
         this.setState({
           listings: this.state.listings
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
           nextPage: nextPageExists
             ? this.state.nextPage + 1
             : this.state.nextPage,
-          nextPageExists,
+          nextPageExists: nextPageExists,
         });
       },
       (error) => {
-        console.log('error: ', error);
-      },
+        console.log("error: ", error);
+      }
     );
   };
 
@@ -46,7 +48,7 @@ class ListingContainer extends Component {
       () => {},
       (err) => {
         console.log(err);
-      },
+      }
     );
   };
 
@@ -77,7 +79,7 @@ export default ListingContainer;
 
 const styles = StyleSheet.create({
   listingContainer: {
-    flexDirection: 'column',
-    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
+    flexDirection: "column",
+    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
   },
 });

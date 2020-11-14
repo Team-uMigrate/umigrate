@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import AdView from './AdView';
-import { AdsEndpoint } from '../../../utils/endpoints';
+import React, { Component } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import AdView from "./AdView";
+import { AdsEndpoint } from "../../../utils/endpoints";
 
 class AdsContainer extends Component {
   state = {
@@ -21,25 +21,29 @@ class AdsContainer extends Component {
       this.state.filters,
       (response) => {
         const nextPageExists = response.data.next !== null;
-        const seen = {};
+        let seen = {};
 
         this.setState({
           ads: this.state.ads
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
           nextPage: nextPageExists
             ? this.state.nextPage + 1
             : this.state.nextPage,
-          nextPageExists,
+          nextPageExists: nextPageExists,
         });
       },
       (error) => {
-        console.log('error: ', error);
-      },
+        console.log("error: ", error);
+      }
     );
   };
 
-  renderItem = ({ item }) => <AdView {...item} />;
+  renderItem = ({ item }) => {
+    return <AdView {...item} />;
+  };
 
   render() {
     return (
@@ -63,7 +67,7 @@ export default AdsContainer;
 
 const styles = StyleSheet.create({
   adsContainer: {
-    flexDirection: 'column',
-    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
+    flexDirection: "column",
+    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
   },
 });

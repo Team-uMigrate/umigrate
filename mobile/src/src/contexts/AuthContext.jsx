@@ -1,5 +1,5 @@
-import React, { Component, createContext } from 'react';
-import { ProfileEndpoint } from '../utils/endpoints';
+import React, { Component, createContext } from "react";
+import { ProfileEndpoint } from "../utils/endpoints";
 
 const AuthContext = createContext();
 
@@ -18,7 +18,7 @@ class AuthContextProvider extends Component {
         console.log(error);
         console.log(error.response);
         this.setState({ isAuthenticated: false });
-      },
+      }
     );
   };
 

@@ -1,13 +1,9 @@
-import React from 'react';
-import {
-  StyleSheet, Dimensions, Image, View, Text,
-} from 'react-native';
-import {
-  Card, Title, Paragraph, Button,
-} from 'react-native-paper';
-import ProfilePhoto from '../../common/ProfilePhoto';
-import { Choices } from '../../../utils/endpoints';
-import ImageCollection from '../../common/ImageCollection';
+import React from "react";
+import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
+import { Card, Title, Paragraph, Button } from "react-native-paper";
+import ProfilePhoto from "../../common/ProfilePhoto";
+import { Choices } from "../../../utils/endpoints";
+import ImageCollection from "../../common/ImageCollection";
 
 const EventView = ({
   id,
@@ -28,7 +24,7 @@ const EventView = ({
   attendEvent,
   interestedEvent,
 }) => {
-  const { width, height } = Dimensions.get('window');
+  const { width, height } = Dimensions.get("window");
 
   return (
     <Card style={styles.container}>
@@ -40,7 +36,7 @@ const EventView = ({
           <View style={styles.column}>
             <Text>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
+              {datetime_created.substring(0, "YYYY-MM-DD".length)}
             </Text>
           </View>
         </View>
@@ -60,49 +56,49 @@ const EventView = ({
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Start Time: </Text>
-          {start_datetime.substring(0, 'YYYY-MM-DD'.length)}
+          {start_datetime.substring(0, "YYYY-MM-DD".length)}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End Time: </Text>
           {end_datetime
-            ? end_datetime.substring(0, 'YYYY-MM-DD'.length)
-            : 'N/A'}
+            ? end_datetime.substring(0, "YYYY-MM-DD".length)
+            : "N/A"}
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.buttonContainer}>
           <Button
-            compact
+            compact={true}
             style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
-            mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Unattend' : 'Attend'}
+            mode={is_attending ? "contained" : "outlined"}
+            title={is_attending ? "Unattend" : "Attend"}
             color="white"
-            dark
+            dark={true}
             onPress={() => {
               attendEvent(id, !is_attending);
             }}
           >
-            {is_attending ? 'Unattend' : 'Attend?'}
+            {is_attending ? "Unattend" : "Attend?"}
           </Button>
           <Button
-            compact
+            compact={true}
             style={is_interested ? styles.buttonStyleFade : styles.buttonStyle}
-            mode={is_interested ? 'contained' : 'outlined'}
-            title={is_interested ? 'Uninterest' : 'Interested?'}
+            mode={is_interested ? "contained" : "outlined"}
+            title={is_interested ? "Uninterest" : "Interested?"}
             color="white"
-            dark
+            dark={true}
             onPress={() => {
               interestedEvent(id, !is_interested);
             }}
           >
-            {is_interested ? 'Uninterest' : 'Interested?'}
+            {is_interested ? "Uninterest" : "Interested?"}
           </Button>
         </View>
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
-            {`Likes: ${likes}`}
+            {"Likes: " + likes}
           </Paragraph>
           <Paragraph style={styles.likesComments}>
-            {`Comments: ${comments}`}
+            {"Comments: " + comments}
           </Paragraph>
         </View>
       </Card.Content>
@@ -114,31 +110,31 @@ export default EventView;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '2.5%',
+    marginTop: "2.5%",
     padding: 5,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   column: {
     flex: 5,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   date: {
-    color: 'grey',
+    color: "grey",
   },
   likesComments: {
     flex: 1,
     paddingTop: 15,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   title: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   bodyText: {
     marginBottom: 0,
@@ -147,18 +143,18 @@ const styles = StyleSheet.create({
     height: 36,
     width: 120,
     flex: 1,
-    backgroundColor: 'steelblue',
+    backgroundColor: "steelblue",
   },
   buttonStyleFade: {
     height: 36,
     width: 120,
     flex: 1,
-    backgroundColor: 'rgba(70,130,180,0.5)',
+    backgroundColor: "rgba(70,130,180,0.5)",
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    alignItems: 'center',
-    marginTop: '3%',
+    alignItems: "center",
+    marginTop: "3%",
   },
 });

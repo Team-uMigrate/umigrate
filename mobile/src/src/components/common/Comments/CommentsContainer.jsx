@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet, FlatList, Text, View,
-} from 'react-native';
-import CommentView from './CommentView';
-import { CommentsEndpoint } from '../../../utils/endpoints';
+import React, { Component } from "react";
+import { StyleSheet, FlatList, Text, View } from "react-native";
+import CommentView from "./CommentView";
+import { CommentsEndpoint } from "../../../utils/endpoints";
 
 class CommentsContainer extends Component {
   state = {
@@ -30,27 +28,31 @@ class CommentsContainer extends Component {
       this.state.nextPage,
       {},
       (response) => {
-        const seen = {};
-        const nextPageExists = response.data.next !== null;
+        let seen = {};
+        let nextPageExists = response.data.next !== null;
 
         this.setState({
           // This extends the comment list and filters out any duplicates that happen to show up
           comments: this.state.comments
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
-          nextPageExists,
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
+          nextPageExists: nextPageExists,
           nextPage: nextPageExists
             ? this.state.nextPage + 1
             : this.state.nextPage,
         });
       },
       (error) => {
-        console.log(`error: ${error}`);
-      },
+        console.log("error: " + error);
+      }
     );
   };
 
-  renderItem = ({ item }) => <CommentView {...item} />;
+  renderItem = ({ item }) => {
+    return <CommentView {...item} />;
+  };
 
   render() {
     return (
@@ -60,7 +62,8 @@ class CommentsContainer extends Component {
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
           onEndReached={() => {
-            if (this.state.nextPageExists) this.fetchComments(this.contentType, this.postId);
+            if (this.state.nextPageExists)
+              this.fetchComments(this.contentType, this.postId);
           }}
         />
       </View>
@@ -72,14 +75,14 @@ export default CommentsContainer;
 
 const styles = StyleSheet.create({
   commentsContainer: {
-    flexDirection: 'column',
-    backgroundColor: 'white',
+    flexDirection: "column",
+    backgroundColor: "white",
     margin: 10,
     flex: 1,
   },
   commentView: {
     flex: 2,
-    alignSelf: 'center',
+    alignSelf: "center",
     margin: 50,
   },
 });

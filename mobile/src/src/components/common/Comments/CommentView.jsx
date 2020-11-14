@@ -1,38 +1,34 @@
-import React, { Component } from 'react';
-import {
-  Text, View, StyleSheet, TouchableHighlight,
-} from 'react-native';
-import ProfilePhoto from '../ProfilePhoto';
-import { ReplyContainer } from './ReplyContainer';
+import React, { Component } from "react";
+import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
+import ProfilePhoto from "../ProfilePhoto";
+import { ReplyContainer } from "./ReplyContainer";
 
-const CommentView = ({
-  id, datetime_created, creator, content,
-}) => {
+const CommentView = ({ id, datetime_created, creator, content }) => {
   // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z
-  const date = datetime_created.substring(0, 'YYYY-MM-DD'.length);
+  const date = datetime_created.substring(0, "YYYY-MM-DD".length);
   const time = datetime_created.substring(
-    'YYYY-MM-DDT'.length,
-    'YYYY-MM-DDTHH:MM'.length,
+    "YYYY-MM-DDT".length,
+    "YYYY-MM-DDTHH:MM".length
   );
 
   return (
     <View style={styles.commentView}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: "row" }}>
         {/* Pushes the user's name forward so it lines up with the content */}
         <View style={{ flex: 1 }} />
         <View style={{ flex: 6 }}>
           <Text style={{ fontSize: 12.5 }}>{creator.preferred_name}</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ marginRight: '2.5%', flex: 1 }}>
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ marginRight: "2.5%", flex: 1 }}>
           <ProfilePhoto photo={creator.profile_photo} size={30} />
         </View>
         <View style={styles.contentContainer}>
           <Text>{content}</Text>
         </View>
         <View style={styles.timestampView}>
-          <Text style={styles.timestamp}>{`${date}\n${time}`}</Text>
+          <Text style={styles.timestamp}>{date + "\n" + time}</Text>
         </View>
       </View>
 
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     borderRadius: 20,
-    backgroundColor: '#EBEBEB',
+    backgroundColor: "#EBEBEB",
     flex: 6,
     padding: 5,
     paddingLeft: 12,
@@ -60,11 +56,11 @@ const styles = StyleSheet.create({
   },
   timestampView: {
     marginLeft: 2,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     flex: 1.5,
   },
   timestamp: {
-    color: 'gray',
+    color: "gray",
     fontSize: 10,
     paddingBottom: 5,
   },

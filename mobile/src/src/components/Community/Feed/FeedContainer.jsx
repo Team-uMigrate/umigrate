@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import EventView from './EventView';
-import PostView from './PostView';
-import { EventsEndpoint, PostsEndpoint } from '../../../utils/endpoints';
+import React, { Component } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import EventView from "./EventView";
+import PostView from "./PostView";
+import { EventsEndpoint, PostsEndpoint } from "../../../utils/endpoints";
 
 class FeedContainer extends Component {
   state = {
@@ -37,19 +37,21 @@ class FeedContainer extends Component {
       this.state.nextPageP,
       this.state.filtersP,
       (response) => {
-        const seen = {};
+        let seen = {};
 
         this.setState({
           posts: this.state.posts
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
           hasNewPosts: true,
           nextPageExistsP: response.data.next !== null,
         });
       },
       (error) => {
-        console.log('error: ', error);
-      },
+        console.log("error: ", error);
+      }
     );
   };
 
@@ -60,19 +62,21 @@ class FeedContainer extends Component {
       this.state.nextPageE,
       this.state.filtersE,
       (response) => {
-        const seen = {};
+        let seen = {};
 
         this.setState({
           events: this.state.events
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
           hasNewEvents: true,
           nextPageExistsE: response.data.next !== null,
         });
       },
       (error) => {
-        console.log('error: ', error);
-      },
+        console.log("error: ", error);
+      }
     );
   };
 
@@ -115,7 +119,8 @@ class FeedContainer extends Component {
       list = list
         .filter((t) => Date.parse(t.datetime_created) >= lastListDate)
         .sort(
-          (a, b) => Date.parse(b.datetime_created) - Date.parse(a.datetime_created),
+          (a, b) =>
+            Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
         );
     }
 
@@ -123,8 +128,8 @@ class FeedContainer extends Component {
   };
 
   attendEvent = (id, shouldAttend) => {
-    const index = this.state.events.findIndex((obj) => obj.id == id);
-    const copyList = JSON.parse(JSON.stringify(this.state.events));
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
     copyList[index].is_attending = !this.state.events[index].is_attending;
     this.setState({ events: copyList });
 
@@ -136,13 +141,13 @@ class FeedContainer extends Component {
         copyList[index].is_attending = !this.state.events[index].is_attending;
         this.setState({ events: copyList });
         console.log(err);
-      },
+      }
     );
   };
 
   interestedEvent = (id, shouldInterested) => {
-    const index = this.state.events.findIndex((obj) => obj.id == id);
-    const copyList = JSON.parse(JSON.stringify(this.state.events));
+    let index = this.state.events.findIndex((obj) => obj.id == id);
+    let copyList = JSON.parse(JSON.stringify(this.state.events));
     copyList[index].is_interested = !this.state.events[index].is_interested;
     this.setState({ events: copyList });
 
@@ -154,17 +159,18 @@ class FeedContainer extends Component {
         copyList[index].is_interested = !this.state.events[index].is_interested;
         this.setState({ events: copyList });
         console.log(err);
-      },
+      }
     );
   };
 
   renderItem = ({ item }) => {
     if (item.start_datetime == null) {
       return <PostView {...item} />;
+    } else {
+      item.attendEvent = this.attendEvent;
+      item.interestedEvent = this.interestedEvent;
+      return <EventView {...item} />;
     }
-    item.attendEvent = this.attendEvent;
-    item.interestedEvent = this.interestedEvent;
-    return <EventView {...item} />;
   };
 
   render() {
@@ -192,7 +198,7 @@ export default FeedContainer;
 
 const styles = StyleSheet.create({
   feedContainer: {
-    flexDirection: 'column',
-    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
+    flexDirection: "column",
+    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
   },
 });

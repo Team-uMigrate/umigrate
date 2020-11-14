@@ -1,3 +1,3 @@
-import HousingPage from './HousingPage';
+import HousingPage from "./HousingPage";
 
 export default HousingPage;

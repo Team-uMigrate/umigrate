@@ -1,12 +1,12 @@
-import { Text, TouchableHighlight, StyleSheet } from 'react-native';
-import React from 'react';
+import { Text, TouchableHighlight, StyleSheet } from "react-native";
+import React from "react";
 
 // My current plan is for this component to accept 2 callbacks:
 // one to fetch more replies and another to collapse the list of replies in the CommentView component
 const ShowRepliesButton = ({
   buttonVisible,
   fetchReplies,
-  collapseReplies, // TODO add functionality for this
+  collapseReplies, //TODO add functionality for this
 }) => {
   if (buttonVisible) {
     return (
@@ -14,14 +14,14 @@ const ShowRepliesButton = ({
         <Text style={styles.buttonText}>Show more replies</Text>
       </TouchableHighlight>
     );
-  } return null;
+  } else return null;
 };
 
 export default ShowRepliesButton;
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    color: "blue",
+    textDecorationLine: "underline",
   },
 });

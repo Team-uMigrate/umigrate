@@ -1,8 +1,10 @@
-import React from 'react';
-import GallerySwiper from 'react-native-gallery-swiper';
+import React from "react";
+import GallerySwiper from "react-native-gallery-swiper";
 
 const ImageCollection = ({ photos }) => {
-  const images = photos.map((photo) => ({ uri: photo.image }));
+  const images = photos.map((photo) => {
+    return { uri: photo.image };
+  });
 
   return (
     <GallerySwiper
@@ -10,7 +12,7 @@ const ImageCollection = ({ photos }) => {
       height={images.length > 1 ? 400 : 0}
       style={{
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: "white",
       }}
       pageMargin={10}
       enableTranslate={false}

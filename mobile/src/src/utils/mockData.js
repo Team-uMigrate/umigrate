@@ -1,23 +1,23 @@
 export const mockUser = {
   id: 1,
-  email: 'd22baker@uwaterloo.ca',
-  last_login: '2020-10-26T20:39:52.376871Z',
-  first_name: 'Deandre',
-  last_name: 'Baker',
-  preferred_name: 'Dre',
+  email: "d22baker@uwaterloo.ca",
+  last_login: "2020-10-26T20:39:52.376871Z",
+  first_name: "Deandre",
+  last_name: "Baker",
+  preferred_name: "Dre",
   pronouns: 4,
   bio:
-    'Listen fall job realize position. Spring baby authority list democratic evidence wide now.',
-  birthday: '1969-03-30',
+    "Listen fall job realize position. Spring baby authority list democratic evidence wide now.",
+  birthday: "1969-03-30",
   current_term: 8,
   enrolled_program: 1,
-  phone_number: '1794410497617',
+  phone_number: "1794410497617",
   profile_photo:
-    'http://dev.umigrate.ca/media/images/user_profile_photos/download_1.jpg',
+    "http://dev.umigrate.ca/media/images/user_profile_photos/download_1.jpg",
   background_photo:
-    'http://dev.umigrate.ca/media/images/user_background_photos/images_1.jpg',
+    "http://dev.umigrate.ca/media/images/user_background_photos/images_1.jpg",
   region: 1,
-  datetime_created: '2020-10-21T02:42:24.051746Z',
+  datetime_created: "2020-10-21T02:42:24.051746Z",
   notification_privacy: 0,
   allow_location: false,
   currency: 0,
@@ -31,7 +31,7 @@ export const mockPost = {
   id: 120,
   creator: {
     id: 46,
-    preferred_name: 'Lisa Dalton',
+    preferred_name: "Lisa Dalton",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -45,7 +45,7 @@ export const mockPost = {
     id: 716,
     creator: {
       id: 63,
-      preferred_name: 'Christopher Jones',
+      preferred_name: "Christopher Jones",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -59,7 +59,7 @@ export const mockPost = {
       id: 4396,
       creator: {
         id: 44,
-        preferred_name: 'Patrick Henry',
+        preferred_name: "Patrick Henry",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -71,7 +71,7 @@ export const mockPost = {
       tagged_users: [
         {
           id: 6,
-          preferred_name: 'Lori Rodriguez',
+          preferred_name: "Lori Rodriguez",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -79,7 +79,7 @@ export const mockPost = {
         },
         {
           id: 44,
-          preferred_name: 'Patrick Henry',
+          preferred_name: "Patrick Henry",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -87,7 +87,7 @@ export const mockPost = {
         },
         {
           id: 60,
-          preferred_name: 'Tony Garcia',
+          preferred_name: "Tony Garcia",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -95,23 +95,23 @@ export const mockPost = {
         },
       ],
       content:
-        'Series painting future ask figure reach. Various still minute three audience. Easy medical even whether decade cup agree. Hit piece rate yeah cut kid professional.',
+        "Series painting future ask figure reach. Various still minute three audience. Easy medical even whether decade cup agree. Hit piece rate yeah cut kid professional.",
       region: 2,
-      datetime_created: '2020-10-21T02:45:59.534513Z',
+      datetime_created: "2020-10-21T02:45:59.534513Z",
       comment: 716,
     },
     tagged_users: [],
     content:
-      'Ground indicate girl class bag simply allow travel. Same hot address become their fly truth.',
+      "Ground indicate girl class bag simply allow travel. Same hot address become their fly truth.",
     region: 2,
-    datetime_created: '2020-10-21T02:45:59.342643Z',
+    datetime_created: "2020-10-21T02:45:59.342643Z",
     object_id: 120,
     content_type: 22,
   },
   tagged_users: [
     {
       id: 29,
-      preferred_name: 'Alyssa Swanson',
+      preferred_name: "Alyssa Swanson",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -119,18 +119,18 @@ export const mockPost = {
     },
   ],
   photos: [],
-  title: 'Somebody program time deal. Trip win its stock listen or list.',
+  title: "Somebody program time deal. Trip win its stock listen or list.",
   content:
-    'Listen street score this skin ability task. Police exactly cell different through environmental. Performance car state.',
+    "Listen street score this skin ability task. Police exactly cell different through environmental. Performance car state.",
   region: 2,
-  datetime_created: '2020-10-21T02:45:58.456297Z',
+  datetime_created: "2020-10-21T02:45:58.456297Z",
 };
 
 export const mockEvent = {
   id: 119,
   creator: {
     id: 29,
-    preferred_name: 'Alyssa Swanson',
+    preferred_name: "Alyssa Swanson",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -144,7 +144,7 @@ export const mockEvent = {
     id: 710,
     creator: {
       id: 116,
-      preferred_name: 'Candace Daniels',
+      preferred_name: "Candace Daniels",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -158,7 +158,7 @@ export const mockEvent = {
       id: 4344,
       creator: {
         id: 22,
-        preferred_name: 'Terry Larsen',
+        preferred_name: "Terry Larsen",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -170,7 +170,7 @@ export const mockEvent = {
       tagged_users: [
         {
           id: 52,
-          preferred_name: 'Stephanie Sanchez',
+          preferred_name: "Stephanie Sanchez",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -178,7 +178,7 @@ export const mockEvent = {
         },
         {
           id: 67,
-          preferred_name: 'Brandon Gross',
+          preferred_name: "Brandon Gross",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -186,7 +186,7 @@ export const mockEvent = {
         },
         {
           id: 111,
-          preferred_name: 'Barry Smith',
+          preferred_name: "Barry Smith",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -194,15 +194,15 @@ export const mockEvent = {
         },
       ],
       content:
-        'Popular who worry onto. Free guy effort. Front call improve protect marriage class still all. Whether onto lay camera life use.',
+        "Popular who worry onto. Free guy effort. Front call improve protect marriage class still all. Whether onto lay camera life use.",
       region: 1,
-      datetime_created: '2020-10-21T02:45:57.762481Z',
+      datetime_created: "2020-10-21T02:45:57.762481Z",
       comment: 710,
     },
     tagged_users: [
       {
         id: 8,
-        preferred_name: 'Katherine Bowers',
+        preferred_name: "Katherine Bowers",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -210,9 +210,9 @@ export const mockEvent = {
       },
     ],
     content:
-      'Compare model hospital business blue huge into. Official shoulder official along media difficult phone factor. Must training ever I feel cause author major.',
+      "Compare model hospital business blue huge into. Official shoulder official along media difficult phone factor. Must training ever I feel cause author major.",
     region: 0,
-    datetime_created: '2020-10-21T02:45:57.694775Z',
+    datetime_created: "2020-10-21T02:45:57.694775Z",
     object_id: 119,
     content_type: 14,
   },
@@ -222,7 +222,7 @@ export const mockAd = {
   id: 119,
   creator: {
     id: 119,
-    preferred_name: 'Justin White',
+    preferred_name: "Justin White",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -236,7 +236,7 @@ export const mockAd = {
     id: 712,
     creator: {
       id: 113,
-      preferred_name: 'Randy Peterson',
+      preferred_name: "Randy Peterson",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -250,7 +250,7 @@ export const mockAd = {
       id: 4348,
       creator: {
         id: 90,
-        preferred_name: 'Lauren Myers',
+        preferred_name: "Lauren Myers",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -261,15 +261,15 @@ export const mockAd = {
       likes: 3,
       tagged_users: [],
       content:
-        'Red according east particular debate song dog speech. He past economic radio.',
+        "Red according east particular debate song dog speech. He past economic radio.",
       region: 2,
-      datetime_created: '2020-10-21T02:45:57.913997Z',
+      datetime_created: "2020-10-21T02:45:57.913997Z",
       comment: 712,
     },
     tagged_users: [
       {
         id: 9,
-        preferred_name: 'Stephanie Jennings',
+        preferred_name: "Stephanie Jennings",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -277,7 +277,7 @@ export const mockAd = {
       },
       {
         id: 17,
-        preferred_name: 'Ryan Smith',
+        preferred_name: "Ryan Smith",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -285,7 +285,7 @@ export const mockAd = {
       },
       {
         id: 108,
-        preferred_name: 'Denise Casey',
+        preferred_name: "Denise Casey",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -293,16 +293,16 @@ export const mockAd = {
       },
     ],
     content:
-      'Maintain total exactly theory help head produce. Middle less score fight yet. Short television station cause.',
+      "Maintain total exactly theory help head produce. Middle less score fight yet. Short television station cause.",
     region: 2,
-    datetime_created: '2020-10-21T02:45:57.888778Z',
+    datetime_created: "2020-10-21T02:45:57.888778Z",
     object_id: 119,
     content_type: 13,
   },
   tagged_users: [
     {
       id: 64,
-      preferred_name: 'Dakota Hart',
+      preferred_name: "Dakota Hart",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -310,7 +310,7 @@ export const mockAd = {
     },
     {
       id: 105,
-      preferred_name: 'Ashley Higgins',
+      preferred_name: "Ashley Higgins",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -318,21 +318,21 @@ export const mockAd = {
     },
   ],
   photos: [],
-  title: 'Especially purpose learn for social vote.',
+  title: "Especially purpose learn for social vote.",
   content:
-    'Conference however outside draw. Western benefit suddenly avoid another live.',
+    "Conference however outside draw. Western benefit suddenly avoid another live.",
   region: 2,
-  datetime_created: '2020-10-21T02:45:57.088566Z',
+  datetime_created: "2020-10-21T02:45:57.088566Z",
   category: 1,
-  price: '-540236.49',
-  postal_code: 'C6K0S6',
+  price: "-540236.49",
+  postal_code: "C6K0S6",
 };
 
 export const mockListing = {
   id: 120,
   creator: {
     id: 106,
-    preferred_name: 'Sean Kirk',
+    preferred_name: "Sean Kirk",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -346,7 +346,7 @@ export const mockListing = {
     id: 714,
     creator: {
       id: 82,
-      preferred_name: 'Jeffrey Smith',
+      preferred_name: "Jeffrey Smith",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -360,7 +360,7 @@ export const mockListing = {
       id: 4373,
       creator: {
         id: 80,
-        preferred_name: 'Kenneth Martinez',
+        preferred_name: "Kenneth Martinez",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -372,7 +372,7 @@ export const mockListing = {
       tagged_users: [
         {
           id: 14,
-          preferred_name: 'David Morgan',
+          preferred_name: "David Morgan",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -380,7 +380,7 @@ export const mockListing = {
         },
         {
           id: 27,
-          preferred_name: 'Annette Mason',
+          preferred_name: "Annette Mason",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -388,7 +388,7 @@ export const mockListing = {
         },
         {
           id: 53,
-          preferred_name: 'Jennifer Carey',
+          preferred_name: "Jennifer Carey",
           profile_photo: null,
           background_photo: null,
           is_connected: false,
@@ -396,22 +396,22 @@ export const mockListing = {
         },
       ],
       content:
-        'Risk cold play least garden line. Room professional play animal history condition participant thing. Sport billion price become agreement discussion safe foot. Growth growth add spring.',
+        "Risk cold play least garden line. Room professional play animal history condition participant thing. Sport billion price become agreement discussion safe foot. Growth growth add spring.",
       region: 1,
-      datetime_created: '2020-10-21T02:45:59.022604Z',
+      datetime_created: "2020-10-21T02:45:59.022604Z",
       comment: 714,
     },
     tagged_users: [],
-    content: 'It amount father miss issue off.',
+    content: "It amount father miss issue off.",
     region: 1,
-    datetime_created: '2020-10-21T02:45:58.770986Z',
+    datetime_created: "2020-10-21T02:45:58.770986Z",
     object_id: 120,
     content_type: 15,
   },
   tagged_users: [
     {
       id: 25,
-      preferred_name: 'Brian Hernandez',
+      preferred_name: "Brian Hernandez",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -419,7 +419,7 @@ export const mockListing = {
     },
     {
       id: 52,
-      preferred_name: 'Stephanie Sanchez',
+      preferred_name: "Stephanie Sanchez",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -427,7 +427,7 @@ export const mockListing = {
     },
     {
       id: 108,
-      preferred_name: 'Denise Casey',
+      preferred_name: "Denise Casey",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -436,23 +436,23 @@ export const mockListing = {
   ],
   photos: [],
   title:
-    'Article two without foot condition. Always couple machine clearly man ready.',
+    "Article two without foot condition. Always couple machine clearly man ready.",
   content:
-    'Policy represent rock appear sense yet. Father age hard without laugh. Parent so always community can those police.',
+    "Policy represent rock appear sense yet. Father age hard without laugh. Parent so always community can those police.",
   region: 2,
-  datetime_created: '2020-10-21T02:45:58.051749Z',
+  datetime_created: "2020-10-21T02:45:58.051749Z",
   category: 0,
-  price: '-79413.00',
+  price: "-79413.00",
   season: 0,
   year: 2001,
-  location: '074 Elizabeth Curve\nRandallmouth, AK 05782',
+  location: "074 Elizabeth Curve\nRandallmouth, AK 05782",
 };
 
 export const mockComment = {
   id: 713,
   creator: {
     id: 25,
-    preferred_name: 'Brian Hernandez',
+    preferred_name: "Brian Hernandez",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -466,7 +466,7 @@ export const mockComment = {
     id: 4362,
     creator: {
       id: 111,
-      preferred_name: 'Barry Smith',
+      preferred_name: "Barry Smith",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -478,7 +478,7 @@ export const mockComment = {
     tagged_users: [
       {
         id: 17,
-        preferred_name: 'Ryan Smith',
+        preferred_name: "Ryan Smith",
         profile_photo: null,
         background_photo: null,
         is_connected: false,
@@ -486,15 +486,15 @@ export const mockComment = {
       },
     ],
     content:
-      'Right open guy point discuss deep mind. School contain turn walk because language. Best that guess take loss simply. Model teach knowledge remain.',
+      "Right open guy point discuss deep mind. School contain turn walk because language. Best that guess take loss simply. Model teach knowledge remain.",
     region: 0,
-    datetime_created: '2020-10-21T02:45:58.750845Z',
+    datetime_created: "2020-10-21T02:45:58.750845Z",
     comment: 713,
   },
   tagged_users: [
     {
       id: 17,
-      preferred_name: 'Ryan Smith',
+      preferred_name: "Ryan Smith",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -502,7 +502,7 @@ export const mockComment = {
     },
     {
       id: 66,
-      preferred_name: 'Timothy Mayo',
+      preferred_name: "Timothy Mayo",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -510,7 +510,7 @@ export const mockComment = {
     },
     {
       id: 80,
-      preferred_name: 'Kenneth Martinez',
+      preferred_name: "Kenneth Martinez",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -518,9 +518,9 @@ export const mockComment = {
     },
   ],
   content:
-    'Stop keep education set. Economy positive Republican so next. Then eight audience.',
+    "Stop keep education set. Economy positive Republican so next. Then eight audience.",
   region: 1,
-  datetime_created: '2020-10-21T02:45:58.478603Z',
+  datetime_created: "2020-10-21T02:45:58.478603Z",
   object_id: 120,
   content_type: 19,
 };
@@ -529,7 +529,7 @@ export const mockReply = {
   id: 4398,
   creator: {
     id: 55,
-    preferred_name: 'Christopher Richardson',
+    preferred_name: "Christopher Richardson",
     profile_photo: null,
     background_photo: null,
     is_connected: false,
@@ -541,7 +541,7 @@ export const mockReply = {
   tagged_users: [
     {
       id: 75,
-      preferred_name: 'Craig Pham',
+      preferred_name: "Craig Pham",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -549,7 +549,7 @@ export const mockReply = {
     },
     {
       id: 87,
-      preferred_name: 'Tami Daniels',
+      preferred_name: "Tami Daniels",
       profile_photo: null,
       background_photo: null,
       is_connected: false,
@@ -557,8 +557,8 @@ export const mockReply = {
     },
   ],
   content:
-    'Let stop property hit boy fear when. Avoid have bank maintain myself population. Painting government project each whether recently including inside.',
+    "Let stop property hit boy fear when. Avoid have bank maintain myself population. Painting government project each whether recently including inside.",
   region: 0,
-  datetime_created: '2020-10-21T02:45:59.586510Z',
+  datetime_created: "2020-10-21T02:45:59.586510Z",
   comment: 716,
 };

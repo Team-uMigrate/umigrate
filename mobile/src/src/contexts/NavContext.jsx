@@ -1,4 +1,4 @@
-import React, { Component, createContext } from 'react';
+import React, { Component, createContext } from "react";
 
 const NavContext = createContext();
 
@@ -6,7 +6,7 @@ class NavContextProvider extends Component {
   state = {
     navigation: null,
     setNavigation: (navigation) => {
-      this.setState({ navigation });
+      this.setState({ navigation: navigation });
     },
   };
 

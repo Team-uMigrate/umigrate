@@ -1,8 +1,8 @@
-import { StyleSheet, View } from 'react-native';
-import React, { Component } from 'react';
-import { CommentRepliesEndpoint } from '../../../utils/endpoints';
-import ReplyView from './ReplyView';
-import ShowRepliesButton from './ShowRepliesButton';
+import { CommentRepliesEndpoint } from "../../../utils/endpoints";
+import { StyleSheet, View } from "react-native";
+import ReplyView from "./ReplyView";
+import ShowRepliesButton from "./ShowRepliesButton";
+import React, { Component } from "react";
 
 export class ReplyContainer extends Component {
   state = {
@@ -21,15 +21,17 @@ export class ReplyContainer extends Component {
       this.props.commentId,
       {},
       (response) => {
-        const seen = {};
-        const nextPageExists = response.data.next !== null;
+        let seen = {};
+        let nextPageExists = response.data.next !== null;
         // Check if there's another page after this one
         this.setState({
-          nextPageExists,
+          nextPageExists: nextPageExists,
           // This extends the comment list and filters out any duplicates that happen to show up
           replies: this.state.replies
             .concat(response.data.results)
-            .filter((t) => (seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true))),
+            .filter((t) =>
+              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+            ),
           nextPage: nextPageExists
             ? this.state.nextPage + 1
             : this.state.nextPage,
@@ -37,14 +39,16 @@ export class ReplyContainer extends Component {
       },
       (error) => {
         console.log(error);
-      },
+      }
     );
   };
 
   render() {
     return (
       <View style={styles.repliesContainer}>
-        {this.state.replies.map((result, i) => <ReplyView key={i} {...result} />)}
+        {this.state.replies.map((result, i) => {
+          return <ReplyView key={i} {...result} />;
+        })}
 
         {/* Button to fetch more replies */}
         <ShowRepliesButton
@@ -58,6 +62,6 @@ export class ReplyContainer extends Component {
 
 const styles = StyleSheet.create({
   repliesContainer: {
-    paddingLeft: '10%',
+    paddingLeft: "10%",
   },
 });

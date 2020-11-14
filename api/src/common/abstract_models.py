@@ -15,6 +15,12 @@ class IsCreatorOrReadOnly(BasePermission):
         return obj.creator_id == request.user.id
 
 
+# A custom permission that only allows the creator of a resource to access it
+class IsCreator(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.creator_id == request.user.id
+
+
 # An abstract model that represents a basic post
 class AbstractPostModel(models.Model):
     id = models.AutoField(primary_key=True)

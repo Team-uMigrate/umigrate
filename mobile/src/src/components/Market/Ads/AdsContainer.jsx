@@ -11,10 +11,9 @@ class AdsContainer extends Component {
     nextPageExists: true,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getAds();
-  }
+  };
 
   getAds = () => {
     AdsEndpoint.list(
@@ -42,9 +41,9 @@ class AdsContainer extends Component {
     );
   };
 
-  renderItem({ item }) {
+  renderItem = ({ item }) => {
     return <AdView {...item} />;
-  }
+  };
 
   render() {
     return (

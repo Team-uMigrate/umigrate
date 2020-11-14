@@ -1,15 +1,15 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import ProfilePhoto from "../ProfilePhoto";
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import ProfilePhoto from '../ProfilePhoto';
 
 const ReplyView = ({ creator, content, datetime_created }) => {
-  let date = datetime_created.substring(0, 10);
-  let time = datetime_created.substring(11, 16);
+  const date = datetime_created.substring(0, 10);
+  const time = datetime_created.substring(11, 16);
 
   return (
     <View style={styles.replyView}>
       {/* The user's name */}
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: 'row' }}>
         {/* Pushes the user's name forward so it lines up with the content */}
         <View style={{ flex: 1 }} />
         <View style={{ flex: 6 }}>
@@ -17,7 +17,7 @@ const ReplyView = ({ creator, content, datetime_created }) => {
         </View>
       </View>
       {/* Profile photo, text content, and date/time of post creation */}
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: 'row' }}>
         <View style={styles.profilePhotoView}>
           <ProfilePhoto photo={creator.profile_photo} size={30} />
         </View>
@@ -25,7 +25,7 @@ const ReplyView = ({ creator, content, datetime_created }) => {
           <Text>{content}</Text>
         </View>
         <View style={styles.timestampView}>
-          <Text style={styles.timestamp}>{date + "\n" + time}</Text>
+          <Text style={styles.timestamp}>{`${date}\n${time}`}</Text>
         </View>
       </View>
     </View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 5.5,
-    backgroundColor: "#EBEBEB",
+    backgroundColor: '#EBEBEB',
     borderRadius: 15,
     padding: 5,
     paddingLeft: 12,
@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
   },
   timestampView: {
     marginLeft: 2,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     flex: 1.5,
   },
   timestamp: {
-    color: "gray",
+    color: 'gray',
     fontSize: 10,
     paddingBottom: 5,
   },

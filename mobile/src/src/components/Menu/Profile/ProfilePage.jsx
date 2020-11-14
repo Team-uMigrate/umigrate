@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Avatar, Button } from "react-native-paper";
-import { Choices, ProfileEndpoint } from "../../../utils/endpoints";
-import Header from "../../common/Header";
-import ProfileComponents from "./ProfileComponents";
+import React, { Component } from 'react';
+import {
+  StyleSheet, Text, View, TouchableOpacity, Image,
+} from 'react-native';
+import { Avatar, Button } from 'react-native-paper';
+import { Choices, ProfileEndpoint } from '../../../utils/endpoints';
+import Header from '../../common/Header';
+import ProfileComponents from './ProfileComponents';
+
 class ProfilePage extends Component {
   state = { user: {} };
 
@@ -20,7 +23,7 @@ class ProfilePage extends Component {
       (error) => {
         console.log(error);
         console.log(error.response);
-      }
+      },
     );
   };
 
@@ -36,7 +39,7 @@ class ProfilePage extends Component {
           <View style={styles.profileArea}>
             <TouchableOpacity
               style={styles.profileImg}
-              onPress={() => this.props.navigation.navigate("Menu")}
+              onPress={() => this.props.navigation.navigate('Menu')}
             >
               <Avatar.Image
                 size={100}
@@ -61,7 +64,7 @@ class ProfilePage extends Component {
             <ProfileComponents
               label="Last name"
               val={this.state.user.last_name}
-              row={true}
+              row
             />
           </View>
           <View>
@@ -79,7 +82,7 @@ class ProfilePage extends Component {
             <ProfileComponents
               label="Birthday"
               val={this.state.user.birthday}
-              row={true}
+              row
             />
           </View>
           <View>
@@ -99,7 +102,7 @@ class ProfilePage extends Component {
         </View>
         <Button
           style={styles.editButton}
-          onPress={() => this.props.navigation.navigate("EditProfile")}
+          onPress={() => this.props.navigation.navigate('EditProfile')}
         >
           <Text style={styles.editButtonText}>Edit profile</Text>
         </Button>
@@ -112,29 +115,29 @@ export default ProfilePage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
   backHeading: {
-    width: "100%",
-    height: "18%",
+    width: '100%',
+    height: '18%',
   },
   backGroundHeading: {
     flex: 2,
-    width: "100%",
-    height: "18%",
+    width: '100%',
+    height: '18%',
   },
   profileArea: {
-    position: "absolute",
-    alignSelf: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignSelf: 'center',
+    justifyContent: 'center',
     // get half of pfp on background and half not
-    bottom: "-40%",
-    paddingBottom: "-60%",
-    width: "100%",
+    bottom: '-40%',
+    paddingBottom: '-60%',
+    width: '100%',
   },
   profileImg: {
-    alignSelf: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   pfpShadow: {
     shadowOpacity: 0.2,
@@ -142,25 +145,25 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   pfInfo: {
-    marginTop: "12%",
+    marginTop: '12%',
   },
   rows: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    marginBottom: "1%",
-    marginLeft: "4%",
-    width: "100%",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    marginBottom: '1%',
+    marginLeft: '4%',
+    width: '100%',
   },
   editButton: {
-    alignSelf: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    justifyContent: 'center',
     borderRadius: 15,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "#B8B7B7",
+    borderColor: '#B8B7B7',
   },
   editButtonText: {
-    color: "#007CFF",
-    textTransform: "none",
+    color: '#007CFF',
+    textTransform: 'none',
   },
 });

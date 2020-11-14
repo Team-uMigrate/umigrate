@@ -1,4 +1,4 @@
-import React, { Component, createContext } from "react";
+import React, { Component, createContext } from 'react';
 
 const ModalContext = createContext();
 
@@ -6,7 +6,7 @@ class ModalContextProvider extends Component {
   state = {
     isVisible: false,
     setVisible: (isVisible) => {
-      this.setState({ isVisible: isVisible });
+      this.setState({ isVisible });
     },
   };
 

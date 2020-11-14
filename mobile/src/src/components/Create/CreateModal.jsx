@@ -1,16 +1,18 @@
-import React, { useState, useContext } from "react";
-import { Text, Alert, StyleSheet, View } from "react-native";
-import Modal from "react-native-modal";
-import ModalContext from "../../contexts/ModalContext";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import GradientButton from "react-native-gradient-buttons";
+import React, { useState, useContext } from 'react';
+import {
+  Text, Alert, StyleSheet, View,
+} from 'react-native';
+import Modal from 'react-native-modal';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import GradientButton from 'react-native-gradient-buttons';
+import ModalContext from '../../contexts/ModalContext';
 
 const CreateModal = ({ navigation }) => {
   const modal = useContext(ModalContext);
 
   const navigate = (page) => {
     modal.setVisible(false);
-    navigation.navigate("Create", { page: page });
+    navigation.navigate('Create', { page });
   };
 
   return (
@@ -18,7 +20,7 @@ const CreateModal = ({ navigation }) => {
       <Modal
         onBackdropPress={() => modal.setVisible(false)}
         visible={modal.isVisible}
-        transparent={true}
+        transparent
         style={styles.modalContent}
         // backdropOpacity={0.3}
         backdropOpacity={modal.isVisible ? 0.2 : 1}
@@ -31,7 +33,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate("Community")}
+              onPressAction={() => navigate('Community')}
               // icon={<MaterialCommunityIcons name="public" size={50} />}
             >
               {/* <MaterialCommunityIcons name="earth" size={30} />
@@ -44,7 +46,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate("Market")}
+              onPressAction={() => navigate('Market')}
             >
               Market
             </GradientButton>
@@ -54,7 +56,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate("Housing")}
+              onPressAction={() => navigate('Housing')}
             >
               Housing
             </GradientButton>
@@ -82,8 +84,8 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 15,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginLeft: 5,
     marginRight: 5,
     shadowOffset: {
@@ -98,20 +100,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   modalView: {
     margin: 20,
     width: 340,
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
+    flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    borderColor: "#CDCBEC",
+    borderColor: '#CDCBEC',
     paddingHorizontal: 10,
     paddingVertical: 30,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    position: "absolute",
+    position: 'absolute',
     bottom: 50,
   },
 });

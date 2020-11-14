@@ -11,7 +11,8 @@ from notifications.serializers import NotificationSerializer
 def create_tagged_user_notification(
     created_data: AbstractPostModel or Comment or Message or Reply,
 ) -> None:
-    if created_data.tagged_users.count() > 0:
+    tagged_users = created_data.tagged_users.all()
+    if len(tagged_users) > 0:
         content_type = ContentType.objects.get_for_model(created_data)
         if content_type.model in ["ad", "event"]:
             content = f"{created_data.creator.preferred_name} has tagged you in an {content_type.model}!"
@@ -24,7 +25,7 @@ def create_tagged_user_notification(
             creator_id=created_data.creator.id,
         )
         notification.save()
-        notification.receivers.add(*created_data.tagged_users.all())
+        notification.receivers.add(*tagged_users)
         send_push_notifications(notification)
 
 

@@ -4,8 +4,8 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'plugin:react/recommended',
-    'airbnb',
+    // 'plugin:react/recommended',
+    // 'airbnb',
     'prettier',
   ],
   parser: 'babel-eslint',
@@ -24,6 +24,6 @@ module.exports = {
       extensions: ['.js', '.jsx'],
     }],
     'linebreak-style': ['error', 'windows'],
-    'max-classes-per-file': ['error', 10],
+    'max-classes-per-file': ['error', 16],
   },
 };

@@ -2,12 +2,14 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import Header from "../common/Header";
 import AdsContainer from "./Ads/AdsContainer";
+import CreateModal from "../Create/CreateModal";
 
-const MarketPage = () => {
+const MarketPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Market" />
       <AdsContainer />
+      <CreateModal navigation={navigation} />
     </View>
   );
 };

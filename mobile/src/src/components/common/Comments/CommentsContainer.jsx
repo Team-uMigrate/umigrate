@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { StyleSheet, FlatList, Text, View } from "react-native";
-import CommentView from "./CommentView";
-import { CommentsEndpoint } from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, FlatList, Text, View } from 'react-native';
+import CommentView from './CommentView';
+import { CommentsEndpoint } from '../../../utils/endpoints';
 
 class CommentsContainer extends Component {
   state = {
@@ -45,7 +45,7 @@ class CommentsContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: " + error);
+        console.log('error: ' + error);
       }
     );
   };
@@ -75,14 +75,14 @@ export default CommentsContainer;
 
 const styles = StyleSheet.create({
   commentsContainer: {
-    flexDirection: "column",
-    backgroundColor: "white",
+    flexDirection: 'column',
+    backgroundColor: 'white',
     margin: 10,
     flex: 1,
   },
   commentView: {
     flex: 2,
-    alignSelf: "center",
+    alignSelf: 'center',
     margin: 50,
   },
 });

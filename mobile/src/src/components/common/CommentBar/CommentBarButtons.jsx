@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import { StyleSheet, View } from "react-native";
-import { IconButton } from "react-native-paper";
-import NavContext from "../../../contexts/NavContext";
-import { Choices, CommentsEndpoint } from "../../../utils/endpoints";
+import React, { useState, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import NavContext from '../../../contexts/NavContext';
+import { Choices, CommentsEndpoint } from '../../../utils/endpoints';
 
 const CommentBarButtons = ({
   postId,
@@ -23,11 +23,11 @@ const CommentBarButtons = ({
       // Button to submit comments
       <View style={styles.sendButtonView}>
         <IconButton
-          icon={"send"}
+          icon={'send'}
           style={styles.sendButton}
-          color={"white"}
+          color={'white'}
           onPress={() => {
-            if (text !== "") {
+            if (text !== '') {
               // TODO add location and ability to tag users
               let data = {
                 content: text,
@@ -45,7 +45,7 @@ const CommentBarButtons = ({
                 }
               );
 
-              setText("");
+              setText('');
               setSendButtonVisible(false);
             }
           }}
@@ -58,8 +58,8 @@ const CommentBarButtons = ({
         {/* Like button */}
         <View style={styles.buttonView}>
           <IconButton
-            icon={"heart"}
-            color={liked ? "red" : "black"}
+            icon={'heart'}
+            color={liked ? 'red' : 'black'}
             style={styles.button}
             onPress={() => {
               likePost(postId, !liked);
@@ -71,11 +71,11 @@ const CommentBarButtons = ({
         {/* Button to view comments */}
         <View style={styles.buttonView}>
           <IconButton
-            icon={"comment"}
-            color={"black"}
+            icon={'comment'}
+            color={'black'}
             style={styles.button}
             onPress={() => {
-              nav.navigation.navigate("Comments", {
+              nav.navigation.navigate('Comments', {
                 postId: postId,
                 contentType: contentType,
               });
@@ -94,21 +94,21 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 5,
     marginRight: 5,
-    alignContent: "center",
+    alignContent: 'center',
   },
   sendButtonView: {
     flex: 2,
     marginLeft: 10,
     marginRight: 5,
-    alignContent: "center",
-    backgroundColor: "#47e9ff",
+    alignContent: 'center',
+    backgroundColor: '#47e9ff',
     borderRadius: 20,
   },
   button: {
     height: 20,
   },
   sendButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     height: 20,
     padding: 5,
   },

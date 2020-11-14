@@ -85,6 +85,12 @@ The following are some things to keep in mind when developing locally.
 ## Recommended editors
 The API team uses either Visual Studio Code (free) or PyCharm Professional (free for students). You can download Visual Studio Code [here](https://code.visualstudio.com/download). You can download PyCharm Professional [here](https://www.jetbrains.com/pycharm/download/).
 
+## Visual Studio Code extensions
+Python Extension Pack: donjayamanne.python-extension-pack
+Django Test Runner: pachwenko.django-test-runner
+Docker: ms-azuretools.vscode-docker
+PostgreSQL: ckolkman.vscode-postgres
+
 ## Opening the API project
 Always open the API project from the umigrate/api/src/ directory to avoid namespacing issues.
 

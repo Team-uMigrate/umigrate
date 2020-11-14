@@ -9,7 +9,9 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint **/*.jsx **/*.js",
-    "lint:fix": "eslint **/*.jsx **/*.js --fix"
+    "lint:fix": "eslint **/*.jsx **/*.js --fix",
+    "format": "prettier **/*.jsx **/*.js --check",
+    "format:fix": "prettier **/*.jsx **/*.js --write"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

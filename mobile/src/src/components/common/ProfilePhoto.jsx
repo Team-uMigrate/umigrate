@@ -1,13 +1,11 @@
 import React from "react";
 import { Avatar } from "react-native-paper";
 
-const ProfilePhoto = ({ photo }) => {
-  const PROFILEIMAGESIZE = 45;
-
+const ProfilePhoto = ({ photo, size = 45 }) => {
   if (photo === null) {
-    return <Avatar.Icon size={PROFILEIMAGESIZE} icon={"account"} />;
+    return <Avatar.Icon size={size} icon={"account"} />;
   } else {
-    return <Avatar.Image size={PROFILEIMAGESIZE} source={{ uri: photo }} />;
+    return <Avatar.Image size={size} source={{ uri: photo }} />;
   }
 };
 

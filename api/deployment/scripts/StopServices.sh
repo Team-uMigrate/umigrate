@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Stop services
-systemctl stop nginx
-systemctl stop redis-server
-systemctl stop daphne@{0..2}
-systemctl stop gunicorn.socket
-systemctl stop gunicorn
+sudo systemctl stop nginx
+sudo systemctl stop redis-server
+sudo systemctl stop daphne@{0..2}
+sudo systemctl stop gunicorn.socket
+sudo systemctl stop gunicorn

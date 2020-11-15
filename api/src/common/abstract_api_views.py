@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from common.abstract_models import IsCreatorOrReadOnly
-from common.abstract_serializers import PostSaveSerializer 
+from common.abstract_serializers import PostSaveSerializer
 
 
 class AbstractModelViewSet(ModelViewSet):
@@ -30,6 +30,7 @@ class AbstractModelViewSet(ModelViewSet):
         if self.request.method == "GET":
             return self.detail_serializer_class
         return self.serializer_class
+
 
 class AbstractSavedView(ListAPIView):
     # OVERRIDE!
@@ -58,10 +59,10 @@ class AbstractSavedView(ListAPIView):
         data = serializer.data
         if not is_valid:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        add_user = data["save"] 
+
+        add_user = data["save"]
         obj_id = data["id"]
-        
+
         try:
             obj = self.model_class.objects.get(id=obj_id)
             if add_user:

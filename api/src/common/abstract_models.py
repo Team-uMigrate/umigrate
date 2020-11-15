@@ -35,7 +35,7 @@ class AbstractPostModel(models.Model):
         to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_set", blank=True
     )
     saved_users = models.ManyToManyField(
-        to=CustomUser, related_name="saved_%(app_label)s_%(class)s_set", blank=True 
+        to=CustomUser, related_name="saved_%(app_label)s_%(class)s_set", blank=True
     )
     comments = GenericRelation(Comment)
 

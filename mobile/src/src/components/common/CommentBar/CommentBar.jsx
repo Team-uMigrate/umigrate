@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
-import CommentBarButtons from "./CommentBarButtons";
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import CommentBarButtons from './CommentBarButtons';
 
 /*
 To add the comment bar to your components, you need to pass in the callback function
@@ -15,7 +15,7 @@ to pass in the right number.
 The other props are self-explanatory enough.
  */
 const CommentBar = ({ postId, contentType, isLiked, region, likePost }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [sendButtonVisible, setSendButtonVisible] = useState(false);
 
   return (
@@ -27,14 +27,14 @@ const CommentBar = ({ postId, contentType, isLiked, region, likePost }) => {
         multiline={true}
         scrollEnabled={true}
         onChangeText={setText}
-        placeholder={"Comment..."}
-        placeholderTextColor={"#636363"}
-        backgroundColor={"#EBEBEB"}
+        placeholder={'Comment...'}
+        placeholderTextColor={'#636363'}
+        backgroundColor={'#EBEBEB'}
         onFocus={() => {
           setSendButtonVisible(true);
         }}
         onEndEditing={() => {
-          if (text == "") setSendButtonVisible(false);
+          if (text == '') setSendButtonVisible(false);
         }}
         style={styles.textInput}
       />
@@ -57,8 +57,8 @@ export default CommentBar;
 
 const styles = StyleSheet.create({
   commentBarContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 10,
   },
   textInput: {

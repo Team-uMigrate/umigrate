@@ -1,4 +1,5 @@
 from common.abstract_serializers import ModelSerializerExtension
+from users.serializers import BasicUserSerializer
 from .models import Room, Message
 
 
@@ -13,8 +14,22 @@ class RoomSerializer(ModelSerializerExtension):
         return ModelSerializerExtension.create(self, validated_data)
 
 
+class BasicMessageSerializer(ModelSerializerExtension):
+    creator = BasicUserSerializer(read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ["id", "content", "creator", ]
+
+
 # Serializes the message model
 class MessageSerializer(ModelSerializerExtension):
+    creator = BasicUserSerializer(read_only=True)
+    previous_message = BasicMessageSerializer(read_only=True)
+
     class Meta:
         model = Message
         fields = "__all__"
+
+
+

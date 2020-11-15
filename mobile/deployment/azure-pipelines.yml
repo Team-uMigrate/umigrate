@@ -1,0 +1,92 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+name: $(MajorVersion).$(MinorVersion)
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - mobile/*
+    exclude:
+      - mobile/deployment/azure-pipelines.yml
+
+pr:      
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - mobile/*
+    exclude:
+      - mobile/deployment/azure-pipelines.yml
+
+variables:
+- name: MajorVersion
+  value: 0.0
+- name: MinorVersion
+  value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
+- name: IsMaster
+  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+- name: IsPr
+  value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
+- name: IsBranch
+  value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'mobile/src/'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: UseNode@1
+  inputs:
+    version: '12.x'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'mobile/src'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      npm install -g expo-cli
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd mobile/src
+      npm test
+      exit 0
+    errorActionPreference: 'continue'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/clover.xml'
+    failTaskOnFailedTests: true
+    testRunTitle: 'Mobile Test'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'mobile/src'
+    customCommand: 'run build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

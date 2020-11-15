@@ -4,6 +4,7 @@ import { Card, Title, Paragraph } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 import CommentBar from "../../common/CommentBar/CommentBar";
+import ImageCollection from "../../common/ImageCollection";
 
 const ListingView = ({
   id,
@@ -14,16 +15,16 @@ const ListingView = ({
   content,
   region,
   datetime_created,
-  photo,
+  photos,
   category,
   price,
   season,
   year,
   is_liked,
   likeListing,
-  createComment,
 }) => {
   const { width, height } = Dimensions.get("window");
+  const contentType = Choices.contentTypes["listing"];
 
   return (
     <Card style={styles.container}>
@@ -51,12 +52,7 @@ const ListingView = ({
         <Paragraph style={styles.bodyText}>
           {"Category: " + Choices.listingCategories[category]}
         </Paragraph>
-        {photo && (
-          <Image
-            source={{ uri: photo }}
-            style={{ width: 0.88 * width, height: 300 }}
-          />
-        )}
+        <ImageCollection photos={photos} />
         <View style={{ flexDirection: "row" }}>
           <Paragraph style={{ flex: 1, alignSelf: "center" }}>
             {"Likes: " + likes}
@@ -67,9 +63,10 @@ const ListingView = ({
         </View>
         <CommentBar
           postId={id}
+          contentType={contentType}
           likePost={likeListing}
           isLiked={is_liked}
-          createComment={createComment}
+          region={region}
         />
       </Card.Content>
     </Card>

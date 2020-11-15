@@ -11,21 +11,21 @@ STATUS_GUNICORNSOCK="$(systemctl is-active gunicorn.socket)"
 STATUS_GUNICORN="$(systemctl is-active gunicorn)"
 
 if [ "$STATUS_NGINX" = "active" ]; then
-	sudo systemctl stop nginx
+	systemctl stop nginx
 fi
 
 if [ "$STATUS_REDIS" = "active" ]; then
-	sudo systemctl stop redis-server
+	systemctl stop redis-server
 fi
 
 if [ "$STATUS_DAPHNE0" = "active" ] && [ "$STATUS_DAPHNE1" = "active" ] && [ "$STATUS_DAPHNE2" = "active" ]; then
-	sudo systemctl stop daphne@{0..2}
+	systemctl stop daphne@{0..2}
 fi
 
 if [ "$STATUS_GUNICORNSOCK" = "active" ]; then
-	sudo systemctl stop gunicorn.socket
+	systemctl stop gunicorn.socket
 fi
 
 if [ "$STATUS_GUNICORN" = "active" ]; then
-	sudo systemctl stop gunicorn
+	systemctl stop gunicorn
 fi

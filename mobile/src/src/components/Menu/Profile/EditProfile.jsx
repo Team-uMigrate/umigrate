@@ -1,9 +1,9 @@
-import React, { Component, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Avatar, Button, TextInput } from "react-native-paper";
-import { Choices, ProfileEndpoint } from "../../../utils/endpoints";
-import Header from "../../common/Header";
-import ProfileComponents from "./ProfileComponents";
+import React, { Component, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Avatar, Button, TextInput } from 'react-native-paper';
+import { Choices, ProfileEndpoint } from '../../../utils/endpoints';
+import Header from '../../common/Header';
+import ProfileComponents from './ProfileComponents';
 
 class EditProfile extends Component {
   state = { user: {} };
@@ -40,7 +40,7 @@ class EditProfile extends Component {
           <View style={styles.profileArea}>
             <TouchableOpacity
               style={styles.profileImg}
-              onPress={() => navigation.navigate("Menu")}
+              onPress={() => navigation.navigate('Menu')}
             >
               <Avatar.Image
                 size={100}
@@ -110,14 +110,14 @@ class EditProfile extends Component {
         <View style={styles.rowsButtons}>
           <Button
             style={styles.editButtonUndo}
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate('Profile')}
           >
             <Text style={styles.editButtonTextUndo}>Undo Changes</Text>
           </Button>
           <Button
             style={styles.editButtonSave}
             /* onPress={handleEdit} temporarily commented */
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate('Profile')}
           >
             <Text style={styles.editButtonTextSave}>Save Changes</Text>
           </Button>
@@ -136,7 +136,7 @@ export default ({ navigation }) => {
     ProfileEndpoint.patch(
       { preferred_name: prefName, phone_number: phone },
       (response) => {
-        navigation.navigate("Profile");
+        navigation.navigate('Profile');
       },
       (error) => {
         console.log(error);
@@ -158,29 +158,29 @@ export default ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
   backHeading: {
-    width: "100%",
-    height: "18%",
+    width: '100%',
+    height: '18%',
   },
   backGroundHeading: {
     flex: 2,
-    width: "100%",
-    height: "18%",
+    width: '100%',
+    height: '18%',
   },
   profileArea: {
-    position: "absolute",
-    alignSelf: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignSelf: 'center',
+    justifyContent: 'center',
     // get half of pfp on background and half not
-    bottom: "-40%",
-    paddingBottom: "-60%",
-    width: "100%",
+    bottom: '-40%',
+    paddingBottom: '-60%',
+    width: '100%',
   },
   profileImg: {
-    alignSelf: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   pfpShadow: {
     shadowOpacity: 0.2,
@@ -188,57 +188,57 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   pfInfo: {
-    marginTop: "12%",
+    marginTop: '12%',
   },
   rows: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    marginBottom: "1%",
-    marginLeft: "4%",
-    width: "100%",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    marginBottom: '1%',
+    marginLeft: '4%',
+    width: '100%',
   },
   rowsButtons: {
-    justifyContent: "space-evenly",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    marginBottom: "1%",
-    width: "100%",
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    marginBottom: '1%',
+    width: '100%',
   },
   editButtonSave: {
     borderRadius: 15,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "#007CFF",
-    backgroundColor: "#007CFF",
+    borderColor: '#007CFF',
+    backgroundColor: '#007CFF',
   },
   editButtonUndo: {
     borderRadius: 15,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "#B8B7B7",
+    borderColor: '#B8B7B7',
   },
   editButtonTextSave: {
-    color: "#eeeeee",
-    textTransform: "none",
+    color: '#eeeeee',
+    textTransform: 'none',
   },
   editButtonTextUndo: {
-    color: "#ff0000",
-    textTransform: "none",
+    color: '#ff0000',
+    textTransform: 'none',
   },
   textLabel: {
     fontSize: 12,
-    textAlign: "left",
-    marginLeft: "5%",
-    marginBottom: "1%",
-    color: "#6C6A6A",
+    textAlign: 'left',
+    marginLeft: '5%',
+    marginBottom: '1%',
+    color: '#6C6A6A',
   },
   textVal: {
     fontSize: 14,
-    textAlign: "left",
-    fontWeight: "bold",
-    marginLeft: "5%",
-    marginBottom: "3%",
-    marginRight: "5%",
+    textAlign: 'left',
+    fontWeight: 'bold',
+    marginLeft: '5%',
+    marginBottom: '3%',
+    marginRight: '5%',
     height: 20,
   },
 });

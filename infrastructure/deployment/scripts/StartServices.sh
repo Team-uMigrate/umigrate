@@ -2,9 +2,9 @@
 
 # Starting gunicorn, daphne, redis-server, and nginx
 # This is always run
-systemctl daemon-reload
-systemctl start gunicorn.socket
-systemctl start gunicorn
-systemctl start daphne@{0..2}
-systemctl start redis-server
-systemctl start nginx
+sudo systemctl daemon-reload
+sudo systemctl start gunicorn.socket
+sudo systemctl start gunicorn
+sudo systemctl start daphne@{0..2}
+sudo systemctl start redis-server
+sudo systemctl start nginx

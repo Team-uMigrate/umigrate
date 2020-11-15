@@ -1,17 +1,17 @@
-import React from "react";
-import CommunityContainer from "./CreateCommunity/CommunityContainer";
-import MarketContainer from "./CreateMarket/MarketContainer";
-import HousingContainer from "./CreateHousing/HousingContainer";
+import React from 'react';
+import CommunityContainer from './CreateCommunity/CommunityContainer';
+import MarketContainer from './CreateMarket/MarketContainer';
+import HousingContainer from './CreateHousing/HousingContainer';
 
 const CreatePage = ({ route }) => {
   switch (route.params.page) {
-    case "Community":
+    case 'Community':
       return <CommunityContainer />;
 
-    case "Market":
+    case 'Market':
       return <MarketContainer />;
 
-    case "Housing":
+    case 'Housing':
       return <HousingContainer />;
 
     default:

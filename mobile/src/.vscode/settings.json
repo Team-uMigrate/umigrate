@@ -1,16 +1,14 @@
 {
-  "workbench.settings.editor": "json",
-  "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  "editor.codeActionsOnSaveTimeout": 4000,
-  "javascript.format.enable": false,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
   "[javascript]": {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": false
   },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
+  "prettier.disableLanguages": [
+      "js"
+  ],
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
   }
 }

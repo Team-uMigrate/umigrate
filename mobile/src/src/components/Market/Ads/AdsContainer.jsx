@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import AdView from "./AdView";
-import { AdsEndpoint } from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import AdView from './AdView';
+import { AdsEndpoint } from '../../../utils/endpoints';
 
 class AdsContainer extends Component {
   state = {
@@ -36,7 +36,7 @@ class AdsContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
@@ -67,7 +67,7 @@ export default AdsContainer;
 
 const styles = StyleSheet.create({
   adsContainer: {
-    flexDirection: "column",
-    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+    flexDirection: 'column',
+    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
   },
 });

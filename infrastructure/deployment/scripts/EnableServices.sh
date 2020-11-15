@@ -2,8 +2,8 @@
 
 # Enable daphne, gunicorn, nginx
 # These can always be run, won't harm anything
-systemctl daemon-reload
-systemctl enable daphne@{0..2}
-systemctl enable gunicorn.socket
-systemctl enable redis-server
-systemctl enable nginx
+sudo systemctl daemon-reload
+sudo systemctl enable daphne@{0..2}
+sudo systemctl enable gunicorn.socket
+sudo systemctl enable redis-server
+sudo systemctl enable nginx

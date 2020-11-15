@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Set timezone to Eastern
-sudo timedatectl set-timezone America/Toronto
+timedatectl set-timezone America/Toronto
 

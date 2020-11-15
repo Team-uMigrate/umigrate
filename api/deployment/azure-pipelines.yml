@@ -74,6 +74,16 @@ jobs:
       black --check --exclude env ../src
     displayName: 'Check formatting'
 
+  - task: DockerInstaller@0
+    inputs:
+      dockerVersion: '17.09.0-ce'
+
+  - script: |
+      docker pull postgres
+      docker pull redis
+      docker run -d --name postgres-docker -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+      docker run -d --name redis-docker -p 6379:6379 redis
+
   - script: |
       cd api/src
       pytest --junitxml=../../test-results.xml
@@ -92,4 +102,3 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
-

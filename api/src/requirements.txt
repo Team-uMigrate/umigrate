@@ -7,13 +7,15 @@ Pillow
 django-cors-headers
 channels
 channels-redis
+exponent_server_sdk
 sendgrid
 drf_yasg
 factory_boy
 pytest-django
 uwaterloodriver
-psycopg2
+psycopg2-binary
 gunicorn
 daphne
 sentry-sdk
 black
+pylint-django

@@ -1,19 +1,21 @@
-import React, { useEffect, useContext } from "react";
-import Text from "react-native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import CommunityPage from "../components/Community";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import MarketPage from "../components/Market";
-import HousingPage from "../components/Housing";
-import MenuPage from "../components/Menu";
-import { StyleSheet, View } from "react-native";
-import NavContext from "../contexts/NavContext";
-import CreatePage from "../components/Create";
+import React, { useEffect, useContext } from 'react';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import CommunityPage from '../components/Community';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import MarketPage from '../components/Market';
+import HousingPage from '../components/Housing';
+import MenuNavigator from './MenuNavigator';
+import { StyleSheet } from 'react-native';
+import NavContext from '../contexts/NavContext';
+import ModalContext from '../contexts/ModalContext';
+import CreatePage from '../components/Create';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(NavContext);
+  const modal = useContext(ModalContext);
+
   useEffect(() => {
     nav.setNavigation(navigation);
   }, []);
@@ -52,7 +54,6 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Create"
         component={CreatePage}
@@ -65,8 +66,13 @@ const TabNavigator = ({ navigation }) => {
             />
           ),
         }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            modal.setVisible(true);
+            e.preventDefault();
+          },
+        })}
       />
-
       <Tab.Screen
         name="Housing"
         component={HousingPage}
@@ -76,10 +82,9 @@ const TabNavigator = ({ navigation }) => {
           ),
         }}
       />
-
       <Tab.Screen
         name="Menu"
-        component={MenuPage}
+        component={MenuNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />
@@ -94,6 +99,6 @@ export default TabNavigator;
 
 const styles = StyleSheet.create({
   TabNavigator: {
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
   },
 });

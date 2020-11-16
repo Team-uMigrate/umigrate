@@ -1,6 +1,14 @@
-import MockAdapter from "axios-mock-adapter";
-import Axios from "axios";
-import { mockAd, mockEvent, mockListing, mockPost, mockUser } from "./mockData";
+import MockAdapter from 'axios-mock-adapter';
+import Axios from 'axios';
+import {
+  mockAd,
+  mockComment,
+  mockEvent,
+  mockListing,
+  mockPost,
+  mockReply,
+  mockUser,
+} from './mockData';
 
 function createMockResults(mockData, page) {
   let mockResults = [];
@@ -19,13 +27,13 @@ export function setupMockEndpoint() {
     .onGet(/^https:\/\/dev.umigrate.ca\/api\/posts\/\?page=[1-9][0-9]*$/)
     .reply(200, {
       results: createMockResults(mockPost, 1),
-      next: "https://dev.umigrate.ca/api/posts/",
+      next: 'https://dev.umigrate.ca/api/posts/',
     });
   mockAxios
     .onGet(/^https:\/\/dev.umigrate.ca\/api\/events\/\?page=[1-9][0-9]*$/)
     .reply(200, {
       results: createMockResults(mockEvent, 1),
-      next: "https://dev.umigrate.ca/api/events/",
+      next: 'https://dev.umigrate.ca/api/events/',
     });
   mockAxios
     .onGet(/^https:\/\/dev.umigrate.ca\/api\/listings\/\?page=[1-9][0-9]*$/)
@@ -36,5 +44,17 @@ export function setupMockEndpoint() {
     .onGet(/^https:\/\/dev.umigrate.ca\/api\/ads\/\?page=[1-9][0-9]*$/)
     .reply(200, {
       results: createMockResults(mockAd, 1),
+    });
+  mockAxios
+    .onGet(/^https\/\/dev.umigrate.ca\/api\/comments\/\?page=[1-9][0-9]*$/)
+    .reply(200, {
+      results: createMockResults(mockComment, 1),
+    });
+  mockAxios
+    .onGet(
+      /^https\/\/dev.umigrate.ca\/api\/comments\/replies\/\?page=[1-9]&comment=[1-9][0-9][0-9]*$/
+    )
+    .reply(200, {
+      results: createMockResults(mockReply, 1),
     });
 }

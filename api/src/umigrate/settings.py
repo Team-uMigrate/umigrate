@@ -30,17 +30,17 @@ DEBUG = True
 # SendGrid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-# Set default SendGrid API key
+# Get default SendGrid API key
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 # Set site and allowed hosts
 SITE = os.environ.get("DOMAIN_NAME")
 ALLOWED_HOSTS = [SITE]
 
-# Set default database password
+# Get default database password
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
 
-# Set default database password
+# Get default redis password
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 
 # Get stage environment from environmental variables
@@ -96,6 +96,7 @@ INSTALLED_APPS = [
     "users",
     "photos",
     "comments",
+    "notifications",
 ]
 
 # Middleware
@@ -154,7 +155,7 @@ REST_FRAMEWORK = {
 # Email settings
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = "support@umigrate.ca"
+DEFAULT_FROM_EMAIL = "teamumigrate@gmail.com"
 EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
@@ -279,6 +280,11 @@ if STAGE_ENVIRONMENT == "local":
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "users.serializers.UserDetailSerializer",
+    "LOGIN_SERIALIZER": "users.serializers.LoginSerializer",
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "registration.serializers.RegistrationSerializer",
 }
 
 # Swagger
@@ -290,9 +296,9 @@ SWAGGER_SETTINGS = {
     "LOGIN_URL": f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
     else f"https://{SITE}{LOGIN_URL}",
-    "LOGOUT_URL": f"http://{SITE}{LOGIN_URL}"
+    "LOGOUT_URL": f"http://{SITE}/api/logout/"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{SITE}{LOGIN_URL}",
+    else f"https://{SITE}/api/logout/",
 }
 
 # Internationalization

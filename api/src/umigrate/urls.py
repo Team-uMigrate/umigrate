@@ -26,10 +26,10 @@ from .settings import STAGE_ENVIRONMENT, SITE, SITE_ID
 from common.constants.choices import trigger_error
 
 # Set site
-site = Site.objects.get(id=SITE_ID)
-site.name = SITE
-site.domain = SITE
-site.save()
+# site = Site.objects.get(id=SITE_ID)
+# site.name = SITE
+# site.domain = SITE
+# site.save()
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -54,7 +54,7 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-    path("api/admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("api/ads/", include("ads.urls")),
     path("api/comments/", include("comments.urls")),
     path("api/events/", include("events.urls")),
@@ -65,6 +65,7 @@ urlpatterns = [
     path("api/posts/", include("posts.urls")),
     path("api/users/", include("users.urls")),
     path("api/uploads/photos/", include("photos.urls")),
+    path("api/", include("notifications.urls")),
     path("api/sentry-debug/", trigger_error),
     path("api/", include("rest_auth.urls")),
     url(r"^api/", include("django.contrib.auth.urls")),

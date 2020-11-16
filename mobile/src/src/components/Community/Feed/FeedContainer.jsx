@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import EventView from "./EventView";
-import PostView from "./PostView";
-import { EventsEndpoint, PostsEndpoint } from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import EventView from './EventView';
+import PostView from './PostView';
+import { EventsEndpoint, PostsEndpoint } from '../../../utils/endpoints';
 
 class FeedContainer extends Component {
   state = {
@@ -19,17 +19,16 @@ class FeedContainer extends Component {
     lastListDate: null,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getPosts();
     this.getEvents();
-  }
+  };
 
-  componentDidUpdate() {
+  componentDidUpdate = () => {
     if (this.state.hasNewPosts && this.state.hasNewEvents) {
       this.setPages();
     }
-  }
+  };
 
   // posts
 
@@ -51,7 +50,7 @@ class FeedContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
@@ -76,7 +75,7 @@ class FeedContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
@@ -199,7 +198,7 @@ export default FeedContainer;
 
 const styles = StyleSheet.create({
   feedContainer: {
-    flexDirection: "column",
-    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+    flexDirection: 'column',
+    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
   },
 });

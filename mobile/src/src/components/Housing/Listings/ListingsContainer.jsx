@@ -1,10 +1,7 @@
-import React, { Component } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import ListingView from "./ListingView";
-import {
-  ListingsEndpoint,
-  ListingCommentsEndpoint,
-} from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import ListingView from './ListingView';
+import { Choices, ListingsEndpoint } from '../../../utils/endpoints';
 
 class ListingContainer extends Component {
   state = {
@@ -14,10 +11,9 @@ class ListingContainer extends Component {
     nextPageExists: true,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.getListings();
-  }
+  };
 
   getListings = () => {
     ListingsEndpoint.list(
@@ -40,7 +36,7 @@ class ListingContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
@@ -56,25 +52,8 @@ class ListingContainer extends Component {
     );
   };
 
-  createComment = (id, content, taggedUsers) => {
-    let data = {
-      listing: id,
-      content: content,
-      tagged_users: taggedUsers,
-    };
-
-    ListingCommentsEndpoint.post(
-      data,
-      () => {},
-      (err) => {
-        console.log(err);
-      }
-    );
-  };
-
   renderItem = ({ item }) => {
     item.likeListing = this.likeListing;
-    item.createComment = this.createComment;
     return <ListingView {...item} />;
   };
 
@@ -100,7 +79,7 @@ export default ListingContainer;
 
 const styles = StyleSheet.create({
   listingContainer: {
-    flexDirection: "column",
-    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+    flexDirection: 'column',
+    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
   },
 });

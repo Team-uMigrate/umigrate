@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { AuthEndpoint } from "../../utils/endpoints";
-import { StyleSheet, Text, View, Modal, Image } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import React, { useState } from 'react';
+import { AuthEndpoint } from '../../utils/endpoints';
+import { StyleSheet, Text, View, Modal, Image } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
 const RegistrationPage = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -11,7 +11,7 @@ const RegistrationPage = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const signInRedirect = () => {
-    navigation.navigate("Login");
+    navigation.navigate('Login');
   };
 
   const handleSignUp = () => {
@@ -31,7 +31,7 @@ const RegistrationPage = ({ navigation }) => {
             <Text key={count}>
               {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
                 errorType.substring(1) +
-                ": " +
+                ': ' +
                 error.response.data[errorType]}
             </Text>
           );
@@ -48,7 +48,7 @@ const RegistrationPage = ({ navigation }) => {
     <View style={styles.container}>
       <Image
         style={styles.imageStyle}
-        source={require("../../../assets/templatedRegister.png")}
+        source={require('../../../assets/templatedRegister.png')}
       />
       <Text style={styles.title}>Get started by registering</Text>
       <View style={styles.inputBoxes}>
@@ -56,7 +56,8 @@ const RegistrationPage = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             label="uWaterloo Email..."
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => setEmail(text.toLowerCase().trim())}
+            autoCompleteType="email"
           />
         </View>
         <View style={styles.row}>
@@ -64,6 +65,8 @@ const RegistrationPage = ({ navigation }) => {
             style={styles.textInput}
             label="Password..."
             onChangeText={(text) => setPassword(text)}
+            autoCompleteType="password"
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.row}>
@@ -71,6 +74,8 @@ const RegistrationPage = ({ navigation }) => {
             style={styles.textInput}
             label="Confirm Password..."
             onChangeText={(text) => setConfirm(text)}
+            autoCompleteType="password"
+            secureTextEntry={true}
           />
         </View>
       </View>
@@ -92,10 +97,10 @@ const RegistrationPage = ({ navigation }) => {
           Back
         </Button>
       </View>
-      <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
+      <Modal visible={modalVisible} presentationStyle={'overFullScreen'}>
         <View style={styles.container}>
           <View style={styles.modalView}>
-            <Text style={{ alignItems: "center" }}>Error:</Text>
+            <Text style={{ alignItems: 'center' }}>Error:</Text>
             {errorMessage}
             <Button
               title="Close"
@@ -113,35 +118,35 @@ export default RegistrationPage;
 
 const styles = StyleSheet.create({
   imageStyle: {
-    marginTop: "5%",
-    width: "80%",
-    height: "35%",
+    marginTop: '5%',
+    width: '80%',
+    height: '35%',
   },
   inputBoxes: {
-    marginTop: "10%",
+    marginTop: '10%',
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-    marginTop: "10%",
+    marginTop: '10%',
     fontSize: 23,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   textInput: {
     height: 50,
     width: 250,
   },
   buttonContainer: {
-    marginTop: "5%",
-    justifyContent: "space-around",
+    marginTop: '5%',
+    justifyContent: 'space-around',
   },
   buttonStyle: {
     height: 40,
@@ -149,10 +154,10 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,

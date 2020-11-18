@@ -22,12 +22,12 @@ const CommentBarButtons = ({
       // Button to submit comments
       <View style={styles.sendButtonView}>
         <IconButton
-          icon={"send"}
+          icon={'send'}
           style={styles.sendButton}
           color={"#FF668B"}
           size={35}
           onPress={() => {
-            if (text !== "") {
+            if (text !== '') {
               // TODO add location and ability to tag users
               let data = {
                 content: text,
@@ -68,8 +68,8 @@ const CommentBarButtons = ({
         {/* Button to view comments */}
         <View>
           <IconButton
-            icon={"comment"}
-            color={"black"}
+            icon={'comment'}
+            color={'black'}
             style={styles.button}
             onPress={() => {
               setSendButtonVisible(true);

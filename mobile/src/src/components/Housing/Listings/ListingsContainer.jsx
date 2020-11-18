@@ -36,7 +36,7 @@ class ListingContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
@@ -114,7 +114,7 @@ export default ListingContainer;
 
 const styles = StyleSheet.create({
   listingContainer: {
-    flexDirection: "column",
-    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+    flexDirection: 'column',
+    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
   },
 });

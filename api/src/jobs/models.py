@@ -10,7 +10,7 @@ class Job(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="%(app_label)s_%(class)s_set",
+        related_name="(class)s_set",
         on_delete=models.CASCADE,
         blank=True,
     )

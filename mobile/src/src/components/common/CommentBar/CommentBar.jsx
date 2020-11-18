@@ -4,8 +4,8 @@ import CommentBarButtons from "./CommentBarButtons";
 import NavContext from "../../../contexts/NavContext";
 
 /*
-To add the comment bar to your components, you need to pass in the callback function
-likePost, which makes the HTTP request to the appropriate like endpoint.
+To add the comment bar to your components, you need to pass in two callback functions.
+They are likePost and sendComment, which makes the HTTP requests to the appropriate like and comment endpoints.
 See src/components/Housing/Listings/ListingsContainer.jsx for an example.
 
 Note that you also need a contentType prop. This refers to the numeric type of

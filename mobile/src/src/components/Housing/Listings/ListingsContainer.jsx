@@ -45,7 +45,7 @@ class ListingContainer extends Component {
     // updates number of likes
     let index = this.state.listings.findIndex((obj) => obj.id == id);
     let copyList = JSON.parse(JSON.stringify(this.state.listings));
-    shouldLike == true
+    shouldLike
       ? (copyList[index].likes = this.state.listings[index].likes + 1)
       : (copyList[index].likes = this.state.listings[index].likes - 1);
     this.setState({ listings: copyList });

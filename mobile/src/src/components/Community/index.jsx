@@ -1,3 +1,3 @@
-import CommunityPage from "./CommunityPage";
+import CommunityPage from './CommunityPage';
 
 export default CommunityPage;

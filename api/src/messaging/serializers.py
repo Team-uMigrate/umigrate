@@ -14,6 +14,7 @@ class RoomSerializer(ModelSerializerExtension):
         return ModelSerializerExtension.create(self, validated_data)
 
 
+# Serialiezes the previous replied message
 class BasicMessageSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
 

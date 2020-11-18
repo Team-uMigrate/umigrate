@@ -11,7 +11,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room_group_name = None
     member = None
 
-
     # Creates a group or enters and existing one
     async def connect(self):
         self.room_id = int(self.scope["url_route"]["kwargs"]["room_id"])

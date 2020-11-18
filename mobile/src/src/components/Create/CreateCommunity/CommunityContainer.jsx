@@ -109,6 +109,20 @@ class CommunityContainer extends React.Component {
             }}
             backgroundColor={"#DCDCDC"}
           />
+
+          {/* Render list of poll options if the poll button is selected */}
+          {this.state.selectedPostType === "Poll" && (
+            <View>
+              <TextInput
+                autoCapitalize={"sentences"}
+                autoCorrect={true}
+                style={styles.pollOptionInput}
+                placeholder={"Poll option..."}
+                placeholderTextColor={"#484848"}
+                backgroundColor={"#DCDCDC"}
+              />
+            </View>
+          )}
         </View>
 
         {/* Buttons to insert images and tag users */}
@@ -207,7 +221,7 @@ const styles = StyleSheet.create({
   pollOptionInput: {
     marginTop: 10,
     borderRadius: 10,
-    padding: 10,
+    padding: 3,
     paddingLeft: "5%",
   },
   imageAndTagButtonsView: {

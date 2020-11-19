@@ -61,7 +61,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      npm install -g expo-cli
+      cd mobile/src
+      npm install expo-cli
 
 - task: PowerShell@2
   inputs:

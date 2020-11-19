@@ -35,26 +35,22 @@ class EventLike(GenericUserExtension):
 
 # HTTP GET: Returns a list of users that are interested in the event
 # HTTP POST: Sets or removes a user's status to interested
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class EventInterestedUser(GenericUserExtension):
-    field_string = "interested"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Event.objects.get(id=obj_id).interested_users
+class EventInterestedUser(AbstractSavedView):
+    query_string = "interested_event_set"
+    serializer_class = EventSerializer
+    model_class = Event
 
 
 # HTTP GET: Returns a list of users that are attending the event
 # HTTP POST: Sets or removes a user's status to attending
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class EventAttendingUser(GenericUserExtension):
-    field_string = "attending"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Event.objects.get(id=obj_id).attending_users
+class EventAttendingUser(AbstractSavedView):
+    query_string = "attending_event_set"
+    serializer_class = EventSerializer
+    model_class = Event
 
 
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))

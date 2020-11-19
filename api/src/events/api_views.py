@@ -55,3 +55,11 @@ class EventAttendingUser(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).attending_users
+
+
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
+class SavedEvent(AbstractSavedView):
+    query_string = "saved_events_event_set"
+    serializer_class = EventSerializer
+    model_class = Event

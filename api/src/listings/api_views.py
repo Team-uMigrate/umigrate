@@ -35,3 +35,11 @@ class ListingLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Listing.objects.get(id=obj_id).liked_users
+
+
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Listings"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
+class SavedListing(AbstractSavedView):
+    query_string = "saved_listings_listing_set"
+    serializer_class = ListingSerializer
+    model_class = Listing

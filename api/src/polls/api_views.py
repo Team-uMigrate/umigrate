@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
 from .models import Poll, Option, Vote
@@ -61,3 +61,13 @@ class VoteListCreate(GenericPostListCreate):
     serializer_class = VoteSerializer
     filterset_class = VoteFilterSet
     detail_serializer_class = VoteSerializer
+
+
+# HTTP GET: Returns a list of saved polls by the requesting user
+# HTTP POST: Updates the list of saved polls by adding/removing a poll from the list
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Polls"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+class SavedPoll(AbstractSavedView):
+    query_string = "saved_polls_poll_set"
+    serializer_class = PollSerializer
+    model_class = Poll

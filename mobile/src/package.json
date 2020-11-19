@@ -10,7 +10,7 @@
     "eject": "expo eject",
     "lint": "eslint src/**/*.jsx src/**/*.js",
     "lint:fix": "eslint src/**/*.jsx src/**/*.js --fix",
-    "format": "prettier src/**/*.jsx src/**/*.js --check",
+    "format": "prettier src/**/*.jsx src/**/*.js --check --loglevel debug",
     "format:fix": "prettier src/**/*.jsx src/**/*.js --write"
   },
   "dependencies": {

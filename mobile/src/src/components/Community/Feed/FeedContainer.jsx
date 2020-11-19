@@ -1,9 +1,8 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import EventView from './EventView';
 import PostView from './PostView';
 import { EventsEndpoint, PostsEndpoint } from '../../../utils/endpoints';
-import { ThemeProvider } from '@react-navigation/native';
 
 class FeedContainer extends Component {
   state = {
@@ -32,12 +31,7 @@ class FeedContainer extends Component {
     }
   };
 
-  wait = (timeout) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, timeout);
-    });
-  };
-
+  // pull to refresh
   onRefresh = () => {
     this.setState({
       refreshing: true,
@@ -45,25 +39,10 @@ class FeedContainer extends Component {
       nextPageE: 1,
     });
 
-    this.refreshPosts();
-    this.refreshEvents();
-
-    this.wait(1200).then(() => {
-      this.setState({ refreshing: false });
-    });
-  };
-
-  // getting of posts when refreshing
-  // (resets post list to most recent ones)
-
-  refreshPosts = () => {
     PostsEndpoint.list(
       1,
       this.state.filtersP,
       (response) => {
-        this.setState({
-          posts: [],
-        });
         this.setState({
           posts: response.data.results,
           hasNewPosts: true,
@@ -72,6 +51,23 @@ class FeedContainer extends Component {
       },
       (error) => {
         console.log('error: ', error);
+      }
+    );
+
+    EventsEndpoint.list(
+      1,
+      this.state.filtersE,
+      (response) => {
+        this.setState({
+          events: response.data.results,
+          hasNewEvents: true,
+          nextPageExistsE: response.data.next !== null,
+          refreshing: false,
+        });
+      },
+      (error) => {
+        console.log('error: ', error);
+        this.setState({ refreshing: false });
       }
     );
   };
@@ -91,23 +87,6 @@ class FeedContainer extends Component {
             ),
           hasNewPosts: true,
           nextPageExistsP: response.data.next !== null,
-        });
-      },
-      (error) => {
-        console.log('error: ', error);
-      }
-    );
-  };
-
-  refreshEvents = () => {
-    EventsEndpoint.list(
-      this.state.nextPageE,
-      this.state.filtersE,
-      (response) => {
-        this.setState({
-          events: response.data.results,
-          hasNewEvents: true,
-          nextPageExistsE: response.data.next !== null,
         });
       },
       (error) => {

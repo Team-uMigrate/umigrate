@@ -17,29 +17,13 @@ class AdsContainer extends Component {
     this.getAds();
   };
 
-  wait = (timeout) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, timeout);
-    });
-  };
-
+  // pull to refresh
   onRefresh = () => {
     this.setState({
       refreshing: true,
       nextPage: 1,
     });
 
-    this.refreshAds();
-
-    this.wait(1200).then(() => {
-      this.setState({ refreshing: false });
-    });
-  };
-
-  // getting of posts when refreshing
-  // (resets post list to most recent ones)
-
-  refreshAds = () => {
     AdsEndpoint.list(
       1,
       this.state.filters,
@@ -51,10 +35,12 @@ class AdsContainer extends Component {
           ads: response.data.results,
           hasNewAds: true,
           nextPageExists: response.data.next !== null,
+          refreshing: false,
         });
       },
       (error) => {
         console.log('error: ', error);
+        this.setState({ refreshing: false });
       }
     );
   };

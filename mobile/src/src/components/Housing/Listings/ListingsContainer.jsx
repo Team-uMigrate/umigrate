@@ -23,23 +23,13 @@ class ListingContainer extends Component {
     });
   };
 
+  // pull to refresh
   onRefresh = () => {
     this.setState({
       refreshing: true,
       nextPage: 1,
     });
 
-    this.refreshListings();
-
-    this.wait(1200).then(() => {
-      this.setState({ refreshing: false });
-    });
-  };
-
-  // getting of posts when refreshing
-  // (resets post list to most recent ones)
-
-  refreshListings = () => {
     ListingsEndpoint.list(
       1,
       this.state.filters,
@@ -48,10 +38,12 @@ class ListingContainer extends Component {
           listings: response.data.results,
           hasNewListings: true,
           nextPageExists: response.data.next !== null,
+          refreshing: false,
         });
       },
       (error) => {
         console.log('error: ', error);
+        this.setState({ refreshing: false });
       }
     );
   };

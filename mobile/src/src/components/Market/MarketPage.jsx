@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import Header from "../common/Header";
-import AdsContainer from "./Ads/AdsContainer";
-import CreateModal from "../Create/CreateModal";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Header from '../common/Header';
+import AdsContainer from './Ads/AdsContainer';
+import CreateModal from '../Create/CreateModal';
 
 const MarketPage = ({ navigation }) => {
   return (
@@ -19,6 +19,6 @@ export default MarketPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
 });

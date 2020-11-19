@@ -1,3 +1,3 @@
-import MarketPage from "./MarketPage";
+import MarketPage from './MarketPage';
 
 export default MarketPage;

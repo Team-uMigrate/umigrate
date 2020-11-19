@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import ListingView from "./ListingView";
-import { Choices, ListingsEndpoint } from "../../../utils/endpoints";
+import { ListingsEndpoint, CommentsEndpoint } from "../../../utils/endpoints";
 
 class ListingContainer extends Component {
   state = {
@@ -36,24 +36,59 @@ class ListingContainer extends Component {
         });
       },
       (error) => {
-        console.log("error: ", error);
+        console.log('error: ', error);
       }
     );
   };
 
   likeListing = (id, shouldLike) => {
+    // updates number of likes
+    let index = this.state.listings.findIndex((obj) => obj.id == id);
+    let copyList = JSON.parse(JSON.stringify(this.state.listings));
+    shouldLike
+      ? (copyList[index].likes = this.state.listings[index].likes + 1)
+      : (copyList[index].likes = this.state.listings[index].likes - 1);
+    this.setState({ listings: copyList });
+
     ListingsEndpoint.like(
       id,
       shouldLike,
       () => {},
       (err) => {
         console.log(err);
+        // undo changes
+        shouldLike == true
+          ? (copyList[index].likes = this.state.listings[index].likes - 1)
+          : (copyList[index].likes = this.state.listings[index].likes + 1);
+        this.setState({ listings: copyList });
+      }
+    );
+  };
+
+  sendComment = (data) => {
+    // updates number of comments
+    let index = this.state.listings.findIndex(
+      (obj) => obj.id == data.object_id
+    );
+    let copyList = JSON.parse(JSON.stringify(this.state.listings));
+    copyList[index].comments = this.state.listings[index].comments + 1;
+    this.setState({ listings: copyList });
+
+    CommentsEndpoint.post(
+      data,
+      () => {},
+      (error) => {
+        console.log(error);
+        // undo changes
+        copyList[index].comments = this.state.listings[index].comments - 1;
+        this.setState({ listings: copyList });
       }
     );
   };
 
   renderItem = ({ item }) => {
     item.likeListing = this.likeListing;
+    item.sendComment = this.sendComment;
     return <ListingView {...item} />;
   };
 
@@ -79,7 +114,7 @@ export default ListingContainer;
 
 const styles = StyleSheet.create({
   listingContainer: {
-    flexDirection: "column",
-    marginBottom: "15%", // To make sure a bit of the bottom post isn't cut off
+    flexDirection: 'column',
+    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
   },
 });

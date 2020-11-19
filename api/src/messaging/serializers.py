@@ -20,7 +20,11 @@ class BasicMessageSerializer(ModelSerializerExtension):
 
     class Meta:
         model = Message
-        fields = ["id", "content", "creator", ]
+        fields = [
+            "id",
+            "content",
+            "creator",
+        ]
 
 
 # Serializes the message model
@@ -31,6 +35,3 @@ class MessageSerializer(ModelSerializerExtension):
     class Meta:
         model = Message
         fields = "__all__"
-
-
-

@@ -56,13 +56,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "message_body": previous_message_result.content,
                 "creator_id": previous_message_result.creator_id,
                 "datetime_created": previous_message_result.datetime_created.strftime(
-                    "%Y-%m-%dT%H:%M:%S.%fZ")
+                    "%Y-%m-%dT%H:%M:%S.%fZ"
+                ),
             }
 
         if self.member["id"] == user_id:
             create_message = database_sync_to_async(
                 lambda: Message.objects.create(
-                    creator_id=user_id, content=message_body, room_id=self.room_id,
+                    creator_id=user_id,
+                    content=message_body,
+                    room_id=self.room_id,
                     previous_message_id=previous_message_id,
                 )
             )
@@ -96,7 +99,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         datetime_created = event["datetime_created"]
         previous_message = event["previous_message"]
         user_id = self.scope["user"].id
-        
+
         if self.member["id"] == user_id:
             await self.send(
                 text_data=json.dumps(

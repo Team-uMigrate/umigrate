@@ -8,10 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint **/*.jsx **/*.js",
-    "lint:fix": "eslint **/*.jsx **/*.js --fix",
-    "format": "prettier **/*.jsx **/*.js --check",
-    "format:fix": "prettier **/*.jsx **/*.js --write"
+    "lint": "eslint src/**/*.jsx src/**/*.js",
+    "lint:fix": "eslint src/**/*.jsx src/**/*.js --fix",
+    "format": "prettier src/**/*.jsx src/**/*.js --check",
+    "format:fix": "prettier src/**/*.jsx src/**/*.js --write"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

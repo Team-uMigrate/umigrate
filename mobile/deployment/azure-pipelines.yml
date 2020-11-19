@@ -67,6 +67,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      cd mobile/src
       npm run lint
       npm run format
 

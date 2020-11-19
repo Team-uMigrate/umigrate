@@ -1,18 +1,59 @@
-import React, { Component } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import ListingView from "./ListingView";
-import { ListingsEndpoint, CommentsEndpoint } from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import ListingView from './ListingView';
+import { ListingsEndpoint, CommentsEndpoint } from '../../../utils/endpoints';
 
 class ListingContainer extends Component {
   state = {
     listings: [],
     nextPage: 1,
     filters: {},
+    hasNewListings: false,
     nextPageExists: true,
+    refreshing: false,
   };
 
   componentDidMount = () => {
     this.getListings();
+  };
+
+  wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  onRefresh = () => {
+    this.setState({
+      refreshing: true,
+      nextPage: 1,
+    });
+
+    this.refreshListings();
+
+    this.wait(1000).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
+  // getting of posts when refreshing
+  // (resets post list to most recent ones)
+
+  refreshListings = () => {
+    ListingsEndpoint.list(
+      1,
+      this.state.filters,
+      (response) => {
+        this.setState({
+          listings: response.data.results,
+          hasNewListings: true,
+          nextPageExists: response.data.next !== null,
+        });
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
   };
 
   getListings = () => {
@@ -96,6 +137,12 @@ class ListingContainer extends Component {
     return (
       <View style={styles.listingContainer}>
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
           data={this.state.listings}
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
@@ -104,6 +151,7 @@ class ListingContainer extends Component {
               this.getListings();
             }
           }}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );

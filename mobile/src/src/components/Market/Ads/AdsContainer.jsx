@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import AdView from './AdView';
 import { AdsEndpoint } from '../../../utils/endpoints';
 
@@ -8,11 +8,55 @@ class AdsContainer extends Component {
     ads: [],
     nextPage: 1,
     filters: {},
+    hasNewAds: false,
     nextPageExists: true,
+    refreshing: false,
   };
 
   componentDidMount = () => {
     this.getAds();
+  };
+
+  wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  onRefresh = () => {
+    this.setState({
+      refreshing: true,
+      nextPage: 1,
+    });
+
+    this.refreshAds();
+
+    this.wait(1000).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
+  // getting of posts when refreshing
+  // (resets post list to most recent ones)
+
+  refreshAds = () => {
+    AdsEndpoint.list(
+      1,
+      this.state.filters,
+      (response) => {
+        this.setState({
+          ads: [],
+        });
+        this.setState({
+          ads: response.data.results,
+          hasNewAds: true,
+          nextPageExists: response.data.next !== null,
+        });
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
   };
 
   getAds = () => {
@@ -49,14 +93,22 @@ class AdsContainer extends Component {
     return (
       <View style={styles.adsContainer}>
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
           data={this.state.ads}
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
+          onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (this.state.nextPageExists) {
               this.getAds();
             }
           }}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );

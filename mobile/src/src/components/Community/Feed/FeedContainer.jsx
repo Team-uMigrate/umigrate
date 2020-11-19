@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import React, { Component, useState } from 'react';
+import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import EventView from './EventView';
 import PostView from './PostView';
 import { EventsEndpoint, PostsEndpoint } from '../../../utils/endpoints';
+import { ThemeProvider } from '@react-navigation/native';
 
 class FeedContainer extends Component {
   state = {
@@ -17,6 +18,7 @@ class FeedContainer extends Component {
     nextPageExistsP: true,
     nextPageExistsE: true,
     lastListDate: null,
+    refreshing: false,
   };
 
   componentDidMount = () => {
@@ -30,15 +32,57 @@ class FeedContainer extends Component {
     }
   };
 
-  // posts
+  wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
 
+  onRefresh = () => {
+    this.setState({
+      refreshing: true,
+      nextPageP: 1,
+      nextPageE: 1,
+    });
+
+    this.refreshPosts();
+    this.refreshEvents();
+
+    this.wait(1000).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
+  // getting of posts when refreshing
+  // (resets post list to most recent ones)
+
+  refreshPosts = () => {
+    PostsEndpoint.list(
+      1,
+      this.state.filtersP,
+      (response) => {
+        this.setState({
+          posts: [],
+        });
+        this.setState({
+          posts: response.data.results,
+          hasNewPosts: true,
+          nextPageExistsP: response.data.next !== null,
+        });
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
+  };
+
+  // getting of posts when paginating
   getPosts = () => {
     PostsEndpoint.list(
       this.state.nextPageP,
       this.state.filtersP,
       (response) => {
         let seen = {};
-
         this.setState({
           posts: this.state.posts
             .concat(response.data.results)
@@ -55,8 +99,24 @@ class FeedContainer extends Component {
     );
   };
 
-  // events
+  refreshEvents = () => {
+    EventsEndpoint.list(
+      this.state.nextPageE,
+      this.state.filtersE,
+      (response) => {
+        this.setState({
+          events: response.data.results,
+          hasNewEvents: true,
+          nextPageExistsE: response.data.next !== null,
+        });
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
+  };
 
+  // getting of events when paginating
   getEvents = () => {
     EventsEndpoint.list(
       this.state.nextPageE,
@@ -177,9 +237,16 @@ class FeedContainer extends Component {
     return (
       <View style={styles.feedContainer}>
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
           data={this.getList()}
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
+          onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (this.state.nextPageExistsP) {
               this.getPosts();
@@ -188,6 +255,7 @@ class FeedContainer extends Component {
               this.getEvents();
             }
           }}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );

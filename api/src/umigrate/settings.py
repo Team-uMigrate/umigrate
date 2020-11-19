@@ -144,7 +144,7 @@ ROOT_URLCONF = "umigrate.urls"
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 50,
+    "PAGE_SIZE": 20,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
         "common.utils.local_authentication.CsrfExemptSessionAuthentication"  # if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',

@@ -11,3 +11,4 @@ apt-get install python3.7 python3-pip python3-dev libpq-dev postgresql-13 postgr
 
 # Symlink python version
 ln -sf /usr/bin/python3.7 /usr/bin/py
+

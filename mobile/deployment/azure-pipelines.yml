@@ -67,6 +67,13 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      npm run lint
+      npm run format
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
       cd mobile/src
       npm test
       exit 0

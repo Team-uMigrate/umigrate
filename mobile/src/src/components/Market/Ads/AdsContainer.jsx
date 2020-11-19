@@ -31,7 +31,7 @@ class AdsContainer extends Component {
 
     this.refreshAds();
 
-    this.wait(1000).then(() => {
+    this.wait(1200).then(() => {
       this.setState({ refreshing: false });
     });
   };

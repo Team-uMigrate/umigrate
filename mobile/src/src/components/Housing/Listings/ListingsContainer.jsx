@@ -31,7 +31,7 @@ class ListingContainer extends Component {
 
     this.refreshListings();
 
-    this.wait(1000).then(() => {
+    this.wait(1200).then(() => {
       this.setState({ refreshing: false });
     });
   };

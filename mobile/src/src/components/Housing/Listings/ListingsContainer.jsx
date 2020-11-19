@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import ListingView from "./ListingView";
-import { ListingsEndpoint, CommentsEndpoint } from "../../../utils/endpoints";
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import ListingView from './ListingView';
+import { ListingsEndpoint, CommentsEndpoint } from '../../../utils/endpoints';
 
 class ListingContainer extends Component {
   state = {

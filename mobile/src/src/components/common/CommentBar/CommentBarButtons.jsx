@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-import { IconButton } from "react-native-paper";
+import React, { useState } from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import { IconButton } from 'react-native-paper';
 
 const CommentBarButtons = ({
   postId,
@@ -15,7 +15,7 @@ const CommentBarButtons = ({
   region,
 }) => {
   const [liked, setLiked] = useState(isLiked);
-  const windowWidth = Dimensions.get("window").width;
+  const windowWidth = Dimensions.get('window').width;
 
   if (sendButtonVisible) {
     return (
@@ -24,7 +24,7 @@ const CommentBarButtons = ({
         <IconButton
           icon={'send'}
           style={styles.sendButton}
-          color={"#FF668B"}
+          color={'#FF668B'}
           size={35}
           onPress={() => {
             if (text !== '') {
@@ -37,7 +37,7 @@ const CommentBarButtons = ({
                 tagged_users: [],
               };
               sendComment(data);
-              setText("");
+              setText('');
               setSendButtonVisible(false);
             }
           }}
@@ -48,16 +48,16 @@ const CommentBarButtons = ({
     return (
       <View
         style={{
-          flexDirection: "row",
-          marginLeft: "auto",
+          flexDirection: 'row',
+          marginLeft: 'auto',
         }}
       >
         {/* Like button */}
         <View style={styles.buttonView}>
           <IconButton
             // TODO: Update design to match figma
-            icon={"heart"}
-            color={liked ? "red" : "black"}
+            icon={'heart'}
+            color={liked ? 'red' : 'black'}
             style={styles.button}
             onPress={() => {
               likePost(postId, !liked);
@@ -85,21 +85,21 @@ export default CommentBarButtons;
 
 const styles = StyleSheet.create({
   buttonView: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   sendButtonView: {
     flex: 1,
-    alignContent: "center",
-    backgroundColor: "white",
+    alignContent: 'center',
+    backgroundColor: 'white',
     marginLeft: 20,
   },
   button: {
     height: 25,
   },
   sendButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     height: 30,
   },
 });

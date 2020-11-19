@@ -4,7 +4,7 @@
 DATABASE_PASSWORD=$1
 
 # Only create database if database doesn't exist
-if [ !$(sudo -u postgres psql -lqt | cut -d\| -f 1 | grep umigratedb) = "umigratedb" ]; then	
+if [ $(sudo -u postgres psql -lqt | cut -d\| -f 1 | grep umigratedb) != "umigratedb" ]; then	
 	sudo -u postgres psql \
 	-c "CREATE DATABASE umigratedb;" \
 	-c "CREATE USER umigrate WITH PASSWORD '$DATABASE_PASSWORD';" \

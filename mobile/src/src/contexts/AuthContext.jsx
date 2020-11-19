@@ -13,7 +13,7 @@ class AuthContextProvider extends Component {
 
   componentDidMount = () => {
     ProfileEndpoint.get(
-      (response) => this.setState({ isAuthenticated: true }),
+      () => this.setState({ isAuthenticated: true }),
       (error) => {
         console.log(error);
         console.log(error.response);

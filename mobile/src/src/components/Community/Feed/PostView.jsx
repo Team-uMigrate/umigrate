@@ -4,6 +4,7 @@ import { Card, Title, Paragraph, Avatar } from "react-native-paper";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { Choices } from "../../../utils/endpoints";
 import ImageCollection from "../../common/ImageCollection";
+// require("typeface-montserrat");
 
 const PostView = ({
   title,
@@ -27,7 +28,7 @@ const PostView = ({
             <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
-            <Text>{creator.preferred_name}</Text>
+            <Text style={styles.bold}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
               {datetime_created.substring(0, "YYYY-MM-DD".length)}
             </Text>
@@ -41,10 +42,10 @@ const PostView = ({
         <ImageCollection photos={photos} />
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
-            {"Likes: " + likes}
+            {"View Comments " + "(" + comments + ")"}
           </Paragraph>
           <Paragraph style={styles.likesComments}>
-            {"Comments: " + comments}
+            {"Likes " + "(" + likes + ")"}
           </Paragraph>
         </View>
       </Card.Content>
@@ -63,10 +64,14 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    // backgroundColor: "red",
   },
   column: {
     flex: 5,
+    marginTop: "2.5%",
+    marginBottom: "2.5%",
     flexDirection: "column",
+    // backgroundColor: "blue",
   },
   bold: {
     fontWeight: "bold",

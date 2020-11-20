@@ -1,8 +1,8 @@
-import { CommentRepliesEndpoint } from "../../../utils/endpoints";
-import { StyleSheet, View } from "react-native";
-import ReplyView from "./ReplyView";
-import ShowRepliesButton from "./ShowRepliesButton";
-import React, { Component } from "react";
+import { CommentRepliesEndpoint } from '../../../utils/endpoints';
+import { StyleSheet, View } from 'react-native';
+import ReplyView from './ReplyView';
+import ShowRepliesButton from './ShowRepliesButton';
+import React, { Component } from 'react';
 
 export class ReplyContainer extends Component {
   state = {
@@ -62,6 +62,6 @@ export class ReplyContainer extends Component {
 
 const styles = StyleSheet.create({
   repliesContainer: {
-    paddingLeft: "10%",
+    paddingLeft: '10%',
   },
 });

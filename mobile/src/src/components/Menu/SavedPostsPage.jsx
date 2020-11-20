@@ -1,11 +1,11 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Header from "../common/Header";
-import { Button } from "react-native-paper";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Header from '../common/Header';
+import { Button } from 'react-native-paper';
 
 const SavedPostsPage = ({ navigation }) => {
   const menuRedirect = () => {
-    navigation.navigate("Menu");
+    navigation.navigate('Menu');
   };
 
   return (
@@ -22,10 +22,10 @@ export default SavedPostsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
   title: {
-    alignSelf: "center",
-    marginTop: "80%",
+    alignSelf: 'center',
+    marginTop: '80%',
   },
 });

@@ -30,17 +30,17 @@ DEBUG = True
 # SendGrid
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-# Set default SendGrid API key
+# Get default SendGrid API key
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 # Set site and allowed hosts
 SITE = os.environ.get("DOMAIN_NAME")
 ALLOWED_HOSTS = [SITE]
 
-# Set default database password
+# Get default database password
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
 
-# Set default database password
+# Get default redis password
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 
 # Get stage environment from environmental variables
@@ -96,6 +96,7 @@ INSTALLED_APPS = [
     "users",
     "photos",
     "comments",
+    "notifications",
 ]
 
 # Middleware
@@ -143,7 +144,7 @@ ROOT_URLCONF = "umigrate.urls"
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 20,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
         "common.utils.local_authentication.CsrfExemptSessionAuthentication"  # if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',
@@ -295,9 +296,9 @@ SWAGGER_SETTINGS = {
     "LOGIN_URL": f"http://{SITE}{LOGIN_URL}"
     if STAGE_ENVIRONMENT == "local"
     else f"https://{SITE}{LOGIN_URL}",
-    "LOGOUT_URL": f"http://{SITE}{LOGIN_URL}"
+    "LOGOUT_URL": f"http://{SITE}/api/logout/"
     if STAGE_ENVIRONMENT == "local"
-    else f"https://{SITE}{LOGIN_URL}",
+    else f"https://{SITE}/api/logout/",
 }
 
 # Internationalization

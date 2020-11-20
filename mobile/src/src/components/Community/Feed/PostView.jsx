@@ -1,10 +1,9 @@
-import React, { createRef } from "react";
-import { StyleSheet, Dimensions, Image, View, Text } from "react-native";
-import { Card, Title, Paragraph, Avatar } from "react-native-paper";
-import ProfilePhoto from "../../common/ProfilePhoto";
-import { Choices } from "../../../utils/endpoints";
-import ImageCollection from "../../common/ImageCollection";
-// require("typeface-montserrat");
+import React, { createRef } from 'react';
+import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
+import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
+import ProfilePhoto from '../../common/ProfilePhoto';
+import { Choices } from '../../../utils/endpoints';
+import ImageCollection from '../../common/ImageCollection';
 
 const PostView = ({
   title,
@@ -18,7 +17,7 @@ const PostView = ({
   likes,
   comments,
 }) => {
-  const { width, height } = Dimensions.get("window");
+  const { width, height } = Dimensions.get('window');
 
   return (
     <Card style={styles.container}>
@@ -30,7 +29,7 @@ const PostView = ({
           <View style={styles.column}>
             <Text style={styles.bold}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, "YYYY-MM-DD".length)}
+              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
             </Text>
           </View>
         </View>
@@ -57,10 +56,10 @@ export default PostView;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "2.5%",
+    marginTop: '2.5%',
     padding: 5,
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
   },
   row: {
     flexDirection: "row",
@@ -74,18 +73,18 @@ const styles = StyleSheet.create({
     // backgroundColor: "blue",
   },
   bold: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   date: {
-    color: "grey",
+    color: 'grey',
   },
   likesComments: {
     flex: 1,
     paddingTop: 15,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   title: {
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   bodyText: {
     marginBottom: 0,

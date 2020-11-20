@@ -10,7 +10,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const Header = ({
   title,
-  isMessagingPage = false,
+  isMessagingOrCommentsPage = false,
   isNotificationPage = false,
 }) => {
   const nav = useContext(NavContext);
@@ -19,7 +19,7 @@ const Header = ({
     <Appbar.Header style={styles.header} statusBarHeight={statusHeight}>
       {/* if on messaging page or notification page, let the user go back */}
 
-      {(isNotificationPage || isMessagingPage) && (
+      {(isNotificationPage || isMessagingOrCommentsPage) && (
         <Appbar.Action
           color="#555555"
           icon={isNotificationPage ? 'arrow-right' : 'arrow-left'}
@@ -37,7 +37,7 @@ const Header = ({
       )}
 
       {/* if not on the notification page or messaging page, let the user click notifications */}
-      {!isNotificationPage && !isMessagingPage && (
+      {!isNotificationPage && !isMessagingOrCommentsPage && (
         <Appbar.Action
           color="#555555"
           icon="bell"
@@ -46,12 +46,12 @@ const Header = ({
       )}
 
       {/* if not on home page, do not display logo */}
-      {!isMessagingPage && !isNotificationPage && (
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Image style={styles.image} source={Logo} />
       )}
 
       {/* if on home page, let user go to messages */}
-      {!isMessagingPage && !isNotificationPage && (
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Appbar.Action
           color="#555555"
           icon="message"

@@ -22,7 +22,7 @@ class Room(GenericPhotoModel):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="created_rooms_set",
+        related_name="created_room_set",
         on_delete=models.CASCADE,
         blank=True,
     )

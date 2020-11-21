@@ -1,5 +1,5 @@
-import { Text, TouchableHighlight, StyleSheet } from "react-native";
-import React from "react";
+import { Text, TouchableHighlight, StyleSheet } from 'react-native';
+import React from 'react';
 
 // My current plan is for this component to accept 2 callbacks:
 // one to fetch more replies and another to collapse the list of replies in the CommentView component
@@ -21,7 +21,7 @@ export default ShowRepliesButton;
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: "blue",
-    textDecorationLine: "underline",
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
 });

@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PostFilterSet
 from .models import Post
@@ -26,10 +26,7 @@ class PostViewSet(AbstractModelViewSet):
 # HTTP GET: Returns a list of liked users that liked a post
 # HTTP POST: Like or unlike a post
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
-class PostLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Post.objects.get(id=obj_id).liked_users
+# NEW POST-LIKE API VIEW
+class PostLike(AbstractLikedUsers):
+    model_class = Post
+    query_string = 'liked_posts_post_sets'

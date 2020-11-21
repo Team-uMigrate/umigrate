@@ -16,6 +16,11 @@ class CommunityContainer extends React.Component {
     },
     title: "",
     body: "",
+    pollOptions: [""],
+    eventStartTime: "",
+    eventEndTime: "",
+    eventLocation: "",
+    eventAdmissionPrice: "",
   };
 
   componentDidMount = () => {
@@ -83,7 +88,7 @@ class CommunityContainer extends React.Component {
           <TextInput
             autoCapitalize={"sentences"}
             autoCorrect={true}
-            style={styles.titleInput}
+            style={styles.basicTextInput}
             value={this.state.text}
             placeholder={"Write a title..."}
             placeholderTextColor={"#484848"}
@@ -110,18 +115,108 @@ class CommunityContainer extends React.Component {
             backgroundColor={"#DCDCDC"}
           />
 
-          {/* Render list of poll options if the poll button is selected */}
+          {/* Render list of poll options and new poll option button if the poll button is selected */}
           {this.state.selectedPostType === "Poll" && (
-            <View>
+            <>
+              {this.state.pollOptions.map((pollText, index) => {
+                return (
+                  <View key={index.toString()}>
+                    <TextInput
+                      autoCapitalize={"sentences"}
+                      autoCorrect={true}
+                      style={styles.pollOptionInput}
+                      value={pollText}
+                      placeholder={"Poll option..."}
+                      placeholderTextColor={"#484848"}
+                      backgroundColor={"#DCDCDC"}
+                      onChangeText={(newValue) => {
+                        let newPollOptions = Object.assign(
+                          [],
+                          this.state.pollOptions
+                        );
+                        newPollOptions[index] = newValue;
+                        this.setState({ pollOptions: newPollOptions });
+                      }}
+                    />
+                  </View>
+                );
+              })}
+
+              <Button
+                mode={"contained"}
+                color={"white"}
+                style={styles.newPollOptionButton}
+                onPress={() => {
+                  this.setState({
+                    pollOptions: this.state.pollOptions.concat(""),
+                  });
+                }}
+              >
+                New Poll Option
+              </Button>
+            </>
+          )}
+
+          {/* Render form specific to events */}
+          {this.state.selectedPostType === "Event" && (
+            <>
+              {/* Start Time */}
+              <View style={{ flexDirection: "row" }}>
+                <TextInput
+                  autoCapitalize={"sentences"}
+                  autoCorrect={true}
+                  style={{ ...styles.basicTextInput, marginRight: 4 }}
+                  value={this.state.eventStartTime}
+                  placeholder={"Start Time..."}
+                  placeholderTextColor={"#484848"}
+                  onChangeText={(newText) => {
+                    this.setState({ eventStartTime: newText });
+                  }}
+                  backgroundColor={"#DCDCDC"}
+                />
+                {/* End Time */}
+                <TextInput
+                  autoCapitalize={"sentences"}
+                  autoCorrect={true}
+                  style={{ ...styles.basicTextInput, marginLeft: 4 }}
+                  value={this.state.eventEndTime}
+                  placeholder={"End Time..."}
+                  placeholderTextColor={"#484848"}
+                  onChangeText={(newText) => {
+                    this.setState({ eventEndTime: newText });
+                  }}
+                  backgroundColor={"#DCDCDC"}
+                />
+              </View>
+
+              {/* Location/Link */}
               <TextInput
                 autoCapitalize={"sentences"}
                 autoCorrect={true}
-                style={styles.pollOptionInput}
-                placeholder={"Poll option..."}
+                style={styles.basicTextInput}
+                value={this.state.eventLocation}
+                placeholder={"Location/Link..."}
                 placeholderTextColor={"#484848"}
+                onChangeText={(newText) => {
+                  this.setState({ eventLocation: newText });
+                }}
                 backgroundColor={"#DCDCDC"}
               />
-            </View>
+
+              {/* Admission Price... */}
+              <TextInput
+                autoCapitalize={"sentences"}
+                autoCorrect={true}
+                style={{ ...styles.basicTextInput, marginHorizontal: "15%" }}
+                value={this.state.eventAdmissionPrice}
+                placeholder={"Admission Price..."}
+                placeholderTextColor={"#484848"}
+                onChangeText={(newText) => {
+                  this.setState({ eventAdmissionPrice: newText });
+                }}
+                backgroundColor={"#DCDCDC"}
+              />
+            </>
           )}
         </View>
 
@@ -205,7 +300,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  titleInput: {
+  basicTextInput: {
+    flex: 1,
     marginTop: 10,
     borderRadius: 10,
     padding: 3,
@@ -239,5 +335,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flex: 1,
     marginHorizontal: 5,
+  },
+  newPollOptionButton: {
+    borderRadius: 10,
+    flex: 1,
+    marginTop: 10,
+    elevation: 2,
   },
 });

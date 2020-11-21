@@ -5,7 +5,7 @@ import Header from '../common/Header';
 const MessagingPage = () => {
   return (
     <View style={styles.container}>
-      <Header title="Messaging" isMessagingPage={true} />
+      <Header title="Messaging" isMessagingOrCommentsPage={true} />
       <Text style={styles.title}>Messaging Page!</Text>
     </View>
   );

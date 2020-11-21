@@ -73,6 +73,13 @@ class Message(GenericPhotoModel):
     room = models.ForeignKey(
         to=Room, related_name="message_set", on_delete=models.CASCADE
     )
+    previous_message = models.ForeignKey(
+        to="self",
+        related_name="replies",
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         ordering = ["-datetime_created"]

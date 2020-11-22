@@ -1,29 +1,36 @@
 import React from 'react';
-import { render, waitFor } from 'react-native-testing-library';
+import { Text } from 'react-native';
+import { waitFor } from 'react-native-testing-library';
 import { shallow } from 'enzyme';
-import FeedContainer from '../Community/Feed/FeedContainer';
-import { mockEvent, mockPost } from '../../utils/mockData';
+import FeedContainer from './FeedContainer';
+import { MockEndpoint1, MockEndpoint2 } from '../../utils/mockEndpoints';
 
-// Todo: We need to check that the FeedContainer renders the correct amount of PostView components onto the DOM,
-// and we need to test that the state changes correctly when api calls to fetch more postings are made when scrolling to
-// The bottom.
-// We should also test the custom logic for getting the right posts from the api
 describe('<FeedContainer />', () => {
-  let wrapper = null;
-  let feedContainer = null;
+  let shallowFeedContainer = null;
+  let feedContainer: FeedContainer = null;
+  const endpoints = [MockEndpoint1, MockEndpoint2];
+  const itemViews = [
+    (item) => <Text>{item.id}</Text>,
+    (item) => <Text>{item.id}</Text>,
+  ];
+
   beforeEach(() => {
-    wrapper = shallow(<FeedContainer />);
-    feedContainer = wrapper.instance();
-    screen = render(<FeedContainer />);
+    shallowFeedContainer = shallow(
+      <FeedContainer
+        endpoints={endpoints}
+        itemViews={itemViews}
+        filtersList={[{}, {}]}
+        scrollRef={null}
+      />,
+      { disableLifecycleMethods: true }
+    );
+    feedContainer = shallowFeedContainer.instance();
   });
 
-  it('Should get a list of posts', () => {
-    expect(wrapper.state('posts')).toHaveLength(0);
-
-    feedContainer.getPosts();
-
-    waitFor(() => {
-      expect(wrapper.state('posts')).toHaveLength(3);
+  it('Should fetch items', async () => {
+    await feedContainer.fetchItems();
+    await waitFor(() => {
+      expect(feedContainer.state.items).toHaveLength(9);
     });
   });
 });

@@ -4,6 +4,7 @@ import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
 import { Choices } from '../../../utils/endpoints';
 import ImageCollection from '../../common/ImageCollection';
+// import RadialGradient from 'react-native-radial-gradient';
 
 const EventView = ({
   id,
@@ -28,13 +29,13 @@ const EventView = ({
 
   return (
     <Card style={styles.container}>
-      <Card.Content>
+      <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
             <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
-            <Text>{creator.preferred_name}</Text>
+            <Text style={styles.bold}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
               {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
             </Text>
@@ -95,10 +96,10 @@ const EventView = ({
         </View>
         <View style={styles.row}>
           <Paragraph style={styles.likesComments}>
-            {'Likes: ' + likes}
+            {'Likes ' + '(' + likes + ')'}
           </Paragraph>
           <Paragraph style={styles.likesComments}>
-            {'Comments: ' + comments}
+            {'Comments ' + '(' + comments + ')'}
           </Paragraph>
         </View>
       </Card.Content>
@@ -110,46 +111,64 @@ export default EventView;
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     marginTop: '2.5%',
     padding: 5,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
+  },
+  cardContent: {
+    paddingTop: "1.5%",
+    paddingBottom: "2.5%"
   },
   row: {
     flexDirection: 'row',
   },
   column: {
     flex: 5,
+    marginTop: "2%",
+    marginBottom: "2.5%",
+    marginLeft: "2.5%",
     flexDirection: 'column',
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   date: {
-    color: 'grey',
+    fontWeight: "300",
   },
   likesComments: {
-    flex: 1,
-    paddingTop: 15,
-    alignSelf: 'center',
+    marginRight: "8%",
+    paddingTop: "2.5%",
+    color: "#484848",
+    fontSize: 14,
+    fontWeight: "300",
+    lineHeight: 0,
+    letterSpacing: 0.5,
+    marginBottom: 0,
+    // backgroundColor: "red"
   },
   title: {
     alignSelf: 'flex-start',
+    letterSpacing: 0.5,
+    fontSize: 22,
   },
   bodyText: {
     marginBottom: 0,
+    letterSpacing: 0.5,
+    fontSize: 16,
   },
   buttonStyle: {
     height: 36,
     width: 120,
     flex: 1,
-    backgroundColor: 'steelblue',
+    backgroundColor: '#483FAB',
   },
   buttonStyleFade: {
     height: 36,
     width: 120,
     flex: 1,
-    backgroundColor: 'rgba(70,130,180,0.5)',
+    backgroundColor: 'rgba(7,130,180,0.5)',
   },
   buttonContainer: {
     flexDirection: 'row',

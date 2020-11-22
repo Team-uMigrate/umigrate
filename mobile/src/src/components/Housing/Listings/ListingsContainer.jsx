@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 import ListingView from './ListingView';
 import { ListingsEndpoint, CommentsEndpoint } from '../../../utils/endpoints';
 
@@ -144,13 +145,22 @@ class ListingContainer extends Component {
             }
           }}
           showsVerticalScrollIndicator={false}
+          // This is a reference so we can scroll to the top,
+          ref={this.props.scrollRef}
         />
       </View>
     );
   }
 }
 
-export default ListingContainer;
+export default function (props) {
+  // this wraps our class with a function component, allowing us to utilize the hook (ref)
+  const ref = React.useRef(null);
+
+  useScrollToTop(ref);
+
+  return <ListingContainer {...props} scrollRef={ref} />;
+}
 
 const styles = StyleSheet.create({
   listingContainer: {

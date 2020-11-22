@@ -11,6 +11,7 @@ const itemViews = [(item) => <ListingView {...item} />];
 
 const HousingPage = ({ navigation }) => {
   const [listingFilters, setListingFilters] = useState({});
+
   return (
     <View style={styles.container}>
       <Header title="Housing" />

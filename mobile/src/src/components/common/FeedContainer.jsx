@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 
 class FeedContainer extends Component {
   constructor(props) {
@@ -128,13 +129,20 @@ class FeedContainer extends Component {
           onEndReachedThreshold={0.5}
           onEndReached={this.fetchItems}
           showsVerticalScrollIndicator={false}
+          ref={this.props.scrollRef}
         />
       </View>
     );
   }
 }
 
-export default FeedContainer;
+export default function (props) {
+  const ref = React.useRef(null);
+
+  useScrollToTop(ref);
+
+  return <FeedContainer {...props} scrollRef={ref} />;
+}
 
 const styles = StyleSheet.create({
   feedContainer: {

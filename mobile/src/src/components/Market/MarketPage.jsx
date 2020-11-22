@@ -11,6 +11,7 @@ const itemViews = [(item) => <AdView {...item} />];
 
 const MarketPage = ({ navigation }) => {
   const [adFilters, setAdFilters] = useState({});
+
   return (
     <View style={styles.container}>
       <Header title="Market" />

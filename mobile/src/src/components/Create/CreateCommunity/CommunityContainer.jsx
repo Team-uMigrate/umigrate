@@ -1,11 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Header from "../../common/Header";
 import PostTypeOptionsButton from "./PostTypeOptionsButton";
 import ProfilePhoto from "../../common/ProfilePhoto";
 import { ProfileEndpoint } from "../../../utils/endpoints";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Card, IconButton, Button } from "react-native-paper";
+import CreatePageTextInput from "../CreatePageTextInput";
 
 class CommunityContainer extends React.Component {
   state = {
@@ -40,6 +41,7 @@ class CommunityContainer extends React.Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <ScrollView styles={styles.container}>
         <Header title={"New Community Post"} isMessagingPage={true} />
@@ -84,35 +86,25 @@ class CommunityContainer extends React.Component {
             </View>
           </View>
 
-          {/* Post title and body input */}
-          <TextInput
-            autoCapitalize={"sentences"}
-            autoCorrect={true}
-            style={styles.basicTextInput}
-            value={this.state.text}
-            placeholder={"Write a title..."}
-            placeholderTextColor={"#484848"}
-            onChangeText={(newText) => {
-              this.setState({ text: newText });
+          <CreatePageTextInput
+            textValue={this.state.title}
+            setText={(newText) => {
+              this.setState({ title: newText });
             }}
-            backgroundColor={"#DCDCDC"}
+            placeholder={"Write a title..."}
           />
 
           {/* We have to test this in iOS too, to make sure the text aligns at the top and */}
           {/* that it's bearable to edit with */}
-          <TextInput
-            autoCapitalize={"sentences"}
-            autoCorrect={true}
-            multiline={true}
-            numberOfLines={7}
-            style={styles.bodyInput}
-            value={this.state.body}
-            placeholder={"What would you like to share..."}
-            placeholderTextColor={"#484848"}
-            onChangeText={(newText) => {
+          <CreatePageTextInput
+            textValue={this.state.body}
+            setText={(newText) => {
               this.setState({ body: newText });
             }}
-            backgroundColor={"#DCDCDC"}
+            multiline={true}
+            numberOfLines={7}
+            placeholder={"What would you like to share..."}
+            style={{ textAlignVertical: "top", padding: 10 }}
           />
 
           {/* Render list of poll options and new poll option button if the poll button is selected */}
@@ -121,15 +113,9 @@ class CommunityContainer extends React.Component {
               {this.state.pollOptions.map((pollText, index) => {
                 return (
                   <View key={index.toString()}>
-                    <TextInput
-                      autoCapitalize={"sentences"}
-                      autoCorrect={true}
-                      style={styles.pollOptionInput}
-                      value={pollText}
-                      placeholder={"Poll option..."}
-                      placeholderTextColor={"#484848"}
-                      backgroundColor={"#DCDCDC"}
-                      onChangeText={(newValue) => {
+                    <CreatePageTextInput
+                      textValue={this.state.pollOptions[index]}
+                      setText={(newValue) => {
                         let newPollOptions = Object.assign(
                           [],
                           this.state.pollOptions
@@ -137,6 +123,7 @@ class CommunityContainer extends React.Component {
                         newPollOptions[index] = newValue;
                         this.setState({ pollOptions: newPollOptions });
                       }}
+                      placeholder={"Poll option..."}
                     />
                   </View>
                 );
@@ -162,59 +149,42 @@ class CommunityContainer extends React.Component {
             <>
               {/* Start Time */}
               <View style={{ flexDirection: "row" }}>
-                <TextInput
-                  autoCapitalize={"sentences"}
-                  autoCorrect={true}
-                  style={{ ...styles.basicTextInput, marginRight: 4 }}
-                  value={this.state.eventStartTime}
-                  placeholder={"Start Time..."}
-                  placeholderTextColor={"#484848"}
-                  onChangeText={(newText) => {
+                <CreatePageTextInput
+                  textValue={this.state.eventStartTime}
+                  setText={(newText) => {
                     this.setState({ eventStartTime: newText });
                   }}
-                  backgroundColor={"#DCDCDC"}
+                  placeholder={"Start Time..."}
+                  style={{ marginRight: 4 }}
                 />
                 {/* End Time */}
-                <TextInput
-                  autoCapitalize={"sentences"}
-                  autoCorrect={true}
-                  style={{ ...styles.basicTextInput, marginLeft: 4 }}
-                  value={this.state.eventEndTime}
-                  placeholder={"End Time..."}
-                  placeholderTextColor={"#484848"}
-                  onChangeText={(newText) => {
+                <CreatePageTextInput
+                  textValue={this.state.eventEndTime}
+                  setText={(newText) => {
                     this.setState({ eventEndTime: newText });
                   }}
-                  backgroundColor={"#DCDCDC"}
+                  placeholder={"End Time..."}
+                  style={{ marginLeft: 4 }}
                 />
               </View>
 
               {/* Location/Link */}
-              <TextInput
-                autoCapitalize={"sentences"}
-                autoCorrect={true}
-                style={styles.basicTextInput}
-                value={this.state.eventLocation}
-                placeholder={"Location/Link..."}
-                placeholderTextColor={"#484848"}
-                onChangeText={(newText) => {
+              <CreatePageTextInput
+                textValue={this.state.eventLocation}
+                setText={(newText) => {
                   this.setState({ eventLocation: newText });
                 }}
-                backgroundColor={"#DCDCDC"}
+                placeholder={"Location/Link..."}
               />
 
               {/* Admission Price... */}
-              <TextInput
-                autoCapitalize={"sentences"}
-                autoCorrect={true}
-                style={{ ...styles.basicTextInput, marginHorizontal: "15%" }}
-                value={this.state.eventAdmissionPrice}
-                placeholder={"Admission Price..."}
-                placeholderTextColor={"#484848"}
-                onChangeText={(newText) => {
+              <CreatePageTextInput
+                textValue={this.state.eventAdmissionPrice}
+                setText={(newText) => {
                   this.setState({ eventAdmissionPrice: newText });
                 }}
-                backgroundColor={"#DCDCDC"}
+                placeholder={"Admission Price..."}
+                style={{ marginHorizontal: "15%" }}
               />
             </>
           )}

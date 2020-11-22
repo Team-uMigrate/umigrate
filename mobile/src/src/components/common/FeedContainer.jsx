@@ -100,7 +100,7 @@ class FeedContainer extends Component {
         refreshing: true,
       },
       async () => {
-        // Refetch items
+        // Fetch items
         await this.fetchItems();
         // Set state to not refreshing
         this.setState({ refreshing: false });

@@ -5,29 +5,37 @@ import { shallow } from 'enzyme';
 import FeedContainer from './FeedContainer';
 import { MockEndpoint1, MockEndpoint2 } from '../../utils/mockEndpoints';
 
+const endpoints = [MockEndpoint1, MockEndpoint2];
+const itemViews = [
+  (item) => <Text>{item.id}</Text>,
+  (item) => <Text>{item.id}</Text>,
+];
+const filtersList = [{}, {}];
+
+const setup = (initialState) => {
+  const feedContainerWrapper = shallow(
+    <FeedContainer
+      endpoints={endpoints}
+      itemViews={itemViews}
+      filtersList={filtersList}
+      scrollRef={null}
+    />,
+    { disableLifecycleMethods: true }
+  );
+  feedContainerWrapper.setState(initialState);
+  return feedContainerWrapper;
+};
+
 describe('<FeedContainer />', () => {
-  let shallowFeedContainer = null;
+  let feedContainerWrapper = null;
   let feedContainer: FeedContainer = null;
-  const endpoints = [MockEndpoint1, MockEndpoint2];
-  const itemViews = [
-    (item) => <Text>{item.id}</Text>,
-    (item) => <Text>{item.id}</Text>,
-  ];
 
   beforeEach(() => {
-    shallowFeedContainer = shallow(
-      <FeedContainer
-        endpoints={endpoints}
-        itemViews={itemViews}
-        filtersList={[{}, {}]}
-        scrollRef={null}
-      />,
-      { disableLifecycleMethods: true }
-    );
-    feedContainer = shallowFeedContainer.instance();
+    feedContainerWrapper = setup({});
+    feedContainer = feedContainerWrapper.instance();
   });
 
-  it('Should fetch items', async () => {
+  it('should fetch items', async () => {
     await feedContainer.fetchItems();
     await waitFor(() => {
       expect(feedContainer.state.items).toHaveLength(9);

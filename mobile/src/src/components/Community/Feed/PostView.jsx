@@ -56,8 +56,9 @@ export default PostView;
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     marginTop: '2.5%',
-    padding: 5,
+    padding: 0,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
@@ -70,23 +71,34 @@ const styles = StyleSheet.create({
     marginTop: "2.5%",
     marginBottom: "2.5%",
     flexDirection: "column",
+
     // backgroundColor: "blue",
+    // fontWeight: "normal",
+
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "500",
   },
   date: {
-    color: 'grey',
+    fontWeight: "300",
+    // color: 'grey',
   },
   likesComments: {
     flex: 1,
     paddingTop: 15,
     alignSelf: 'center',
+    color: "#484848",
+    fontSize: 12,
+    fontWeight: "300",
+    lineHeight: 16,
+    letterSpacing: 0.5,
   },
   title: {
     alignSelf: 'flex-start',
+    letterSpacing: 0.5,
   },
   bodyText: {
     marginBottom: 0,
+    letterSpacing: 0.5,
   },
 });

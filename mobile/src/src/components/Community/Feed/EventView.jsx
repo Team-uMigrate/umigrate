@@ -43,7 +43,7 @@ const EventView = ({
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price Scale: </Text>
+          <Text style={styles.bold}>Price: </Text>
           {Choices.prices[price_scale]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
@@ -55,11 +55,11 @@ const EventView = ({
           {location}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Start Time: </Text>
+          <Text style={styles.bold}>Start: </Text>
           {start_datetime.substring(0, 'YYYY-MM-DD'.length)}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>End Time: </Text>
+          <Text style={styles.bold}>End: </Text>
           {end_datetime
             ? end_datetime.substring(0, 'YYYY-MM-DD'.length)
             : 'N/A'}

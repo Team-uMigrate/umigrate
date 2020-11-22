@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
 import { shallow } from 'enzyme';
-import FeedContainer from './FeedContainer';
-import { mockEvent, mockPost } from '../../../utils/mockData';
+import FeedContainer from '../Community/Feed/FeedContainer';
+import { mockEvent, mockPost } from '../../utils/mockData';
 
 // Todo: We need to check that the FeedContainer renders the correct amount of PostView components onto the DOM,
 // and we need to test that the state changes correctly when api calls to fetch more postings are made when scrolling to

@@ -144,24 +144,15 @@ const toFormData = (data = {}) => {
 class BaseEndpoint {
   static endpoint = '';
 
-  static list(
+  static async list(
     page,
     filters = {},
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
   ) {
     let queryString = '?page=' + page;
     for (let key in filters) {
       queryString += '&' + key + '=' + filters[key];
     }
-
-    Axios.get(BASE_URL + this.endpoint + queryString)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
+    return await Axios.get(BASE_URL + this.endpoint + queryString);
   }
 
   static post(

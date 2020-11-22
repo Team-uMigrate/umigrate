@@ -61,25 +61,44 @@ class CommentTestCase(AbstractAPITestCase, APITestCase):
     def test_datetime_created(self):
         # standard list test with modified endpoint
         response = self.api_client.get(self.endpoint + self.order_ascending)
-        self.assert_equal(response.status_code, status.HTTP_200_OK,
-                          "Status code should be 200. "f"Error: {response.data}")
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
         results = response.data["results"]
         items = self.model_class.objects.all()
-        self.assert_equal(len(results), len(items), f"There should be ${len(items)} results")
+        self.assert_equal(
+            len(results), len(items), f"There should be ${len(items)} results"
+        )
 
         ascendingSortedList = sorted(results, key=lambda x: x["id"])
-        self.assert_equal(results, ascendingSortedList, "Results should be sorted in ascending chronological order.")
+        self.assert_equal(
+            results,
+            ascendingSortedList,
+            "Results should be sorted in ascending chronological order.",
+        )
 
     def test_reverse_datetime_created(self):
         response = self.api_client.get(self.endpoint + self.order_descending)
-        self.assert_equal(response.status_code, status.HTTP_200_OK,
-                          "Status code should be 200. "f"Error: {response.data}")
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
         results = response.data["results"]
         items = self.model_class.objects.all()
-        self.assert_equal(len(results), len(items), f"There should be ${len(items)} results")
+        self.assert_equal(
+            len(results), len(items), f"There should be ${len(items)} results"
+        )
 
         descendingSortedList = sorted(results, key=lambda x: x["id"], reverse=True)
-        self.assert_equal(results, descendingSortedList, "Results should be sorted in descending chronological order.")
+        self.assert_equal(
+            results,
+            descendingSortedList,
+            "Results should be sorted in descending chronological order.",
+        )
+
 
 # Test case for the replies endpoints
 class ReplyTestCase(AbstractAPITestCase, APITestCase):

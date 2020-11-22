@@ -20,21 +20,8 @@ class IsCreatorOrMemberReadOnly(BasePermission):
 class Room(GenericPhotoModel):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(
-        to=CustomUser,
-        related_name="created_room_set",
-        on_delete=models.CASCADE,
-        blank=True,
-    )
     datetime_created = models.DateTimeField(auto_now_add=True)
-    background_photo = models.ImageField(
-        upload_to="images/room_background_photos", blank=True
-    )
-    profile_photo = models.ImageField(
-        upload_to="images/room_profile_photos", blank=True
-    )
     members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
-    privacy_level = models.IntegerField(choices=Choices.ROOM_CHOICES, default=0)
 
     class Meta:
         ordering = ["-datetime_created"]

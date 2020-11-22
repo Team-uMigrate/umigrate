@@ -1,7 +1,7 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 from .api_views import (
-    RoomListCreate,
-    RoomRetrieveUpdateDestroy,
+    RoomViewSet,
     MessageList,
     RoomMembers,
 )
@@ -9,10 +9,11 @@ from .api_views import (
 # TODO: Remove this import later
 from .views import index, room
 
+router = DefaultRouter(trailing_slash=False)
+router.register(r"", RoomViewSet, basename="rooms")
+
 # Messaging url patterns
-urlpatterns = [
-    path("", RoomListCreate.as_view()),
-    path("<int:id>", RoomRetrieveUpdateDestroy.as_view()),
+urlpatterns = router.urls + [
     path("<int:id>/messages/", MessageList.as_view()),
     path("<int:id>/members", RoomMembers.as_view()),
     # TODO: Remove these 2 paths later

@@ -10,8 +10,9 @@ class RoomSerializer(ModelSerializerExtension):
         fields = "__all__"
 
     def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
+        created_data = ModelSerializerExtension.create(self, validated_data)
+        created_data.members.add(self.context["request"].user)
+        return created_data
 
 
 # Serializes the previous replied message

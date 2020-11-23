@@ -4,20 +4,25 @@ import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
 import { Choices } from '../../../utils/endpoints';
 import ImageCollection from '../../common/ImageCollection';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CommentBar from '../../common/CommentBar/CommentBar';
 
 const PostView = ({
+  id,
   title,
   creator,
   datetime_created,
   content,
   region,
-  postal_code,
-  category,
   photos,
   likes,
   comments,
+  is_liked,
+  sendComment
+
 }) => {
   const { width, height } = Dimensions.get('window');
+  const contentType = Choices.contentTypes.post;
 
   return (
     <Card style={styles.container} >
@@ -40,12 +45,15 @@ const PostView = ({
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.row}>
-        <Paragraph style={styles.likesComments}>
-            {"Likes " + "(" + likes + ")"}
-          </Paragraph>
-          <Paragraph style={styles.likesComments}>
-            {"Comments " + "(" + comments + ")"}
-          </Paragraph>
+          <CommentBar
+          postId={id}
+          likes={likes}
+          comments={comments}
+          sendComment={sendComment}
+          isLiked={is_liked}
+          contentType= {contentType}
+          >
+          </CommentBar>
         </View>
       </Card.Content>
     </Card>
@@ -58,7 +66,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     marginTop: '2.5%',
-    padding: 5,
+    padding: 3,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
@@ -81,16 +89,6 @@ const styles = StyleSheet.create({
   },
   date: {
     fontWeight: "300",
-  },
-  likesComments: {
-    marginRight: "8%",
-    paddingTop: "2.5%",
-    color: "#484848",
-    fontSize: 14,
-    fontWeight: "300",
-    lineHeight: 0,
-    letterSpacing: 0.5,
-    marginBottom: 0,
   },
   title: {
     alignSelf: 'flex-start',

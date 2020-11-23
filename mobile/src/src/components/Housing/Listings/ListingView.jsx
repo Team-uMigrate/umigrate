@@ -25,7 +25,7 @@ const ListingView = ({
   sendComment,
 }) => {
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes['listing'];
+  const contentType = Choices.contentTypes.listing;
 
   return (
     <Card style={styles.container}>

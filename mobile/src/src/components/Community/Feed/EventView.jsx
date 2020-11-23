@@ -4,7 +4,8 @@ import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
 import { Choices } from '../../../utils/endpoints';
 import ImageCollection from '../../common/ImageCollection';
-// import RadialGradient from 'react-native-radial-gradient';
+import GradientButton from 'react-native-gradient-buttons';
+import CommentBar from '../../common/CommentBar/CommentBar';
 
 const EventView = ({
   id,
@@ -24,8 +25,11 @@ const EventView = ({
   is_attending,
   attendEvent,
   interestedEvent,
+  is_liked,
+  sendComment
 }) => {
   const { width, height } = Dimensions.get('window');
+  const contentType = Choices.contentTypes.event;
 
   return (
     <Card style={styles.container}>
@@ -37,7 +41,7 @@ const EventView = ({
           <View style={styles.column}>
             <Text style={styles.bold}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
+              {datetime_created.substring(0, 'YYYY-MM-DD hr-mm'.length)}
             </Text>
           </View>
         </View>
@@ -57,32 +61,65 @@ const EventView = ({
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Start: </Text>
-          {start_datetime.substring(0, 'YYYY-MM-DD'.length)}
+          {/* {Moment(start_datetime).format('DD-MM')} */}
+          {start_datetime.substring(0, 'YYYY-MM-DD hr-mm'.length)}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End: </Text>
           {end_datetime
-            ? end_datetime.substring(0, 'YYYY-MM-DD'.length)
+            ? end_datetime.substring(0, 'YYYY-MM-DD HR-MM'.length)
             : 'N/A'}
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.buttonContainer}>
-          <Button
+          <GradientButton
+          //  compact={true}
+          //  mode={is_attending ? 'contained' : 'outlined'}
+          //  title={is_attending ? 'Attending' : 'Attending'}
+          //  dark={true}
+          //  color="white"
+          style={styles.buttonStyleAttend}
+          gradientBegin={is_interested? "#483FAB" : null}
+           textStyle={styles.bodyText}
+           radius={10}
+          //  gradientEnd="#FF668B"
+           onPressAction={() => {
+             attendEvent(id, !is_attending);
+           }}>
+            {is_attending ? 'Attend?' : 'Attending'}
+          </GradientButton>
+          {/* <Button
             compact={true}
             style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
             mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Unattend' : 'Attend'}
+            title={is_attending ? 'Attending' : 'Attending'}
             color="white"
             dark={true}
             onPress={() => {
               attendEvent(id, !is_attending);
             }}
           >
-            {is_attending ? 'Unattend' : 'Attend?'}
-          </Button>
-          <Button
+          </Button> */}
+           <GradientButton
+          //  compact={true}
+          //  mode={is_interested ? 'contained' : 'outlined'}
+          //  title={is_interested ? 'Uninterest' : 'Interested?'}
+          //  color="white"
+          //  dark={true}
+           style={styles.buttonStyleInterest}
+           textStyle={styles.bodyText}
+           radius={10}
+          gradientBegin={is_interested? "#483FAB" : null}
+          //  gradientEnd="#FF668B"
+           onPressAction={() => {
+             interestedEvent(id, !is_interested);
+           }}
+          >
+            {is_interested ? 'Uninterest' : 'Interested?'}
+          </GradientButton>
+          {/* <Button
             compact={true}
-            style={is_interested ? styles.buttonStyleFade : styles.buttonStyle}
+            style={styles.buttonStyle}
             mode={is_interested ? 'contained' : 'outlined'}
             title={is_interested ? 'Uninterest' : 'Interested?'}
             color="white"
@@ -92,15 +129,18 @@ const EventView = ({
             }}
           >
             {is_interested ? 'Uninterest' : 'Interested?'}
-          </Button>
+          </Button> */}
         </View>
         <View style={styles.row}>
-          <Paragraph style={styles.likesComments}>
-            {'Likes ' + '(' + likes + ')'}
-          </Paragraph>
-          <Paragraph style={styles.likesComments}>
-            {'Comments ' + '(' + comments + ')'}
-          </Paragraph>
+        <CommentBar
+          postId={id}
+          likes={likes}
+          comments={comments}
+          sendComment={sendComment}
+          isLiked={is_liked}
+          contentType= {contentType}
+          >
+          </CommentBar>
         </View>
       </Card.Content>
     </Card>
@@ -113,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     marginTop: '2.5%',
-    padding: 5,
+    padding: 3,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
@@ -146,7 +186,6 @@ const styles = StyleSheet.create({
     lineHeight: 0,
     letterSpacing: 0.5,
     marginBottom: 0,
-    // backgroundColor: "red"
   },
   title: {
     alignSelf: 'flex-start',
@@ -158,22 +197,27 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     fontSize: 16,
   },
-  buttonStyle: {
+  buttonStyleAttend: {
     height: 36,
-    width: 120,
     flex: 1,
-    backgroundColor: '#483FAB',
+    marginLeft: 0,
+    marginRight: "4%",
+    // paddingRight: "2.5%",
+    // marginRight: 0,
+    // paddingLeft: 5
+    // backgroundColor: "blue"
   },
-  buttonStyleFade: {
+  buttonStyleInterest: {
     height: 36,
-    width: 120,
     flex: 1,
-    backgroundColor: 'rgba(7,130,180,0.5)',
+    // marginLeft: 0,
+    marginRight: 0,
+    // paddingLeft: 5
+    // backgroundColor: "blue"
   },
   buttonContainer: {
     flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
     marginTop: '3%',
+    // backgroundColor: "red"
   },
 });

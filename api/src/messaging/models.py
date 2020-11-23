@@ -29,6 +29,12 @@ class Room(GenericPhotoModel):
     def __str__(self):
         return f"{self.title}"
 
+    def save(self, *args, **kwargs):
+        if not self.members:
+            self.delete(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
 
 # Represents a message object
 class Message(GenericPhotoModel):

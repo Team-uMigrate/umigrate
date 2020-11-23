@@ -1,5 +1,4 @@
 from types import SimpleNamespace
-
 from rest_framework import status
 from rest_framework.test import APITestCase
 from common.abstract_tests import AbstractAPITestCase

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
 
 class FeedContainer extends Component {
   constructor(props) {
@@ -74,7 +73,7 @@ class FeedContainer extends Component {
               Date.parse(item.datetime_created) >= maxEndDate &&
               !items.find(
                 (stateItem) =>
-                  stateItem.id == item.id && stateItem.type == item.type
+                  stateItem.id === item.id && stateItem.type === item.type
               )
           )
           // Add type to each item
@@ -101,7 +100,7 @@ class FeedContainer extends Component {
         refreshing: true,
       },
       async () => {
-        // Refetch items
+        // Fetch items
         await this.fetchItems();
         // Set state to not refreshing
         this.setState({ refreshing: false });
@@ -136,13 +135,7 @@ class FeedContainer extends Component {
   }
 }
 
-export default function (props) {
-  const ref = React.useRef(null);
-
-  useScrollToTop(ref);
-
-  return <FeedContainer {...props} scrollRef={ref} />;
-}
+export default FeedContainer;
 
 const styles = StyleSheet.create({
   feedContainer: {

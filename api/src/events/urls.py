@@ -7,7 +7,7 @@ router = DefaultRouter(trailing_slash=False)
 router.register(r"", EventViewSet, basename="events")
 urlpatterns = router.urls + [
     path("like", EventLike.as_view()),
-    path("likes", EventLikes.as_view()),
+    path("<int:id>/likes", EventLikes.as_view()),
     path("interested", EventInterestedUser.as_view()),
     path("attending", EventAttendingUser.as_view()),
 ]

@@ -62,7 +62,7 @@ const CommentBarButtons = ({
               item.updateItem({
                 ...item,
                 is_liked: !item.is_liked,
-                likes: item.is_liked ? item.is_liked - 1 : item.is_liked + 1,
+                likes: item.is_liked ? item.likes - 1 : item.likes + 1,
               });
             }}
           />

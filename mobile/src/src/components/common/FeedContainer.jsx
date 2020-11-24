@@ -49,7 +49,7 @@ class FeedContainer extends Component {
       );
     });
 
-    let newItems = items;
+    let newItems = this.state.refreshing ? [] : items;
     let newNextPages = nextPages;
 
     responseDataList.forEach((responseData, t) => {

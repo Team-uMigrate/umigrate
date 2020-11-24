@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
-import CommentBarButtons from "./CommentBarButtons";
-import NavContext from "../../../contexts/NavContext";
+import React, { useState, useContext } from 'react';
+import { StyleSheet, View, TextInput, Text } from 'react-native';
+import CommentBarButtons from './CommentBarButtons';
+import NavContext from '../../../contexts/NavContext';
 
 /*
 To add the comment bar to your components, you need to pass in two callback functions.
@@ -15,17 +15,8 @@ to pass in the right number.
 
 The other props are self-explanatory enough.
  */
-const CommentBar = ({
-  postId,
-  contentType,
-  isLiked,
-  region,
-  likePost,
-  sendComment,
-  likes,
-  comments,
-}) => {
-  const [text, setText] = useState("");
+const CommentBar = ({ item, contentType, endpoint }) => {
+  const [text, setText] = useState('');
   const [sendButtonVisible, setSendButtonVisible] = useState(false);
   const nav = useContext(NavContext);
 
@@ -40,28 +31,25 @@ const CommentBar = ({
           multiline={true}
           scrollEnabled={true}
           onChangeText={setText}
-          placeholder={"Comment..."}
-          placeholderTextColor={"#636363"}
-          backgroundColor={"#EBEBEB"}
+          placeholder={'Comment...'}
+          placeholderTextColor={'#636363'}
+          backgroundColor={'#EBEBEB'}
           onFocus={() => {
             setSendButtonVisible(true);
           }}
           onEndEditing={() => {
-            if (text == "") setSendButtonVisible(false);
+            if (text == '') setSendButtonVisible(false);
           }}
           style={styles.textInput}
         />
         <CommentBarButtons
-          postId={postId}
+          item={item}
           contentType={contentType}
+          endpoint={endpoint}
           sendButtonVisible={sendButtonVisible}
           setSendButtonVisible={setSendButtonVisible}
-          sendComment={sendComment}
-          likePost={likePost}
-          isLiked={isLiked}
           text={text}
           setText={setText}
-          region={region}
         />
       </View>
     );
@@ -75,31 +63,28 @@ const CommentBar = ({
             }}
             style={styles.likesText}
           >
-            {"Likes (" + likes + ")"}
+            {'Likes (' + item.likes + ')'}
           </Text>
           <Text
             onPress={() => {
-              nav.navigation.navigate("Comments", {
-                postId: postId,
+              nav.navigation.navigate('Comments', {
+                postId: item.id,
                 contentType: contentType,
               });
             }}
             style={styles.commentsText}
           >
-            {" Comments (" + comments + ")"}
+            {' Comments (' + item.comments + ')'}
           </Text>
         </View>
         <CommentBarButtons
-          postId={postId}
+          item={item}
           contentType={contentType}
+          endpoint={endpoint}
           sendButtonVisible={sendButtonVisible}
           setSendButtonVisible={setSendButtonVisible}
-          sendComment={sendComment}
-          likePost={likePost}
-          isLiked={isLiked}
           text={text}
           setText={setText}
-          region={region}
         />
       </View>
     );
@@ -110,39 +95,39 @@ export default CommentBar;
 
 const styles = StyleSheet.create({
   commentBarContainer: {
-    flexDirection: "row",
-    alignItems: "flex-end",
+    flexDirection: 'row',
+    alignItems: 'flex-end',
     marginTop: 10,
   },
   likesAndCommentsText: {
-    flexDirection: "row",
-    marginRight: "auto",
+    flexDirection: 'row',
+    marginRight: 'auto',
     marginBottom: 10,
     marginTop: 16,
   },
   likesText: {
     // TODO: Enable Montserrat font
     // fontFamily: "Montserrat",
-    fontStyle: "normal",
-    fontWeight: "300",
+    fontStyle: 'normal',
+    fontWeight: '300',
     fontSize: 12,
     lineHeight: 16,
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     letterSpacing: 0.5,
-    color: "#404040",
+    color: '#404040',
   },
   commentsText: {
     // TODO: Enable Montserrat font
     // fontFamily: "Montserrat",
-    fontStyle: "normal",
-    fontWeight: "300",
+    fontStyle: 'normal',
+    fontWeight: '300',
     fontSize: 12,
     lineHeight: 16,
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     letterSpacing: 0.5,
-    color: "#404040",
+    color: '#404040',
     marginLeft: 30,
   },
   textInput: {
@@ -153,6 +138,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
     marginTop: 5,
-    textAlignVertical: "center",
+    textAlignVertical: 'center',
   },
 });

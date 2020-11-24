@@ -28,7 +28,7 @@ const setup = (initialState) => {
 
 describe('<FeedContainer />', () => {
   let feedContainerWrapper = null;
-  let feedContainer: FeedContainer = null;
+  let feedContainer = null;
 
   beforeEach(() => {
     feedContainerWrapper = setup({});

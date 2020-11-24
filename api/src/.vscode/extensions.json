@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "donjayamanne.python-extension-pack",
+        "pachwenko.django-test-runner",
+        "ms-azuretools.vscode-docker",
+        "ckolkman.vscode-postgres"
+    ]
+}

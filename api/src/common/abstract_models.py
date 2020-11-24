@@ -29,19 +29,19 @@ class AbstractPostModel(models.Model):
     region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="%(app_label)s_%(class)s_set",
+        related_name="%(class)s_set",
         on_delete=models.CASCADE,
         blank=True,
     )
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(
-        to=CustomUser, related_name="liked_%(app_label)s_%(class)s_set", blank=True
+        to=CustomUser, related_name="liked_%(class)s_set", blank=True
     )
     tagged_users = models.ManyToManyField(
-        to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_set", blank=True
+        to=CustomUser, related_name="tagged_%(class)s_set", blank=True
     )
     saved_users = models.ManyToManyField(
-        to=CustomUser, related_name="saved_%(app_label)s_%(class)s_set", blank=True
+        to=CustomUser, related_name="saved_%(class)s_set", blank=True
     )
     comments = GenericRelation(Comment)
 

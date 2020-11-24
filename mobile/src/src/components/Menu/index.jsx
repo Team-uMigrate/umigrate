@@ -1,3 +1,3 @@
-import MenuPage from "./MenuPage";
+import MenuPage from './MenuPage';
 
 export default MenuPage;

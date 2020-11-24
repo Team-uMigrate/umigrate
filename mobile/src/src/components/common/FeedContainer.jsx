@@ -16,6 +16,16 @@ class FeedContainer extends Component {
     await this.fetchItems();
   };
 
+  updateItem = (item) => {
+    const index = this.state.items.findIndex(
+      (obj) => obj.id === item.id && obj.type === item.type
+    );
+    const copiedItems = JSON.parse(JSON.stringify(this.state.items));
+
+    copiedItems[index] = item;
+    this.setState({ items: copiedItems });
+  };
+
   fetchItems = async () => {
     // Retrieve state and props
     const { items, nextPages, errorMessages } = this.state;
@@ -108,7 +118,10 @@ class FeedContainer extends Component {
   };
 
   renderItem = ({ item }) => {
-    return this.props.itemViews[item.type](item);
+    return this.props.itemViews[item.type]({
+      ...item,
+      updateItem: this.updateItem,
+    });
   };
 
   render() {

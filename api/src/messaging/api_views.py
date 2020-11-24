@@ -39,18 +39,6 @@ class RoomViewSet(AbstractModelViewSet):
     def get_queryset(self):
         return self.request.user.room_set.all()
 
-    def create(self, request, *args, **kwargs):
-        response = GenericPostListCreate.create(self, request, *args, **kwargs)
-
-        if response.status_code == status.HTTP_201_CREATED:
-            if request.user.id not in response.data["members"]:
-                Room.objects.get(id=response.data["id"]).members.add(request.user.id)
-                response.data["members"] = Room.objects.get(
-                    id=response.data["id"]
-                ).members.values_list("id", flat=True)
-
-        return response
-
 
 # HTTP GET: Returns a list of messages for a room
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Messaging"]))
@@ -63,7 +51,11 @@ class MessageList(ListAPIView):
 
     def list(self, request, *args, **kwargs):
         try:
-            if Room.objects.get(id=kwargs["id"]).members.filter(id=request.user.id):
+            if (
+                Room.objects.get(id=kwargs["id"])
+                .members.filter(id=request.user.id)
+                .exists()
+            ):
                 self.queryset = Message.objects.filter(room=kwargs["id"])
                 return ListAPIView.list(self, request, *args, **kwargs)
 

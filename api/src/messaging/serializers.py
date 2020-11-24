@@ -5,6 +5,8 @@ from .models import Room, Message
 
 # Serializes the room model
 class RoomSerializer(ModelSerializerExtension):
+    # members = BasicUserSerializer(read_only=True, many=True)
+
     class Meta:
         model = Room
         fields = "__all__"

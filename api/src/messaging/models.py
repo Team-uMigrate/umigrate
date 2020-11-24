@@ -30,8 +30,8 @@ class Room(GenericPhotoModel):
         return f"{self.title}"
 
     def save(self, *args, **kwargs):
-        if not self.members:
-            self.delete(*args, **kwargs)
+        if self.id and not self.members:
+            self.delete()
         else:
             super().save(*args, **kwargs)
 

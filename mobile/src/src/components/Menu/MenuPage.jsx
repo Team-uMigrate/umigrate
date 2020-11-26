@@ -6,22 +6,14 @@ import Header from '../common/Header';
 import MenuLogout from './MenuLogout';
 
 class MenuPage extends Component {
-  state = { user: {} };
+  constructor(props) {
+    super(props);
+    this.state = { user: {} };
+  }
 
-  componentDidMount = () => {
-    this.getProfile();
-  };
-
-  getProfile = () => {
-    ProfileEndpoint.get(
-      (response) => {
-        this.setState({ user: response.data });
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-      }
-    );
+  componentDidMount = async () => {
+    const response = await ProfileEndpoint.get();
+    this.setState({ user: response.data });
   };
 
   render() {

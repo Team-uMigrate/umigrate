@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TextInput } from 'react-native';
 import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import ProfilePhoto from '../../common/ProfilePhoto';
-import { ProfileEndpoint } from '../../../utils/endpoints';
+import { PostsEndpoint, ProfileEndpoint } from '../../../utils/endpoints';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, IconButton, Button } from 'react-native-paper';
+
 import CreatePageTextInput from '../CreatePageTextInput';
 
 class CommunityContainer extends React.Component {
   state = {
     user: { profile_photo: null },
-    selectedPostType: '',
+    selectedPostType: 'Post',
     setSelectedPostType: (newValue) => {
       this.setState({ selectedPostType: newValue });
     },
@@ -40,11 +41,31 @@ class CommunityContainer extends React.Component {
     );
   };
 
+  submitPost = () => {
+    if (this.state.selectedPostType === 'Post') {
+      // Submit post to post endpoint
+      let data = {
+        title: this.state.title,
+        content: this.state.body,
+        region: this.state.user.region,
+        tagged_users: [], // TODO add tag user functionality
+      };
+      PostsEndpoint.post(
+        data,
+        (response) => {},
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else if (this.state.selectedPostType === 'Poll') {
+    } else if (this.state.selectedPostType === 'Event') {
+    }
+  };
+
   render() {
-    console.log(this.state);
     return (
       <ScrollView styles={styles.container}>
-        <Header title={'New Community Post'} isMessagingPage={true} />
+        <Header title={'New Community Post'} isMessagingOrCommentsPage={true} />
         <View style={styles.postTypeOptionsContainer}>
           {/* TODO investigate laggy button response */}
           <PostTypeOptionsButton
@@ -82,7 +103,7 @@ class CommunityContainer extends React.Component {
               </Text>
             </View>
             <View styles={{ alignSelf: 'flex-end' }}>
-              <MaterialCommunityIcons name={'account-group'} size={40} />
+              <MaterialCommunityIcons name={'earth'} size={40} />
             </View>
           </View>
 
@@ -112,10 +133,15 @@ class CommunityContainer extends React.Component {
             <>
               {this.state.pollOptions.map((pollText, index) => {
                 return (
-                  <View key={index.toString()}>
-                    <CreatePageTextInput
-                      textValue={this.state.pollOptions[index]}
-                      setText={(newValue) => {
+                  <View
+                    key={index.toString()}
+                    style={styles.pollOptionInputView}
+                  >
+                    <TextInput
+                      autoCapitalize={'sentences'}
+                      autoCorrect={true}
+                      value={this.state.pollOptions[index]}
+                      onChangeText={(newValue) => {
                         let newPollOptions = Object.assign(
                           [],
                           this.state.pollOptions
@@ -124,6 +150,21 @@ class CommunityContainer extends React.Component {
                         this.setState({ pollOptions: newPollOptions });
                       }}
                       placeholder={'Poll option...'}
+                      placeholderTextColor={'#484848'}
+                      style={{ flex: 5, paddingLeft: '5%' }}
+                    />
+                    <IconButton
+                      icon={'close'}
+                      size={16}
+                      color={'#404040'}
+                      onPress={() => {
+                        let newPollOptions = Object.assign(
+                          [],
+                          this.state.pollOptions
+                        );
+                        newPollOptions.splice(index, 1); // Removes this poll option
+                        this.setState({ pollOptions: newPollOptions });
+                      }}
                     />
                   </View>
                 );
@@ -225,15 +266,17 @@ class CommunityContainer extends React.Component {
         >
           <Button
             mode={'contained'}
-            color={'#6367B4'}
+            color={'#8781D0'}
             style={styles.previewAndShareButtons}
+            dark={true}
           >
             Preview
           </Button>
           <Button
             mode={'contained'}
-            color={'#6367B4'}
+            color={'#8781D0'}
             style={styles.previewAndShareButtons}
+            dark={true}
           >
             Share
           </Button>
@@ -248,12 +291,10 @@ export default CommunityContainer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eeeeee',
+    backgroundColor: 'white',
     flexDirection: 'column',
   },
   postTypeOptionsContainer: {
-    backgroundColor: '#c4c4c4',
-    borderRadius: 10,
     padding: 5,
     flexDirection: 'row',
     margin: '2%',
@@ -270,25 +311,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  basicTextInput: {
-    flex: 1,
-    marginTop: 10,
+  pollOptionInputView: {
+    flexDirection: 'row',
+    backgroundColor: '#DCDCDC',
     borderRadius: 10,
-    padding: 3,
-    paddingLeft: '5%',
-  },
-  bodyInput: {
     marginTop: 10,
-    textAlignVertical: 'top',
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: '5%',
-  },
-  pollOptionInput: {
-    marginTop: 10,
-    borderRadius: 10,
-    padding: 3,
-    paddingLeft: '5%',
   },
   imageAndTagButtonsView: {
     marginTop: 10,

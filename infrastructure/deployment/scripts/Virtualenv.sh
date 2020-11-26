@@ -15,7 +15,11 @@ pip3 install --upgrade pip
 pip3 install virtualenv
 
 # Make dir for venv 
-mkdir /home/umigrate/venv
+DIR="/home/umigrate/venv/"
+if [ ! -d "$DIR" ]; then
+	mkdir /home/umigrate/venv
+fi
+
 virtualenv --python=/usr/bin/py /home/umigrate/venv
 
 # Send pipeline variables to environment variables file

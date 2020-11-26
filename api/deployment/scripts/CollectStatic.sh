@@ -2,11 +2,13 @@
 
 # Collect static files
 
-# Only collect static if website dir exists
+# Make the website dir if it doesnt exist 
 DIR="/home/umigrate/website/"
-if [ -d "$DIR" ]; then
-	source /home/umigrate/venv/bin/activate
-	py /home/umigrate/api/manage.py collectstatic --noinput
-	deactivate
+if [ ! -d "$DIR" ]; then
+	mkdir /home/umigrate/website
 fi
+
+source /home/umigrate/venv/bin/activate
+py /home/umigrate/api/manage.py collectstatic --noinput
+deactivate
 

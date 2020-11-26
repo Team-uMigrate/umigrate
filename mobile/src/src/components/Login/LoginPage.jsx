@@ -18,46 +18,37 @@ const LoginPage = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSignIn = () => {
-    AuthEndpoint.login(
-      { email: email, password: password },
-      (response) => {
-        ProfileEndpoint.get(
-          (response) => auth.setAuthenticated(true),
-          (error) => {
-            console.log(error);
-            console.log(error.response);
-          }
-        );
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-
-        // Populate error messages
-        let errors = [];
-        let count = 0;
-        // Loops through all error messages in the data of the response field in the error object to generate error messages
-        for (let errorType in error.response.data) {
-          errors.push(
-            <Text key={count}>
-              {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
-                errorType.substring(1) +
-                ': ' +
-                error.response.data[errorType]}
-            </Text>
-          );
-          count++;
-        }
-
-        setErrorMessage(errors);
-        setModalVisible(true);
-      }
-    );
-  };
+  // Todo: Wrap these functions in a react hook
 
   const signUpRedirect = () => {
     navigation.navigate('Register');
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await AuthEndpoint.login(email, password);
+      await ProfileEndpoint.get();
+      auth.setAuthenticated(true);
+    } catch (error) {
+      // Populate error messages
+      let errors = [];
+      let count = 0;
+      // Loops through all error messages in the data of the response field in the error object to generate error messages
+      for (let errorType in error.response.data) {
+        errors.push(
+          <Text key={count}>
+            {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
+              errorType.substring(1) +
+              ': ' +
+              error.response.data[errorType]}
+          </Text>
+        );
+        count++;
+      }
+
+      setErrorMessage(errors);
+      setModalVisible(true);
+    }
   };
 
   return (

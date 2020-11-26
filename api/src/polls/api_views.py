@@ -33,12 +33,10 @@ class PollViewSet(AbstractModelViewSet):
 # HTTP POST: Like or unlike a poll
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class PollLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Poll.objects.get(id=obj_id).liked_users
+class PollLike(AbstractSavedView):
+    query_string = "liked_poll_set"
+    serializer_class = PollSerializer
+    model_class = Poll
 
 
 # HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL
@@ -68,6 +66,6 @@ class VoteListCreate(GenericPostListCreate):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
 class SavedPoll(AbstractSavedView):
-    query_string = "saved_polls_poll_set"
+    query_string = "saved_poll_set"
     serializer_class = PollSerializer
     model_class = Poll

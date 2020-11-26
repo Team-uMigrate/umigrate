@@ -27,17 +27,15 @@ class PostViewSet(AbstractModelViewSet):
 # HTTP POST: Like or unlike a post
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
-class PostLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Post.objects.get(id=obj_id).liked_users
+class PostLike(AbstractSavedView):
+    query_string = "liked_post_set"
+    serializer_class = PostSerializer
+    model_class = Post
 
 
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Posts"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
 class SavedPost(AbstractSavedView):
-    query_string = "saved_posts_post_set"
+    query_string = "saved_post_set"
     serializer_class = PostSerializer
     model_class = Post

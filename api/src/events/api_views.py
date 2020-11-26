@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import EventFilterSet
 from .models import Event
@@ -25,12 +25,10 @@ class EventViewSet(AbstractModelViewSet):
 # HTTP POST: Like or unlike an event
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class EventLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Event.objects.get(id=obj_id).liked_users
+class EventLike(AbstractSavedView):
+    query_string = "liked_event_set"
+    serializer_class = EventSerializer
+    model_class = Event
 
 
 # HTTP GET: Returns a list of users that are interested in the event
@@ -56,6 +54,6 @@ class EventAttendingUser(AbstractSavedView):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
 class SavedEvent(AbstractSavedView):
-    query_string = "saved_events_event_set"
+    query_string = "saved_event_set"
     serializer_class = EventSerializer
     model_class = Event

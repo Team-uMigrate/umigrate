@@ -29,17 +29,15 @@ class ListingViewSet(AbstractModelViewSet):
 # HTTP POST: Like or unlike a listing
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class ListingLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Listing.objects.get(id=obj_id).liked_users
+class ListingLike(AbstractSavedView):
+    query_string = "liked_listing_set"
+    serializer_class = ListingSerializer
+    model_class = Listing
 
 
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
 class SavedListing(AbstractSavedView):
-    query_string = "saved_listings_listing_set"
+    query_string = "saved_listing_set"
     serializer_class = ListingSerializer
     model_class = Listing

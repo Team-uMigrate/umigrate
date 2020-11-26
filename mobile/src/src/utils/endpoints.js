@@ -134,252 +134,134 @@ export const removeUserData = () => {
 
 const toFormData = (data = {}) => {
   const formData = new FormData();
-  for (let key in data) {
+  Object.keys(data).forEach((key) => {
     formData.append(key, data[key]);
-  }
+  });
   return formData;
 };
 
-// Base endpoint class
-class BaseEndpoint {
+const toQueryString = (data = {}) => {
+  return Object.keys(data)
+    .map((key, i) => `${i === 0 ? '?' : '&'}${key}=${data[key]}`)
+    .reduce((total, current) => total + current);
+};
+
+// Abstract endpoint class
+class AbstractEndpoint {
   static endpoint = '';
 
-  static async list(
-    page,
-    filters = {},
-  ) {
-    let queryString = '?page=' + page;
-    for (let key in filters) {
-      queryString += '&' + key + '=' + filters[key];
-    }
-    return await Axios.get(BASE_URL + this.endpoint + queryString);
-  }
+  static list = async (page, filters = {}) => {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
+    );
+  };
 
-  static post(
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    const formData = toFormData(data);
-
-    Axios.post(BASE_URL + this.endpoint, formData, {
+  static post = async (data) => {
+    return await Axios.post(`${BASE_URL}${this.endpoint}`, toFormData(data), {
       headers: { 'content-type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+    });
+  };
 
-  static get(
-    id,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    Axios.get(BASE_URL + this.endpoint + id)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static get = async (id) => {
+    return await Axios.get(`${BASE_URL}${this.endpoint}${id}`);
+  };
 
-  static patch(
-    id,
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    const formData = toFormData(data);
+  static patch = async (id, data) => {
+    return await Axios.patch(
+      `${BASE_URL}${this.endpoint}${id}`,
+      toFormData(data),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+  };
 
-    Axios.patch(BASE_URL + this.endpoint + id, formData, {
-      headers: { 'content-type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static delete = async (id) => {
+    return await Axios.delete(`${BASE_URL}${this.endpoint}${id}`);
+  };
 
-  static delete(
-    id,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    Axios.delete(BASE_URL + this.endpoint + id)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
-}
+  static like = async (id, shouldLike) => {
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}like`,
+      toFormData({ id: id, like: shouldLike })
+    );
+  };
 
-// Base posting endpoint class
-class BasePostingEndpoint extends BaseEndpoint {
-  static async like(
-    id,
-    shouldLike
-  ) {
-    const formData = { id: id, like: shouldLike };
-    return await Axios.post(BASE_URL + this.endpoint + 'like', formData)
-  }
+  static save = async (id, shouldSave) => {
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}save`,
+      toFormData({ id: id, save: shouldSave })
+    );
+  };
 }
 
 // Endpoints
-
-// General endpoint for all types of comments
-export class CommentsEndpoint extends BaseEndpoint {
-  static endpoint = '/api/comments/';
-
-  static list(
-    contentType,
-    objectId, // <- The id of the post/listing/ad/etc that you're looking for the comments of
-    page,
-    filters = {},
-    handleSuccess = () => {},
-    handleError = () => {}
-  ) {
-    filters['object_id'] = objectId;
-    filters['content_type'] = contentType;
-    let queryString = '?page=' + page;
-
-    for (let key in filters) {
-      queryString += '&' + key + '=' + filters[key];
-    }
-
-    Axios.get(BASE_URL + this.endpoint + queryString)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError();
-      });
-  }
-
-  static async like(
-    id,
-    shouldLike,
-  ) {
-    const formData = { id: id, like: shouldLike };
-
-    return await Axios.post(BASE_URL + this.endpoint + 'like', formData, {
-      headers: { 'content-type': 'application/json' },
-    });
-  }
-
-  // The only difference between these functions and the post and patch functions of the parent class is that
-  // these send json data instead of form-data
-  static async post(
-    data
-  ) {
-    return await Axios.post(BASE_URL + this.endpoint, data, {
-      headers: { 'content-type': 'application/json' },
-    });
-  }
-
-  static patch(
-    id,
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    Axios.patch(BASE_URL + this.endpoint + id, data, {
-      headers: { 'content-type': 'application/json' },
-    })
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
-}
-
-export class CommentRepliesEndpoint extends BaseEndpoint {
-  static endpoint = '/api/comments/replies/';
-
-  static list(
-    page,
-    commentId,
-    filters = {}, // Add post_id
-    handleSuccess = () => {},
-    handleFailure = () => {}
-  ) {
-    let queryString = '?page=' + page + '&comment=' + commentId;
-
-    for (let key in filters) {
-      queryString += '&' + key + '=' + filters[key].toString();
-    }
-
-    Axios.get(BASE_URL + this.endpoint + queryString)
-      .then(handleSuccess)
-      .catch(handleFailure);
-  }
-}
 
 export class AdsEndpoint extends BasePostingEndpoint {
   static endpoint = '/api/ads/';
 }
 
+export class CommentsEndpoint extends AbstractEndpoint {
+  static endpoint = '/api/comments/';
+
+  static list = async (contentType, objectId, page, filters = {}) => {
+    return await AbstractEndpoint.list(page, {
+      content_type: contentType,
+      object_id: objectId,
+      ...filters,
+    });
+  };
+}
+
+export class CommentRepliesEndpoint extends AbstractEndpoint {
+  static endpoint = '/api/comments/replies/';
+
+  static list = async (commentId, page, filters = {}) => {
+    return await AbstractEndpoint.list(page, {
+      comment: commentId,
+      ...filters,
+    });
+  };
+}
+
 export class EventsEndpoint extends BasePostingEndpoint {
   static endpoint = '/api/events/';
 
-  static async attend(
-    id,
-    shouldAttend
-  ) {
-    const formData = { id: id, attending: shouldAttend };
-    return await Axios.post(BASE_URL + this.endpoint + 'attending', formData);
-  }
+  static attend = async (id, shouldAttend) => {
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}attending`,
+      toFormData({ id: id, attending: shouldAttend })
+    );
+  };
 
-  static async interested(
-    id,
-    shouldInterested
-  ) {
-    const formData = { id: id, interested: shouldInterested };
-    return await Axios.post(BASE_URL + this.endpoint + 'interested', formData);
-  }
+  static interested = async (id, shouldBeInterested) => {
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}interested`,
+      toFormData({ id: id, interested: shouldBeInterested })
+    );
+  };
 }
 
 export class ListingsEndpoint extends BasePostingEndpoint {
   static endpoint = '/api/listings/';
 }
 
-export class JobsEndpoint extends BaseEndpoint {
+export class JobsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/jobs/';
 }
 
-export class RoomsEndpoint extends BaseEndpoint {
+export class RoomsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/rooms/';
 }
 
 export class MessagesEndpoint {
-  static list(
-    page,
-    filters = {},
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    let queryString = '?page=' + page;
-    for (let key in filters) {
-      queryString += '&' + key + '=' + filters[key];
-    }
+  static endpoint = '/api/rooms/messages/';
 
-    Axios.get(BASE_URL + '/api/rooms/messages/' + queryString)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static list = async (page, filters = {}) => {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
+    );
+  };
 }
 
 export class PollsEndpoint extends BasePostingEndpoint {
@@ -390,127 +272,73 @@ export class PostsEndpoint extends BasePostingEndpoint {
   static endpoint = '/api/posts/';
 }
 
-export class AuthEndpoint {
-  static login(
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    removeAuthToken();
-    removeUserData();
+export class UsersEndpoint {
+  static endpoint = '/api/users/';
 
-    const formData = toFormData(data);
+  static list = async (page, filters = {}) => {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
+    );
+  };
 
-    Axios.post(BASE_URL + '/api/login/', formData, {
-      headers: { 'content-type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        setAuthToken(response.data.key);
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
-
-  static logout(handleSuccess = (response) => {}, handleError = (error) => {}) {
-    Axios.post(BASE_URL + '/api/logout/')
-      .then((response) => {
-        removeAuthToken();
-        removeUserData();
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
-
-  static register(
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    removeAuthToken();
-    removeUserData();
-
-    const formData = toFormData(data);
-
-    Axios.post(BASE_URL + '/api/registration/', formData, {
-      headers: { 'content-type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static get = async (id) => {
+    return await Axios.get(`${BASE_URL}${this.endpoint}${id}`);
+  };
 }
 
-export class UsersEndpoint {
-  static list(
-    page,
-    filters = {},
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    let queryString = '?page=' + page;
-    for (let key in filters) {
-      queryString += '&' + key + '=' + filters[key];
-    }
+export class AuthEndpoint {
+  static login = async (email, password) => {
+    removeAuthToken();
+    removeUserData();
+    const response = await Axios.post(
+      `${BASE_URL}/api/login/`,
+      toFormData({ email: email, password: password }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+    setAuthToken(response.data.key);
 
-    Axios.get(BASE_URL + '/api/users/' + queryString)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+    return response;
+  };
 
-  static get(
-    id,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    Axios.get(BASE_URL + '/api/users/' + id)
-      .then((response) => {
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static logout = async () => {
+    const response = await Axios.post(`${BASE_URL}/api/logout/`);
+    removeAuthToken();
+    removeUserData();
+
+    return response;
+  };
+
+  static register = async (email, password, confirmPassword) => {
+    removeAuthToken();
+    removeUserData();
+
+    return await Axios.post(
+      `${BASE_URL}/api/registration/`,
+      toFormData({
+        email: email,
+        password1: password,
+        password2: confirmPassword,
+      }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+  };
 }
 
 export class ProfileEndpoint {
-  static get(handleSuccess = (response) => {}, handleError = (error) => {}) {
-    Axios.get(BASE_URL + '/api/user/')
-      .then((response) => {
-        setUserData(response.data);
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+  static get = async () => {
+    const response = await Axios.get(`${BASE_URL}/api/user/`);
+    setUserData(response.data);
 
-  static patch(
-    data,
-    handleSuccess = (response) => {},
-    handleError = (error) => {}
-  ) {
-    const formData = toFormData(data);
+    return response;
+  };
 
-    Axios.patch(BASE_URL + '/api/user/', formData, {
+  static patch = async (data) => {
+    return await Axios.patch(`${BASE_URL}/api/user/`, toFormData(data), {
       headers: { 'content-type': 'multipart/form-data' },
-    })
-      .then((response) => {
-        setUserData(response.data);
-        handleSuccess(response);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
-  }
+    });
+  };
 }

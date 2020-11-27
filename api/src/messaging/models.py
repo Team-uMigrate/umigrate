@@ -17,7 +17,7 @@ class IsCreatorOrMemberReadOnly(BasePermission):
 
 
 # Represents a room object
-class Room(GenericPhotoModel):
+class Room(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -37,7 +37,7 @@ class Room(GenericPhotoModel):
 
 
 # Represents a message object
-class Message(GenericPhotoModel):
+class Message(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=500)
     creator = models.ForeignKey(
@@ -56,9 +56,6 @@ class Message(GenericPhotoModel):
         to=CustomUser,
         related_name="tagged_message_set",
         blank=True,
-    )
-    profile_photo = models.ImageField(
-        upload_to="images/message_profile_photos", blank=True
     )
     room = models.ForeignKey(
         to=Room, related_name="message_set", on_delete=models.CASCADE

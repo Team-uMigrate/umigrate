@@ -4,10 +4,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from common.abstract_api_views import AbstractModelViewSet
 from common.abstract_models import IsMember
-from common.generics.generic_post_api_views import (
-    GenericPostListCreate,
-    GenericPostRetrieveUpdateDestroy,
-)
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Room, Message, IsCreatorOrMemberReadOnly

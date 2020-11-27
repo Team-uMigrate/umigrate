@@ -41,7 +41,7 @@ const EventView = ({
           <View style={styles.column}>
             <Text style={styles.bold}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD hr-mm'.length)}
+              {datetime_created.substring(0, 'YYYY-MM-DD HR-MM'.length)}
             </Text>
           </View>
         </View>
@@ -61,7 +61,6 @@ const EventView = ({
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Start: </Text>
-          {/* {Moment(start_datetime).format('DD-MM')} */}
           {start_datetime.substring(0, 'YYYY-MM-DD hr-mm'.length)}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     paddingTop: "1.5%",
-    paddingBottom: "2.5%"
+    paddingBottom: "2.5%",
   },
   row: {
     flexDirection: 'row',
@@ -176,16 +175,6 @@ const styles = StyleSheet.create({
   },
   date: {
     fontWeight: "300",
-  },
-  likesComments: {
-    marginRight: "8%",
-    paddingTop: "2.5%",
-    color: "#484848",
-    fontSize: 14,
-    fontWeight: "300",
-    lineHeight: 0,
-    letterSpacing: 0.5,
-    marginBottom: 0,
   },
   title: {
     alignSelf: 'flex-start',

@@ -77,7 +77,7 @@ const CommentBarButtons = ({
           /> */}
         </View>
         {/* Button to view comments */}
-        <View>
+        <View style={styles.buttonView}>
           <MaterialCommunityIcons
            name='chat-outline'
            color={'purple'}
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-end",
+    // backgroundColor: "red",
   },
   sendButtonView: {
     flex: 1,
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 30,
+    // backgroundColor: "red",
   },
   sendButton: {
     alignSelf: "center",

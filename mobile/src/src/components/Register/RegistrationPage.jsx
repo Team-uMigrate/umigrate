@@ -10,38 +10,35 @@ const RegistrationPage = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // Todo: Wrap these functions in a react hook
   const signInRedirect = () => {
     navigation.navigate('Login');
   };
 
-  const handleSignUp = () => {
-    AuthEndpoint.register(
-      { email: email, password1: password, password2: confirm },
-      (response) => signInRedirect(),
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-
-        // Populate error messages
-        let errors = [];
-        let count = 0;
-        // Loops through all error messages in the data of the response field in the error object to generate error messages
-        for (let errorType in error.response.data) {
-          errors.push(
-            <Text key={count}>
-              {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
-                errorType.substring(1) +
-                ': ' +
-                error.response.data[errorType]}
-            </Text>
-          );
-          count++;
-        }
-
-        setErrorMessage(errors);
-        setModalVisible(true);
+  const handleSignUp = async () => {
+    try {
+      await AuthEndpoint.register(email, password, confirm);
+      signInRedirect();
+    } catch (error) {
+      // Populate error messages
+      let errors = [];
+      let count = 0;
+      // Loops through all error messages in the data of the response field in the error object to generate error messages
+      for (let errorType in error.response.data) {
+        errors.push(
+          <Text key={count}>
+            {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
+              errorType.substring(1) +
+              ': ' +
+              error.response.data[errorType]}
+          </Text>
+        );
+        count++;
       }
-    );
+
+      setErrorMessage(errors);
+      setModalVisible(true);
+    }
   };
 
   return (

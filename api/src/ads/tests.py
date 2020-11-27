@@ -1,12 +1,12 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase
+from common.abstract_tests import AbstractAPITestCase, AbstractSavedTestCase
 from .models import Ad
 from .serializers import AdSerializer, AdDetailSerializer
 from .factories import AdFactory
 
 
 # Test case for the ads endpoints
-class AdTestCase(AbstractAPITestCase, APITestCase):
+class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
@@ -27,6 +27,7 @@ class AdTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["like"]
 
         AbstractAPITestCase.setUp(self)
 

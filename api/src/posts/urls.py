@@ -7,5 +7,5 @@ router = DefaultRouter(trailing_slash=False)
 router.register(r"", PostViewSet, basename="posts")
 urlpatterns = router.urls + [
     path("like", PostLike.as_view()),
-    path("saved", SavedPost.as_view()),
+    path("save", SavedPost.as_view()),
 ]

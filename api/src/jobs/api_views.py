@@ -1,4 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from common.abstract_api_views import AbstractSavedView
 from rest_framework.filters import SearchFilter
 from common.generics.generic_post_api_views import (
     GenericPostListCreate,

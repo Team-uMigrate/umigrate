@@ -6,5 +6,5 @@ from .api_views import JobListCreate, JobRetrieveUpdateDestroy, SavedJob
 urlpatterns = [
     path("users/jobs/", JobListCreate.as_view()),
     path("users/jobs/<int:id>", JobRetrieveUpdateDestroy.as_view()),
-    path("users/jobs/saved", SavedJob.as_view()),
+    path("users/jobs/save", SavedJob.as_view()),
 ]

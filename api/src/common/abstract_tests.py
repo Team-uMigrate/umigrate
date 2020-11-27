@@ -34,6 +34,7 @@ class AbstractAPITestCase:
     factory_kwargs = None
     pop_keys = None
     max_diff = None
+    save_options = []
 
     def setUp(self):
         user = UserFactory(connected_users=[], blocked_users=[])
@@ -167,3 +168,46 @@ class AbstractAPITestCase:
 
         item = self.model_class.objects.filter(id=1)
         self.assert_equal(len(item), 0, "Item should be removed from the database")
+
+
+class AbstractSavedTestCase:
+    # Any tests that inherit this class must also inherit AbstractAPITestCase
+    save_options = None
+    endpoint = None
+    api_client = None
+
+    def test_save(self):
+        for option in self.save_options:
+            # test save
+            data = {"save": True, "id": 1}
+            response = self.api_client.post(f"{self.endpoint}{option}", data)
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}",
+            )
+
+            # test get save
+            response = self.api_client.get(f"{self.endpoint}")
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}",
+            )
+            results = response.data["results"]
+            items = self.model_class.objects.filter(id=1)
+            self.assert_equal(
+                len(results), len(items), f"There should be {len(items)} results"
+            )
+            self.assert_list_equal(
+                results, items, "Results should match items in the database"
+            )
+
+            # test remove saved
+            data = {"save": False, "id": 1}
+            response = self.api_client.post(f"{self.endpoint}{option}", data)
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}",
+            )

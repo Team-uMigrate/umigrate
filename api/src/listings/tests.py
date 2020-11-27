@@ -1,12 +1,12 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase
+from common.abstract_tests import AbstractAPITestCase, AbstractSavedTestCase
 from .models import Listing
 from .serializers import ListingSerializer, ListingDetailSerializer
 from .factories import ListingFactory
 
 
 # Test case for the listings endpoints
-class ListingTestCase(AbstractAPITestCase, APITestCase):
+class ListingTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
@@ -27,6 +27,7 @@ class ListingTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["save", "like"]
 
         AbstractAPITestCase.setUp(self)
 

@@ -7,5 +7,5 @@ router = DefaultRouter(trailing_slash=False)
 router.register(r"", ListingViewSet, basename="listings")
 urlpatterns = router.urls + [
     path("like", ListingLike.as_view()),
-    path("saved", SavedListing.as_view()),
+    path("save", SavedListing.as_view()),
 ]

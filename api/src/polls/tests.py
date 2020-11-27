@@ -1,5 +1,5 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase
+from common.abstract_tests import AbstractAPITestCase, AbstractSavedTestCase
 from .models import Poll
 from .serializers import PollSerializer, PollDetailSerializer
 from .factories import PollFactory
@@ -27,6 +27,7 @@ class PollTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["save", "like"]
 
         AbstractAPITestCase.setUp(self)
 

@@ -88,12 +88,6 @@ class RoomMembers(APIView):
         except ObjectDoesNotExist:
             return Response("Room not found", status=status.HTTP_404_NOT_FOUND)
 
-        if request.user.id != room.creator_id:
-            return Response(
-                "You cannot add or remove members from this room",
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
         try:
             members = request.data["members"]
         except KeyError:

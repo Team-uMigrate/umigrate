@@ -16,13 +16,12 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
         self.create_resource = create_rooms
         self.create_data = {
             "title": "My first room",
-            "privacy_level": 0,
             "members": [],
         }
         self.update_data = {
             "title": "My first room (edited)",
-            "privacy_level": 1,
             "members": [
+                1,
                 2,
             ],
         }
@@ -43,7 +42,7 @@ class RoomTestCase(GenericPostTestCase, APITestCase):
         obj["datetime_created"] = obj["datetime_created"].strftime(
             "%Y-%m-%dT%H:%M:%S.%fZ"
         )
-        obj["creator"] = obj["creator_id"]
+        # obj["creator"] = obj["creator_id"]
         for key in response_dict:
             if key in self.ignored_keys:
                 continue

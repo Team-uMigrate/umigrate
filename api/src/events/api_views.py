@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import EventFilterSet
 from .models import Event
@@ -31,6 +31,12 @@ class EventLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Event.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns a list of liked users that liked an event
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
+class EventLikes(AbstractLikedUsers):
+    model_class = Event
 
 
 # HTTP GET: Returns a list of users that are interested in the event

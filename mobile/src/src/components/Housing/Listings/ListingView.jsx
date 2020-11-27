@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
-import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
-import { Choices } from '../../../utils/endpoints';
+import { ListingsEndpoint, Choices } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 
-const ListingView = ({
-  id,
-  creator,
-  likes,
-  comments,
-  title,
-  content,
-  region,
-  datetime_created,
-  photos,
-  category,
-  price,
-  season,
-  year,
-  is_liked,
-  likeListing,
-}) => {
+const ListingView = (listing) => {
+  const {
+    creator,
+    title,
+    content,
+    region,
+    datetime_created,
+    photos,
+    category,
+    price,
+    season,
+    year,
+  } = listing;
+
   const { width, height } = Dimensions.get('window');
   const contentType = Choices.contentTypes['listing'];
 
@@ -53,20 +50,10 @@ const ListingView = ({
           {'Category: ' + Choices.listingCategories[category]}
         </Paragraph>
         <ImageCollection photos={photos} />
-        <View style={{ flexDirection: 'row' }}>
-          <Paragraph style={{ flex: 1, alignSelf: 'center' }}>
-            {'Likes: ' + likes}
-          </Paragraph>
-          <Paragraph style={{ flex: 1, alignSelf: 'center' }}>
-            {'Comments: ' + comments}
-          </Paragraph>
-        </View>
         <CommentBar
-          postId={id}
+          item={listing}
           contentType={contentType}
-          likePost={likeListing}
-          isLiked={is_liked}
-          region={region}
+          endpoint={ListingsEndpoint}
         />
       </Card.Content>
     </Card>

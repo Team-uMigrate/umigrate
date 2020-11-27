@@ -22,7 +22,7 @@ class Room(GenericPhotoModel):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="%(app_label)s_%(class)s_set",
+        related_name="created_room_set",
         on_delete=models.CASCADE,
         blank=True,
     )
@@ -56,12 +56,12 @@ class Message(GenericPhotoModel):
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(
         to=CustomUser,
-        related_name="liked_%(app_label)s_%(class)s_comment_set",
+        related_name="liked_message_set",
         blank=True,
     )
     tagged_users = models.ManyToManyField(
         to=CustomUser,
-        related_name="tagged_%(app_label)s_%(class)s_comment_set",
+        related_name="tagged_message_set",
         blank=True,
     )
     profile_photo = models.ImageField(
@@ -72,6 +72,13 @@ class Message(GenericPhotoModel):
     )
     room = models.ForeignKey(
         to=Room, related_name="message_set", on_delete=models.CASCADE
+    )
+    previous_message = models.ForeignKey(
+        to="self",
+        related_name="replies",
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
     )
 
     class Meta:

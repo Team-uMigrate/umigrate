@@ -6,14 +6,9 @@ import AuthContext from '../../contexts/AuthContext';
 const MenuLogout = () => {
   const auth = useContext(AuthContext);
 
-  const handleSignOut = () => {
-    AuthEndpoint.logout(
-      (response) => auth.setAuthenticated(false),
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-      }
-    );
+  const handleSignOut = async () => {
+    await AuthEndpoint.logout();
+    auth.setAuthenticated(false);
   };
 
   return (

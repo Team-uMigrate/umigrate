@@ -35,4 +35,4 @@ class AbstractLikedUsers(ListAPIView):
     serializer_class = BasicUserSerializer
 
     def get_queryset(self):
-        return self.model_class.objects.get(id=self.kwargs['id']).liked_users.all()
+        return self.model_class.objects.get(id=self.kwargs["id"]).liked_users.all()

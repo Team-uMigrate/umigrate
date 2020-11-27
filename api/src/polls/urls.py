@@ -1,6 +1,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .api_views import PollViewSet, PollLike, PollLikes, OptionListCreate, VoteListCreate
+from .api_views import (
+    PollViewSet,
+    PollLike,
+    PollLikes,
+    OptionListCreate,
+    VoteListCreate,
+)
 
 # Polls url patterns
 router = DefaultRouter(trailing_slash=False)

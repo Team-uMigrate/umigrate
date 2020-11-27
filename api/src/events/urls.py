@@ -1,6 +1,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .api_views import EventViewSet, EventLike, EventLikes, EventInterestedUser, EventAttendingUser
+from .api_views import (
+    EventViewSet,
+    EventLike,
+    EventLikes,
+    EventInterestedUser,
+    EventAttendingUser,
+)
 
 # Events url patterns
 router = DefaultRouter(trailing_slash=False)

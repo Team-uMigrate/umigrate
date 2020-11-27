@@ -196,7 +196,9 @@ class AbstractLikesTestCase:
         item = self.model_class.objects.get(id=1)
         liked_users = item.liked_users.all()
         self.assert_equal(
-            len(results), len(liked_users), f"There should be {len(liked_users)} results"
+            len(results),
+            len(liked_users),
+            f"There should be {len(liked_users)} results",
         )
 
         context = {"request": SimpleNamespace(user=item.creator)}

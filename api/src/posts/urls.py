@@ -7,5 +7,5 @@ router = DefaultRouter(trailing_slash=False)
 router.register(r"", PostViewSet, basename="posts")
 urlpatterns = router.urls + [
     path("like", PostLike.as_view()),
-    path("<int:id>/likes", PostLikes.as_view())
+    path("<int:id>/likes", PostLikes.as_view()),
 ]

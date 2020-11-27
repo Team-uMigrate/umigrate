@@ -60,9 +60,6 @@ class Message(GenericPhotoModel):
     profile_photo = models.ImageField(
         upload_to="images/message_profile_photos", blank=True
     )
-    background_photo = models.ImageField(
-        upload_to="images/message_background_photos", blank=True
-    )
     room = models.ForeignKey(
         to=Room, related_name="message_set", on_delete=models.CASCADE
     )

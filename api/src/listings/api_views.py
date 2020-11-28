@@ -1,8 +1,8 @@
-<<<<<<< HEAD
-from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
-=======
-from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
->>>>>>> master
+from common.abstract_api_views import (
+    AbstractModelViewSet,
+    AbstractSavedView,
+    AbstractLikedUsers,
+)
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import ListingFilter
 from .models import Listing

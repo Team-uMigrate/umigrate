@@ -9,28 +9,39 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('polls', '0002_auto_20201019_2305'),
+        ("polls", "0002_auto_20201019_2305"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='poll',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="poll_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='poll',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="liked_poll_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='poll',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="saved_poll_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='poll',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_poll_set', to=settings.AUTH_USER_MODEL),
+            model_name="poll",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="tagged_poll_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

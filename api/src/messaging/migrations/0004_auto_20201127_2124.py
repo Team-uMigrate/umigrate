@@ -8,42 +8,50 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('messaging', '0003_message_previous_message'),
+        ("messaging", "0003_message_previous_message"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='message',
-            name='background_photo',
+            model_name="message",
+            name="background_photo",
         ),
         migrations.RemoveField(
-            model_name='message',
-            name='profile_photo',
+            model_name="message",
+            name="profile_photo",
         ),
         migrations.RemoveField(
-            model_name='room',
-            name='background_photo',
+            model_name="room",
+            name="background_photo",
         ),
         migrations.RemoveField(
-            model_name='room',
-            name='creator',
+            model_name="room",
+            name="creator",
         ),
         migrations.RemoveField(
-            model_name='room',
-            name='privacy_level',
+            model_name="room",
+            name="privacy_level",
         ),
         migrations.RemoveField(
-            model_name='room',
-            name='profile_photo',
+            model_name="room",
+            name="profile_photo",
         ),
         migrations.AlterField(
-            model_name='message',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_message_set', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_message_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='message',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_message_set', to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_message_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

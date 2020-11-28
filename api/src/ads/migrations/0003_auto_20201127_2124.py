@@ -9,28 +9,39 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('ads', '0002_auto_20201019_2305'),
+        ("ads", "0002_auto_20201019_2305"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='ad',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='ad_set', to=settings.AUTH_USER_MODEL),
+            model_name="ad",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ad_set",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='ad',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_ad_set', to=settings.AUTH_USER_MODEL),
+            model_name="ad",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="liked_ad_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='ad',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_ad_set', to=settings.AUTH_USER_MODEL),
+            model_name="ad",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="saved_ad_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='ad',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_ad_set', to=settings.AUTH_USER_MODEL),
+            model_name="ad",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="tagged_ad_set", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

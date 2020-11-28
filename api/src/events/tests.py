@@ -1,5 +1,10 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase, AbstractSavedTestCase
+from common.abstract_tests import (
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    AbstractLikesTestCase,
+)
+from users.serializers import BasicUserSerializer
 from .models import Event
 from .serializers import EventSerializer, EventDetailSerializer
 from .factories import EventFactory
@@ -52,3 +57,25 @@ class EventTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+
+# Test case for the liked users endpoint for events
+class EventLikesTestCase(AbstractLikesTestCase, APITestCase):
+    def setUp(self):
+        self.api_client = self.client
+        self.assert_equal = self.assertEqual
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = "/api/events/1/likes"
+        self.model_class = Event
+        self.detail_serializer_class = BasicUserSerializer
+        self.factory_class = EventFactory
+        self.factory_kwargs = {
+            "liked_users": [1],
+            "tagged_users": [],
+            "saved_users": [],
+        }
+
+        AbstractLikesTestCase.setUp(self)
+
+    def test_liked_users(self):
+        AbstractLikesTestCase.test_liked_users(self)

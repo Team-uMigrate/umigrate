@@ -1,5 +1,9 @@
 from common.generics.generic_post_api_views import GenericPostListCreate
-from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
+from common.abstract_api_views import (
+    AbstractModelViewSet,
+    AbstractSavedView,
+    AbstractLikedUsers,
+)
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
 from .models import Poll, Option, Vote
@@ -36,6 +40,12 @@ class PollViewSet(AbstractModelViewSet):
 class PollLike(AbstractSavedView):
     query_string = "liked_poll_set"
     serializer_class = PollSerializer
+    model_class = Poll
+
+
+# HTTP GET: Returns a list of liked users that liked a poll
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
+class PollLikes(AbstractLikedUsers):
     model_class = Poll
 
 

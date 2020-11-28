@@ -3,9 +3,10 @@ from rest_framework.routers import DefaultRouter
 from .api_views import (
     PollViewSet,
     PollLike,
+    SavedPoll,
+    PollLikes,
     OptionListCreate,
     VoteListCreate,
-    SavedPoll,
 )
 
 # Polls url patterns
@@ -14,6 +15,7 @@ router.register(r"", PollViewSet, basename="polls")
 urlpatterns = router.urls + [
     path("like", PollLike.as_view()),
     path("save", SavedPoll.as_view()),
+    path("<int:id>/likes", PollLikes.as_view()),
     path("options/", OptionListCreate.as_view()),
     path("options/votes/", VoteListCreate.as_view()),
 ]

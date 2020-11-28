@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from common.abstract_models import IsCreatorOrReadOnly
 from common.abstract_serializers import PostSaveSerializer
+from common.abstract_models import IsCreatorOrReadOnly
+from users.serializers import BasicUserSerializer
+from users.models import CustomUser
 
 
 class AbstractModelViewSet(ModelViewSet):
@@ -74,3 +77,12 @@ class AbstractSavedView(ListAPIView):
 
         except ObjectDoesNotExist:
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+
+
+class AbstractLikedUsers(ListAPIView):
+    queryset = CustomUser.objects.all()
+    model_class = None
+    serializer_class = BasicUserSerializer
+
+    def get_queryset(self):
+        return self.model_class.objects.get(id=self.kwargs["id"]).liked_users.all()

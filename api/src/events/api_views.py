@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
+=======
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
+>>>>>>> master
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import EventFilterSet
 from .models import Event
@@ -28,6 +32,12 @@ class EventViewSet(AbstractModelViewSet):
 class EventLike(AbstractSavedView):
     query_string = "liked_event_set"
     serializer_class = EventSerializer
+    model_class = Event
+
+
+# HTTP GET: Returns a list of liked users that liked an event
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
+class EventLikes(AbstractLikedUsers):
     model_class = Event
 
 

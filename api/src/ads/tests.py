@@ -1,5 +1,10 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase, AbstractSavedTestCase
+from common.abstract_tests import (
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    AbstractLikesTestCase,
+)
+from users.serializers import BasicUserSerializer
 from .models import Ad
 from .serializers import AdSerializer, AdDetailSerializer
 from .factories import AdFactory
@@ -48,3 +53,25 @@ class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+
+# Test case for the liked users endpoint for ads
+class AdLikesTestCase(AbstractLikesTestCase, APITestCase):
+    def setUp(self):
+        self.api_client = self.client
+        self.assert_equal = self.assertEqual
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = "/api/ads/1/likes"
+        self.model_class = Ad
+        self.detail_serializer_class = BasicUserSerializer
+        self.factory_class = AdFactory
+        self.factory_kwargs = {
+            "liked_users": [1],
+            "tagged_users": [],
+            "saved_users": [],
+        }
+
+        AbstractLikesTestCase.setUp(self)
+
+    def test_liked_users(self):
+        AbstractLikesTestCase.test_liked_users(self)

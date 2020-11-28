@@ -1,4 +1,8 @@
-from common.abstract_api_views import AbstractModelViewSet, AbstractSavedView
+from common.abstract_api_views import (
+    AbstractModelViewSet,
+    AbstractSavedView,
+    AbstractLikedUsers,
+)
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import AdFilterSet
 from .models import Ad
@@ -27,7 +31,13 @@ class AdViewSet(AbstractModelViewSet):
 # HTTP POST: Like or unlike an ad
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Ads"]))
-class AdLike(GenericUserExtension):
+class AdLike(AbstractSavedView):
     query_string = "liked_ad_set"
     serializer_class = AdSerializer
+    model_class = Ad
+
+
+# HTTP GET: Returns a list of liked users that liked a ads
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
+class AdLikes(AbstractLikedUsers):
     model_class = Ad

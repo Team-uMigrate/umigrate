@@ -17,10 +17,7 @@ class RoomTestCase(AbstractAPITestCase, APITestCase):
         self.serializer_class = RoomSerializer
         self.detail_serializer_class = RoomSerializer
         self.factory_class = RoomFactory
-        self.pop_keys = [
-            "id",
-            "datetime_created",
-        ]
+        self.pop_keys = ["id", "datetime_created", "members"]
         self.maxDiff = self.max_diff
 
         users = UserFactory.create_batch(5, connected_users=[], blocked_users=[])

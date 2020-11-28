@@ -208,3 +208,44 @@ class AbstractAPITestCase:
 
         item = self.model_class.objects.filter(id=1)
         self.assert_equal(len(item), 0, "Item should be removed from the database")
+
+
+class AbstractLikesTestCase:
+    api_client = None
+    assert_equal = None
+    assert_list_equal = None
+    endpoint = None
+    model_class = None
+    detail_serializer_class = None
+    factory_class = None
+    factory_kwargs = None
+
+    def setUp(self):
+        user = UserFactory(connected_users=[], blocked_users=[])
+        item = self.factory_class(creator=user, **self.factory_kwargs)
+        self.api_client.login(email=user.email, password="Top$ecret150")
+
+    def test_liked_users(self):
+        response = self.api_client.get(self.endpoint)
+        self.assert_equal(
+            response.status_code,
+            status.HTTP_200_OK,
+            "Status code should be 200. " f"Error: {response.data}",
+        )
+
+        results = response.data["results"]
+        item = self.model_class.objects.get(id=1)
+        liked_users = item.liked_users.all()
+        self.assert_equal(
+            len(results),
+            len(liked_users),
+            f"There should be {len(liked_users)} results",
+        )
+
+        context = {"request": SimpleNamespace(user=item.creator)}
+        serialized_items = self.detail_serializer_class(
+            liked_users, context=context, many=True
+        ).data
+        self.assert_list_equal(
+            results, serialized_items, "Results should match items in the database"
+        )

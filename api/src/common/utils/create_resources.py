@@ -8,8 +8,6 @@ def create_rooms(num):
     for i in range(num):
         room = Room.objects.create(
             title=f"Room {i}",
-            creator_id=1,
-            privacy_level=0,
         )
         room.members.add(1)
         room.save()

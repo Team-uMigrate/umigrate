@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Base URL
 export const BASE_URL =
@@ -92,18 +93,19 @@ export class Choices {
 const AUTH_TOKEN = 'AUTH_TOKEN';
 const USER_DATA = 'USER_DATA';
 
-export const getAuthToken = () => {
-  // return sessionStorage.getItem(AUTH_TOKEN);
+export const getAuthToken = async () => {
+  const token = await AsyncStorage.getItem('AUTH_TOKEN');
+  return token;
 };
 
-export const setAuthToken = (token) => {
+export const setAuthToken = async (token) => {
   Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-  // sessionStorage.setItem(AUTH_TOKEN, token);
+  await AsyncStorage.setItem(AUTH_TOKEN, token);
 };
 
-export const removeAuthToken = () => {
+export const removeAuthToken = async ()  => {
   Axios.defaults.headers.common['Authorization'] = null;
-  // sessionStorage.removeItem(AUTH_TOKEN);
+  await AsyncStorage.removeItem(AUTH_TOKEN);
 };
 
 export const getPushToken = () => {

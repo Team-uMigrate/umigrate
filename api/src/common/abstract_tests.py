@@ -7,7 +7,16 @@ from users.factories import UserFactory
 def create_data(factory_class, serializer_class, pop_keys):
     post_item = factory_class()
     serializer = serializer_class(
-        post_item, context={"request": SimpleNamespace(user=post_item.creator)}
+        post_item,
+        context={
+            "request": SimpleNamespace(
+                user=(
+                    post_item.creator
+                    if hasattr(post_item, "creator")
+                    else post_item.members.first()
+                )
+            )
+        },
     )
     serialized_data = json.loads(json.dumps(serializer.data))
     data = serialized_data.copy()
@@ -55,7 +64,15 @@ class AbstractAPITestCase:
             len(results), len(items), f"There should be {len(items)} results"
         )
 
-        context = {"request": SimpleNamespace(user=items[0].creator)}
+        context = {
+            "request": SimpleNamespace(
+                user=(
+                    items[0].creator
+                    if hasattr(items[0], "creator")
+                    else items[0].members.first()
+                )
+            )
+        }
         serialized_items = self.detail_serializer_class(
             items, context=context, many=True
         ).data
@@ -78,7 +95,13 @@ class AbstractAPITestCase:
 
         result = response.data
         item = self.model_class.objects.get(id=result["id"])
-        context = {"request": SimpleNamespace(user=item.creator)}
+        context = {
+            "request": SimpleNamespace(
+                user=(
+                    item.creator if hasattr(item, "creator") else item.members.first()
+                )
+            )
+        }
         serialized_item = self.serializer_class(item, context=context).data
         self.assert_equal(
             result, serialized_item, "Result should match item in the database"
@@ -94,7 +117,13 @@ class AbstractAPITestCase:
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {"request": SimpleNamespace(user=item.creator)}
+        context = {
+            "request": SimpleNamespace(
+                user=(
+                    item.creator if hasattr(item, "creator") else item.members.first()
+                )
+            )
+        }
         serialized_item = self.detail_serializer_class(item, context=context).data
         self.assert_equal(
             result, serialized_item, "Result should match item in the database"
@@ -115,7 +144,13 @@ class AbstractAPITestCase:
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {"request": SimpleNamespace(user=item.creator)}
+        context = {
+            "request": SimpleNamespace(
+                user=(
+                    item.creator if hasattr(item, "creator") else item.members.first()
+                )
+            )
+        }
         serialized_item = self.serializer_class(item, context=context).data
         self.assert_equal(
             result, serialized_item, "Result should match item in the database"
@@ -144,7 +179,13 @@ class AbstractAPITestCase:
 
         result = response.data
         item = self.model_class.objects.get(id=1)
-        context = {"request": SimpleNamespace(user=item.creator)}
+        context = {
+            "request": SimpleNamespace(
+                user=(
+                    item.creator if hasattr(item, "creator") else item.members.first()
+                )
+            )
+        }
         serialized_item = self.serializer_class(item, context=context).data
         self.assert_equal(
             result, serialized_item, "Result should match item in the database"

@@ -21,6 +21,11 @@ class IsCreator(BasePermission):
         return obj.creator_id == request.user.id
 
 
+class IsMember(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.members.filter(id=request.user.id).exists()
+
+
 # An abstract model that represents a basic post
 class AbstractPostModel(models.Model):
     id = models.AutoField(primary_key=True)

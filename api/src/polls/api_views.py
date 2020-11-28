@@ -1,5 +1,5 @@
 from common.generics.generic_post_api_views import GenericPostListCreate
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
 from .models import Poll, Option, Vote
@@ -39,6 +39,12 @@ class PollLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Poll.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns a list of liked users that liked a poll
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
+class PollLikes(AbstractLikedUsers):
+    model_class = Poll
 
 
 # HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL

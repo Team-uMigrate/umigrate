@@ -3,7 +3,12 @@ import { StyleSheet, View, Text, ScrollView, TextInput } from 'react-native';
 import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import ProfilePhoto from '../../common/ProfilePhoto';
-import { PostsEndpoint, ProfileEndpoint } from '../../../utils/endpoints';
+import {
+  PollOptionsEndpoint,
+  PollsEndpoint,
+  PostsEndpoint,
+  ProfileEndpoint,
+} from '../../../utils/endpoints';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, IconButton, Button } from 'react-native-paper';
 
@@ -25,40 +30,87 @@ class CommunityContainer extends React.Component {
     eventAdmissionPrice: '',
   };
 
-  componentDidMount = () => {
-    this.getProfile();
+  resetPage = () => {
+    this.setState({
+      title: '',
+      body: '',
+      pollOptions: [''],
+      eventStartTime: '',
+      eventEndTime: '',
+      eventLocation: '',
+      eventAdmissionPrice: '',
+    });
   };
 
-  getProfile = () => {
-    ProfileEndpoint.get(
-      (response) => {
+  componentDidMount = async () => {
+    await this.getProfile();
+  };
+
+  getProfile = async () => {
+    await ProfileEndpoint.get()
+      .then((response) => {
         this.setState({ user: response.data });
-      },
-      (error) => {
-        console.log('error', error);
-        console.log('error response', error.response);
-      }
-    );
+      })
+      .catch((error) => {
+        console.log('error:', error);
+        console.log('error response:', error.response);
+      });
   };
 
-  submitPost = () => {
+  submitPost = async () => {
+    const basicData = {
+      title: this.state.title,
+      content: this.state.body,
+      region: this.state.user.region,
+      tagged_users: [], // TODO add tag user functionality
+    };
+
     if (this.state.selectedPostType === 'Post') {
       // Submit post to post endpoint
-      let data = {
-        title: this.state.title,
-        content: this.state.body,
-        region: this.state.user.region,
-        tagged_users: [], // TODO add tag user functionality
-      };
-      PostsEndpoint.post(
-        data,
-        (response) => {},
-        (error) => {
-          console.log(error);
-        }
-      );
+      try {
+        let response = await PostsEndpoint.post(basicData);
+        console.log(response.data);
+        this.resetPage();
+      } catch (error) {
+        console.log('error message:', error.message);
+        console.log('error response:', error.response);
+      }
     } else if (this.state.selectedPostType === 'Poll') {
+      try {
+        const response = await PollsEndpoint.post(basicData);
+
+        for (const i in this.state.pollOptions) {
+          let optionData = {
+            content: this.state.pollOptions[i],
+            creator: this.state.user.id,
+            poll: response.data.id,
+          };
+
+          PollOptionsEndpoint.post(optionData);
+        }
+
+        this.resetPage();
+      } catch (error) {
+        // TODO: proper error handling - display modal or smth?
+        console.log('error:', error);
+        console.log('error response:', error.response);
+      }
     } else if (this.state.selectedPostType === 'Event') {
+      //TODO: do events after the dropdowns are finished
+    }
+  };
+
+  asyncSubmitPoll = async () => {
+    let data = {
+      title: this.state.title,
+      content: this.state.body,
+      region: this.state.user.region,
+      tagged_users: [], // TODO add tag user functionality
+    };
+
+    let pollResponse = await PollsEndpoint.post(data);
+
+    for (let pollOption in this.state.pollOptions) {
     }
   };
 
@@ -277,6 +329,7 @@ class CommunityContainer extends React.Component {
             color={'#8781D0'}
             style={styles.previewAndShareButtons}
             dark={true}
+            onPress={this.submitPost}
           >
             Share
           </Button>

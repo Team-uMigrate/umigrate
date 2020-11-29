@@ -275,6 +275,10 @@ export class PollsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/polls/';
 }
 
+export class PollOptionsEndpoint extends AbstractEndpoint {
+  static endpoint = '/api/polls/options/';
+}
+
 export class PostsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/posts/';
 }

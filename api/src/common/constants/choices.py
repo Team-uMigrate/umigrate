@@ -40,7 +40,7 @@ class Choices:
             "$$$$$",
         ]
     )
-    REGION_CHOICES = convert_to_tuple(
+    COMMUNITY_CHOICES = convert_to_tuple(
         [
             "Waterloo",
             "Toronto",

@@ -81,6 +81,8 @@ class Command(BaseCommand):
                 tagged_users=random_users(users),
                 saved_users=random_users(users),
                 creator=users.get(id=random.randint(1, USER_COUNT)),
+                contacted_users=random_users(users),
+                confirmed_users=random_users(users),
             )
 
             event = EventFactory(
@@ -99,6 +101,8 @@ class Command(BaseCommand):
                 tagged_users=random_users(users),
                 saved_users=random_users(users),
                 creator=users.get(id=random.randint(1, USER_COUNT)),
+                contacted_users=random_users(users),
+                confirmed_users=random_users(users),
             )
 
             room = RoomFactory(

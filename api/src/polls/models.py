@@ -6,20 +6,22 @@ from users.models import CustomUser
 
 # Represents a poll object
 class Poll(AbstractPostModel, PhotoCollectionExtension):
-    pass
+    is_multiselect = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=False)
 
 
 # Represents an option object
 class Option(models.Model):
     id = models.AutoField(primary_key=True)
-    content = models.CharField(max_length=30)
-    datetime_created = models.DateTimeField(auto_now_add=True)
+    content = models.CharField(max_length=100)
     creator = models.ForeignKey(
-        to=CustomUser, related_name="option_set", on_delete=models.CASCADE, blank=True
+        to=CustomUser,
+        related_name="created_options",
+        on_delete=models.CASCADE,
+        blank=True,
     )
-    poll = models.ForeignKey(
-        to=Poll, related_name="option_set", on_delete=models.CASCADE
-    )
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    poll = models.ForeignKey(to=Poll, related_name="options", on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["-datetime_created"]
@@ -31,16 +33,19 @@ class Option(models.Model):
 # Represents a vote object
 class Vote(models.Model):
     id = models.AutoField(primary_key=True)
-    datetime_created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(
-        to=CustomUser, related_name="vote_set", on_delete=models.CASCADE, blank=True
+        to=CustomUser,
+        related_name="created_votes",
+        on_delete=models.CASCADE,
+        blank=True,
     )
+    datetime_created = models.DateTimeField(auto_now_add=True)
     option = models.ForeignKey(
-        to=Option, related_name="vote_set", on_delete=models.CASCADE
+        to=Option, related_name="votes", on_delete=models.CASCADE
     )
 
     class Meta:
         ordering = ["-datetime_created"]
 
     def __str__(self):
-        return f"{str(self.creator)} voted for {str(self.option)}"
+        return f"{str(self.creator)} voted for {str(self.option)} in {str(self.option.poll)}"

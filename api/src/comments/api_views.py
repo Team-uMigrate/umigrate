@@ -30,7 +30,6 @@ class CommentViewSet(AbstractModelViewSet):
     # the results by date
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     filter_fields = [
-        "region",
         "datetime_created",
         "creator",
         "object_id",
@@ -55,7 +54,7 @@ class ReplyViewSet(AbstractModelViewSet):
     serializer_class = ReplySerializer
     detail_serializer_class = ReplyDetailSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filter_fields = ["region", "datetime_created", "creator", "comment"]
+    filter_fields = ["datetime_created", "creator", "comment"]
     ordering_fields = ["datetime_created"]
     search_fields = [
         "content",

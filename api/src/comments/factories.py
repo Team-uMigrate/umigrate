@@ -13,9 +13,6 @@ class CommentFactory(factory.django.DjangoModelFactory):
         model = Comment
 
     content = factory.Faker("paragraph")
-    region = factory.Faker(
-        "random_int", min=0, max=get_length(Choices.REGION_CHOICES) - 1
-    )
     creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
     content_object = factory.SubFactory(
         PostFactory, liked_users=[], tagged_users=[], saved_users=[], creator=creator
@@ -70,9 +67,6 @@ class ReplyFactory(factory.django.DjangoModelFactory):
         model = Reply
 
     content = factory.Faker("paragraph")
-    region = factory.Faker(
-        "random_int", min=0, max=get_length(Choices.REGION_CHOICES) - 1
-    )
     creator = factory.SubFactory(UserFactory, connected_users=[], blocked_users=[])
     comment = factory.SubFactory(
         CommentFactory, liked_users=[], tagged_users=[], saved_users=[], creator=creator

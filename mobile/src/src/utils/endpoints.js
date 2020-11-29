@@ -135,8 +135,15 @@ export function removeUserData() {
 export function toFormData(data = {}) {
   const formData = new FormData();
   Object.keys(data).forEach((key) => {
-    formData.append(key, data[key]);
+    if (typeof data[key] === 'object') {
+      data[key].forEach((value) => {
+        formData.append(key, value);
+      });
+    } else {
+      formData.append(key, data[key]);
+    }
   });
+
   return formData;
 }
 

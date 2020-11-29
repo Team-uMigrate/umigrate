@@ -13,9 +13,6 @@ class EventFactory(AbstractFactory):
     class Meta:
         model = Event
 
-    price_scale = factory.Faker(
-        "random_int", min=0, max=get_length(Choices.PRICE_CHOICES) - 1
-    )
     start_datetime = factory.Faker(
         "date_time_between", start_date="-30y", end_date="now"
     )
@@ -24,6 +21,10 @@ class EventFactory(AbstractFactory):
         lambda a: MockData.MOCK_ADDRESSES[
             random.randint(0, len(MockData.MOCK_ADDRESSES) - 1)
         ]
+    )
+    price = factory.Faker("pydecimal", left_digits=6, right_digits=2)
+    price_scale = factory.Faker(
+        "random_int", min=0, max=get_length(Choices.PRICE_CHOICES) - 1
     )
 
     @factory.post_generation

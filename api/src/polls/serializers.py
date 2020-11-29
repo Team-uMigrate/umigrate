@@ -25,7 +25,7 @@ class OptionSerializer(ModelSerializerExtension):
         model = Option
         fields = "__all__"
         extra_fields = [
-            "vote_set",
+            "votes",
         ]
 
     def create(self, validated_data):
@@ -41,7 +41,7 @@ class PollSerializer(AbstractModelSerializer):
         model = Poll
         fields = "__all__"
         extra_fields = [
-            "option_set",
+            "options",
         ]
         exclude_fields = ["saved_users", "liked_users"]
 

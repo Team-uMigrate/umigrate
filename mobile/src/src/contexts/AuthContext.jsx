@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import { ProfileEndpoint } from '../utils/endpoints';
+import { getAuthToken,setAuthToken, removeAuthToken, ProfileEndpoint } from '../utils/endpoints';
 
 const AuthContext = createContext();
 

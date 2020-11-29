@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import ListingFilter
 from .models import Listing
@@ -35,3 +35,9 @@ class ListingLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Listing.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns a list of liked users that liked a listing
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
+class ListingLikes(AbstractLikedUsers):
+    model_class = Listing

@@ -1,4 +1,4 @@
-from common.abstract_api_views import AbstractModelViewSet
+from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
 from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import AdFilterSet
 from .models import Ad
@@ -33,3 +33,9 @@ class AdLike(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return Ad.objects.get(id=obj_id).liked_users
+
+
+# HTTP GET: Returns a list of liked users that liked a ads
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
+class AdLikes(AbstractLikedUsers):
+    model_class = Ad

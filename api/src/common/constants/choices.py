@@ -125,13 +125,6 @@ class Choices:
             "Internship",
         ]
     )
-    ROOM_CHOICES = convert_to_tuple(
-        [
-            "Public",
-            "Private",
-            "Direct Messaging",
-        ]
-    )
 
 
 class MockData:

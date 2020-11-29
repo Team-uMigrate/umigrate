@@ -10,69 +10,113 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('listings', '0001_initial'),
+        ("listings", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='roommatepost',
-            name='confirmed_users',
-            field=models.ManyToManyField(blank=True, related_name='confirmed_roommate_posts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="confirmed_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="confirmed_roommate_posts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='roommatepost',
-            name='contacted_users',
-            field=models.ManyToManyField(blank=True, related_name='contacted_roommate_posts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="contacted_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="contacted_roommate_posts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='roommatepost',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_roommateposts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_roommateposts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='roommatepost',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_roommateposts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="liked_roommateposts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='roommatepost',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_roommateposts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="saved_roommateposts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='roommatepost',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_roommateposts', to=settings.AUTH_USER_MODEL),
+            model_name="roommatepost",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="tagged_roommateposts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='confirmed_users',
-            field=models.ManyToManyField(blank=True, related_name='confirmed_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="confirmed_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="confirmed_listings",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='contacted_users',
-            field=models.ManyToManyField(blank=True, related_name='contacted_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="contacted_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="contacted_listings",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_listings",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="liked_listings", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="saved_listings", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='listing',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_listings', to=settings.AUTH_USER_MODEL),
+            model_name="listing",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="tagged_listings", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

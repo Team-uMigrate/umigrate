@@ -7,30 +7,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Message',
+            name="Message",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=1000)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=1000)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
         migrations.CreateModel(
-            name='Room',
+            name="Room",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=100)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

@@ -9,33 +9,39 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("contenttypes", "0002_remove_content_type_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Device',
+            name="Device",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
-                ('expo_push_token', models.CharField(max_length=50)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=50)),
+                ("expo_push_token", models.CharField(max_length=50)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
         migrations.CreateModel(
-            name='Notification',
+            name="Notification",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=100)),
-                ('object_id', models.PositiveIntegerField()),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=100)),
+                ("object_id", models.PositiveIntegerField()),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "content_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="contenttypes.contenttype",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

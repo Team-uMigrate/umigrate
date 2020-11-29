@@ -7,22 +7,31 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.CharField(blank=True, max_length=1000)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('community', models.PositiveSmallIntegerField(choices=[(0, 'Waterloo'), (1, 'Toronto'), (2, 'Brampton'), (3, 'Ottawa')])),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.CharField(blank=True, max_length=1000)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "community",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Waterloo"),
+                            (1, "Toronto"),
+                            (2, "Brampton"),
+                            (3, "Ottawa"),
+                        ]
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-datetime_created'],
-                'abstract': False,
+                "ordering": ["-datetime_created"],
+                "abstract": False,
             },
         ),
     ]

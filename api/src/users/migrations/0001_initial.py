@@ -11,43 +11,185 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='CustomUser',
+            name="CustomUser",
             fields=[
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('email', models.EmailField(max_length=254, unique=True, verbose_name='email address')),
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('first_name', models.CharField(max_length=50)),
-                ('last_name', models.CharField(max_length=50)),
-                ('preferred_name', models.CharField(max_length=50)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('community', models.PositiveSmallIntegerField(choices=[(0, 'Waterloo'), (1, 'Toronto'), (2, 'Brampton'), (3, 'Ottawa')], default=0)),
-                ('pronouns', models.PositiveSmallIntegerField(choices=[(0, 'None'), (1, 'He/Him'), (2, 'She/Her'), (3, 'They/Them'), (4, 'Other')], default=0)),
-                ('bio', models.CharField(blank=True, max_length=1000)),
-                ('birthday', models.DateField(default=datetime.date.today)),
-                ('current_term', models.PositiveSmallIntegerField(choices=[(0, '1A'), (1, '1B'), (2, 'W1'), (3, '2A'), (4, 'W2'), (5, '2B'), (6, 'W3'), (7, '3A'), (8, 'W4'), (9, '3B'), (10, 'W5'), (11, 'W6'), (12, '4A'), (13, '4B')], default=0)),
-                ('enrolled_program', models.PositiveSmallIntegerField(choices=[(0, 'Unknown'), (1, 'Engineering'), (2, 'Arts'), (3, 'Mathematics'), (4, 'Science'), (5, 'Applied Health Sciences'), (6, 'Environment'), (7, 'Theology'), (8, 'Graduate Studies'), (9, 'Independent Studies'), (10, 'Interdisciplinary'), (11, 'Conrad Grebel'), (12, 'Renison'), (13, 'St. Pauls'), (14, 'St. Jeromes')], default=0)),
-                ('phone_number', models.CharField(blank=True, max_length=15)),
-                ('profile_photo', models.ImageField(blank=True, upload_to='images/photos')),
-                ('background_photo', models.ImageField(blank=True, upload_to='images/photos')),
-                ('blocked_users', models.ManyToManyField(blank=True, related_name='_customuser_blocked_users_+', to=settings.AUTH_USER_MODEL)),
-                ('connected_users', models.ManyToManyField(blank=True, related_name='_customuser_connected_users_+', to=settings.AUTH_USER_MODEL)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "is_superuser",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates that this user has all permissions without explicitly assigning them.",
+                        verbose_name="superuser status",
+                    ),
+                ),
+                (
+                    "is_staff",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates whether the user can log into this admin site.",
+                        verbose_name="staff status",
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.",
+                        verbose_name="active",
+                    ),
+                ),
+                (
+                    "date_joined",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="date joined"
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        max_length=254, unique=True, verbose_name="email address"
+                    ),
+                ),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("first_name", models.CharField(max_length=50)),
+                ("last_name", models.CharField(max_length=50)),
+                ("preferred_name", models.CharField(max_length=50)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "community",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Waterloo"),
+                            (1, "Toronto"),
+                            (2, "Brampton"),
+                            (3, "Ottawa"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                (
+                    "pronouns",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "None"),
+                            (1, "He/Him"),
+                            (2, "She/Her"),
+                            (3, "They/Them"),
+                            (4, "Other"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                ("bio", models.CharField(blank=True, max_length=1000)),
+                ("birthday", models.DateField(default=datetime.date.today)),
+                (
+                    "current_term",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "1A"),
+                            (1, "1B"),
+                            (2, "W1"),
+                            (3, "2A"),
+                            (4, "W2"),
+                            (5, "2B"),
+                            (6, "W3"),
+                            (7, "3A"),
+                            (8, "W4"),
+                            (9, "3B"),
+                            (10, "W5"),
+                            (11, "W6"),
+                            (12, "4A"),
+                            (13, "4B"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                (
+                    "enrolled_program",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Unknown"),
+                            (1, "Engineering"),
+                            (2, "Arts"),
+                            (3, "Mathematics"),
+                            (4, "Science"),
+                            (5, "Applied Health Sciences"),
+                            (6, "Environment"),
+                            (7, "Theology"),
+                            (8, "Graduate Studies"),
+                            (9, "Independent Studies"),
+                            (10, "Interdisciplinary"),
+                            (11, "Conrad Grebel"),
+                            (12, "Renison"),
+                            (13, "St. Pauls"),
+                            (14, "St. Jeromes"),
+                        ],
+                        default=0,
+                    ),
+                ),
+                ("phone_number", models.CharField(blank=True, max_length=15)),
+                (
+                    "profile_photo",
+                    models.ImageField(blank=True, upload_to="images/photos"),
+                ),
+                (
+                    "background_photo",
+                    models.ImageField(blank=True, upload_to="images/photos"),
+                ),
+                (
+                    "blocked_users",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="_customuser_blocked_users_+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "connected_users",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="_customuser_connected_users_+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "groups",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.Group",
+                        verbose_name="groups",
+                    ),
+                ),
+                (
+                    "user_permissions",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="Specific permissions for this user.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.Permission",
+                        verbose_name="user permissions",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-                'abstract': False,
+                "verbose_name": "user",
+                "verbose_name_plural": "users",
+                "abstract": False,
             },
         ),
     ]

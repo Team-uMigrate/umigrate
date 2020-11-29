@@ -8,32 +8,38 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=1000)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('object_id', models.PositiveIntegerField()),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=1000)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                ("object_id", models.PositiveIntegerField()),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
         migrations.CreateModel(
-            name='Reply',
+            name="Reply",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(max_length=1000)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('comment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='comments.comment')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(max_length=1000)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "comment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="replies",
+                        to="comments.comment",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

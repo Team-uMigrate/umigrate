@@ -11,38 +11,55 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('events', '0001_initial'),
+        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='attending_users',
-            field=models.ManyToManyField(blank=True, related_name='attending_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="attending_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="attending_events", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='creator',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="creator",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_events",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='interested_users',
-            field=models.ManyToManyField(blank=True, related_name='interested_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="interested_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="interested_events",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='liked_users',
-            field=models.ManyToManyField(blank=True, related_name='liked_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="liked_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="liked_events", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='saved_users',
-            field=models.ManyToManyField(blank=True, related_name='saved_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="saved_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="saved_events", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='tagged_users',
-            field=models.ManyToManyField(blank=True, related_name='tagged_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="tagged_users",
+            field=models.ManyToManyField(
+                blank=True, related_name="tagged_events", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

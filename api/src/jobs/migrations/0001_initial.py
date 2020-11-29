@@ -8,25 +8,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Job',
+            name="Job",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('content', models.CharField(blank=True, max_length=1000)),
-                ('datetime_created', models.DateTimeField(auto_now_add=True)),
-                ('position', models.CharField(max_length=100)),
-                ('company', models.CharField(max_length=100)),
-                ('job_type', models.PositiveSmallIntegerField(choices=[(0, 'Full-time'), (1, 'Internship')], default=0)),
-                ('start_date', models.DateField(default=datetime.datetime.today)),
-                ('end_date', models.DateField(blank=True, null=True)),
-                ('location', models.CharField(max_length=100)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("content", models.CharField(blank=True, max_length=1000)),
+                ("datetime_created", models.DateTimeField(auto_now_add=True)),
+                ("position", models.CharField(max_length=100)),
+                ("company", models.CharField(max_length=100)),
+                (
+                    "job_type",
+                    models.PositiveSmallIntegerField(
+                        choices=[(0, "Full-time"), (1, "Internship")], default=0
+                    ),
+                ),
+                ("start_date", models.DateField(default=datetime.datetime.today)),
+                ("end_date", models.DateField(blank=True, null=True)),
+                ("location", models.CharField(max_length=100)),
             ],
             options={
-                'ordering': ['-datetime_created'],
+                "ordering": ["-datetime_created"],
             },
         ),
     ]

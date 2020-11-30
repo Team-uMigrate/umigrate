@@ -15,16 +15,16 @@ class Notification(models.Model):
     content_object = GenericForeignKey("content_type", "object_id")
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="created_notification_set",
+        related_name="created_notifications",
         on_delete=models.CASCADE,
         blank=True,
     )
     datetime_created = models.DateTimeField(auto_now_add=True)
     receivers = models.ManyToManyField(
-        to=CustomUser, related_name="received_notification_set", blank=True
+        to=CustomUser, related_name="received_notifications", blank=True
     )
     viewers = models.ManyToManyField(
-        to=CustomUser, related_name="viewed_notification_set", blank=True
+        to=CustomUser, related_name="viewed_notifications", blank=True
     )
 
     class Meta:
@@ -36,11 +36,11 @@ class Notification(models.Model):
 
 class Device(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    creator = models.ForeignKey(
-        to=CustomUser, related_name="device_set", on_delete=models.CASCADE, blank=True
-    )
+    name = models.CharField(max_length=50)
     expo_push_token = models.CharField(max_length=50)
+    creator = models.ForeignKey(
+        to=CustomUser, related_name="devices", on_delete=models.CASCADE, blank=True
+    )
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

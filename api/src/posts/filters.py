@@ -6,7 +6,6 @@ class PostFilterSet(filters.FilterSet):
     class Meta:
         model = Post
         fields = [
-            "region",
             "datetime_created",
             "creator",
         ]

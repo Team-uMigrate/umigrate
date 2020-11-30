@@ -33,7 +33,7 @@ class RoomViewSet(AbstractModelViewSet):
     ]
 
     def get_queryset(self):
-        return self.request.user.room_set.all()
+        return self.request.user.rooms.all()
 
 
 # HTTP GET: Returns a list of messages for a room

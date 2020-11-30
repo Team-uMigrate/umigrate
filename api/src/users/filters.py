@@ -12,6 +12,5 @@ class UserFilterSet(filters.FilterSet):
             "birthday",
             "current_term",
             "enrolled_program",
-            "region",
             "phone_number",
         ]

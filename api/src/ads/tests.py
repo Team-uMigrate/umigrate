@@ -25,6 +25,8 @@ class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
             "liked_users": [],
             "tagged_users": [],
             "saved_users": [],
+            "contacted_users": [],
+            "confirmed_users": [],
         }
         self.pop_keys = [
             "id",

@@ -14,7 +14,6 @@ class AbstractModelSerializer(ModelSerializerExtension):
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
-
     comments = serializers.SerializerMethodField()
     most_liked_comment = serializers.SerializerMethodField()
 

@@ -32,7 +32,7 @@ class ListingTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
-        self.save_options = ["save", "like"]
+        self.save_options = ["save"]
 
         AbstractAPITestCase.setUp(self)
 

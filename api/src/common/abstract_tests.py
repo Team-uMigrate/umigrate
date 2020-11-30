@@ -26,7 +26,8 @@ def create_data(factory_class, serializer_class, pop_keys):
             data.pop(key)
 
     for key in pop_keys:
-        data.pop(key)
+        if key in data:
+            data.pop(key)
 
     return data
 

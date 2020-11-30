@@ -29,7 +29,6 @@ class CommentsContainer extends Component {
       this.state.nextPage,
       {}
     );
-    console.log(response);
     let seen = {};
     let nextPageExists = response.data.next !== null;
 

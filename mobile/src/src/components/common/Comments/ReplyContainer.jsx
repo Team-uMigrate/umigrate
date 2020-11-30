@@ -11,36 +11,29 @@ export class ReplyContainer extends Component {
     nextPage: 1,
   };
 
-  componentDidMount() {
-    this.fetchReplies();
-  }
+  componentDidMount = async () => {
+    await this.fetchReplies();
+  };
 
-  fetchReplies = () => {
-    CommentRepliesEndpoint.list(
-      this.state.nextPage,
+  fetchReplies = async () => {
+    const response = await CommentRepliesEndpoint.list(
       this.props.commentId,
-      {},
-      (response) => {
-        let seen = {};
-        let nextPageExists = response.data.next !== null;
-        // Check if there's another page after this one
-        this.setState({
-          nextPageExists: nextPageExists,
-          // This extends the comment list and filters out any duplicates that happen to show up
-          replies: this.state.replies
-            .concat(response.data.results)
-            .filter((t) =>
-              seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
-            ),
-          nextPage: nextPageExists
-            ? this.state.nextPage + 1
-            : this.state.nextPage,
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
+      this.state.nextPage,
+      {}
     );
+    let seen = {};
+    let nextPageExists = response.data.next !== null;
+    // Check if there's another page after this one
+    this.setState({
+      nextPageExists: nextPageExists,
+      // This extends the comment list and filters out any duplicates that happen to show up
+      replies: this.state.replies
+        .concat(response.data.results)
+        .filter((t) =>
+          seen.hasOwnProperty(t.id) ? false : (seen[t.id] = true)
+        ),
+      nextPage: nextPageExists ? this.state.nextPage + 1 : this.state.nextPage,
+    });
   };
 
   render() {

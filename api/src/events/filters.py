@@ -6,7 +6,6 @@ class EventFilterSet(filters.FilterSet):
     class Meta:
         model = Event
         fields = [
-            "region",
             "datetime_created",
             "creator",
             "start_datetime",

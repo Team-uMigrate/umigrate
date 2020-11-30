@@ -95,8 +95,7 @@ const USER_DATA = 'USER_DATA';
 
 
 export async function getAuthToken(){
-  const token = await AsyncStorage.getItem('AUTH_TOKEN');
-  return token;
+  return await AsyncStorage.getItem(AUTH_TOKEN);
 };
 
 export async function setAuthToken (token) {

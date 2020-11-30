@@ -21,7 +21,6 @@ class AdFilterSet(filters.FilterSet):
             "max_price",
             "min_date",
             "max_date",
-            "region",
             "datetime_created",
             "creator",
             "category",

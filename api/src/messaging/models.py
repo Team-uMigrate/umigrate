@@ -21,7 +21,7 @@ class Room(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(to=CustomUser, related_name="room_set", blank=True)
+    members = models.ManyToManyField(to=CustomUser, related_name="rooms", blank=True)
 
     class Meta:
         ordering = ["-datetime_created"]
@@ -39,27 +39,25 @@ class Room(models.Model):
 # Represents a message object
 class Message(models.Model):
     id = models.AutoField(primary_key=True)
-    content = models.CharField(max_length=500)
+    content = models.CharField(max_length=1000)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="message_created_set",
+        related_name="created_messages",
         on_delete=models.CASCADE,
         blank=True,
     )
     datetime_created = models.DateTimeField(auto_now_add=True)
     liked_users = models.ManyToManyField(
         to=CustomUser,
-        related_name="liked_message_set",
+        related_name="liked_messages",
         blank=True,
     )
     tagged_users = models.ManyToManyField(
         to=CustomUser,
-        related_name="tagged_message_set",
+        related_name="tagged_messages",
         blank=True,
     )
-    room = models.ForeignKey(
-        to=Room, related_name="message_set", on_delete=models.CASCADE
-    )
+    room = models.ForeignKey(to=Room, related_name="messages", on_delete=models.CASCADE)
     previous_message = models.ForeignKey(
         to="self",
         related_name="replies",

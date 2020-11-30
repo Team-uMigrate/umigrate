@@ -6,7 +6,6 @@ class PollFilterSet(filters.FilterSet):
     class Meta:
         model = Poll
         fields = [
-            "region",
             "datetime_created",
             "creator",
         ]

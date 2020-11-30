@@ -107,7 +107,6 @@ class Command(BaseCommand):
 
             room = RoomFactory(
                 members=random_users(users),
-                creator=users.get(id=random.randint(1, USER_COUNT)),
             )
 
             for j in range(rand_int1):

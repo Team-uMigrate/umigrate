@@ -19,7 +19,6 @@ class AuthContextProvider extends Component {
     const token = await getAuthToken() ;
     if (token != null){
       await setAuthToken(token)
-      console.log("Token is: " +token)
       try {
         await ProfileEndpoint.get();
         this.setState({ isAuthenticated: true });
@@ -29,7 +28,6 @@ class AuthContextProvider extends Component {
       }
     }
     else
-      console.log("No Auth token stored");
       this.setState({ isAuthenticated: false });
   };
 

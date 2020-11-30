@@ -31,11 +31,11 @@ class CommentSerializer(ModelSerializerExtension):
         return instance.liked_users.count()
 
     def get_replies(self, instance):
-        return instance.reply_set.count()
+        return instance.replies.count()
 
     def get_most_liked_reply(self, instance):
         most_liked_reply = (
-            instance.reply_set.annotate(likes=Count("liked_users"))
+            instance.replies.annotate(likes=Count("liked_users"))
             .order_by("-likes", "-datetime_created")
             .first()
         )

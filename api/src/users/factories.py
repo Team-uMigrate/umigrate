@@ -29,8 +29,8 @@ class UserFactory(factory.django.DjangoModelFactory):
         "random_int", min=0, max=get_length(Choices.PROGRAM_CHOICES) - 1
     )
     phone_number = factory.Faker("msisdn")
-    region = factory.Faker(
-        "random_int", min=0, max=get_length(Choices.REGION_CHOICES) - 1
+    community = factory.Faker(
+        "random_int", min=0, max=get_length(Choices.COMMUNITY_CHOICES) - 1
     )
     password = factory.PostGenerationMethodCall("set_password", "Top$ecret150")
 

@@ -34,7 +34,7 @@ def send_push_notifications(notification: Notification) -> None:
     request = SimpleNamespace()
     request.user = notification.creator
     for receiver in notification.receivers.all():
-        for device in receiver.device_set.all():
+        for device in receiver.devices.all():
             push_messages.append(
                 PushMessage(
                     to=device.expo_push_token,

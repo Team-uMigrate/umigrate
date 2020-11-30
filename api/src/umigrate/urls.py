@@ -25,10 +25,14 @@ from drf_yasg import openapi
 from .settings import STAGE_ENVIRONMENT, SITE, SITE_ID
 from common.constants.choices import trigger_error
 
-# site = Site.objects.get(id=SITE_ID)
-# site.name = SITE
-# site.domain = SITE
-# site.save()
+# Set site
+try:
+    site = Site.objects.get(id=SITE_ID)
+    site.name = SITE
+    site.domain = SITE
+    site.save()
+except Exception:
+    pass
 
 schema_view = get_schema_view(
     openapi.Info(

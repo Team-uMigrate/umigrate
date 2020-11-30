@@ -5,10 +5,8 @@
   "[javascript]": {
   "editor.formatOnSave": false
   },
-  "prettier.disableLanguages": [
-      "js"
-  ],
   "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
-  }
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint"
 }

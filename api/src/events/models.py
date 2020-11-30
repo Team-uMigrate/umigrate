@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import requests
+from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from common.abstract_models import AbstractPostModel
 from common.constants.choices import Choices
 from common.model_extensions import PhotoCollectionExtension
@@ -13,19 +11,18 @@ from users.models import CustomUser
 
 # Represents an event object
 class Event(AbstractPostModel, PhotoCollectionExtension):
-    price_scale = models.PositiveSmallIntegerField(
-        choices=Choices.PRICE_CHOICES, default=0
-    )
     start_datetime = models.DateTimeField(default=datetime.today)
     end_datetime = models.DateTimeField(blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0, blank=True)
+    price_scale = models.PositiveSmallIntegerField(
+        choices=Choices.PRICE_CHOICES, default=0, blank=True
+    )
     interested_users = models.ManyToManyField(
-        to=CustomUser, related_name="interested_event_set", blank=True
+        to=CustomUser, related_name="interested_events", blank=True
     )
     attending_users = models.ManyToManyField(
-        to=CustomUser, related_name="attending_event_set", blank=True
-    )
-    location = models.CharField(
-        max_length=100, blank=True, default="123 Goose st, Waterloo, ON"
+        to=CustomUser, related_name="attending_events", blank=True
     )
 
     def save(self, *args, **kwargs):
@@ -34,13 +31,15 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
 
     # Validation for start & end dates, and location of event
     def clean(self):
-        location_validation = requests.get(
-            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg"
-        )
-        location_check = location_validation.json()["features"]
+        if not (self.location == None or self.location == ""):
+            location_validation = requests.get(
+                f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token=pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg"
+            )
+            location_check = location_validation.json()["features"]
+            if not location_check:
+                raise ValidationError({"location": _("Invalid location")})
+
         if self.start_datetime is None:
             raise ValidationError({"start_datetime": _("Start Date cannot be null")})
         if self.start_datetime > self.end_datetime:
             raise ValidationError({"end_datetime": _("End date before start date")})
-        if not location_check:
-            raise ValidationError({"location": _("Invalid location")})

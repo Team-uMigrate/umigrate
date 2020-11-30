@@ -1,22 +1,18 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import NavContext from '../../../contexts/NavContext';
-import { Choices, CommentsEndpoint } from '../../../utils/endpoints';
+import { CommentsEndpoint } from '../../../utils/endpoints';
 
 const CommentBarButtons = ({
-  postId,
+  item,
+  endpoint,
   contentType,
   sendButtonVisible,
   setSendButtonVisible,
-  likePost,
-  isLiked,
   text,
   setText,
-  region,
 }) => {
-  const [liked, setLiked] = useState(isLiked);
-  const nav = useContext(NavContext);
+  const windowWidth = Dimensions.get('window').width;
 
   if (sendButtonVisible) {
     return (
@@ -25,26 +21,20 @@ const CommentBarButtons = ({
         <IconButton
           icon={'send'}
           style={styles.sendButton}
-          color={'white'}
-          onPress={() => {
+          color={'#FF668B'}
+          size={35}
+          onPress={async () => {
             if (text !== '') {
               // TODO add location and ability to tag users
               let data = {
                 content: text,
-                object_id: postId,
+                object_id: item.id,
                 content_type: contentType,
-                region: region,
+                region: item.region,
                 tagged_users: [],
               };
-
-              CommentsEndpoint.post(
-                data,
-                () => {},
-                (error) => {
-                  console.log(error);
-                }
-              );
-
+              await CommentsEndpoint.post(data);
+              item.updateItem({ ...item, comments: item.comments + 1 });
               setText('');
               setSendButtonVisible(false);
             }
@@ -54,35 +44,41 @@ const CommentBarButtons = ({
     );
   } else {
     return (
-      <>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginLeft: 'auto',
+        }}
+      >
         {/* Like button */}
         <View style={styles.buttonView}>
           <IconButton
+            // TODO: Update design to match figma
             icon={'heart'}
-            color={liked ? 'red' : 'black'}
+            color={item.is_liked ? 'red' : 'black'}
             style={styles.button}
-            onPress={() => {
-              likePost(postId, !liked);
-              setLiked(!liked);
-              // TODO Refresh the number of likes displayed in the view this attached to when the post is liked
+            onPress={async () => {
+              await endpoint.like(item.id, !item.is_liked);
+              item.updateItem({
+                ...item,
+                is_liked: !item.is_liked,
+                likes: item.is_liked ? item.likes - 1 : item.likes + 1,
+              });
             }}
           />
         </View>
         {/* Button to view comments */}
-        <View style={styles.buttonView}>
+        <View>
           <IconButton
             icon={'comment'}
             color={'black'}
             style={styles.button}
             onPress={() => {
-              nav.navigation.navigate('Comments', {
-                postId: postId,
-                contentType: contentType,
-              });
+              setSendButtonVisible(true);
             }}
           />
         </View>
-      </>
+      </View>
     );
   }
 };
@@ -91,25 +87,21 @@ export default CommentBarButtons;
 
 const styles = StyleSheet.create({
   buttonView: {
-    flex: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    alignContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   sendButtonView: {
-    flex: 2,
-    marginLeft: 10,
-    marginRight: 5,
+    flex: 1,
     alignContent: 'center',
-    backgroundColor: '#47e9ff',
-    borderRadius: 20,
+    backgroundColor: 'white',
+    marginLeft: 20,
   },
   button: {
-    height: 20,
+    height: 25,
   },
   sendButton: {
     alignSelf: 'center',
-    height: 20,
-    padding: 5,
+    height: 30,
   },
 });

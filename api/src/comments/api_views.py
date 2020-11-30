@@ -1,3 +1,5 @@
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from common.abstract_api_views import AbstractModelViewSet
 from common.generics.generic_post_api_views import GenericUserExtension
 from .models import Comment, Reply
@@ -23,13 +25,17 @@ class CommentViewSet(AbstractModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     detail_serializer_class = CommentDetailSerializer
+    # The default filter_backend (when nothing is specified) is DjangoFilterBackend. However, since we are overriding
+    # this we must specify DjangoFilterBackend in addition to OrderingFilter, which is what are using to sort
+    # the results by date
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
     filter_fields = [
-        "region",
         "datetime_created",
         "creator",
         "object_id",
         "content_type",
     ]
+    ordering_fields = ["datetime_created"]
     search_fields = [
         "content",
     ]
@@ -47,7 +53,9 @@ class ReplyViewSet(AbstractModelViewSet):
     queryset = Reply.objects.all()
     serializer_class = ReplySerializer
     detail_serializer_class = ReplyDetailSerializer
-    filter_fields = ["region", "datetime_created", "creator", "comment"]
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    filter_fields = ["datetime_created", "creator", "comment"]
+    ordering_fields = ["datetime_created"]
     search_fields = [
         "content",
     ]

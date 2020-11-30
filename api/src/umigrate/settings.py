@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,7 +143,7 @@ ROOT_URLCONF = "umigrate.urls"
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 20,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
         "common.utils.local_authentication.CsrfExemptSessionAuthentication"  # if STAGE_ENVIRONMENT is 'local' else 'rest_framework.authentication.SessionAuthentication',
@@ -312,12 +311,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "../static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
-
-# # Sentry Initialization
-# sentry_sdk.init(
-#     dsn="https://a4946255ae774d7e9c0dd8b5adfa9526@o442315.ingest.sentry.io/5413903",
-#     integrations=[DjangoIntegration()],
-#     # If you wish to associate users to errors (assuming you are using
-#     # django.contrib.auth) you may enable sending PII data.
-#     send_default_pii=True,
-# )

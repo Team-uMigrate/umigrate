@@ -7,6 +7,7 @@
 <body>
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
+       <input id="chat-previous-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_id|json_script:"room-id" }}
     <script>
@@ -60,8 +61,13 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
+            const previousMessage = document.querySelector('#chat-previous-message-input');
+            const previousMessageId = parseInt(previousMessage.value);
+            console.log(message)
+            console.log(previousMessageId)
             chatSocket.send(JSON.stringify({
-                'message_body': message
+                'message_body': message,
+                'previous_message_id':previousMessageId
             }));
             messageInputDom.value = '';
         };

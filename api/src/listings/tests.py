@@ -1,5 +1,6 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase
+from common.abstract_tests import AbstractAPITestCase, AbstractLikesTestCase
+from users.serializers import BasicUserSerializer
 from .models import Listing
 from .serializers import ListingSerializer, ListingDetailSerializer
 from .factories import ListingFactory
@@ -20,6 +21,8 @@ class ListingTestCase(AbstractAPITestCase, APITestCase):
             "liked_users": [],
             "tagged_users": [],
             "saved_users": [],
+            "contacted_users": [],
+            "confirmed_users": [],
         }
         self.pop_keys = [
             "id",
@@ -47,3 +50,25 @@ class ListingTestCase(AbstractAPITestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+
+# Test case for the liked users endpoint for listings
+class ListingLikesTestCase(AbstractLikesTestCase, APITestCase):
+    def setUp(self):
+        self.api_client = self.client
+        self.assert_equal = self.assertEqual
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = "/api/listings/1/likes"
+        self.model_class = Listing
+        self.detail_serializer_class = BasicUserSerializer
+        self.factory_class = ListingFactory
+        self.factory_kwargs = {
+            "liked_users": [1],
+            "tagged_users": [],
+            "saved_users": [],
+        }
+
+        AbstractLikesTestCase.setUp(self)
+
+    def test_liked_users(self):
+        AbstractLikesTestCase.test_liked_users(self)

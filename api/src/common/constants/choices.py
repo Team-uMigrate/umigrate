@@ -40,7 +40,7 @@ class Choices:
             "$$$$$",
         ]
     )
-    REGION_CHOICES = convert_to_tuple(
+    COMMUNITY_CHOICES = convert_to_tuple(
         [
             "Waterloo",
             "Toronto",
@@ -123,13 +123,6 @@ class Choices:
         [
             "Full-time",
             "Internship",
-        ]
-    )
-    ROOM_CHOICES = convert_to_tuple(
-        [
-            "Public",
-            "Private",
-            "Direct Messaging",
         ]
     )
 

@@ -17,4 +17,4 @@ class JobFactory(factory.django.DjangoModelFactory):
     )
     start_date = factory.Faker("date")
     end_date = factory.Faker("date")
-    city = factory.Faker("city")
+    location = factory.Faker("city")

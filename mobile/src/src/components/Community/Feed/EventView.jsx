@@ -1,35 +1,31 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
-import { Choices } from '../../../utils/endpoints';
+import { EventsEndpoint, Choices } from '../../../utils/endpoints';
+import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import GradientButton from 'react-native-gradient-buttons';
 import CommentBar from '../../common/CommentBar/CommentBar';
 
-const EventView = ({
-  id,
-  creator,
-  price_scale,
-  title,
-  region,
-  likes,
-  comments,
-  content,
-  location,
-  datetime_created,
-  start_datetime,
-  end_datetime,
-  photos,
-  is_interested,
-  is_attending,
-  attendEvent,
-  interestedEvent,
-  is_liked,
-  sendComment
-}) => {
+const EventView = (event) => {
+  const {
+    creator,
+    price_scale,
+    title,
+    region,
+    content,
+    location,
+    datetime_created,
+    start_datetime,
+    end_datetime,
+    photos,
+    is_interested,
+    is_attending,
+  } = event;
+
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes.event;
+  const contentType = Choices.contentTypes['event'];
 
   return (
     <Card style={styles.container}>
@@ -94,8 +90,15 @@ const EventView = ({
             title={is_attending ? 'Attending' : 'Attending'}
             color="white"
             dark={true}
-            onPress={() => {
-              attendEvent(id, !is_attending);
+            onPress={async () => {
+              await EventsEndpoint.attend(event.id, !event.is_attending);
+              event.updateItem({
+                ...event,
+                is_attending: !event.is_attending,
+                attending: event.is_attending
+                  ? event.attending - 1
+                  : event.attending + 1,
+              });
             }}
           >
           </Button> */}
@@ -123,24 +126,25 @@ const EventView = ({
             title={is_interested ? 'Uninterest' : 'Interested?'}
             color="white"
             dark={true}
-            onPress={() => {
-              interestedEvent(id, !is_interested);
+            onPress={async () => {
+              await EventsEndpoint.interested(event.id, !event.is_interested);
+              event.updateItem({
+                ...event,
+                is_interested: !event.is_interested,
+                interested: event.is_interested
+                  ? event.interested - 1
+                  : event.interested + 1,
+              });
             }}
           >
             {is_interested ? 'Uninterest' : 'Interested?'}
           </Button> */}
         </View>
-        <View style={styles.row}>
         <CommentBar
-          postId={id}
-          likes={likes}
-          comments={comments}
-          sendComment={sendComment}
-          isLiked={is_liked}
-          contentType= {contentType}
-          >
-          </CommentBar>
-        </View>
+          item={event}
+          contentType={contentType}
+          endpoint={EventsEndpoint}
+        />
       </Card.Content>
     </Card>
   );

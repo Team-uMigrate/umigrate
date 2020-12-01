@@ -2,27 +2,17 @@ import React, { createRef } from 'react';
 import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from '../../common/ProfilePhoto';
-import { Choices } from '../../../utils/endpoints';
+import { Choices, PostsEndpoint } from '../../../utils/endpoints';
+import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CommentBar from '../../common/CommentBar/CommentBar';
 
-const PostView = ({
-  id,
-  title,
-  creator,
-  datetime_created,
-  content,
-  region,
-  photos,
-  likes,
-  comments,
-  is_liked,
-  sendComment
+const PostView = (post) => {
+  const { title, creator, datetime_created, content, region, photos } = post;
 
-}) => {
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes.post;
+  const contentType = Choices.contentTypes['post'];
 
   return (
     <Card style={styles.container} >
@@ -44,17 +34,11 @@ const PostView = ({
           <Text style={styles.bold}>Region: {Choices.regions[region]}</Text>
         </Paragraph>
         <ImageCollection photos={photos} />
-        <View style={styles.row}>
-          <CommentBar
-          postId={id}
-          likes={likes}
-          comments={comments}
-          sendComment={sendComment}
-          isLiked={is_liked}
-          contentType= {contentType}
-          >
-          </CommentBar>
-        </View>
+        <CommentBar
+          item={post}
+          contentType={contentType}
+          endpoint={PostsEndpoint}
+        />
       </Card.Content>
     </Card>
   );

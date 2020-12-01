@@ -2,7 +2,6 @@ import factory
 import random
 from django.db.models import QuerySet
 from .models import Room, Message
-from common.constants.choices import Choices, get_length
 from users.factories import UserFactory
 
 
@@ -11,10 +10,6 @@ class RoomFactory(factory.django.DjangoModelFactory):
         model = Room
 
     title = factory.Faker("text", max_nb_chars=100)
-    creator = factory.SubFactory(UserFactory)
-    privacy_level = factory.Faker(
-        "random_int", min=0, max=get_length(Choices.NOTIFICATION_PRIVACY_CHOICES) - 1
-    )
 
     @factory.post_generation
     def members(self, create, extracted, **kwargs):

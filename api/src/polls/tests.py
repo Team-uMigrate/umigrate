@@ -1,5 +1,6 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase
+from common.abstract_tests import AbstractAPITestCase, AbstractLikesTestCase
+from users.serializers import BasicUserSerializer
 from .models import Poll
 from .serializers import PollSerializer, PollDetailSerializer
 from .factories import PollFactory
@@ -47,3 +48,24 @@ class PollTestCase(AbstractAPITestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+
+class PollLikesTestCase(AbstractLikesTestCase, APITestCase):
+    def setUp(self):
+        self.api_client = self.client
+        self.assert_equal = self.assertEqual
+        self.assert_list_equal = self.assertListEqual
+        self.endpoint = "/api/polls/1/likes"
+        self.model_class = Poll
+        self.detail_serializer_class = BasicUserSerializer
+        self.factory_class = PollFactory
+        self.factory_kwargs = {
+            "liked_users": [1],
+            "tagged_users": [],
+            "saved_users": [],
+        }
+
+        AbstractLikesTestCase.setUp(self)
+
+    def test_liked_users(self):
+        AbstractLikesTestCase.test_liked_users(self)

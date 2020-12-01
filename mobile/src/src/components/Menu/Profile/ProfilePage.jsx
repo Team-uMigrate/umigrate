@@ -9,19 +9,11 @@ class ProfilePage extends Component {
 
   constructor(props) {
     super(props);
-    this.getProfile();
   }
 
-  getProfile = () => {
-    ProfileEndpoint.get(
-      (response) => {
-        this.setState({ user: response.data });
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-      }
-    );
+  componentDidMount = async () => {
+    const response = await ProfileEndpoint.get();
+    this.setState({ user: response.data });
   };
 
   render() {

@@ -81,7 +81,8 @@ const EditComponent = ({ user, navigation }) => {
     })();
   }, []);
 
-  const pickImage = async ({ type }) => {
+  // used 2 pick image functions or else the photo library appears by itself
+  const pickImage1 = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -94,8 +95,25 @@ const EditComponent = ({ user, navigation }) => {
     console.log(result.uri);
 
     if (!result.cancelled) {
-      if (type == "bg") setbgPic(result.uri);
-      else setPfp(result.uri);
+      setPfp(result.uri);
+      console.log("here");
+    }
+  };
+
+  const pickImage2 = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+    console.log("here1");
+    console.log(result.uri);
+
+    if (!result.cancelled) {
+      setbgPic(result.uri);
       console.log("here");
     }
   };
@@ -250,13 +268,13 @@ const EditComponent = ({ user, navigation }) => {
           <View style={styles.modalButton}>
             <TouchableHighlight
               style={styles.picsButton}
-              onPress={pickImage("pfp")}
+              onPress={pickImage1}
             >
               <Text style={styles.textStyle}>Profile</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.picsButton}
-              onPress={pickImage("bg")}
+              onPress={pickImage2}
             >
               <Text style={styles.textStyle}>Background</Text>
             </TouchableHighlight>

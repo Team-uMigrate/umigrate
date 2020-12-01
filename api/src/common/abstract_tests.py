@@ -183,7 +183,11 @@ class AbstractAPITestCase:
         context = {
             "request": SimpleNamespace(
                 user=(
-                    item.creator if hasattr(item, "creator") else item.members.first()
+                    # TODO: Sort this out with rooms. Confusing because only rooms have members and
+                    # only postings have creators
+                    item.creator
+                    if hasattr(item, "creator")
+                    else item.members.first()
                 )
             )
         }
@@ -239,15 +243,16 @@ class AbstractSavedTestCase:
             results = response.data["results"]
 
             item = self.model_class.objects.filter(id=1)
-            # serialized_item = self.serializer_class(item).data
+            context = {"request": SimpleNamespace(user=(item.creator))}
+            serialized_item = self.serializer_class(item).data
             self.assert_equal(
                 len(results), len(item), f"There should be {len(item)} results"
             )
-            # self.assert_list_equal(
-            #     results,
-            #     list(serialized_item),
-            #     "Results should match items in the database",
-            # )
+            self.assert_list_equal(
+                results,
+                list(serialized_item),
+                "Results should match items in the database",
+            )
 
             # test remove saved
             data = {"save": False, "id": 1}

@@ -242,15 +242,13 @@ class AbstractSavedTestCase:
             )
             results = response.data["results"]
 
-            item = self.model_class.objects.filter(id=1)
+            item = self.model_class.objects.get(id=1)
             context = {"request": SimpleNamespace(user=(item.creator))}
-            serialized_item = self.serializer_class(item).data
-            self.assert_equal(
-                len(results), len(item), f"There should be {len(item)} results"
-            )
+            serialized_item = self.serializer_class(item, context=context).data
+            self.assert_equal(len(results), 1, f"There should be 1 results")
             self.assert_list_equal(
                 results,
-                list(serialized_item),
+                [serialized_item],
                 "Results should match items in the database",
             )
 

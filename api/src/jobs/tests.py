@@ -15,7 +15,7 @@ class JobTestCase(APITestCase):
         "job_type": 0,
         "start_date": date.today().strftime("%Y-%m-%d"),
         "end_date": (date.today() + timedelta(days=1)).strftime("%Y-%m-%d"),
-        "city": "Waterloo",
+        "location": "Waterloo",
         "creator": 1,
     }
     update_data = {
@@ -25,7 +25,7 @@ class JobTestCase(APITestCase):
         "job_type": 1,
         "start_date": date.today().strftime("%Y-%m-%d"),
         "end_date": (date.today() + timedelta(days=1)).strftime("%Y-%m-%d"),
-        "city": "Brampton",
+        "location": "Brampton",
         "creator": 1,
     }
     ignored_keys = ["profile_photo", "background_photo"]

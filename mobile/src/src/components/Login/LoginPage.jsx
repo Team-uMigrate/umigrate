@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   View,
   Modal,
   Image,
   KeyboardAvoidingView,
-} from "react-native";
-import AuthContext from "../../contexts/AuthContext";
-import { AuthEndpoint, ProfileEndpoint } from "../../utils/endpoints";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { TextInput, Text, Button } from "react-native-paper";
+} from 'react-native';
+import AuthContext from '../../contexts/AuthContext';
+import { AuthEndpoint, ProfileEndpoint } from '../../utils/endpoints';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { TextInput, Text, Button } from 'react-native-paper';
 
 const LoginPage = ({ navigation }) => {
   const auth = useContext(AuthContext);
@@ -18,46 +18,37 @@ const LoginPage = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSignIn = () => {
-    AuthEndpoint.login(
-      { email: email, password: password },
-      (response) => {
-        ProfileEndpoint.get(
-          (response) => auth.setAuthenticated(true),
-          (error) => {
-            console.log(error);
-            console.log(error.response);
-          }
-        );
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-
-        // Populate error messages
-        let errors = [];
-        let count = 0;
-        // Loops through all error messages in the data of the response field in the error object to generate error messages
-        for (let errorType in error.response.data) {
-          errors.push(
-            <Text key={count}>
-              {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
-                errorType.substring(1) +
-                ": " +
-                error.response.data[errorType]}
-            </Text>
-          );
-          count++;
-        }
-
-        setErrorMessage(errors);
-        setModalVisible(true);
-      }
-    );
-  };
+  // Todo: Wrap these functions in a react hook
 
   const signUpRedirect = () => {
-    navigation.navigate("Register");
+    navigation.navigate('Register');
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await AuthEndpoint.login(email, password);
+      await ProfileEndpoint.get();
+      auth.setAuthenticated(true);
+    } catch (error) {
+      // Populate error messages
+      let errors = [];
+      let count = 0;
+      // Loops through all error messages in the data of the response field in the error object to generate error messages
+      for (let errorType in error.response.data) {
+        errors.push(
+          <Text key={count}>
+            {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
+              errorType.substring(1) +
+              ': ' +
+              error.response.data[errorType]}
+          </Text>
+        );
+        count++;
+      }
+
+      setErrorMessage(errors);
+      setModalVisible(true);
+    }
   };
 
   return (
@@ -66,7 +57,7 @@ const LoginPage = ({ navigation }) => {
         <View>
           <Image
             style={styles.imageStyle}
-            source={require("../../../assets/templatedLogin.png")}
+            source={require('../../../assets/templatedLogin.png')}
           />
         </View>
         <View style={styles.inputBoxes}>
@@ -112,7 +103,7 @@ const LoginPage = ({ navigation }) => {
             Register
           </Button>
         </View>
-        <Modal visible={modalVisible} presentationStyle={"overFullScreen"}>
+        <Modal visible={modalVisible} presentationStyle={'overFullScreen'}>
           <View style={styles.container}>
             <View style={styles.modalView}>
               <Text style={styles.errorText}>Error:</Text>
@@ -135,47 +126,47 @@ export default LoginPage;
 
 const styles = StyleSheet.create({
   imageStyle: {
-    marginTop: "5%",
+    marginTop: '5%',
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputBoxes: {
-    marginTop: "15%",
+    marginTop: '15%',
   },
   textInput: {
     height: 50,
     width: 250,
   },
   divider: {
-    marginTop: "5%",
-    marginBottom: "5%",
-    alignItems: "center",
+    marginTop: '5%',
+    marginBottom: '5%',
+    alignItems: 'center',
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   buttonContainer: {
     flex: 1,
-    alignItems: "center",
-    marginTop: "10%",
+    alignItems: 'center',
+    marginTop: '10%',
   },
   buttonStyle: {
     height: 40,
     width: 250,
   },
   errorText: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,

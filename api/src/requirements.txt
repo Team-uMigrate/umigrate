@@ -5,8 +5,9 @@ django-allauth
 django-filter
 Pillow
 django-cors-headers
-channels
+channels==3.0.1
 channels-redis
+exponent_server_sdk
 sendgrid
 drf_yasg
 factory_boy
@@ -17,3 +18,4 @@ gunicorn
 daphne
 sentry-sdk
 black
+pylint-django

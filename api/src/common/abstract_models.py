@@ -15,27 +15,38 @@ class IsCreatorOrReadOnly(BasePermission):
         return obj.creator_id == request.user.id
 
 
+# A custom permission that only allows the creator of a resource to access it
+class IsCreator(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.creator_id == request.user.id
+
+
+class IsMember(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.members.filter(id=request.user.id).exists()
+
+
 # An abstract model that represents a basic post
 class AbstractPostModel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000, blank=True)
-    region = models.PositiveSmallIntegerField(choices=Choices.REGION_CHOICES)
     creator = models.ForeignKey(
         to=CustomUser,
-        related_name="%(app_label)s_%(class)s_set",
+        related_name="created_%(class)ss",
         on_delete=models.CASCADE,
         blank=True,
     )
     datetime_created = models.DateTimeField(auto_now_add=True)
-    liked_users = models.ManyToManyField(
-        to=CustomUser, related_name="liked_%(app_label)s_%(class)s_set", blank=True
-    )
+    community = models.PositiveSmallIntegerField(choices=Choices.COMMUNITY_CHOICES)
     tagged_users = models.ManyToManyField(
-        to=CustomUser, related_name="tagged_%(app_label)s_%(class)s_set", blank=True
+        to=CustomUser, related_name="tagged_%(class)ss", blank=True
+    )
+    liked_users = models.ManyToManyField(
+        to=CustomUser, related_name="liked_%(class)ss", blank=True
     )
     saved_users = models.ManyToManyField(
-        to=CustomUser, related_name="saved_%(app_label)s_%(class)s_set", blank=True
+        to=CustomUser, related_name="saved_%(class)ss", blank=True
     )
     comments = GenericRelation(Comment)
 

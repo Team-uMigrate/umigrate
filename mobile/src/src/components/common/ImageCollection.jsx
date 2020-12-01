@@ -1,5 +1,5 @@
-import React from "react";
-import GallerySwiper from "react-native-gallery-swiper";
+import React from 'react';
+import GallerySwiper from 'react-native-gallery-swiper';
 
 const ImageCollection = ({ photos }) => {
   const images = photos.map((photo) => {
@@ -7,16 +7,17 @@ const ImageCollection = ({ photos }) => {
   });
 
   return (
-    <GallerySwiper
-      images={images}
-      height={images.length > 1 ? 400 : 0}
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-      }}
-      pageMargin={10}
-      enableTranslate={false}
-    />
+    // <GallerySwiper
+    //   images={images}
+    //   height={images.length > 1 ? 400 : 0}
+    //   style={{
+    //     flex: 1,
+    //     backgroundColor: 'white',
+    //   }}
+    //   pageMargin={10}
+    //   enableTranslate={false}
+    // />
+    <></>
   );
 };
 

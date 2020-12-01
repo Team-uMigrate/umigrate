@@ -26,10 +26,13 @@ from .settings import STAGE_ENVIRONMENT, SITE, SITE_ID
 from common.constants.choices import trigger_error
 
 # Set site
-# site = Site.objects.get(id=SITE_ID)
-# site.name = SITE
-# site.domain = SITE
-# site.save()
+try:
+    site = Site.objects.get(id=SITE_ID)
+    site.name = SITE
+    site.domain = SITE
+    site.save()
+except Exception:
+    pass
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -65,6 +68,7 @@ urlpatterns = [
     path("api/posts/", include("posts.urls")),
     path("api/users/", include("users.urls")),
     path("api/uploads/photos/", include("photos.urls")),
+    path("api/", include("notifications.urls")),
     path("api/sentry-debug/", trigger_error),
     path("api/", include("rest_auth.urls")),
     url(r"^api/", include("django.contrib.auth.urls")),

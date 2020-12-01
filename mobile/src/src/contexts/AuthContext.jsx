@@ -1,25 +1,27 @@
-import React, { Component, createContext } from "react";
-import { ProfileEndpoint } from "../utils/endpoints";
+import React, { Component, createContext } from 'react';
+import { ProfileEndpoint } from '../utils/endpoints';
 
 const AuthContext = createContext();
 
 class AuthContextProvider extends Component {
-  state = {
-    isAuthenticated: null,
-    setAuthenticated: (isAuth) => {
-      this.setState({ isAuthenticated: isAuth });
-    },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: null,
+      setAuthenticated: (isAuth) => {
+        this.setState({ isAuthenticated: isAuth });
+      },
+    };
+  }
 
-  componentDidMount = () => {
-    ProfileEndpoint.get(
-      (response) => this.setState({ isAuthenticated: true }),
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-        this.setState({ isAuthenticated: false });
-      }
-    );
+  componentDidMount = async () => {
+    // Todo: Check local storage for auth token
+    try {
+      await ProfileEndpoint.get();
+      this.setState({ isAuthenticated: true });
+    } catch (error) {
+      this.setState({ isAuthenticated: false });
+    }
   };
 
   render() {

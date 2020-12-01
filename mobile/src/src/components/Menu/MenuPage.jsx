@@ -1,27 +1,19 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Card, Paragraph, Avatar, IconButton } from "react-native-paper";
-import { ProfileEndpoint } from "../../utils/endpoints";
-import Header from "../common/Header";
-import MenuLogout from "./MenuLogout";
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
+import { ProfileEndpoint } from '../../utils/endpoints';
+import Header from '../common/Header';
+import MenuLogout from './MenuLogout';
 
 class MenuPage extends Component {
-  state = { user: {} };
+  constructor(props) {
+    super(props);
+    this.state = { user: {} };
+  }
 
-  componentDidMount = () => {
-    this.getProfile();
-  };
-
-  getProfile = () => {
-    ProfileEndpoint.get(
-      (response) => {
-        this.setState({ user: response.data });
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
-      }
-    );
+  componentDidMount = async () => {
+    const response = await ProfileEndpoint.get();
+    this.setState({ user: response.data });
   };
 
   render() {
@@ -36,7 +28,7 @@ class MenuPage extends Component {
           <View style={styles.profileArea}>
             <TouchableOpacity
               style={styles.profileImg}
-              onPress={() => this.props.navigation.navigate("Profile")}
+              onPress={() => this.props.navigation.navigate('Profile')}
             >
               <Avatar.Image
                 size={110}
@@ -57,7 +49,7 @@ class MenuPage extends Component {
                 icon="content-save"
                 size={70}
                 style={styles.iconPic}
-                onPress={() => this.props.navigation.navigate("SavedPosts")}
+                onPress={() => this.props.navigation.navigate('SavedPosts')}
               />
               <Paragraph style={styles.text}>Saved Posts</Paragraph>
             </Card.Content>
@@ -69,7 +61,7 @@ class MenuPage extends Component {
                 size={70}
                 style={styles.iconPic}
                 onPress={() =>
-                  this.props.navigation.navigate("HousingListings")
+                  this.props.navigation.navigate('HousingListings')
                 }
               />
               <Paragraph style={styles.text}>Housing Listing</Paragraph>
@@ -83,7 +75,7 @@ class MenuPage extends Component {
                 icon="settings"
                 size={70}
                 style={styles.iconPic}
-                onPress={() => this.props.navigation.navigate("Settings")}
+                onPress={() => this.props.navigation.navigate('Settings')}
               />
               <Paragraph style={styles.text}>Settings</Paragraph>
             </Card.Content>
@@ -104,29 +96,29 @@ export default MenuPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eeeeee",
+    backgroundColor: '#eeeeee',
   },
   backHeading: {
-    width: "100%",
-    height: "20%",
+    width: '100%',
+    height: '20%',
   },
   backGroundHeading: {
     flex: 2,
-    width: "100%",
-    height: "20%",
+    width: '100%',
+    height: '20%',
   },
   profileArea: {
-    position: "absolute",
-    alignSelf: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignSelf: 'center',
+    justifyContent: 'center',
     // get half of pfp on background and half not
-    bottom: "-75%",
-    paddingBottom: "-60%",
-    width: "100%",
+    bottom: '-75%',
+    paddingBottom: '-60%',
+    width: '100%',
   },
   profileImg: {
-    alignSelf: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   pfpShadow: {
     shadowOpacity: 0.2,
@@ -134,45 +126,45 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   profileName: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 25,
     paddingTop: 5,
-    textAlign: "center",
+    textAlign: 'center',
   },
   profileText: {
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
   rows1: {
     flex: 2,
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignSelf: "center",
-    marginTop: "35%",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: '35%',
   },
   rows2: {
     flex: 2,
-    flexWrap: "wrap",
-    flexDirection: "row",
-    alignSelf: "center",
-    marginBottom: "10%",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginBottom: '10%',
   },
   tiles: {
-    backgroundColor: "#ffffff",
-    margin: "2%",
+    backgroundColor: '#ffffff',
+    margin: '2%',
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 5,
   },
   text: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   textLogout: {
-    textAlign: "center",
-    color: "#ff0000",
+    textAlign: 'center',
+    color: '#ff0000',
   },
   iconPic: {
-    alignSelf: "center",
-    marginBottom: "-15%",
+    alignSelf: 'center',
+    marginBottom: '-15%',
   },
 });

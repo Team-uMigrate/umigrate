@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import { Appbar } from "react-native-paper";
-import { StyleSheet, Image, Dimensions } from "react-native";
-import Logo from "../../../../assets/favicon.png";
-import NavContext from "../../../contexts/NavContext";
-import { getStatusBarHeight } from "react-native-status-bar-height";
+import React, { useContext } from 'react';
+import { Appbar } from 'react-native-paper';
+import { StyleSheet, Image, Dimensions } from 'react-native';
+import Logo from '../../../../assets/favicon.png';
+import NavContext from '../../../contexts/NavContext';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const statusHeight = getStatusBarHeight(true);
-const windowWidth = Dimensions.get("window").width;
+const windowWidth = Dimensions.get('window').width;
 
 const Header = ({
   title,
-  isMessagingPage = false,
+  isMessagingOrCommentsPage = false,
   isNotificationPage = false,
 }) => {
   const nav = useContext(NavContext);
@@ -19,16 +19,16 @@ const Header = ({
     <Appbar.Header style={styles.header} statusBarHeight={statusHeight}>
       {/* if on messaging page or notification page, let the user go back */}
 
-      {(isNotificationPage || isMessagingPage) && (
+      {(isNotificationPage || isMessagingOrCommentsPage) && (
         <Appbar.Action
           color="#555555"
-          icon={isNotificationPage ? "arrow-right" : "arrow-left"}
+          icon={isNotificationPage ? 'arrow-right' : 'arrow-left'}
           style={
             isNotificationPage
               ? {
                   flex: 1,
                   marginLeft: windowWidth - windowWidth * 0.1,
-                  float: "right",
+                  float: 'right',
                 }
               : { flex: 0 }
           }
@@ -37,25 +37,25 @@ const Header = ({
       )}
 
       {/* if not on the notification page or messaging page, let the user click notifications */}
-      {!isNotificationPage && !isMessagingPage && (
+      {!isNotificationPage && !isMessagingOrCommentsPage && (
         <Appbar.Action
           color="#555555"
           icon="bell"
-          onPress={() => nav.navigation.navigate("Notifications")}
+          onPress={() => nav.navigation.navigate('Notifications')}
         />
       )}
 
       {/* if not on home page, do not display logo */}
-      {!isMessagingPage && !isNotificationPage && (
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Image style={styles.image} source={Logo} />
       )}
 
       {/* if on home page, let user go to messages */}
-      {!isMessagingPage && !isNotificationPage && (
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Appbar.Action
           color="#555555"
           icon="message"
-          onPress={() => nav.navigation.navigate("Messaging")}
+          onPress={() => nav.navigation.navigate('Messaging')}
         />
       )}
     </Appbar.Header>
@@ -66,12 +66,12 @@ export default Header;
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
   },
   image: {
     height: 40,
     width: 40,
-    marginLeft: "auto",
-    marginRight: "auto",
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 });

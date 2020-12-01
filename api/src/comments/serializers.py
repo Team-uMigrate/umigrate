@@ -1,4 +1,5 @@
 from django.db.models import Count
+from common.notification_helpers import create_tagged_user_notification
 from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
@@ -30,11 +31,11 @@ class CommentSerializer(ModelSerializerExtension):
         return instance.liked_users.count()
 
     def get_replies(self, instance):
-        return instance.reply_set.count()
+        return instance.replies.count()
 
     def get_most_liked_reply(self, instance):
         most_liked_reply = (
-            instance.reply_set.annotate(likes=Count("liked_users"))
+            instance.replies.annotate(likes=Count("liked_users"))
             .order_by("-likes", "-datetime_created")
             .first()
         )
@@ -49,7 +50,9 @@ class CommentSerializer(ModelSerializerExtension):
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
+        created_data = ModelSerializerExtension.create(self, validated_data)
+        create_tagged_user_notification(created_data)
+        return created_data
 
 
 # Serializes the comment model with detail
@@ -81,7 +84,9 @@ class ReplySerializer(ModelSerializerExtension):
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
+        created_data = ModelSerializerExtension.create(self, validated_data)
+        create_tagged_user_notification(created_data)
+        return created_data
 
 
 # Serializes the reply model with detail

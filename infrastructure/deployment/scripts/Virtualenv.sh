@@ -14,11 +14,13 @@ SAS_TOKEN=$8
 pip3 install --upgrade pip
 pip3 install virtualenv
 
-# Run only if path /home/umigrate/venv doesn't exist.
+# Make dir for venv 
 DIR="/home/umigrate/venv/"
 if [ ! -d "$DIR" ]; then
-	virtualenv --python=/usr/bin/py /home/umigrate/venv
+	mkdir /home/umigrate/venv
 fi
+
+virtualenv --python=/usr/bin/py /home/umigrate/venv
 
 # Send pipeline variables to environment variables file
 echo SECRET_KEY=$SECRET_KEY$'\n'\
@@ -29,3 +31,4 @@ DOMAIN_NAME=$DOMAIN_NAME$'\n'\
 STAGE_ENVIRONMENT=$STAGE_ENVIRONMENT$'\n'\
 UW_API_KEY=$UW_API_KEY$'\n'\
 SAS_TOKEN=$SAS_TOKEN$'\n' > /home/umigrate/venv/.env
+

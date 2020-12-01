@@ -84,6 +84,7 @@ const CommentBar = ({ item, contentType, endpoint }) => {
           sendButtonVisible={sendButtonVisible}
           setSendButtonVisible={setSendButtonVisible}
           text={text}
+          liked={item.is_liked}
           setText={setText}
         />
       </View>
@@ -96,21 +97,20 @@ export default CommentBar;
 const styles = StyleSheet.create({
   commentBarContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
     marginTop: 10,
+    // backgroundColor: "red",
+    alignItems: 'center',
   },
   likesAndCommentsText: {
     flexDirection: 'row',
     marginRight: 'auto',
-    marginBottom: 10,
-    marginTop: 16,
   },
   likesText: {
     // TODO: Enable Montserrat font
     // fontFamily: "Montserrat",
     fontStyle: 'normal',
     fontWeight: '300',
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 16,
     display: 'flex',
     alignItems: 'center',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     // fontFamily: "Montserrat",
     fontStyle: 'normal',
     fontWeight: '300',
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 16,
     display: 'flex',
     alignItems: 'center',

@@ -1,7 +1,7 @@
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-import { IconButton } from "react-native-paper";
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import { IconButton } from 'react-native-paper';
 import { CommentsEndpoint } from '../../../utils/endpoints';
 
 const CommentBarButtons = ({
@@ -11,6 +11,9 @@ const CommentBarButtons = ({
   sendButtonVisible,
   setSendButtonVisible,
   text,
+  liked,
+  // likePost,
+  // postId,
   setText,
 }) => {
   const windowWidth = Dimensions.get('window').width;
@@ -54,14 +57,18 @@ const CommentBarButtons = ({
         {/* Like button */}
         <View style={styles.buttonView}>
           <MaterialCommunityIcons
-          name={liked ? "heart" : "heart-outline"}
-          color={liked ? "red" : "purple"}
-          style={styles.button}
-          onPress={() => {
-            likePost(postId, !liked);
-            setLiked(!liked);
-          }}>
-          </MaterialCommunityIcons>
+            name={liked ? 'heart' : 'heart-outline'}
+            color={liked ? 'red' : 'purple'}
+            style={styles.button}
+            onPress={async () => {
+              await endpoint.like(item.id, !liked);
+              item.updateItem({
+                ...item,
+                is_liked: !liked,
+                likes: liked ? item.likes - 1 : item.likes + 1,
+              });
+            }}
+          ></MaterialCommunityIcons>
           {/* <IconButton
             // TODO: Update design to match figma
             icon={'heart'}
@@ -80,14 +87,13 @@ const CommentBarButtons = ({
         {/* Button to view comments */}
         <View style={styles.buttonView}>
           <MaterialCommunityIcons
-           name='chat-outline'
-           color={'purple'}
-           style={styles.button}
-           onPress={() => {
-             setSendButtonVisible(true);
-           }}
-          >
-          </MaterialCommunityIcons>
+            name="chat-outline"
+            color={'purple'}
+            style={styles.button}
+            onPress={() => {
+              setSendButtonVisible(true);
+            }}
+          ></MaterialCommunityIcons>
           {/* <IconButton
             icon={'comment'}
             color={'black'}
@@ -99,11 +105,10 @@ const CommentBarButtons = ({
         </View>
         <View style={styles.buttonView}>
           <MaterialCommunityIcons
-            name='bookmark-outline'
+            name="bookmark-outline"
             style={styles.button}
             color={'purple'}
-          >
-          </MaterialCommunityIcons>
+          ></MaterialCommunityIcons>
         </View>
       </View>
     );
@@ -127,6 +132,7 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 30,
     // backgroundColor: "red",
+    paddingLeft: '3%',
   },
   sendButton: {
     alignSelf: 'center',

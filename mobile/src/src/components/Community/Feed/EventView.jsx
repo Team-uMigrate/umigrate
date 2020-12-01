@@ -6,7 +6,7 @@ import { EventsEndpoint, Choices } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import GradientButton from 'react-native-gradient-buttons';
-import CommentBar from '../../common/CommentBar/CommentBar';
+import formatDate from '../../../utils/helpers';
 
 const EventView = (event) => {
   const {
@@ -31,14 +31,12 @@ const EventView = (event) => {
     <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
-          <View style={{ flex: 1 }}>
+          <View>
             <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
-            <Text style={styles.bold}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD HR-MM'.length)}
-            </Text>
+            <Text style={styles.name}>{creator.preferred_name}</Text>
+            <Text style={styles.date}>{formatDate(datetime_created)}</Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
@@ -57,40 +55,23 @@ const EventView = (event) => {
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Start: </Text>
-          {start_datetime.substring(0, 'YYYY-MM-DD hr-mm'.length)}
+          {formatDate(start_datetime)}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End: </Text>
-          {end_datetime
-            ? end_datetime.substring(0, 'YYYY-MM-DD HR-MM'.length)
-            : 'N/A'}
+          {end_datetime ? formatDate(end_datetime) : 'N/A'}
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.buttonContainer}>
           <GradientButton
-          //  compact={true}
-          //  mode={is_attending ? 'contained' : 'outlined'}
-          //  title={is_attending ? 'Attending' : 'Attending'}
-          //  dark={true}
-          //  color="white"
-          style={styles.buttonStyleAttend}
-          gradientBegin={is_interested? "#483FAB" : null}
-           textStyle={styles.bodyText}
-           radius={10}
-          //  gradientEnd="#FF668B"
-           onPressAction={() => {
-             attendEvent(id, !is_attending);
-           }}>
-            {is_attending ? 'Attend?' : 'Attending'}
-          </GradientButton>
-          {/* <Button
             compact={true}
-            style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
+            style={styles.buttonStyleAttend}
             mode={is_attending ? 'contained' : 'outlined'}
             title={is_attending ? 'Attending' : 'Attending'}
-            color="white"
-            dark={true}
-            onPress={async () => {
+            gradientBegin={is_interested ? null : '#483FAB'}
+            textStyle={styles.bodyText}
+            radius={10}
+            onPressAction={async () => {
               await EventsEndpoint.attend(event.id, !event.is_attending);
               event.updateItem({
                 ...event,
@@ -101,32 +82,18 @@ const EventView = (event) => {
               });
             }}
           >
-          </Button> */}
-           <GradientButton
-          //  compact={true}
-          //  mode={is_interested ? 'contained' : 'outlined'}
-          //  title={is_interested ? 'Uninterest' : 'Interested?'}
-          //  color="white"
-          //  dark={true}
-           style={styles.buttonStyleInterest}
-           textStyle={styles.bodyText}
-           radius={10}
-          gradientBegin={is_interested? "#483FAB" : null}
-          //  gradientEnd="#FF668B"
-           onPressAction={() => {
-             interestedEvent(id, !is_interested);
-           }}
-          >
-            {is_interested ? 'Uninterest' : 'Interested?'}
+            {is_attending ? 'Attending' : 'Attend?'}
           </GradientButton>
-          {/* <Button
+
+          <GradientButton
             compact={true}
-            style={styles.buttonStyle}
+            style={styles.buttonStyleInterest}
             mode={is_interested ? 'contained' : 'outlined'}
             title={is_interested ? 'Uninterest' : 'Interested?'}
-            color="white"
-            dark={true}
-            onPress={async () => {
+            textStyle={styles.bodyText}
+            radius={10}
+            gradientBegin={is_interested ? null : '#483FAB'}
+            onPressAction={async () => {
               await EventsEndpoint.interested(event.id, !event.is_interested);
               event.updateItem({
                 ...event,
@@ -138,7 +105,7 @@ const EventView = (event) => {
             }}
           >
             {is_interested ? 'Uninterest' : 'Interested?'}
-          </Button> */}
+          </GradientButton>
         </View>
         <CommentBar
           item={event}
@@ -154,36 +121,39 @@ export default EventView;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    display: 'flex',
     marginTop: '2.5%',
     padding: 3,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
   cardContent: {
-    paddingTop: "1.5%",
-    paddingBottom: "2.5%",
+    paddingTop: '1.5%',
+    paddingBottom: '2.5%',
   },
   row: {
     flexDirection: 'row',
+    marginBottom: '2.5%',
   },
   column: {
     flex: 5,
-    marginTop: "2%",
-    marginBottom: "2.5%",
-    marginLeft: "2.5%",
+    marginLeft: '4%',
     flexDirection: 'column',
+    alignSelf: 'center',
   },
   bold: {
     fontWeight: '500',
   },
+  name: {
+    fontWeight: '500',
+    fontSize: 16,
+  },
   date: {
-    fontWeight: "300",
+    color: 'grey',
   },
   title: {
     alignSelf: 'flex-start',
     letterSpacing: 0.5,
-    fontSize: 22,
   },
   bodyText: {
     marginBottom: 0,
@@ -194,7 +164,7 @@ const styles = StyleSheet.create({
     height: 36,
     flex: 1,
     marginLeft: 0,
-    marginRight: "4%",
+    marginRight: '4%',
     // paddingRight: "2.5%",
     // marginRight: 0,
     // paddingLeft: 5

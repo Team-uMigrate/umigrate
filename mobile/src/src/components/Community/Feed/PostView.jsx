@@ -6,7 +6,7 @@ import { Choices, PostsEndpoint } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import CommentBar from '../../common/CommentBar/CommentBar';
+import formatDate from '../../../utils/helpers';
 
 const PostView = (post) => {
   const { title, creator, datetime_created, content, region, photos } = post;
@@ -15,17 +15,15 @@ const PostView = (post) => {
   const contentType = Choices.contentTypes['post'];
 
   return (
-    <Card style={styles.container} >
+    <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
-        <View style={styles.row} >
-          <View style={{ flex: 1}} >
+        <View style={styles.row}>
+          <View>
             <ProfilePhoto photo={creator.profile_photo} />
           </View>
-          <View style={styles.column} >
-            <Text style={styles.bold}>{creator.preferred_name}</Text>
-            <Text style={styles.date} >
-              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
-            </Text>
+          <View style={styles.column}>
+            <Text style={styles.name}>{creator.preferred_name}</Text>
+            <Text style={styles.date}>{formatDate(datetime_created)}</Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
@@ -48,40 +46,44 @@ export default PostView;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    display: 'flex',
     marginTop: '2.5%',
     padding: 3,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
   cardContent: {
-    paddingTop: "1.5%",
-    paddingBottom: "2.5%"
+    paddingTop: '1.5%',
+    paddingBottom: '2.5%',
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
+    marginBottom: '2.5%',
   },
   column: {
     flex: 5,
-    marginTop: "2%",
-    marginBottom: "2.5%",
-    marginLeft: "2.5%",
-    flexDirection: "column",
+    marginLeft: '4%',
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
   bold: {
-    fontWeight: "500",
+    fontWeight: '500',
   },
   date: {
-    fontWeight: "300",
+    color: 'grey',
+  },
+  name: {
+    fontWeight: '500',
+    fontSize: 16,
   },
   title: {
     alignSelf: 'flex-start',
     letterSpacing: 0.5,
-    fontSize: 22,
+    // fontSize: 22,
   },
   bodyText: {
     marginBottom: 0,
     letterSpacing: 0.5,
-    fontSize: 16,
+    fontSize: 15,
   },
 });

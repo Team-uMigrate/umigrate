@@ -32,7 +32,7 @@ class AdViewSet(AbstractModelViewSet):
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Ads"]))
 class AdLike(AbstractSavedView):
-    query_string = "liked_ad_set"
+    query_string = "liked_ads"
     serializer_class = AdSerializer
     model_class = Ad
 

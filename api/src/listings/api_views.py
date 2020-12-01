@@ -34,7 +34,7 @@ class ListingViewSet(AbstractModelViewSet):
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
 class ListingLike(AbstractSavedView):
-    query_string = "liked_listing_set"
+    query_string = "liked_listings"
     serializer_class = ListingSerializer
     model_class = Listing
 
@@ -42,7 +42,7 @@ class ListingLike(AbstractSavedView):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
 class SavedListing(AbstractSavedView):
-    query_string = "saved_listing_set"
+    query_string = "saved_listings"
     serializer_class = ListingSerializer
     model_class = Listing
 

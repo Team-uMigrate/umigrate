@@ -38,7 +38,7 @@ class PollViewSet(AbstractModelViewSet):
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
 class PollLike(AbstractSavedView):
-    query_string = "liked_poll_set"
+    query_string = "liked_polls"
     serializer_class = PollSerializer
     model_class = Poll
 
@@ -76,6 +76,6 @@ class VoteListCreate(GenericPostListCreate):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
 class SavedPoll(AbstractSavedView):
-    query_string = "saved_poll_set"
+    query_string = "saved_polls"
     serializer_class = PollSerializer
     model_class = Poll

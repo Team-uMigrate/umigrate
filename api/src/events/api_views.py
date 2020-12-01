@@ -30,7 +30,7 @@ class EventViewSet(AbstractModelViewSet):
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
 class EventLike(AbstractSavedView):
-    query_string = "liked_event_set"
+    query_string = "liked_events"
     serializer_class = EventSerializer
     model_class = Event
 
@@ -46,7 +46,7 @@ class EventLikes(AbstractLikedUsers):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
 class EventInterestedUser(AbstractSavedView):
-    query_string = "interested_event_set"
+    query_string = "interested_events"
     serializer_class = EventSerializer
     model_class = Event
 
@@ -56,7 +56,7 @@ class EventInterestedUser(AbstractSavedView):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
 class EventAttendingUser(AbstractSavedView):
-    query_string = "attending_event_set"
+    query_string = "attending_events"
     serializer_class = EventSerializer
     model_class = Event
 
@@ -64,6 +64,6 @@ class EventAttendingUser(AbstractSavedView):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
 class SavedEvent(AbstractSavedView):
-    query_string = "saved_event_set"
+    query_string = "saved_events"
     serializer_class = EventSerializer
     model_class = Event

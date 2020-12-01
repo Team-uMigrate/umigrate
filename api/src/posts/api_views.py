@@ -32,7 +32,7 @@ class PostViewSet(AbstractModelViewSet):
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
 class PostLike(AbstractSavedView):
-    query_string = "liked_post_set"
+    query_string = "liked_posts"
     serializer_class = PostSerializer
     model_class = Post
 
@@ -40,7 +40,7 @@ class PostLike(AbstractSavedView):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Posts"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
 class SavedPost(AbstractSavedView):
-    query_string = "saved_post_set"
+    query_string = "saved_posts"
     serializer_class = PostSerializer
     model_class = Post
 

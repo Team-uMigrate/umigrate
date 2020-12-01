@@ -49,6 +49,6 @@ class JobRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Jobs"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Jobs"]))
 class SavedJob(AbstractSavedView):
-    query_string = "saved_job_set"
+    query_string = "saved_jobs"
     serializer_class = JobSerializer
     model_class = Job

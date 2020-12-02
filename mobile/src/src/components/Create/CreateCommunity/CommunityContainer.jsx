@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, ScrollView, TextInput } from 'react-native';
 import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import ProfilePhoto from '../../common/ProfilePhoto';
+import BasicCreateForm from '../BasicCreateForm';
 import {
   PollOptionsEndpoint,
   PollsEndpoint,
@@ -21,6 +22,7 @@ class CommunityContainer extends React.Component {
     setSelectedPostType: (newValue) => {
       this.setState({ selectedPostType: newValue });
     },
+    community: null,
     title: '',
     body: '',
     pollOptions: [''],
@@ -44,6 +46,7 @@ class CommunityContainer extends React.Component {
 
   componentDidMount = async () => {
     await this.getProfile();
+    this.setState({ community: this.state.user.community });
   };
 
   getProfile = async () => {
@@ -61,7 +64,7 @@ class CommunityContainer extends React.Component {
     const basicData = {
       title: this.state.title,
       content: this.state.body,
-      region: this.state.user.region,
+      community: this.state.user.community,
       tagged_users: [], // TODO add tag user functionality
     };
 
@@ -138,46 +141,18 @@ class CommunityContainer extends React.Component {
         </View>
 
         <View style={styles.formContainer}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.profilePhotoView}>
-              <ProfilePhoto photo={this.state.user.profile_photo} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                alignSelf: 'flex-start',
-                flex: 3,
-              }}
-            >
-              <Text>Posting as</Text>
-              <Text style={styles.userNameText}>
-                {this.state.user.preferred_name}
-              </Text>
-            </View>
-            <View styles={{ alignSelf: 'flex-end' }}>
-              <MaterialCommunityIcons name={'earth'} size={40} />
-            </View>
-          </View>
-
-          <CreatePageTextInput
-            textValue={this.state.title}
-            setText={(newText) => {
-              this.setState({ title: newText });
-            }}
-            placeholder={'Write a title...'}
-          />
-
-          {/* We have to test this in iOS too, to make sure the text aligns at the top and */}
-          {/* that it's bearable to edit with */}
-          <CreatePageTextInput
-            textValue={this.state.body}
-            setText={(newText) => {
-              this.setState({ body: newText });
-            }}
-            multiline={true}
-            numberOfLines={7}
-            placeholder={'What would you like to share...'}
-            style={{ textAlignVertical: 'top', padding: 10 }}
+          {/* Elements of the create form that are common to all of the create pages */}
+          <BasicCreateForm
+            title={this.state.title}
+            setTitle={(newTitle) => this.setState({ title: newTitle })}
+            body={this.state.body}
+            setBody={(newBody) => this.setState({ body: newBody })}
+            community={this.state.community}
+            setCommunity={(newCommunity) =>
+              this.setState({ community: newCommunity })
+            }
+            profilePhoto={this.state.user.profile_photo}
+            pageIconName={'earth'}
           />
 
           {/* Render list of poll options and new poll option button if the poll button is selected */}

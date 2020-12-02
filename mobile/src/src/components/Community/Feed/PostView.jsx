@@ -6,7 +6,7 @@ import { Choices, PostsEndpoint } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import formatDate from '../../../utils/helpers';
+import moment from 'moment';
 
 const PostView = (post) => {
   const { title, creator, datetime_created, content, region, photos } = post;
@@ -23,7 +23,9 @@ const PostView = (post) => {
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>{formatDate(datetime_created)}</Text>
+            <Text style={styles.date}>
+              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
+            </Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
@@ -79,7 +81,6 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'flex-start',
     letterSpacing: 0.5,
-    // fontSize: 22,
   },
   bodyText: {
     marginBottom: 0,

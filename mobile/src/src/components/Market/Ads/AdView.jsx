@@ -5,7 +5,7 @@ import ProfilePhoto from '../../common/ProfilePhoto';
 import { AdsEndpoint, Choices } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
-import formatDate from '../../../utils/helpers';
+import moment from 'moment';
 
 const AdView = (ad) => {
   const {
@@ -32,7 +32,10 @@ const AdView = (ad) => {
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>{formatDate(datetime_created)}</Text>
+            <Text style={styles.date}>
+              {' '}
+              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
+            </Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    // backgroundColor: "blue"
     marginBottom: '2.5%',
   },
   column: {

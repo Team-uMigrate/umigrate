@@ -6,7 +6,7 @@ import { EventsEndpoint, Choices } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
 import GradientButton from 'react-native-gradient-buttons';
-import formatDate from '../../../utils/helpers';
+import moment from 'moment';
 
 const EventView = (event) => {
   const {
@@ -36,7 +36,9 @@ const EventView = (event) => {
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>{formatDate(datetime_created)}</Text>
+            <Text style={styles.date}>
+              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
+            </Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
@@ -55,11 +57,13 @@ const EventView = (event) => {
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Start: </Text>
-          {formatDate(start_datetime)}
+          {moment(start_datetime).format('MMMM D, YYYY, h:mm a')}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>End: </Text>
-          {end_datetime ? formatDate(end_datetime) : 'N/A'}
+          {end_datetime
+            ? moment(end_datetime).format('MMMM D, YYYY, h:mm a')
+            : 'N/A'}
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.buttonContainer}>
@@ -165,22 +169,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 0,
     marginRight: '4%',
-    // paddingRight: "2.5%",
-    // marginRight: 0,
-    // paddingLeft: 5
-    // backgroundColor: "blue"
   },
   buttonStyleInterest: {
     height: 36,
     flex: 1,
-    // marginLeft: 0,
     marginRight: 0,
-    // paddingLeft: 5
-    // backgroundColor: "blue"
   },
   buttonContainer: {
     flexDirection: 'row',
     marginTop: '3%',
-    // backgroundColor: "red"
   },
 });

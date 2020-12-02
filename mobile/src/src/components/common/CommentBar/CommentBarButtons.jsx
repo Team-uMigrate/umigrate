@@ -12,8 +12,6 @@ const CommentBarButtons = ({
   setSendButtonVisible,
   text,
   liked,
-  // likePost,
-  // postId,
   setText,
 }) => {
   const windowWidth = Dimensions.get('window').width;
@@ -69,20 +67,6 @@ const CommentBarButtons = ({
               });
             }}
           ></MaterialCommunityIcons>
-          {/* <IconButton
-            // TODO: Update design to match figma
-            icon={'heart'}
-            color={item.is_liked ? 'red' : 'black'}
-            style={styles.button}
-            onPress={async () => {
-              await endpoint.like(item.id, !item.is_liked);
-              item.updateItem({
-                ...item,
-                is_liked: !item.is_liked,
-                likes: item.is_liked ? item.likes - 1 : item.likes + 1,
-              });
-            }}
-          /> */}
         </View>
         {/* Button to view comments */}
         <View style={styles.buttonView}>
@@ -94,14 +78,6 @@ const CommentBarButtons = ({
               setSendButtonVisible(true);
             }}
           ></MaterialCommunityIcons>
-          {/* <IconButton
-            icon={'comment'}
-            color={'black'}
-            style={styles.button}
-            onPress={() => {
-              setSendButtonVisible(true);
-            }}
-          /> */}
         </View>
         <View style={styles.buttonView}>
           <MaterialCommunityIcons
@@ -131,7 +107,6 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 30,
-    // backgroundColor: "red",
     paddingLeft: '3%',
   },
   sendButton: {

@@ -56,6 +56,9 @@ class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
 
+    def test_save(self):
+        AbstractSavedTestCase.test_save(self)
+
 
 # Test case for the liked users endpoint for ads
 class AdLikesTestCase(AbstractLikesTestCase, APITestCase):

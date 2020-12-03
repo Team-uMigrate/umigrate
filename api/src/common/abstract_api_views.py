@@ -53,18 +53,13 @@ class AbstractSavedView(ListAPIView):
             return self.serializer_class
         return PostSaveSerializer
 
-    def get(self, request, *args, **kwargs):
-        return ListAPIView.get(self, request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         serializer = PostSaveSerializer(data=request.data)
-        is_valid = serializer.is_valid()
-        data = serializer.data
-        if not is_valid:
+        if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        add_user = data["save"]
-        obj_id = data["id"]
+        add_user = serializer.data["save"]
+        obj_id = serializer.data["id"]
 
         try:
             obj = self.model_class.objects.get(id=obj_id)

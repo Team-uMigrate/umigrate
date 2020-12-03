@@ -58,6 +58,9 @@ class PostTestCase(
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
 
+    def test_save(self):
+        AbstractSavedTestCase.test_save(self)
+
 
 class PostLikesTestCase(AbstractLikesTestCase, APITestCase):
     def setUp(self):

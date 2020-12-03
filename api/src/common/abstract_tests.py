@@ -44,7 +44,6 @@ class AbstractAPITestCase:
     factory_kwargs = None
     pop_keys = None
     max_diff = None
-    save_options = []
 
     def setUp(self):
         user = UserFactory(connected_users=[], blocked_users=[])
@@ -221,6 +220,7 @@ class AbstractSavedTestCase:
     save_options = None
     endpoint = None
     api_client = None
+    save_options = []
 
     def test_save(self):
         for option in self.save_options:

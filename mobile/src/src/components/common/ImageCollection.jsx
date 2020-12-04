@@ -6,7 +6,7 @@ const ImageCollection = ({ photos }) => {
     return { uri: photo.image };
   });
 
-  return null;
+  return (
     // <GallerySwiper
     //   images={images}
     //   height={images.length > 1 ? 400 : 0}
@@ -17,6 +17,8 @@ const ImageCollection = ({ photos }) => {
     //   pageMargin={10}
     //   enableTranslate={false}
     // />
+    <></>
+  );
 };
 
 export default ImageCollection;

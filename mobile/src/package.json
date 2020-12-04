@@ -12,8 +12,7 @@
     "lint:fix": "eslint **/*.jsx **/*.js --fix",
     "format": "prettier **/*.jsx **/*.js --check",
     "format:fix": "prettier **/*.jsx **/*.js --write",
-    "format:unix": "prettier **/*.jsx **/*.js --check --end-of-line lf",
-    "format:fix:unix": "prettier **/*.jsx **/*.js --write --end-of-line lf"
+    "format:unix": "prettier **/*.jsx **/*.js --check --end-of-line lf"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

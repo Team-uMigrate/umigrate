@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
   commentBarContainer: {
     flexDirection: 'row',
     marginTop: 10,
-    // backgroundColor: "red",
     alignItems: 'center',
   },
   likesAndCommentsText: {

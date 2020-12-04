@@ -6,19 +6,17 @@ const ImageCollection = ({ photos }) => {
     return { uri: photo.image };
   });
 
-  return (
-    <GallerySwiper
-      images={images}
-      height={images.length > 1 ? 400 : 0}
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}
-      pageMargin={10}
-      enableTranslate={false}
-    />
-    // <></>
-  );
+  return null;
+    // <GallerySwiper
+    //   images={images}
+    //   height={images.length > 1 ? 400 : 0}
+    //   style={{
+    //     flex: 1,
+    //     backgroundColor: 'white',
+    //   }}
+    //   pageMargin={10}
+    //   enableTranslate={false}
+    // />
 };
 
 export default ImageCollection;

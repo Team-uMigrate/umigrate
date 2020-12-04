@@ -65,8 +65,8 @@ const CommentBarButtons = ({
                 is_liked: !liked,
                 likes: liked ? item.likes - 1 : item.likes + 1,
               });
-            }}
-          ></MaterialCommunityIcons>
+            }}>
+          </MaterialCommunityIcons>
         </View>
         {/* Button to view comments */}
         <View style={styles.buttonView}>
@@ -76,15 +76,15 @@ const CommentBarButtons = ({
             style={styles.button}
             onPress={() => {
               setSendButtonVisible(true);
-            }}
-          ></MaterialCommunityIcons>
+            }}>
+          </MaterialCommunityIcons>
         </View>
         <View style={styles.buttonView}>
           <MaterialCommunityIcons
             name="bookmark-outline"
             style={styles.button}
-            color={'purple'}
-          ></MaterialCommunityIcons>
+            color={'purple'}>
+          </MaterialCommunityIcons>
         </View>
       </View>
     );

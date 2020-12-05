@@ -1,5 +1,10 @@
 import React, { Component, createContext } from 'react';
-import { ProfileEndpoint } from '../utils/endpoints';
+import {
+  getAuthToken,
+  setAuthToken,
+  removeAuthToken,
+  ProfileEndpoint,
+} from '../utils/endpoints';
 
 const AuthContext = createContext();
 
@@ -15,13 +20,17 @@ class AuthContextProvider extends Component {
   }
 
   componentDidMount = async () => {
-    // Todo: Check local storage for auth token
-    try {
-      await ProfileEndpoint.get();
-      this.setState({ isAuthenticated: true });
-    } catch (error) {
-      this.setState({ isAuthenticated: false });
-    }
+    const token = await getAuthToken();
+    if (token != null) {
+      await setAuthToken(token);
+      try {
+        await ProfileEndpoint.get();
+        this.setState({ isAuthenticated: true });
+      } catch (error) {
+        await removeAuthToken();
+        this.setState({ isAuthenticated: false });
+      }
+    } else this.setState({ isAuthenticated: false });
   };
 
   render() {

@@ -20,6 +20,7 @@ import { NavContextProvider } from '../contexts/NavContext';
 import CommentsContainer from '../components/common/Comments/CommentsContainer';
 import NotificationPage from '../components/Notifications/NotificationsPage';
 import { ModalContextProvider } from '../contexts/ModalContext';
+import { setAuthToken } from '../utils/endpoints';
 
 const Stack = createStackNavigator();
 
@@ -109,7 +110,7 @@ const registerForPushNotificationsAsync = async () => {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
+    setAuthToken(token);
   } else {
     alert('Must use physical device for Push Notifications');
   }

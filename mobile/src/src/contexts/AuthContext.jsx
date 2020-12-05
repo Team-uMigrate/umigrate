@@ -1,5 +1,4 @@
 import React, { Component, createContext } from 'react';
-import LoginPage from '../components/Login';
 import { getAuthToken,setAuthToken, removeAuthToken, ProfileEndpoint } from '../utils/endpoints';
 
 const AuthContext = createContext();
@@ -18,12 +17,12 @@ class AuthContextProvider extends Component {
   componentDidMount = async () => {
     const token = await getAuthToken() ;
     if (token != null){
-      await setAuthToken(token)
+      await setAuthToken(token);
       try {
         await ProfileEndpoint.get();
         this.setState({ isAuthenticated: true });
       } catch (error) {
-        await removeAuthToken()
+        await removeAuthToken();
         this.setState({ isAuthenticated: false });
       }
     }

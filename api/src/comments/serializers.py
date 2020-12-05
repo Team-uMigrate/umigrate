@@ -14,7 +14,8 @@ class CommentSerializer(ModelSerializerExtension):
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
-    most_liked_reply = serializers.SerializerMethodField()
+    # Todo: Maybe in the future
+    # most_liked_reply = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment

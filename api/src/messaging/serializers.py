@@ -5,8 +5,6 @@ from .models import Room, Message
 
 # Serializes the room model
 class RoomSerializer(ModelSerializerExtension):
-    members = BasicUserSerializer(read_only=True, many=True)
-
     class Meta:
         model = Room
         fields = "__all__"
@@ -15,6 +13,19 @@ class RoomSerializer(ModelSerializerExtension):
         created_data = ModelSerializerExtension.create(self, validated_data)
         created_data.members.add(self.context["request"].user)
         return created_data
+
+    def update(self, instance, validated_data):
+        for member in instance.members.all():
+            if (
+                member not in validated_data["members"]
+                and member != self.context["request"].user
+            ):
+                validated_data["members"].append(member)
+        return ModelSerializerExtension.update(self, instance, validated_data)
+
+
+class RoomDetailSerializer(RoomSerializer):
+    members = BasicUserSerializer(read_only=True, many=True)
 
 
 # Serializes the previous replied message

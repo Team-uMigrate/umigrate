@@ -111,7 +111,7 @@ const registerForPushNotificationsAsync = async () => {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     setPushToken(token);
-    const devices = (await DevicesEndpoint.list()).data.results; // Todo: Change this when deployed
+    const devices = (await DevicesEndpoint.list()).data;
     if (!devices.find((d) => d.expo_push_token === token)) {
       await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
     }

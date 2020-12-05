@@ -79,8 +79,8 @@ export class Choices {
 // Session Storage functions
 
 const AUTH_TOKEN = 'AUTH_TOKEN';
-const USER_DATA = 'USER_DATA';
-
+const EXPO_TOKEN = 'EXPO_TOKEN'; 
+const USER_DATA = 'USER_DATA'; 
 
 export async function getAuthToken(){
   return await AsyncStorage.getItem(AUTH_TOKEN);
@@ -96,28 +96,30 @@ export async function removeAuthToken () {
   await AsyncStorage.removeItem(AUTH_TOKEN);
 };
 
-export function getPushToken() {
-  // get push notification
+export async function getPushToken() {
+  return await AsyncStorage.getItem(EXPO_TOKEN);
 }
 
-export function setPushToken(token) {
-  // set push notification
+export async function setPushToken(token) {
+  await AsyncStorage.setItem(EXPO_TOKEN, token);
 }
 
-export function removePushToken() {
-  // remove push notification
+export async function removePushToken() {
+  await AsyncStorage.removeItem(EXPO_TOKEN);
 }
 
-export function getUserData() {
-  // return JSON.parse(sessionStorage.getItem(USER_DATA));
+export async function getUserData() {
+  const userData =  await AsyncStorage.getItem(USER_DATA);
+  return JSON.parse(userData);
 }
 
-export function setUserData(userData) {
-  // sessionStorage.setItem(USER_DATA, JSON.stringify(userData));
+export async function setUserData(userData = {}) {
+  const userDataStr = JSON.stringify(userData);
+  await AsyncStorage.setItem(USER_DATA, userDataStr);
 }
 
-export function removeUserData() {
-  // sessionStorage.removeItem(USER_DATA);
+export async function removeUserData() {
+  await AsyncStorage.removeItem(USER_DATA);
 }
 
 // Helper functions
@@ -289,6 +291,7 @@ export class UsersEndpoint {
 export class AuthEndpoint {
   static async login(email, password) {
     removeAuthToken();
+    removePushToken();
     removeUserData();
     const response = await Axios.post(
       `${BASE_URL}/api/login/`,
@@ -305,6 +308,7 @@ export class AuthEndpoint {
   static async logout() {
     const response = await Axios.post(`${BASE_URL}/api/logout/`);
     removeAuthToken();
+    removePushToken();
     removeUserData();
 
     return response;
@@ -312,6 +316,7 @@ export class AuthEndpoint {
 
   static async register(email, password, confirmPassword) {
     removeAuthToken();
+    removePushToken();
     removeUserData();
 
     return await Axios.post(

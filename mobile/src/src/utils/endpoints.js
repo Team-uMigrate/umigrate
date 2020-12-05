@@ -190,14 +190,17 @@ class AbstractEndpoint {
   static async like(id, shouldLike) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}like`,
-      toFormData({ id: id, like: shouldLike })
+      { id: id, like: shouldLike } // Todo: Use toFormData
     );
   }
 
-  static async async(id, shouldSave) {
+  static async save(id, shouldSave) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}save`,
-      toFormData({ id: id, save: shouldSave })
+      toFormData({ id: id, save: shouldSave }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -237,14 +240,14 @@ export class EventsEndpoint extends AbstractEndpoint {
   static async attend(id, shouldAttend) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}attending`,
-      toFormData({ id: id, attending: shouldAttend })
+      { id: id, attending: shouldAttend } // Todo: use toFormData
     );
   }
 
   static async interested(id, shouldBeInterested) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}interested`,
-      toFormData({ id: id, interested: shouldBeInterested })
+      { id: id, interested: shouldBeInterested } // Todo: use toFormData
     );
   }
 }

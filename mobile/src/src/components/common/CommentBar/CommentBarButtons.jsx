@@ -1,4 +1,5 @@
-import React from 'react';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { CommentsEndpoint } from '../../../utils/endpoints';
@@ -10,6 +11,7 @@ const CommentBarButtons = ({
   sendButtonVisible,
   setSendButtonVisible,
   text,
+  liked,
   setText,
 }) => {
   const windowWidth = Dimensions.get('window').width;
@@ -52,30 +54,36 @@ const CommentBarButtons = ({
       >
         {/* Like button */}
         <View style={styles.buttonView}>
-          <IconButton
-            // TODO: Update design to match figma
-            icon={'heart'}
-            color={item.is_liked ? 'red' : 'black'}
+          <MaterialCommunityIcons
+            name={liked ? 'heart' : 'heart-outline'}
+            color={liked ? 'red' : 'purple'}
             style={styles.button}
             onPress={async () => {
-              await endpoint.like(item.id, !item.is_liked);
+              await endpoint.like(item.id, !liked);
               item.updateItem({
                 ...item,
-                is_liked: !item.is_liked,
-                likes: item.is_liked ? item.likes - 1 : item.likes + 1,
+                is_liked: !liked,
+                likes: liked ? item.likes - 1 : item.likes + 1,
               });
             }}
           />
         </View>
         {/* Button to view comments */}
-        <View>
-          <IconButton
-            icon={'comment'}
-            color={'black'}
+        <View style={styles.buttonView}>
+          <MaterialCommunityIcons
+            name="chat-outline"
+            color={'purple'}
             style={styles.button}
             onPress={() => {
               setSendButtonVisible(true);
             }}
+          />
+        </View>
+        <View style={styles.buttonView}>
+          <MaterialCommunityIcons
+            name="bookmark-outline"
+            style={styles.button}
+            color={'purple'}
           />
         </View>
       </View>
@@ -98,7 +106,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   button: {
-    height: 25,
+    fontSize: 30,
+    paddingLeft: '3%',
   },
   sendButton: {
     alignSelf: 'center',

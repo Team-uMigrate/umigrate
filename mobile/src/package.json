@@ -11,7 +11,8 @@
     "lint": "eslint **/*.jsx **/*.js",
     "lint:fix": "eslint **/*.jsx **/*.js --fix",
     "format": "prettier **/*.jsx **/*.js --check",
-    "format:fix": "prettier **/*.jsx **/*.js --write"
+    "format:fix": "prettier **/*.jsx **/*.js --write",
+    "format:unix": "prettier **/*.jsx **/*.js --check --end-of-line lf"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
@@ -25,6 +26,7 @@
     "expo-notifications": "~0.3.3",
     "expo-permissions": "~9.0.1",
     "expo-status-bar": "^1.0.0",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "16.11.0",
     "react-dom": "16.11.0",

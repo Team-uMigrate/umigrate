@@ -79,22 +79,22 @@ export class Choices {
 // Session Storage functions
 
 const AUTH_TOKEN = 'AUTH_TOKEN';
-const EXPO_TOKEN = 'EXPO_TOKEN'; 
-const USER_DATA = 'USER_DATA'; 
+const EXPO_TOKEN = 'EXPO_TOKEN';
+const USER_DATA = 'USER_DATA';
 
-export async function getAuthToken(){
+export async function getAuthToken() {
   return await AsyncStorage.getItem(AUTH_TOKEN);
-};
+}
 
-export async function setAuthToken (token) {
+export async function setAuthToken(token) {
   Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
   await AsyncStorage.setItem(AUTH_TOKEN, token);
-};
+}
 
-export async function removeAuthToken () {
+export async function removeAuthToken() {
   Axios.defaults.headers.common['Authorization'] = null;
   await AsyncStorage.removeItem(AUTH_TOKEN);
-};
+}
 
 export async function getPushToken() {
   return await AsyncStorage.getItem(EXPO_TOKEN);
@@ -109,7 +109,7 @@ export async function removePushToken() {
 }
 
 export async function getUserData() {
-  const userData =  await AsyncStorage.getItem(USER_DATA);
+  const userData = await AsyncStorage.getItem(USER_DATA);
   return JSON.parse(userData);
 }
 

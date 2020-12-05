@@ -20,7 +20,7 @@ import { NavContextProvider } from '../contexts/NavContext';
 import CommentsContainer from '../components/common/Comments/CommentsContainer';
 import NotificationPage from '../components/Notifications/NotificationsPage';
 import { ModalContextProvider } from '../contexts/ModalContext';
-import { setAuthToken } from '../utils/endpoints';
+import { DevicesEndpoint, setPushToken } from '../utils/endpoints';
 
 const Stack = createStackNavigator();
 
@@ -110,7 +110,11 @@ const registerForPushNotificationsAsync = async () => {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    setAuthToken(token);
+    setPushToken(token);
+    const devices = (await DevicesEndpoint.list()).data.results; // Todo: Change this when deployed
+    if (!devices.find((d) => d.expo_push_token === token)) {
+      await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
+    }
   } else {
     alert('Must use physical device for Push Notifications');
   }

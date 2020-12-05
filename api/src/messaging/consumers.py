@@ -39,18 +39,40 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         user_id = self.scope["user"].id
         if self.member["id"] == user_id:
+            event = None
             if text_data_json["type"] == "send_message":
                 event = await self.receive_message(text_data_json)
-            else:
-                event = None
-            await self.channel_layer.group_send(self.room_group_name, event)
+            elif text_data_json["type"] == "send_like":
+                event = await self.receive_like(text_data_json)
+            if event is not None:
+                await self.channel_layer.group_send(self.room_group_name, event)
         else:
             await self.channel_layer.group_discard(
                 self.room_group_name,
                 self.channel_name,
             )
 
-    async def receive_message(self, text_data_json: dict):
+    async def receive_like(self, text_data_json: dict) -> dict:
+        message_id = text_data_json["message_id"]
+        is_liked = text_data_json["like"]
+        get_message = database_sync_to_async(lambda: Message.objects.get(id=message_id))
+        message: Message = await get_message()
+        if is_liked:
+            await database_sync_to_async(
+                lambda: message.liked_users.add(self.scope["user"].id)
+            )()
+        else:
+            await database_sync_to_async(
+                lambda: message.liked_users.remove(self.scope["user"].id)
+            )()
+        return {
+            "type": "send_like",
+            "message_id": message_id,
+            "like": is_liked,
+            "user_id": self.scope["user"].id,
+        }
+
+    async def receive_message(self, text_data_json: dict) -> dict:
         message_body = text_data_json["message_body"]
         previous_message_id = text_data_json["previous_message_id"]
         creator = {
@@ -97,6 +119,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }
 
     # Sends a received message to the group
+    async def send_like(self, event):
+        message_id = event["message_id"]
+        is_liked = event["like"]
+        liked_user_id = event["user_id"]
+        user_id = self.scope["user"].id
+
+        if self.member["id"] == user_id:
+            await self.send(
+                text_data=json.dumps(
+                    {
+                        "message_id": message_id,
+                        "like": is_liked,
+                        "user_id": liked_user_id,
+                    }
+                )
+            )
+
+        else:
+            await self.channel_layer.group_discard(
+                self.room_group_name, self.channel_name
+            )
+
     async def send_message(self, event):
         message_id = event["id"]
         message_body = event["message_body"]

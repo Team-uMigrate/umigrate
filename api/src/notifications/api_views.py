@@ -15,3 +15,4 @@ class DeviceViewSet(ModelViewSet):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
     permission_classes = [IsAuthenticated, IsCreator]
+    pagination_class = None

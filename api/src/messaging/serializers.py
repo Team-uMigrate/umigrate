@@ -17,7 +17,8 @@ class RoomSerializer(ModelSerializerExtension):
     def update(self, instance, validated_data):
         for member in instance.members.all():
             if (
-                member not in validated_data["members"]
+                "members" in validated_data
+                and member not in validated_data["members"]
                 and member != self.context["request"].user
             ):
                 validated_data["members"].append(member)

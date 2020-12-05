@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from users.factories import UserFactory
 from .factories import RoomFactory
 from .models import Room
-from .serializers import RoomSerializer
+from .serializers import RoomSerializer, RoomDetailSerializer
 
 
 # Test case for the room API views
@@ -15,7 +15,7 @@ class RoomTestCase(AbstractAPITestCase, APITestCase):
         self.endpoint = "/api/rooms/"
         self.model_class = Room
         self.serializer_class = RoomSerializer
-        self.detail_serializer_class = RoomSerializer
+        self.detail_serializer_class = RoomDetailSerializer
         self.factory_class = RoomFactory
         self.pop_keys = ["id", "datetime_created", "members"]
         self.maxDiff = self.max_diff

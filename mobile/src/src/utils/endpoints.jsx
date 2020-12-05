@@ -274,6 +274,21 @@ export class PostsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/posts/';
 }
 
+export class DevicesEndpoint {
+  static endpoint = '/api/devices/';
+
+  static async list() {
+    return await Axios.get(`${BASE_URL}${this.endpoint}`);
+  }
+
+  static async post(name, token) {
+    return await Axios.post(`${BASE_URL}${this.endpoint}`, {
+      name: name,
+      expo_push_token: token,
+    });
+  }
+}
+
 export class UsersEndpoint {
   static endpoint = '/api/users/';
 

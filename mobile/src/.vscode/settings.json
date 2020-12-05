@@ -2,6 +2,7 @@
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
   "editor.formatOnSave": false
   },

@@ -36,8 +36,44 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive a message from a websocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message_body = text_data_json["message_body"]
+
         user_id = self.scope["user"].id
+        if self.member["id"] == user_id:
+            event = None
+            if text_data_json["type"] == "send_message":
+                event = await self.receive_message(text_data_json)
+            elif text_data_json["type"] == "send_like":
+                event = await self.receive_like(text_data_json)
+            if event is not None:
+                await self.channel_layer.group_send(self.room_group_name, event)
+        else:
+            await self.channel_layer.group_discard(
+                self.room_group_name,
+                self.channel_name,
+            )
+
+    async def receive_like(self, text_data_json: dict) -> dict:
+        message_id = text_data_json["message_id"]
+        is_liked = text_data_json["like"]
+        get_message = database_sync_to_async(lambda: Message.objects.get(id=message_id))
+        message: Message = await get_message()
+        if is_liked:
+            await database_sync_to_async(
+                lambda: message.liked_users.add(self.scope["user"].id)
+            )()
+        else:
+            await database_sync_to_async(
+                lambda: message.liked_users.remove(self.scope["user"].id)
+            )()
+        return {
+            "type": "send_like",
+            "message_id": message_id,
+            "like": is_liked,
+            "user_id": self.scope["user"].id,
+        }
+
+    async def receive_message(self, text_data_json: dict) -> dict:
+        message_body = text_data_json["message_body"]
         previous_message_id = text_data_json["previous_message_id"]
         creator = {
             "id": self.member["id"],
@@ -60,39 +96,52 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 ),
             }
 
+        create_message = database_sync_to_async(
+            lambda: Message.objects.create(
+                creator_id=self.scope["user"].id,
+                content=message_body,
+                room_id=self.room_id,
+                previous_message_id=previous_message_id,
+            )
+        )
+        message_object = await create_message()
+        save_message = database_sync_to_async(lambda: message_object.save())
+        await save_message()
+        return {
+            "type": "send_message",
+            "id": message_object.id,
+            "message_body": message_body,
+            "creator": creator,
+            "previous_message": previous_message,
+            "datetime_created": message_object.datetime_created.strftime(
+                "%Y-%m-%dT%H:%M:%S.%fZ"
+            ),
+        }
+
+    # Sends a received message to the group
+    async def send_like(self, event):
+        message_id = event["message_id"]
+        is_liked = event["like"]
+        liked_user_id = event["user_id"]
+        user_id = self.scope["user"].id
+
         if self.member["id"] == user_id:
-            create_message = database_sync_to_async(
-                lambda: Message.objects.create(
-                    creator_id=user_id,
-                    content=message_body,
-                    room_id=self.room_id,
-                    previous_message_id=previous_message_id,
+            await self.send(
+                text_data=json.dumps(
+                    {
+                        "message_id": message_id,
+                        "like": is_liked,
+                        "user_id": liked_user_id,
+                    }
                 )
             )
-            message_object = await create_message()
-            save_message = database_sync_to_async(lambda: message_object.save())
-            await save_message()
 
-            await self.channel_layer.group_send(
-                self.room_group_name,
-                {
-                    "type": "chat_message",
-                    "id": message_object.id,
-                    "message_body": message_body,
-                    "creator": creator,
-                    "previous_message": previous_message,
-                    "datetime_created": message_object.datetime_created.strftime(
-                        "%Y-%m-%dT%H:%M:%S.%fZ"
-                    ),
-                },
-            )
         else:
             await self.channel_layer.group_discard(
                 self.room_group_name, self.channel_name
             )
 
-    # Sends a received message to the group
-    async def chat_message(self, event):
+    async def send_message(self, event):
         message_id = event["id"]
         message_body = event["message_body"]
         creator = event["creator"]

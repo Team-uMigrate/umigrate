@@ -25,10 +25,9 @@ const CommunitySelectModal = ({
     2,
     3,
   ]);
-
   const [communitySearchFocused, setCommunitySearchFocused] = useState(false);
-
-  // const searchBar = useRef(null);
+  const [searchResults, setSearchResults] = useState(shownCommunityChoices);
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <Modal
@@ -66,13 +65,38 @@ const CommunitySelectModal = ({
                 style={styles.searchCommunityTextInput}
                 placeholder={'Search Other Region...'}
                 placeholderTextColor={'#D9D9D9'}
-                onFocus={() => setCommunitySearchFocused(true)}
+                clearTextOnFocus={true}
+                onFocus={() => {
+                  setCommunitySearchFocused(true);
+                  // If someone leaves the search bar with text in it, then brings up the search menu again,
+                  // the existing options persist
+                  if (searchQuery === '')
+                    setSearchResults(shownCommunityChoices);
+                }}
                 onBlur={() => {
-                  console.log('blurred!');
                   setCommunitySearchFocused(false);
                   Keyboard.dismiss();
                 }}
                 onEndEditing={() => setCommunitySearchFocused(false)}
+                value={searchQuery}
+                onChangeText={(newText) => {
+                  setSearchQuery(newText);
+                  // TODO insert into list in order of "closeness" to the query
+                  // Defaults to the buttons shown before searching
+                  if (newText === '') setSearchResults(shownCommunityChoices);
+                  else {
+                    newText = newText.toUpperCase();
+                    let newResults = [];
+                    for (const [
+                      index,
+                      community,
+                    ] of Choices.regions.entries()) {
+                      if (community.toUpperCase().includes(newText))
+                        newResults.push(index);
+                    }
+                    setSearchResults(newResults);
+                  }
+                }}
               />
             </View>
           </View>
@@ -110,7 +134,7 @@ const CommunitySelectModal = ({
 
           {communitySearchFocused && (
             <Card style={styles.communitySearchResultsCard}>
-              {shownCommunityChoices.map((item, index) => {
+              {searchResults.map((item, index) => {
                 // TODO filter what's shown here
                 return (
                   <View key={index}>

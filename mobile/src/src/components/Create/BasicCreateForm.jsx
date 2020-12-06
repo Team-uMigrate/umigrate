@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import ProfilePhoto from '../common/ProfilePhoto';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Card, Modal, Portal } from 'react-native-paper';
+import { Card, Portal } from 'react-native-paper';
 import { Entypo } from '@expo/vector-icons';
 import { Choices } from '../../utils/endpoints';
+import CommunitySelectModal from './CommunitySelectModal';
 
 // Components in the common to all create pages
+// Includes region select modal,
 const BasicCreateForm = ({
   title,
   setTitle,
@@ -92,59 +94,12 @@ const BasicCreateForm = ({
 
       {/* Community select modal */}
       <Portal>
-        <Modal
+        <CommunitySelectModal
           visible={communitySelectModalVisible}
-          onDismiss={() => {
-            setCommunitySelectModalVisible(false);
-          }}
-          contentContainerStyle={styles.communitySelectModal}
-        >
-          <Text style={styles.selectCommunityPromptText}>
-            Select Other Region
-          </Text>
-          {/* These 2 nested views create a 1px wide border around the text input */}
-          <View
-            style={{
-              backgroundColor: '#D9D9D9',
-              borderRadius: 20,
-              padding: 1,
-              marginBottom: 5,
-            }}
-          >
-            <View style={{ backgroundColor: 'white', borderRadius: 20 }}>
-              <TextInput
-                style={styles.searchRegionTextInput}
-                placeholder={'Search Other Region...'}
-                placeholderTextColor={'#D9D9D9'}
-              />
-            </View>
-          </View>
-          {Choices.regions.slice(0, 4).map((item, index) => {
-            const selected = Choices.regions[community] === item;
-
-            return (
-              <TouchableHighlight
-                key={index}
-                onPress={() => {
-                  setCommunity(index);
-                }}
-                activeOpacity={1}
-                underlayColor={'white'}
-              >
-                <Card
-                  style={{
-                    ...styles.communityOptionButton,
-                    backgroundColor: selected ? '#8781D0' : 'white',
-                  }}
-                >
-                  <Text style={{ color: selected ? 'white' : 'black' }}>
-                    {item}
-                  </Text>
-                </Card>
-              </TouchableHighlight>
-            );
-          })}
-        </Modal>
+          setVisible={setCommunitySelectModalVisible}
+          community={community}
+          setCommunity={setCommunity}
+        />
       </Portal>
     </>
   );
@@ -167,29 +122,5 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     elevation: 5,
     borderRadius: 10,
-  },
-  communitySelectModal: {
-    backgroundColor: 'white',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-    marginHorizontal: '10%',
-  },
-  searchRegionTextInput: {
-    borderRadius: 20,
-    paddingLeft: 10,
-    paddingVertical: 5,
-  },
-  selectCommunityPromptText: {
-    fontSize: 16,
-    alignSelf: 'center',
-    marginBottom: 5,
-  },
-  communityOptionButton: {
-    borderRadius: 20,
-    paddingLeft: 10,
-    padding: 5,
-    elevation: 3,
-    marginBottom: 7,
   },
 });

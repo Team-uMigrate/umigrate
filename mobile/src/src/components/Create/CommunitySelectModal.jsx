@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Card, Divider, Modal, Portal } from 'react-native-paper';
 import {
   StyleSheet,
@@ -7,9 +7,9 @@ import {
   TouchableHighlight,
   View,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Choices } from '../../utils/endpoints';
-import { TouchableWithoutFeedback } from 'react-native-web';
 
 const CommunitySelectModal = ({
   visible,
@@ -161,7 +161,7 @@ const CommunitySelectModal = ({
                           newChoices.splice(newChoices.length - 1);
                           newChoices.unshift(item);
                         } else {
-                          // If the button is already in the row, reorder them so that
+                          // If the button is already being shown, reorder them so that
                           // this selected one is first
                           newChoices.splice(i, 1);
                           newChoices.unshift(item);

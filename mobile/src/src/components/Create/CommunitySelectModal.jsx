@@ -127,17 +127,22 @@ const CommunitySelectModal = ({
                           [],
                           shownCommunityChoices
                         );
+
+                        // Index of the selected search result
                         const i = shownCommunityChoices.indexOf(item);
 
                         if (i == -1) {
-                          // Remove last item and push another item to the beginning
+                          // Remove last item from the column of buttons
+                          // and push the selected one to the beginning
                           newChoices.splice(newChoices.length - 1);
                           newChoices.unshift(item);
-                          setShownCommunityChoices(newChoices);
                         } else {
-                          newChoices.splice();
+                          // If the button is already in the row, reorder them so that
+                          // this selected one is first
+                          newChoices.splice(i, 1);
+                          newChoices.unshift(item);
                         }
-                        // TODO insert into shown communities
+                        setShownCommunityChoices(newChoices);
                       }}
                     >
                       <Text>{Choices.regions[item]}</Text>

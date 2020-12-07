@@ -10,7 +10,6 @@ import {
   PostsEndpoint,
   ProfileEndpoint,
 } from '../../../utils/endpoints';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, IconButton, Button } from 'react-native-paper';
 
 import CreatePageTextInput from '../CreatePageTextInput';
@@ -25,7 +24,7 @@ class CommunityContainer extends React.Component {
     community: null,
     title: '',
     body: '',
-    pollOptions: [''],
+    pollOptions: [],
     eventStartTime: '',
     eventEndTime: '',
     eventLocation: '',
@@ -89,6 +88,9 @@ class CommunityContainer extends React.Component {
             poll: response.data.id,
           };
 
+          // For performance reasons, I am not awaiting this, so there's a chance that the poll
+          // options might arrive in a different order. This doesn't matter at the time of writing this,
+          // but in case it happens and you're wondering why, this might be it.
           PollOptionsEndpoint.post(optionData);
         }
 
@@ -302,6 +304,10 @@ class CommunityContainer extends React.Component {
           <Button
             mode={'contained'}
             color={'#8781D0'}
+            disabled={
+              this.state.selectedPostType === 'Poll' &&
+              JSON.stringify(this.state.pollOptions) === '[]'
+            }
             style={styles.previewAndShareButtons}
             dark={true}
             onPress={this.submitPost}

@@ -7,11 +7,11 @@ import {
   TouchableHighlight,
   TextInput,
 } from 'react-native';
-import ProfilePhoto from '../common/ProfilePhoto';
+import ProfilePhoto from '../../common/ProfilePhoto';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, Portal } from 'react-native-paper';
 import { Entypo } from '@expo/vector-icons';
-import { Choices } from '../../utils/endpoints';
+import { Choices } from '../../../utils/endpoints';
 import CommunitySelectModal from './CommunitySelectModal';
 
 // Components in the common to all create pages

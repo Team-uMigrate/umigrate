@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, ScrollView, TextInput } from 'react-native';
 import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
-import ProfilePhoto from '../../common/ProfilePhoto';
-import BasicCreateForm from '../BasicCreateForm';
+import BasicCreateForm from '../common/BasicCreateForm';
 import {
   PollOptionsEndpoint,
   PollsEndpoint,
@@ -12,7 +11,7 @@ import {
 } from '../../../utils/endpoints';
 import { Card, IconButton, Button } from 'react-native-paper';
 
-import CreatePageTextInput from '../CreatePageTextInput';
+import CreatePageTextInput from '../common/CreatePageTextInput';
 
 class CommunityContainer extends React.Component {
   state = {

@@ -9,7 +9,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Choices } from '../../utils/endpoints';
+import { Choices } from '../../../utils/endpoints';
 
 const CommunitySelectModal = ({
   visible,

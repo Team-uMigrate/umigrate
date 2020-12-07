@@ -12,7 +12,7 @@ const ListingView = (listing) => {
     creator,
     title,
     content,
-    region,
+    community,
     datetime_created,
     photos,
     category,
@@ -42,7 +42,7 @@ const ListingView = (listing) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Region: ' + Choices.regions[region]}
+          {'Community: ' + Choices.communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>{'Price: $' + price}</Paragraph>
         <Paragraph style={styles.bodyText}>

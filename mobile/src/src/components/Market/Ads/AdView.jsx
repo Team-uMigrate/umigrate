@@ -14,7 +14,7 @@ const AdView = (ad) => {
     datetime_created,
     content,
     price,
-    region,
+    community,
     postal_code,
     category,
     photos,
@@ -44,8 +44,8 @@ const AdView = (ad) => {
           <Text style={styles.bold}>Price: </Text>${price}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Region: </Text>
-          {Choices.regions[region]}
+          <Text style={styles.bold}>Community: </Text>
+          {Choices.communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Postal Code: </Text>

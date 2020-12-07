@@ -28,8 +28,8 @@ describe('<PostView />', () => {
     expect(screen.getByText(mockPost.content));
   });
 
-  it('should contain the region', () => {
-    expect(screen.getByText(`Region: ${Choices.regions[mockPost.region]}`));
+  it('should contain the community', () => {
+    expect(screen.getByText(`Community: ${Choices.communities[mockPost.community]}`));
   });
 
   it('should contain the number of likes', () => {

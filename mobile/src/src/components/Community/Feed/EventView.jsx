@@ -13,7 +13,7 @@ const EventView = (event) => {
     creator,
     price_scale,
     title,
-    region,
+    community,
     content,
     location,
     datetime_created,
@@ -48,8 +48,8 @@ const EventView = (event) => {
           {Choices.prices[price_scale]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Region: </Text>
-          {Choices.regions[region]}
+          <Text style={styles.bold}>Community: </Text>
+          {Choices.communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Location: </Text>

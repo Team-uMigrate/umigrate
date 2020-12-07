@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 
 const PostView = (post) => {
-  const { title, creator, datetime_created, content, region, photos } = post;
+  const { title, creator, datetime_created, content, community, photos } = post;
 
   const { width, height } = Dimensions.get('window');
   const contentType = Choices.contentTypes['post'];
@@ -31,7 +31,7 @@ const PostView = (post) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Region: {Choices.regions[region]}</Text>
+          <Text style={styles.bold}>Community: {Choices.communities[community]}</Text>
         </Paragraph>
         <ImageCollection photos={photos} />
         <CommentBar

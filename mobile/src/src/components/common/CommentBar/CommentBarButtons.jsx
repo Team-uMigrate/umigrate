@@ -32,7 +32,6 @@ const CommentBarButtons = ({
                 content: text,
                 object_id: item.id,
                 content_type: contentType,
-                region: item.region,
                 tagged_users: [],
               };
               await CommentsEndpoint.post(data);

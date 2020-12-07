@@ -17,7 +17,7 @@ export class Choices {
   static pronouns = ['None', 'He/Him', 'She/Her', 'They/Them', 'Other'];
   static seasons = ['Winter', 'Spring', 'Fall'];
   static prices = ['Free', '$', '$$', '$$$', '$$$$', '$$$$$'];
-  static regions = ['Waterloo', 'Toronto', 'Brampton', 'Ottawa'];
+  static communities = ['Waterloo', 'Toronto', 'Brampton', 'Ottawa'];
   static programs = [
     'Unknown',
     'Engineering',

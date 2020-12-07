@@ -31,7 +31,9 @@ const PostView = (post) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Community: {Choices.communities[community]}</Text>
+          <Text style={styles.bold}>
+            Community: {Choices.communities[community]}
+          </Text>
         </Paragraph>
         <ImageCollection photos={photos} />
         <CommentBar

@@ -29,7 +29,9 @@ describe('<PostView />', () => {
   });
 
   it('should contain the community', () => {
-    expect(screen.getByText(`Community: ${Choices.communities[mockPost.community]}`));
+    expect(
+      screen.getByText(`Community: ${Choices.communities[mockPost.community]}`)
+    );
   });
 
   it('should contain the number of likes', () => {

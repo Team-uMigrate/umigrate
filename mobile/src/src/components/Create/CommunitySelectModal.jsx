@@ -40,7 +40,6 @@ const CommunitySelectModal = ({
     >
       <TouchableWithoutFeedback
         onPress={() => {
-          // console.log('search focused: ', communitySearchFocused);
           setCommunitySearchFocused(false);
           Keyboard.dismiss();
         }}

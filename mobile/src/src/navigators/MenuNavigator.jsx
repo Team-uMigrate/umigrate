@@ -9,7 +9,7 @@ import ProfilePage from "../components/Menu/Profile/ProfilePage";
 import EditProfile from "../components/Menu/Profile/EditProfile";
 
 const Stack = createStackNavigator();
-const MenuNavigator = ({ navigation }) => {
+const MenuNavigator = () => {
   return (
     <NavigationContainer
       independent={

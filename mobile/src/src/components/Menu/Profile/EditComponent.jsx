@@ -8,6 +8,7 @@ import {
   Modal,
   TouchableHighlight,
   Platform,
+  ScrollView
 } from "react-native";
 import { Avatar, Button, TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
@@ -20,7 +21,9 @@ import * as ImagePicker from "expo-image-picker";
 const EditComponent = ({ user, navigation }) => {
   // useStates for data
   const [bgPic, setbgPic] = useState(null);
-  const [pfp, setPfp] = useState(user.profile_photo);
+  const [pfp, setPfp] = useState(null);
+  const [pfpFile, setPfpFile] = useState();
+  const [bgPicFile, setbgPicFile] = useState(null);
   const [prefName, setPrefName] = useState(user.preferred_name);
   const [phone, setPhone] = useState(user.phone_number);
   const [pronoun, setPronoun] = useState(user.pronouns);
@@ -46,36 +49,32 @@ const EditComponent = ({ user, navigation }) => {
   const [zeroPro, setZeroPro] = useState();
   const [zeroTerm, setZeroTerm] = useState();
 
-  const handleEdit = () => {
-    ProfileEndpoint.patch(
-      {
-        //profile_photo: pfp ? pfp : user.profile_photo,
-        //background_photo: bgPic ? bgPic : user.background_photo,
-        preferred_name: prefName ? prefName : user.preferred_name,
-        phone_number: phone ? phone : user.phone_number,
-        pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
-        birthday: birth ? birth : user.birthday,
-        region: zeroReg == 0 ? 0 : reg ? reg : user.region,
-        enrolled_program:
-          zeroPro == 0 ? 0 : program ? program : user.enrolled_program,
-        current_term: zeroTerm == 0 ? 0 : term ? term : user.current_term,
-      },
-      (response) => {
-        navigation.navigate("Profile");
-      },
-      (error) => {
-        console.log(error);
-        console.log(error.response);
+  const handleEdit = async () => {
+   const result = await ProfileEndpoint.patch({ 
+      //profile_photo: pfp ? pfpFile : user.profile_photo,
+      //background_photo: bgPic ? bgPicFile : user.background_photo,
+      preferred_name: prefName ? prefName : user.preferred_name,
+      phone_number: phone ? phone : user.phone_number,
+      pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
+      birthday: birth ? birth : user.birthday,
+      region: zeroReg == 0 ? 0 : reg ? reg : user.region,
+      enrolled_program:
+        zeroPro == 0 ? 0 : program ? program : user.enrolled_program,
+      current_term: zeroTerm == 0 ? 0 : term ? term : user.current_term,}).catch(err => {
+        console.log(err);
+        console.log(err.response);
+      });
+      if (result){ 
+        navigation.navigate("Profile"); 
       }
-    );
   };
 
-  useEffect(() => {
+ useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
         const status = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== "granted") {
-          alert("You need camera roll permissions to change your pictures");
+          alert("We need your camera roll permissions to change your pictures");
         }
       }
     })();
@@ -84,19 +83,34 @@ const EditComponent = ({ user, navigation }) => {
   // used 2 pick image functions or else the photo library appears by itself
   const pickImage1 = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 1
     });
 
-    console.log(result);
-    console.log("here1");
-    console.log(result.uri);
-
     if (!result.cancelled) {
-      setPfp(result.uri);
-      console.log("here");
+      const imagePath = result.uri;
+      const imageExt = result.uri.split('.').pop();
+      const imageMime = `image/${imageExt}`;
+      let filename = result.uri.split('/').pop();
+      //console.log(filename);
+
+      let picture = await fetch(imagePath);
+      let blobPicture = await picture.blob();
+      //console.log(JSON.stringify(blobPicture));
+      const imageData = new File([blobPicture], filename);
+      //console.log(JSON.stringify(imageData));
+      const formData = new FormData();
+      formData.append(filename, blobPicture);
+      //console.log(JSON.stringify(formData));
+      var reader = new FileReader();
+      reader.readAsDataURL(blobPicture);
+      reader.onloadend = () => {
+        setPfp(reader.result);
+        //setPfpFile(formData);
+        //setPfpFile(imageData);
+      };
     }
   };
 
@@ -108,13 +122,28 @@ const EditComponent = ({ user, navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-    console.log("here1");
-    console.log(result.uri);
-
     if (!result.cancelled) {
-      setbgPic(result.uri);
-      console.log("here");
+      const imagePath = result.uri;
+      const imageExt = result.uri.split('.').pop();
+      const imageMime = `image/${imageExt}`;
+      let filename = result.uri.split('/').pop();
+      //console.log(filename);
+
+      let picture = await fetch(imagePath);
+      let blobPicture = await picture.blob();
+      //console.log(JSON.stringify(blobPicture));
+      const imageData = new File([blobPicture], filename);
+      //console.log(JSON.stringify(imageData));
+      const formData = new FormData();
+      formData.append(filename, blobPicture);
+      //console.log(JSON.stringify(formData));
+      var reader = new FileReader();
+      reader.readAsDataURL(blobPicture);
+      reader.onloadend = () => {
+        setbgPic(reader.result);
+        //setbgPicFile(formData);
+        //setbgPicFile(imageData);
+      };
     }
   };
 
@@ -143,7 +172,6 @@ const EditComponent = ({ user, navigation }) => {
         );
       }
     }
-
     return temp;
   }
 
@@ -227,7 +255,6 @@ const EditComponent = ({ user, navigation }) => {
         ? ("0" + selectedValue.getDate()).toString().slice(-2)
         : selectedValue.getDate().toString().slice(-2);
     const currDate = currYear + "-" + currMonth + "-" + currDay;
-    console.log(currDate);
     setBirth(currDate);
   };
 
@@ -377,6 +404,10 @@ const EditComponent = ({ user, navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <ScrollView
+          style={{ flex: 1, marginHorizontal: 1 }}
+          scrollEnabled={Platform.OS == "android"}
+        >
       <View style={styles.pfInfo}>
         <Button
           style={styles.changePicButton}
@@ -482,6 +513,7 @@ const EditComponent = ({ user, navigation }) => {
           <Text style={styles.editButtonTextSave}>Save Changes</Text>
         </Button>
       </View>
+      </ScrollView>
     </View>
   );
 };

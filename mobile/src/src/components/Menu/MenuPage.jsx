@@ -16,6 +16,13 @@ class MenuPage extends Component {
     this.setState({ user: response.data });
   };
 
+  componentDidUpdate = async (prevProps, prevState) => {
+   if (prevState != this.state){
+    const response = await ProfileEndpoint.get();
+    this.setState({ user: response.data });
+   }
+  }
+
   render() {
     return (
       <View style={styles.container}>

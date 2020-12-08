@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
 import { Choices, ProfileEndpoint } from '../../../utils/endpoints';
 import Header from '../../common/Header';
@@ -15,6 +15,13 @@ class ProfilePage extends Component {
     const response = await ProfileEndpoint.get();
     this.setState({ user: response.data });
   };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState != this.state){
+     const response = await ProfileEndpoint.get();
+     this.setState({ user: response.data });
+    }
+   }
 
   render() {
     return (
@@ -38,6 +45,10 @@ class ProfilePage extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <ScrollView
+          style={{ flex: 1, marginHorizontal: 1 }}
+          scrollEnabled={Platform.OS == "android"}
+        >
         <View style={styles.pfInfo}>
           <View>
             <ProfileComponents
@@ -95,6 +106,7 @@ class ProfilePage extends Component {
         >
           <Text style={styles.editButtonText}>Edit profile</Text>
         </Button>
+        </ScrollView>
       </View>
     );
   }

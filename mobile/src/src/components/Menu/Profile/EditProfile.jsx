@@ -21,6 +21,5 @@ class EditProfile extends Component {
   }
 }
 export default ({ navigation }) => {
-  // main issue is with initializing the useState
   return <EditProfile navigation={navigation} />;
 };

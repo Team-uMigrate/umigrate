@@ -20,10 +20,10 @@ import * as ImagePicker from 'expo-image-picker';
 
 const EditComponent = ({ user, navigation }) => {
   // useStates for data
-  const [bgPic, setbgPic] = useState(null);
-  const [pfp, setPfp] = useState(null);
-  const [pfpFile, setPfpFile] = useState();
-  const [bgPicFile, setbgPicFile] = useState(null);
+  const [bgPic, setbgPic] = useState();
+  const [pfp, setPfp] = useState();
+  //const [pfpFile, setPfpFile] = useState();
+  //const [bgPicFile, setbgPicFile] = useState();
   const [prefName, setPrefName] = useState(user.preferred_name);
   const [phone, setPhone] = useState(user.phone_number);
   const [pronoun, setPronoun] = useState(user.pronouns);

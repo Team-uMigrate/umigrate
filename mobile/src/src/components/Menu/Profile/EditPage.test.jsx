@@ -43,6 +43,10 @@ describe('<EditComponent /> UI Tests', () => {
     expect(screen.getByText(Choices.programs[mockUser.enrolled_program]));
   });
 
+  it('should contain the community', () => {
+    expect(screen.getByText(Choices.communities[mockUser.community]));
+  });
+
   it('should contain the current term', () => {
     expect(screen.getByText(Choices.terms[mockUser.current_term]));
   });

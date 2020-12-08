@@ -95,6 +95,10 @@ class ProfilePage extends Component {
             </View>
             <View>
               <ProfileComponents
+                label="Community"
+                val={Choices.communities[this.state.user.community]}
+              />
+              <ProfileComponents
                 label="Program"
                 val={Choices.programs[this.state.user.enrolled_program]}
               />

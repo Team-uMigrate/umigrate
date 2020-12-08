@@ -28,11 +28,13 @@ const EditComponent = ({ user, navigation }) => {
   const [phone, setPhone] = useState(user.phone_number);
   const [pronoun, setPronoun] = useState(user.pronouns);
   const [birth, setBirth] = useState(user.birthday);
+  const [reg, setRegion] = useState(user.community);
   const [program, setProgram] = useState(user.enrolled_program);
   const [term, setTerm] = useState(user.current_term);
 
   // useStates for modal
   const [visiblePronoun, setVisiblePronoun] = useState(false);
+  const [visibleReg, setVisibleReg] = useState(false);
   const [visiblePro, setVisiblePro] = useState(false);
   const [visibleTerm, setVisibleTerm] = useState(false);
   const [visibleBirth, setVisibleBirth] = useState(false);
@@ -41,8 +43,9 @@ const EditComponent = ({ user, navigation }) => {
   // useState for datetimepicker
   const [date, setDate] = useState(new Date());
 
-  // useStates for stupid react native datetimepicker defaulting 0
+  // useStates for stupid react native picker defaulting 0
   const [zeroPronoun, setZeroPronoun] = useState();
+  const [zeroReg, setZeroReg] = useState();
   const [zeroPro, setZeroPro] = useState();
   const [zeroTerm, setZeroTerm] = useState();
 
@@ -54,6 +57,7 @@ const EditComponent = ({ user, navigation }) => {
       phone_number: phone ? phone : user.phone_number,
       pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
       birthday: birth ? birth : user.birthday,
+      community: zeroReg == 0 ? 0 : reg ? reg : user.community,
       enrolled_program:
         zeroPro == 0 ? 0 : program ? program : user.enrolled_program,
       current_term: zeroTerm == 0 ? 0 : term ? term : user.current_term,
@@ -149,6 +153,8 @@ const EditComponent = ({ user, navigation }) => {
     var tempChoice =
       type == 'Pronoun'
         ? Choices.pronouns
+        : type == 'Region'
+        ? Choices.communities
         : type == 'Program'
         ? Choices.programs
         : type == 'Current Term'
@@ -178,6 +184,9 @@ const EditComponent = ({ user, navigation }) => {
     if (type == 'Pronoun') {
       setZeroPronoun(zero);
       setPronoun(itemValue);
+    } else if (type == 'Region') {
+      setZeroReg(zero);
+      setRegion(itemValue);
     } else if (type == 'Program') {
       setZeroPro(zero);
       setProgram(itemValue);
@@ -197,6 +206,8 @@ const EditComponent = ({ user, navigation }) => {
               selectedValue={
                 type == 'Pronoun'
                   ? pronoun
+                  : type == 'Region'
+                  ? reg
                   : type == 'Program'
                   ? program
                   : type == 'Current Term'
@@ -217,6 +228,8 @@ const EditComponent = ({ user, navigation }) => {
             onPress={() => {
               type == 'Pronoun'
                 ? setVisiblePronoun(!visiblePronoun)
+                : type == 'Region'
+                ? setVisibleReg(!visibleReg)
                 : type == 'Program'
                 ? setVisiblePro(!visiblePro)
                 : type == 'Current Term'
@@ -309,6 +322,17 @@ const EditComponent = ({ user, navigation }) => {
           onRequestClose={() => setVisiblePronoun(false)}
         >
           {getSpecificModal('Pronoun')}
+        </Modal>
+      </View>
+      <View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={visibleReg}
+          hardwareAccelerated={true}
+          onRequestClose={() => setVisibleReg(false)}
+        >
+          {getSpecificModal('Region')}
         </Modal>
       </View>
       <View>
@@ -437,6 +461,18 @@ const EditComponent = ({ user, navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
+            <TouchableOpacity onPress={() => setVisibleReg(!visibleReg)}>
+              <ProfileComponents
+                label="Community"
+                val={
+                  zeroReg == 0
+                    ? Choices.communities[0]
+                    : reg
+                    ? Choices.communities[reg]
+                    : Choices.communities[user.community]
+                }
+              />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => setVisiblePro(!visiblePro)}>
               <ProfileComponents
                 label="Program"

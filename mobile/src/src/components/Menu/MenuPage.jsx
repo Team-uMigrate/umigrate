@@ -17,11 +17,11 @@ class MenuPage extends Component {
   };
 
   componentDidUpdate = async (prevProps, prevState) => {
-   if (prevState != this.state){
-    const response = await ProfileEndpoint.get();
-    this.setState({ user: response.data });
-   }
-  }
+    if (prevState != this.state) {
+      const response = await ProfileEndpoint.get();
+      this.setState({ user: response.data });
+    }
+  };
 
   render() {
     return (

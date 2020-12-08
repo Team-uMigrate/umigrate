@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
 import { mockUser } from '../../../utils/mockData';
 import EditComponent from './EditComponent';
-import { Choices } from "../../../utils/endpoints";
+import { Choices } from '../../../utils/endpoints';
 
 describe('<EditComponent /> UI Tests', () => {
   beforeEach(() => {
@@ -30,15 +30,13 @@ describe('<EditComponent /> UI Tests', () => {
   });
 
   it('should contain the birthday', () => {
-    expect(screen.getByText(mockUser.birthday.substring(0, 'YYYY-MM-DD'.length)));
+    expect(
+      screen.getByText(mockUser.birthday.substring(0, 'YYYY-MM-DD'.length))
+    );
   });
 
   it('should contain the pronoun', () => {
     expect(screen.getByText(Choices.pronouns[mockUser.pronouns]));
-  });
-
-  it('should contain the region', () => {
-    expect(screen.getByText(Choices.regions[mockUser.region]));
   });
 
   it('should contain the program', () => {
@@ -48,5 +46,4 @@ describe('<EditComponent /> UI Tests', () => {
   it('should contain the current term', () => {
     expect(screen.getByText(Choices.terms[mockUser.current_term]));
   });
-
 });

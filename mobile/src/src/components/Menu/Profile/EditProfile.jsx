@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { ProfileEndpoint } from "../../../utils/endpoints";
-import EditComponent from "./EditComponent";
+import React, { Component } from 'react';
+import { ProfileEndpoint } from '../../../utils/endpoints';
+import EditComponent from './EditComponent';
 
 class EditProfile extends Component {
   state = { user: {} };

@@ -104,20 +104,6 @@ class CommunityContainer extends React.Component {
     }
   };
 
-  asyncSubmitPoll = async () => {
-    let data = {
-      title: this.state.title,
-      content: this.state.body,
-      region: this.state.user.region,
-      tagged_users: [], // TODO add tag user functionality
-    };
-
-    let pollResponse = await PollsEndpoint.post(data);
-
-    for (let pollOption in this.state.pollOptions) {
-    }
-  };
-
   shareButtonDisabled = () => {
     if (this.state.title === '') return true;
     else if (this.state.selectedPostType === 'Poll') {

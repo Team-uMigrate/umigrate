@@ -118,12 +118,22 @@ class CommunityContainer extends React.Component {
     }
   };
 
+  shareButtonDisabled = () => {
+    if (this.state.title === '') return true;
+    else if (this.state.selectedPostType === 'Poll') {
+      if (this.state.pollOptions.length === 0) return true;
+      else
+        for (const i in this.state.pollOptions)
+          if (this.state.pollOptions[i] === '') return true;
+    }
+    return false;
+  };
+
   render() {
     return (
       <ScrollView styles={styles.container}>
         <Header title={'New Community Post'} isMessagingOrCommentsPage={true} />
         <View style={styles.postTypeOptionsContainer}>
-          {/* TODO investigate laggy button response */}
           <PostTypeOptionsButton
             title={'Post'}
             selectedPostType={this.state.selectedPostType}
@@ -303,10 +313,7 @@ class CommunityContainer extends React.Component {
           <Button
             mode={'contained'}
             color={'#8781D0'}
-            disabled={
-              this.state.selectedPostType === 'Poll' &&
-              JSON.stringify(this.state.pollOptions) === '[]'
-            }
+            disabled={this.shareButtonDisabled()}
             style={styles.previewAndShareButtons}
             dark={true}
             onPress={this.submitPost}

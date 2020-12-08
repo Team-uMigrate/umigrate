@@ -16,7 +16,7 @@ export const mockUser = {
     'http://dev.umigrate.ca/media/images/user_profile_photos/download_1.jpg',
   background_photo:
     'http://dev.umigrate.ca/media/images/user_background_photos/images_1.jpg',
-  region: 1,
+  community: 1,
   datetime_created: '2020-10-21T02:42:24.051746Z',
   notification_privacy: 0,
   allow_location: false,
@@ -96,14 +96,14 @@ export const mockPost = {
       ],
       content:
         'Series painting future ask figure reach. Various still minute three audience. Easy medical even whether decade cup agree. Hit piece rate yeah cut kid professional.',
-      region: 2,
+      community: 2,
       datetime_created: '2020-10-21T02:45:59.534513Z',
       comment: 716,
     },
     tagged_users: [],
     content:
       'Ground indicate girl class bag simply allow travel. Same hot address become their fly truth.',
-    region: 2,
+    community: 2,
     datetime_created: '2020-10-21T02:45:59.342643Z',
     object_id: 120,
     content_type: 22,
@@ -122,7 +122,7 @@ export const mockPost = {
   title: 'Somebody program time deal. Trip win its stock listen or list.',
   content:
     'Listen street score this skin ability task. Police exactly cell different through environmental. Performance car state.',
-  region: 2,
+  community: 2,
   datetime_created: '2020-10-21T02:45:58.456297Z',
 };
 
@@ -195,7 +195,7 @@ export const mockEvent = {
       ],
       content:
         'Popular who worry onto. Free guy effort. Front call improve protect marriage class still all. Whether onto lay camera life use.',
-      region: 1,
+      community: 1,
       datetime_created: '2020-10-21T02:45:57.762481Z',
       comment: 710,
     },
@@ -211,7 +211,7 @@ export const mockEvent = {
     ],
     content:
       'Compare model hospital business blue huge into. Official shoulder official along media difficult phone factor. Must training ever I feel cause author major.',
-    region: 0,
+    community: 0,
     datetime_created: '2020-10-21T02:45:57.694775Z',
     object_id: 119,
     content_type: 14,
@@ -262,7 +262,7 @@ export const mockAd = {
       tagged_users: [],
       content:
         'Red according east particular debate song dog speech. He past economic radio.',
-      region: 2,
+      community: 2,
       datetime_created: '2020-10-21T02:45:57.913997Z',
       comment: 712,
     },
@@ -294,7 +294,7 @@ export const mockAd = {
     ],
     content:
       'Maintain total exactly theory help head produce. Middle less score fight yet. Short television station cause.',
-    region: 2,
+    community: 2,
     datetime_created: '2020-10-21T02:45:57.888778Z',
     object_id: 119,
     content_type: 13,
@@ -321,7 +321,7 @@ export const mockAd = {
   title: 'Especially purpose learn for social vote.',
   content:
     'Conference however outside draw. Western benefit suddenly avoid another live.',
-  region: 2,
+  community: 2,
   datetime_created: '2020-10-21T02:45:57.088566Z',
   category: 1,
   price: '-540236.49',
@@ -397,13 +397,13 @@ export const mockListing = {
       ],
       content:
         'Risk cold play least garden line. Room professional play animal history condition participant thing. Sport billion price become agreement discussion safe foot. Growth growth add spring.',
-      region: 1,
+      community: 1,
       datetime_created: '2020-10-21T02:45:59.022604Z',
       comment: 714,
     },
     tagged_users: [],
     content: 'It amount father miss issue off.',
-    region: 1,
+    community: 1,
     datetime_created: '2020-10-21T02:45:58.770986Z',
     object_id: 120,
     content_type: 15,
@@ -439,7 +439,7 @@ export const mockListing = {
     'Article two without foot condition. Always couple machine clearly man ready.',
   content:
     'Policy represent rock appear sense yet. Father age hard without laugh. Parent so always community can those police.',
-  region: 2,
+  community: 2,
   datetime_created: '2020-10-21T02:45:58.051749Z',
   category: 0,
   price: '-79413.00',
@@ -487,7 +487,7 @@ export const mockComment = {
     ],
     content:
       'Right open guy point discuss deep mind. School contain turn walk because language. Best that guess take loss simply. Model teach knowledge remain.',
-    region: 0,
+    community: 0,
     datetime_created: '2020-10-21T02:45:58.750845Z',
     comment: 713,
   },
@@ -519,7 +519,7 @@ export const mockComment = {
   ],
   content:
     'Stop keep education set. Economy positive Republican so next. Then eight audience.',
-  region: 1,
+  community: 1,
   datetime_created: '2020-10-21T02:45:58.478603Z',
   object_id: 120,
   content_type: 19,
@@ -558,7 +558,7 @@ export const mockReply = {
   ],
   content:
     'Let stop property hit boy fear when. Avoid have bank maintain myself population. Painting government project each whether recently including inside.',
-  region: 0,
+  community: 0,
   datetime_created: '2020-10-21T02:45:59.586510Z',
   comment: 716,
 };

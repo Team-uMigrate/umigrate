@@ -7,7 +7,7 @@ from common.abstract_models import IsMember
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Room, Message, IsCreatorOrMemberReadOnly
-from .serializers import RoomSerializer, MessageSerializer
+from .serializers import RoomSerializer, RoomDetailSerializer, MessageSerializer
 from users.models import CustomUser
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
@@ -22,11 +22,7 @@ from drf_yasg.utils import swagger_auto_schema
 class RoomViewSet(AbstractModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    detail_serializer_class = RoomSerializer
-    # filterset_class = RoomSerializer
-    # search_fields = [
-    #     "title",
-    # ]
+    detail_serializer_class = RoomDetailSerializer
     permission_classes = [
         IsAuthenticated,
         IsMember,

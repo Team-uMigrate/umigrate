@@ -9,6 +9,9 @@
     <input id="chat-message-input" type="text" size="100"><br>
        <input id="chat-previous-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
+     <input id="chat-message-like" type="number">
+     <input id="chat-message-like-checkbox" type="checkbox" >
+     <input id="chat-message-like-submit" type="button" value="Send">
     {{ room_id|json_script:"room-id" }}
     <script>
         const roomId = JSON.parse(document.getElementById('room-id').textContent);
@@ -42,9 +45,9 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            console.log(roomMembers);
-            document.querySelector('#chat-log').value += (
-                data.creator.preferred_name + ": " + data.message_body + ": " + data.datetime_created + '\n');
+            console.log(data);
+            {#document.querySelector('#chat-log').value += (#}
+            {#    data.creator.preferred_name + ": " + data.message_body + ": " + data.datetime_created + '\n');#}
         };
 
         chatSocket.onclose = function(e) {
@@ -57,7 +60,17 @@
                 document.querySelector('#chat-message-submit').click();
             }
         };
+         document.querySelector('#chat-message-like-submit').onclick = function(e) {
+            const isLiked = document.querySelector('#chat-message-like-checkbox').checked;
+            const messageId = document.querySelector('#chat-message-like').valueAsNumber;
 
+            chatSocket.send(JSON.stringify({
+                'type':"send_like",
+                'message_id': messageId,
+                'like':isLiked
+            }));
+
+        };
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
@@ -66,6 +79,7 @@
             console.log(message)
             console.log(previousMessageId)
             chatSocket.send(JSON.stringify({
+                'type':"send_message",
                 'message_body': message,
                 'previous_message_id':previousMessageId
             }));

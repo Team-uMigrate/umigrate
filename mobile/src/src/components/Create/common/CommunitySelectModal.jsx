@@ -50,55 +50,39 @@ const CommunitySelectModal = ({
           <Text style={styles.selectCommunityPromptText}>
             Select Other Region
           </Text>
-          {/* These 2 nested views create a 1px wide border around the text input */}
-          <View
-            style={{
-              backgroundColor: '#D9D9D9',
-              borderRadius: 20,
-              padding: 1,
-              marginBottom: 5,
+          <TextInput
+            style={styles.searchCommunityTextInput}
+            placeholder={'Search Other Region...'}
+            placeholderTextColor={'#D9D9D9'}
+            clearTextOnFocus={true}
+            onFocus={() => {
+              setCommunitySearchFocused(true);
+              // If someone leaves the search bar with text in it, then brings up the search menu again,
+              // the existing options persist
+              if (searchQuery === '') setSearchResults(shownCommunityChoices);
             }}
-          >
-            <View style={{ backgroundColor: 'white', borderRadius: 20 }}>
-              <TextInput
-                style={styles.searchCommunityTextInput}
-                placeholder={'Search Other Region...'}
-                placeholderTextColor={'#D9D9D9'}
-                clearTextOnFocus={true}
-                onFocus={() => {
-                  setCommunitySearchFocused(true);
-                  // If someone leaves the search bar with text in it, then brings up the search menu again,
-                  // the existing options persist
-                  if (searchQuery === '')
-                    setSearchResults(shownCommunityChoices);
-                }}
-                onBlur={() => {
-                  setCommunitySearchFocused(false);
-                  Keyboard.dismiss();
-                }}
-                onEndEditing={() => setCommunitySearchFocused(false)}
-                value={searchQuery}
-                onChangeText={(newText) => {
-                  setSearchQuery(newText);
-                  // TODO insert into list in order of "closeness" to the query
-                  // Defaults to the buttons shown before searching
-                  if (newText === '') setSearchResults(shownCommunityChoices);
-                  else {
-                    newText = newText.toUpperCase();
-                    let newResults = [];
-                    for (const [
-                      index,
-                      community,
-                    ] of Choices.regions.entries()) {
-                      if (community.toUpperCase().includes(newText))
-                        newResults.push(index);
-                    }
-                    setSearchResults(newResults);
-                  }
-                }}
-              />
-            </View>
-          </View>
+            onBlur={() => {
+              setCommunitySearchFocused(false);
+              Keyboard.dismiss();
+            }}
+            onEndEditing={() => setCommunitySearchFocused(false)}
+            value={searchQuery}
+            onChangeText={(newText) => {
+              setSearchQuery(newText);
+              // TODO insert into list in order of "closeness" to the query
+              // Defaults to the buttons shown before searching
+              if (newText === '') setSearchResults(shownCommunityChoices);
+              else {
+                newText = newText.toUpperCase();
+                let newResults = [];
+                for (const [index, community] of Choices.regions.entries()) {
+                  if (community.toUpperCase().includes(newText))
+                    newResults.push(index);
+                }
+                setSearchResults(newResults);
+              }
+            }}
+          />
           {/* Show 4 default options when the search bar isn't selected */}
           {!communitySearchFocused &&
             shownCommunityChoices.map((item, index) => {
@@ -202,6 +186,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingLeft: 10,
     paddingVertical: 5,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: '#D9D9D9',
   },
   communityOptionButton: {
     borderRadius: 20,

@@ -8,6 +8,7 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import { Choices } from '../../../utils/endpoints';
 
@@ -117,48 +118,49 @@ const CommunitySelectModal = ({
 
           {communitySearchFocused && (
             <Card style={styles.communitySearchResultsCard}>
-              {searchResults.map((item, index) => {
-                // TODO filter what's shown here
-                return (
-                  <View key={index}>
-                    <TouchableHighlight
-                      style={styles.communitySearchResult}
-                      activeOpacity={1}
-                      underlayColor={'#8781D0'}
-                      onPress={() => {
-                        Keyboard.dismiss();
-                        setCommunity(item);
-                        setCommunitySearchFocused(false);
+              <ScrollView>
+                {searchResults.map((item, index) => {
+                  return (
+                    <View key={index}>
+                      <TouchableHighlight
+                        style={styles.communitySearchResult}
+                        activeOpacity={1}
+                        underlayColor={'#8781D0'}
+                        onPress={() => {
+                          Keyboard.dismiss();
+                          setCommunity(item);
+                          setCommunitySearchFocused(false);
 
-                        let newChoices = Object.assign(
-                          [],
-                          shownCommunityChoices
-                        );
+                          let newChoices = Object.assign(
+                            [],
+                            shownCommunityChoices
+                          );
 
-                        // Index of the selected search result
-                        const i = shownCommunityChoices.indexOf(item);
+                          // Index of the selected search result
+                          const i = shownCommunityChoices.indexOf(item);
 
-                        if (i == -1) {
-                          // Remove last item from the column of buttons
-                          // and push the selected one to the beginning
-                          newChoices.splice(newChoices.length - 1);
-                          newChoices.unshift(item);
-                        } else {
-                          // If the button is already being shown, reorder them so that
-                          // this selected one is first
-                          newChoices.splice(i, 1);
-                          newChoices.unshift(item);
-                        }
-                        setShownCommunityChoices(newChoices);
-                      }}
-                    >
-                      <Text>{Choices.regions[item]}</Text>
-                    </TouchableHighlight>
-                    {/* Show divider if this is not the last item */}
-                    {index < shownCommunityChoices.length - 1 && <Divider />}
-                  </View>
-                );
-              })}
+                          if (i == -1) {
+                            // Remove last item from the column of buttons
+                            // and push the selected one to the beginning
+                            newChoices.splice(newChoices.length - 1);
+                            newChoices.unshift(item);
+                          } else {
+                            // If the button is already being shown, reorder them so that
+                            // this selected one is first
+                            newChoices.splice(i, 1);
+                            newChoices.unshift(item);
+                          }
+                          setShownCommunityChoices(newChoices);
+                        }}
+                      >
+                        <Text>{Choices.regions[item]}</Text>
+                      </TouchableHighlight>
+                      {/* Show divider if this is not the last item */}
+                      {index < shownCommunityChoices.length - 1 && <Divider />}
+                    </View>
+                  );
+                })}
+              </ScrollView>
             </Card>
           )}
         </View>
@@ -200,6 +202,7 @@ const styles = StyleSheet.create({
   communitySearchResultsCard: {
     borderRadius: 15,
     elevation: 4,
+    maxHeight: '70%',
   },
   communitySearchResult: {
     paddingLeft: 10,

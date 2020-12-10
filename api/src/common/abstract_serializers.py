@@ -15,7 +15,8 @@ class AbstractModelSerializer(ModelSerializerExtension):
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
-    most_liked_comment = serializers.SerializerMethodField()
+    # Todo: Maybe in the future
+    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context["request"].user.id).exists()

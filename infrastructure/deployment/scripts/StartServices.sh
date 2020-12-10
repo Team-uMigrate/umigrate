@@ -8,3 +8,4 @@ systemctl start gunicorn
 systemctl start daphne@{0..2}
 systemctl start redis-server
 systemctl start nginx
+systemctl start fail2ban

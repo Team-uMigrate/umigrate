@@ -5,13 +5,15 @@ import ProfilePhoto from '../../common/ProfilePhoto';
 import { EventsEndpoint, Choices } from '../../../utils/endpoints';
 import CommentBar from '../../common/CommentBar/CommentBar';
 import ImageCollection from '../../common/ImageCollection';
+import GradientButton from 'react-native-gradient-buttons';
+import moment from 'moment';
 
 const EventView = (event) => {
   const {
     creator,
     price_scale,
     title,
-    region,
+    community,
     content,
     location,
     datetime_created,
@@ -27,52 +29,53 @@ const EventView = (event) => {
 
   return (
     <Card style={styles.container}>
-      <Card.Content>
+      <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
-          <View style={{ flex: 1 }}>
+          <View>
             <ProfilePhoto photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
-            <Text>{creator.preferred_name}</Text>
+            <Text style={styles.name}>{creator.preferred_name}</Text>
             <Text style={styles.date}>
-              {datetime_created.substring(0, 'YYYY-MM-DD'.length)}
+              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
         </View>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price Scale: </Text>
+          <Text style={styles.bold}>Price: </Text>
           {Choices.prices[price_scale]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Region: </Text>
-          {Choices.regions[region]}
+          <Text style={styles.bold}>Community: </Text>
+          {Choices.communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Location: </Text>
           {location}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Start Time: </Text>
-          {start_datetime.substring(0, 'YYYY-MM-DD'.length)}
+          <Text style={styles.bold}>Start: </Text>
+          {moment(start_datetime).format('MMMM D, YYYY, h:mm a')}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>End Time: </Text>
+          <Text style={styles.bold}>End: </Text>
           {end_datetime
-            ? end_datetime.substring(0, 'YYYY-MM-DD'.length)
+            ? moment(end_datetime).format('MMMM D, YYYY, h:mm a')
             : 'N/A'}
         </Paragraph>
         <ImageCollection photos={photos} />
         <View style={styles.buttonContainer}>
-          <Button
+          <GradientButton
             compact={true}
-            style={is_attending ? styles.buttonStyleFade : styles.buttonStyle}
+            style={styles.buttonStyleAttend}
             mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Unattend' : 'Attend'}
-            color="white"
-            dark={true}
-            onPress={async () => {
+            title={is_attending ? 'Attending' : 'Attending'}
+            gradientBegin={is_interested ? null : '#483FAB'}
+            textStyle={styles.bodyText}
+            radius={10}
+            onPressAction={async () => {
               await EventsEndpoint.attend(event.id, !event.is_attending);
               event.updateItem({
                 ...event,
@@ -83,16 +86,18 @@ const EventView = (event) => {
               });
             }}
           >
-            {is_attending ? 'Unattend' : 'Attend?'}
-          </Button>
-          <Button
+            {is_attending ? 'Attending' : 'Attend?'}
+          </GradientButton>
+
+          <GradientButton
             compact={true}
-            style={is_interested ? styles.buttonStyleFade : styles.buttonStyle}
+            style={styles.buttonStyleInterest}
             mode={is_interested ? 'contained' : 'outlined'}
             title={is_interested ? 'Uninterest' : 'Interested?'}
-            color="white"
-            dark={true}
-            onPress={async () => {
+            textStyle={styles.bodyText}
+            radius={10}
+            gradientBegin={is_interested ? null : '#483FAB'}
+            onPressAction={async () => {
               await EventsEndpoint.interested(event.id, !event.is_interested);
               event.updateItem({
                 ...event,
@@ -104,7 +109,7 @@ const EventView = (event) => {
             }}
           >
             {is_interested ? 'Uninterest' : 'Interested?'}
-          </Button>
+          </GradientButton>
         </View>
         <CommentBar
           item={event}
@@ -120,51 +125,58 @@ export default EventView;
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     marginTop: '2.5%',
-    padding: 5,
+    padding: 3,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
   },
+  cardContent: {
+    paddingTop: '1.5%',
+    paddingBottom: '2.5%',
+  },
   row: {
     flexDirection: 'row',
+    marginBottom: '2.5%',
   },
   column: {
     flex: 5,
+    marginLeft: '4%',
     flexDirection: 'column',
+    alignSelf: 'center',
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: '500',
+  },
+  name: {
+    fontWeight: '500',
+    fontSize: 16,
   },
   date: {
     color: 'grey',
   },
-  likesComments: {
-    flex: 1,
-    paddingTop: 15,
-    alignSelf: 'center',
-  },
   title: {
     alignSelf: 'flex-start',
+    letterSpacing: 0.5,
   },
   bodyText: {
     marginBottom: 0,
+    letterSpacing: 0.5,
+    fontSize: 16,
   },
-  buttonStyle: {
+  buttonStyleAttend: {
     height: 36,
-    width: 120,
     flex: 1,
-    backgroundColor: 'steelblue',
+    marginLeft: 0,
+    marginRight: '4%',
   },
-  buttonStyleFade: {
+  buttonStyleInterest: {
     height: 36,
-    width: 120,
     flex: 1,
-    backgroundColor: 'rgba(70,130,180,0.5)',
+    marginRight: 0,
   },
   buttonContainer: {
     flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
     marginTop: '3%',
   },
 });

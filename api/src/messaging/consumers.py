@@ -36,7 +36,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive a message from a websocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-
         user_id = self.scope["user"].id
         if self.member["id"] == user_id:
             event = None
@@ -75,6 +74,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive_message(self, text_data_json: dict) -> dict:
         message_body = text_data_json["message_body"]
         previous_message_id = text_data_json["previous_message_id"]
+        tagged_users = text_data_json["tagged_users"]
         creator = {
             "id": self.member["id"],
             "first_name": self.member["first_name"],
@@ -87,6 +87,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 lambda: Message.objects.get(id=previous_message_id)
             )
             previous_message_result = await get_previous_message()
+            get_previous_message_tagged_users = database_sync_to_async(
+                lambda: previous_message_result.tagged_users.values_list(
+                    "id", flat=True
+                )
+            )
+            tagged_users_previous = await get_previous_message_tagged_users()
             previous_message = {
                 "id": previous_message_id,
                 "message_body": previous_message_result.content,
@@ -94,6 +100,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "datetime_created": previous_message_result.datetime_created.strftime(
                     "%Y-%m-%dT%H:%M:%S.%fZ"
                 ),
+                "tagged_users": list(tagged_users_previous),
             }
 
         create_message = database_sync_to_async(
@@ -104,9 +111,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 previous_message_id=previous_message_id,
             )
         )
-        message_object = await create_message()
+
+        message_object: Message = await create_message()
         save_message = database_sync_to_async(lambda: message_object.save())
         await save_message()
+        add_tagged_users = database_sync_to_async(
+            lambda: message_object.tagged_users.add(*tagged_users)
+        )
+        await add_tagged_users()
         return {
             "type": "send_message",
             "id": message_object.id,
@@ -116,6 +128,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "datetime_created": message_object.datetime_created.strftime(
                 "%Y-%m-%dT%H:%M:%S.%fZ"
             ),
+            "tagged_users": tagged_users,
         }
 
     # Sends a received message to the group
@@ -147,6 +160,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         creator = event["creator"]
         datetime_created = event["datetime_created"]
         previous_message = event["previous_message"]
+        tagged_users = event["tagged_users"]
         user_id = self.scope["user"].id
 
         if self.member["id"] == user_id:
@@ -158,6 +172,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         "creator": creator,
                         "previous_message": previous_message,
                         "datetime_created": datetime_created,
+                        "tagged_users": tagged_users,
                     }
                 )
             )

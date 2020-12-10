@@ -7,6 +7,7 @@ server {
     server_name umigrate.ca;
     root /home/umigrate/website;
     index index.html index.htm;
+    proxy_set_header X-Forwarded-Proto https;
     
     location = /favicon.ico { 
         access_log off; 

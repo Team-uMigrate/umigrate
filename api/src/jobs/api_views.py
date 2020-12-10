@@ -1,4 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from common.abstract_api_views import AbstractSavedView
 from rest_framework.filters import SearchFilter
 from common.generics.generic_post_api_views import (
     GenericPostListCreate,
@@ -43,3 +44,11 @@ class JobRetrieveUpdateDestroy(GenericPostRetrieveUpdateDestroy):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
     detail_serializer_class = JobSerializer
+
+
+@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Jobs"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Jobs"]))
+class SavedJob(AbstractSavedView):
+    query_string = "saved_jobs"
+    serializer_class = JobSerializer
+    model_class = Job

@@ -33,11 +33,11 @@ class PollViewSet(AbstractModelViewSet):
     ]
 
 
-# HTTP GET: Returns a list of liked users who liked a poll
+# HTTP GET: Returns a list of likes on a poll
 # HTTP POST: Like or unlike a poll
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class PollLike(AbstractSavedView):
+class LikedPoll(AbstractSavedView):
     query_string = "liked_polls"
     serializer_class = PollSerializer
     model_class = Poll

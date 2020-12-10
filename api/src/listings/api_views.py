@@ -29,11 +29,11 @@ class ListingViewSet(AbstractModelViewSet):
     ]
 
 
-# HTTP GET: Returns a list of liked users that liked a listing
+# HTTP GET: Returns a list of likes on a listing
 # HTTP POST: Like or unlike a listing
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class ListingLike(AbstractSavedView):
+class LikedListing(AbstractSavedView):
     query_string = "liked_listings"
     serializer_class = ListingSerializer
     model_class = Listing

@@ -25,11 +25,11 @@ class EventViewSet(AbstractModelViewSet):
     search_fields = ["title", "location"]
 
 
-# HTTP GET: Returns a list of liked users that liked an event
+# HTTP GET: Returns a list of likes on an event
 # HTTP POST: Like or unlike an event
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class EventLike(AbstractSavedView):
+class LikedEvent(AbstractSavedView):
     query_string = "liked_events"
     serializer_class = EventSerializer
     model_class = Event

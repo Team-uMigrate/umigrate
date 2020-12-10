@@ -38,7 +38,8 @@ variables:
   value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
 
 jobs:
-- job: 'Build'
+- job: 'Job'
+  displayName: 'Build, Test, & Publish'
   pool:
     vmImage: 'ubuntu-18.04'
   steps:

@@ -32,7 +32,7 @@ class PollTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
-        self.save_options = ["save"]
+        self.save_options = ["saved"]
 
         AbstractAPITestCase.setUp(self)
 

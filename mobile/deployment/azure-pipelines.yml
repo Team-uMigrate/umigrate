@@ -50,6 +50,13 @@ jobs:
         Contents: "**"
         TargetFolder: "$(Build.ArtifactStagingDirectory)"
 
+    - task: CopyFiles@2
+      displayName: 'Copy Mobile Deployment Scripts'
+      inputs:
+        SourceFolder: 'mobile/deployment/scripts'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
+
     - task: UseNode@1
       displayName: 'Use Node 14'
       inputs:

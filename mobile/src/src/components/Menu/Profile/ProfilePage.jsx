@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
-import { Choices, ProfileEndpoint } from '../../../utils/endpoints';
+import { Choices, getUserData } from '../../../utils/endpoints';
 import Header from '../../common/Header';
 import ProfileComponents from './ProfileComponents';
 class ProfilePage extends Component {
@@ -20,14 +20,14 @@ class ProfilePage extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await ProfileEndpoint.get();
-    this.setState({ user: response.data });
+    const userData = await getUserData();
+    this.setState({ user: userData });
   };
 
   componentDidUpdate = async (_prevProps, prevState) => {
     if (prevState != this.state) {
-      const response = await ProfileEndpoint.get();
-      this.setState({ user: response.data });
+      const userData = await getUserData();
+      this.setState({ user: userData });
     }
   };
 

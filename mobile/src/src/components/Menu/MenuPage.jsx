@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
-import { ProfileEndpoint } from '../../utils/endpoints';
+import { ProfileEndpoint, getUserData } from '../../utils/endpoints';
 import Header from '../common/Header';
 import MenuLogout from './MenuLogout';
 
@@ -18,8 +18,8 @@ class MenuPage extends Component {
 
   componentDidUpdate = async (_prevProps, prevState) => {
     if (prevState != this.state) {
-      const response = await ProfileEndpoint.get();
-      this.setState({ user: response.data });
+      const userData = await getUserData();
+      this.setState({ user: userData });
     }
   };
 

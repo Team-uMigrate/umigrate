@@ -13,7 +13,11 @@ import {
 import { Avatar, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Choices, ProfileEndpoint } from '../../../utils/endpoints';
+import {
+  Choices,
+  ProfileEndpoint,
+  setUserData,
+} from '../../../utils/endpoints';
 import Header from '../../common/Header';
 import ProfileComponents from './ProfileComponents';
 import * as ImagePicker from 'expo-image-picker';
@@ -61,29 +65,28 @@ const EditComponent = ({ user, navigation }) => {
       enrolled_program:
         zeroPro == 0 ? 0 : program ? program : user.enrolled_program,
       current_term: zeroTerm == 0 ? 0 : term ? term : user.current_term,
-    }).catch((err) => {
-      console.log(err);
-      console.log(err.response);
     });
     if (result) {
+      await setUserData(result.data);
       navigation.navigate('Profile');
     }
   };
 
   useEffect(() => {
-    (async () => {
+    const askUser = async () => {
       if (Platform.OS !== 'web') {
         const status = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
           alert('We need your camera roll permissions to change your pictures');
         }
       }
-    })();
+    };
+    askUser();
   }, []);
 
   // used 2 pick image functions or else the photo library appears by itself
   const pickImage1 = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
@@ -94,30 +97,28 @@ const EditComponent = ({ user, navigation }) => {
       const imagePath = result.uri;
       const imageExt = result.uri.split('.').pop();
       const imageMime = `image/${imageExt}`;
-      let filename = result.uri.split('/').pop();
-      //console.log(filename);
+      const filename = result.uri.split('/').pop();
 
-      let picture = await fetch(imagePath);
-      let blobPicture = await picture.blob();
-      //console.log(JSON.stringify(blobPicture));
+      const picture = await fetch(imagePath);
+      const blobPicture = await picture.blob();
+
       const imageData = new File([blobPicture], filename);
-      //console.log(JSON.stringify(imageData));
+
       const formData = new FormData();
       formData.append(filename, blobPicture);
-      //console.log(JSON.stringify(formData));
-      var reader = new FileReader();
+
+      const reader = new FileReader();
       reader.readAsDataURL(blobPicture);
       reader.onloadend = () => {
         setPfp(reader.result);
-        //setPfpFile(formData);
-        //setPfpFile(imageData);
+        // set setPfpFile to formData or imageData or something else...
       };
     }
   };
 
   const pickImage2 = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -127,28 +128,26 @@ const EditComponent = ({ user, navigation }) => {
       const imagePath = result.uri;
       const imageExt = result.uri.split('.').pop();
       const imageMime = `image/${imageExt}`;
-      let filename = result.uri.split('/').pop();
-      //console.log(filename);
+      const filename = result.uri.split('/').pop();
 
-      let picture = await fetch(imagePath);
-      let blobPicture = await picture.blob();
-      //console.log(JSON.stringify(blobPicture));
+      const picture = await fetch(imagePath);
+      const blobPicture = await picture.blob();
+
       const imageData = new File([blobPicture], filename);
-      //console.log(JSON.stringify(imageData));
+
       const formData = new FormData();
       formData.append(filename, blobPicture);
-      //console.log(JSON.stringify(formData));
-      var reader = new FileReader();
+
+      const reader = new FileReader();
       reader.readAsDataURL(blobPicture);
       reader.onloadend = () => {
         setbgPic(reader.result);
-        //setbgPicFile(formData);
-        //setbgPicFile(imageData);
+        // set setbgPicFile to formData or imageData or something else...
       };
     }
   };
 
-  function getOptions(type) {
+  const getOptions = (type) => {
     var temp = [];
     var tempChoice =
       type == 'Pronoun'
@@ -174,7 +173,7 @@ const EditComponent = ({ user, navigation }) => {
       }
     }
     return temp;
-  }
+  };
 
   const onPickerChange = (itemValue, itemIndex, type) => {
     var zero = 999;
@@ -196,7 +195,7 @@ const EditComponent = ({ user, navigation }) => {
     }
   };
 
-  function getSpecificModal(type) {
+  const getSpecificModal = (type) => {
     return (
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
@@ -242,7 +241,7 @@ const EditComponent = ({ user, navigation }) => {
         </View>
       </View>
     );
-  }
+  };
 
   const onDateChange = (event, selectedValue) => {
     setDate(selectedValue);
@@ -259,14 +258,22 @@ const EditComponent = ({ user, navigation }) => {
     setBirth(currDate);
   };
 
-  function getBirthModal(type) {
+  const getBirthModal = (type) => {
     return (
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Pick your {type}!</Text>
           <View style={styles.modalButton}>
             <DateTimePicker
-              style={{ width: '100%', flex: 1 }}
+              style={
+                Platform.OS == 'ios' && Platform.Version >= 14
+                  ? {
+                      width: '100%',
+                      flex: 1,
+                      left: '35%',
+                    }
+                  : { width: '100%', flex: 1 }
+              }
               value={date}
               display="default"
               mode="date"
@@ -286,9 +293,9 @@ const EditComponent = ({ user, navigation }) => {
         </View>
       </View>
     );
-  }
+  };
 
-  function getPicsModal() {
+  const getPicsModal = () => {
     return (
       <View style={styles.centeredView}>
         <View style={styles.modalPicView}>
@@ -310,7 +317,8 @@ const EditComponent = ({ user, navigation }) => {
         </View>
       </View>
     );
-  }
+  };
+
   return (
     <View style={styles.container}>
       <View>

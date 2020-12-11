@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProfileEndpoint } from '../../../utils/endpoints';
+import { getUserData } from '../../../utils/endpoints';
 import EditComponent from './EditComponent';
 
 class EditProfile extends Component {
@@ -10,8 +10,8 @@ class EditProfile extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await ProfileEndpoint.get();
-    this.setState({ user: response.data });
+    const userData = await getUserData();
+    this.setState({ user: userData });
   };
 
   render() {

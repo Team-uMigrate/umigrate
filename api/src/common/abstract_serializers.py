@@ -56,3 +56,9 @@ class AbstractModelSerializer(ModelSerializerExtension):
 class AbstractModelDetailSerializer(AbstractModelSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
     photos = PhotoRetrieveSerializer(read_only=True, many=True)
+
+
+# Serializer for POST requests on saved for postings
+class PostSaveSerializer(serializers.Serializer):
+    id = serializers.IntegerField(min_value=1)
+    save = serializers.BooleanField()

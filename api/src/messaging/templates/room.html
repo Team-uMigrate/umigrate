@@ -5,13 +5,19 @@
     <title>Chat Room</title>
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-       <input id="chat-previous-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-     <input id="chat-message-like" type="number">
-     <input id="chat-message-like-checkbox" type="checkbox" >
-     <input id="chat-message-like-submit" type="button" value="Send">
+    <div style="display:flex; flex-direction: row">
+        <div style="display:flex; flex-direction: column">
+            <span>Input</span>
+            <textarea id="chat-input" style="margin-right: 20px" cols="100" rows="20"></textarea><br>
+        </div>
+        <div style="display:flex; flex-direction: column">
+            <span>Log</span>
+            <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+        </div>
+    </div>
+    <input id="chat-submit" type="button" value="Send">
+    <input id="message-template" type="button" value="Message">
+    <input id="like-template" type="button" value="Like">
     {{ room_id|json_script:"room-id" }}
     <script>
         const roomId = JSON.parse(document.getElementById('room-id').textContent);
@@ -31,59 +37,36 @@
             + '/'
         );
 
-        let roomMembers = {};
-
-        fetch(httpProtocol + window.location.host + '/api/messaging/rooms/' + roomId)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                data.members.map((member) => {
-                    roomMembers[member.id] = member.preferred_name;
-                });
-            });
 
         chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            console.log(data);
-            {#document.querySelector('#chat-log').value += (#}
-            {#    data.creator.preferred_name + ": " + data.message_body + ": " + data.datetime_created + '\n');#}
+            document.querySelector('#chat-log').value += JSON.stringify(e.data) + "\n\n";
         };
 
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
         };
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
+        document.querySelector('#chat-input').focus();
+        document.querySelector('#chat-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
+                document.querySelector('#chat-submit').click();
             }
         };
-         document.querySelector('#chat-message-like-submit').onclick = function(e) {
-            const isLiked = document.querySelector('#chat-message-like-checkbox').checked;
-            const messageId = document.querySelector('#chat-message-like').valueAsNumber;
 
-            chatSocket.send(JSON.stringify({
-                'type':"send_like",
-                'message_id': messageId,
-                'like':isLiked
-            }));
-
+        document.querySelector('#chat-submit').onclick = function(e) {
+            const chatInput = document.querySelector('#chat-input');
+            chatSocket.send(JSON.stringify(JSON.parse(chatInput.value)));
+            chatInput.value = '';
         };
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            const previousMessage = document.querySelector('#chat-previous-message-input');
-            const previousMessageId = parseInt(previousMessage.value);
-            console.log(message)
-            console.log(previousMessageId)
-            chatSocket.send(JSON.stringify({
-                'type':"send_message",
-                'message_body': message,
-                'previous_message_id':previousMessageId
-            }));
-            messageInputDom.value = '';
+
+        document.querySelector('#message-template').onclick = function(e) {
+            const chatInput = document.querySelector('#chat-input');
+            chatInput.value = JSON.stringify({type: "send_message", message_body: "", tagged_users: [], previous_message_id: null });
+        };
+
+        document.querySelector('#like-template').onclick = function(e) {
+            const chatInput = document.querySelector('#chat-input');
+            chatInput.value = JSON.stringify({type: "send_like", message_id: 1, like: true});
         };
     </script>
 </body>

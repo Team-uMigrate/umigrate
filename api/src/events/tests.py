@@ -1,5 +1,9 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase, AbstractLikesTestCase
+from common.abstract_tests import (
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    AbstractLikesTestCase,
+)
 from users.serializers import BasicUserSerializer
 from .models import Event
 from .serializers import EventSerializer, EventDetailSerializer
@@ -7,7 +11,7 @@ from .factories import EventFactory
 
 
 # Test case for the events endpoints
-class EventTestCase(AbstractAPITestCase, APITestCase):
+class EventTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
@@ -32,6 +36,7 @@ class EventTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["saved"]
 
         AbstractAPITestCase.setUp(self)
 
@@ -52,6 +57,9 @@ class EventTestCase(AbstractAPITestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+    def test_save(self):
+        AbstractSavedTestCase.test_save(self)
 
 
 # Test case for the liked users endpoint for events

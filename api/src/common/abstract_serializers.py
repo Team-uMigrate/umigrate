@@ -15,7 +15,8 @@ class AbstractModelSerializer(ModelSerializerExtension):
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
-    most_liked_comment = serializers.SerializerMethodField()
+    # Todo: Maybe in the future
+    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context["request"].user.id).exists()
@@ -55,3 +56,9 @@ class AbstractModelSerializer(ModelSerializerExtension):
 class AbstractModelDetailSerializer(AbstractModelSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
     photos = PhotoRetrieveSerializer(read_only=True, many=True)
+
+
+# Serializer for POST requests on saved for postings
+class PostSaveSerializer(serializers.Serializer):
+    id = serializers.IntegerField(min_value=1)
+    save = serializers.BooleanField()

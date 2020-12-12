@@ -1,5 +1,9 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase, AbstractLikesTestCase
+from common.abstract_tests import (
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    AbstractLikesTestCase,
+)
 from users.serializers import BasicUserSerializer
 from .models import Poll
 from .serializers import PollSerializer, PollDetailSerializer
@@ -7,7 +11,7 @@ from .factories import PollFactory
 
 
 # Test case for the polls endpoints
-class PollTestCase(AbstractAPITestCase, APITestCase):
+class PollTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
@@ -28,6 +32,7 @@ class PollTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["saved"]
 
         AbstractAPITestCase.setUp(self)
 
@@ -48,6 +53,9 @@ class PollTestCase(AbstractAPITestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+    def test_save(self):
+        AbstractSavedTestCase.test_save(self)
 
 
 class PollLikesTestCase(AbstractLikesTestCase, APITestCase):

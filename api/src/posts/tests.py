@@ -1,5 +1,9 @@
 from rest_framework.test import APITestCase
-from common.abstract_tests import AbstractAPITestCase, AbstractLikesTestCase
+from common.abstract_tests import (
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    AbstractLikesTestCase,
+)
 from users.serializers import BasicUserSerializer
 from .models import Post
 from .serializers import PostSerializer, PostDetailSerializer
@@ -7,7 +11,11 @@ from .factories import PostFactory
 
 
 # Test case for the posts endpoints
-class PostTestCase(AbstractAPITestCase, APITestCase):
+class PostTestCase(
+    AbstractAPITestCase,
+    AbstractSavedTestCase,
+    APITestCase,
+):
     def setUp(self):
         self.api_client = self.client
         self.assert_equal = self.assertEqual
@@ -28,6 +36,7 @@ class PostTestCase(AbstractAPITestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
+        self.save_options = ["saved"]
 
         AbstractAPITestCase.setUp(self)
 
@@ -48,6 +57,9 @@ class PostTestCase(AbstractAPITestCase, APITestCase):
 
     def test_destroy(self):
         AbstractAPITestCase.test_destroy(self)
+
+    def test_save(self):
+        AbstractSavedTestCase.test_save(self)
 
 
 class PostLikesTestCase(AbstractLikesTestCase, APITestCase):

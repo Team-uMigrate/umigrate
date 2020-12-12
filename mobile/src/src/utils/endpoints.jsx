@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Base URL
 export const BASE_URL =
@@ -16,7 +17,7 @@ export class Choices {
   static pronouns = ['None', 'He/Him', 'She/Her', 'They/Them', 'Other'];
   static seasons = ['Winter', 'Spring', 'Fall'];
   static prices = ['Free', '$', '$$', '$$$', '$$$$', '$$$$$'];
-  static regions = ['Waterloo', 'Toronto', 'Brampton', 'Ottawa'];
+  static communities = ['Waterloo', 'Toronto', 'Brampton', 'Ottawa'];
   static programs = [
     'Unknown',
     'Engineering',
@@ -51,32 +52,20 @@ export class Choices {
     '4B',
   ];
   static contentTypes = {
-    logEntry: 1,
-    permission: 2,
-    group: 3,
-    contentType: 4,
-    session: 5,
-    token: 6,
-    site: 7,
-    emailAddress: 8,
-    emailConfiguration: 9,
-    socialAccount: 10,
-    socialApp: 11,
-    socialToken: 12,
-    ad: 13,
-    event: 14,
-    listing: 15,
-    job: 16,
-    message: 17,
-    messagingRoom: 18,
-    pollOption: 19,
-    poll: 20,
-    pollVote: 21,
-    post: 22,
-    user: 23,
-    photo: 24,
-    comment: 25,
-    reply: 26,
+    ad: 14,
+    event: 15,
+    listing: 16,
+    job: 18,
+    messagingRoom: 19,
+    message: 20,
+    poll: 21,
+    pollOption: 22,
+    pollVote: 23,
+    post: 24,
+    user: 25,
+    photo: 26,
+    comment: 27,
+    reply: 28,
   };
   static adCategories = ['Electronics', 'Books', 'Food', 'Other'];
   static listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
@@ -90,44 +79,47 @@ export class Choices {
 // Session Storage functions
 
 const AUTH_TOKEN = 'AUTH_TOKEN';
+const EXPO_TOKEN = 'EXPO_TOKEN';
 const USER_DATA = 'USER_DATA';
 
-export function getAuthToken() {
-  // return sessionStorage.getItem(AUTH_TOKEN);
+export async function getAuthToken() {
+  return await AsyncStorage.getItem(AUTH_TOKEN);
 }
 
-export function setAuthToken(token) {
+export async function setAuthToken(token) {
   Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-  // sessionStorage.setItem(AUTH_TOKEN, token);
+  await AsyncStorage.setItem(AUTH_TOKEN, token);
 }
 
-export function removeAuthToken() {
+export async function removeAuthToken() {
   Axios.defaults.headers.common['Authorization'] = null;
-  // sessionStorage.removeItem(AUTH_TOKEN);
+  await AsyncStorage.removeItem(AUTH_TOKEN);
 }
 
-export function getPushToken() {
-  // get push notification
+export async function getPushToken() {
+  return await AsyncStorage.getItem(EXPO_TOKEN);
 }
 
-export function setPushToken(token) {
-  // set push notification
+export async function setPushToken(token) {
+  await AsyncStorage.setItem(EXPO_TOKEN, token);
 }
 
-export function removePushToken() {
-  // remove push notification
+export async function removePushToken() {
+  await AsyncStorage.removeItem(EXPO_TOKEN);
 }
 
-export function getUserData() {
-  // return JSON.parse(sessionStorage.getItem(USER_DATA));
+export async function getUserData() {
+  const userData = await AsyncStorage.getItem(USER_DATA);
+  return JSON.parse(userData);
 }
 
-export function setUserData(userData) {
-  // sessionStorage.setItem(USER_DATA, JSON.stringify(userData));
+export async function setUserData(userData = {}) {
+  const userDataStr = JSON.stringify(userData);
+  await AsyncStorage.setItem(USER_DATA, userDataStr);
 }
 
-export function removeUserData() {
-  // sessionStorage.removeItem(USER_DATA);
+export async function removeUserData() {
+  await AsyncStorage.removeItem(USER_DATA);
 }
 
 // Helper functions
@@ -190,14 +182,17 @@ class AbstractEndpoint {
   static async like(id, shouldLike) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}like`,
-      toFormData({ id: id, like: shouldLike })
+      { id: id, like: shouldLike } // Todo: Use toFormData
     );
   }
 
-  static async async(id, shouldSave) {
+  static async save(id, shouldSave) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}save`,
-      toFormData({ id: id, save: shouldSave })
+      toFormData({ id: id, save: shouldSave }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -237,14 +232,14 @@ export class EventsEndpoint extends AbstractEndpoint {
   static async attend(id, shouldAttend) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}attending`,
-      toFormData({ id: id, attending: shouldAttend })
+      { id: id, attending: shouldAttend } // Todo: use toFormData
     );
   }
 
   static async interested(id, shouldBeInterested) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}interested`,
-      toFormData({ id: id, interested: shouldBeInterested })
+      { id: id, interested: shouldBeInterested } // Todo: use toFormData
     );
   }
 }
@@ -283,6 +278,21 @@ export class PostsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/posts/';
 }
 
+export class DevicesEndpoint {
+  static endpoint = '/api/devices/';
+
+  static async list() {
+    return await Axios.get(`${BASE_URL}${this.endpoint}`);
+  }
+
+  static async post(name, token) {
+    return await Axios.post(`${BASE_URL}${this.endpoint}`, {
+      name: name,
+      expo_push_token: token,
+    });
+  }
+}
+
 export class UsersEndpoint {
   static endpoint = '/api/users/';
 
@@ -300,6 +310,7 @@ export class UsersEndpoint {
 export class AuthEndpoint {
   static async login(email, password) {
     removeAuthToken();
+    removePushToken();
     removeUserData();
     const response = await Axios.post(
       `${BASE_URL}/api/login/`,
@@ -316,6 +327,7 @@ export class AuthEndpoint {
   static async logout() {
     const response = await Axios.post(`${BASE_URL}/api/logout/`);
     removeAuthToken();
+    removePushToken();
     removeUserData();
 
     return response;
@@ -323,6 +335,7 @@ export class AuthEndpoint {
 
   static async register(email, password, confirmPassword) {
     removeAuthToken();
+    removePushToken();
     removeUserData();
 
     return await Axios.post(

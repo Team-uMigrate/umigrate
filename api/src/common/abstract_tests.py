@@ -182,7 +182,11 @@ class AbstractAPITestCase:
         context = {
             "request": SimpleNamespace(
                 user=(
-                    item.creator if hasattr(item, "creator") else item.members.first()
+                    # TODO: Sort this out with rooms. Confusing because only rooms have members and
+                    # only postings have creators
+                    item.creator
+                    if hasattr(item, "creator")
+                    else item.members.first()
                 )
             )
         }
@@ -209,6 +213,53 @@ class AbstractAPITestCase:
 
         item = self.model_class.objects.filter(id=1)
         self.assert_equal(len(item), 0, "Item should be removed from the database")
+
+
+class AbstractSavedTestCase:
+    # Any tests that inherit this class must also inherit AbstractAPITestCase
+    save_options = None
+    endpoint = None
+    api_client = None
+    save_options = []
+
+    def test_save(self):
+        for option in self.save_options:
+            # test save
+            data = {"save": True, "id": 1}
+            response = self.api_client.post(f"{self.endpoint}{option}", data)
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}",
+            )
+
+            # test get save
+            response = self.api_client.get(f"{self.endpoint}{option}")
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}{option}",
+            )
+            results = response.data["results"]
+
+            item = self.model_class.objects.get(id=1)
+            context = {"request": SimpleNamespace(user=(item.creator))}
+            serialized_item = self.serializer_class(item, context=context).data
+            self.assert_equal(len(results), 1, f"There should be 1 results")
+            self.assert_list_equal(
+                results,
+                [serialized_item],
+                "Results should match items in the database",
+            )
+
+            # test remove saved
+            data = {"save": False, "id": 1}
+            response = self.api_client.post(f"{self.endpoint}{option}", data)
+            self.assert_equal(
+                response.status_code,
+                status.HTTP_200_OK,
+                "Status code should be 200. " f"Error: {response.data}",
+            )
 
 
 class AbstractLikesTestCase:

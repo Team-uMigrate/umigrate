@@ -39,6 +39,8 @@ const CommunitySelectModal = ({
       }}
       contentContainerStyle={styles.communitySelectModal}
     >
+      {/* Used to exit the search bar of the modal without exiting the modal itself */}
+      {/* For some reason, you can't just tap anywhere on the modal to dismiss the keyboard by default */}
       <TouchableWithoutFeedback
         onPress={() => {
           setCommunitySearchFocused(false);
@@ -76,7 +78,10 @@ const CommunitySelectModal = ({
               else {
                 newText = newText.toUpperCase();
                 let newResults = [];
-                for (const [index, community] of Choices.regions.entries()) {
+                for (const [
+                  index,
+                  community,
+                ] of Choices.communities.entries()) {
                   if (community.toUpperCase().includes(newText))
                     newResults.push(index);
                 }
@@ -109,7 +114,7 @@ const CommunitySelectModal = ({
                     }}
                   >
                     <Text style={{ color: selected ? 'white' : 'black' }}>
-                      {Choices.regions[item]}
+                      {Choices.communities[item]}
                     </Text>
                   </Card>
                 </TouchableHighlight>
@@ -153,7 +158,7 @@ const CommunitySelectModal = ({
                           setShownCommunityChoices(newChoices);
                         }}
                       >
-                        <Text>{Choices.regions[item]}</Text>
+                        <Text>{Choices.communities[item]}</Text>
                       </TouchableHighlight>
                       {/* Show divider if this is not the last item */}
                       {index < shownCommunityChoices.length - 1 && <Divider />}

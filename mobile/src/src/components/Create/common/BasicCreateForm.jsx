@@ -15,7 +15,7 @@ import { Choices } from '../../../utils/endpoints';
 import CommunitySelectModal from './CommunitySelectModal';
 
 // Components in the common to all create pages
-// Includes region select modal,
+// Includes community select modal,
 const BasicCreateForm = ({
   title,
   setTitle,
@@ -58,7 +58,7 @@ const BasicCreateForm = ({
               >
                 {/* Todo montserrat here */}
                 <Text style={{ fontSize: 14, color: '#8781D0' }}>
-                  {Choices.regions[community]}
+                  {Choices.communities[community]}
                 </Text>
                 <Entypo
                   name="triangle-down"

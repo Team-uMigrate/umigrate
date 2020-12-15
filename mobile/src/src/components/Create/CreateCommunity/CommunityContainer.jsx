@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  Platform,
+} from 'react-native';
 import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import BasicCreateForm from '../common/BasicCreateForm';
@@ -14,7 +21,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import CreatePageTextInput from '../common/CreatePageTextInput';
 import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
-import { Platform } from 'react-native-web';
 
 class CommunityContainer extends React.Component {
   state = {
@@ -228,47 +234,86 @@ class CommunityContainer extends React.Component {
                   text={this.state.eventTime.toString()}
                 />
 
-                {/* Date picker */}
-                {this.state.showDatePicker && (
-                  <DateTimePicker
-                    value={this.state.eventTime}
-                    onChange={(event, selectedDate) => {
-                      const currentDate = selectedDate || this.state.eventTime;
-                      this.setState({ showDatePicker: false });
-                      this.setState({ showTimePicker: true });
-                      this.setState({ eventTime: currentDate });
-                    }}
-                    mode={'date'}
-                    display={'default'}
-                    minimumDate={new Date()}
-                  />
-                )}
-
-                {this.state.showTimePicker && (
-                  <DateTimePicker
-                    value={this.state.eventTime}
-                    onChange={(event, selectedDate) => {
-                      const newTime = selectedDate || this.state.eventTime;
-                      const hours = newTime.getHours();
-                      const minutes = newTime.getMinutes();
-
-                      // Clone the date object
-                      let currentDate = new Date(
-                        this.state.eventTime.getTime()
-                      );
-                      currentDate.setHours(hours);
-                      currentDate.setMinutes(minutes);
-                      currentDate.setSeconds(0);
-
-                      this.setState({ showTimePicker: false });
+                <Portal>
+                  <Modal
+                    visible={
+                      this.state.showDatePicker || this.state.showTimePicker
+                    }
+                    contentContainerStyle={{ backgroundColor: 'white' }}
+                    onDismiss={() => {
                       this.setState({
-                        eventTime: currentDate,
+                        showDatePicker: false,
+                        showTimePicker: false,
                       });
                     }}
-                    mode={'time'}
-                    display={'default'}
-                  />
-                )}
+                  >
+                    {/* Date picker */}
+                    {this.state.showDatePicker && (
+                      <DateTimePicker
+                        value={this.state.eventTime}
+                        onChange={(event, selectedDate) => {
+                          const currentDate =
+                            selectedDate || this.state.eventTime;
+
+                          if (Platform.OS !== 'ios') {
+                            this.setState({ showDatePicker: false });
+                            this.setState({ showTimePicker: true });
+                          }
+                          this.setState({ eventTime: currentDate });
+                        }}
+                        mode={'date'}
+                        display={'default'}
+                        minimumDate={new Date()}
+                      />
+                    )}
+
+                    {/* Time picker */}
+                    {this.state.showTimePicker && (
+                      <DateTimePicker
+                        value={this.state.eventTime}
+                        onChange={(event, selectedDate) => {
+                          const newTime = selectedDate || this.state.eventTime;
+                          const hours = newTime.getHours();
+                          const minutes = newTime.getMinutes();
+
+                          // Clone the date object
+                          let currentDate = new Date(
+                            this.state.eventTime.getTime()
+                          );
+                          currentDate.setHours(hours);
+                          currentDate.setMinutes(minutes);
+                          currentDate.setSeconds(0);
+
+                          this.setState({
+                            showTimePicker: Platform.OS === 'ios',
+                          });
+                          this.setState({
+                            eventTime: currentDate,
+                          });
+                        }}
+                        mode={'time'}
+                        display={'default'}
+                      />
+                    )}
+
+                    {/* The DateTimePicker on iOS doesn't include a confirm button, while Android does :( */}
+                    {Platform.OS === 'ios' && (
+                      <Button
+                        onPress={() => {
+                          if (this.state.showDatePicker)
+                            this.setState({
+                              showDatePicker: false,
+                              showTimePicker: true,
+                            });
+                          else if (this.state.showTimePicker)
+                            this.setState({ showTimePicker: false });
+                        }}
+                      >
+                        {this.state.showDatePicker ? 'Select time' : 'Confirm'}
+                      </Button>
+                    )}
+                  </Modal>
+                </Portal>
               </View>
 
               {/* Location/Link */}

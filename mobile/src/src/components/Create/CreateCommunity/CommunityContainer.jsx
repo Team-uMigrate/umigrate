@@ -9,9 +9,12 @@ import {
   PostsEndpoint,
   ProfileEndpoint,
 } from '../../../utils/endpoints';
-import { Card, IconButton, Button } from 'react-native-paper';
+import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import CreatePageTextInput from '../common/CreatePageTextInput';
+import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
+import { Platform } from 'react-native-web';
 
 class CommunityContainer extends React.Component {
   state = {
@@ -24,21 +27,22 @@ class CommunityContainer extends React.Component {
     title: '',
     body: '',
     pollOptions: [],
-    eventStartTime: '',
-    eventEndTime: '',
+    eventTime: new Date(),
     eventLocation: '',
     eventAdmissionPrice: '',
+    showDatePicker: false,
+    showTimePicker: false,
   };
 
   resetPage = () => {
     this.setState({
       title: '',
       body: '',
-      pollOptions: [''],
-      eventStartTime: '',
-      eventEndTime: '',
+      pollOptions: [],
+      eventTime: new Date(),
       eventLocation: '',
       eventAdmissionPrice: '',
+      showDatePicker: false,
     });
   };
 
@@ -112,6 +116,10 @@ class CommunityContainer extends React.Component {
         for (const i in this.state.pollOptions)
           if (this.state.pollOptions[i] === '') return true;
     }
+    // TODO do this
+    // else if (this.state.selectedPostType === 'Event'){
+    //   return this.state.eventStartTime ===
+    // }
     return false;
   };
 
@@ -212,25 +220,55 @@ class CommunityContainer extends React.Component {
           {/* Render form specific to events */}
           {this.state.selectedPostType === 'Event' && (
             <>
-              {/* Start Time */}
-              <View style={{ flexDirection: 'row' }}>
-                <CreatePageTextInput
-                  textValue={this.state.eventStartTime}
-                  setText={(newText) => {
-                    this.setState({ eventStartTime: newText });
+              <View style={{ flex: 1, marginTop: 7 }}>
+                <ButtonWithDownArrow
+                  onPress={() => {
+                    this.setState({ showDatePicker: true });
                   }}
-                  placeholder={'Start Time...'}
-                  style={{ marginRight: 4 }}
+                  text={this.state.eventTime.toString()}
                 />
-                {/* End Time */}
-                <CreatePageTextInput
-                  textValue={this.state.eventEndTime}
-                  setText={(newText) => {
-                    this.setState({ eventEndTime: newText });
-                  }}
-                  placeholder={'End Time...'}
-                  style={{ marginLeft: 4 }}
-                />
+
+                {/* Date picker */}
+                {this.state.showDatePicker && (
+                  <DateTimePicker
+                    value={this.state.eventTime}
+                    onChange={(event, selectedDate) => {
+                      const currentDate = selectedDate || this.state.eventTime;
+                      this.setState({ showDatePicker: false });
+                      this.setState({ showTimePicker: true });
+                      this.setState({ eventTime: currentDate });
+                    }}
+                    mode={'date'}
+                    display={'default'}
+                    minimumDate={new Date()}
+                  />
+                )}
+
+                {this.state.showTimePicker && (
+                  <DateTimePicker
+                    value={this.state.eventTime}
+                    onChange={(event, selectedDate) => {
+                      const newTime = selectedDate || this.state.eventTime;
+                      const hours = newTime.getHours();
+                      const minutes = newTime.getMinutes();
+
+                      // Clone the date object
+                      let currentDate = new Date(
+                        this.state.eventTime.getTime()
+                      );
+                      currentDate.setHours(hours);
+                      currentDate.setMinutes(minutes);
+                      currentDate.setSeconds(0);
+
+                      this.setState({ showTimePicker: false });
+                      this.setState({
+                        eventTime: currentDate,
+                      });
+                    }}
+                    mode={'time'}
+                    display={'default'}
+                  />
+                )}
               </View>
 
               {/* Location/Link */}

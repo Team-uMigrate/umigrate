@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  TextInput,
-} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import ProfilePhoto from '../../common/ProfilePhoto';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Card, Portal } from 'react-native-paper';
-import { Entypo } from '@expo/vector-icons';
+import { Portal } from 'react-native-paper';
 import { Choices } from '../../../utils/endpoints';
 import CommunitySelectModal from './CommunitySelectModal';
+import ButtonWithDownArrow from './ButtonWithDownArrow';
 
 // Components in the common to all create pages
-// Includes community select modal,
+// Includes community select modal, button to call it, title input,
+// body input, and an icon for the page
 const BasicCreateForm = ({
   title,
   setTitle,
@@ -39,36 +34,14 @@ const BasicCreateForm = ({
         </View>
         <View style={styles.communitySelectView}>
           <Text style={{ fontSize: 12 }}>Posting in</Text>
-          <TouchableHighlight
-            onPress={() => {
-              setCommunitySelectModalVisible(true);
-            }}
-            style={{ marginRight: '25%' }}
-            underlayColor={
-              '#F2F2F2' /* TODO change this to white once we change the background colour */
-            }
-            activeOpacity={1}
-          >
-            <Card style={styles.communitySelectCard}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                {/* Todo montserrat here */}
-                <Text style={{ fontSize: 14, color: '#8781D0' }}>
-                  {Choices.communities[community]}
-                </Text>
-                <Entypo
-                  name="triangle-down"
-                  style={{ alignSelf: 'center' }}
-                  size={16}
-                  color="black"
-                />
-              </View>
-            </Card>
-          </TouchableHighlight>
+          <View style={{ marginRight: '20%' }}>
+            <ButtonWithDownArrow
+              onPress={() => {
+                setCommunitySelectModalVisible(true);
+              }}
+              text={Choices.communities[community]}
+            />
+          </View>
         </View>
         <View styles={{ alignSelf: 'flex-end' }}>
           <MaterialCommunityIcons name={pageIconName} size={40} />

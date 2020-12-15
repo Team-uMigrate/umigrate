@@ -144,7 +144,7 @@ const CommunitySelectModal = ({
                           // Index of the selected search result
                           const i = shownCommunityChoices.indexOf(item);
 
-                          if (i == -1) {
+                          if (i === -1) {
                             // Remove last item from the column of buttons
                             // and push the selected one to the beginning
                             newChoices.splice(newChoices.length - 1);

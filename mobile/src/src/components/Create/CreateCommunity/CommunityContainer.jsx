@@ -128,7 +128,6 @@ class CommunityContainer extends React.Component {
         };
 
         const response = await EventsEndpoint.post(data);
-        console.log(response.data);
         this.resetPage();
       } catch (error) {
         // TODO: proper error handling - display modal or smth?
@@ -140,7 +139,9 @@ class CommunityContainer extends React.Component {
 
   // Takes in a Date object and returns an EST date string to send to the API
   formatDate(date) {
-    let dateString = date.toLocaleDateString('en-UK', {
+    // For some reason, even if the locale is set to Canada, the date is returned
+    // in mm/dd/yy format. This contradicts what you'll find on the MDN docs page :(
+    let dateString = date.toLocaleDateString('en-CA', {
       timezone: 'EST',
       year: 'numeric',
     });
@@ -155,8 +156,6 @@ class CommunityContainer extends React.Component {
     year = '20' + year;
 
     let fullDate = year + '-' + month + '-' + day + 'T' + timeString + 'Z';
-
-    console.log(fullDate);
 
     return fullDate;
   }
@@ -297,8 +296,6 @@ class CommunityContainer extends React.Component {
                         onChange={(event, selectedDate) => {
                           const currentDate =
                             selectedDate || this.state.eventTime;
-
-                          console.log(this.state.eventTime);
 
                           if (Platform.OS !== 'ios') {
                             this.setState({ showDatePicker: false });

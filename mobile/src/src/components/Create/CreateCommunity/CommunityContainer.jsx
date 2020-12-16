@@ -11,6 +11,7 @@ import Header from '../../common/Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import BasicCreateForm from '../common/BasicCreateForm';
 import {
+  EventsEndpoint,
   PollOptionsEndpoint,
   PollsEndpoint,
   PostsEndpoint,
@@ -80,9 +81,9 @@ class CommunityContainer extends React.Component {
       // Submit post to post endpoint
       try {
         let response = await PostsEndpoint.post(basicData);
-        console.log(response.data);
         this.resetPage();
       } catch (error) {
+        // TODO: proper error handling - display modal or smth?
         console.log('error message:', error.message);
         console.log('error response:', error.response);
       }
@@ -110,9 +111,55 @@ class CommunityContainer extends React.Component {
         console.log('error response:', error.response);
       }
     } else if (this.state.selectedPostType === 'Event') {
-      //TODO: do events after the dropdowns are finished
+      try {
+        const data = {
+          ...basicData,
+          start_datetime: this.formatDate(this.state.eventTime),
+          end_datetime: this.formatDate(this.state.eventTime),
+          location: this.state.eventLocation,
+          price:
+            this.state.eventAdmissionPrice === ''
+              ? 0
+              : parseInt(this.state.eventAdmissionPrice),
+          price_scale: Math.min(
+            Math.floor((this.state.eventAdmissionPrice * 5) / 100),
+            5
+          ),
+        };
+
+        const response = await EventsEndpoint.post(data);
+        console.log(response.data);
+        this.resetPage();
+      } catch (error) {
+        // TODO: proper error handling - display modal or smth?
+        console.log('error:', error);
+        console.log('error response:', error.response);
+      }
     }
   };
+
+  // Takes in a Date object and returns an EST date string to send to the API
+  formatDate(date) {
+    let dateString = date.toLocaleDateString('en-UK', {
+      timezone: 'EST',
+      year: 'numeric',
+    });
+    let timeString = date.toLocaleTimeString('en-CA', {
+      timezone: 'EST',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    let [month, day, year] = dateString.split('/');
+    year = '20' + year;
+
+    let fullDate = year + '-' + month + '-' + day + 'T' + timeString + 'Z';
+
+    console.log(fullDate);
+
+    return fullDate;
+  }
 
   shareButtonDisabled = () => {
     if (this.state.title === '') return true;
@@ -122,10 +169,6 @@ class CommunityContainer extends React.Component {
         for (const i in this.state.pollOptions)
           if (this.state.pollOptions[i] === '') return true;
     }
-    // TODO do this
-    // else if (this.state.selectedPostType === 'Event'){
-    //   return this.state.eventStartTime ===
-    // }
     return false;
   };
 
@@ -254,6 +297,8 @@ class CommunityContainer extends React.Component {
                         onChange={(event, selectedDate) => {
                           const currentDate =
                             selectedDate || this.state.eventTime;
+
+                          console.log(this.state.eventTime);
 
                           if (Platform.OS !== 'ios') {
                             this.setState({ showDatePicker: false });

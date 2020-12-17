@@ -270,6 +270,22 @@ export class PollsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/polls/';
 }
 
+export class PollOptionsEndpoint {
+  static endpoint = '/api/polls/options/';
+
+  static async list(page, filters = {}) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
+    );
+  }
+
+  static async post(data) {
+    return await Axios.post(`${BASE_URL}${this.endpoint}`, toFormData(data), {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
+  }
+}
+
 export class PostsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/posts/';
 }

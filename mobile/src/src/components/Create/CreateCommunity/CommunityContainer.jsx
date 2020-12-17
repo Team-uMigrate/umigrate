@@ -98,9 +98,6 @@ class CommunityContainer extends React.Component {
             poll: response.data.id,
           };
 
-          // For performance reasons, I am not awaiting this, so there's a chance that the poll
-          // options might arrive in a different order. This doesn't matter at the time of writing this,
-          // but in case it happens and you're wondering why, this might be it.
           await PollOptionsEndpoint.post(optionData);
         }
 
@@ -122,12 +119,10 @@ class CommunityContainer extends React.Component {
               ? 0
               : parseInt(this.state.eventAdmissionPrice),
           price_scale: Math.min(
-            Math.floor((this.state.eventAdmissionPrice * 5) / 100),
+            Math.ceil((this.state.eventAdmissionPrice * 5) / 100),
             5
           ),
         };
-
-        console.log(data);
 
         const response = await EventsEndpoint.post(data);
         this.resetPage();

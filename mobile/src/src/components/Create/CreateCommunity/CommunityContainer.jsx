@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   ScrollView,
   TextInput,
   Platform,
@@ -15,7 +14,7 @@ import {
   PollOptionsEndpoint,
   PollsEndpoint,
   PostsEndpoint,
-  ProfileEndpoint,
+  getUserData,
 } from '../../../utils/endpoints';
 import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -54,19 +53,11 @@ class CommunityContainer extends React.Component {
   };
 
   componentDidMount = async () => {
-    await this.getProfile();
-    this.setState({ community: this.state.user.community });
-  };
-
-  getProfile = async () => {
-    await ProfileEndpoint.get()
-      .then((response) => {
-        this.setState({ user: response.data });
-      })
-      .catch((error) => {
-        console.log('error:', error);
-        console.log('error response:', error.response);
-      });
+    const user = await getUserData();
+    this.setState({
+      user: user,
+      community: user.community,
+    });
   };
 
   submitPost = async () => {

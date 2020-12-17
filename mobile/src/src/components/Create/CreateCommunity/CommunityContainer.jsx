@@ -126,7 +126,7 @@ class CommunityContainer extends React.Component {
   };
 
   // Takes in a Date object and returns an EST date string to send to the API
-  formatDate(date) {
+  formatDate = (date) => {
     // For some reason, even if the locale is set to Canada, the date is returned
     // in mm/dd/yy format. This contradicts what you'll find on the MDN docs page :(
     let dateString = date.toLocaleDateString('en-CA', {
@@ -146,7 +146,7 @@ class CommunityContainer extends React.Component {
     let fullDate = year + '-' + month + '-' + day + 'T' + timeString + 'Z';
 
     return fullDate;
-  }
+  };
 
   shareButtonDisabled = () => {
     if (this.state.title === '') return true;

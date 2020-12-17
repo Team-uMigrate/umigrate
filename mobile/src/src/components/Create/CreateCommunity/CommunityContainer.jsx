@@ -101,7 +101,7 @@ class CommunityContainer extends React.Component {
           // For performance reasons, I am not awaiting this, so there's a chance that the poll
           // options might arrive in a different order. This doesn't matter at the time of writing this,
           // but in case it happens and you're wondering why, this might be it.
-          PollOptionsEndpoint.post(optionData);
+          await PollOptionsEndpoint.post(optionData);
         }
 
         this.resetPage();
@@ -126,6 +126,8 @@ class CommunityContainer extends React.Component {
             5
           ),
         };
+
+        console.log(data);
 
         const response = await EventsEndpoint.post(data);
         this.resetPage();

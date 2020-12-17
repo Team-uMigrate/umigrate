@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 
 const PostTypeOptionsButton = ({
   title,
@@ -9,9 +9,9 @@ const PostTypeOptionsButton = ({
 }) => {
   return (
     <Button
-      mode={"contained"}
+      mode={'contained'}
       style={styles.postTypeOptionsButton}
-      color={selectedPostType === title ? "#8781D0" : "white"}
+      color={selectedPostType === title ? '#8781D0' : 'white'}
       dark={selectedPostType === title ? true : false}
       onPress={() => {
         setSelectedPostType(title);

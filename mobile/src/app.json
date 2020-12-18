@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "umigrate",
-    "description": "The uMigrate Mobile App!",
+    "description": "The uMigrate App!",
     "slug": "umigrate",
     "version": "1.0.0",
     "orientation": "portrait",

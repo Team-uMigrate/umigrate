@@ -8,7 +8,7 @@ name: $(MajorVersion).$(MinorVersion)
 trigger:
   branches:
     include:
-      - master
+      - main
   paths:
     include:
       - app/*
@@ -18,7 +18,7 @@ trigger:
 pr:
   branches:
     include:
-      - master
+      - main
   paths:
     include:
       - app/*
@@ -30,12 +30,12 @@ variables:
     value: 0.0
   - name: MinorVersion
     value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
-  - name: IsMaster
-    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  - name: IsMain
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
   - name: IsPr
     value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
   - name: IsBranch
-    value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
+    value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMain'], 'False'))]
 
 jobs:
   - job: "Job"

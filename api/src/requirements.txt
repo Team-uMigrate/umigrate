@@ -3,6 +3,7 @@ djangorestframework
 django-rest-auth
 django-allauth
 django-filter
+requests
 Pillow
 django-cors-headers
 channels==3.0.1

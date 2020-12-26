@@ -6,27 +6,7 @@ from common.constants.choices import Choices
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-# A custom permission that only allows the creator of a resource to modify or delete it
-class IsCreatorOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-
-        return obj.creator_id == request.user.id
-
-
-# A custom permission that only allows the creator of a resource to access it
-class IsCreator(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.creator_id == request.user.id
-
-
-class IsMember(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.members.filter(id=request.user.id).exists()
-
-
-# An abstract model that represents a basic post
+# An abstract model class that represents a basic post
 class AbstractPostModel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -56,3 +36,18 @@ class AbstractPostModel(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+
+# A permission class that only allows the creator of a shared item to modify or delete it
+class IsCreatorOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj: AbstractPostModel):
+        if request.method in SAFE_METHODS:
+            return True
+
+        return obj.creator_id == request.user.id
+
+
+# A permission class that only allows the creator of a shared item to access it
+class IsCreator(BasePermission):
+    def has_object_permission(self, request, view, obj: AbstractPostModel):
+        return obj.creator_id == request.user.id

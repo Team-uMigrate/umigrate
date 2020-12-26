@@ -5,7 +5,7 @@ from common.constants.choices import Choices
 from users.models import CustomUser
 
 
-# Represents an ad object
+# A model class that represents an ad
 class Ad(AbstractPostModel, PhotoCollectionExtension):
     is_service = models.BooleanField(default=False)
     is_buying = models.BooleanField(default=False)

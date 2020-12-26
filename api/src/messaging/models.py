@@ -1,22 +1,9 @@
 from django.db import models
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework.permissions import BasePermission
 from users.models import CustomUser
-from common.model_extensions import GenericPhotoModel
-from common.constants.choices import Choices
 
 
-# A custom permission that only allows members of a room to view a private room and allows the creator to modify or
-# delete it
-class IsCreatorOrMemberReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            if obj.members.filter(id=request.user.id):
-                return True
-
-        return obj.creator_id == request.user.id
-
-
-# Represents a room object
+# A model class that represents a room
 class Room(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -36,7 +23,7 @@ class Room(models.Model):
             super().save(*args, **kwargs)
 
 
-# Represents a message object
+# A model class that represents a message
 class Message(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)
@@ -71,3 +58,9 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.content}"
+
+
+# A permission class that only allows members of a room to access it
+class IsMember(BasePermission):
+    def has_object_permission(self, request, view, obj: Room):
+        return obj.members.filter(id=request.user.id).exists()

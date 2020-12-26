@@ -3,15 +3,14 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
-# Custom manager for multiple deletions at once
+# A custom manager for multiple deletions at once
 class CustomManager(models.Manager):
     def delete(self):
         for obj in self.get_queryset():
             obj.delete()
 
 
-# An image model that serves as a child/member of the AbstractPhotoCollection.
-# It's sole purpose is for AbstractPhotoCollection to support multiple image fields
+# A model class that represents a photo
 class Photo(models.Model):
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to="images/photos", blank=True)

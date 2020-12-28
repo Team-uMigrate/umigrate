@@ -3,7 +3,6 @@ from common.abstract_api_views import (
     AbstractSavedView,
     AbstractLikedUsers,
 )
-from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import ListingFilter
 from .models import Listing
 from .serializers import ListingSerializer, ListingDetailSerializer
@@ -29,25 +28,22 @@ class ListingViewSet(AbstractModelViewSet):
     ]
 
 
-# HTTP GET: Returns a list of likes on a listing
-# HTTP POST: Like or unlike a listing
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class LikedListing(AbstractSavedView):
+class LikedListings(AbstractSavedView):
     query_string = "liked_listings"
     serializer_class = ListingSerializer
     model_class = Listing
 
 
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Listings"]))
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class SavedListing(AbstractSavedView):
+class SavedListings(AbstractSavedView):
     query_string = "saved_listings"
     serializer_class = ListingSerializer
     model_class = Listing
 
 
-# HTTP GET: Returns a list of liked users that liked a listing
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 class ListingLikes(AbstractLikedUsers):
     model_class = Listing

@@ -6,7 +6,6 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
 
-# HTTP POST: Creates an photo
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["uploads"]))
 class PhotoCreate(CreateAPIView):
     queryset = Photo.objects.all()
@@ -16,10 +15,6 @@ class PhotoCreate(CreateAPIView):
     ]
 
 
-# HTTP GET: Returns an photo
-# HTTP PUT: Updates an photo
-# HTTP PATCH: Partially updates an photo
-# HTTP DELETE: Deletes an photo
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["uploads"]))
 @method_decorator(name="put", decorator=swagger_auto_schema(tags=["uploads"]))
 @method_decorator(name="patch", decorator=swagger_auto_schema(tags=["uploads"]))

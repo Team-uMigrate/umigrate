@@ -4,7 +4,6 @@ from common.abstract_api_views import (
     AbstractSavedView,
     AbstractLikedUsers,
 )
-from common.generics.generic_post_api_views import GenericUserExtension
 from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
 from .models import Poll, Option, Vote
 from .serializers import (
@@ -33,24 +32,27 @@ class PollViewSet(AbstractModelViewSet):
     ]
 
 
-# HTTP GET: Returns a list of likes on a poll
-# HTTP POST: Like or unlike a poll
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class LikedPoll(AbstractSavedView):
+class LikedPolls(AbstractSavedView):
     query_string = "liked_polls"
     serializer_class = PollSerializer
     model_class = Poll
 
 
-# HTTP GET: Returns a list of liked users that liked a poll
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+class SavedPolls(AbstractSavedView):
+    query_string = "saved_polls"
+    serializer_class = PollSerializer
+    model_class = Poll
+
+
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 class PollLikes(AbstractLikedUsers):
     model_class = Poll
 
 
-# HTTP GET: Returns a list of options for the poll with the ID that matches the ID in the URL
-# HTTP POST: Creates an options for the poll with the ID that matches the ID in the URL
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
 class OptionListCreate(GenericPostListCreate):
@@ -60,8 +62,6 @@ class OptionListCreate(GenericPostListCreate):
     detail_serializer_class = OptionSerializer
 
 
-# HTTP GET: Returns a list of votes for the option with the ID that matches the ID in the URL
-# HTTP POST: Creates a vote for the option with the ID that matches the ID in the URL
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
 class VoteListCreate(GenericPostListCreate):
@@ -69,13 +69,3 @@ class VoteListCreate(GenericPostListCreate):
     serializer_class = VoteSerializer
     filterset_class = VoteFilterSet
     detail_serializer_class = VoteSerializer
-
-
-# HTTP GET: Returns a list of saved polls by the requesting user
-# HTTP POST: Updates the list of saved polls by adding/removing a poll from the list
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class SavedPoll(AbstractSavedView):
-    query_string = "saved_polls"
-    serializer_class = PollSerializer
-    model_class = Poll

@@ -55,7 +55,7 @@ class InterestedEvents(AbstractAddRemoveUser):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class InterestedEvents(AbstractAddRemoveUser):
+class AttendingEvents(AbstractAddRemoveUser):
     query_string = "attending_events"
     serializer_class = EventSerializer
     model_class = Event

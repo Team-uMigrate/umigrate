@@ -1,5 +1,5 @@
 from django.urls import path
-from .api_views import UserList, UserRetrieve, ConnectUser, BlockUser, SavedPosts
+from .api_views import UserList, UserRetrieve, ConnectUser, BlockUser
 
 # Users url patterns
 urlpatterns = [
@@ -7,5 +7,4 @@ urlpatterns = [
     path("<int:id>", UserRetrieve.as_view()),
     path("connect", ConnectUser.as_view()),
     path("block", BlockUser.as_view()),
-    path("posts", SavedPosts.as_view()),
 ]

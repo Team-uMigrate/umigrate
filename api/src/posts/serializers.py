@@ -5,7 +5,7 @@ from common.abstract_serializers import (
 from .models import Post
 
 
-# Serializes the post model
+# A serializer class for the Post model
 class PostSerializer(AbstractModelSerializer):
     class Meta:
         model = Post
@@ -13,6 +13,6 @@ class PostSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# Serializes the post model with detail
+# A detailed serializer class for the Post model
 class PostDetailSerializer(PostSerializer, AbstractModelDetailSerializer):
     pass

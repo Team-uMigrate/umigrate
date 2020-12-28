@@ -3,14 +3,14 @@ from users.serializers import BasicUserSerializer
 from .models import Room, Message
 
 
-# Serializes the room model
+# A serializer class for the Room model
 class RoomSerializer(ModelSerializerExtension):
     class Meta:
         model = Room
         fields = "__all__"
 
     def create(self, validated_data):
-        created_data = ModelSerializerExtension.create(self, validated_data)
+        created_data: Room = ModelSerializerExtension.create(self, validated_data)
         created_data.members.add(self.context["request"].user)
         return created_data
 
@@ -25,11 +25,12 @@ class RoomSerializer(ModelSerializerExtension):
         return ModelSerializerExtension.update(self, instance, validated_data)
 
 
+# A detailed serializer class for the Room model
 class RoomDetailSerializer(RoomSerializer):
     members = BasicUserSerializer(read_only=True, many=True)
 
 
-# Serializes the previous replied message
+# A basic serializer class for the Message model
 class BasicMessageSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
 
@@ -42,7 +43,7 @@ class BasicMessageSerializer(ModelSerializerExtension):
         ]
 
 
-# Serializes the message model
+# A serializer class for the Message model
 class MessageSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
     previous_message = BasicMessageSerializer(read_only=True)

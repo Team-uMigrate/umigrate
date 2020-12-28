@@ -5,7 +5,7 @@ from common.abstract_serializers import (
 from .models import Listing
 
 
-# Serializes the listing model
+# A serializer class for the Listing model
 class ListingSerializer(AbstractModelSerializer):
     class Meta:
         model = Listing
@@ -13,6 +13,6 @@ class ListingSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# Serializes the listing model with detail
+# A detailed serializer class for the Listing model
 class ListingDetailSerializer(ListingSerializer, AbstractModelDetailSerializer):
     pass

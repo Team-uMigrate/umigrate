@@ -6,7 +6,7 @@ from .models import Event
 from rest_framework import serializers
 
 
-# Serializes the event model
+# A serializer class for the Event model
 class EventSerializer(AbstractModelSerializer):
     is_interested = serializers.SerializerMethodField()
     is_attending = serializers.SerializerMethodField()
@@ -40,6 +40,6 @@ class EventSerializer(AbstractModelSerializer):
         return instance.attending_users.count()
 
 
-# Serializes the event model with detail
+# A detailed serializer class for the Event model
 class EventDetailSerializer(EventSerializer, AbstractModelDetailSerializer):
     pass

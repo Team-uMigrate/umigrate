@@ -1,15 +1,17 @@
+from typing import List
+from django.db.models import Model
 from rest_framework import serializers
 
 
-# Extension of the Model Serializer that allows for excluding fields and including related fields
+# An abstract serializer class that allows for excluding fields and including related fields
 class ModelSerializerExtension(serializers.ModelSerializer):
     class Meta:
         # Override required for model; it should be a model class
-        model = None
+        model: Model = None
         # Override required for fields; it should be a list of fields for the model
-        fields = None
+        fields: List[str] or str = None
         # Override if there are addition fields to serialize
-        extra_fields = None
+        extra_fields: List[str] = None
         # Override if there are fields that should not be serialized
         exclude_fields = []
 

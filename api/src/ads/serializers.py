@@ -5,7 +5,7 @@ from common.abstract_serializers import (
 from .models import Ad
 
 
-# Serializes the ad model
+# A serializer class for the Ad model
 class AdSerializer(AbstractModelSerializer):
     class Meta:
         model = Ad
@@ -13,6 +13,6 @@ class AdSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# Serializers the ad model with detail
+# A detailed serializer class for the Ad model
 class AdDetailSerializer(AdSerializer, AbstractModelDetailSerializer):
     pass

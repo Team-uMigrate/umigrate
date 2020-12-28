@@ -26,7 +26,7 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         try:
-            db_instance = self.__class__.objects.get(id=self.id)
+            db_instance: Photo = self.__class__.objects.get(id=self.id)
             if self.image != db_instance.image:
                 db_instance.image.delete(save=False)
         # Todo: Identify types of exceptions thrown

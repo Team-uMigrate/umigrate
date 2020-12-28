@@ -86,7 +86,7 @@ class CustomUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         try:
-            db_instance = self.__class__.objects.get(id=self.id)
+            db_instance: CustomUser = self.__class__.objects.get(id=self.id)
             if self.profile_photo != db_instance.profile_photo:
                 db_instance.profile_photo.delete(save=False)
             if self.background_photo != db_instance.background_photo:

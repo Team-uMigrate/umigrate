@@ -1,22 +1,25 @@
+from django.db.models import Model
+from django.db.models.query import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from common.abstract_serializers import AddRemoveUserSerializer
-from common.abstract_models import IsCreatorOrReadOnly
+from common.abstract_serializers import AddRemoveUserSerializer, AbstractModelSerializer
+from common.abstract_models import IsCreatorOrReadOnly, AbstractPostModel
 from users.serializers import BasicUserSerializer
 from users.models import CustomUser
 
 
 # An abstract api view class that supports creating, retrieving, updating, and destroying shared items
 class AbstractModelViewSet(ModelViewSet):
-    queryset = None  # Must be overridden
-    serializer_class = None  # Must be overridden
-    detail_serializer_class = None  # Must be overridden
+    queryset: QuerySet[AbstractPostModel] = None  # Must be overridden
+    serializer_class: AbstractModelSerializer = None  # Must be overridden
+    detail_serializer_class: AbstractModelSerializer = None  # Must be overridden
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
@@ -35,11 +38,11 @@ class AbstractModelViewSet(ModelViewSet):
         return self.serializer_class
 
 
-# An abstract api view class that supports retrieving and saving/liking shared items
+# An abstract api view class that supports adding and removing a user to and from a many to many field
 class AbstractAddRemoveUser(ListAPIView):
-    serializer_class = None  # Must be overridden
-    model_class = None  # Must be overridden
-    query_string = None  # Must be overridden
+    serializer_class: Serializer = None  # Must be overridden
+    model_class: Model = None  # Must be overridden
+    query_string: str = None  # Must be overridden
     permission_classes = [
         IsAuthenticated,
     ]
@@ -62,8 +65,8 @@ class AbstractAddRemoveUser(ListAPIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        should_add = serializer.data["should_add"]
-        shared_item_id = serializer.data["id"]
+        should_add: bool = serializer.data["should_add"]
+        shared_item_id: int = serializer.data["id"]
 
         try:
             shared_item = self.model_class.objects.get(id=shared_item_id)
@@ -83,7 +86,7 @@ class AbstractAddRemoveUser(ListAPIView):
 # An abstract api view class that supports retrieving the liked users for a shared item
 class AbstractLikedUsers(ListAPIView):
     queryset = CustomUser.objects.all()
-    model_class = None  # Must be overridden
+    model_class: AbstractPostModel = None  # Must be overridden
     serializer_class = BasicUserSerializer
     permission_classes = [
         IsAuthenticated,

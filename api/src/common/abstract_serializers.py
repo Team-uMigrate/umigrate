@@ -59,6 +59,6 @@ class AbstractModelDetailSerializer(AbstractModelSerializer):
 
 
 # Serializer for POST requests on saved for postings
-class PostSaveSerializer(serializers.Serializer):
+class AddRemoveUserSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=1)
-    save = serializers.BooleanField()
+    should_add = serializers.BooleanField()

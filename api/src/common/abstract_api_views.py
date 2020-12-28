@@ -6,7 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from common.abstract_serializers import PostSaveSerializer
+from common.abstract_serializers import AddRemoveUserSerializer
 from common.abstract_models import IsCreatorOrReadOnly
 from users.serializers import BasicUserSerializer
 from users.models import CustomUser
@@ -35,8 +35,8 @@ class AbstractModelViewSet(ModelViewSet):
         return self.serializer_class
 
 
-# An abstract api view class that supports retrieving and saving shared items
-class AbstractSavedView(ListAPIView):
+# An abstract api view class that supports retrieving and saving/liking shared items
+class AbstractAddRemoveUser(ListAPIView):
     serializer_class = None  # Must be overridden
     model_class = None  # Must be overridden
     query_string = None  # Must be overridden
@@ -52,27 +52,28 @@ class AbstractSavedView(ListAPIView):
         # Use the detailed serializer class on HTTP GET and regular serializer class on all other HTTP methods
         if self.request.method == "GET":
             return self.serializer_class
-        return PostSaveSerializer
+
+        return AddRemoveUserSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = PostSaveSerializer(data=request.data)
+        serializer = AddRemoveUserSerializer(data=request.data)
 
         # Validate HTTP POST data
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        should_save = serializer.data["save"]
-        obj_id = serializer.data["id"]
+        should_add = serializer.data["should_add"]
+        shared_item_id = serializer.data["id"]
 
         try:
-            obj = self.model_class.objects.get(id=obj_id)
+            shared_item = self.model_class.objects.get(id=shared_item_id)
             # Add or remove the user from the list of saved users for the shared item
-            if should_save:
-                obj.saved_users.add(request.user.id)
+            if should_add:
+                getattr(self.request.user, self.query_string).add(shared_item)
             else:
-                obj.saved_users.remove(request.user.id)
+                getattr(self.request.user, self.query_string).remove(shared_item)
 
-            return Response({"save": should_save, "id": obj_id})
+            return Response({"should_add": should_add, "id": shared_item_id})
 
         # Shared item was not found
         except ObjectDoesNotExist:

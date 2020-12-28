@@ -1,6 +1,6 @@
 from common.abstract_api_views import (
     AbstractModelViewSet,
-    AbstractSavedView,
+    AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
 from .filters import AdFilterSet
@@ -28,7 +28,7 @@ class AdViewSet(AbstractModelViewSet):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Ads"]))
-class LikedAds(AbstractSavedView):
+class LikedAds(AbstractAddRemoveUser):
     query_string = "liked_ads"
     serializer_class = AdSerializer
     model_class = Ad
@@ -36,7 +36,7 @@ class LikedAds(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Ads"]))
-class SavedAds(AbstractSavedView):
+class SavedAds(AbstractAddRemoveUser):
     query_string = "saved_ads"
     serializer_class = AdSerializer
     model_class = Ad

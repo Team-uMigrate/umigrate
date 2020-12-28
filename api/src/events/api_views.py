@@ -1,6 +1,6 @@
 from common.abstract_api_views import (
     AbstractModelViewSet,
-    AbstractSavedView,
+    AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
 from .filters import EventFilterSet
@@ -26,7 +26,7 @@ class EventViewSet(AbstractModelViewSet):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class LikedEvents(AbstractSavedView):
+class LikedEvents(AbstractAddRemoveUser):
     query_string = "liked_events"
     serializer_class = EventSerializer
     model_class = Event
@@ -34,7 +34,7 @@ class LikedEvents(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class SavedEvents(AbstractSavedView):
+class SavedEvents(AbstractAddRemoveUser):
     query_string = "saved_events"
     serializer_class = EventSerializer
     model_class = Event
@@ -47,7 +47,7 @@ class EventLikes(AbstractLikedUsers):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class InterestedEvents(AbstractSavedView):
+class InterestedEvents(AbstractAddRemoveUser):
     query_string = "interested_events"
     serializer_class = EventSerializer
     model_class = Event
@@ -55,7 +55,7 @@ class InterestedEvents(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Events"]))
-class InterestedEvents(AbstractSavedView):
+class InterestedEvents(AbstractAddRemoveUser):
     query_string = "attending_events"
     serializer_class = EventSerializer
     model_class = Event

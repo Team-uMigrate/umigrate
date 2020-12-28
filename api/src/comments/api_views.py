@@ -2,7 +2,7 @@ from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from common.abstract_api_views import (
     AbstractModelViewSet,
-    AbstractSavedView,
+    AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
 from .models import Comment, Reply
@@ -66,7 +66,7 @@ class ReplyViewSet(AbstractModelViewSet):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class LikedComments(AbstractSavedView):
+class LikedComments(AbstractAddRemoveUser):
     query_string = "liked_comments"
     serializer_class = CommentSerializer
     model_class = Comment
@@ -74,7 +74,7 @@ class LikedComments(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class LikedReplies(AbstractSavedView):
+class LikedReplies(AbstractAddRemoveUser):
     query_string = "liked_replies"
     serializer_class = ReplySerializer
     model_class = Reply
@@ -82,7 +82,7 @@ class LikedReplies(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class SavedComments(AbstractSavedView):
+class SavedComments(AbstractAddRemoveUser):
     query_string = "saved_comments"
     serializer_class = CommentSerializer
     model_class = Comment
@@ -90,7 +90,7 @@ class SavedComments(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class SavedReplies(AbstractSavedView):
+class SavedReplies(AbstractAddRemoveUser):
     query_string = "saved_replies"
     serializer_class = ReplySerializer
     model_class = Reply

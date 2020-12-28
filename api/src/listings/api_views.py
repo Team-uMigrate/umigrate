@@ -1,6 +1,6 @@
 from common.abstract_api_views import (
     AbstractModelViewSet,
-    AbstractSavedView,
+    AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
 from .filters import ListingFilter
@@ -30,7 +30,7 @@ class ListingViewSet(AbstractModelViewSet):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class LikedListings(AbstractSavedView):
+class LikedListings(AbstractAddRemoveUser):
     query_string = "liked_listings"
     serializer_class = ListingSerializer
     model_class = Listing
@@ -38,7 +38,7 @@ class LikedListings(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
-class SavedListings(AbstractSavedView):
+class SavedListings(AbstractAddRemoveUser):
     query_string = "saved_listings"
     serializer_class = ListingSerializer
     model_class = Listing

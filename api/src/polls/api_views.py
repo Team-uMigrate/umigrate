@@ -1,7 +1,7 @@
 from common.generics.generic_post_api_views import GenericPostListCreate
 from common.abstract_api_views import (
     AbstractModelViewSet,
-    AbstractSavedView,
+    AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
 from .filters import PollFilterSet, OptionFilterSet, VoteFilterSet
@@ -34,7 +34,7 @@ class PollViewSet(AbstractModelViewSet):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class LikedPolls(AbstractSavedView):
+class LikedPolls(AbstractAddRemoveUser):
     query_string = "liked_polls"
     serializer_class = PollSerializer
     model_class = Poll
@@ -42,7 +42,7 @@ class LikedPolls(AbstractSavedView):
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
-class SavedPolls(AbstractSavedView):
+class SavedPolls(AbstractAddRemoveUser):
     query_string = "saved_polls"
     serializer_class = PollSerializer
     model_class = Poll

@@ -24,7 +24,6 @@ class Comment(models.Model):
     saved_users = models.ManyToManyField(
         to=CustomUser, related_name="saved_comments", blank=True
     )
-    # Todo: Fix cascading delete
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")

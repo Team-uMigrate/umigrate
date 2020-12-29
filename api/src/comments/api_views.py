@@ -5,6 +5,7 @@ from common.abstract_api_views import (
     AbstractAddRemoveUser,
     AbstractLikedUsers,
 )
+from .filters import CommentFilterSet, ReplyFilterSet
 from .models import Comment, Reply
 from .serializers import (
     CommentSerializer,
@@ -28,16 +29,8 @@ class CommentViewSet(AbstractModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     detail_serializer_class = CommentDetailSerializer
-    """Todo The default filter_backend (when nothing is specified) is DjangoFilterBackend. However, since we are 
-    overriding this we must specify DjangoFilterBackend in addition to OrderingFilter, which is what are using to sort
-    the results by date"""
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filter_fields = [
-        "datetime_created",
-        "creator",
-        "object_id",
-        "content_type",
-    ]
+    filterset_class = CommentFilterSet
     ordering_fields = ["datetime_created"]
     search_fields = [
         "content",
@@ -57,7 +50,7 @@ class ReplyViewSet(AbstractModelViewSet):
     serializer_class = ReplySerializer
     detail_serializer_class = ReplyDetailSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filter_fields = ["datetime_created", "creator", "comment"]
+    filterset_class = ReplyFilterSet
     ordering_fields = ["datetime_created"]
     search_fields = [
         "content",

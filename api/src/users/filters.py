@@ -14,7 +14,6 @@ class UserFilterSet(filters.FilterSet):
     class Meta:
         model = CustomUser
         fields = [
-            "email",
             "min_datetime_created",
             "max_datetime_created",
             "community",

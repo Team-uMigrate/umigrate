@@ -28,6 +28,9 @@ class AbstractModelViewSet(ModelViewSet):
         DjangoFilterBackend,
         SearchFilter,
     ]
+    search_fields = [
+        "title",
+    ]
     lookup_field = "id"
     lookup_value_regex = "(\\d+)"
 

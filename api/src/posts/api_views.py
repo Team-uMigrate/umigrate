@@ -21,9 +21,6 @@ class PostViewSet(AbstractModelViewSet):
     serializer_class = PostSerializer
     detail_serializer_class = PostDetailSerializer
     filterset_class = PostFilterSet
-    search_fields = [
-        "title",
-    ]
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))

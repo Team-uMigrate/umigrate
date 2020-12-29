@@ -23,9 +23,6 @@ class ListingViewSet(AbstractModelViewSet):
     serializer_class = ListingSerializer
     detail_serializer_class = ListingDetailSerializer
     filterset_class = ListingFilter
-    search_fields = [
-        "title",
-    ]
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))

@@ -21,9 +21,6 @@ class AdViewSet(AbstractModelViewSet):
     serializer_class = AdSerializer
     detail_serializer_class = AdDetailSerializer
     filterset_class = AdFilterSet
-    search_fields = [
-        "title",
-    ]
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Ads"]))

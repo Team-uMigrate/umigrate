@@ -20,10 +20,10 @@ class UserList(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = UserFilterSet
     search_fields = [
+        "email",
         "first_name",
         "last_name",
         "preferred_name",
-        "email",
     ]
 
 

@@ -27,9 +27,6 @@ class PollViewSet(AbstractModelViewSet):
     serializer_class = PollSerializer
     detail_serializer_class = PollDetailSerializer
     filterset_class = PollFilterSet
-    search_fields = [
-        "title",
-    ]
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))

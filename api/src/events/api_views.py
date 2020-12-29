@@ -21,7 +21,6 @@ class EventViewSet(AbstractModelViewSet):
     serializer_class = EventSerializer
     detail_serializer_class = EventDetailSerializer
     filterset_class = EventFilterSet
-    search_fields = ["title", "location"]
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Events"]))

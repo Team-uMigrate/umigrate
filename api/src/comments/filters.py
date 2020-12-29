@@ -17,7 +17,6 @@ class CommentFilterSet(filters.FilterSet):
             "creator",
             "min_datetime_created",
             "max_datetime_created",
-            "community",
             "content_type",
             "object_id",
         ]
@@ -38,6 +37,5 @@ class ReplyFilterSet(filters.FilterSet):
             "creator",
             "min_datetime_created",
             "max_datetime_created",
-            "community",
             "comment",
         ]

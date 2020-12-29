@@ -1,3 +1,4 @@
+from typing import List
 import requests
 from datetime import datetime
 from django.core.exceptions import ValidationError
@@ -36,9 +37,7 @@ class Event(AbstractPostModel, PhotoCollectionExtension):
                 f"https://api.mapbox.com/geocoding/v5/mapbox.places/{self.location}.json?types=address&access_token="
                 + f"pk.eyJ1IjoidGhld3JpbmdlcjEiLCJhIjoiY2tnbzZ5bDBzMGd6cTJxcWxyeWpodGU3ZiJ9.RxtcDwyq-m7_t9sWwqQqfg"
             )
-            location_check = location_validation.json()[
-                "features"
-            ]  # Todo: add type to location_check
+            location_check: List[dict] = location_validation.json()["features"]
             if not location_check:
                 raise ValidationError({"location": _("Invalid location")})
 

@@ -6,7 +6,7 @@ from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
 from photos.serializers import PhotoRetrieveSerializer
-from notification_helpers import create_tagged_user_notification
+from common.notification_helpers import create_tagged_user_notification
 
 
 # An abstract serializer class for shared items

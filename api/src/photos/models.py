@@ -25,12 +25,10 @@ class Photo(models.Model):
         super().delete()
 
     def save(self, *args, **kwargs):
-        try:
+        if self.id is not None:
             db_instance: Photo = self.__class__.objects.get(id=self.id)
+
             if self.image != db_instance.image:
                 db_instance.image.delete(save=False)
-        # Todo: Identify types of exceptions thrown
-        except Exception:
-            pass
 
         super().save(*args, **kwargs)

@@ -85,14 +85,13 @@ class CustomUser(AbstractUser):
         super().delete()
 
     def save(self, *args, **kwargs):
-        try:
+        if self.id is not None:
             db_instance: CustomUser = self.__class__.objects.get(id=self.id)
+
             if self.profile_photo != db_instance.profile_photo:
                 db_instance.profile_photo.delete(save=False)
+
             if self.background_photo != db_instance.background_photo:
                 db_instance.background_photo.delete(save=False)
-        # Todo: Identify types of exceptions thrown
-        except Exception:
-            pass
 
         super().save(*args, **kwargs)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from '../common/Header';
+import Header from '../Header';
 import { Button } from 'react-native-paper';
 
 const SettingsPage = ({ navigation }) => {

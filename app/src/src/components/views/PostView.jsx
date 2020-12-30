@@ -3,8 +3,8 @@ import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhoto from '../common/ProfilePhoto';
 import { Choices, PostsEndpoint } from '../../utils/endpoints';
-import CommentBar from '../common/CommentBar/CommentBar';
-import ImageCollection from '../common/ImageCollection';
+import CommentBar from '../CommentBar';
+import ImageCollection from '../containers/ImageCollection';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 

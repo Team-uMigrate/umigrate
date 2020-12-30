@@ -6,7 +6,7 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import Header from '../../common/Header';
+import Header from '../../Header';
 import PostTypeOptionsButton from './PostTypeOptionsButton';
 import BasicCreateForm from '../common/BasicCreateForm';
 import {

@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
-import ProfilePhoto from '../ProfilePhoto';
-import { ReplyContainer } from './ReplyContainer';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import ProfilePhoto from '../common/ProfilePhoto';
 
-const CommentView = ({ id, datetime_created, creator, content }) => {
-  // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z
-  const date = datetime_created.substring(0, 'YYYY-MM-DD'.length);
-  const time = datetime_created.substring(
-    'YYYY-MM-DDT'.length,
-    'YYYY-MM-DDTHH:MM'.length
-  );
+const ReplyView = ({ creator, content, datetime_created }) => {
+  let date = datetime_created.substring(0, 10);
+  let time = datetime_created.substring(11, 16);
 
   return (
-    <View style={styles.commentView}>
+    <View style={styles.replyView}>
+      {/* The user's name */}
       <View style={{ flexDirection: 'row' }}>
         {/* Pushes the user's name forward so it lines up with the content */}
         <View style={{ flex: 1 }} />
@@ -20,8 +16,9 @@ const CommentView = ({ id, datetime_created, creator, content }) => {
           <Text style={{ fontSize: 12.5 }}>{creator.preferred_name}</Text>
         </View>
       </View>
+      {/* Profile photo, text content, and date/time of post creation */}
       <View style={{ flexDirection: 'row' }}>
-        <View style={{ marginRight: '2.5%', flex: 1 }}>
+        <View style={styles.profilePhotoView}>
           <ProfilePhoto photo={creator.profile_photo} size={30} />
         </View>
         <View style={styles.contentContainer}>
@@ -31,25 +28,24 @@ const CommentView = ({ id, datetime_created, creator, content }) => {
           <Text style={styles.timestamp}>{date + '\n' + time}</Text>
         </View>
       </View>
-
-      <ReplyContainer commentId={id} />
     </View>
   );
 };
 
-export default CommentView;
+export default ReplyView;
 
 const styles = StyleSheet.create({
-  commentView: {
+  profilePhotoView: {
+    marginRight: 5,
     flex: 1,
-    margin: 5,
-    marginLeft: 10,
-    marginRight: 10,
+  },
+  replyView: {
+    marginTop: 10,
   },
   contentContainer: {
-    borderRadius: 20,
+    flex: 5.5,
     backgroundColor: '#EBEBEB',
-    flex: 6,
+    borderRadius: 15,
     padding: 5,
     paddingLeft: 12,
     paddingRight: 5,

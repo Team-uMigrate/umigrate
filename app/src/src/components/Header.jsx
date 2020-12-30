@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Appbar } from 'react-native-paper';
 import { StyleSheet, Image, Dimensions } from 'react-native';
-import Logo from '../../../../assets/favicon.png';
-import NavContext from '../../../contexts/NavContext';
+import Logo from '../../assets/favicon.png';
+import NavContext from '../contexts/NavContext';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const statusHeight = getStatusBarHeight(true);

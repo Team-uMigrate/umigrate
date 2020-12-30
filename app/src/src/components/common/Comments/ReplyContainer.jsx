@@ -1,7 +1,7 @@
 import { CommentRepliesEndpoint } from '../../../utils/endpoints';
 import { StyleSheet, View } from 'react-native';
-import ReplyView from './ReplyView';
-import ShowRepliesButton from './ShowRepliesButton';
+import ReplyView from '../../views/ReplyView';
+import ShowRepliesButton from '../../buttons/ShowRepliesButton';
 import React, { Component } from 'react';
 
 export class ReplyContainer extends Component {

@@ -2,7 +2,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import { CommentsEndpoint } from '../../../utils/endpoints';
+import { CommentsEndpoint } from '../../utils/endpoints';
 
 const CommentBarButtons = ({
   item,

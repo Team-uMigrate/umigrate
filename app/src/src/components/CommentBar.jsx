@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import CommentBarButtons from './CommentBarButtons';
-import NavContext from '../../../contexts/NavContext';
+import CommentBarButtons from './buttons/CommentBarButtons';
+import NavContext from '../contexts/NavContext';
 
 /*
 To add the comment bar to your components, you need to pass in two callback functions.

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getUserData, ProfileEndpoint } from '../utils/endpoints';
-import Header from '../components/common/Header';
+import Header from '../components/Header';
 import { Avatar, Card, IconButton, Paragraph } from 'react-native-paper';
 import MenuLogout from '../components/Menu/MenuLogout';
 

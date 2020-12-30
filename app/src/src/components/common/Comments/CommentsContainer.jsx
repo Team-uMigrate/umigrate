@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
-import CommentView from './CommentView';
+import CommentView from '../../views/CommentView';
 import { CommentsEndpoint } from '../../../utils/endpoints';
-import Header from '../Header';
+import Header from '../../Header';
 
 class CommentsContainer extends Component {
   state = {
@@ -76,10 +76,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 10,
     flex: 1,
-  },
-  commentView: {
-    flex: 2,
-    alignSelf: 'center',
-    margin: 50,
   },
 });

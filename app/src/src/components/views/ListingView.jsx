@@ -3,8 +3,8 @@ import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhoto from '../common/ProfilePhoto';
 import { ListingsEndpoint, Choices } from '../../utils/endpoints';
-import CommentBar from '../common/CommentBar/CommentBar';
-import ImageCollection from '../common/ImageCollection';
+import CommentBar from '../CommentBar';
+import ImageCollection from '../containers/ImageCollection';
 import moment from 'moment';
 
 const ListingView = (listing) => {

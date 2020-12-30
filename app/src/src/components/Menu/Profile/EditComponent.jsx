@@ -18,7 +18,7 @@ import {
   ProfileEndpoint,
   setUserData,
 } from '../../../utils/endpoints';
-import Header from '../../common/Header';
+import Header from '../../Header';
 import ProfileComponents from './ProfileComponents';
 import * as ImagePicker from 'expo-image-picker';
 

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
 import { Choices, getUserData } from '../../../utils/endpoints';
-import Header from '../../common/Header';
+import Header from '../../Header';
 import ProfileComponents from './ProfileComponents';
 class ProfilePage extends Component {
   state = { user: {} };

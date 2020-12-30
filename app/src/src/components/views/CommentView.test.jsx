@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
 import { shallow } from 'enzyme';
-import { mockComment } from '../../../utils/mockData';
+import { mockComment } from '../../utils/mockData';
 import CommentView from './CommentView';
 
 describe('<CommentView />', () => {

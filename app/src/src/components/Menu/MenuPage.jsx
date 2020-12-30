@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Card, Paragraph, Avatar, IconButton } from 'react-native-paper';
 import { ProfileEndpoint, getUserData } from '../../utils/endpoints';
-import Header from '../common/Header';
+import Header from '../Header';
 import MenuLogout from './MenuLogout';
 
 class MenuPage extends Component {

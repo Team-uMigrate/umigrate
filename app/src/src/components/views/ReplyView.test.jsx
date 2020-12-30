@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-native-testing-library';
 import ReplyView from './ReplyView';
-import { mockReply } from '../../../utils/mockData';
+import { mockReply } from '../../utils/mockData';
 
 describe('<ReplyView />', () => {
   let screen = null;

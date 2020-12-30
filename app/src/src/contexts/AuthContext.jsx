@@ -7,7 +7,7 @@ class AuthContextProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: undefined,
+      isAuthenticated: null,
       setIsAuthenticated: (isAuth) => {
         this.setState({ isAuthenticated: isAuth });
       },

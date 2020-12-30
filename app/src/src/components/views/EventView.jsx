@@ -76,7 +76,7 @@ const EventView = (event) => {
             textStyle={styles.bodyText}
             radius={10}
             onPressAction={async () => {
-              await EventsEndpoint.attend(event.id, !event.is_attending);
+              await EventsEndpoint.setAttending(event.id, !event.is_attending);
               event.updateItem({
                 ...event,
                 is_attending: !event.is_attending,
@@ -98,7 +98,10 @@ const EventView = (event) => {
             radius={10}
             gradientBegin={is_interested ? null : '#483FAB'}
             onPressAction={async () => {
-              await EventsEndpoint.interested(event.id, !event.is_interested);
+              await EventsEndpoint.setInterested(
+                event.id,
+                !event.is_interested
+              );
               event.updateItem({
                 ...event,
                 is_interested: !event.is_interested,

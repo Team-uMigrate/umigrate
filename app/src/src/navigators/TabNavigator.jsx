@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import CommunityPage from '../components/Community';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import MarketPage from '../components/Market';
-import HousingPage from '../components/Housing';
 import MenuNavigator from './MenuNavigator';
 import { StyleSheet } from 'react-native';
 import NavContext from '../contexts/NavContext';
 import CreateItemContext from '../contexts/CreateItemContext';
-import CreatePage from '../components/Create';
+import CommunityScreen from "../screens/CommunityScreen";
+import MarketScreen from "../screens/MarketScreen";
+import CreateItemScreen from "../screens/CreateItemScreen";
+import HousingScreen from "../screens/HousingScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,7 +31,7 @@ const TabNavigator = ({ navigation }) => {
     >
       <Tab.Screen
         name="Community"
-        component={CommunityPage}
+        component={CommunityScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -44,7 +44,7 @@ const TabNavigator = ({ navigation }) => {
       />
       <Tab.Screen
         name="Market"
-        component={MarketPage}
+        component={MarketScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -57,7 +57,7 @@ const TabNavigator = ({ navigation }) => {
       />
       <Tab.Screen
         name="Create"
-        component={CreatePage}
+        component={CreateItemScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -76,7 +76,7 @@ const TabNavigator = ({ navigation }) => {
       />
       <Tab.Screen
         name="Housing"
-        component={HousingPage}
+        component={HousingScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="domain" color={color} size={24} />

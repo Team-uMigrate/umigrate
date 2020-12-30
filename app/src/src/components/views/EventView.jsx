@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
-import ProfilePhoto from '../../common/ProfilePhoto';
-import { EventsEndpoint, Choices } from '../../../utils/endpoints';
-import CommentBar from '../../common/CommentBar/CommentBar';
-import ImageCollection from '../../common/ImageCollection';
+import ProfilePhoto from '../common/ProfilePhoto';
+import { EventsEndpoint, Choices } from '../../utils/endpoints';
+import CommentBar from '../common/CommentBar/CommentBar';
+import ImageCollection from '../common/ImageCollection';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 

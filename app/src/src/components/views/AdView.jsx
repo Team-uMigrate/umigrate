@@ -1,28 +1,27 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import ProfilePhoto from '../../common/ProfilePhoto';
-import { ListingsEndpoint, Choices } from '../../../utils/endpoints';
-import CommentBar from '../../common/CommentBar/CommentBar';
-import ImageCollection from '../../common/ImageCollection';
+import ProfilePhoto from '../common/ProfilePhoto';
+import { AdsEndpoint, Choices } from '../../utils/endpoints';
+import CommentBar from '../common/CommentBar/CommentBar';
+import ImageCollection from '../common/ImageCollection';
 import moment from 'moment';
 
-const ListingView = (listing) => {
+const AdView = (ad) => {
   const {
-    creator,
     title,
-    content,
-    community,
+    creator,
     datetime_created,
-    photos,
-    category,
+    content,
     price,
-    season,
-    year,
-  } = listing;
+    community,
+    postal_code,
+    category,
+    photos,
+  } = ad;
 
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes.listing;
+  const contentType = Choices.contentTypes['ad'];
 
   return (
     <Card style={styles.container}>
@@ -42,27 +41,32 @@ const ListingView = (listing) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Community: ' + Choices.communities[community]}
-        </Paragraph>
-        <Paragraph style={styles.bodyText}>{'Price: $' + price}</Paragraph>
-        <Paragraph style={styles.bodyText}>
-          {'Term: ' + Choices.seasons[season] + ' ' + year}
+          <Text style={styles.bold}>Price: </Text>${price}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Category: ' + Choices.listingCategories[category]}
+          <Text style={styles.bold}>Community: </Text>
+          {Choices.communities[community]}
+        </Paragraph>
+        <Paragraph style={styles.bodyText}>
+          <Text style={styles.bold}>Postal Code: </Text>
+          {postal_code}
+        </Paragraph>
+        <Paragraph style={styles.bodyText}>
+          <Text style={styles.bold}>Category: </Text>
+          {Choices.adCategories[category]}
         </Paragraph>
         <ImageCollection photos={photos} />
         <CommentBar
-          item={listing}
+          item={ad}
           contentType={contentType}
-          endpoint={ListingsEndpoint}
+          endpoint={AdsEndpoint}
         />
       </Card.Content>
     </Card>
   );
 };
 
-export default ListingView;
+export default AdView;
 
 const styles = StyleSheet.create({
   container: {
@@ -90,19 +94,19 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     letterSpacing: 0.5,
   },
-  date: {
-    color: 'grey',
-  },
   bodyText: {
     marginBottom: 0,
     letterSpacing: 0.5,
     fontSize: 15,
   },
-  bold: {
-    fontWeight: '500',
-  },
   name: {
     fontWeight: '500',
     fontSize: 16,
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  date: {
+    color: 'grey',
   },
 });

@@ -1,6 +1,6 @@
 import { EventsEndpoint, PostsEndpoint } from '../utils/endpoints';
-import PostView from '../components/Community/Feed/PostView';
-import EventView from '../components/Community/Feed/EventView';
+import PostView from '../components/views/PostView';
+import EventView from '../components/views/EventView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';

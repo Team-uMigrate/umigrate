@@ -4,16 +4,16 @@ import { StyleSheet } from 'react-native';
 import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginPage from '../components/Login';
-import RegistrationPage from '../components/Register';
-import MessagingPage from '../components/Messaging';
 import { NavContextProvider } from '../contexts/NavContext';
 import CommentsContainer from '../components/common/Comments/CommentsContainer';
-import NotificationPage from '../components/Notifications/NotificationsPage';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/LoadingScreen';
 import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
+import MessagingScreen from "../screens/MessagingScreen";
+import LoginScreen from "../screens/LoginScreen";
+import RegistrationScreen from "../screens/RegistrationScreen";
+import NotificationScreen from "../screens/NotificationsScreen";
 
 const Stack = createStackNavigator();
 
@@ -48,14 +48,14 @@ const AuthNavigator = () => {
               gestureDirection={'horizontal-inverted'}
             >
               <Stack.Screen name="Tabs" component={TabNavigator} />
-              <Stack.Screen name="Messaging" component={MessagingPage} />
+              <Stack.Screen name="Messaging" component={MessagingScreen} />
               <Stack.Screen name="Comments" component={CommentsContainer} />
               <Stack.Screen
                 name="Notifications"
                 options={{
                   gestureDirection: 'horizontal-inverted',
                 }}
-                component={NotificationPage}
+                component={NotificationScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>
@@ -67,8 +67,8 @@ const AuthNavigator = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Register" component={RegistrationPage} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegistrationScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

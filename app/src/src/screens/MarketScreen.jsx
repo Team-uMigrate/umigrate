@@ -1,11 +1,11 @@
-import { AdsEndpoint } from "../utils/endpoints";
-import AdView from "../components/Market/Ads/AdView";
-import React, { useRef, useState } from "react";
-import { useScrollToTop } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
-import Header from "../components/common/Header";
-import FeedContainer from "../components/common/FeedContainer";
-import CreateModal from "../components/Create/CreateModal";
+import { AdsEndpoint } from '../utils/endpoints';
+import AdView from '../components/views/AdView';
+import React, { useRef, useState } from 'react';
+import { useScrollToTop } from '@react-navigation/native';
+import { StyleSheet, View } from 'react-native';
+import Header from '../components/common/Header';
+import FeedContainer from '../components/common/FeedContainer';
+import CreateModal from '../components/Create/CreateModal';
 
 const endpoints = [AdsEndpoint];
 const itemViews = [(item) => <AdView {...item} />];

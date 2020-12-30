@@ -4,13 +4,16 @@ const NavContext = createContext();
 
 // A context provider that stores the navigation prop for sibling navigation screens
 class NavContextProvider extends Component {
-  state = {
-    navigation: null,
-    setNavigation: (navigation) => {
-      this.setState({ navigation: navigation });
-    },
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      navigation: null,
+      setNavigation: (navigation) => {
+        this.setState({ navigation: navigation });
+      },
+    };
+  }
+  
   render() {
     return (
       <NavContext.Provider value={this.state}>

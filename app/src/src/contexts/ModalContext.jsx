@@ -4,12 +4,15 @@ const ModalContext = createContext();
 
 // A context provider that stores the modal visibility state
 class ModalContextProvider extends Component {
-  state = {
-    isVisible: false,
-    setVisible: (isVisible) => {
-      this.setState({ isVisible: isVisible });
-    },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isVisible: false,
+      setVisible: (isVisible) => {
+        this.setState({ isVisible: isVisible });
+      },
+    };
+  }
 
   render() {
     return (

@@ -8,6 +8,7 @@ import {
 import AuthContext from '../contexts/AuthContext';
 import { ActivityIndicator, Text, View } from 'react-native';
 
+// A screen that shows the loading view
 const LoadingScreen = () => {
   const auth = useContext(AuthContext);
 

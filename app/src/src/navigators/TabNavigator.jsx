@@ -5,10 +5,10 @@ import MenuNavigator from './MenuNavigator';
 import { StyleSheet } from 'react-native';
 import NavContext from '../contexts/NavContext';
 import CreateItemContext from '../contexts/CreateItemContext';
-import CommunityScreen from "../screens/CommunityScreen";
-import MarketScreen from "../screens/MarketScreen";
-import CreateItemScreen from "../screens/CreateItemScreen";
-import HousingScreen from "../screens/HousingScreen";
+import CommunityScreen from '../screens/CommunityScreen';
+import MarketScreen from '../screens/MarketScreen';
+import CreateItemScreen from '../screens/CreateItemScreen';
+import HousingScreen from '../screens/HousingScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 

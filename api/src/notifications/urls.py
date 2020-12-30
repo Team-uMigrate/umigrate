@@ -1,8 +1,12 @@
 from rest_framework.routers import DefaultRouter
-from django.urls import path
+from django.urls import path, include
 from .api_views import NotificationList, DeviceViewSet
 
-# Notifications url patterns
 router = DefaultRouter(trailing_slash=False)
-router.register(r"devices/", DeviceViewSet, basename="devices")
-urlpatterns = [path("notifications/", NotificationList.as_view())] + router.urls
+router.register(r"", DeviceViewSet, basename="devices")
+
+# Notifications url patterns
+urlpatterns = [
+    path("notifications", NotificationList.as_view()),
+    path("devices/", include(router.urls)),
+]

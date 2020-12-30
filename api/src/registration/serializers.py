@@ -7,6 +7,7 @@ from rest_auth.registration.serializers import (
 from django.utils.translation import ugettext_lazy as _
 
 
+# A serializer class for registration
 class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True, style={"input_type": "password"})

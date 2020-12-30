@@ -1,11 +1,10 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from common.constants.choices import Choices
 from users.models import CustomUser
 
 
-# Represents a comment object
+# A model class that represents a comment
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)
@@ -25,7 +24,6 @@ class Comment(models.Model):
     saved_users = models.ManyToManyField(
         to=CustomUser, related_name="saved_comments", blank=True
     )
-    # Todo: Fix cascading delete
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
@@ -37,7 +35,7 @@ class Comment(models.Model):
         return f"{self.content}"
 
 
-# Represents a reply object
+# A model class that represents a reply
 class Reply(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)

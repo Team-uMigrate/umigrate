@@ -7,7 +7,7 @@ class ErrorContextProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: false,
+      message: null,
       setMessage: (message) => {
         this.setState({ message: message });
       },

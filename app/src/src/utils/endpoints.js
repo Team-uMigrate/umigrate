@@ -67,13 +67,13 @@ export class Choices {
     comment: 27,
     reply: 28,
   };
+  // Todo: See what needs to be fixed here
   static adCategories = ['Electronics', 'Books', 'Food', 'Other'];
   static listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
   static notificationLevels = ['All', 'Following', 'None'];
   static currencies = ['CAD', 'USD'];
   static languages = ['English', 'French'];
   static jobTypes = ['Full-time', 'Internship'];
-  static roomPrivacy = ['Public', 'Private', 'Direct Messaging'];
 }
 
 // Session Storage functions
@@ -179,17 +179,38 @@ class AbstractEndpoint {
     return await Axios.delete(`${BASE_URL}${this.endpoint}${id}`);
   }
 
+  static async liked(page) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}liked${toQueryString({ page: page })}`
+    );
+  }
+
   static async like(id, shouldLike) {
     return await Axios.post(
-      `${BASE_URL}${this.endpoint}like`,
-      { id: id, like: shouldLike } // Todo: Use toFormData
+      `${BASE_URL}${this.endpoint}liked`,
+      toFormData({ id: id, should_add: shouldLike }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+  }
+
+  static async likes(id, page) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}${id}/likes${toQueryString({ page: page })}`
+    );
+  }
+
+  static async saved(page) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}saved${toQueryString({ page: page })}`
     );
   }
 
   static async save(id, shouldSave) {
     return await Axios.post(
-      `${BASE_URL}${this.endpoint}save`,
-      toFormData({ id: id, save: shouldSave }),
+      `${BASE_URL}${this.endpoint}saved`,
+      toFormData({ id: id, should_add: shouldSave }),
       {
         headers: { 'content-type': 'multipart/form-data' },
       }
@@ -229,17 +250,35 @@ export class CommentRepliesEndpoint extends AbstractEndpoint {
 export class EventsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/events/';
 
-  static async attend(id, shouldAttend) {
-    return await Axios.post(
-      `${BASE_URL}${this.endpoint}attending`,
-      { id: id, attending: shouldAttend } // Todo: use toFormData
+  static async interested(page) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}interested${toQueryString({ page: page })}`
     );
   }
 
-  static async interested(id, shouldBeInterested) {
+  static async setInterested(id, shouldSetInterested) {
     return await Axios.post(
       `${BASE_URL}${this.endpoint}interested`,
-      { id: id, interested: shouldBeInterested } // Todo: use toFormData
+      toFormData({ id: id, should_add: shouldSetInterested }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+  }
+
+  static async attending(page) {
+    return await Axios.get(
+      `${BASE_URL}${this.endpoint}attending${toQueryString({ page: page })}`
+    );
+  }
+
+  static async setAttending(id, shouldSetAttending) {
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}attending`,
+      toFormData({ id: id, should_add: shouldSetAttending }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -321,9 +360,9 @@ export class UsersEndpoint {
 
 export class AuthEndpoint {
   static async login(email, password) {
-    removeAuthToken();
-    removePushToken();
-    removeUserData();
+    await removeAuthToken();
+    await removePushToken();
+    await removeUserData();
     const response = await Axios.post(
       `${BASE_URL}/api/login/`,
       toFormData({ email: email, password: password }),
@@ -331,24 +370,24 @@ export class AuthEndpoint {
         headers: { 'content-type': 'multipart/form-data' },
       }
     );
-    setAuthToken(response.data.key);
+    await setAuthToken(response.data.key);
 
     return response;
   }
 
   static async logout() {
     const response = await Axios.post(`${BASE_URL}/api/logout/`);
-    removeAuthToken();
-    removePushToken();
-    removeUserData();
+    await removeAuthToken();
+    await removePushToken();
+    await removeUserData();
 
     return response;
   }
 
   static async register(email, password, confirmPassword) {
-    removeAuthToken();
-    removePushToken();
-    removeUserData();
+    await removeAuthToken();
+    await removePushToken();
+    await removeUserData();
 
     return await Axios.post(
       `${BASE_URL}/api/registration/`,
@@ -367,7 +406,7 @@ export class AuthEndpoint {
 export class ProfileEndpoint {
   static async get() {
     const response = await Axios.get(`${BASE_URL}/api/user/`);
-    setUserData(response.data);
+    await setUserData(response.data);
 
     return response;
   }

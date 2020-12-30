@@ -1,10 +1,4 @@
 import React, { Component, createContext } from 'react';
-import {
-  getAuthToken,
-  setAuthToken,
-  removeAuthToken,
-  ProfileEndpoint,
-} from '../utils/endpoints';
 
 const AuthContext = createContext();
 
@@ -19,22 +13,6 @@ class AuthContextProvider extends Component {
       },
     };
   }
-
-  componentDidMount = async () => {
-    const token = await getAuthToken();
-
-    // Make request to Profile endpoint and set isAuthenticated to true if successful and false otherwise
-    if (token != null) {
-      await setAuthToken(token);
-      try {
-        await ProfileEndpoint.get();
-        this.setIsAuthenticated(true);
-      } catch (error) {
-        await removeAuthToken();
-        this.setIsAuthenticated(false);
-      }
-    } else this.setIsAuthenticated(false);
-  };
 
   render() {
     return (

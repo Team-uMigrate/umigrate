@@ -10,3 +10,10 @@ class PhotoCollectionExtension(models.Model):
 
     class Meta:
         abstract = True
+
+    def delete(self, using=None, keep_parents=False):
+        photos = self.photos.all()
+        for photo in photos:
+            photo.delete()
+
+        super().delete()

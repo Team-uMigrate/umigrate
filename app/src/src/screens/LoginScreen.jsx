@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
         <View>
           <Image
             style={styles.imageStyle}
-            source={require('../../../assets/templatedLogin.png')}
+            source={require('../../assets/templatedLogin.png')}
           />
         </View>
         <View style={styles.inputBoxes}>
@@ -70,7 +70,6 @@ const LoginScreen = ({ navigation }) => {
             <TextInput
               style={styles.textInput}
               label="Password..."
-              style={styles.textInput}
               onChangeText={(text) => setPassword(text)}
               autoCompleteType="password"
               secureTextEntry={true}

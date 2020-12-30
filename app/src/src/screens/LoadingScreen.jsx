@@ -6,7 +6,7 @@ import {
   setAuthToken,
 } from '../utils/endpoints';
 import AuthContext from '../contexts/AuthContext';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 // A screen that shows the loading view
 const LoadingScreen = () => {
@@ -39,3 +39,12 @@ const LoadingScreen = () => {
 };
 
 export default LoadingScreen;
+
+const styles = StyleSheet.create({
+  waitContainer: {
+    flex: 1,
+    backgroundColor: '#eeeeee',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

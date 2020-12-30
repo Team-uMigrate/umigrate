@@ -47,7 +47,7 @@ const RegistrationScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Image
         style={styles.imageStyle}
-        source={require('../../../assets/templatedRegister.png')}
+        source={require('../../assets/templatedRegister.png')}
       />
       <Text style={styles.title}>Get started by registering</Text>
       <View style={styles.inputBoxes}>

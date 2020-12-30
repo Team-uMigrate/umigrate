@@ -10,10 +10,10 @@ import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/LoadingScreen';
 import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
-import MessagingScreen from "../screens/MessagingScreen";
-import LoginScreen from "../screens/LoginScreen";
-import RegistrationScreen from "../screens/RegistrationScreen";
-import NotificationScreen from "../screens/NotificationsScreen";
+import MessagingScreen from '../screens/MessagingScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RegistrationScreen from '../screens/RegistrationScreen';
+import NotificationScreen from '../screens/NotificationsScreen';
 
 const Stack = createStackNavigator();
 
@@ -79,15 +79,3 @@ const AuthNavigator = () => {
 };
 
 export default AuthNavigator;
-
-const styles = StyleSheet.create({
-  tabNavigator: {
-    backgroundColor: '#ffffff',
-  },
-  waitContainer: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

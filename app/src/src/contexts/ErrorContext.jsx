@@ -11,6 +11,9 @@ class ErrorContextProvider extends Component {
       setMessage: (message) => {
         this.setState({ message: message });
       },
+      removeMessage: () => {
+        this.setState({message: null});
+      },
     };
   }
 

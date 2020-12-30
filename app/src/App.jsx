@@ -4,6 +4,7 @@ import { AuthContextProvider } from './src/contexts/AuthContext';
 import { Provider as PaperProvider } from 'react-native-paper';
 import AuthNavigator from './src/navigators/AuthNavigator';
 
+// The root React Component
 const App = () => {
   return (
     <PaperProvider>

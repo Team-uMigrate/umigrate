@@ -26,6 +26,8 @@ const LoginScreen = ({ navigation }) => {
       auth.setIsAuthenticated(true);
     } catch (error) {
       // Populate error messages
+      // Todo: Fix this
+
       let errors = [];
       let count = 0;
       // Loops through all error messages in the data of the response field in the error object to generate error messages

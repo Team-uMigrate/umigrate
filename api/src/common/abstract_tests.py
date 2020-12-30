@@ -225,7 +225,7 @@ class AbstractSavedTestCase:
     def test_save(self):
         for option in self.save_options:
             # test save
-            data = {"save": True, "id": 1}
+            data = {"should_add": True, "id": 1}
             response = self.api_client.post(f"{self.endpoint}{option}", data)
             self.assert_equal(
                 response.status_code,
@@ -253,7 +253,7 @@ class AbstractSavedTestCase:
             )
 
             # test remove saved
-            data = {"save": False, "id": 1}
+            data = {"should_add": False, "id": 1}
             response = self.api_client.post(f"{self.endpoint}{option}", data)
             self.assert_equal(
                 response.status_code,

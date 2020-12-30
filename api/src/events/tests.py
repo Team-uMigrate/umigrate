@@ -36,7 +36,7 @@ class EventTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
             "datetime_created",
         ]
         self.maxDiff = self.max_diff
-        self.save_options = ["saved"]
+        self.save_options = ["liked", "saved", "interested", "attending"]
 
         AbstractAPITestCase.setUp(self)
 

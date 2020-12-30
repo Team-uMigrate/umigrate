@@ -21,20 +21,32 @@ import CommentsContainer from '../components/common/Comments/CommentsContainer';
 import NotificationPage from '../components/Notifications/NotificationsPage';
 import { ModalContextProvider } from '../contexts/ModalContext';
 import { DevicesEndpoint, setPushToken } from '../utils/endpoints';
+import ErrorContext from "../contexts/ErrorContext";
 
 const Stack = createStackNavigator();
 
+// A navigator that renders components depending on authentication state
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const error = useContext(ErrorContext)
+  const [expoPushToken, setExpoPushToken] = useState(undefined);
+
   useEffect(() => {
-    auth.isAuthenticated &&
-      registerForPushNotificationsAsync().then((token) =>
-        setExpoPushToken(token)
-      );
+    (async () => {
+      if (auth.isAuthenticated) {
+        try {
+          const token = await registerForPushNotificationsAsync(error);
+          setExpoPushToken(token);
+        }
+        catch (e) {
+          error.setMessage(e.message);
+        }
+      }
+    })();
   }, [auth.isAuthenticated]);
 
   if (auth.isAuthenticated === true) {
+    // Render authenticated view
     return (
       <NavContextProvider>
         <ModalContextProvider>
@@ -59,6 +71,7 @@ const AuthNavigator = () => {
       </NavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {
+    // Render not authenticated view
     return (
       <NavigationContainer>
         <Stack.Navigator>
@@ -68,7 +81,9 @@ const AuthNavigator = () => {
       </NavigationContainer>
     );
   } else {
+    // Render loading view
     return (
+      // Todo: Make a loading screen component
       <View style={styles.waitContainer}>
         <Text>Please Wait</Text>
         <ActivityIndicator size="large" />
@@ -91,36 +106,43 @@ const styles = StyleSheet.create({
   },
 });
 
-const registerForPushNotificationsAsync = async () => {
+const registerForPushNotificationsAsync = async (error) => {
   let token;
+  // Check the platform that the app is running on
   if (
     Constants.isDevice &&
     (Platform.OS === 'ios' || Platform.OS === 'android')
   ) {
+    // Retrieve notification permissions
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
     let finalStatus = existingStatus;
+    // Request notification permissions if not already granted
     if (existingStatus !== 'granted') {
       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       finalStatus = status;
     }
+    // Set error message if notification permissions is not granted
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      error.setMessage('Failed to get push token for push notification!');
       return;
     }
+    // Retrieve token and set it to async storage
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    setPushToken(token);
+    await setPushToken(token);
+
+    // Retrieve devices from Devices endpoint and register current device if not in the devices list
     const devices = (await DevicesEndpoint.list()).data;
     if (!devices.find((d) => d.expo_push_token === token)) {
       await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
     }
   } else {
-    alert('Must use physical device for Push Notifications');
+    error.setMessage('Must use physical device for Push Notifications');
   }
 
   if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
+   await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],

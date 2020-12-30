@@ -9,12 +9,15 @@ import ProfilePage from '../components/Menu/Profile/ProfilePage';
 import EditProfile from '../components/Menu/Profile/EditProfile';
 
 const Stack = createStackNavigator();
+
+// A navigator that renders components depending on the current menu navigation route
 const MenuNavigator = () => {
   return (
     <NavigationContainer
+      // Todo: See if this can be removed
       independent={
         true
-      } /* need independent={true} or else there's nested stack errors */
+      }
     >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Menu" component={MenuPage} />

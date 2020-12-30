@@ -12,6 +12,7 @@ import CreatePage from '../components/Create';
 
 const Tab = createMaterialBottomTabNavigator();
 
+// A navigator that renders components depending on the current tab navigation route
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(NavContext);
   const modal = useContext(ModalContext);

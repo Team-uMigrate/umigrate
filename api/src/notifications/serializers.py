@@ -22,5 +22,7 @@ class DeviceSerializer(ModelSerializerExtension):
         fields = "__all__"
 
     def create(self, validated_data):
+        # Set the user as the creator of the device
         validated_data["creator"] = self.context["request"].user
+
         return ModelSerializerExtension.create(self, validated_data)

@@ -35,6 +35,7 @@ class CommentSerializer(ModelSerializerExtension):
         return instance.replies.count()
 
     def get_most_liked_reply(self, instance):
+        # Retrieve the first most liked reply
         most_liked_reply: Reply = (
             instance.replies.annotate(likes=Count("liked_users"))
             .order_by("-likes", "-datetime_created")
@@ -47,9 +48,11 @@ class CommentSerializer(ModelSerializerExtension):
         most_liked_reply_serializer = ReplyDetailSerializer(
             most_liked_reply, context=self.context
         )
+
         return most_liked_reply_serializer.data
 
     def create(self, validated_data):
+        # Set the user as the creator of the comment
         validated_data["creator"] = self.context["request"].user
         created_data: Comment = ModelSerializerExtension.create(self, validated_data)
         create_tagged_user_notification(created_data)
@@ -84,6 +87,7 @@ class ReplySerializer(ModelSerializerExtension):
         return instance.liked_users.count()
 
     def create(self, validated_data):
+        # Set the user as the creator of the reply
         validated_data["creator"] = self.context["request"].user
         created_data: Reply = ModelSerializerExtension.create(self, validated_data)
         create_tagged_user_notification(created_data)

@@ -33,6 +33,7 @@ class AbstractModelSerializer(ModelSerializerExtension):
         return instance.comments.count()
 
     def get_most_liked_comment(self, instance):
+        # Retrieve the first most liked comment
         most_liked_comment: Comment = (
             instance.comments.annotate(likes=Count("liked_users"))
             .order_by("-likes", "-datetime_created")
@@ -48,11 +49,14 @@ class AbstractModelSerializer(ModelSerializerExtension):
         return most_liked_comment_serializer.data
 
     def create(self, validated_data):
+        # Set the user as the creator of the shared item
         validated_data["creator"] = self.context["request"].user
+
         created_data: AbstractPostModel = ModelSerializerExtension.create(
             self, validated_data
         )
         create_tagged_user_notification(created_data)
+
         return created_data
 
 

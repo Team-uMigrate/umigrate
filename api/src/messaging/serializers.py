@@ -11,10 +11,14 @@ class RoomSerializer(ModelSerializerExtension):
 
     def create(self, validated_data):
         created_data: Room = ModelSerializerExtension.create(self, validated_data)
+
+        # Set the user as a member of the room
         created_data.members.add(self.context["request"].user)
+
         return created_data
 
     def update(self, instance, validated_data):
+        # Allow a user to add new members to the room or remove only themselves from the room
         for member in instance.members.all():
             if (
                 "members" in validated_data
@@ -22,6 +26,7 @@ class RoomSerializer(ModelSerializerExtension):
                 and member != self.context["request"].user
             ):
                 validated_data["members"].append(member)
+
         return ModelSerializerExtension.update(self, instance, validated_data)
 
 

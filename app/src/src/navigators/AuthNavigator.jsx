@@ -10,7 +10,7 @@ import MessagingPage from '../components/Messaging';
 import { NavContextProvider } from '../contexts/NavContext';
 import CommentsContainer from '../components/common/Comments/CommentsContainer';
 import NotificationPage from '../components/Notifications/NotificationsPage';
-import { ModalContextProvider } from '../contexts/ModalContext';
+import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/LoadingScreen';
 import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
@@ -41,7 +41,7 @@ const AuthNavigator = () => {
     // Render authenticated view
     return (
       <NavContextProvider>
-        <ModalContextProvider>
+        <CreateItemContextProvider>
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
@@ -59,7 +59,7 @@ const AuthNavigator = () => {
               />
             </Stack.Navigator>
           </NavigationContainer>
-        </ModalContextProvider>
+        </CreateItemContextProvider>
       </NavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {

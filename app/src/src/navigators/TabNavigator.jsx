@@ -7,7 +7,7 @@ import HousingPage from '../components/Housing';
 import MenuNavigator from './MenuNavigator';
 import { StyleSheet } from 'react-native';
 import NavContext from '../contexts/NavContext';
-import ModalContext from '../contexts/ModalContext';
+import CreateItemContext from '../contexts/CreateItemContext';
 import CreatePage from '../components/Create';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -15,7 +15,7 @@ const Tab = createMaterialBottomTabNavigator();
 // A navigator that renders components depending on the current tab navigation route
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(NavContext);
-  const modal = useContext(ModalContext);
+  const createItem = useContext(CreateItemContext);
 
   useEffect(() => {
     nav.setNavigation(navigation);
@@ -69,7 +69,7 @@ const TabNavigator = ({ navigation }) => {
         }}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
-            modal.setVisible(true);
+            createItem.setIsModalVisible(true);
             e.preventDefault();
           },
         })}

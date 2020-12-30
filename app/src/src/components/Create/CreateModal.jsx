@@ -1,27 +1,27 @@
 import React, { useState, useContext } from 'react';
 import { Text, Alert, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
-import ModalContext from '../../contexts/ModalContext';
+import CreateItemContext from '../../contexts/CreateItemContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import GradientButton from 'react-native-gradient-buttons';
 
 const CreateModal = ({ navigation }) => {
-  const modal = useContext(ModalContext);
+  const createItem = useContext(CreateItemContext);
 
   const navigate = (page) => {
-    modal.setVisible(false);
+    createItem.setIsModalVisible(false);
     navigation.navigate('Create', { page: page });
   };
 
   return (
     <View>
       <Modal
-        onBackdropPress={() => modal.setVisible(false)}
-        visible={modal.isVisible}
+        onBackdropPress={() => createItem.setIsModalVisible(false)}
+        visible={createItem.isModalVisible}
         transparent={true}
         style={styles.modalContent}
         // backdropOpacity={0.3}
-        backdropOpacity={modal.isVisible ? 0.2 : 1}
+        backdropOpacity={createItem.isModalVisible ? 0.2 : 1}
       >
         <View style={styles.modalView}>
           <Text style={styles.text}>Where would you like to post...</Text>

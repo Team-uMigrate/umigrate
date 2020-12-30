@@ -8,7 +8,7 @@ const MenuLogout = () => {
 
   const handleSignOut = async () => {
     await AuthEndpoint.logout();
-    auth.setAuthenticated(false);
+    auth.setIsAuthenticated(false);
   };
 
   return (

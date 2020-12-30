@@ -28,7 +28,7 @@ const LoginPage = ({ navigation }) => {
     try {
       await AuthEndpoint.login(email, password);
       await ProfileEndpoint.get();
-      auth.setAuthenticated(true);
+      auth.setIsAuthenticated(true);
     } catch (error) {
       // Populate error messages
       let errors = [];

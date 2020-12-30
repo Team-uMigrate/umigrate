@@ -8,12 +8,13 @@ import {
 
 const AuthContext = createContext();
 
+// A context provider that stores the user's authentication state
 class AuthContextProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: null,
-      setAuthenticated: (isAuth) => {
+      isAuthenticated: undefined,
+      setIsAuthenticated: (isAuth) => {
         this.setState({ isAuthenticated: isAuth });
       },
     };
@@ -21,16 +22,18 @@ class AuthContextProvider extends Component {
 
   componentDidMount = async () => {
     const token = await getAuthToken();
+
+    // Make request to Profile endpoint and set isAuthenticated to true if successful and false otherwise
     if (token != null) {
       await setAuthToken(token);
       try {
         await ProfileEndpoint.get();
-        this.setState({ isAuthenticated: true });
+        this.setIsAuthenticated(true);
       } catch (error) {
         await removeAuthToken();
-        this.setState({ isAuthenticated: false });
+        this.setIsAuthenticated(false);
       }
-    } else this.setState({ isAuthenticated: false });
+    } else this.setIsAuthenticated(false);
   };
 
   render() {

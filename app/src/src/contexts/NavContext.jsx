@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react';
 
 const NavContext = createContext();
 
+// A context provider that stores the navigation prop for sibling navigation screens
 class NavContextProvider extends Component {
   state = {
     navigation: null,

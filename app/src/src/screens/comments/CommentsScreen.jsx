@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Header from '../../components/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateModal from '../../components/Create/CreateModal';
@@ -9,8 +9,8 @@ import CommentView from '../../components/views/CommentView';
 const endpoints = [CommentsEndpoint];
 const itemViews = [(item) => <CommentView {...item} />];
 
-// A screen that renders notifications
-const SharedItemScreen = ({ navigation, route }) => {
+// A screen that renders comments
+const CommentsScreen = ({ navigation, route }) => {
   const [commentsFilters, setCommentsFilters] = useState({
     content_type: route.params.contentType,
     object_id: route.params.postId,
@@ -31,7 +31,7 @@ const SharedItemScreen = ({ navigation, route }) => {
   );
 };
 
-export default SharedItemScreen;
+export default CommentsScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -12,7 +12,7 @@ import MessagingScreen from '../screens/messaging/MessagingScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
 import NotificationScreen from '../screens/notifications/NotificationsScreen';
-import SharedItemScreen from '../screens/shared-item/SharedItemScreen';
+import CommentsScreen from '../screens/comments/CommentsScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 
@@ -53,10 +53,7 @@ const AuthNavigator = () => {
                 name={routes.messaging}
                 component={MessagingScreen}
               />
-              <Stack.Screen
-                name={routes.sharedItem}
-                component={SharedItemScreen}
-              />
+              <Stack.Screen name={routes.comments} component={CommentsScreen} />
               <Stack.Screen
                 name={routes.notifications}
                 options={{

@@ -3,7 +3,7 @@ import CommunityContainer from '../../components/Create/CreateCommunity/Communit
 import MarketContainer from '../../components/Create/CreateMarket/MarketContainer';
 import HousingContainer from '../../components/Create/CreateHousing/HousingContainer';
 
-// A screen that allows the user to create shared items
+// A screen that allows the user to a create shared item
 const CreateItemScreen = ({ route }) => {
   switch (route.params.page) {
     case 'Community':
@@ -16,7 +16,7 @@ const CreateItemScreen = ({ route }) => {
       return <HousingContainer />;
 
     default:
-      break;
+      return <></>;
   }
 };
 

@@ -5,7 +5,7 @@ export const routes = {
   tabs: 'Tabs',
   messaging: 'Messaging',
   notifications: 'Notifications',
-  sharedItem: 'SharedItem',
+  comments: 'SharedItem',
   community: 'Community',
   market: 'Market',
   createItem: 'Create',

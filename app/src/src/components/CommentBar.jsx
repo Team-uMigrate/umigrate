@@ -68,7 +68,7 @@ const CommentBar = ({ item, contentType, endpoint }) => {
           </Text>
           <Text
             onPress={() => {
-              nav.navigation.navigate(routes.sharedItem, {
+              nav.navigation.navigate(routes.comments, {
                 postId: item.id,
                 contentType: contentType,
               });

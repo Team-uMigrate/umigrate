@@ -3,11 +3,11 @@ import { render } from 'react-native-testing-library';
 import { Text } from 'react-native';
 import { waitFor } from 'react-native-testing-library';
 import { shallow } from 'enzyme';
-import CommunityContainer from './CommunityContainer';
+import CreateCommunityItems from './CreateCommunityItems';
 
-describe('<CommunityContainer />', () => {
+describe('<CreateCommunityItems />', () => {
   let screen = null;
-  beforeEach(() => (screen = render(shallow(<CommunityContainer />))));
+  beforeEach(() => (screen = render(shallow(<CreateCommunityItems />))));
 
   it('should contain post, poll, and event options', () => {
     expect(screen.getByText('Post'));

@@ -1,19 +1,19 @@
 import React from 'react';
-import CommunityContainer from '../../components/Create/CreateCommunity/CommunityContainer';
-import MarketContainer from '../../components/Create/CreateMarket/MarketContainer';
-import HousingContainer from '../../components/Create/CreateHousing/HousingContainer';
+import CreateCommunityItems from '../../components/containers/CreateCommunityItems';
+import CreateMarketItems from '../../components/containers/CreateMarketItems';
+import CreateHousingItems from '../../components/containers/CreateHousingItems';
 
 // A screen that allows the user to a create shared item
 const CreateItemScreen = ({ route }) => {
   switch (route.params.page) {
     case 'Community':
-      return <CommunityContainer />;
+      return <CreateCommunityItems />;
 
     case 'Market':
-      return <MarketContainer />;
+      return <CreateMarketItems />;
 
     case 'Housing':
-      return <HousingContainer />;
+      return <CreateHousingItems />;
 
     default:
       return <></>;

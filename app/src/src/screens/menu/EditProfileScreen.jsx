@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getUserData } from '../../utils/endpoints';
-import EditComponent from '../../components/profile/EditComponent';
+import EditView from '../../components/views/EditView';
 
 class EditProfileScreen extends Component {
   state = { user: {} };
@@ -17,7 +17,7 @@ class EditProfileScreen extends Component {
   render() {
     const navigation = this.props.navigation;
     const { user } = this.state;
-    return <EditComponent user={user} navigation={navigation} />;
+    return <EditView user={user} navigation={navigation} />;
   }
 }
 export default EditProfileScreen;

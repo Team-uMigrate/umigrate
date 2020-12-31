@@ -12,7 +12,7 @@ const PostTypeOptionsButton = ({
       mode={'contained'}
       style={styles.postTypeOptionsButton}
       color={selectedPostType === title ? '#8781D0' : 'white'}
-      dark={selectedPostType === title ? true : false}
+      dark={selectedPostType === title}
       onPress={() => {
         setSelectedPostType(title);
       }}

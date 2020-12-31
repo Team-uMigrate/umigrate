@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Appbar } from 'react-native-paper';
 import { StyleSheet, Image, Dimensions } from 'react-native';
-import Logo from '../../assets/favicon.png';
-import TabNavContext from '../contexts/TabNavContext';
+import Logo from '../../../assets/favicon.png';
+import TabNavContext from '../../contexts/TabNavContext';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { routes } from '../utils/routes';
+import { routes } from '../../utils/routes';
 
 const statusHeight = getStatusBarHeight(true);
 const windowWidth = Dimensions.get('window').width;

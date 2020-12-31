@@ -3,9 +3,9 @@ import ListingView from '../../components/views/ListingView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
-import Header from '../../components/Header';
+import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
-import CreateModal from '../../components/Create/CreateModal';
+import CreateItemModal from '../../components/modals/CreateItemModal';
 
 const endpoints = [ListingsEndpoint];
 const itemViews = [(item) => <ListingView {...item} />];
@@ -26,7 +26,7 @@ const HousingScreen = ({ navigation }) => {
         filtersList={[listingFilters]}
         scrollRef={ref}
       />
-      <CreateModal navigation={navigation} />
+      <CreateItemModal navigation={navigation} />
     </View>
   );
 };

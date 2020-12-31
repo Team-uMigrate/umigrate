@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import GradientButton from 'react-native-gradient-buttons';
 import { routes } from '../../utils/routes';
 
-const CreateModal = ({ navigation }) => {
+const CreateItemModal = ({ navigation }) => {
   const createItem = useContext(CreateItemContext);
 
   const navigate = (page) => {
@@ -66,7 +66,7 @@ const CreateModal = ({ navigation }) => {
   );
 };
 
-export default CreateModal;
+export default CreateItemModal;
 
 const styles = StyleSheet.create({
   text: {

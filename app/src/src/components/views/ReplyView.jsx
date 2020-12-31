@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import ProfilePhoto from '../profile/ProfilePhoto';
+import ProfilePhotoView from './ProfilePhotoView';
 
 const ReplyView = ({ creator, content, datetime_created }) => {
   let date = datetime_created.substring(0, 10);
@@ -19,7 +19,7 @@ const ReplyView = ({ creator, content, datetime_created }) => {
       {/* Profile photo, text content, and date/time of post creation */}
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.profilePhotoView}>
-          <ProfilePhoto photo={creator.profile_photo} size={30} />
+          <ProfilePhotoView photo={creator.profile_photo} size={30} />
         </View>
         <View style={styles.contentContainer}>
           <Text>{content}</Text>

@@ -1,7 +1,7 @@
 import React from 'react';
 import GallerySwiper from 'react-native-gallery-swiper';
 
-const ImageCollection = ({ photos }) => {
+const ImageCollectionView = ({ photos }) => {
   const images = photos.map((photo) => {
     return { uri: photo.image };
   });
@@ -21,4 +21,4 @@ const ImageCollection = ({ photos }) => {
   );
 };
 
-export default ImageCollection;
+export default ImageCollectionView;

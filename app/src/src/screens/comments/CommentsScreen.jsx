@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Header from '../../components/Header';
+import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
-import CreateModal from '../../components/Create/CreateModal';
+import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
 
@@ -26,7 +26,7 @@ const CommentsScreen = ({ navigation, route }) => {
         filtersList={[commentsFilters]}
         scrollRef={ref}
       />
-      <CreateModal navigation={navigation} />
+      <CreateItemModal navigation={navigation} />
     </View>
   );
 };

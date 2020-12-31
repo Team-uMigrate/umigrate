@@ -3,9 +3,9 @@ import AdView from '../../components/views/AdView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
-import Header from '../../components/Header';
+import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
-import CreateModal from '../../components/Create/CreateModal';
+import CreateItemModal from '../../components/modals/CreateItemModal';
 
 const endpoints = [AdsEndpoint];
 const itemViews = [(item) => <AdView {...item} />];
@@ -26,7 +26,7 @@ const MarketScreen = ({ navigation }) => {
         filtersList={[adFilters]}
         scrollRef={ref}
       />
-      <CreateModal navigation={navigation} />
+      <CreateItemModal navigation={navigation} />
     </View>
   );
 };

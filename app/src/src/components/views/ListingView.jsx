@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import ProfilePhoto from '../profile/ProfilePhoto';
+import ProfilePhotoView from './ProfilePhotoView';
 import { ListingsEndpoint, Choices } from '../../utils/endpoints';
-import CommentBar from '../CommentBar';
-import ImageCollection from '../containers/ImageCollection';
+import CommentBar from './CommentBar';
+import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 
 const ListingView = (listing) => {
@@ -29,7 +29,7 @@ const ListingView = (listing) => {
       <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
           <View>
-            <ProfilePhoto photo={creator.profile_photo} />
+            <ProfilePhotoView photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
@@ -51,7 +51,7 @@ const ListingView = (listing) => {
         <Paragraph style={styles.bodyText}>
           {'Category: ' + Choices.listingCategories[category]}
         </Paragraph>
-        <ImageCollection photos={photos} />
+        <ImageCollectionView photos={photos} />
         <CommentBar
           item={listing}
           contentType={contentType}

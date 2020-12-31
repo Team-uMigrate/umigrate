@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-const MarketContainer = () => {
+const CreateHousingItems = () => {
   return (
     <View styles={styles}>
-      <Text>Create a post in market!</Text>
+      <Text>Create a post in housing!</Text>
     </View>
   );
 };
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MarketContainer;
+export default CreateHousingItems;

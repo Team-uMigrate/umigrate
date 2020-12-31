@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const ProfileComponents = ({ label, val, row }) => {
+const ProfileView = ({ label, val, row }) => {
   if (row) {
     if (val == '' || val === null) {
       return (
@@ -37,7 +37,7 @@ const ProfileComponents = ({ label, val, row }) => {
   }
 };
 
-export default ProfileComponents;
+export default ProfileView;
 
 const styles = StyleSheet.create({
   textLabel: {

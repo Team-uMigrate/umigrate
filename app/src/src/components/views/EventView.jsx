@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
-import ProfilePhoto from '../profile/ProfilePhoto';
+import ProfilePhotoView from './ProfilePhotoView';
 import { EventsEndpoint, Choices } from '../../utils/endpoints';
-import CommentBar from '../CommentBar';
-import ImageCollection from '../containers/ImageCollection';
+import CommentBar from './CommentBar';
+import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 
@@ -32,7 +32,7 @@ const EventView = (event) => {
       <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
           <View>
-            <ProfilePhoto photo={creator.profile_photo} />
+            <ProfilePhotoView photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
@@ -65,7 +65,7 @@ const EventView = (event) => {
             ? moment(end_datetime).format('MMMM D, YYYY, h:mm a')
             : 'N/A'}
         </Paragraph>
-        <ImageCollection photos={photos} />
+        <ImageCollectionView photos={photos} />
         <View style={styles.buttonContainer}>
           <GradientButton
             compact={true}

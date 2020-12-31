@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
-import ProfilePhoto from '../profile/ProfilePhoto';
+import ProfilePhotoView from './ProfilePhotoView';
 import { ReplyContainer } from '../containers/ReplyContainer';
 
 const CommentView = ({ id, datetime_created, creator, content }) => {
@@ -22,7 +22,7 @@ const CommentView = ({ id, datetime_created, creator, content }) => {
       </View>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ marginRight: '2.5%', flex: 1 }}>
-          <ProfilePhoto photo={creator.profile_photo} size={30} />
+          <ProfilePhotoView photo={creator.profile_photo} size={30} />
         </View>
         <View style={styles.contentContainer}>
           <Text>{content}</Text>

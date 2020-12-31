@@ -1,10 +1,10 @@
 import React, { createRef } from 'react';
 import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
-import ProfilePhoto from '../profile/ProfilePhoto';
+import ProfilePhotoView from './ProfilePhotoView';
 import { Choices, PostsEndpoint } from '../../utils/endpoints';
-import CommentBar from '../CommentBar';
-import ImageCollection from '../containers/ImageCollection';
+import CommentBar from './CommentBar';
+import ImageCollectionView from './ImageCollectionView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 
@@ -19,7 +19,7 @@ const PostView = (post) => {
       <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
           <View>
-            <ProfilePhoto photo={creator.profile_photo} />
+            <ProfilePhotoView photo={creator.profile_photo} />
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
@@ -35,7 +35,7 @@ const PostView = (post) => {
             Community: {Choices.communities[community]}
           </Text>
         </Paragraph>
-        <ImageCollection photos={photos} />
+        <ImageCollectionView photos={photos} />
         <CommentBar
           item={post}
           contentType={contentType}

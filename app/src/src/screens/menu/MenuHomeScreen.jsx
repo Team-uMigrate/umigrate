@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import { getUserData, ProfileEndpoint } from '../../utils/endpoints';
-import Header from '../../components/Header';
+import Header from '../../components/views/Header';
 import { Avatar, Card, IconButton, Paragraph } from 'react-native-paper';
 import MenuLogout from '../../components/buttons/MenuLogout';
 import { routes } from '../../utils/routes';

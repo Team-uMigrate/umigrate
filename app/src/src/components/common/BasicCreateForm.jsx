@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
 import { Text, View, StyleSheet } from 'react-native';
-import ProfilePhoto from '../../profile/ProfilePhoto';
+import ProfilePhotoView from '../views/ProfilePhotoView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Portal } from 'react-native-paper';
-import { Choices } from '../../../utils/endpoints';
+import { Choices } from '../../utils/endpoints';
 import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
 
@@ -30,7 +30,7 @@ const BasicCreateForm = ({
     <>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.profilePhotoView}>
-          <ProfilePhoto photo={profilePhoto} />
+          <ProfilePhotoView photo={profilePhoto} />
         </View>
         <View style={styles.communitySelectView}>
           <Text style={{ fontSize: 12 }}>Posting in</Text>

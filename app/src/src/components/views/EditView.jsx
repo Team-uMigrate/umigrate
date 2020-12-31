@@ -14,12 +14,12 @@ import { Avatar, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Choices, ProfileEndpoint, setUserData } from '../../utils/endpoints';
-import Header from '../Header';
-import ProfileComponents from './ProfileComponents';
+import Header from './Header';
+import ProfileView from './ProfileView';
 import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 
-const EditComponent = ({ user, navigation }) => {
+const EditView = ({ user, navigation }) => {
   // useStates for data
   const [bgPic, setbgPic] = useState();
   const [pfp, setPfp] = useState();
@@ -425,15 +425,15 @@ const EditComponent = ({ user, navigation }) => {
             ></TextInput>
           </View>
           <View style={styles.rows}>
-            <ProfileComponents label="First name" val={user.first_name} />
-            <ProfileComponents
+            <ProfileView label="First name" val={user.first_name} />
+            <ProfileView
               label="Last name"
               val={user.last_name}
               row={true}
             />
           </View>
           <View>
-            <ProfileComponents label="Email" val={user.email} />
+            <ProfileView label="Email" val={user.email} />
             <Text style={styles.textLabel}>Phone</Text>
             <TextInput
               style={styles.textVal}
@@ -446,7 +446,7 @@ const EditComponent = ({ user, navigation }) => {
             <TouchableOpacity
               onPress={() => setVisiblePronoun(!visiblePronoun)}
             >
-              <ProfileComponents
+              <ProfileView
                 label="Pronoun"
                 val={
                   zeroPronoun == 0
@@ -458,7 +458,7 @@ const EditComponent = ({ user, navigation }) => {
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setVisibleBirth(!visibleBirth)}>
-              <ProfileComponents
+              <ProfileView
                 label="Birthday"
                 val={birth ? birth : user.birthday}
                 row={true}
@@ -467,7 +467,7 @@ const EditComponent = ({ user, navigation }) => {
           </View>
           <View>
             <TouchableOpacity onPress={() => setVisibleReg(!visibleReg)}>
-              <ProfileComponents
+              <ProfileView
                 label="Community"
                 val={
                   zeroReg == 0
@@ -479,7 +479,7 @@ const EditComponent = ({ user, navigation }) => {
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setVisiblePro(!visiblePro)}>
-              <ProfileComponents
+              <ProfileView
                 label="Program"
                 val={
                   zeroPro == 0
@@ -491,7 +491,7 @@ const EditComponent = ({ user, navigation }) => {
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setVisibleTerm(!visibleTerm)}>
-              <ProfileComponents
+              <ProfileView
                 label="Current Term"
                 val={
                   zeroTerm == 0
@@ -520,7 +520,7 @@ const EditComponent = ({ user, navigation }) => {
   );
 };
 
-export default EditComponent;
+export default EditView;
 
 const styles = StyleSheet.create({
   container: {

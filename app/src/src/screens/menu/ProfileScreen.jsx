@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
 import { Choices, getUserData } from '../../utils/endpoints';
-import Header from '../../components/Header';
-import ProfileComponents from '../../components/profile/ProfileComponents';
+import Header from '../../components/views/Header';
+import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
 
 class ProfileScreen extends Component {
@@ -61,50 +61,50 @@ class ProfileScreen extends Component {
         >
           <View style={styles.pfInfo}>
             <View>
-              <ProfileComponents
+              <ProfileView
                 label="Preferred name"
                 val={this.state.user.preferred_name}
               />
             </View>
             <View style={styles.rows}>
-              <ProfileComponents
+              <ProfileView
                 label="First name"
                 val={this.state.user.first_name}
               />
-              <ProfileComponents
+              <ProfileView
                 label="Last name"
                 val={this.state.user.last_name}
                 row={true}
               />
             </View>
             <View>
-              <ProfileComponents label="Email" val={this.state.user.email} />
-              <ProfileComponents
+              <ProfileView label="Email" val={this.state.user.email} />
+              <ProfileView
                 label="Phone"
                 val={this.state.user.phone_number}
               />
             </View>
             <View style={styles.rows}>
-              <ProfileComponents
+              <ProfileView
                 label="Pronoun"
                 val={Choices.pronouns[this.state.user.pronouns]}
               />
-              <ProfileComponents
+              <ProfileView
                 label="Birthday"
                 val={this.state.user.birthday}
                 row={true}
               />
             </View>
             <View>
-              <ProfileComponents
+              <ProfileView
                 label="Community"
                 val={Choices.communities[this.state.user.community]}
               />
-              <ProfileComponents
+              <ProfileView
                 label="Program"
                 val={Choices.programs[this.state.user.enrolled_program]}
               />
-              <ProfileComponents
+              <ProfileView
                 label="Current Term"
                 val={Choices.terms[this.state.user.current_term]}
               />

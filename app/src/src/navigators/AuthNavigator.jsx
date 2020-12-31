@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavContextProvider } from '../contexts/NavContext';
+import { TabNavContextProvider } from '../contexts/TabNavContext';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/authentication/LoadingScreen';
@@ -40,7 +40,7 @@ const AuthNavigator = () => {
   if (auth.isAuthenticated === true) {
     // Render authenticated view
     return (
-      <NavContextProvider>
+      <TabNavContextProvider>
         <CreateItemContextProvider>
           <NavigationContainer>
             <Stack.Navigator
@@ -66,7 +66,7 @@ const AuthNavigator = () => {
             </Stack.Navigator>
           </NavigationContainer>
         </CreateItemContextProvider>
-      </NavContextProvider>
+      </TabNavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {
     // Render not authenticated view

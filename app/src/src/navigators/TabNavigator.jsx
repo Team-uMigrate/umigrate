@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import NavContext from '../contexts/NavContext';
+import TabNavContext from '../contexts/TabNavContext';
 import CreateItemContext from '../contexts/CreateItemContext';
 import CommunityScreen from '../screens/tabs/CommunityScreen';
 import MarketScreen from '../screens/tabs/MarketScreen';
@@ -15,7 +15,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 // A navigator that renders components depending on the current tab navigation route
 const TabNavigator = ({ navigation }) => {
-  const nav = useContext(NavContext);
+  const nav = useContext(TabNavContext);
   const createItem = useContext(CreateItemContext);
 
   useEffect(() => {

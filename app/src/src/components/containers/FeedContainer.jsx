@@ -81,10 +81,9 @@ class FeedContainer extends Component {
           .filter(
             (item) =>
               Date.parse(item.datetime_created) >= maxEndDate &&
-              !items.find(
-                (stateItem) =>
-                  stateItem.id === item.id && stateItem.type === item.type
-              )
+              !items.find((stateItem) => {
+                return stateItem.id === item.id && stateItem.type === t;
+              })
           )
           // Add type to each item
           .map((item) => ({ ...item, type: t }))

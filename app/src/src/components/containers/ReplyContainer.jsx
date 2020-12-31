@@ -16,11 +16,9 @@ export class ReplyContainer extends Component {
   };
 
   fetchReplies = async () => {
-    const response = await CommentRepliesEndpoint.list(
-      this.props.commentId,
-      this.state.nextPage,
-      {}
-    );
+    const response = await CommentRepliesEndpoint.list(this.state.nextPage, {
+      comment: this.props.commentId,
+    });
     let seen = {};
     let nextPageExists = response.data.next !== null;
     // Check if there's another page after this one

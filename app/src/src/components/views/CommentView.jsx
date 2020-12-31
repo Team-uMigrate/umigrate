@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import ProfilePhoto from '../profile/ProfilePhoto';
 import { ReplyContainer } from '../containers/ReplyContainer';

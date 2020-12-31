@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
 import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavContextProvider } from '../contexts/NavContext';
-import CommentsContainer from '../components/containers/CommentsContainer';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/authentication/LoadingScreen';
@@ -14,6 +12,7 @@ import MessagingScreen from '../screens/messaging/MessagingScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
 import NotificationScreen from '../screens/notifications/NotificationsScreen';
+import SharedItemScreen from '../screens/shared-item/SharedItemScreen';
 
 const Stack = createStackNavigator();
 
@@ -49,7 +48,7 @@ const AuthNavigator = () => {
             >
               <Stack.Screen name="Tabs" component={TabNavigator} />
               <Stack.Screen name="Messaging" component={MessagingScreen} />
-              <Stack.Screen name="Comments" component={CommentsContainer} />
+              <Stack.Screen name="Comments" component={SharedItemScreen} />
               <Stack.Screen
                 name="Notifications"
                 options={{

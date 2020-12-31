@@ -226,25 +226,10 @@ export class AdsEndpoint extends AbstractEndpoint {
 
 export class CommentsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/comments/';
-
-  static async list(contentType, objectId, page, filters = {}) {
-    return await super.list(page, {
-      content_type: contentType,
-      object_id: objectId,
-      ...filters,
-    });
-  }
 }
 
 export class CommentRepliesEndpoint extends AbstractEndpoint {
   static endpoint = '/api/comments/replies/';
-
-  static async list(commentId, page, filters = {}) {
-    return await super.list(page, {
-      comment: commentId,
-      ...filters,
-    });
-  }
 }
 
 export class EventsEndpoint extends AbstractEndpoint {

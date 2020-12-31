@@ -1,27 +1,22 @@
-import React, { Component, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 const CreateItemContext = createContext();
 
 // A context provider that stores the create item modal's visibility state
-class CreateItemContextProvider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalVisible: false,
-      setIsModalVisible: (isModalVisible) => {
-        this.setState({ isModalVisible: isModalVisible });
-      },
-    };
-  }
+const CreateItemContextProvider = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  render() {
-    return (
-      <CreateItemContext.Provider value={this.state}>
-        {this.props.children}
-      </CreateItemContext.Provider>
-    );
-  }
-}
+  return (
+    <CreateItemContext.Provider
+      value={{
+        isModalVisible: isModalVisible,
+        setIsModalVisible: setIsModalVisible,
+      }}
+    >
+      {this.props.children}
+    </CreateItemContext.Provider>
+  );
+};
 
 export { CreateItemContextProvider };
 export default CreateItemContext;

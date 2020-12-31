@@ -9,6 +9,7 @@ import MarketScreen from '../screens/tabs/MarketScreen';
 import CreateItemScreen from '../screens/tabs/CreateItemScreen';
 import HousingScreen from '../screens/tabs/HousingScreen';
 import MenuScreen from '../screens/tabs/MenuScreen';
+import { routes } from '../utils/routes';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -30,7 +31,7 @@ const TabNavigator = ({ navigation }) => {
       barStyle={styles.TabNavigator}
     >
       <Tab.Screen
-        name="Community"
+        name={routes.community}
         component={CommunityScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -43,7 +44,7 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Market"
+        name={routes.market}
         component={MarketScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -56,7 +57,7 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Create"
+        name={routes.createItem}
         component={CreateItemScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -75,7 +76,7 @@ const TabNavigator = ({ navigation }) => {
         })}
       />
       <Tab.Screen
-        name="Housing"
+        name={routes.housing}
         component={HousingScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -84,7 +85,7 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Menu"
+        name={routes.menu}
         component={MenuScreen}
         options={{
           tabBarIcon: ({ color }) => (

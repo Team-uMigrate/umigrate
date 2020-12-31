@@ -13,14 +13,15 @@ import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
 import NotificationScreen from '../screens/notifications/NotificationsScreen';
 import SharedItemScreen from '../screens/shared-item/SharedItemScreen';
+import { routes } from '../utils/routes';
 
 const Stack = createStackNavigator();
 
-// A navigator that renders components depending on authentication state
+// A navigator that renders components depending on the authentication state
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
   const error = useContext(ErrorContext);
-  const [expoPushToken, setExpoPushToken] = useState(undefined);
+  const [expoPushToken, setExpoPushToken] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -46,11 +47,17 @@ const AuthNavigator = () => {
               screenOptions={{ headerShown: false }}
               gestureDirection={'horizontal-inverted'}
             >
-              <Stack.Screen name="Tabs" component={TabNavigator} />
-              <Stack.Screen name="Messaging" component={MessagingScreen} />
-              <Stack.Screen name="Comments" component={SharedItemScreen} />
+              <Stack.Screen name={routes.tabs} component={TabNavigator} />
               <Stack.Screen
-                name="Notifications"
+                name={routes.messaging}
+                component={MessagingScreen}
+              />
+              <Stack.Screen
+                name={routes.sharedItem}
+                component={SharedItemScreen}
+              />
+              <Stack.Screen
+                name={routes.notifications}
                 options={{
                   gestureDirection: 'horizontal-inverted',
                 }}
@@ -66,8 +73,11 @@ const AuthNavigator = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegistrationScreen} />
+          <Stack.Screen name={routes.login} component={LoginScreen} />
+          <Stack.Screen
+            name={routes.registration}
+            component={RegistrationScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

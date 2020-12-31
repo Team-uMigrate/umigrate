@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AuthEndpoint } from '../../utils/endpoints';
 import { Image, Modal, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { routes } from '../../utils/routes';
 
 // A screen that allows the user to register with their credentials
 const RegistrationScreen = ({ navigation }) => {
@@ -13,7 +14,7 @@ const RegistrationScreen = ({ navigation }) => {
 
   // Todo: Wrap these functions in a react hook
   const signInRedirect = () => {
-    navigation.navigate('Login');
+    navigation.navigate(routes.login);
   };
 
   const handleSignUp = async () => {

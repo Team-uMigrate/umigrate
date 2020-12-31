@@ -7,23 +7,21 @@ import ProfileScreen from '../screens/menu/ProfileScreen';
 import EditProfileScreen from '../screens/menu/EditProfileScreen';
 import MenuHomeScreen from '../screens/menu/MenuHomeScreen';
 import CalendarScreen from '../screens/menu/CalendarScreen';
+import { routes } from '../utils/routes';
 
 const Stack = createStackNavigator();
 
 // A navigator that renders components depending on the current menu navigation route
 const MenuNavigator = () => {
   return (
-    <NavigationContainer
-      // Todo: See if this can be removed
-      independent={true}
-    >
+    <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Menu" component={MenuHomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="SavedItems" component={SavedItemsScreen} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name={routes.menuHome} component={MenuHomeScreen} />
+        <Stack.Screen name={routes.profile} component={ProfileScreen} />
+        <Stack.Screen name={routes.editProfile} component={EditProfileScreen} />
+        <Stack.Screen name={routes.savedItems} component={SavedItemsScreen} />
+        <Stack.Screen name={routes.calendar} component={CalendarScreen} />
+        <Stack.Screen name={routes.settings} component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

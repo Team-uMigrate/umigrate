@@ -12,6 +12,7 @@ import { Avatar, Button } from 'react-native-paper';
 import { Choices, getUserData } from '../../utils/endpoints';
 import Header from '../../components/Header';
 import ProfileComponents from '../../components/profile/ProfileComponents';
+import { routes } from '../../utils/routes';
 
 class ProfileScreen extends Component {
   state = { user: {} };
@@ -44,7 +45,7 @@ class ProfileScreen extends Component {
           <View style={styles.profileArea}>
             <TouchableOpacity
               style={styles.profileImg}
-              onPress={() => this.props.navigation.navigate('Menu')}
+              onPress={() => this.props.navigation.navigate(routes.menuHome)}
             >
               <Avatar.Image
                 size={100}
@@ -111,7 +112,7 @@ class ProfileScreen extends Component {
           </View>
           <Button
             style={styles.editButton}
-            onPress={() => this.props.navigation.navigate('EditProfile')}
+            onPress={() => this.props.navigation.navigate(routes.editProfile)}
           >
             <Text style={styles.editButtonText}>Edit profile</Text>
           </Button>

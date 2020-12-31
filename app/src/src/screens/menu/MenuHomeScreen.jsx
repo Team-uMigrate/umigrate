@@ -11,6 +11,7 @@ import { getUserData, ProfileEndpoint } from '../../utils/endpoints';
 import Header from '../../components/Header';
 import { Avatar, Card, IconButton, Paragraph } from 'react-native-paper';
 import MenuLogout from '../../components/buttons/MenuLogout';
+import { routes } from '../../utils/routes';
 
 // A screen that allows the user to access menu options
 const MenuHomeScreen = ({ navigation }) => {
@@ -39,7 +40,7 @@ const MenuHomeScreen = ({ navigation }) => {
         <View style={styles.profileArea}>
           <TouchableOpacity
             style={styles.profileImg}
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.navigate(routes.profile)}
           >
             <Avatar.Image
               size={110}
@@ -58,7 +59,7 @@ const MenuHomeScreen = ({ navigation }) => {
               icon="content-save"
               size={70}
               style={styles.iconPic}
-              onPress={() => navigation.navigate('SavedItems')}
+              onPress={() => navigation.navigate(routes.savedItems)}
             />
             <Paragraph style={styles.text}>Saved Items</Paragraph>
           </Card.Content>
@@ -69,7 +70,7 @@ const MenuHomeScreen = ({ navigation }) => {
               icon="calendar"
               size={70}
               style={styles.iconPic}
-              onPress={() => navigation.navigate('Calendar')}
+              onPress={() => navigation.navigate(routes.calendar)}
             />
             <Paragraph style={styles.text}>Calendar</Paragraph>
           </Card.Content>
@@ -82,7 +83,7 @@ const MenuHomeScreen = ({ navigation }) => {
               icon="settings"
               size={70}
               style={styles.iconPic}
-              onPress={() => navigation.navigate('Settings')}
+              onPress={() => navigation.navigate(routes.settings)}
             />
             <Paragraph style={styles.text}>Settings</Paragraph>
           </Card.Content>

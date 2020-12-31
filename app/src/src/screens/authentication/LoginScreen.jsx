@@ -4,6 +4,7 @@ import { AuthEndpoint, ProfileEndpoint } from '../../utils/endpoints';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image, Modal, StyleSheet, View } from 'react-native';
+import { routes } from '../../utils/routes';
 
 // A screen that allows the user to log in with their credentials
 const LoginScreen = ({ navigation }) => {
@@ -16,7 +17,7 @@ const LoginScreen = ({ navigation }) => {
   // Todo: Wrap these functions in a react hook
 
   const signUpRedirect = () => {
-    navigation.navigate('Register');
+    navigation.navigate(routes.registration);
   };
 
   const handleSignIn = async () => {

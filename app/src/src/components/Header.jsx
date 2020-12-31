@@ -4,6 +4,7 @@ import { StyleSheet, Image, Dimensions } from 'react-native';
 import Logo from '../../assets/favicon.png';
 import NavContext from '../contexts/NavContext';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { routes } from '../utils/routes';
 
 const statusHeight = getStatusBarHeight(true);
 const windowWidth = Dimensions.get('window').width;
@@ -41,7 +42,7 @@ const Header = ({
         <Appbar.Action
           color="#555555"
           icon="bell"
-          onPress={() => nav.navigation.navigate('Notifications')}
+          onPress={() => nav.navigation.navigate(routes.notifications)}
         />
       )}
 
@@ -55,7 +56,7 @@ const Header = ({
         <Appbar.Action
           color="#555555"
           icon="message"
-          onPress={() => nav.navigation.navigate('Messaging')}
+          onPress={() => nav.navigation.navigate(routes.messaging)}
         />
       )}
     </Appbar.Header>

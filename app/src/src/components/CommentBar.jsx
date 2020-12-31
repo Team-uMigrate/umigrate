@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
 import CommentBarButtons from './buttons/CommentBarButtons';
 import NavContext from '../contexts/NavContext';
+import { routes } from '../utils/routes';
 
 /*
 To add the comment bar to your components, you need to pass in two callback functions.
@@ -67,7 +68,7 @@ const CommentBar = ({ item, contentType, endpoint }) => {
           </Text>
           <Text
             onPress={() => {
-              nav.navigation.navigate('Comments', {
+              nav.navigation.navigate(routes.sharedItem, {
                 postId: item.id,
                 contentType: contentType,
               });

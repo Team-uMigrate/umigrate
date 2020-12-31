@@ -4,13 +4,14 @@ import Modal from 'react-native-modal';
 import CreateItemContext from '../../contexts/CreateItemContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import GradientButton from 'react-native-gradient-buttons';
+import { routes } from '../../utils/routes';
 
 const CreateModal = ({ navigation }) => {
   const createItem = useContext(CreateItemContext);
 
   const navigate = (page) => {
     createItem.setIsModalVisible(false);
-    navigation.navigate('Create', { page: page });
+    navigation.navigate(routes.createItem, { page: page });
   };
 
   return (
@@ -31,7 +32,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate('Community')}
+              onPressAction={() => navigate(routes.community)}
               // icon={<MaterialCommunityIcons name="public" size={50} />}
             >
               {/* <MaterialCommunityIcons name="earth" size={30} />
@@ -44,7 +45,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate('Market')}
+              onPressAction={() => navigate(routes.market)}
             >
               Market
             </GradientButton>
@@ -54,7 +55,7 @@ const CreateModal = ({ navigation }) => {
               gradientBegin="#FF3465"
               gradientEnd="#292462"
               gradientDirection="diagonal"
-              onPressAction={() => navigate('Housing')}
+              onPressAction={() => navigate(routes.housing)}
             >
               Housing
             </GradientButton>

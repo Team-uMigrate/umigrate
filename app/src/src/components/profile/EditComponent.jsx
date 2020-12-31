@@ -17,6 +17,7 @@ import { Choices, ProfileEndpoint, setUserData } from '../../utils/endpoints';
 import Header from '../Header';
 import ProfileComponents from './ProfileComponents';
 import * as ImagePicker from 'expo-image-picker';
+import { routes } from '../../utils/routes';
 
 const EditComponent = ({ user, navigation }) => {
   // useStates for data
@@ -64,7 +65,7 @@ const EditComponent = ({ user, navigation }) => {
     });
     if (result) {
       await setUserData(result.data);
-      navigation.navigate('Profile');
+      navigation.navigate(routes.profile);
     }
   };
 
@@ -393,7 +394,7 @@ const EditComponent = ({ user, navigation }) => {
         <View style={styles.profileArea}>
           <TouchableOpacity
             style={styles.profileImg}
-            onPress={() => navigation.navigate('Menu')}
+            onPress={() => navigation.navigate(routes.menuHome)}
           >
             <Avatar.Image
               size={100}
@@ -506,7 +507,7 @@ const EditComponent = ({ user, navigation }) => {
         <View style={styles.rowsButtons}>
           <Button
             style={styles.editButtonUndo}
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.navigate(routes.profile)}
           >
             <Text style={styles.editButtonTextUndo}>Undo Changes</Text>
           </Button>

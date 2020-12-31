@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
 import { Text, View, StyleSheet } from 'react-native';
-import ProfilePhoto from '../../common/ProfilePhoto';
+import ProfilePhoto from '../../profile/ProfilePhoto';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Portal } from 'react-native-paper';
 import { Choices } from '../../../utils/endpoints';

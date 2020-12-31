@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
-import { mockUser } from '../../../utils/mockData';
-import EditComponent from './EditComponent';
-import { Choices } from '../../../utils/endpoints';
+import { mockUser } from '../../utils/mockData';
+import EditComponent from '../../components/profile/EditComponent';
+import { Choices } from '../../utils/endpoints';
 
 describe('<EditComponent /> UI Tests', () => {
   beforeEach(() => {

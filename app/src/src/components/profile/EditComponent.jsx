@@ -13,12 +13,8 @@ import {
 import { Avatar, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {
-  Choices,
-  ProfileEndpoint,
-  setUserData,
-} from '../../../utils/endpoints';
-import Header from '../../Header';
+import { Choices, ProfileEndpoint, setUserData } from '../../utils/endpoints';
+import Header from '../Header';
 import ProfileComponents from './ProfileComponents';
 import * as ImagePicker from 'expo-image-picker';
 

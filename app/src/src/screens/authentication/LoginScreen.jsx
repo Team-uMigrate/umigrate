@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import AuthContext from '../contexts/AuthContext';
-import { AuthEndpoint, ProfileEndpoint } from '../utils/endpoints';
+import AuthContext from '../../contexts/AuthContext';
+import { AuthEndpoint, ProfileEndpoint } from '../../utils/endpoints';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image, Modal, StyleSheet, View } from 'react-native';
@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
         <View>
           <Image
             style={styles.imageStyle}
-            source={require('../../assets/templatedLogin.png')}
+            source={require('../../../assets/templatedLogin.png')}
           />
         </View>
         <View style={styles.inputBoxes}>

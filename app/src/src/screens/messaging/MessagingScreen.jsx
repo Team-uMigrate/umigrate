@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import React from 'react';
 
 // A screen that renders available messaging rooms

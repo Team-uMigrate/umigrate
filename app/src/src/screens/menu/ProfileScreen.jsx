@@ -9,10 +9,11 @@ import {
   Platform,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
-import { Choices, getUserData } from '../../../utils/endpoints';
-import Header from '../../Header';
-import ProfileComponents from './ProfileComponents';
-class ProfilePage extends Component {
+import { Choices, getUserData } from '../../utils/endpoints';
+import Header from '../../components/Header';
+import ProfileComponents from '../../components/profile/ProfileComponents';
+
+class ProfileScreen extends Component {
   state = { user: {} };
 
   constructor(props) {
@@ -119,7 +120,7 @@ class ProfilePage extends Component {
     );
   }
 }
-export default ProfilePage;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {

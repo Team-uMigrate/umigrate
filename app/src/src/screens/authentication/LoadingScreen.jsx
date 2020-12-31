@@ -4,8 +4,8 @@ import {
   ProfileEndpoint,
   removeAuthToken,
   setAuthToken,
-} from '../utils/endpoints';
-import AuthContext from '../contexts/AuthContext';
+} from '../../utils/endpoints';
+import AuthContext from '../../contexts/AuthContext';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 // A screen that shows the loading view

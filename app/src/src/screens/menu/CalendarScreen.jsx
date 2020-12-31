@@ -1,23 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from '../Header';
+import Header from '../../components/Header';
 import { Button } from 'react-native-paper';
 
-const HousingListingsPage = ({ navigation }) => {
+const CalendarScreen = ({ navigation }) => {
   const menuRedirect = () => {
     navigation.navigate('Menu');
   };
 
   return (
     <View style={styles.container}>
-      <Header title="Housing Listings" />
-      <Text style={styles.title}>Housing Listings Page!</Text>
+      <Header title="Calendar" />
+      <Text style={styles.title}>Calendar Page!</Text>
       <Button onPress={menuRedirect}>Back to Menu</Button>
     </View>
   );
 };
 
-export default HousingListingsPage;
+export default CalendarScreen;
 
 const styles = StyleSheet.create({
   container: {

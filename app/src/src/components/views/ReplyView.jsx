@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import ProfilePhoto from '../common/ProfilePhoto';
+import ProfilePhoto from '../profile/ProfilePhoto';
 
 const ReplyView = ({ creator, content, datetime_created }) => {
   let date = datetime_created.substring(0, 10);

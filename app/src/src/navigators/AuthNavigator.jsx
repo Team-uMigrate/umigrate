@@ -5,15 +5,15 @@ import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavContextProvider } from '../contexts/NavContext';
-import CommentsContainer from '../components/common/Comments/CommentsContainer';
+import CommentsContainer from '../components/containers/CommentsContainer';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
-import LoadingScreen from '../screens/LoadingScreen';
+import LoadingScreen from '../screens/authentication/LoadingScreen';
 import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
-import MessagingScreen from '../screens/MessagingScreen';
-import LoginScreen from '../screens/LoginScreen';
-import RegistrationScreen from '../screens/RegistrationScreen';
-import NotificationScreen from '../screens/NotificationsScreen';
+import MessagingScreen from '../screens/messaging/MessagingScreen';
+import LoginScreen from '../screens/authentication/LoginScreen';
+import RegistrationScreen from '../screens/authentication/RegistrationScreen';
+import NotificationScreen from '../screens/notifications/NotificationsScreen';
 
 const Stack = createStackNavigator();
 

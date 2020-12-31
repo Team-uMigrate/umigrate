@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { getUserData } from '../../../utils/endpoints';
-import EditComponent from './EditComponent';
+import { getUserData } from '../../utils/endpoints';
+import EditComponent from '../../components/profile/EditComponent';
 
-class EditProfile extends Component {
+class EditProfileScreen extends Component {
   state = { user: {} };
 
   constructor(props) {
@@ -20,6 +20,4 @@ class EditProfile extends Component {
     return <EditComponent user={user} navigation={navigation} />;
   }
 }
-export default ({ navigation }) => {
-  return <EditProfile navigation={navigation} />;
-};
+export default EditProfileScreen;

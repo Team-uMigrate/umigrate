@@ -1,12 +1,12 @@
-import { EventsEndpoint, PostsEndpoint } from '../utils/endpoints';
-import PostView from '../components/views/PostView';
-import EventView from '../components/views/EventView';
+import { EventsEndpoint, PostsEndpoint } from '../../utils/endpoints';
+import PostView from '../../components/views/PostView';
+import EventView from '../../components/views/EventView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
-import Header from '../components/Header';
-import FeedContainer from '../components/containers/FeedContainer';
-import CreateModal from '../components/Create/CreateModal';
+import Header from '../../components/Header';
+import FeedContainer from '../../components/containers/FeedContainer';
+import CreateModal from '../../components/Create/CreateModal';
 
 const endpoints = [PostsEndpoint, EventsEndpoint];
 const itemViews = [

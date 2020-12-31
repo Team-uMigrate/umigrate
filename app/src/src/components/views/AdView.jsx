@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import ProfilePhoto from '../common/ProfilePhoto';
+import ProfilePhoto from '../profile/ProfilePhoto';
 import { AdsEndpoint, Choices } from '../../utils/endpoints';
 import CommentBar from '../CommentBar';
 import ImageCollection from '../containers/ImageCollection';

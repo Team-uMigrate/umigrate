@@ -1,11 +1,11 @@
-import { ListingsEndpoint } from '../utils/endpoints';
-import ListingView from '../components/views/ListingView';
+import { ListingsEndpoint } from '../../utils/endpoints';
+import ListingView from '../../components/views/ListingView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
-import Header from '../components/Header';
-import FeedContainer from '../components/containers/FeedContainer';
-import CreateModal from '../components/Create/CreateModal';
+import Header from '../../components/Header';
+import FeedContainer from '../../components/containers/FeedContainer';
+import CreateModal from '../../components/Create/CreateModal';
 
 const endpoints = [ListingsEndpoint];
 const itemViews = [(item) => <ListingView {...item} />];

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
-import CommentView from '../../views/CommentView';
-import { CommentsEndpoint } from '../../../utils/endpoints';
-import Header from '../../Header';
+import CommentView from '../views/CommentView';
+import { CommentsEndpoint } from '../../utils/endpoints';
+import Header from '../Header';
 
 class CommentsContainer extends Component {
   state = {

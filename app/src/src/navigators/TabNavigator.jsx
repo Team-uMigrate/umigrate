@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import MenuNavigator from './MenuNavigator';
 import { StyleSheet } from 'react-native';
 import NavContext from '../contexts/NavContext';
 import CreateItemContext from '../contexts/CreateItemContext';
-import CommunityScreen from '../screens/CommunityScreen';
-import MarketScreen from '../screens/MarketScreen';
-import CreateItemScreen from '../screens/CreateItemScreen';
-import HousingScreen from '../screens/HousingScreen';
+import CommunityScreen from '../screens/tabs/CommunityScreen';
+import MarketScreen from '../screens/tabs/MarketScreen';
+import CreateItemScreen from '../screens/tabs/CreateItemScreen';
+import HousingScreen from '../screens/tabs/HousingScreen';
+import MenuScreen from '../screens/tabs/MenuScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -85,7 +85,7 @@ const TabNavigator = ({ navigation }) => {
       />
       <Tab.Screen
         name="Menu"
-        component={MenuNavigator}
+        component={MenuScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

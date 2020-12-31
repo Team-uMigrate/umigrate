@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
-import ProfilePhoto from '../common/ProfilePhoto';
-import { ReplyContainer } from '../common/Comments/ReplyContainer';
+import ProfilePhoto from '../profile/ProfilePhoto';
+import { ReplyContainer } from '../containers/ReplyContainer';
 
 const CommentView = ({ id, datetime_created, creator, content }) => {
   // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthEndpoint } from '../utils/endpoints';
+import { AuthEndpoint } from '../../utils/endpoints';
 import { Image, Modal, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
@@ -47,7 +47,7 @@ const RegistrationScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Image
         style={styles.imageStyle}
-        source={require('../../assets/templatedRegister.png')}
+        source={require('../../../assets/templatedRegister.png')}
       />
       <Text style={styles.title}>Get started by registering</Text>
       <View style={styles.inputBoxes}>

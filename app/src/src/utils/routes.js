@@ -1,6 +1,7 @@
 export const routes = {
   login: 'Login',
   registration: 'Registration',
+  passwordReset: 'PasswordReset',
   tabs: 'Tabs',
   messaging: 'Messaging',
   notifications: 'Notifications',

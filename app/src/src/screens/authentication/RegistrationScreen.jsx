@@ -12,7 +12,7 @@ const RegistrationScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Todo: Wrap these functions in a react hook
+  // Todo: Wrap these functions in a react hook or move them outside
   const signInRedirect = () => {
     navigation.navigate(routes.login);
   };

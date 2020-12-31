@@ -14,6 +14,7 @@ import RegistrationScreen from '../screens/authentication/RegistrationScreen';
 import NotificationScreen from '../screens/notifications/NotificationsScreen';
 import SharedItemScreen from '../screens/shared-item/SharedItemScreen';
 import { routes } from '../utils/routes';
+import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +78,10 @@ const AuthNavigator = () => {
           <Stack.Screen
             name={routes.registration}
             component={RegistrationScreen}
+          />
+          <Stack.Screen
+            name={routes.passwordReset}
+            component={PasswordResetScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

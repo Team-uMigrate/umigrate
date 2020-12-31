@@ -14,10 +14,14 @@ const LoginScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Todo: Wrap these functions in a react hook
+  // Todo: Wrap these functions in a react hook or moove them outside
 
   const signUpRedirect = () => {
     navigation.navigate(routes.registration);
+  };
+
+  const passwordResetRedirect = () => {
+    navigation.navigate(routes.passwordReset);
   };
 
   const handleSignIn = async () => {
@@ -99,6 +103,18 @@ const LoginScreen = ({ navigation }) => {
           >
             Register
           </Button>
+          <View style={styles.divider}>
+            <Text>or</Text>
+          </View>
+          <Button
+            compact={true}
+            style={styles.buttonStyle}
+            mode="outlined"
+            title="Sign up"
+            onPress={passwordResetRedirect}
+          >
+            Reset password
+          </Button>
         </View>
         <Modal visible={modalVisible} presentationStyle={'overFullScreen'}>
           <View style={styles.container}>
@@ -110,7 +126,7 @@ const LoginScreen = ({ navigation }) => {
                 title="Close"
                 style={styles.buttonContainer}
                 onPress={() => setModalVisible(false)}
-              ></Button>
+              />
             </View>
           </View>
         </Modal>

@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react';
 
 const CreateItemContext = createContext();
 
-// A context provider that stores the modal visibility state
+// A context provider that stores the create item modal's visibility state
 class CreateItemContextProvider extends Component {
   constructor(props) {
     super(props);

@@ -3,17 +3,17 @@ import { StatusBar } from 'react-native';
 import { AuthContextProvider } from './src/contexts/AuthContext';
 import { Provider as PaperProvider } from 'react-native-paper';
 import AuthNavigator from './src/navigators/AuthNavigator';
-import { CreateItemContextProvider } from './src/contexts/CreateItemContext';
+import { ErrorContextProvider } from './src/contexts/ErrorContext';
 
 // The root React Component
 const App = () => {
   return (
     <PaperProvider>
       <AuthContextProvider>
-        <CreateItemContextProvider>
+        <ErrorContextProvider>
           <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
           <AuthNavigator />
-        </CreateItemContextProvider>
+        </ErrorContextProvider>
       </AuthContextProvider>
     </PaperProvider>
   );

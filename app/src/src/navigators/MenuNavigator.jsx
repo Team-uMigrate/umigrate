@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/menu/SettingsScreen';
 import SavedItemsScreen from '../screens/menu/SavedItemsScreen';
@@ -14,16 +13,14 @@ const Stack = createStackNavigator();
 // A navigator that renders components depending on the current menu navigation route
 const MenuNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={routes.menuHome} component={MenuHomeScreen} />
-        <Stack.Screen name={routes.profile} component={ProfileScreen} />
-        <Stack.Screen name={routes.editProfile} component={EditProfileScreen} />
-        <Stack.Screen name={routes.savedItems} component={SavedItemsScreen} />
-        <Stack.Screen name={routes.calendar} component={CalendarScreen} />
-        <Stack.Screen name={routes.settings} component={SettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={routes.menuHome} component={MenuHomeScreen} />
+      <Stack.Screen name={routes.profile} component={ProfileScreen} />
+      <Stack.Screen name={routes.editProfile} component={EditProfileScreen} />
+      <Stack.Screen name={routes.savedItems} component={SavedItemsScreen} />
+      <Stack.Screen name={routes.calendar} component={CalendarScreen} />
+      <Stack.Screen name={routes.settings} component={SettingsScreen} />
+    </Stack.Navigator>
   );
 };
 

@@ -3,7 +3,7 @@ import React, { useState, createContext } from 'react';
 const CreateItemContext = createContext();
 
 // A context provider that stores the create item modal's visibility state
-const CreateItemContextProvider = () => {
+const CreateItemContextProvider = ({ children }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ const CreateItemContextProvider = () => {
         setIsModalVisible: setIsModalVisible,
       }}
     >
-      {this.props.children}
+      {children}
     </CreateItemContext.Provider>
   );
 };

@@ -3,7 +3,7 @@ import React, { useState, createContext } from 'react';
 const AuthContext = createContext();
 
 // A context provider that stores the user's authentication state
-const AuthContextProvider = () => {
+const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   return (
@@ -13,7 +13,7 @@ const AuthContextProvider = () => {
         setIsAuthenticated: setIsAuthenticated,
       }}
     >
-      {this.props.children}
+      {children}
     </AuthContext.Provider>
   );
 };

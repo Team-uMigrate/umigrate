@@ -426,11 +426,7 @@ const EditView = ({ user, navigation }) => {
           </View>
           <View style={styles.rows}>
             <ProfileView label="First name" val={user.first_name} />
-            <ProfileView
-              label="Last name"
-              val={user.last_name}
-              row={true}
-            />
+            <ProfileView label="Last name" val={user.last_name} row={true} />
           </View>
           <View>
             <ProfileView label="Email" val={user.email} />

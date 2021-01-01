@@ -79,10 +79,7 @@ class ProfileScreen extends Component {
             </View>
             <View>
               <ProfileView label="Email" val={this.state.user.email} />
-              <ProfileView
-                label="Phone"
-                val={this.state.user.phone_number}
-              />
+              <ProfileView label="Phone" val={this.state.user.phone_number} />
             </View>
             <View style={styles.rows}>
               <ProfileView

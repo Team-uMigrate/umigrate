@@ -28,7 +28,7 @@ const LoadingScreen = () => {
         }
       } else auth.setIsAuthenticated(false);
     })();
-  }, []);
+  }, [auth]);
 
   return (
     <View style={styles.waitContainer}>

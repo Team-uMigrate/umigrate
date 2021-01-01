@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { getUserData, ProfileEndpoint } from '../../utils/endpoints';
+import { getUserData } from '../../utils/endpoints';
 import Header from '../../components/views/Header';
 import { Avatar, Card, IconButton, Paragraph } from 'react-native-paper';
 import MenuLogout from '../../components/buttons/MenuLogout';
@@ -19,15 +19,10 @@ const MenuHomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
-      if (user === null) {
-        const response = await ProfileEndpoint.get();
-        setUser(response.data);
-      } else {
-        const userData = await getUserData();
-        setUser(userData);
-      }
+      const userData = await getUserData();
+      setUser(userData);
     })();
-  }, [user]);
+  }, []);
 
   return user ? (
     <View style={styles.container}>

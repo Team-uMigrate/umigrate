@@ -1,132 +1,92 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
 import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginPage from '../components/Login';
-import RegistrationPage from '../components/Register';
-import MessagingPage from '../components/Messaging';
-import { NavContextProvider } from '../contexts/NavContext';
-import CommentsContainer from '../components/common/Comments/CommentsContainer';
-import NotificationPage from '../components/Notifications/NotificationsPage';
-import { ModalContextProvider } from '../contexts/ModalContext';
-import { DevicesEndpoint, setPushToken } from '../utils/endpoints';
+import { TabNavContextProvider } from '../contexts/TabNavContext';
+import { CreateItemContextProvider } from '../contexts/CreateItemContext';
+import ErrorContext from '../contexts/ErrorContext';
+import LoadingScreen from '../screens/authentication/LoadingScreen';
+import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
+import MessagingScreen from '../screens/messaging/MessagingScreen';
+import LoginScreen from '../screens/authentication/LoginScreen';
+import RegistrationScreen from '../screens/authentication/RegistrationScreen';
+import NotificationScreen from '../screens/notifications/NotificationsScreen';
+import CommentsScreen from '../screens/comments/CommentsScreen';
+import { routes } from '../utils/routes';
+import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 
 const Stack = createStackNavigator();
 
+// A navigator that renders components depending on the authentication state
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const error = useContext(ErrorContext);
+  const [expoPushToken, setExpoPushToken] = useState(null);
+
   useEffect(() => {
-    auth.isAuthenticated &&
-      registerForPushNotificationsAsync().then((token) =>
-        setExpoPushToken(token)
-      );
+    (async () => {
+      // Register for push notifications if authenticated
+      if (auth.isAuthenticated) {
+        try {
+          const token = await registerForPushNotificationsAsync(error);
+          setExpoPushToken(token);
+        } catch (e) {
+          error.setMessage(e.message);
+        }
+      }
+    })();
   }, [auth.isAuthenticated]);
 
   if (auth.isAuthenticated === true) {
+    // Render authenticated view
     return (
-      <NavContextProvider>
-        <ModalContextProvider>
+      <TabNavContextProvider>
+        <CreateItemContextProvider>
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
               gestureDirection={'horizontal-inverted'}
             >
-              <Stack.Screen name="Tabs" component={TabNavigator} />
-              <Stack.Screen name="Messaging" component={MessagingPage} />
-              <Stack.Screen name="Comments" component={CommentsContainer} />
+              <Stack.Screen name={routes.tabs} component={TabNavigator} />
               <Stack.Screen
-                name="Notifications"
+                name={routes.messaging}
+                component={MessagingScreen}
+              />
+              <Stack.Screen name={routes.comments} component={CommentsScreen} />
+              <Stack.Screen
+                name={routes.notifications}
                 options={{
                   gestureDirection: 'horizontal-inverted',
                 }}
-                component={NotificationPage}
+                component={NotificationScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>
-        </ModalContextProvider>
-      </NavContextProvider>
+        </CreateItemContextProvider>
+      </TabNavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {
+    // Render not authenticated view
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="Register" component={RegistrationPage} />
+          <Stack.Screen name={routes.login} component={LoginScreen} />
+          <Stack.Screen
+            name={routes.registration}
+            component={RegistrationScreen}
+          />
+          <Stack.Screen
+            name={routes.passwordReset}
+            component={PasswordResetScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
   } else {
-    return (
-      <View style={styles.waitContainer}>
-        <Text>Please Wait</Text>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    // Render loading view
+    return <LoadingScreen />;
   }
 };
 
 export default AuthNavigator;
-
-const styles = StyleSheet.create({
-  tabNavigator: {
-    backgroundColor: '#ffffff',
-  },
-  waitContainer: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-const registerForPushNotificationsAsync = async () => {
-  let token;
-  if (
-    Constants.isDevice &&
-    (Platform.OS === 'ios' || Platform.OS === 'android')
-  ) {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    setPushToken(token);
-    const devices = (await DevicesEndpoint.list()).data;
-    if (!devices.find((d) => d.expo_push_token === token)) {
-      await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
-    }
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  return token;
-};

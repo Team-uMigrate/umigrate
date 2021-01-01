@@ -1,30 +1,26 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MenuPage from '../components/Menu/MenuPage';
-import SettingsPage from '../components/Menu/SettingsPage';
-import SavedPostsPage from '../components/Menu/SavedPostsPage';
-import HousingListingsPage from '../components/Menu/HousingListingsPage';
-import ProfilePage from '../components/Menu/Profile/ProfilePage';
-import EditProfile from '../components/Menu/Profile/EditProfile';
+import SettingsScreen from '../screens/menu/SettingsScreen';
+import SavedItemsScreen from '../screens/menu/SavedItemsScreen';
+import ProfileScreen from '../screens/menu/ProfileScreen';
+import EditProfileScreen from '../screens/menu/EditProfileScreen';
+import MenuHomeScreen from '../screens/menu/MenuHomeScreen';
+import CalendarScreen from '../screens/menu/CalendarScreen';
+import { routes } from '../utils/routes';
 
 const Stack = createStackNavigator();
+
+// A navigator that renders components depending on the current menu navigation route
 const MenuNavigator = () => {
   return (
-    <NavigationContainer
-      independent={
-        true
-      } /* need independent={true} or else there's nested stack errors */
-    >
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Menu" component={MenuPage} />
-        <Stack.Screen name="Profile" component={ProfilePage} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
-        <Stack.Screen name="Settings" component={SettingsPage} />
-        <Stack.Screen name="SavedPosts" component={SavedPostsPage} />
-        <Stack.Screen name="HousingListings" component={HousingListingsPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={routes.menuHome} component={MenuHomeScreen} />
+      <Stack.Screen name={routes.profile} component={ProfileScreen} />
+      <Stack.Screen name={routes.editProfile} component={EditProfileScreen} />
+      <Stack.Screen name={routes.savedItems} component={SavedItemsScreen} />
+      <Stack.Screen name={routes.calendar} component={CalendarScreen} />
+      <Stack.Screen name={routes.settings} component={SettingsScreen} />
+    </Stack.Navigator>
   );
 };
 

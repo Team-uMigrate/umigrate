@@ -1,46 +1,22 @@
-import React, { Component, createContext } from 'react';
-import {
-  getAuthToken,
-  setAuthToken,
-  removeAuthToken,
-  ProfileEndpoint,
-} from '../utils/endpoints';
+import React, { useState, createContext } from 'react';
 
 const AuthContext = createContext();
 
-class AuthContextProvider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAuthenticated: null,
-      setAuthenticated: (isAuth) => {
-        this.setState({ isAuthenticated: isAuth });
-      },
-    };
-  }
+// A context provider that stores the user's authentication state
+const AuthContextProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  componentDidMount = async () => {
-    const token = await getAuthToken();
-    if (token != null) {
-      await setAuthToken(token);
-      try {
-        await ProfileEndpoint.get();
-        this.setState({ isAuthenticated: true });
-      } catch (error) {
-        await removeAuthToken();
-        this.setState({ isAuthenticated: false });
-      }
-    } else this.setState({ isAuthenticated: false });
-  };
-
-  render() {
-    return (
-      <AuthContext.Provider value={this.state}>
-        {this.props.children}
-      </AuthContext.Provider>
-    );
-  }
-}
+  return (
+    <AuthContext.Provider
+      value={{
+        isAuthenticated: isAuthenticated,
+        setIsAuthenticated: setIsAuthenticated,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 export { AuthContextProvider };
 export default AuthContext;

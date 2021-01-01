@@ -1,20 +1,22 @@
 import React, { useEffect, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import CommunityPage from '../components/Community';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import MarketPage from '../components/Market';
-import HousingPage from '../components/Housing';
-import MenuNavigator from './MenuNavigator';
 import { StyleSheet } from 'react-native';
-import NavContext from '../contexts/NavContext';
-import ModalContext from '../contexts/ModalContext';
-import CreatePage from '../components/Create';
+import TabNavContext from '../contexts/TabNavContext';
+import CreateItemContext from '../contexts/CreateItemContext';
+import CommunityScreen from '../screens/tabs/CommunityScreen';
+import MarketScreen from '../screens/tabs/MarketScreen';
+import CreateItemScreen from '../screens/tabs/CreateItemScreen';
+import HousingScreen from '../screens/tabs/HousingScreen';
+import MenuScreen from '../screens/tabs/MenuScreen';
+import { routes } from '../utils/routes';
 
 const Tab = createMaterialBottomTabNavigator();
 
+// A navigator that renders components depending on the current tab navigation route
 const TabNavigator = ({ navigation }) => {
-  const nav = useContext(NavContext);
-  const modal = useContext(ModalContext);
+  const nav = useContext(TabNavContext);
+  const createItem = useContext(CreateItemContext);
 
   useEffect(() => {
     nav.setNavigation(navigation);
@@ -29,8 +31,8 @@ const TabNavigator = ({ navigation }) => {
       barStyle={styles.TabNavigator}
     >
       <Tab.Screen
-        name="Community"
-        component={CommunityPage}
+        name={routes.community}
+        component={CommunityScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -42,8 +44,8 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Market"
-        component={MarketPage}
+        name={routes.market}
+        component={MarketScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -55,8 +57,8 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Create"
-        component={CreatePage}
+        name={routes.createItem}
+        component={CreateItemScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -68,14 +70,14 @@ const TabNavigator = ({ navigation }) => {
         }}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
-            modal.setVisible(true);
+            createItem.setIsModalVisible(true);
             e.preventDefault();
           },
         })}
       />
       <Tab.Screen
-        name="Housing"
-        component={HousingPage}
+        name={routes.housing}
+        component={HousingScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="domain" color={color} size={24} />
@@ -83,8 +85,8 @@ const TabNavigator = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Menu"
-        component={MenuNavigator}
+        name={routes.menu}
+        component={MenuScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

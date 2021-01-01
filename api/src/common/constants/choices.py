@@ -100,25 +100,6 @@ class Choices:
             "Apartment",
         ]
     )
-    NOTIFICATION_PRIVACY_CHOICES = convert_to_tuple(
-        [
-            "All",
-            "Following",
-            "None",
-        ]
-    )
-    CURRENCY_CHOICES = convert_to_tuple(
-        [
-            "CAD",
-            "USD",
-        ]
-    )
-    LANGUAGE_CHOICES = convert_to_tuple(
-        [
-            "English",
-            "French",
-        ]
-    )
     JOB_TYPE_CHOICES = convert_to_tuple(
         [
             "Full-time",

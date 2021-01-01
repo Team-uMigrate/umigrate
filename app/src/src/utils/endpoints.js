@@ -67,12 +67,8 @@ export class Choices {
     comment: 27,
     reply: 28,
   };
-  // Todo: See what needs to be fixed here
   static adCategories = ['Electronics', 'Books', 'Food', 'Other'];
   static listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
-  static notificationLevels = ['All', 'Following', 'None'];
-  static currencies = ['CAD', 'USD'];
-  static languages = ['English', 'French'];
   static jobTypes = ['Full-time', 'Internship'];
 }
 

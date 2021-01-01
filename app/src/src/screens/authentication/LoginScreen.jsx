@@ -5,16 +5,14 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image, Modal, StyleSheet, View } from 'react-native';
 import { routes } from '../../utils/routes';
+import ErrorContext from '../../contexts/ErrorContext';
 
 // A screen that allows the user to log in with their credentials
 const LoginScreen = ({ navigation }) => {
   const auth = useContext(AuthContext);
+  const error = useContext(ErrorContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  // Todo: Wrap these functions in a react hook or moove them outside
 
   const signUpRedirect = () => {
     navigation.navigate(routes.registration);
@@ -29,27 +27,8 @@ const LoginScreen = ({ navigation }) => {
       await AuthEndpoint.login(email, password);
       await ProfileEndpoint.get();
       auth.setIsAuthenticated(true);
-    } catch (error) {
-      // Populate error messages
-      // Todo: Fix this
-
-      let errors = [];
-      let count = 0;
-      // Loops through all error messages in the data of the response field in the error object to generate error messages
-      for (let errorType in error.response.data) {
-        errors.push(
-          <Text key={count}>
-            {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
-              errorType.substring(1) +
-              ': ' +
-              error.response.data[errorType]}
-          </Text>
-        );
-        count++;
-      }
-
-      setErrorMessage(errors);
-      setModalVisible(true);
+    } catch (err) {
+      error.setMessage(err.message);
     }
   };
 
@@ -116,20 +95,6 @@ const LoginScreen = ({ navigation }) => {
             Reset password
           </Button>
         </View>
-        <Modal visible={modalVisible} presentationStyle={'overFullScreen'}>
-          <View style={styles.container}>
-            <View style={styles.modalView}>
-              <Text style={styles.errorText}>Error:</Text>
-              {errorMessage}
-              <Button
-                mode="contained"
-                title="Close"
-                style={styles.buttonContainer}
-                onPress={() => setModalVisible(false)}
-              />
-            </View>
-          </View>
-        </Modal>
       </View>
     </KeyboardAwareScrollView>
   );

@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthEndpoint } from '../../utils/endpoints';
 import { Image, Modal, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { routes } from '../../utils/routes';
+import ErrorContext from '../../contexts/ErrorContext';
 
 // A screen that allows the user to register with their credentials
 const RegistrationScreen = ({ navigation }) => {
+  const error = useContext(ErrorContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
 
-  // Todo: Wrap these functions in a react hook or move them outside
   const signInRedirect = () => {
     navigation.navigate(routes.login);
   };
@@ -21,26 +20,8 @@ const RegistrationScreen = ({ navigation }) => {
     try {
       await AuthEndpoint.register(email, password, confirm);
       signInRedirect();
-    } catch (error) {
-      // Populate error messages
-      // Todo: Fix this
-      let errors = [];
-      let count = 0;
-      // Loops through all error messages in the data of the response field in the error object to generate error messages
-      for (let errorType in error.response.data) {
-        errors.push(
-          <Text key={count}>
-            {errorType.substr(0, 1).toUpperCase() + // Capitalize the first letter
-              errorType.substring(1) +
-              ': ' +
-              error.response.data[errorType]}
-          </Text>
-        );
-        count++;
-      }
-
-      setErrorMessage(errors);
-      setModalVisible(true);
+    } catch (err) {
+      error.setMessage(err.message);
     }
   };
 
@@ -97,19 +78,6 @@ const RegistrationScreen = ({ navigation }) => {
           Back
         </Button>
       </View>
-      <Modal visible={modalVisible} presentationStyle={'overFullScreen'}>
-        <View style={styles.container}>
-          <View style={styles.modalView}>
-            <Text style={{ alignItems: 'center' }}>Error:</Text>
-            {errorMessage}
-            <Button
-              title="Close"
-              style={styles.buttonContainer}
-              onPress={() => setModalVisible(false)}
-            ></Button>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };

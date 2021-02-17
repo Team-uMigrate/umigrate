@@ -23,4 +23,4 @@ Share information you want people to know about you through your profile. Are yo
 
 
 ## Azure DevOps CI/CD Pipelines
-Check out our [Build](https://dev.azure.com/Team-uMigrate/umigrate/_build) and [Deploy](https://dev.azure.com/Team-uMigrate/umigrate/_release) respectively pipelines on Azure pipelines.
+Check out our [Build](https://dev.azure.com/Team-uMigrate/umigrate/_build) and [Deploy](https://dev.azure.com/Team-uMigrate/umigrate/_release) pipelines on Azure DevOps.

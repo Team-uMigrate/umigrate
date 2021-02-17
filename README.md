@@ -1,8 +1,4 @@
 # Welcome to uMigrate
-App &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![App Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-app?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=4&branchName=main)  
-API &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![API Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-api?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=1&branchName=main)  
-Infrastructure &nbsp; [![Infrastructure Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-infrastructure?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=2&branchName=main)
-
 
 # About uMigrate
 uMigrate is a social web application for university students to use while completing their undergraduate or graduate degree. It is designed to assist students with the non-academic side of university life through a variety of features.
@@ -28,3 +24,7 @@ Share information you want people to know about you through your profile. Are yo
 
 ## Azure DevOps CI/CD Pipelines
 Check out our [Build](https://dev.azure.com/Team-uMigrate/umigrate/_build) and [Deploy](https://dev.azure.com/Team-uMigrate/umigrate/_release) pipelines on Azure DevOps.
+
+App &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![App Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-app?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=4&branchName=main)  
+API &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![API Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-api?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=1&branchName=main)  
+Infrastructure &nbsp; [![Infrastructure Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-infrastructure?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=2&branchName=main)  

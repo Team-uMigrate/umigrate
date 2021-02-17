@@ -1,7 +1,10 @@
 # Welcome to uMigrate
-App Build: [![App Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-app?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=4&branchName=main)  
-API Build: [![API Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-api?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=1&branchName=main)  
-Infrastructure Build: [![Infrastructure Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-infrastructure?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=2&branchName=main)
+App  
+[![App Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-app?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=4&branchName=main)  
+API  
+[![API Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-api?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=1&branchName=main)  
+Infrastructure  
+[![Infrastructure Build Status](https://dev.azure.com/Team-uMigrate/umigrate/_apis/build/status/umigrate-infrastructure?branchName=main)](https://dev.azure.com/Team-uMigrate/umigrate/_build/latest?definitionId=2&branchName=main)
 
 
 # About uMigrate

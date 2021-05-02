@@ -11,8 +11,8 @@ UW_API_KEY=$7
 SAS_TOKEN=$8
 
 # Create virtualenv
-pip3 install --upgrade pip
-pip3 install virtualenv
+py -m pip install --upgrade pip
+py -m pip install virtualenv
 
 # Make dir for venv 
 DIR="/home/umigrate/venv/"
@@ -31,4 +31,3 @@ DOMAIN_NAME=$DOMAIN_NAME$'\n'\
 STAGE_ENVIRONMENT=$STAGE_ENVIRONMENT$'\n'\
 UW_API_KEY=$UW_API_KEY$'\n'\
 SAS_TOKEN=$SAS_TOKEN$'\n' > /home/umigrate/venv/.env
-

@@ -9,7 +9,7 @@ from photos.serializers import PhotoRetrieveSerializer
 from common.notification_helpers import create_tagged_user_notification
 
 
-# An abstract serializer class for shared items
+# An abstract ModelSerializer class for shared items
 class AbstractModelSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
@@ -60,13 +60,13 @@ class AbstractModelSerializer(ModelSerializerExtension):
         return created_data
 
 
-# A detailed abstract serializer class for shared items
+# A detailed abstract ModelSerializer class for shared items
 class AbstractModelDetailSerializer(AbstractModelSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
     photos = PhotoRetrieveSerializer(read_only=True, many=True)
 
 
-# A serializer class for adding and removing user from a many to many field
+# A Serializer class for adding and removing user from a many to many field
 class AddRemoveUserSerializer(serializers.Serializer):
     id = serializers.IntegerField(min_value=1)
     should_add = serializers.BooleanField()

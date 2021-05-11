@@ -15,7 +15,7 @@ from users.serializers import BasicUserSerializer
 from users.models import CustomUser
 
 
-# An abstract api view class that supports creating, retrieving, updating, and destroying shared items
+# An abstract ModelViewSet class that supports creating, retrieving, updating, and destroying shared items
 class AbstractModelViewSet(ModelViewSet):
     queryset: QuerySet[AbstractPostModel] = None  # Must be overridden
     serializer_class: AbstractModelSerializer = None  # Must be overridden
@@ -41,7 +41,7 @@ class AbstractModelViewSet(ModelViewSet):
         return self.serializer_class
 
 
-# An abstract api view class that supports adding and removing a user to and from a many to many field
+# An abstract ApiView class that supports adding and removing a user to and from a many to many field
 class AbstractAddRemoveUser(ListAPIView):
     serializer_class: Serializer = None  # Must be overridden
     model_class: Model = None  # Must be overridden
@@ -86,7 +86,7 @@ class AbstractAddRemoveUser(ListAPIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
 
-# An abstract api view class that supports retrieving the liked users for a shared item
+# An abstract ApiView class that supports retrieving the liked users for a shared item
 class AbstractLikedUsers(ListAPIView):
     queryset = CustomUser.objects.all()
     model_class: AbstractPostModel = None  # Must be overridden

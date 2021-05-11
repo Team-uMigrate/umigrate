@@ -1,6 +1,7 @@
 from rest_framework import status
 from users.models import CustomUser
 
+# Todo: This file needs to be deprecated. Do not use items from these classes for any new features.
 
 # An abstract test case for generic resource API views
 class GenericPostTestCase:

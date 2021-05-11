@@ -208,6 +208,8 @@ else:
         },
     }
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 # Channels configuration
 
 if STAGE_ENVIRONMENT == "local":

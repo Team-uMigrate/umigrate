@@ -6,7 +6,7 @@ from common.constants.choices import Choices
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-# An abstract Model class that represents a basic post
+# An abstract model class that represents a basic post
 class AbstractPostModel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)

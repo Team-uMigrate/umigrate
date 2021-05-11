@@ -3,7 +3,7 @@ from django.db.models import Model
 from rest_framework import serializers
 
 
-# An abstract ModelSerializer class that allows for excluding fields and including related fields
+# An abstract model serializer class that allows for excluding fields and including related fields
 class ModelSerializerExtension(serializers.ModelSerializer):
     class Meta:
         model: Model = None  # Must be overridden

@@ -4,7 +4,7 @@ from django.db.models import QuerySet
 from photos.models import Photo
 
 
-# An abstract Model class that adds a collection of photos to a Model class
+# An abstract model class that adds a collection of photos to a Model class
 class PhotoCollectionExtension(models.Model):
     id: int = None  # Must be overridden
     photos = GenericRelation(Photo)

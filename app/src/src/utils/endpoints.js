@@ -4,13 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Base URL
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
-    ? 'https://umigrate.ca' // Todo: Change this to dev server
+    ? 'https://dev.umigrate.ca'
     : 'https://umigrate.ca';
 
 // Websocket URLs
 export const MESSAGING_WEBSOCKET =
   process.env.NODE_ENV === 'development'
-    ? 'wss://umigrate.ca/ws/messaging/' // Todo: Change this to dev server
+    ? 'wss://dev.umigrate.ca/ws/messaging/'
     : 'wss://umigrate.ca/ws/messaging/';
 
 export class Choices {

@@ -5,13 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'https://dev.umigrate.ca'
-    : 'https://umigrate.ca';
+    : 'https://dev.umigrate.ca'; // todo: change back to prod server
 
 // Websocket URLs
 export const MESSAGING_WEBSOCKET =
   process.env.NODE_ENV === 'development'
     ? 'wss://dev.umigrate.ca/ws/messaging/'
-    : 'wss://umigrate.ca/ws/messaging/';
+    : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
 
 export class Choices {
   static pronouns = ['None', 'He/Him', 'She/Her', 'They/Them', 'Other'];

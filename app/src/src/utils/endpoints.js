@@ -1,21 +1,27 @@
 import Axios from 'axios';
-import { removeAuthToken, removePushToken, removeUserData, setAuthToken, setUserData, } from './storageAccess';
+import {
+  removeAuthToken,
+  removePushToken,
+  removeUserData,
+  setAuthToken,
+  setUserData,
+} from './storageAccess';
 
 // Base URL
-export const BASE_URL =
+const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'https://dev.umigrate.ca'
     : 'https://dev.umigrate.ca'; // todo: change back to prod server
 
 // Websocket URLs
-export const MESSAGING_WEBSOCKET =
+const MESSAGING_WEBSOCKET =
   process.env.NODE_ENV === 'development'
     ? 'wss://dev.umigrate.ca/ws/messaging/'
     : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
 
 // Helper functions
 
-export function toFormData(data = {}) {
+function toFormData(data = {}) {
   const formData = new FormData();
   Object.keys(data).forEach((key) => {
     if (typeof data[key] === 'object') {
@@ -30,7 +36,7 @@ export function toFormData(data = {}) {
   return formData;
 }
 
-export function toQueryString(data = {}) {
+function toQueryString(data = {}) {
   return Object.keys(data)
     .map((key, i) => `${i === 0 ? '?' : '&'}${key}=${data[key]}`)
     .reduce((total, current) => total + current);

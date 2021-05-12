@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { AdsEndpoint} from '../../utils/endpoints';
+import { AdsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
-import { contentTypes, communities, adCategories } from "../../utils/choices";
+import { contentTypes, communities, adCategories } from '../../utils/choices';
 
 const AdView = (ad) => {
   const {

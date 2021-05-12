@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
 import { mockUser } from '../../utils/mockData';
 import EditProfileView from '../../components/views/EditProfileView';
-import { communities, programs, pronouns, terms } from "../../utils/choices";
+import { communities, programs, pronouns, terms } from '../../utils/choices';
 
 describe('<EditProfileView /> UI Tests', () => {
   beforeEach(() => {

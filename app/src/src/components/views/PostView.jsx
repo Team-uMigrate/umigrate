@@ -7,7 +7,7 @@ import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
-import { communities, contentTypes } from "../../utils/choices";
+import { communities, contentTypes } from '../../utils/choices';
 
 const PostView = (post) => {
   const { title, creator, datetime_created, content, community, photos } = post;
@@ -32,9 +32,7 @@ const PostView = (post) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>
-            Community: {communities[community]}
-          </Text>
+          <Text style={styles.bold}>Community: {communities[community]}</Text>
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar

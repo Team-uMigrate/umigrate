@@ -2,11 +2,16 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { ListingsEndpoint} from '../../utils/endpoints';
+import { ListingsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
-import { communities, contentTypes, listingCategories, seasons } from "../../utils/choices";
+import {
+  communities,
+  contentTypes,
+  listingCategories,
+  seasons,
+} from '../../utils/choices';
 
 const ListingView = (listing) => {
   const {

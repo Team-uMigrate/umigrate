@@ -19,7 +19,12 @@ import ProfileView from './ProfileView';
 import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
-import { Choices, communities, programs, pronouns, terms } from "../../utils/choices";
+import {
+  communities,
+  programs,
+  pronouns,
+  terms,
+} from '../../utils/choices';
 
 const EditProfileView = ({ user, navigation }) => {
   // useStates for data

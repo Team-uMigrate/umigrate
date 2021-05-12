@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Portal } from 'react-native-paper';
 import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
-import { communities } from "../../utils/choices";
+import { communities } from '../../utils/choices';
 
 // Components in the common to all create pages
 // Includes community select modal, button to call it, title input,

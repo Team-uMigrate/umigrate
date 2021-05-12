@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { EventsEndpoint} from '../../utils/endpoints';
+import { EventsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
-import { communities, contentTypes, prices } from "../../utils/choices";
+import { communities, contentTypes, prices } from '../../utils/choices';
 
 const EventView = (event) => {
   const {

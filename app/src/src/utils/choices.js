@@ -19,7 +19,7 @@ export const programs = [
   'St. Pauls',
   'St. Jeromes',
 ];
-export const  terms = [
+export const terms = [
   '1A',
   '1B',
   'W1',
@@ -35,7 +35,7 @@ export const  terms = [
   '4A',
   '4B',
 ];
-export const  contentTypes = {
+export const contentTypes = {
   ad: 14,
   event: 15,
   listing: 16,
@@ -51,6 +51,6 @@ export const  contentTypes = {
   comment: 27,
   reply: 28,
 };
-export const  adCategories = ['Electronics', 'Books', 'Food', 'Other'];
-export const  listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
-export const  jobTypes = ['Full-time', 'Internship'];
+export const adCategories = ['Electronics', 'Books', 'Food', 'Other'];
+export const listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
+export const jobTypes = ['Full-time', 'Internship'];

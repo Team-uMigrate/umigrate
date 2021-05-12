@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EditView from '../../components/views/EditView';
+import EditProfileView from '../../components/views/EditProfileView';
 import { getUserData } from '../../utils/storageAccess';
 
 class EditProfileScreen extends Component {
@@ -17,7 +17,7 @@ class EditProfileScreen extends Component {
   render() {
     const navigation = this.props.navigation;
     const { user } = this.state;
-    return <EditView user={user} navigation={navigation} />;
+    return <EditProfileView user={user} navigation={navigation} />;
   }
 }
 export default EditProfileScreen;

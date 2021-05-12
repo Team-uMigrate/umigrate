@@ -21,7 +21,7 @@ import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { Choices, communities, programs, pronouns, terms } from "../../utils/choices";
 
-const EditView = ({ user, navigation }) => {
+const EditProfileView = ({ user, navigation }) => {
   // useStates for data
   const [bgPic, setbgPic] = useState();
   const [pfp, setPfp] = useState();
@@ -518,7 +518,7 @@ const EditView = ({ user, navigation }) => {
   );
 };
 
-export default EditView;
+export default EditProfileView;
 
 const styles = StyleSheet.create({
   container: {

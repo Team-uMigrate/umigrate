@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, waitFor } from 'react-native-testing-library';
 import { mockUser } from '../../utils/mockData';
-import EditView from '../../components/views/EditView';
+import EditProfileView from '../../components/views/EditProfileView';
 import { communities, programs, pronouns, terms } from "../../utils/choices";
 
-describe('<EditView /> UI Tests', () => {
+describe('<EditProfileView /> UI Tests', () => {
   beforeEach(() => {
-    screen = render(<EditView user={mockUser} />);
+    screen = render(<EditProfileView user={mockUser} />);
   });
 
   it('should contain the preferred name as a text input', () => {

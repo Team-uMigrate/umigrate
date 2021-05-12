@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-native-testing-library';
 import PostView from './PostView';
 import { mockPost } from '../../utils/mockData';
-import { Choices } from '../../utils/endpoints';
+import { communities } from "../../utils/choices";
 
 describe('<PostView />', () => {
   let screen = null;
@@ -30,7 +30,7 @@ describe('<PostView />', () => {
 
   it('should contain the community', () => {
     expect(
-      screen.getByText(`Community: ${Choices.communities[mockPost.community]}`)
+      screen.getByText(`Community: ${communities[mockPost.community]}`)
     );
   });
 

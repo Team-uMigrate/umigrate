@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { removeAuthToken, removePushToken, removeUserData, setAuthToken, setUserData, } from './storageAccess';
 
 // Base URL
 export const BASE_URL =
@@ -12,111 +12,6 @@ export const MESSAGING_WEBSOCKET =
   process.env.NODE_ENV === 'development'
     ? 'wss://dev.umigrate.ca/ws/messaging/'
     : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
-
-export class Choices {
-  static pronouns = ['None', 'He/Him', 'She/Her', 'They/Them', 'Other'];
-  static seasons = ['Winter', 'Spring', 'Fall'];
-  static prices = ['Free', '$', '$$', '$$$', '$$$$', '$$$$$'];
-  static communities = ['Waterloo', 'Toronto', 'Brampton', 'Ottawa'];
-  static programs = [
-    'Unknown',
-    'Engineering',
-    'Arts',
-    'Mathematics',
-    'Science',
-    'Applied Health Sciences',
-    'Environment',
-    'Theology',
-    'Graduate Studies',
-    'Independent Studies',
-    'Interdisciplinary',
-    'Conrad Grebel',
-    'Renison',
-    'St. Pauls',
-    'St. Jeromes',
-  ];
-  static terms = [
-    '1A',
-    '1B',
-    'W1',
-    '2A',
-    'W2',
-    '2B',
-    'W3',
-    '3A',
-    'W4',
-    '3B',
-    'W5',
-    'W6',
-    '4A',
-    '4B',
-  ];
-  static contentTypes = {
-    ad: 14,
-    event: 15,
-    listing: 16,
-    job: 18,
-    messagingRoom: 19,
-    message: 20,
-    poll: 21,
-    pollOption: 22,
-    pollVote: 23,
-    post: 24,
-    user: 25,
-    photo: 26,
-    comment: 27,
-    reply: 28,
-  };
-  static adCategories = ['Electronics', 'Books', 'Food', 'Other'];
-  static listingCategories = ['Condominium', 'Townhouse', 'Apartment'];
-  static jobTypes = ['Full-time', 'Internship'];
-}
-
-// Session Storage functions
-
-const AUTH_TOKEN = 'AUTH_TOKEN';
-const EXPO_TOKEN = 'EXPO_TOKEN';
-const USER_DATA = 'USER_DATA';
-
-export async function getAuthToken() {
-  return await AsyncStorage.getItem(AUTH_TOKEN);
-}
-
-export async function setAuthToken(token) {
-  Axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-  await AsyncStorage.setItem(AUTH_TOKEN, token);
-}
-
-export async function removeAuthToken() {
-  Axios.defaults.headers.common['Authorization'] = null;
-  await AsyncStorage.removeItem(AUTH_TOKEN);
-}
-
-export async function getPushToken() {
-  return await AsyncStorage.getItem(EXPO_TOKEN);
-}
-
-export async function setPushToken(token) {
-  await AsyncStorage.setItem(EXPO_TOKEN, token);
-}
-
-export async function removePushToken() {
-  await AsyncStorage.removeItem(EXPO_TOKEN);
-}
-
-export async function getUserData() {
-  const userData = await AsyncStorage.getItem(USER_DATA);
-  return JSON.parse(userData);
-}
-
-export async function setUserData(userData = {}) {
-  const userDataStr = JSON.stringify(userData);
-  await AsyncStorage.setItem(USER_DATA, userDataStr);
-}
-
-export async function removeUserData() {
-  await AsyncStorage.removeItem(USER_DATA);
-}
 
 // Helper functions
 

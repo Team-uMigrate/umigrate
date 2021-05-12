@@ -9,10 +9,11 @@ import {
   Platform,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
-import { Choices, getUserData } from '../../utils/endpoints';
 import Header from '../../components/views/Header';
 import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
+import { getUserData } from '../../utils/storageAccess';
+import { communities, programs, pronouns, terms } from "../../utils/choices";
 
 class ProfileScreen extends Component {
   state = { user: {} };
@@ -84,7 +85,7 @@ class ProfileScreen extends Component {
             <View style={styles.rows}>
               <ProfileView
                 label="Pronoun"
-                val={Choices.pronouns[this.state.user.pronouns]}
+                val={pronouns[this.state.user.pronouns]}
               />
               <ProfileView
                 label="Birthday"
@@ -95,15 +96,15 @@ class ProfileScreen extends Component {
             <View>
               <ProfileView
                 label="Community"
-                val={Choices.communities[this.state.user.community]}
+                val={communities[this.state.user.community]}
               />
               <ProfileView
                 label="Program"
-                val={Choices.programs[this.state.user.enrolled_program]}
+                val={programs[this.state.user.enrolled_program]}
               />
               <ProfileView
                 label="Current Term"
-                val={Choices.terms[this.state.user.current_term]}
+                val={terms[this.state.user.current_term]}
               />
             </View>
           </View>

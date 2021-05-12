@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getUserData } from '../../utils/endpoints';
 import EditView from '../../components/views/EditView';
+import { getUserData } from '../../utils/storageAccess';
 
 class EditProfileScreen extends Component {
   state = { user: {} };

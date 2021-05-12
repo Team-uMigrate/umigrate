@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import {
-  getAuthToken,
-  ProfileEndpoint,
-  removeAuthToken,
-  setAuthToken,
-} from '../../utils/endpoints';
+import { ProfileEndpoint } from '../../utils/endpoints';
 import AuthContext from '../../contexts/AuthContext';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  getAuthToken,
+  removeAuthToken,
+  setAuthToken,
+} from '../../utils/storageAccess';
 
 // A screen that shows the loading view
 const LoadingScreen = () => {

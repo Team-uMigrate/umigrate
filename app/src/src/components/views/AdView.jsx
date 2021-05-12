@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { AdsEndpoint, Choices } from '../../utils/endpoints';
+import { AdsEndpoint} from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
+import { contentTypes, communities, adCategories } from "../../utils/choices";
 
 const AdView = (ad) => {
   const {
@@ -21,7 +22,7 @@ const AdView = (ad) => {
   } = ad;
 
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes['ad'];
+  const contentType = contentTypes['ad'];
 
   return (
     <Card style={styles.container}>
@@ -45,7 +46,7 @@ const AdView = (ad) => {
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Community: </Text>
-          {Choices.communities[community]}
+          {communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Postal Code: </Text>
@@ -53,7 +54,7 @@ const AdView = (ad) => {
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Category: </Text>
-          {Choices.adCategories[category]}
+          {adCategories[category]}
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar

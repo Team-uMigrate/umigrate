@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from 'react-native';
-import { Choices } from '../../utils/endpoints';
+import { Choices } from "../../utils/choices";
 
 const CommunitySelectModal = ({
   visible,

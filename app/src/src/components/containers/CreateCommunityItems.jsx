@@ -14,13 +14,13 @@ import {
   PollOptionsEndpoint,
   PollsEndpoint,
   PostsEndpoint,
-  getUserData,
 } from '../../utils/endpoints';
 import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import CreatePageTextInput from '../common/CreatePageTextInput';
 import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
+import { getUserData } from '../../utils/storageAccess';
 
 class CreateCommunityItems extends React.Component {
   state = {

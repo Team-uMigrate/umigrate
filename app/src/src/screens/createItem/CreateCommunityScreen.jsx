@@ -6,23 +6,23 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import Header from '../views/Header';
-import PostTypeOptionsButton from '../buttons/PostTypeOptionsButton';
-import BasicCreateForm from '../common/BasicCreateForm';
+import Header from '../../components/views/Header';
+import PostTypeOptionsButton from '../../components/buttons/PostTypeOptionsButton';
+import BasicCreateForm from '../../components/common/BasicCreateForm';
 import {
   EventsEndpoint,
   PollOptionsEndpoint,
   PollsEndpoint,
   PostsEndpoint,
-  getUserData,
 } from '../../utils/endpoints';
 import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import CreatePageTextInput from '../common/CreatePageTextInput';
-import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
+import CreatePageTextInput from '../../components/common/CreatePageTextInput';
+import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
+import { getUserData } from '../../utils/storageAccess';
 
-class CreateCommunityItems extends React.Component {
+class CreateCommunityScreen extends React.Component {
   state = {
     user: { profile_photo: null },
     selectedPostType: 'Post',
@@ -425,7 +425,7 @@ class CreateCommunityItems extends React.Component {
   }
 }
 
-export default CreateCommunityItems;
+export default CreateCommunityScreen;
 
 const styles = StyleSheet.create({
   container: {

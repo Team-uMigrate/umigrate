@@ -15,7 +15,7 @@ from users.serializers import BasicUserSerializer
 from users.models import CustomUser
 
 
-# An abstract api view class that supports creating, retrieving, updating, and destroying shared items
+# An abstract model view set class that supports creating, retrieving, updating, and destroying shared items
 class AbstractModelViewSet(ModelViewSet):
     queryset: QuerySet[AbstractPostModel] = None  # Must be overridden
     serializer_class: AbstractModelSerializer = None  # Must be overridden

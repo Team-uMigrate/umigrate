@@ -10,6 +10,8 @@ from common.abstract_models import IsCreatorOrReadOnly
 from users.serializers import BasicUserSerializer
 
 
+# Todo: This file needs to be deprecated. Do not use items from these classes for any new features.
+
 # HTTP GET: Returns a list of generic resource
 # HTTP POST: Creates a generic resource
 class GenericPostListCreate(ListCreateAPIView):

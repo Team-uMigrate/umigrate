@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
+from django.db.models import QuerySet
 from photos.models import Photo
 
 
-# An abstract model class that adds a collection of photos to a model class
+# An abstract model class that adds a collection of photos to a Model class
 class PhotoCollectionExtension(models.Model):
     id: int = None  # Must be overridden
     photos = GenericRelation(Photo)
@@ -12,7 +13,8 @@ class PhotoCollectionExtension(models.Model):
         abstract = True
 
     def delete(self, using=None, keep_parents=False):
-        photos = self.photos.all()
+        # Delete all photos for this object from the file system
+        photos: QuerySet[Photo] = self.photos.all()
         for photo in photos:
             photo.delete()
 

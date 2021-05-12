@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { EventsEndpoint, Choices } from '../../utils/endpoints';
+import { EventsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
+import { communities, contentTypes, prices } from '../../utils/choices';
 
 const EventView = (event) => {
   const {
@@ -25,7 +26,7 @@ const EventView = (event) => {
   } = event;
 
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes['event'];
+  const contentType = contentTypes['event'];
 
   return (
     <Card style={styles.container}>
@@ -45,11 +46,11 @@ const EventView = (event) => {
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Price: </Text>
-          {Choices.prices[price_scale]}
+          {prices[price_scale]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Community: </Text>
-          {Choices.communities[community]}
+          {communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
           <Text style={styles.bold}>Location: </Text>

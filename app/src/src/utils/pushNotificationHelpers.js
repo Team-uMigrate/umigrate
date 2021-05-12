@@ -2,7 +2,8 @@ import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
-import { DevicesEndpoint, setPushToken } from './endpoints';
+import { DevicesEndpoint } from './endpoints';
+import { setPushToken } from './storageAccess';
 
 export async function registerForPushNotificationsAsync(error) {
   let token;

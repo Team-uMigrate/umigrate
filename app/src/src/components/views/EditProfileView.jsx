@@ -13,13 +13,15 @@ import {
 import { Avatar, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Choices, ProfileEndpoint, setUserData } from '../../utils/endpoints';
+import { ProfileEndpoint } from '../../utils/endpoints';
 import Header from './Header';
 import ProfileView from './ProfileView';
 import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
+import { setUserData } from '../../utils/storageAccess';
+import { communities, programs, pronouns, terms } from '../../utils/choices';
 
-const EditView = ({ user, navigation }) => {
+const EditProfileView = ({ user, navigation }) => {
   // useStates for data
   const [bgPic, setbgPic] = useState();
   const [pfp, setPfp] = useState();
@@ -148,13 +150,13 @@ const EditView = ({ user, navigation }) => {
     var temp = [];
     var tempChoice =
       type == 'Pronoun'
-        ? Choices.pronouns
+        ? pronouns
         : type == 'Region'
-        ? Choices.communities
+        ? communities
         : type == 'Program'
-        ? Choices.programs
+        ? programs
         : type == 'Current Term'
-        ? Choices.terms
+        ? terms
         : '';
 
     if (tempChoice.length) {
@@ -446,10 +448,10 @@ const EditView = ({ user, navigation }) => {
                 label="Pronoun"
                 val={
                   zeroPronoun == 0
-                    ? Choices.pronouns[0]
+                    ? pronouns[0]
                     : pronoun
-                    ? Choices.pronouns[pronoun]
-                    : Choices.pronouns[user.pronouns]
+                    ? pronouns[pronoun]
+                    : pronouns[user.pronouns]
                 }
               />
             </TouchableOpacity>
@@ -467,10 +469,10 @@ const EditView = ({ user, navigation }) => {
                 label="Community"
                 val={
                   zeroReg == 0
-                    ? Choices.communities[0]
+                    ? communities[0]
                     : reg
-                    ? Choices.communities[reg]
-                    : Choices.communities[user.community]
+                    ? communities[reg]
+                    : communities[user.community]
                 }
               />
             </TouchableOpacity>
@@ -479,10 +481,10 @@ const EditView = ({ user, navigation }) => {
                 label="Program"
                 val={
                   zeroPro == 0
-                    ? Choices.programs[0]
+                    ? programs[0]
                     : program
-                    ? Choices.programs[program]
-                    : Choices.programs[user.enrolled_program]
+                    ? programs[program]
+                    : programs[user.enrolled_program]
                 }
               />
             </TouchableOpacity>
@@ -491,10 +493,10 @@ const EditView = ({ user, navigation }) => {
                 label="Current Term"
                 val={
                   zeroTerm == 0
-                    ? Choices.terms[0]
+                    ? terms[0]
                     : term
-                    ? Choices.terms[term]
-                    : Choices.terms[user.current_term]
+                    ? terms[term]
+                    : terms[user.current_term]
                 }
               />
             </TouchableOpacity>
@@ -516,7 +518,7 @@ const EditView = ({ user, navigation }) => {
   );
 };
 
-export default EditView;
+export default EditProfileView;
 
 const styles = StyleSheet.create({
   container: {

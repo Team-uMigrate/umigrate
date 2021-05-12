@@ -4,9 +4,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Portal } from 'react-native-paper';
-import { Choices } from '../../utils/endpoints';
 import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
+import { communities } from '../../utils/choices';
 
 // Components in the common to all create pages
 // Includes community select modal, button to call it, title input,
@@ -39,7 +39,7 @@ const BasicCreateForm = ({
               onPress={() => {
                 setCommunitySelectModalVisible(true);
               }}
-              text={Choices.communities[community]}
+              text={communities[community]}
             />
           </View>
         </View>

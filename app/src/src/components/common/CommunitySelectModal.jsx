@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from 'react-native';
-import { Choices } from '../../utils/endpoints';
+import { communities } from '../../utils/choices';
 
 const CommunitySelectModal = ({
   visible,
@@ -78,10 +78,7 @@ const CommunitySelectModal = ({
               else {
                 newText = newText.toUpperCase();
                 let newResults = [];
-                for (const [
-                  index,
-                  community,
-                ] of Choices.communities.entries()) {
+                for (const [index, community] of communities.entries()) {
                   if (community.toUpperCase().includes(newText))
                     newResults.push(index);
                 }
@@ -114,7 +111,7 @@ const CommunitySelectModal = ({
                     }}
                   >
                     <Text style={{ color: selected ? 'white' : 'black' }}>
-                      {Choices.communities[item]}
+                      {communities[item]}
                     </Text>
                   </Card>
                 </TouchableHighlight>
@@ -158,7 +155,7 @@ const CommunitySelectModal = ({
                           setShownCommunityChoices(newChoices);
                         }}
                       >
-                        <Text>{Choices.communities[item]}</Text>
+                        <Text>{communities[item]}</Text>
                       </TouchableHighlight>
                       {/* Show divider if this is not the last item */}
                       {index < shownCommunityChoices.length - 1 && <Divider />}

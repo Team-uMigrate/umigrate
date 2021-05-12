@@ -2,10 +2,16 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
-import { ListingsEndpoint, Choices } from '../../utils/endpoints';
+import { ListingsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
+import {
+  communities,
+  contentTypes,
+  listingCategories,
+  seasons,
+} from '../../utils/choices';
 
 const ListingView = (listing) => {
   const {
@@ -22,7 +28,7 @@ const ListingView = (listing) => {
   } = listing;
 
   const { width, height } = Dimensions.get('window');
-  const contentType = Choices.contentTypes.listing;
+  const contentType = contentTypes.listing;
 
   return (
     <Card style={styles.container}>
@@ -42,14 +48,14 @@ const ListingView = (listing) => {
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Community: ' + Choices.communities[community]}
+          {'Community: ' + communities[community]}
         </Paragraph>
         <Paragraph style={styles.bodyText}>{'Price: $' + price}</Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Term: ' + Choices.seasons[season] + ' ' + year}
+          {'Term: ' + seasons[season] + ' ' + year}
         </Paragraph>
         <Paragraph style={styles.bodyText}>
-          {'Category: ' + Choices.listingCategories[category]}
+          {'Category: ' + listingCategories[category]}
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar

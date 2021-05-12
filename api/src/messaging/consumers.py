@@ -18,10 +18,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            get_user = database_sync_to_async(
+            user = await database_sync_to_async(
                 lambda: Room.objects.get(id=self.room_id).members.get(id=user_id)
-            )
-            user = await get_user()
+            )()
             self.member = user.__dict__
 
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
@@ -34,7 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     # Receive a message from a websocket
-    async def receive(self, text_data):
+    async def receive(self, text_data=None, byte_data=None):
         text_data_json = json.loads(text_data)
         user_id = self.scope["user"].id
         if self.member["id"] == user_id:
@@ -52,10 +51,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
     async def receive_like(self, text_data_json: dict) -> dict:
-        message_id = text_data_json["message_id"]
-        is_liked = text_data_json["like"]
-        get_message = database_sync_to_async(lambda: Message.objects.get(id=message_id))
-        message: Message = await get_message()
+        message_id: int = text_data_json["message_id"]
+        is_liked: bool = text_data_json["like"]
+        message: Message = await database_sync_to_async(
+            lambda: Message.objects.get(id=message_id)
+        )()
         if is_liked:
             await database_sync_to_async(
                 lambda: message.liked_users.add(self.scope["user"].id)
@@ -83,16 +83,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }
         previous_message = None
         if previous_message_id is not None:
-            get_previous_message = database_sync_to_async(
+            previous_message_result = await database_sync_to_async(
                 lambda: Message.objects.get(id=previous_message_id)
-            )
-            previous_message_result = await get_previous_message()
-            get_previous_message_tagged_users = database_sync_to_async(
+            )()
+            tagged_users_previous = await database_sync_to_async(
                 lambda: previous_message_result.tagged_users.values_list(
                     "id", flat=True
                 )
-            )
-            tagged_users_previous = await get_previous_message_tagged_users()
+            )()
             previous_message = {
                 "id": previous_message_id,
                 "message_body": previous_message_result.content,
@@ -103,22 +101,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "tagged_users": list(tagged_users_previous),
             }
 
-        create_message = database_sync_to_async(
+        message_object: Message = await database_sync_to_async(
             lambda: Message.objects.create(
                 creator_id=self.scope["user"].id,
                 content=message_body,
                 room_id=self.room_id,
                 previous_message_id=previous_message_id,
             )
-        )
-
-        message_object: Message = await create_message()
-        save_message = database_sync_to_async(lambda: message_object.save())
-        await save_message()
-        add_tagged_users = database_sync_to_async(
+        )()
+        await database_sync_to_async(lambda: message_object.save())()
+        await database_sync_to_async(
             lambda: message_object.tagged_users.add(*tagged_users)
-        )
-        await add_tagged_users()
+        )()
         return {
             "type": "send_message",
             "id": message_object.id,

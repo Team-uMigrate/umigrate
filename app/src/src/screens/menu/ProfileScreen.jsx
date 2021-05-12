@@ -13,7 +13,7 @@ import Header from '../../components/views/Header';
 import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
 import { getUserData } from '../../utils/storageAccess';
-import { communities, programs, pronouns, terms } from "../../utils/choices";
+import { communities, programs, pronouns, terms } from '../../utils/choices';
 
 class ProfileScreen extends Component {
   state = { user: {} };
@@ -28,7 +28,7 @@ class ProfileScreen extends Component {
   };
 
   componentDidUpdate = async (_prevProps, prevState) => {
-    if (prevState != this.state) {
+    if (prevState !== this.state) {
       const userData = await getUserData();
       this.setState({ user: userData });
     }
@@ -58,7 +58,7 @@ class ProfileScreen extends Component {
         </View>
         <ScrollView
           style={{ flex: 1, marginHorizontal: 1 }}
-          scrollEnabled={Platform.OS == 'android'}
+          scrollEnabled={Platform.OS === 'android'}
         >
           <View style={styles.pfInfo}>
             <View>

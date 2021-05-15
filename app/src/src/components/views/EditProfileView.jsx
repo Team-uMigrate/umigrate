@@ -20,6 +20,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
+import PickImage from '../common/PickImage';
 
 const EditProfileView = ({ user, navigation }) => {
   // useStates for data
@@ -82,69 +83,6 @@ const EditProfileView = ({ user, navigation }) => {
     };
     askUser();
   }, []);
-
-  // used 2 pick image functions or else the photo library appears by itself
-  const pickImage1 = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      const imagePath = result.uri;
-      const imageExt = result.uri.split('.').pop();
-      const imageMime = `image/${imageExt}`;
-      const filename = result.uri.split('/').pop();
-
-      const picture = await fetch(imagePath);
-      const blobPicture = await picture.blob();
-
-      const imageData = new File([blobPicture], filename);
-
-      const formData = new FormData();
-      formData.append(filename, blobPicture);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(blobPicture);
-      reader.onloadend = () => {
-        setPfp(reader.result);
-        // set setPfpFile to formData or imageData or something else...
-      };
-    }
-  };
-
-  const pickImage2 = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      const imagePath = result.uri;
-      const imageExt = result.uri.split('.').pop();
-      const imageMime = `image/${imageExt}`;
-      const filename = result.uri.split('/').pop();
-
-      const picture = await fetch(imagePath);
-      const blobPicture = await picture.blob();
-
-      const imageData = new File([blobPicture], filename);
-
-      const formData = new FormData();
-      formData.append(filename, blobPicture);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(blobPicture);
-      reader.onloadend = () => {
-        setbgPic(reader.result);
-        // set setbgPicFile to formData or imageData or something else...
-      };
-    }
-  };
 
   const getOptions = (type) => {
     var temp = [];
@@ -300,10 +238,20 @@ const EditProfileView = ({ user, navigation }) => {
         <View style={styles.modalPicView}>
           <Text style={styles.modalText}>Choose a picture to change!</Text>
           <View style={styles.modalButton}>
-            <TouchableHighlight style={styles.picsButton} onPress={pickImage1}>
+            <TouchableHighlight
+              style={styles.picsButton}
+              onPress={async () => {
+                await PickImage({ set: setPfp });
+              }}
+            >
               <Text style={styles.textStyle}>Profile</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.picsButton} onPress={pickImage2}>
+            <TouchableHighlight
+              style={styles.picsButton}
+              onPress={async () => {
+                await PickImage({ set: setbgPic });
+              }}
+            >
               <Text style={styles.textStyle}>Background</Text>
             </TouchableHighlight>
           </View>

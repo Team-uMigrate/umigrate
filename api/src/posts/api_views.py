@@ -1,5 +1,8 @@
-from common.abstract_api_views import AbstractModelViewSet, AbstractLikedUsers
-from common.generics.generic_post_api_views import GenericUserExtension
+from common.abstract_api_views import (
+    AbstractModelViewSet,
+    AbstractAddRemoveUser,
+    AbstractLikedUsers,
+)
 from .filters import PostFilterSet
 from .models import Post
 from .serializers import PostSerializer, PostDetailSerializer
@@ -18,24 +21,24 @@ class PostViewSet(AbstractModelViewSet):
     serializer_class = PostSerializer
     detail_serializer_class = PostDetailSerializer
     filterset_class = PostFilterSet
-    search_fields = [
-        "title",
-    ]
 
 
-# HTTP GET: Returns a list of liked users that liked a post
-# HTTP POST: Like or unlike a post
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
-class PostLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Post.objects.get(id=obj_id).liked_users
+class LikedPosts(AbstractAddRemoveUser):
+    query_string = "liked_posts"
+    serializer_class = PostSerializer
+    model_class = Post
 
 
-# HTTP GET: Returns a list of liked users that liked a post
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Posts"]))
+class SavedPosts(AbstractAddRemoveUser):
+    query_string = "saved_posts"
+    serializer_class = PostSerializer
+    model_class = Post
+
+
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Posts"]))
 class PostLikes(AbstractLikedUsers):
     model_class = Post

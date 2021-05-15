@@ -6,7 +6,7 @@ from common.abstract_serializers import (
 from .models import Poll, Option, Vote
 
 
-# Serializes the vote model
+# A serializer class for the Vote model
 class VoteSerializer(ModelSerializerExtension):
     class Meta:
         model = Vote
@@ -17,7 +17,7 @@ class VoteSerializer(ModelSerializerExtension):
         return ModelSerializerExtension.create(self, validated_data)
 
 
-# Serializes the option model
+# A serializer class for the option model
 class OptionSerializer(ModelSerializerExtension):
     vote_set = VoteSerializer(read_only=True, many=True)
 
@@ -33,7 +33,7 @@ class OptionSerializer(ModelSerializerExtension):
         return ModelSerializerExtension.create(self, validated_data)
 
 
-# Serializes the poll model
+# # A serializer class for the Poll model
 class PollSerializer(AbstractModelSerializer):
     option_set = OptionSerializer(read_only=True, many=True)
 
@@ -46,6 +46,6 @@ class PollSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# Serialize the poll model with detail
+# A detailed serializer class for the Poll model
 class PollDetailSerializer(PollSerializer, AbstractModelDetailSerializer):
     pass

@@ -8,7 +8,7 @@ name: $(MajorVersion).$(MinorVersion)
 trigger:
   branches:
     include:
-    - master
+    - main
   paths:
     include:
       - api/*
@@ -18,7 +18,7 @@ trigger:
 pr:      
   branches:
     include:
-    - master
+    - main
   paths:
     include:
       - api/*
@@ -30,49 +30,48 @@ variables:
   value: 0.0
 - name: MinorVersion
   value: $[counter(format('{0}-{1}', variables['Build.SourceBranch'], variables['MajorVersion']), 0)]
-- name: IsMaster
-  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+- name: IsMain
+  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 - name: IsPr
   value: $[contains(variables['Build.SourceBranch'], 'refs/pull/')]
 - name: IsBranch
-  value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMaster'], 'False'))]
-
-pool:
-  vmImage: 'ubuntu-latest'
+  value: $[and(eq(variables['IsPr'], 'False'), eq(variables['IsMain'], 'False'))]
 
 jobs:
-- job: 'Test'
+- job: 'Job'
+  displayName: 'Build, Test, & Publish'
   pool:
-    vmImage: 'ubuntu-16.04'
-
+    vmImage: 'ubuntu-18.04'
   steps:
-
   - task: CopyFiles@2
+    displayName: 'Copy API Source Files'
     inputs:
       SourceFolder: 'api/src'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: CopyFiles@2
+    displayName: 'Copy API Deployment Scripts'
     inputs:
       SourceFolder: 'api/deployment/scripts'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
 
   - task: UsePythonVersion@0
+    displayName: 'Use Python 3.7'
     inputs:
-      versionSpec: '3.6'
+      versionSpec: '3.7'
 
   - script: python -m pip install --upgrade pip setuptools wheel
-    displayName: 'Install tools'
+    displayName: 'Install Tools'
 
   - script: pip install -r api/src/requirements.txt
-    displayName: 'Install requirements'
+    displayName: 'Install Requirements'
 
   - script: |
       cd api/src
       black --check --exclude env ../src
-    displayName: 'Check formatting'
+    displayName: 'Check Formatting'
 
   - task: DockerInstaller@0
     inputs:
@@ -87,9 +86,10 @@ jobs:
   - script: |
       cd api/src
       pytest --junitxml=../../test-results.xml
-    displayName: 'Run tests'
+    displayName: 'Run Tests'
 
   - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'test-results.xml'
@@ -98,6 +98,7 @@ jobs:
     condition: succeededOrFailed()
 
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Artifact'
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'

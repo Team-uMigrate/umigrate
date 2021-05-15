@@ -16,7 +16,7 @@ class RegistrationView(RegisterView):
     # Overrides from rest_auth to insert load_uwaterloo_data after initial user creation but before email is sent
     def perform_create(self, serializer):
         user = serializer.save(self.request)
-        self.load_uwaterloo_data(user, serializer)
+        # self.load_uwaterloo_data(user, serializer)
         if getattr(settings, "REST_USE_JWT", False):
             self.token = jwt_encode(user)
         else:

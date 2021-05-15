@@ -8,6 +8,7 @@ from notifications.models import Notification
 from notifications.serializers import NotificationSerializer
 
 
+# A function that sends push notifications to all tagged users for a shared item
 def create_tagged_user_notification(
     created_data: AbstractPostModel or Comment or Message or Reply,
 ) -> None:
@@ -29,6 +30,7 @@ def create_tagged_user_notification(
         send_push_notifications(notification)
 
 
+# A function that sends push notifications to the receivers of a notification object
 def send_push_notifications(notification: Notification) -> None:
     push_messages = []
     request = SimpleNamespace()

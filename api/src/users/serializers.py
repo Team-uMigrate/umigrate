@@ -6,7 +6,7 @@ from rest_framework import serializers
 from users.models import CustomUser
 
 
-# Serializes the custom user model
+# A serializer class for the CustomUser model
 class UserSerializer(ModelSerializerExtension):
     email = serializers.ReadOnlyField()
     is_connected = serializers.SerializerMethodField()
@@ -49,7 +49,7 @@ class UserSerializer(ModelSerializerExtension):
         return instance.connected_users.count()
 
 
-# Serializes the custom user model with user settings fields
+# A detailed serializer class for the CustomUser model
 class UserDetailSerializer(ModelSerializerExtension):
     email = serializers.ReadOnlyField()
 
@@ -67,7 +67,7 @@ class UserDetailSerializer(ModelSerializerExtension):
         ]
 
 
-# Serializes the user model with basic information
+# A basic serializer class for the CustomUser model
 class BasicUserSerializer(ModelSerializerExtension):
     is_connected = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
@@ -94,7 +94,7 @@ class BasicUserSerializer(ModelSerializerExtension):
         )
 
 
-# Serializer for the login view
+# A serializer class for login
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(style={"input_type": "password"})

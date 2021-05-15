@@ -3,7 +3,7 @@ import messaging.routing
 from channels.auth import AuthMiddlewareStack
 
 
-# Maps asynchronous connections to routers
+# Routing for asynchronous connections
 application = ProtocolTypeRouter(
     {
         "websocket": AuthMiddlewareStack(

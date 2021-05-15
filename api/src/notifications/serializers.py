@@ -3,6 +3,7 @@ from notifications.models import Device, Notification
 from users.serializers import BasicUserSerializer
 
 
+# A serializer class for the Notification model
 class NotificationSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
 
@@ -12,6 +13,7 @@ class NotificationSerializer(ModelSerializerExtension):
         exclude_fields = ["receivers", "viewers"]
 
 
+# A serializer class for the Device model
 class DeviceSerializer(ModelSerializerExtension):
     creator = BasicUserSerializer(read_only=True)
 
@@ -20,5 +22,7 @@ class DeviceSerializer(ModelSerializerExtension):
         fields = "__all__"
 
     def create(self, validated_data):
+        # Set the user as the creator of the device
         validated_data["creator"] = self.context["request"].user
+
         return ModelSerializerExtension.create(self, validated_data)

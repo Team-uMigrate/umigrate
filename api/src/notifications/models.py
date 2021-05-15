@@ -1,12 +1,10 @@
 from django.db import models
-from comments.models import Comment
-from common.abstract_models import AbstractPostModel
-from messaging.models import Message
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
+# A model class that represents a notification
 class Notification(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=100)
@@ -34,6 +32,7 @@ class Notification(models.Model):
         return f"{self.content}"
 
 
+# A model class that represents a device
 class Device(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)

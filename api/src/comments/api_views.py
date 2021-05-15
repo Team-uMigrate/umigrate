@@ -1,7 +1,11 @@
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from common.abstract_api_views import AbstractModelViewSet
-from common.generics.generic_post_api_views import GenericUserExtension
+from common.abstract_api_views import (
+    AbstractModelViewSet,
+    AbstractAddRemoveUser,
+    AbstractLikedUsers,
+)
+from .filters import CommentFilterSet, ReplyFilterSet
 from .models import Comment, Reply
 from .serializers import (
     CommentSerializer,
@@ -25,16 +29,8 @@ class CommentViewSet(AbstractModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     detail_serializer_class = CommentDetailSerializer
-    # The default filter_backend (when nothing is specified) is DjangoFilterBackend. However, since we are overriding
-    # this we must specify DjangoFilterBackend in addition to OrderingFilter, which is what are using to sort
-    # the results by date
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filter_fields = [
-        "datetime_created",
-        "creator",
-        "object_id",
-        "content_type",
-    ]
+    filterset_class = CommentFilterSet
     ordering_fields = ["datetime_created"]
     search_fields = [
         "content",
@@ -54,32 +50,50 @@ class ReplyViewSet(AbstractModelViewSet):
     serializer_class = ReplySerializer
     detail_serializer_class = ReplyDetailSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
-    filter_fields = ["datetime_created", "creator", "comment"]
+    filterset_class = ReplyFilterSet
     ordering_fields = ["datetime_created"]
     search_fields = [
         "content",
     ]
 
 
-# HTTP GET: Returns a list of liked users that liked a post
-# HTTP POST: Like or unlike a post
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class CommentLike(GenericUserExtension):
-    field_string = "like"
-
-    @staticmethod
-    def field_func(obj_id):
-        return Comment.objects.get(id=obj_id).liked_users
+class LikedComments(AbstractAddRemoveUser):
+    query_string = "liked_comments"
+    serializer_class = CommentSerializer
+    model_class = Comment
 
 
-# HTTP GET: Returns a list of liked users that liked a post
-# HTTP POST: Like or unlike a post
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
-class ReplyLike(GenericUserExtension):
-    field_string = "like"
+class LikedReplies(AbstractAddRemoveUser):
+    query_string = "liked_replies"
+    serializer_class = ReplySerializer
+    model_class = Reply
 
-    @staticmethod
-    def field_func(obj_id):
-        return Reply.objects.get(id=obj_id).liked_users
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+class SavedComments(AbstractAddRemoveUser):
+    query_string = "saved_comments"
+    serializer_class = CommentSerializer
+    model_class = Comment
+
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
+@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+class SavedReplies(AbstractAddRemoveUser):
+    query_string = "saved_replies"
+    serializer_class = ReplySerializer
+    model_class = Reply
+
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
+class CommentLikes(AbstractLikedUsers):
+    model_class = Comment
+
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
+class ReplyLikes(AbstractLikedUsers):
+    model_class = Reply

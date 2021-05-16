@@ -11,6 +11,7 @@ const OptionModal = ({
   setType,
   choices,
   setZero,
+  styles,
 }) => {
   const onPickerChange = (itemValue, _itemIndex) => {
     let zero = 999;
@@ -64,57 +65,3 @@ const OptionModal = ({
   );
 };
 export default OptionModal;
-
-const styles = StyleSheet.create({
-  centeredView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '90%',
-    marginBottom: '2%',
-  },
-  modalView: {
-    height: '90%',
-    width: '90%',
-    top: '15%',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  modalButton: {
-    justifyContent: 'space-evenly',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-  },
-  modalPicker: {
-    height: '50%',
-    width: '100%',
-  },
-  modalOptions: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  openButton: {
-    backgroundColor: '#007CFF',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});

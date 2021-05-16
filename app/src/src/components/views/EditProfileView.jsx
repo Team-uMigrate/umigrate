@@ -85,58 +85,7 @@ const EditProfileView = ({ user, navigation }) => {
     askUser();
   }, []);
 
-  const onDateChange = (event, selectedValue) => {
-    setDate(selectedValue);
-    const currYear = selectedValue.getFullYear().toString();
-    const currMonth =
-      selectedValue.getMonth() < 10
-        ? ('0' + (selectedValue.getMonth() + 1)).toString().slice(-2)
-        : (selectedValue.getMonth() + 1).toString().slice(-2);
-    const currDay =
-      selectedValue.getDate() < 10
-        ? ('0' + selectedValue.getDate()).toString().slice(-2)
-        : selectedValue.getDate().toString().slice(-2);
-    const currDate = currYear + '-' + currMonth + '-' + currDay;
-    setBirth(currDate);
-  };
-
-  const getBirthModal = (type) => {
-    return (
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Pick your {type}!</Text>
-          <View style={styles.modalButton}>
-            <DateTimePicker
-              style={
-                Platform.OS == 'ios' && Platform.Version >= 14
-                  ? {
-                      width: '100%',
-                      flex: 1,
-                      left: '35%',
-                    }
-                  : { width: '100%', flex: 1 }
-              }
-              value={date}
-              display="default"
-              mode="date"
-              minimumDate={new Date(1960, 0, 1)}
-              maximumDate={new Date()}
-              onChange={(event, selectedValue) =>
-                onDateChange(event, selectedValue)
-              }
-            />
-          </View>
-          <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => setVisibleBirth(!visibleBirth)}
-          >
-            <Text style={styles.textStyle}>Close</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  };
-
+  // in new UI, there's no modal for editing the pictures, so this will become useless anyways (except the PickImage call)
   const getPicsModal = () => {
     return (
       <View style={styles.centeredView}>
@@ -174,6 +123,7 @@ const EditProfileView = ({ user, navigation }) => {
   return (
     <View style={styles.container}>
       <BasicModal
+        version={'options'}
         visible={visiblePronoun}
         setVisible={setVisiblePronoun}
         title={'Pick a pronoun option!'}
@@ -183,6 +133,7 @@ const EditProfileView = ({ user, navigation }) => {
         setZero={setZeroPronoun}
       />
       <BasicModal
+        version={'options'}
         visible={visibleReg}
         setVisible={setVisibleReg}
         title={'Pick a community option!'}
@@ -192,6 +143,7 @@ const EditProfileView = ({ user, navigation }) => {
         setZero={setZeroReg}
       />
       <BasicModal
+        version={'options'}
         visible={visiblePro}
         setVisible={setVisiblePro}
         title={'Pick a program option!'}
@@ -201,6 +153,7 @@ const EditProfileView = ({ user, navigation }) => {
         setZero={setZeroPro}
       />
       <BasicModal
+        version={'options'}
         visible={visibleTerm}
         setVisible={setVisibleTerm}
         title={'Pick a current term option!'}
@@ -209,17 +162,15 @@ const EditProfileView = ({ user, navigation }) => {
         choices={terms}
         setZero={setZeroTerm}
       />
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleBirth}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleBirth(false)}
-        >
-          {getBirthModal('Birthday')}
-        </Modal>
-      </View>
+      <BasicModal
+        version={'date'}
+        visible={visibleBirth}
+        setVisible={setVisibleBirth}
+        title={'Pick your birthday!'}
+        type={date}
+        setType={setBirth}
+        setDate={setDate}
+      />
       <View>
         <Modal
           animationType="slide"

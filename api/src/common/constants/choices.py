@@ -1,6 +1,14 @@
 # Converts a list of strings to a tuple in the format (int, str)
+import enum
+
+
 def convert_to_tuple(choices):
     return [(i, choice) for i, choice in enumerate(choices)]
+
+
+# Converts a list of strings to a map with the strings as keys and the indexes as values
+def convert_to_map(choices):
+    return {k: v for v, k in enumerate(choices)}
 
 
 # Trigger a division-by-zero error
@@ -106,12 +114,14 @@ class Choices:
             "Internship",
         ]
     )
-    CONNECTION_STATUS_CHOICES = {
-        "Connected": 0,
-        "Request Sent": 1,
-        "Request Recieved": 2,
-        "Strangers": 3,
-    }
+    CONNECTION_STATUS_CHOICES = convert_to_map(
+        [
+            "Connected",
+            "Request Sent",
+            "Request Recieved",
+            "Strangers",
+        ]
+    )
 
 
 class MockData:

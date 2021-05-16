@@ -1,7 +1,4 @@
 # Converts a list of strings to a tuple in the format (int, str)
-import enum
-
-
 def convert_to_tuple(choices):
     return [(i, choice) for i, choice in enumerate(choices)]
 

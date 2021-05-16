@@ -1,6 +1,16 @@
 from common.abstract_serializers import ModelSerializerExtension
 from users.serializers import BasicUserSerializer
-from .models import Room, Message
+from .models import Room, Message, Membership
+
+from rest_framework import serializers
+
+# Membership serializer to relate the date joined to each member
+class MembershipSerializer(serializers.ModelSerializer):
+    member = BasicUserSerializer(read_only=True)
+
+    class Meta:
+        model = Membership
+        fields = "__all__"
 
 
 # A serializer class for the Room model

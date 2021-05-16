@@ -8,7 +8,12 @@ class Room(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(to=CustomUser, related_name="rooms", blank=True)
+    members = models.ManyToManyField(
+        to=CustomUser,
+        related_name="rooms",
+        blank=True,
+        through="Membership",
+    )
 
     class Meta:
         ordering = ["-datetime_created"]
@@ -21,6 +26,13 @@ class Room(models.Model):
             self.delete()
         else:
             super().save(*args, **kwargs)
+
+
+# A model class that allows for storing of a users join date and time
+class Membership(models.Model):
+    member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    date_joined = models.DateTimeField(auto_now_add=True)
 
 
 # A model class that represents a message

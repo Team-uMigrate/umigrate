@@ -1,9 +1,21 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Button } from 'react-native';
 
-const SearchPageView = ({ data, endpoints }) => {
+const SearchPageView = ({
+  data,
+  endpoints,
+  endpoints_text,
+  get_more,
+  collapse,
+}) => {
   if (data == undefined || data == null || data.length == 0) {
-    return <Text>Loading...</Text>;
+    return (
+      <View
+        style={{ justifyContent: 'center', alignItems: 'center', margin: 20 }}
+      >
+        <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Loading...</Text>
+      </View>
+    );
   }
 
   let display = [];
@@ -12,47 +24,186 @@ const SearchPageView = ({ data, endpoints }) => {
 
   // Determines endpoints with data to be displayed
   for (var x = 0; x < Object.keys(data).length; x++) {
-    if (data[endpoints[x].name] != 0) {
+    // if this is not -1, this means we have info to display!
+    if (data[endpoints[x].name][0] != -1) {
       display = [...display, endpoints[x]];
       names = [...names, endpoints[x].name];
       count++;
     }
   }
+
   if (count == 0) {
-    return <Text>No available data...</Text>;
+    return (
+      <View
+        style={{ justifyContent: 'center', alignItems: 'center', margin: 20 }}
+      >
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+          No results to show.
+        </Text>
+      </View>
+    );
   } else {
     return (
       <ScrollView>
         <View>
           {names.map((endpointName) => {
-            return (
-              <View>
-                <Text style={{ fontSize: 25 }}>{endpointName}</Text>
-                {data[endpointName].map((obj) => {
-                  if (
-                    obj == undefined ||
-                    obj == null ||
-                    obj['title'] == undefined ||
-                    obj['title'] == null ||
-                    obj['creator']['preferred_name'] == undefined ||
-                    obj['creator']['preferred_name'] == null
-                  ) {
-                    return;
-                  } else {
-                    return (
-                      <View style={{ marginVertical: 5 }}>
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {obj['creator']['preferred_name']} {'>'}
-                        </Text>
-                        <Text style={{ flexDirection: 'row' }}>
-                          {obj['title']}
-                        </Text>
+            if (endpointName != 'UsersEndpoint') {
+              return (
+                <View style={styles.content}>
+                  <View
+                    style={{
+                      borderBottomColor: 'lightgrey',
+                      borderBottomWidth: 2,
+                      marginVertical: 10,
+                    }}
+                  />
+                  <Text style={{ fontSize: 25 }}>
+                    {endpoints_text[endpointName]}
+                  </Text>
+                  {data[endpointName][1].map((obj) => {
+                    if (
+                      obj == undefined ||
+                      obj == null ||
+                      obj['title'] == undefined ||
+                      obj['title'] == null ||
+                      obj['creator']['preferred_name'] == undefined ||
+                      obj['creator']['preferred_name'] == null
+                    ) {
+                      return;
+                    } else {
+                      return (
+                        <View style={{ marginVertical: 5 }}>
+                          <Text style={{ fontWeight: 'bold' }}>
+                            {obj['creator']['preferred_name']} {'>'}
+                          </Text>
+                          <Text style={{ flexDirection: 'row' }}>
+                            {obj['title']}
+                          </Text>
+                        </View>
+                      );
+                    }
+                  })}
+                  {data[endpointName][0] != -2 ? (
+                    data[endpointName][0] != 1 ? (
+                      <View style={styles.viewStyle}>
+                        <Button
+                          title="More"
+                          onPress={() =>
+                            get_more(endpointName, data[endpointName][0])
+                          }
+                        ></Button>
+                        <Button
+                          title="Collapse"
+                          onPress={() => collapse(endpointName)}
+                        ></Button>
                       </View>
-                    );
-                  }
-                })}
-              </View>
-            );
+                    ) : (
+                      <View style={styles.viewStyle}>
+                        <Button
+                          title="More"
+                          onPress={() =>
+                            get_more(endpointName, data[endpointName][0])
+                          }
+                        ></Button>
+                      </View>
+                    )
+                  ) : (
+                    <View style={styles.viewStyle}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: 15,
+                          padding: 10,
+                        }}
+                      >
+                        All results shown.
+                      </Text>
+                      <Button
+                        title="Collapse"
+                        onPress={() => collapse(endpointName)}
+                      ></Button>
+                    </View>
+                  )}
+                </View>
+              );
+            } else {
+              return (
+                <View style={styles.content}>
+                  <View
+                    style={{
+                      borderBottomColor: 'lightgrey',
+                      borderBottomWidth: 2,
+                      marginVertical: 10,
+                    }}
+                  />
+                  <Text style={{ fontSize: 25 }}>
+                    {endpoints_text[endpointName]}
+                  </Text>
+                  {data[endpointName][1].map((obj) => {
+                    if (
+                      obj == undefined ||
+                      obj == null ||
+                      obj['preferred_name'] == undefined ||
+                      obj['preferred_name'] == null
+                    ) {
+                      return;
+                    } else {
+                      return (
+                        <View style={{ marginVertical: 5 }}>
+                          <Text style={{ fontWeight: 'bold' }}>
+                            {obj['preferred_name']} {'>'}
+                          </Text>
+                          <Text style={{ flexDirection: 'row' }}>
+                            {obj['bio']}
+                          </Text>
+                        </View>
+                      );
+                    }
+                  })}
+                  {data[endpointName][0] != -2 ? (
+                    data[endpointName][0] != 1 ? (
+                      <View style={styles.viewStyle}>
+                        <Button
+                          title="More"
+                          onPress={() =>
+                            get_more(endpointName, data[endpointName][0])
+                          }
+                        ></Button>
+                        <Button
+                          title="Collapse"
+                          onPress={() => collapse(endpointName)}
+                        ></Button>
+                      </View>
+                    ) : (
+                      <View style={styles.viewStyle}>
+                        <Button
+                          title="More"
+                          onPress={() =>
+                            get_more(endpointName, data[endpointName][0])
+                          }
+                        ></Button>
+                      </View>
+                    )
+                  ) : (
+                    <View style={styles.viewStyle}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: 15,
+                          padding: 10,
+                        }}
+                      >
+                        All results shown.
+                      </Text>
+                      <Button
+                        title="Collapse"
+                        onPress={() => collapse(endpointName)}
+                      ></Button>
+                    </View>
+                  )}
+                </View>
+              );
+            }
           })}
         </View>
       </ScrollView>
@@ -64,7 +215,7 @@ export default SearchPageView;
 const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   header: {
     fontSize: 20,
@@ -83,6 +234,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginLeft: 10,
+    marginRight: 10,
     flex: 1,
     flexDirection: 'column',
   },

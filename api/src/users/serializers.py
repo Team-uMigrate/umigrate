@@ -4,6 +4,7 @@ from rest_framework import exceptions
 from common.serializer_extensions import ModelSerializerExtension
 from rest_framework import serializers
 from users.models import CustomUser
+from common.constants.choices import Choices
 
 
 # A serializer class for the CustomUser model
@@ -36,9 +37,20 @@ class UserSerializer(ModelSerializerExtension):
         ]
 
     def get_is_connected(self, instance):
-        return (
-            self.context["request"].user.connected_users.filter(id=instance.id).exists()
-        )
+        user = self.context["request"].user
+        recieved = instance.connected_users.filter(id=user.id).exists()
+        sent = user.connected_users.filter(id=instance.id).exists()
+
+        if recieved and sent:
+            return Choices.CONNECTION_STATUS_CHOICES["Connected"]
+
+        if sent:
+            return Choices.CONNECTION_STATUS_CHOICES["Request Sent"]
+
+        if recieved:
+            return Choices.CONNECTION_STATUS_CHOICES["Request Recieved"]
+
+        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
 
     def get_is_blocked(self, instance):
         return (

@@ -106,6 +106,12 @@ class Choices:
             "Internship",
         ]
     )
+    CONNECTION_STATUS_CHOICES = {
+        "Connected": 0,
+        "Request Sent": 1,
+        "Request Recieved": 2,
+        "Strangers": 3,
+    }
 
 
 class MockData:

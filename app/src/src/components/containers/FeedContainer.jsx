@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import React, { Component, useContext } from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  RefreshControl,
+  Button,
+} from 'react-native';
+import FeedContainerHeader from '../common/FeedContainerHeader';
+import TabNavContext from '../../contexts/TabNavContext';
+import SearchResults from './SearchResults';
 
 class FeedContainer extends Component {
+  static contextType = TabNavContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +20,7 @@ class FeedContainer extends Component {
       nextPages: props.endpoints.map(() => 1),
       errorMessages: [],
       refreshing: false,
+      searching: false,
     };
   }
 
@@ -124,26 +136,45 @@ class FeedContainer extends Component {
     });
   };
 
+  searchingState = () => {
+    this.setState({ searching: !this.state.searching });
+  };
+
   render() {
-    return (
-      <View style={styles.feedContainer}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.handleRefresh}
-            />
-          }
-          data={this.state.items}
-          keyExtractor={(item, i) => i.toString()}
-          renderItem={this.renderItem}
-          onEndReachedThreshold={0.5}
-          onEndReached={this.fetchItems}
-          showsVerticalScrollIndicator={false}
-          ref={this.props.scrollRef}
-        />
-      </View>
-    );
+    if (this.state.searching === true) {
+      return (
+        // TODO: Fix this margin... its not dynammic enough
+        <View style={{ marginBottom: '45%' }}>
+          <SearchResults searchingState={this.searchingState}></SearchResults>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.feedContainer}>
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.handleRefresh}
+              />
+            }
+            data={this.state.items}
+            keyExtractor={(item, i) => i.toString()}
+            renderItem={this.renderItem}
+            onEndReachedThreshold={0.5}
+            onEndReached={this.fetchItems}
+            showsVerticalScrollIndicator={false}
+            ref={this.props.scrollRef}
+            ListHeaderComponent={
+              <FeedContainerHeader
+                page_name={this.props.route.name}
+                searchingState={this.searchingState}
+              />
+            }
+          />
+        </View>
+      );
+    }
   }
 }
 

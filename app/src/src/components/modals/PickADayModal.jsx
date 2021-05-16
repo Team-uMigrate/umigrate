@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableHighlight, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import YYYYMMDD from '../common/FormatDate/YYYYMMDD';
-// modal to select a day (only day, not time)
+// modal to select a day
 const PickADayModal = ({
   visible,
   setVisible,

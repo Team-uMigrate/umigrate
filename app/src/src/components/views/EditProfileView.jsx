@@ -11,8 +11,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { Avatar, Button, TextInput } from 'react-native-paper';
-import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { ProfileEndpoint } from '../../utils/endpoints';
 import Header from './Header';
 import ProfileView from './ProfileView';
@@ -445,23 +443,6 @@ const styles = StyleSheet.create({
     marginTop: '90%',
     marginBottom: '2%',
   },
-  modalView: {
-    height: '90%',
-    width: '90%',
-    top: '15%',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   modalPicView: {
     height: '65%',
     width: '90%',
@@ -501,18 +482,5 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  modalOptions: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  modalPicker: {
-    height: '50%',
-    width: '100%',
-  },
-  modalButton: {
-    justifyContent: 'space-evenly',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
   },
 });

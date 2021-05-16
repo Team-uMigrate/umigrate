@@ -21,6 +21,7 @@ import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
 import PickImage from '../common/PickImage';
+import BasicModal from '../common/BasicModal';
 
 const EditProfileView = ({ user, navigation }) => {
   // useStates for data
@@ -83,102 +84,6 @@ const EditProfileView = ({ user, navigation }) => {
     };
     askUser();
   }, []);
-
-  const getOptions = (type) => {
-    var temp = [];
-    var tempChoice =
-      type == 'Pronoun'
-        ? pronouns
-        : type == 'Region'
-        ? communities
-        : type == 'Program'
-        ? programs
-        : type == 'Current Term'
-        ? terms
-        : '';
-
-    if (tempChoice.length) {
-      for (let i = 0; i < tempChoice.length; i++) {
-        temp.push(
-          <Picker.Item
-            key={i}
-            label={tempChoice[i]}
-            value={i}
-            style={styles.modalOptions}
-          />
-        );
-      }
-    }
-    return temp;
-  };
-
-  const onPickerChange = (itemValue, itemIndex, type) => {
-    var zero = 999;
-    if (itemValue == 0) {
-      zero = 0;
-    }
-    if (type == 'Pronoun') {
-      setZeroPronoun(zero);
-      setPronoun(itemValue);
-    } else if (type == 'Region') {
-      setZeroReg(zero);
-      setRegion(itemValue);
-    } else if (type == 'Program') {
-      setZeroPro(zero);
-      setProgram(itemValue);
-    } else if (type == 'Current Term') {
-      setZeroTerm(zero);
-      setTerm(itemValue);
-    }
-  };
-
-  const getSpecificModal = (type) => {
-    return (
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Pick a {type} Option!</Text>
-          <View style={styles.modalButton}>
-            <Picker
-              selectedValue={
-                type == 'Pronoun'
-                  ? pronoun
-                  : type == 'Region'
-                  ? reg
-                  : type == 'Program'
-                  ? program
-                  : type == 'Current Term'
-                  ? term
-                  : ''
-              }
-              style={styles.modalPicker}
-              onValueChange={(itemValue, itemIndex) =>
-                onPickerChange(itemValue, itemIndex, type)
-              }
-            >
-              <Picker.Item label="--Options--" style={styles.modalOptions} />
-              {getOptions(type)}
-            </Picker>
-          </View>
-          <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => {
-              type == 'Pronoun'
-                ? setVisiblePronoun(!visiblePronoun)
-                : type == 'Region'
-                ? setVisibleReg(!visibleReg)
-                : type == 'Program'
-                ? setVisiblePro(!visiblePro)
-                : type == 'Current Term'
-                ? setVisibleTerm(!visibleTerm)
-                : '';
-            }}
-          >
-            <Text style={styles.textStyle}>Close</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  };
 
   const onDateChange = (event, selectedValue) => {
     setDate(selectedValue);
@@ -268,50 +173,42 @@ const EditProfileView = ({ user, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visiblePronoun}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisiblePronoun(false)}
-        >
-          {getSpecificModal('Pronoun')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleReg}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleReg(false)}
-        >
-          {getSpecificModal('Region')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visiblePro}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisiblePro(false)}
-        >
-          {getSpecificModal('Program')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleTerm}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleTerm(false)}
-        >
-          {getSpecificModal('Current Term')}
-        </Modal>
-      </View>
+      <BasicModal
+        visible={visiblePronoun}
+        setVisible={setVisiblePronoun}
+        title={'Pick a pronoun option!'}
+        type={pronoun}
+        setType={setPronoun}
+        choices={pronouns}
+        setZero={setZeroPronoun}
+      />
+      <BasicModal
+        visible={visibleReg}
+        setVisible={setVisibleReg}
+        title={'Pick a community option!'}
+        type={reg}
+        setType={setRegion}
+        choices={communities}
+        setZero={setZeroReg}
+      />
+      <BasicModal
+        visible={visiblePro}
+        setVisible={setVisiblePro}
+        title={'Pick a program option!'}
+        type={program}
+        setType={setProgram}
+        choices={programs}
+        setZero={setZeroPro}
+      />
+      <BasicModal
+        visible={visibleTerm}
+        setVisible={setVisibleTerm}
+        title={'Pick a current term option!'}
+        type={term}
+        setType={setTerm}
+        choices={terms}
+        setZero={setZeroTerm}
+      />
       <View>
         <Modal
           animationType="slide"
@@ -334,7 +231,6 @@ const EditProfileView = ({ user, navigation }) => {
           {getPicsModal()}
         </Modal>
       </View>
-
       <Header title="Edit Profile" />
       <View style={styles.backHeading}>
         <Image

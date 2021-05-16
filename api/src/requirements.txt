@@ -2,6 +2,7 @@ Django
 djangorestframework
 django-rest-auth
 django-allauth
+django-axes
 django-filter
 requests
 Pillow

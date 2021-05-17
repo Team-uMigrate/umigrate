@@ -18,7 +18,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
-import pickImage from '../common/pickImage';
+import pickImage from '../common/PickImage';
 import BasicModal from '../common/BasicModal';
 
 const EditProfileView = ({ user, navigation }) => {

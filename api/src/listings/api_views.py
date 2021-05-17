@@ -8,10 +8,10 @@ from .models import Listing
 from .serializers import ListingSerializer, ListingDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import viewsets
+from common.decorators_api_views import viewsets_swagger_decorator
 
 
-@viewsets('Listings')
+@viewsets_swagger_decorator(["Listings"])
 class ListingViewSet(AbstractModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer

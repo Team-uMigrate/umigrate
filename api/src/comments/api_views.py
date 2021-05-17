@@ -15,10 +15,10 @@ from .serializers import (
 )
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import viewsets
+from common.decorators_api_views import viewsets_swagger_decorator
 
 
-@viewsets('Comments')
+@viewsets_swagger_decorator(["Comments"])
 class CommentViewSet(AbstractModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -29,6 +29,7 @@ class CommentViewSet(AbstractModelViewSet):
     search_fields = [
         "content",
     ]
+
 
 @method_decorator(name="list", decorator=swagger_auto_schema(tags=["Comments"]))
 @method_decorator(name="create", decorator=swagger_auto_schema(tags=["Comments"]))

@@ -10,7 +10,7 @@ from common.constants.choices import Choices
 # A serializer class for the CustomUser model
 class UserSerializer(ModelSerializerExtension):
     email = serializers.ReadOnlyField()
-    is_connected = serializers.SerializerMethodField()
+    connection_status = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
     connected = serializers.SerializerMethodField()
 
@@ -36,7 +36,7 @@ class UserSerializer(ModelSerializerExtension):
             "user_permissions",
         ]
 
-    def get_is_connected(self, instance):
+    def get_connection_status(self, instance):
         user = self.context["request"].user
         recieved = instance.connected_users.filter(id=user.id).exists()
         sent = user.connected_users.filter(id=instance.id).exists()

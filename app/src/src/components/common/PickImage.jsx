@@ -1,9 +1,9 @@
 import * as ImagePicker from 'expo-image-picker';
 
-// select an image from the camera roll and change the image
-// doesn't actually save the image yet...
+// Select an image from the camera roll and change the image
+// TODO: can get and change the image on edit profile view, but it doesn't actually save the image when you press save
 
-const PickImage = async ({ set }) => {
+const pickImage = async ({ set }) => {
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     allowsEditing: true,
@@ -34,4 +34,4 @@ const PickImage = async ({ set }) => {
   }
 };
 
-export default PickImage;
+export default pickImage;

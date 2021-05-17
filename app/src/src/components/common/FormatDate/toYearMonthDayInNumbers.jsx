@@ -1,5 +1,5 @@
 // takes in Date and returns the date in YYYY-MM-DD format (ex: 1960-01-01)
-const YYYYMMDD = ({ selectedValue }) => {
+const toYearMonthDayInNumbers = ({ selectedValue }) => {
   const currYear = selectedValue.getFullYear().toString();
   const currMonth =
     selectedValue.getMonth() < 10
@@ -12,4 +12,4 @@ const YYYYMMDD = ({ selectedValue }) => {
   const YYYYMMDD = currYear + '-' + currMonth + '-' + currDay;
   return YYYYMMDD;
 };
-export default YYYYMMDD;
+export default toYearMonthDayInNumbers;

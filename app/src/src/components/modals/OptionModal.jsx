@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-// common selection inside modals
+// Common selection inside modals
 const OptionModal = ({
   visible,
   setVisible,
@@ -14,27 +14,8 @@ const OptionModal = ({
   styles,
 }) => {
   const onPickerChange = (itemValue, _itemIndex) => {
-    let zero = 999;
-    if (itemValue == 0) zero = 0;
     setType(itemValue);
-    setZero(zero);
-  };
-
-  const getOptions = () => {
-    let temp = [];
-    if (choices.length) {
-      for (let i = 0; i < choices.length; i++) {
-        temp.push(
-          <Picker.Item
-            key={i}
-            label={choices[i]}
-            value={i}
-            style={styles.modalOptions}
-          />
-        );
-      }
-    }
-    return temp;
+    setZero(itemValue === 0 ? 0 : 999);
   };
 
   return (
@@ -49,7 +30,14 @@ const OptionModal = ({
               onPickerChange(itemValue, itemIndex)
             }
           >
-            {getOptions()}
+            {choices.map((choice, i) => (
+              <Picker.Item
+                key={i}
+                label={choice}
+                value={i}
+                style={styles.modalOptions}
+              />
+            ))}
           </Picker>
         </View>
         <TouchableHighlight

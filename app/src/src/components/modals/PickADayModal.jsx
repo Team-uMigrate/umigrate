@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, TouchableHighlight, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import YYYYMMDD from '../common/FormatDate/YYYYMMDD';
-// modal to select a day
+import toYearMonthDayInNumbers from '../common/FormatDate/toYearMonthDayInNumbers';
+
+// Modal to select a day
 const PickADayModal = ({
   visible,
   setVisible,
@@ -14,7 +15,7 @@ const PickADayModal = ({
 }) => {
   const onDateChange = (_event, selectedValue) => {
     setDate(selectedValue);
-    const yyyymmdd = YYYYMMDD({ selectedValue: selectedValue });
+    const yyyymmdd = toYearMonthDayInNumbers({ selectedValue: selectedValue });
     setType(yyyymmdd);
   };
   return (

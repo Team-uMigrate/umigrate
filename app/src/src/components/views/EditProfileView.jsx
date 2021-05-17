@@ -18,7 +18,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
-import PickImage from '../common/PickImage';
+import pickImage from '../common/pickImage';
 import BasicModal from '../common/BasicModal';
 
 const EditProfileView = ({ user, navigation }) => {
@@ -83,7 +83,6 @@ const EditProfileView = ({ user, navigation }) => {
     askUser();
   }, []);
 
-  // in new UI, there's no modal for editing the pictures, so this will become useless anyways (except the PickImage call)
   const getPicsModal = () => {
     return (
       <View style={styles.centeredView}>
@@ -93,7 +92,7 @@ const EditProfileView = ({ user, navigation }) => {
             <TouchableHighlight
               style={styles.picsButton}
               onPress={async () => {
-                await PickImage({ set: setPfp });
+                await pickImage({ set: setPfp });
               }}
             >
               <Text style={styles.textStyle}>Profile</Text>
@@ -101,7 +100,7 @@ const EditProfileView = ({ user, navigation }) => {
             <TouchableHighlight
               style={styles.picsButton}
               onPress={async () => {
-                await PickImage({ set: setbgPic });
+                await pickImage({ set: setbgPic });
               }}
             >
               <Text style={styles.textStyle}>Background</Text>
@@ -482,5 +481,10 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  modalButton: {
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
   },
 });

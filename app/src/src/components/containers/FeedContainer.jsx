@@ -103,6 +103,7 @@ class FeedContainer extends Component {
     // Set state to refreshing
     this.setState(
       {
+        items: [],
         nextPages: this.state.nextPages.map(() => 1),
         errorMessages: [],
         refreshing: true,

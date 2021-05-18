@@ -1,7 +1,7 @@
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
-# COMMON 6 DECORATORS APPLIED TO ALL MODEL VIEW SET CLASSES
+# Common 6 swagger_auto_schema decorators applied to all model view set classes
 def viewsets_swagger_decorator(tagList):
     @method_decorator(name="list", decorator=swagger_auto_schema(tags=tagList))
     @method_decorator(name="create", decorator=swagger_auto_schema(tags=tagList))

@@ -35,11 +35,12 @@ class UserTestCase(APITestCase):
         obj["profile_photo"] = None
         obj["background_photo"] = None
         for key in response_dict:
-            if key == "is_connected" or key == "is_blocked" or key == "connected":
+            if key == "connection_status" or key == "is_blocked" or key == "connected":
                 continue
             self.assertEqual(obj[key], response_dict[key])
 
     def test_connect_user(self):
+        # TODO: add tests for connection status here?
         connect_data = {"connect": True, "id": 1}
 
         connect_response = self.client.post(

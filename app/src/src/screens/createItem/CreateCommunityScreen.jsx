@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TextInput,
-  Platform,
-} from 'react-native';
+import { StyleSheet, View, ScrollView, TextInput } from 'react-native';
 import Header from '../../components/views/Header';
 import PostTypeOptionsButton from '../../components/buttons/PostTypeOptionsButton';
 import BasicCreateForm from '../../components/common/BasicCreateForm';
@@ -15,8 +9,7 @@ import {
   PollsEndpoint,
   PostsEndpoint,
 } from '../../utils/endpoints';
-import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { Card, IconButton, Button } from 'react-native-paper';
 import CreatePageTextInput from '../../components/common/CreatePageTextInput';
 import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
 import { getUserData } from '../../utils/storageAccess';

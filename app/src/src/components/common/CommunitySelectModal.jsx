@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Divider, Modal, Portal } from 'react-native-paper';
+import { Card, Divider, Modal } from 'react-native-paper';
 import {
   StyleSheet,
   Text,

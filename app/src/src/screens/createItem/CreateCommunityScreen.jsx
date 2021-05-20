@@ -17,10 +17,11 @@ import {
 } from '../../utils/endpoints';
 import { Card, IconButton, Button, Portal, Modal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
 import CreatePageTextInput from '../../components/common/CreatePageTextInput';
 import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
 import { getUserData } from '../../utils/storageAccess';
+import toYearMonthDayTimeInNumbers from '../../components/common/FormatDate/toYearMonthDayTimeInNumbers';
+import PickADayTimeModal from '../../components/modals/PickADayTimeModal';
 
 class CreateCommunityScreen extends React.Component {
   state = {
@@ -102,8 +103,12 @@ class CreateCommunityScreen extends React.Component {
       try {
         const data = {
           ...basicData,
-          start_datetime: this.formatDate(this.state.eventTime),
-          end_datetime: this.formatDate(this.state.eventTime),
+          start_datetime: toYearMonthDayTimeInNumbers({
+            date: this.state.eventTime,
+          }),
+          end_datetime: toYearMonthDayTimeInNumbers({
+            date: this.state.eventTime,
+          }),
           location: this.state.eventLocation,
           price:
             this.state.eventAdmissionPrice === ''
@@ -123,29 +128,6 @@ class CreateCommunityScreen extends React.Component {
         console.log('error response:', error.response);
       }
     }
-  };
-
-  // Takes in a Date object and returns an EST date string to send to the API
-  formatDate = (date) => {
-    // For some reason, even if the locale is set to Canada, the date is returned
-    // in mm/dd/yy format. This contradicts what you'll find on the MDN docs page :(
-    let dateString = date.toLocaleDateString('en-CA', {
-      timezone: 'EST',
-      year: 'numeric',
-    });
-    let timeString = date.toLocaleTimeString('en-CA', {
-      timezone: 'EST',
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-
-    let [month, day, year] = dateString.split('/');
-    year = '20' + year;
-
-    let fullDate = year + '-' + month + '-' + day + 'T' + timeString + 'Z';
-
-    return fullDate;
   };
 
   shareButtonDisabled = () => {
@@ -199,7 +181,7 @@ class CreateCommunityScreen extends React.Component {
           {/* Render list of poll options and new poll option button if the poll button is selected */}
           {this.state.selectedPostType === 'Poll' && (
             <>
-              {this.state.pollOptions.map((pollText, index) => {
+              {this.state.pollOptions.map((_pollText, index) => {
                 return (
                   <View
                     key={index.toString()}
@@ -263,87 +245,20 @@ class CreateCommunityScreen extends React.Component {
                   }}
                   text={this.state.eventTime.toString()}
                 />
-
-                <Portal>
-                  <Modal
-                    visible={
-                      this.state.showDatePicker || this.state.showTimePicker
-                    }
-                    contentContainerStyle={{ backgroundColor: 'white' }}
-                    onDismiss={() => {
-                      this.setState({
-                        showDatePicker: false,
-                        showTimePicker: false,
-                      });
-                    }}
-                  >
-                    {/* Date picker */}
-                    {this.state.showDatePicker && (
-                      <DateTimePicker
-                        value={this.state.eventTime}
-                        onChange={(event, selectedDate) => {
-                          const currentDate =
-                            selectedDate || this.state.eventTime;
-
-                          if (Platform.OS !== 'ios') {
-                            this.setState({ showDatePicker: false });
-                            this.setState({ showTimePicker: true });
-                          }
-                          this.setState({ eventTime: currentDate });
-                        }}
-                        mode={'date'}
-                        display={'default'}
-                        minimumDate={new Date()}
-                      />
-                    )}
-
-                    {/* Time picker */}
-                    {this.state.showTimePicker && (
-                      <DateTimePicker
-                        value={this.state.eventTime}
-                        onChange={(event, selectedDate) => {
-                          const newTime = selectedDate || this.state.eventTime;
-                          const hours = newTime.getHours();
-                          const minutes = newTime.getMinutes();
-
-                          // Clone the date object
-                          let currentDate = new Date(
-                            this.state.eventTime.getTime()
-                          );
-                          currentDate.setHours(hours);
-                          currentDate.setMinutes(minutes);
-                          currentDate.setSeconds(0);
-
-                          this.setState({
-                            showTimePicker: Platform.OS === 'ios',
-                          });
-                          this.setState({
-                            eventTime: currentDate,
-                          });
-                        }}
-                        mode={'time'}
-                        display={'default'}
-                      />
-                    )}
-
-                    {/* The DateTimePicker on iOS doesn't include a confirm button, while Android does :( */}
-                    {Platform.OS === 'ios' && (
-                      <Button
-                        onPress={() => {
-                          if (this.state.showDatePicker)
-                            this.setState({
-                              showDatePicker: false,
-                              showTimePicker: true,
-                            });
-                          else if (this.state.showTimePicker)
-                            this.setState({ showTimePicker: false });
-                        }}
-                      >
-                        {this.state.showDatePicker ? 'Select time' : 'Confirm'}
-                      </Button>
-                    )}
-                  </Modal>
-                </Portal>
+                <PickADayTimeModal
+                  showDatePicker={this.state.showDatePicker}
+                  onShowDatePickerChange={(show) =>
+                    this.setState({ showDatePicker: show })
+                  }
+                  showTimePicker={this.state.showTimePicker}
+                  onShowTimePickerChange={(show) =>
+                    this.setState({ showTimePicker: show })
+                  }
+                  eventTime={this.state.eventTime}
+                  onEventTimeChange={(date) =>
+                    this.setState({ eventTime: date })
+                  }
+                />
               </View>
 
               {/* Location/Link */}

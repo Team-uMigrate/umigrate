@@ -120,7 +120,7 @@ const CommunitySelectModal = ({
 
           {communitySearchFocused && (
             <Card style={styles.communitySearchResultsCard}>
-              <ScrollView>
+              <ScrollView keyboardShouldPersistTaps={'always'}>
                 {searchResults.map((item, index) => {
                   return (
                     <View key={index}>

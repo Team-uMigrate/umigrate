@@ -44,6 +44,11 @@ class RoomViewSet(AbstractModelViewSet):
 
 
 class MembershipCreateDestroy(APIView):
+    permission_classes = [
+        IsAuthenticated,
+        IsMember,
+    ]
+
     @swagger_auto_schema(tags=["Messaging"])
     def post(self, request, *args, **kwargs):
         member = request.data

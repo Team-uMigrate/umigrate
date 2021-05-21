@@ -8,6 +8,7 @@ from users.models import CustomUser
 class Poll(AbstractPostModel, PhotoCollectionExtension):
     is_multiselect = models.BooleanField(default=False)
     is_public = models.BooleanField(default=False)
+    is_anonymous = models.BooleanField(default=False)
 
 
 # A model class that represents a poll option

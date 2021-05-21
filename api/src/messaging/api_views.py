@@ -1,12 +1,22 @@
+from django.db.models.query import QuerySet
+from messaging.views import room
+from typing import List
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.response import Response
 from common.abstract_api_views import AbstractModelViewSet
-from .models import IsMember
+from .models import IsMember, Membership
+from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
+from users.models import CustomUser
 from .models import Room, Message
-from .serializers import RoomSerializer, RoomDetailSerializer, MessageSerializer
+from .serializers import (
+    RoomSerializer,
+    RoomDetailSerializer,
+    MembershipSerializer,
+    MessageSerializer,
+)
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
@@ -31,6 +41,36 @@ class RoomViewSet(AbstractModelViewSet):
     def get_queryset(self):
         # Retrieve the available rooms for the user
         return self.request.user.rooms.all()
+
+
+class MembershipCreateDestroy(APIView):
+    @swagger_auto_schema(tags=["Messaging"])
+    def post(self, request, *args, **kwargs):
+        member = request.data
+        roomid = kwargs["id"]
+        room = Room.objects.get(id=roomid)
+        if room.members.filter(id=member):
+            return Response({"message": "Member already exists"})
+
+        try:
+            user = CustomUser.objects.get(id=member)
+            room.members.add(user)
+            return Response({"message": "Member Created."})
+
+        except ObjectDoesNotExist:
+            return Response(
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+    @swagger_auto_schema(tags=["Messaging"])
+    def delete(self, request, *args, **kwargs):
+        roomid = kwargs["id"]
+        member = request.user
+
+        room = Room.objects.get(id=roomid)
+        room.members.remove(member)
+
+        return Response({"message": "Member Removed."})
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Messaging"]))

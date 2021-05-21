@@ -5,12 +5,11 @@ from .models import Room, Message, Membership
 from rest_framework import serializers
 
 # Membership serializer to relate the date joined to each member
-class MembershipSerializer(serializers.ModelSerializer):
-    member = BasicUserSerializer(read_only=True)
-
+class MembershipSerializer(ModelSerializerExtension):
     class Meta:
         model = Membership
         fields = "__all__"
+        exclude_fields = ["id"]
 
 
 # A serializer class for the Room model
@@ -26,18 +25,6 @@ class RoomSerializer(ModelSerializerExtension):
         created_data.members.add(self.context["request"].user)
 
         return created_data
-
-    def update(self, instance, validated_data):
-        # Allow a user to add new members to the room or remove only themselves from the room
-        for member in instance.members.all():
-            if (
-                "members" in validated_data
-                and member not in validated_data["members"]
-                and member != self.context["request"].user
-            ):
-                validated_data["members"].append(member)
-
-        return ModelSerializerExtension.update(self, instance, validated_data)
 
 
 # A detailed serializer class for the Room model

@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .api_views import (
     RoomViewSet,
+    MembershipCreateDestroy,
     MessageList,
 )
 
@@ -17,4 +18,5 @@ urlpatterns = router.urls + [
     # TODO: Remove these 2 paths later
     path("messaging/", index, name="index"),
     path("messaging/<str:room_id>/", room, name="room"),
+    path("<int:id>/membership/", MembershipCreateDestroy.as_view()),
 ]

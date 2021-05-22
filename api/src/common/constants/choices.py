@@ -3,6 +3,11 @@ def convert_to_tuple(choices):
     return [(i, choice) for i, choice in enumerate(choices)]
 
 
+# Converts a list of strings to a map with the strings as keys and the indexes as values
+def convert_to_map(choices):
+    return {k: v for v, k in enumerate(choices)}
+
+
 # Trigger a division-by-zero error
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -104,6 +109,14 @@ class Choices:
         [
             "Full-time",
             "Internship",
+        ]
+    )
+    CONNECTION_STATUS_CHOICES = convert_to_map(
+        [
+            "Connected",
+            "Request Sent",
+            "Request Recieved",
+            "Strangers",
         ]
     )
 

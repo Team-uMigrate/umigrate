@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from rest_framework.test import APITestCase
 from users.models import CustomUser
 from rest_framework import status
@@ -12,7 +13,9 @@ class UserTestCase(APITestCase):
         CustomUser.objects.create_user(
             email="test1@uwaterloo.ca", password="Top$ecret150"
         )
-        self.client.login(email="test0@uwaterloo.ca", password="Top$ecret150")
+        self.client.login(
+            email="test0@uwaterloo.ca", password="Top$ecret150", request=HttpRequest()
+        )
 
     def test_list(self):
         response = self.client.get("/api/users/")

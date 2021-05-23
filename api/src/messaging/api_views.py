@@ -1,6 +1,3 @@
-from django.db.models.query import QuerySet
-from messaging.views import room
-from typing import List
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,7 +11,6 @@ from .models import Room, Message
 from .serializers import (
     RoomSerializer,
     RoomDetailSerializer,
-    MembershipSerializer,
     MessageSerializer,
 )
 from django.utils.decorators import method_decorator
@@ -43,7 +39,7 @@ class RoomViewSet(AbstractModelViewSet):
         return self.request.user.rooms.all()
 
 
-class MembershipCreateDestroy(APIView):
+class AddRemoveMembers(APIView):
     permission_classes = [
         IsAuthenticated,
         IsMember,
@@ -51,21 +47,28 @@ class MembershipCreateDestroy(APIView):
 
     @swagger_auto_schema(tags=["Messaging"])
     def post(self, request, *args, **kwargs):
-        member = request.data
-        roomid = kwargs["id"]
-        room = Room.objects.get(id=roomid)
-        if room.members.filter(id=member):
-            return Response({"message": "Member already exists"})
-
+        member_id = request.data
+        room_id = kwargs["id"]
         try:
-            user = CustomUser.objects.get(id=member)
-            room.members.add(user)
-            return Response({"message": "Member Created."})
+            room = Room.objects.get(id=room_id)
+            if room.members.filter(id=request.user.id).exists():
+                user = CustomUser.objects.get(id=member_id)
+                room.members.add(user)
+                if room.members.filter(id=member_id):
+                    return Response({"message": "Member already exists"})
 
-        except ObjectDoesNotExist:
+                return Response({"message": "Member added to room"})
+
             return Response(
-                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "Not found."}, status=status.HTTP_400_BAD_REQUEST
             )
+
+        except ObjectDoesNotExist as e:
+            if e.args == ("CustomUser matching query does not exist.",):
+                return Response(
+                    {"detail": "User not found."}, status=status.HTTP_400_BAD_REQUEST
+                )
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(tags=["Messaging"])
     def delete(self, request, *args, **kwargs):

@@ -58,7 +58,7 @@ class CreateCommunityScreen extends React.Component {
     const basicData = {
       title: this.state.title,
       content: this.state.body,
-      community: this.state.user.community,
+      community: this.state.community,
       tagged_users: [], // TODO add tag user functionality
     };
 

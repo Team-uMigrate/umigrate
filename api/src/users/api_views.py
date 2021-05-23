@@ -3,6 +3,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from common.generics.generic_post_api_views import GenericUserExtension
+from common.notification_helpers import create_connection_request_notification
 from .filters import UserFilterSet
 from .models import CustomUser
 from .serializers import UserSerializer
@@ -45,6 +46,15 @@ class ConnectUser(GenericUserExtension):
     @staticmethod
     def field_func(obj_id):
         return CustomUser.objects.get(id=obj_id).connected_users
+
+    def post(self, request, *args, **kwargs):
+        GenericUserExtension.post(request, args, kwargs)
+        add_user = request.data[self.field_string]
+        if add_user:
+            receiver = request.user
+            sender = CustomUser.objects.get(id=request.data["id"])
+            request = receiver.connected_users.filter(id=request.data["id"]).exists()
+            create_connection_request_notification(receiver, sender, request)
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Users"]))

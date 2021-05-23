@@ -33,10 +33,15 @@ def create_tagged_user_notification(
 
 # A function that sends push notifications to a user when they recieve a connection request
 def create_connection_request_notification(
-    reciever: CustomUser, sender: CustomUser
+    reciever: CustomUser,
+    sender: CustomUser,
+    request: bool,  # request => true if requesting, false if accepting
 ) -> None:
     content_type = ContentType.objects.get_for_model(sender)
     content = f"{sender.preferred_name} sent you a connection request"
+    if request:
+        content = f"{sender.preferred_name} accepted your connection request"
+
     notification = Notification(
         content=content,
         content_type=content_type,

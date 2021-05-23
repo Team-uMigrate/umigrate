@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
 from exponent_server_sdk import PushMessage, PushClient
 from comments.models import Comment, Reply
@@ -28,6 +29,56 @@ def create_tagged_user_notification(
         notification.save()
         notification.receivers.add(*tagged_users)
         send_push_notifications(notification)
+
+
+# A function that sends push notifications to a user when they recieve a connection request
+def create_connection_request_notification(
+    reciever: CustomUser, sender: CustomUser
+) -> None:
+    content_type = ContentType.objects.get_for_model(sender)
+    content = f"{sender.preferred_name} sent you a connection request"
+    notification = Notification(
+        content=content,
+        content_type=content_type,
+        object_id=sender.id,
+        creator_id=sender.id,
+    )
+    notification.save()
+    notification.receivers.add(*reciever)
+    send_push_notifications(notification)
+
+
+# A function that sends push notifications to a user when they recieve a message
+def create_message_notification(reciever: CustomUser, sender: CustomUser) -> None:
+    content_type = ContentType.objects.get_for_model(sender)
+    content = f"{sender.preferred_name} sent you a message"
+    notification = Notification(
+        content=content,
+        content_type=content_type,
+        object_id=sender.id,
+        creator_id=sender.id,
+    )
+    notification.save()
+    notification.receivers.add(*reciever)
+    send_push_notifications(notification)
+
+
+# A function that sends push notifications to the owner of a shared item when it is liked
+def create_liked_shared_item_notification(
+    liked_data: AbstractPostModel or Comment or Message or Reply, liker: CustomUser
+) -> None:
+    owner = liked_data.creator
+    content_type = ContentType.objects.get_for_model(liked_data)
+    content = f"{liker.preferred_name} liked your {content_type.model}!"
+    notification = Notification(
+        content=content,
+        content_type=content_type,
+        object_id=liked_data.id,
+        creator_id=liker.id,
+    )
+    notification.save()
+    notification.receivers.add(*owner)
+    send_push_notifications(notification)
 
 
 # A function that sends push notifications to the receivers of a notification object

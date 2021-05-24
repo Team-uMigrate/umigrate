@@ -149,24 +149,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
     async def send_message(self, event):
-        message_id = event["id"]
-        message_body = event["message_body"]
-        creator = event["creator"]
-        datetime_created = event["datetime_created"]
-        previous_message = event["previous_message"]
-        tagged_users = event["tagged_users"]
         user_id = self.scope["user"].id
 
         if self.member["id"] == user_id:
             await self.send(
                 text_data=json.dumps(
                     {
-                        "id": message_id,
-                        "message_body": message_body,
-                        "creator": creator,
-                        "previous_message": previous_message,
-                        "datetime_created": datetime_created,
-                        "tagged_users": tagged_users,
+                        "id": event["id"],
+                        "message_body": event["message_body"],
+                        "creator": event["creator"],
+                        "previous_message": event["previous_message"],
+                        "datetime_created": event["datetime_created"],
+                        "tagged_users": event["tagged_users"],
                     }
                 )
             )

@@ -5,6 +5,11 @@ import json
 from .models import Room, Message
 
 
+# Helper function
+async def database_sync_helper(func):
+    database_sync_to_async(lambda: func)()
+
+
 # Handles websocket connections for messaging
 class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None
@@ -18,9 +23,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            user = await database_sync_to_async(
-                lambda: Room.objects.get(id=self.room_id).members.get(id=user_id)
-            )()
+            user = await database_sync_helper(
+                Room.objects.get(id=self.room_id).members.get(id=user_id)
+            )
             self.member = user.__dict__
 
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
@@ -86,11 +91,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             previous_message_result = await database_sync_to_async(
                 lambda: Message.objects.get(id=previous_message_id)
             )()
-            tagged_users_previous = await database_sync_to_async(
-                lambda: previous_message_result.tagged_users.values_list(
-                    "id", flat=True
-                )
-            )()
+            tagged_users_previous = await database_sync_helper(
+                previous_message_result.tagged_users.values_list("id", flat=True)
+            )
+
             previous_message = {
                 "id": previous_message_id,
                 "message_body": previous_message_result.content,
@@ -109,10 +113,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 previous_message_id=previous_message_id,
             )
         )()
-        await database_sync_to_async(lambda: message_object.save())()
-        await database_sync_to_async(
-            lambda: message_object.tagged_users.add(*tagged_users)
-        )()
+        await database_sync_helper(message_object.save())
+        await database_sync_helper(message_object.tagged_users.add(*tagged_users))
         return {
             "type": "send_message",
             "id": message_object.id,

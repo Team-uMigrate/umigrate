@@ -7,7 +7,7 @@ from .models import Room, Message
 
 # Helper function
 async def database_sync_helper(func):
-    database_sync_to_async(lambda: func)()
+    await database_sync_to_async(func())()
 
 
 # Handles websocket connections for messaging
@@ -89,9 +89,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             previous_message_result = await database_sync_to_async(
                 lambda: Message.objects.get(id=previous_message_id)
             )()
-            tagged_users_previous = await database_sync_helper(
-                previous_message_result.tagged_users.values_list("id", flat=True)
-            )
+            tagged_users_previous = await database_sync_to_async(
+                lambda: previous_message_result.tagged_users.values_list(
+                    "id", flat=True
+                )
+            )()
 
             previous_message = {
                 "id": previous_message_id,

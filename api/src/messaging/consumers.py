@@ -62,13 +62,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             lambda: Message.objects.get(id=message_id)
         )()
         if is_liked:
-            await database_sync_to_async(
-                lambda: message.liked_users.add(self.scope["user"].id)
-            )()
+            await database_sync_helper(message.liked_users.add(self.scope["user"].id))
         else:
-            await database_sync_to_async(
-                lambda: message.liked_users.remove(self.scope["user"].id)
-            )()
+            await database_sync_helper(
+                message.liked_users.remove(self.scope["user"].id)
+            )
         return {
             "type": "send_like",
             "message_id": message_id,
@@ -129,18 +127,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Sends a received message to the group
     async def send_like(self, event):
-        message_id = event["message_id"]
-        is_liked = event["like"]
-        liked_user_id = event["user_id"]
         user_id = self.scope["user"].id
 
         if self.member["id"] == user_id:
             await self.send(
                 text_data=json.dumps(
                     {
-                        "message_id": message_id,
-                        "like": is_liked,
-                        "user_id": liked_user_id,
+                        "message_id": event["message_id"],
+                        "like": event["like"],
+                        "user_id": event["user_id"],
                     }
                 )
             )

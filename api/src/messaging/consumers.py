@@ -3,6 +3,7 @@ from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Room, Message
+from common.notification_helpers import create_liked_shared_item_notification, create_message_notification, 
 
 
 # Handles websocket connections for messaging
@@ -10,6 +11,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None
     room_group_name = None
     member = None
+    # cached objects
+    room = None
+    user = None
 
     # Creates a group or enters and existing one
     async def connect(self):
@@ -18,10 +22,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            user = await database_sync_to_async(
-                lambda: Room.objects.get(id=self.room_id).members.get(id=user_id)
+            self.room = Room.objects.get(id=self.room_id)
+            self.user = await database_sync_to_async(
+                lambda: self.room.members.get(id=user_id)
             )()
-            self.member = user.__dict__
+            self.member = self.user.__dict__
 
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
             await self.accept()
@@ -36,6 +41,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, byte_data=None):
         text_data_json = json.loads(text_data)
         user_id = self.scope["user"].id
+        if not self.room:
+            # panic error?
+            pass
+
         if self.member["id"] == user_id:
             event = None
             if text_data_json["type"] == "send_message":
@@ -60,6 +69,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await database_sync_to_async(
                 lambda: message.liked_users.add(self.scope["user"].id)
             )()
+            create_liked_shared_item_notification(message, self.user)
+
         else:
             await database_sync_to_async(
                 lambda: message.liked_users.remove(self.scope["user"].id)
@@ -113,6 +124,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await database_sync_to_async(
             lambda: message_object.tagged_users.add(*tagged_users)
         )()
+        receivers = list(self.room.members.all())
+        create_message_notification(receivers, self.user, message_object)
         return {
             "type": "send_message",
             "id": message_object.id,

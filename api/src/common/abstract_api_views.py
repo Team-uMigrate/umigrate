@@ -1,3 +1,4 @@
+from common.notification_helpers import create_liked_shared_item_notification
 from django.db.models import Model
 from django.db.models.query import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -76,6 +77,12 @@ class AbstractAddRemoveUser(ListAPIView):
             # Add or remove the user from the list of saved users for the shared item
             if should_add:
                 getattr(self.request.user, self.query_string).add(shared_item)
+                # Hacky solution. Checks if many to many field is like by query string
+                if self.query_string.startswith("liked_"):
+                    create_liked_shared_item_notification(
+                        shared_item, self.request.user
+                    )
+
             else:
                 getattr(self.request.user, self.query_string).remove(shared_item)
 

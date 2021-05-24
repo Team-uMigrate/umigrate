@@ -54,8 +54,10 @@ def create_connection_request_notification(
 
 
 # A function that sends push notifications to a user when they recieve a message
-def create_message_notification(reciever: CustomUser, sender: CustomUser) -> None:
-    content_type = ContentType.objects.get_for_model(sender)
+def create_message_notification(
+    recievers: list[CustomUser], sender: CustomUser, message: Message
+) -> None:
+    content_type = ContentType.objects.get_for_model(message)
     content = f"{sender.preferred_name} sent you a message"
     notification = Notification(
         content=content,
@@ -64,7 +66,7 @@ def create_message_notification(reciever: CustomUser, sender: CustomUser) -> Non
         creator_id=sender.id,
     )
     notification.save()
-    notification.receivers.add(*reciever)
+    notification.receivers.add(*recievers)
     send_push_notifications(notification)
 
 

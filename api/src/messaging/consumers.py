@@ -7,7 +7,7 @@ from .models import Room, Message
 
 # Helper function
 async def database_sync_helper(func):
-    await database_sync_to_async(func())()
+    await database_sync_to_async(func)()
 
 
 # Handles websocket connections for messaging

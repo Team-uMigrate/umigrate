@@ -11,8 +11,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { Avatar, Button, TextInput } from 'react-native-paper';
-import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { ProfileEndpoint } from '../../utils/endpoints';
 import Header from './Header';
 import ProfileView from './ProfileView';
@@ -20,6 +18,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
+import pickImage from '../common/PickImage';
+import BasicModal from '../common/BasicModal';
 
 const EditProfileView = ({ user, navigation }) => {
   // useStates for data
@@ -83,227 +83,26 @@ const EditProfileView = ({ user, navigation }) => {
     askUser();
   }, []);
 
-  // used 2 pick image functions or else the photo library appears by itself
-  const pickImage1 = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      const imagePath = result.uri;
-      const imageExt = result.uri.split('.').pop();
-      const imageMime = `image/${imageExt}`;
-      const filename = result.uri.split('/').pop();
-
-      const picture = await fetch(imagePath);
-      const blobPicture = await picture.blob();
-
-      const imageData = new File([blobPicture], filename);
-
-      const formData = new FormData();
-      formData.append(filename, blobPicture);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(blobPicture);
-      reader.onloadend = () => {
-        setPfp(reader.result);
-        // set setPfpFile to formData or imageData or something else...
-      };
-    }
-  };
-
-  const pickImage2 = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      const imagePath = result.uri;
-      const imageExt = result.uri.split('.').pop();
-      const imageMime = `image/${imageExt}`;
-      const filename = result.uri.split('/').pop();
-
-      const picture = await fetch(imagePath);
-      const blobPicture = await picture.blob();
-
-      const imageData = new File([blobPicture], filename);
-
-      const formData = new FormData();
-      formData.append(filename, blobPicture);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(blobPicture);
-      reader.onloadend = () => {
-        setbgPic(reader.result);
-        // set setbgPicFile to formData or imageData or something else...
-      };
-    }
-  };
-
-  const getOptions = (type) => {
-    var temp = [];
-    var tempChoice =
-      type == 'Pronoun'
-        ? pronouns
-        : type == 'Region'
-        ? communities
-        : type == 'Program'
-        ? programs
-        : type == 'Current Term'
-        ? terms
-        : '';
-
-    if (tempChoice.length) {
-      for (let i = 0; i < tempChoice.length; i++) {
-        temp.push(
-          <Picker.Item
-            key={i}
-            label={tempChoice[i]}
-            value={i}
-            style={styles.modalOptions}
-          />
-        );
-      }
-    }
-    return temp;
-  };
-
-  const onPickerChange = (itemValue, itemIndex, type) => {
-    var zero = 999;
-    if (itemValue == 0) {
-      zero = 0;
-    }
-    if (type == 'Pronoun') {
-      setZeroPronoun(zero);
-      setPronoun(itemValue);
-    } else if (type == 'Region') {
-      setZeroReg(zero);
-      setRegion(itemValue);
-    } else if (type == 'Program') {
-      setZeroPro(zero);
-      setProgram(itemValue);
-    } else if (type == 'Current Term') {
-      setZeroTerm(zero);
-      setTerm(itemValue);
-    }
-  };
-
-  const getSpecificModal = (type) => {
-    return (
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Pick a {type} Option!</Text>
-          <View style={styles.modalButton}>
-            <Picker
-              selectedValue={
-                type == 'Pronoun'
-                  ? pronoun
-                  : type == 'Region'
-                  ? reg
-                  : type == 'Program'
-                  ? program
-                  : type == 'Current Term'
-                  ? term
-                  : ''
-              }
-              style={styles.modalPicker}
-              onValueChange={(itemValue, itemIndex) =>
-                onPickerChange(itemValue, itemIndex, type)
-              }
-            >
-              <Picker.Item label="--Options--" style={styles.modalOptions} />
-              {getOptions(type)}
-            </Picker>
-          </View>
-          <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => {
-              type == 'Pronoun'
-                ? setVisiblePronoun(!visiblePronoun)
-                : type == 'Region'
-                ? setVisibleReg(!visibleReg)
-                : type == 'Program'
-                ? setVisiblePro(!visiblePro)
-                : type == 'Current Term'
-                ? setVisibleTerm(!visibleTerm)
-                : '';
-            }}
-          >
-            <Text style={styles.textStyle}>Close</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  };
-
-  const onDateChange = (event, selectedValue) => {
-    setDate(selectedValue);
-    const currYear = selectedValue.getFullYear().toString();
-    const currMonth =
-      selectedValue.getMonth() < 10
-        ? ('0' + (selectedValue.getMonth() + 1)).toString().slice(-2)
-        : (selectedValue.getMonth() + 1).toString().slice(-2);
-    const currDay =
-      selectedValue.getDate() < 10
-        ? ('0' + selectedValue.getDate()).toString().slice(-2)
-        : selectedValue.getDate().toString().slice(-2);
-    const currDate = currYear + '-' + currMonth + '-' + currDay;
-    setBirth(currDate);
-  };
-
-  const getBirthModal = (type) => {
-    return (
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Pick your {type}!</Text>
-          <View style={styles.modalButton}>
-            <DateTimePicker
-              style={
-                Platform.OS == 'ios' && Platform.Version >= 14
-                  ? {
-                      width: '100%',
-                      flex: 1,
-                      left: '35%',
-                    }
-                  : { width: '100%', flex: 1 }
-              }
-              value={date}
-              display="default"
-              mode="date"
-              minimumDate={new Date(1960, 0, 1)}
-              maximumDate={new Date()}
-              onChange={(event, selectedValue) =>
-                onDateChange(event, selectedValue)
-              }
-            />
-          </View>
-          <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => setVisibleBirth(!visibleBirth)}
-          >
-            <Text style={styles.textStyle}>Close</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  };
-
   const getPicsModal = () => {
     return (
       <View style={styles.centeredView}>
         <View style={styles.modalPicView}>
           <Text style={styles.modalText}>Choose a picture to change!</Text>
           <View style={styles.modalButton}>
-            <TouchableHighlight style={styles.picsButton} onPress={pickImage1}>
+            <TouchableHighlight
+              style={styles.picsButton}
+              onPress={async () => {
+                await pickImage({ set: setPfp });
+              }}
+            >
               <Text style={styles.textStyle}>Profile</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.picsButton} onPress={pickImage2}>
+            <TouchableHighlight
+              style={styles.picsButton}
+              onPress={async () => {
+                await pickImage({ set: setbgPic });
+              }}
+            >
               <Text style={styles.textStyle}>Background</Text>
             </TouchableHighlight>
           </View>
@@ -320,61 +119,55 @@ const EditProfileView = ({ user, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visiblePronoun}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisiblePronoun(false)}
-        >
-          {getSpecificModal('Pronoun')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleReg}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleReg(false)}
-        >
-          {getSpecificModal('Region')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visiblePro}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisiblePro(false)}
-        >
-          {getSpecificModal('Program')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleTerm}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleTerm(false)}
-        >
-          {getSpecificModal('Current Term')}
-        </Modal>
-      </View>
-      <View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={visibleBirth}
-          hardwareAccelerated={true}
-          onRequestClose={() => setVisibleBirth(false)}
-        >
-          {getBirthModal('Birthday')}
-        </Modal>
-      </View>
+      <BasicModal
+        version={'options'}
+        visible={visiblePronoun}
+        setVisible={setVisiblePronoun}
+        title={'Pick a pronoun option!'}
+        type={pronoun}
+        setType={setPronoun}
+        choices={pronouns}
+        setZero={setZeroPronoun}
+      />
+      <BasicModal
+        version={'options'}
+        visible={visibleReg}
+        setVisible={setVisibleReg}
+        title={'Pick a community option!'}
+        type={reg}
+        setType={setRegion}
+        choices={communities}
+        setZero={setZeroReg}
+      />
+      <BasicModal
+        version={'options'}
+        visible={visiblePro}
+        setVisible={setVisiblePro}
+        title={'Pick a program option!'}
+        type={program}
+        setType={setProgram}
+        choices={programs}
+        setZero={setZeroPro}
+      />
+      <BasicModal
+        version={'options'}
+        visible={visibleTerm}
+        setVisible={setVisibleTerm}
+        title={'Pick a current term option!'}
+        type={term}
+        setType={setTerm}
+        choices={terms}
+        setZero={setZeroTerm}
+      />
+      <BasicModal
+        version={'date'}
+        visible={visibleBirth}
+        setVisible={setVisibleBirth}
+        title={'Pick your birthday!'}
+        type={date}
+        setType={setBirth}
+        setDate={setDate}
+      />
       <View>
         <Modal
           animationType="slide"
@@ -386,7 +179,6 @@ const EditProfileView = ({ user, navigation }) => {
           {getPicsModal()}
         </Modal>
       </View>
-
       <Header title="Edit Profile" />
       <View style={styles.backHeading}>
         <Image
@@ -650,23 +442,6 @@ const styles = StyleSheet.create({
     marginTop: '90%',
     marginBottom: '2%',
   },
-  modalView: {
-    height: '90%',
-    width: '90%',
-    top: '15%',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   modalPicView: {
     height: '65%',
     width: '90%',
@@ -706,14 +481,6 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  modalOptions: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  modalPicker: {
-    height: '50%',
-    width: '100%',
   },
   modalButton: {
     justifyContent: 'space-evenly',

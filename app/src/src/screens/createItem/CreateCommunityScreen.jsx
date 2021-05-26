@@ -174,7 +174,7 @@ class CreateCommunityScreen extends React.Component {
           {/* Render list of poll options and new poll option button if the poll button is selected */}
           {this.state.selectedPostType === 'Poll' && (
             <>
-              {this.state.pollOptions.map((_pollText, index) => {
+              {this.state.pollOptions.map((_, index) => {
                 return (
                   <View
                     key={index.toString()}

@@ -14,10 +14,10 @@ from .serializers import (
 )
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import viewsets_swagger_decorator
+from common.decorators_api_views import model_view_set_swagger_decorator
 
 
-@viewsets_swagger_decorator(["Polls"])
+@model_view_set_swagger_decorator(["Polls"])
 class PollViewSet(AbstractModelViewSet):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer

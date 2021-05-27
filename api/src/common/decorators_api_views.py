@@ -1,17 +1,20 @@
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
-# Common 6 swagger_auto_schema decorators applied to all model view set classes
-def viewsets_swagger_decorator(tagList):
-    @method_decorator(name="list", decorator=swagger_auto_schema(tags=tagList))
-    @method_decorator(name="create", decorator=swagger_auto_schema(tags=tagList))
-    @method_decorator(name="retrieve", decorator=swagger_auto_schema(tags=tagList))
-    @method_decorator(name="update", decorator=swagger_auto_schema(tags=tagList))
-    @method_decorator(
-        name="partial_update", decorator=swagger_auto_schema(tags=tagList)
-    )
-    @method_decorator(name="destroy", decorator=swagger_auto_schema(tags=tagList))
-    def wrapper(Cls):
-        return Cls
+
+# Applies swagger_auto_schema decorator to all methods in a model view set class
+def model_view_set_swagger_decorator(tags):
+    def wrapper(obj):
+        for name in [
+            "list",
+            "create",
+            "retrieve",
+            "update",
+            "partial_update",
+            "destroy",
+        ]:
+            method_decorator(name=name, decorator=swagger_auto_schema(tags=tags))(obj)
+
+        return obj
 
     return wrapper

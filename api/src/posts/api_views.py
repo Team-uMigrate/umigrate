@@ -8,10 +8,10 @@ from .models import Post
 from .serializers import PostSerializer, PostDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import viewsets_swagger_decorator
+from common.decorators_api_views import model_view_set_swagger_decorator
 
 
-@viewsets_swagger_decorator(["Posts"])
+@model_view_set_swagger_decorator(["Posts"])
 class PostViewSet(AbstractModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

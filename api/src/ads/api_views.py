@@ -8,10 +8,10 @@ from .models import Ad
 from .serializers import AdSerializer, AdDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import viewsets_swagger_decorator
+from common.decorators_api_views import model_view_set_swagger_decorator
 
 
-@viewsets_swagger_decorator(["Ads"])
+@model_view_set_swagger_decorator(["Ads"])
 class AdViewSet(AbstractModelViewSet):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer

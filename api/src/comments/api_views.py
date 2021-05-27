@@ -15,7 +15,10 @@ from .serializers import (
 )
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import model_view_set_swagger_decorator
+from common.decorators import (
+    model_view_set_swagger_decorator,
+    api_view_swagger_decorator,
+)
 
 
 @model_view_set_swagger_decorator(["Comments"])
@@ -31,14 +34,7 @@ class CommentViewSet(AbstractModelViewSet):
     ]
 
 
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="create", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="retrieve", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="update", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(
-    name="partial_update", decorator=swagger_auto_schema(tags=["Comments"])
-)
-@method_decorator(name="destroy", decorator=swagger_auto_schema(tags=["Comments"]))
+@model_view_set_swagger_decorator(["Comments"])
 class ReplyViewSet(AbstractModelViewSet):
     queryset = Reply.objects.all()
     serializer_class = ReplySerializer
@@ -51,32 +47,28 @@ class ReplyViewSet(AbstractModelViewSet):
     ]
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+@api_view_swagger_decorator(["Comments"])
 class LikedComments(AbstractAddRemoveUser):
     query_string = "liked_comments"
     serializer_class = CommentSerializer
     model_class = Comment
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+@api_view_swagger_decorator(["Comments"])
 class LikedReplies(AbstractAddRemoveUser):
     query_string = "liked_replies"
     serializer_class = ReplySerializer
     model_class = Reply
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+@api_view_swagger_decorator(["Comments"])
 class SavedComments(AbstractAddRemoveUser):
     query_string = "saved_comments"
     serializer_class = CommentSerializer
     model_class = Comment
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Comments"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Comments"]))
+@api_view_swagger_decorator(["Comments"])
 class SavedReplies(AbstractAddRemoveUser):
     query_string = "saved_replies"
     serializer_class = ReplySerializer

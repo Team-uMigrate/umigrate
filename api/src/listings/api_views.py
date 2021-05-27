@@ -8,7 +8,10 @@ from .models import Listing
 from .serializers import ListingSerializer, ListingDetailSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
-from common.decorators_api_views import model_view_set_swagger_decorator
+from common.decorators import (
+    model_view_set_swagger_decorator,
+    api_view_swagger_decorator,
+)
 
 
 @model_view_set_swagger_decorator(["Listings"])
@@ -19,16 +22,14 @@ class ListingViewSet(AbstractModelViewSet):
     filterset_class = ListingFilter
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
+@api_view_swagger_decorator(["Listings"])
 class LikedListings(AbstractAddRemoveUser):
     query_string = "liked_listings"
     serializer_class = ListingSerializer
     model_class = Listing
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Listings"]))
+@api_view_swagger_decorator(["Listings"])
 class SavedListings(AbstractAddRemoveUser):
     query_string = "saved_listings"
     serializer_class = ListingSerializer

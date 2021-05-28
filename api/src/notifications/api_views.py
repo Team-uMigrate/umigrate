@@ -6,6 +6,7 @@ from .models import Notification, Device
 from .serializers import NotificationSerializer, DeviceSerializer
 from common.abstract_models import IsCreator
 from rest_framework.permissions import IsAuthenticated
+from common.decorators import model_view_set_swagger_decorator
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Notifications"]))
@@ -24,16 +25,7 @@ class NotificationList(ListAPIView):
         )
 
 
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Notifications"]))
-@method_decorator(name="create", decorator=swagger_auto_schema(tags=["Notifications"]))
-@method_decorator(
-    name="retrieve", decorator=swagger_auto_schema(tags=["Notifications"])
-)
-@method_decorator(name="update", decorator=swagger_auto_schema(tags=["Notifications"]))
-@method_decorator(
-    name="partial_update", decorator=swagger_auto_schema(tags=["Notifications"])
-)
-@method_decorator(name="destroy", decorator=swagger_auto_schema(tags=["Notifications"]))
+@model_view_set_swagger_decorator(["Notifications"])
 class DeviceViewSet(ModelViewSet):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer

@@ -60,7 +60,10 @@ const CommentBar = ({ item, contentType, endpoint }) => {
         <View style={styles.likesAndCommentsText}>
           <Text
             onPress={() => {
-              // TODO : Show who has liked this post onPress
+              nav.navigation.navigate(routes.comments, {
+                postId: item.id,
+                contentType: contentType,
+              });
             }}
             style={styles.likesText}
           >

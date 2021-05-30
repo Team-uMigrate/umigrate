@@ -6,6 +6,7 @@ export const routes = {
   messaging: 'Messaging',
   notifications: 'Notifications',
   comments: 'SharedItem',
+  likes: 'Likes',
   community: 'Community',
   market: 'Market',
   createItem: 'Create',

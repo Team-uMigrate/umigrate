@@ -28,12 +28,20 @@
     <script>
       const roomId = JSON.parse(document.getElementById("room-id").textContent);
 
-      let websocketProtocol = "wss://";
-      let httpProtocol = "https://";
-      if (window.location.protocol !== "https:") {
-        websocketProtocol = "ws://";
-        httpProtocol = "http://";
+      let websocketProtocol = 'wss://';
+      let httpProtocol = 'https://';
+      if (window.location.protocol !== 'https:') {
+          websocketProtocol = 'ws://';
+          httpProtocol = 'http://';
       }
+
+      const chatSocket = new WebSocket(
+          websocketProtocol
+          + window.location.host
+          + '/ws/messaging/'
+          + roomId
+          + '/'
+       );
 
       const chatSocket = new WebSocket(
         websocketProtocol + window.location.host + "/ws/messaging/" + roomId

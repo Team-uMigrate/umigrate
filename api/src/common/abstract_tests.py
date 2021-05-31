@@ -2,6 +2,7 @@ import json
 from rest_framework import status
 from types import SimpleNamespace
 from users.factories import UserFactory
+from django.http import HttpRequest
 
 
 def create_data(factory_class, serializer_class, pop_keys):
@@ -48,7 +49,9 @@ class AbstractAPITestCase:
     def setUp(self):
         user = UserFactory(connected_users=[], blocked_users=[])
         items = self.factory_class.create_batch(5, creator=user, **self.factory_kwargs)
-        self.api_client.login(email=user.email, password="Top$ecret150")
+        self.api_client.login(
+            email=user.email, password="Top$ecret150", request=HttpRequest()
+        )
 
     def test_list(self):
         response = self.api_client.get(self.endpoint)
@@ -275,7 +278,9 @@ class AbstractLikesTestCase:
     def setUp(self):
         user = UserFactory(connected_users=[], blocked_users=[])
         item = self.factory_class(creator=user, **self.factory_kwargs)
-        self.api_client.login(email=user.email, password="Top$ecret150")
+        self.api_client.login(
+            email=user.email, password="Top$ecret150", request=HttpRequest()
+        )
 
     def test_liked_users(self):
         response = self.api_client.get(self.endpoint)

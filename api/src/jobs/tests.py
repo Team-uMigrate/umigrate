@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from users.models import CustomUser
 from rest_framework.test import APITestCase
 from common.utils.create_resources import create_jobs
@@ -34,7 +35,9 @@ class JobTestCase(APITestCase):
         self.user = CustomUser.objects.create_user(
             email="test0@uwaterloo.ca", password="Top$ecret150"
         )
-        self.client.login(email="test0@uwaterloo.ca", password="Top$ecret150")
+        self.client.login(
+            email="test0@uwaterloo.ca", password="Top$ecret150", request=HttpRequest()
+        )
         create_jobs(3)
 
     def test_list(self):

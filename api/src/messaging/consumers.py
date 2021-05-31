@@ -3,7 +3,8 @@ from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Room, Message
-
+from django.contrib.contenttypes.models import ContentType
+from asgiref.sync import sync_to_async
 
 # Handles websocket connections for messaging
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -81,6 +82,35 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "last_name": self.member["last_name"],
             "preferred_name": self.member["preferred_name"],
         }
+        content_type, content_object, object_id = (
+            text_data_json["content_type"],
+            None,
+            text_data_json["object_id"],
+        )
+
+        if content_type and object_id > 0:
+            try:
+                content_type = await sync_to_async(ContentType.objects.get)(
+                    model=content_type
+                )
+                content_type = content_type.model_class()
+                content_object = await sync_to_async(content_type.objects.get)(
+                    id=object_id
+                )
+            except Exception as e:
+                print(str(e))
+                return {
+                    "type": "send_message",
+                    "id": 0,
+                    "message_body": str(e),
+                    "creator": "",
+                    "previous_message": None,
+                    "datetime_created": "",
+                    "tagged_users": [],
+                    "content_type": "",
+                    "object_id": "",
+                }
+
         previous_message = None
         if previous_message_id is not None:
             previous_message_result = await database_sync_to_async(
@@ -99,6 +129,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "%Y-%m-%dT%H:%M:%S.%fZ"
                 ),
                 "tagged_users": list(tagged_users_previous),
+                "content_type": str(previous_message_result.content_type),
+                "object_id": previous_message_result.object_id,
             }
 
         message_object: Message = await database_sync_to_async(
@@ -107,8 +139,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 content=message_body,
                 room_id=self.room_id,
                 previous_message_id=previous_message_id,
+                content_object=content_object,
             )
         )()
+
         await database_sync_to_async(lambda: message_object.save())()
         await database_sync_to_async(
             lambda: message_object.tagged_users.add(*tagged_users)
@@ -123,6 +157,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "%Y-%m-%dT%H:%M:%S.%fZ"
             ),
             "tagged_users": tagged_users,
+            "content_type": text_data_json["content_type"],
+            "object_id": text_data_json["object_id"],
         }
 
     # Sends a received message to the group
@@ -156,6 +192,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         previous_message = event["previous_message"]
         tagged_users = event["tagged_users"]
         user_id = self.scope["user"].id
+        content_type = event["content_type"]
+        object_id = event["object_id"]
 
         if self.member["id"] == user_id:
             await self.send(
@@ -167,6 +205,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         "previous_message": previous_message,
                         "datetime_created": datetime_created,
                         "tagged_users": tagged_users,
+                        "content_type": content_type,
+                        "object_id": object_id,
                     }
                 )
             )

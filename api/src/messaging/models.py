@@ -1,7 +1,10 @@
 from django.db import models
 from rest_framework.permissions import BasePermission
 from users.models import CustomUser
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 # A model class that represents a room
 class Room(models.Model):
@@ -52,6 +55,11 @@ class Message(models.Model):
         blank=True,
         null=True,
     )
+    content_type = models.ForeignKey(
+        to=ContentType, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    object_id = models.PositiveIntegerField(blank=True, null=True)
+    content_object = GenericForeignKey("content_type", "object_id")
 
     class Meta:
         ordering = ["-datetime_created"]
@@ -64,3 +72,11 @@ class Message(models.Model):
 class IsMember(BasePermission):
     def has_object_permission(self, request, view, obj: Room):
         return obj.members.filter(id=request.user.id).exists()
+
+
+@receiver(pre_delete)
+def remove(sender, instance, using, **kwargs):
+    content_type = ContentType.objects.get_for_model(sender)
+    res = Message.objects.filter(content_type=content_type)
+    if res.count() > 0:
+        res.filter(object_id=instance.id).update(content_type=None, object_id=None)

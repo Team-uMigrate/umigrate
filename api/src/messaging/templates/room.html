@@ -1,72 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
+  <head>
+    <meta charset="utf-8" />
     <title>Chat Room</title>
-</head>
-<body>
-    <div style="display:flex; flex-direction: row">
-        <div style="display:flex; flex-direction: column">
-            <span>Input</span>
-            <textarea id="chat-input" style="margin-right: 20px" cols="100" rows="20"></textarea><br>
-        </div>
-        <div style="display:flex; flex-direction: column">
-            <span>Log</span>
-            <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-        </div>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: row">
+      <div style="display: flex; flex-direction: column">
+        <span>Input</span>
+        <textarea
+          id="chat-input"
+          style="margin-right: 20px"
+          cols="100"
+          rows="20"
+        ></textarea
+        ><br />
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <span>Log</span>
+        <textarea id="chat-log" cols="100" rows="20"></textarea><br />
+      </div>
     </div>
-    <input id="chat-submit" type="button" value="Send">
-    <input id="message-template" type="button" value="Message">
-    <input id="like-template" type="button" value="Like">
+    <input id="chat-submit" type="button" value="Send" />
+    <input id="message-template" type="button" value="Message" />
+    <input id="like-template" type="button" value="Like" />
     {{ room_id|json_script:"room-id" }}
     <script>
-        const roomId = JSON.parse(document.getElementById('room-id').textContent);
+      const roomId = JSON.parse(document.getElementById("room-id").textContent);
 
-        let websocketProtocol = 'wss://';
-        let httpProtocol = 'https://';
-        if (window.location.protocol !== 'https:') {
-            websocketProtocol = 'ws://';
-            httpProtocol = 'http://';
+      let websocketProtocol = "wss://";
+      let httpProtocol = "https://";
+      if (window.location.protocol !== "https:") {
+        websocketProtocol = "ws://";
+        httpProtocol = "http://";
+      }
+
+      const chatSocket = new WebSocket(
+        websocketProtocol + window.location.host + "/ws/messaging/" + roomId
+      );
+
+      chatSocket.onmessage = function (e) {
+        console.log(e);
+        document.querySelector("#chat-log").value +=
+          JSON.stringify(e.data) + "\n\n";
+      };
+
+      chatSocket.onclose = function (e) {
+        console.error("Chat socket closed unexpectedly");
+      };
+
+      document.querySelector("#chat-input").focus();
+      document.querySelector("#chat-input").onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          // enter, return
+          document.querySelector("#chat-submit").click();
         }
+      };
 
-        const chatSocket = new WebSocket(
-            websocketProtocol
-            + window.location.host
-            + '/ws/messaging/'
-            + roomId
-        );
+      document.querySelector("#chat-submit").onclick = function (e) {
+        const chatInput = document.querySelector("#chat-input");
+        chatSocket.send(JSON.stringify(JSON.parse(chatInput.value)));
+        chatInput.value = "";
+      };
 
+      document.querySelector("#message-template").onclick = function (e) {
+        const chatInput = document.querySelector("#chat-input");
+        chatInput.value = JSON.stringify({
+          type: "send_message",
+          message_body: "",
+          tagged_users: [],
+          content_type: "",
+          object_id: 0,
+          previous_message_id: null,
+        });
+      };
 
-        chatSocket.onmessage = function(e) {
-            document.querySelector('#chat-log').value += JSON.stringify(e.data) + "\n\n";
-        };
-
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-input').focus();
-        document.querySelector('#chat-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-submit').click();
-            }
-        };
-
-        document.querySelector('#chat-submit').onclick = function(e) {
-            const chatInput = document.querySelector('#chat-input');
-            chatSocket.send(JSON.stringify(JSON.parse(chatInput.value)));
-            chatInput.value = '';
-        };
-
-        document.querySelector('#message-template').onclick = function(e) {
-            const chatInput = document.querySelector('#chat-input');
-            chatInput.value = JSON.stringify({type: "send_message", message_body: "", tagged_users: [], previous_message_id: null });
-        };
-
-        document.querySelector('#like-template').onclick = function(e) {
-            const chatInput = document.querySelector('#chat-input');
-            chatInput.value = JSON.stringify({type: "send_like", message_id: 1, like: true});
-        };
+      document.querySelector("#like-template").onclick = function (e) {
+        const chatInput = document.querySelector("#chat-input");
+        chatInput.value = JSON.stringify({
+          type: "send_like",
+          message_id: 1,
+          like: true,
+        });
+      };
     </script>
-</body>
+  </body>
 </html>

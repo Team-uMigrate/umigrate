@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Divider, Modal, Portal } from 'react-native-paper';
+import { Card, Divider, Modal } from 'react-native-paper';
 import {
   StyleSheet,
   Text,
@@ -120,7 +120,7 @@ const CommunitySelectModal = ({
 
           {communitySearchFocused && (
             <Card style={styles.communitySearchResultsCard}>
-              <ScrollView>
+              <ScrollView keyboardShouldPersistTaps={'always'}>
                 {searchResults.map((item, index) => {
                   return (
                     <View key={index}>

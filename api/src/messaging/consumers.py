@@ -79,7 +79,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         content_type = text_data_json["content_type"]
         content_object = None
         object_id = text_data_json["object_id"]
-        
+
         creator = {
             "id": self.member["id"],
             "first_name": self.member["first_name"],

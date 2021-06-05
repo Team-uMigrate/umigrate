@@ -6,6 +6,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
+
 # A model class that represents a room
 class Room(models.Model):
     id = models.AutoField(primary_key=True)

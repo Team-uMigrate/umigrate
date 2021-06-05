@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Room, Message
 from django.contrib.contenttypes.models import ContentType
-from asgiref.sync import sync_to_async
+
 
 # Handles websocket connections for messaging
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -76,40 +76,25 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message_body = text_data_json["message_body"]
         previous_message_id = text_data_json["previous_message_id"]
         tagged_users = text_data_json["tagged_users"]
+        content_type = text_data_json["content_type"]
+        content_object = None
+        object_id = text_data_json["object_id"]
+        
         creator = {
             "id": self.member["id"],
             "first_name": self.member["first_name"],
             "last_name": self.member["last_name"],
             "preferred_name": self.member["preferred_name"],
         }
-        content_type, content_object, object_id = (
-            text_data_json["content_type"],
-            None,
-            text_data_json["object_id"],
-        )
 
         if content_type and object_id > 0:
-            try:
-                content_type = await sync_to_async(ContentType.objects.get)(
-                    model=content_type
-                )
-                content_type = content_type.model_class()
-                content_object = await sync_to_async(content_type.objects.get)(
-                    id=object_id
-                )
-            except Exception as e:
-                print(str(e))
-                return {
-                    "type": "send_message",
-                    "id": 0,
-                    "message_body": str(e),
-                    "creator": "",
-                    "previous_message": None,
-                    "datetime_created": "",
-                    "tagged_users": [],
-                    "content_type": "",
-                    "object_id": "",
-                }
+            content_type = await database_sync_to_async(ContentType.objects.get)(
+                model=content_type
+            )
+            content_type = content_type.model_class()
+            content_object = await database_sync_to_async(content_type.objects.get)(
+                id=object_id
+            )
 
         previous_message = None
         if previous_message_id is not None:

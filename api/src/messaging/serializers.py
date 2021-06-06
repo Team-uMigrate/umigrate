@@ -2,6 +2,7 @@ from common.abstract_serializers import ModelSerializerExtension
 from users.serializers import BasicUserSerializer
 from .models import Room, Message
 
+
 # A serializer class for the Room model
 class RoomSerializer(ModelSerializerExtension):
     class Meta:

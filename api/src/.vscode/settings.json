@@ -1,4 +1,5 @@
 {
+    "python.pythonPath": "env\\Scripts\\python.exe",
     "python.linting.pylintArgs": ["--load-plugins=pylint_django"],
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,

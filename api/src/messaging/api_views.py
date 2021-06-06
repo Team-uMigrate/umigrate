@@ -72,13 +72,14 @@ class AddRemoveMembers(APIView):
 
     @swagger_auto_schema(tags=["Messaging"])
     def delete(self, request, *args, **kwargs):
-        roomid = kwargs["id"]
+        room_id = kwargs["id"]
         member = request.user
-
-        room = Room.objects.get(id=roomid)
-        room.members.remove(member)
-
-        return Response({"message": "Member Removed."})
+        try:
+            room = Room.objects.get(id=room_id)
+            room.members.remove(member)
+            return Response({"message": "Member Removed."})
+        except ObjectDoesNotExist as e:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Messaging"]))

@@ -15,16 +15,10 @@ from .serializers import (
 )
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
+from common.decorators import model_view_set_swagger_decorator
 
 
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Messaging"]))
-@method_decorator(name="create", decorator=swagger_auto_schema(tags=["Messaging"]))
-@method_decorator(name="retrieve", decorator=swagger_auto_schema(tags=["Messaging"]))
-@method_decorator(name="update", decorator=swagger_auto_schema(tags=["Messaging"]))
-@method_decorator(
-    name="partial_update", decorator=swagger_auto_schema(tags=["Messaging"])
-)
-@method_decorator(name="destroy", decorator=swagger_auto_schema(tags=["Messaging"]))
+@model_view_set_swagger_decorator(["Messaging"])
 class RoomViewSet(AbstractModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer

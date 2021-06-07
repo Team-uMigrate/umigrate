@@ -6,7 +6,6 @@ from .models import Room
 from .receive import receive_message, receive_like
 
 
-
 # Handles websocket connections for messaging
 class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None

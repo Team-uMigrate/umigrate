@@ -2,8 +2,9 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
-from .models import Room, Message
+from .models import Room
 from .receive import receive_message, receive_like
+
 
 
 # Handles websocket connections for messaging
@@ -53,42 +54,31 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Sends a received message to the group
     async def send_like(self, event):
-        user_id = self.scope["user"].id
-
-        if self.member["id"] == user_id:
-            await self.send(
-                text_data=json.dumps(
-                    {
-                        "message_id": event["message_id"],
-                        "like": event["like"],
-                        "user_id": event["user_id"],
-                    }
-                )
-            )
-
-        else:
-            await self.channel_layer.group_discard(
-                self.room_group_name, self.channel_name
-            )
+        data = {
+            "message_id": event["message_id"],
+            "like": event["like"],
+            "user_id": event["user_id"],
+        }
+        await create_data(self, data)
 
     async def send_message(self, event):
-        user_id = self.scope["user"].id
+        data = {
+            "id": event["id"],
+            "message_body": event["message_body"],
+            "creator": event["creator"],
+            "previous_message": event["previous_message"],
+            "datetime_created": event["datetime_created"],
+            "tagged_users": event["tagged_users"],
+        }
+        await create_data(self, data)
 
-        if self.member["id"] == user_id:
-            await self.send(
-                text_data=json.dumps(
-                    {
-                        "id": event["id"],
-                        "message_body": event["message_body"],
-                        "creator": event["creator"],
-                        "previous_message": event["previous_message"],
-                        "datetime_created": event["datetime_created"],
-                        "tagged_users": event["tagged_users"],
-                    }
-                )
-            )
 
-        else:
-            await self.channel_layer.group_discard(
-                self.room_group_name, self.channel_name
-            )
+# Helper function for creating data
+async def create_data(consumer, data):
+    user_id = consumer.scope["user"].id
+    if consumer.member["id"] == user_id:
+        await consumer.send(text_data=json.dumps(data))
+    else:
+        await consumer.channel_layer.group_discard(
+            consumer.room_group_name, consumer.channel_name
+        )

@@ -20,7 +20,6 @@ const MESSAGING_WEBSOCKET =
     : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
 
 // Helper functions
-
 function toFormData(data = {}) {
   const formData = new FormData();
   Object.keys(data).forEach((key) => {
@@ -47,6 +46,7 @@ class AbstractEndpoint {
   static endpoint = '';
 
   static async list(page, filters = {}) {
+    let temp = `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
     return await Axios.get(
       `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
     );
@@ -99,6 +99,7 @@ class AbstractEndpoint {
   }
 
   static async saved(page) {
+    let temp = `${BASE_URL}${this.endpoint}saved${toQueryString({ page: page })}`
     return await Axios.get(
       `${BASE_URL}${this.endpoint}saved${toQueryString({ page: page })}`
     );
@@ -116,7 +117,6 @@ class AbstractEndpoint {
 }
 
 // Endpoints
-
 export class AdsEndpoint extends AbstractEndpoint {
   static endpoint = '/api/ads/';
 }

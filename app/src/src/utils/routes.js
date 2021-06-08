@@ -14,7 +14,11 @@ export const routes = {
   menuHome: 'MenuHome',
   profile: 'Profile',
   editProfile: 'EditProfile',
-  savedItems: 'SavedItems',
+  savedHome: 'SavedHome',
+  posts: 'Posts',
+  events: 'Events',
+  ads: 'Ads',
+  listings: 'listings',
   calendar: 'Calendar',
   settings: 'Settings',
 };

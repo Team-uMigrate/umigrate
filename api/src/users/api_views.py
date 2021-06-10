@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
+from common.decorators import api_view_swagger_decorator
 from common.generics.generic_post_api_views import GenericUserExtension
 from common.notification_helpers import create_connection_request_notification
 from .filters import UserFilterSet
@@ -38,8 +39,7 @@ class UserRetrieve(RetrieveAPIView):
     lookup_field = "id"
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Users"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Users"]))
+@api_view_swagger_decorator(["Users"])
 class ConnectUser(GenericUserExtension):
     field_string = "connect"
 
@@ -57,8 +57,7 @@ class ConnectUser(GenericUserExtension):
             create_connection_request_notification(receiver, sender, request)
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Users"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Users"]))
+@api_view_swagger_decorator(["Users"])
 class BlockUser(GenericUserExtension):
     field_string = "block"
 

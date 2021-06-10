@@ -14,7 +14,6 @@ class FeedContainer extends Component {
 
   componentDidMount = async () => {
     await this.fetchItems();
-    console.log(this.props.endpoints, "mounted!")
   };
 
   updateItem = (item) => {

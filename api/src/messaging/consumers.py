@@ -3,7 +3,7 @@ from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Room, Message
-from common.notification_helpers import create_liked_shared_item_notification, create_message_notification, 
+from common.notification_helpers import create_liked_shared_item_notification, create_message_notification
 
 
 # Handles websocket connections for messaging

@@ -6,6 +6,7 @@ import {
   setAuthToken,
   setUserData,
 } from './storageAccess';
+import mime from 'mime';
 
 // Base URL
 const BASE_URL =
@@ -29,7 +30,17 @@ function toFormData(data = {}) {
         formData.append(key, value);
       });
     } else {
-      formData.append(key, data[key]);
+      if (data[key].toString().startsWith('file:///var/mobile/Containers/Data/Application/')){
+        const filename = data[key].split('/').pop();
+        formData.append(key, {
+          uri: data[key],
+          name: `${filename}`,
+          type: `${mime.getType(data[key])}`,
+        });
+      }
+      else {
+        formData.append(key, data[key]);
+      }
     }
   });
 

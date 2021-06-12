@@ -23,10 +23,8 @@ import BasicModal from '../common/BasicModal';
 
 const EditProfileView = ({ user, navigation }) => {
   // useStates for data
-  const [bgPic, setbgPic] = useState();
-  const [pfp, setPfp] = useState();
-  //const [pfpFile, setPfpFile] = useState();
-  //const [bgPicFile, setbgPicFile] = useState();
+  const [bgPic, setbgPic] = useState(null);
+  const [pfp, setPfp] = useState(null);
   const [prefName, setPrefName] = useState(user.preferred_name);
   const [phone, setPhone] = useState(user.phone_number);
   const [pronoun, setPronoun] = useState(user.pronouns);
@@ -54,7 +52,7 @@ const EditProfileView = ({ user, navigation }) => {
 
   const handleEdit = async () => {
     const result = await ProfileEndpoint.patch({
-      //profile_photo: pfp ? pfpFile : user.profile_photo,
+      profile_photo: pfp ? pfp : user.profile_photo,
       //background_photo: bgPic ? bgPicFile : user.background_photo,
       preferred_name: prefName ? prefName : user.preferred_name,
       phone_number: phone ? phone : user.phone_number,
@@ -82,7 +80,7 @@ const EditProfileView = ({ user, navigation }) => {
     };
     askUser();
   }, []);
-
+  // TODO: fix weird ios 14.6 modal staying up thing (doesn't really matter though bc of new ui)
   const getPicsModal = () => {
     return (
       <View style={styles.centeredView}>
@@ -92,7 +90,9 @@ const EditProfileView = ({ user, navigation }) => {
             <TouchableHighlight
               style={styles.picsButton}
               onPress={async () => {
-                await pickImage({ set: setPfp });
+                await pickImage({
+                  setPhoto: setPfp,
+                });
               }}
             >
               <Text style={styles.textStyle}>Profile</Text>
@@ -100,7 +100,9 @@ const EditProfileView = ({ user, navigation }) => {
             <TouchableHighlight
               style={styles.picsButton}
               onPress={async () => {
-                await pickImage({ set: setbgPic });
+                await pickImage({
+                  setPhoto: setbgPic,
+                });
               }}
             >
               <Text style={styles.textStyle}>Background</Text>
@@ -205,7 +207,11 @@ const EditProfileView = ({ user, navigation }) => {
         <View style={styles.pfInfo}>
           <Button
             style={styles.changePicButton}
-            onPress={() => setVisiblePics(!visiblePics)}
+            onPress={async () => {
+              await pickImage({
+                setPhoto: setPfp,
+              });
+            }}
           >
             <Text style={styles.changePicButtonText}>Edit pictures</Text>
           </Button>

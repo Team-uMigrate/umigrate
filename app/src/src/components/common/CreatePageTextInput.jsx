@@ -11,6 +11,9 @@ const CreatePageTextInput = ({
   multiline = false,
   numberOfLines = 1,
   style,
+  edit,
+  profileEdit,
+  maxlength,
 }) => {
   return (
     <TextInput
@@ -20,11 +23,13 @@ const CreatePageTextInput = ({
       style={{ ...styles.basicTextInput, ...style }}
       value={textValue}
       placeholder={placeholder}
-      placeholderTextColor={'#484848'}
+      placeholderTextColor={profileEdit ? '#000' : '#484848'}
       backgroundColor={'#DCDCDC'}
       onChangeText={setText}
       multiline={multiline}
       numberOfLines={numberOfLines}
+      editable={edit}
+      maxLength={maxlength}
     />
   );
 };

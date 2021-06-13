@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // get half of pfp on background and half not
     bottom: '-40%',
-    paddingBottom: '-60%',
     width: '100%',
   },
   profileImg: {

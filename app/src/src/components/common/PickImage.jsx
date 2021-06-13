@@ -3,7 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
    The local uri can also be used on the page without saving it, so if the "undo changes"
    or "back" buttons are pressed, then the image isn't saved (unless you press the "save" button) */
 
-const pickImage = async ({ setPhoto }) => {
+const pickImage = async ({ set }) => {
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     allowsEditing: true,
@@ -12,7 +12,7 @@ const pickImage = async ({ setPhoto }) => {
   });
 
   if (!result.cancelled) {
-    setPhoto(result.uri);
+    set(result.uri);
     return;
   }
 };

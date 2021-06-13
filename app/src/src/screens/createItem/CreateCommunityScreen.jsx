@@ -237,6 +237,7 @@ class CreateCommunityScreen extends React.Component {
                     this.setState({ showDatePicker: true });
                   }}
                   text={this.state.eventTime.toString()}
+                  textColour={'#8781D0'}
                 />
                 <PickADayTimeModal
                   showDatePicker={this.state.showDatePicker}

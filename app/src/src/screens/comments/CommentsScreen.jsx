@@ -25,6 +25,7 @@ const CommentsScreen = ({ navigation, route }) => {
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}
+        route={route}
       />
       <CreateItemModal navigation={navigation} />
     </View>

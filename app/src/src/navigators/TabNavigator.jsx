@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import TabNavContext from '../contexts/TabNavContext';
@@ -31,6 +30,7 @@ const TabNavigator = ({ navigation }) => {
       labeled={false}
       barStyle={styles.TabNavigator}
       lazy={false}
+      tabBarOptions={{ showLabel: false }}
     >
       <Tab.Screen
         name={routes.community}

@@ -30,7 +30,7 @@ const TabNavigator = ({ navigation }) => {
       labeled={false}
       barStyle={styles.TabNavigator}
       lazy={false}
-      tabBarOptions={{ showLabel: false }}
+      tabBarOptions={{ showLabel: false, activeTintColor: '#72AAFF' }}
     >
       <Tab.Screen
         name={routes.community}

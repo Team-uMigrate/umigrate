@@ -80,5 +80,5 @@ urlpatterns = [
     path("api/registration/", include("registration.urls")),
     path("api/registration/", include("rest_auth.registration.urls")),
     path("api/", include("allauth.urls")),
-    path('django-rq/', include('django_rq.urls'))
+    path("django-rq/", include("django_rq.urls")),
 ]

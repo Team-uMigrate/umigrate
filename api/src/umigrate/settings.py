@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     "photos",
     "comments",
     "notifications",
+    "django_rq"
 ]
 
 # Middleware
@@ -340,3 +341,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "../static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
+
+SCHEDULER_QUEUE = "{}_default".format(STAGE_ENVIRONMENT)
+RQ_QUEUES = {
+    SCHEDULER_QUEUE: {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}

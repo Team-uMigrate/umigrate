@@ -61,7 +61,7 @@
 
         document.querySelector('#message-template').onclick = function(e) {
             const chatInput = document.querySelector('#chat-input');
-            chatInput.value = JSON.stringify({type: "send_message", message_body: "", tagged_users: [], previous_message_id: null });
+            chatInput.value = JSON.stringify({type: "send_message", message_body: "", tagged_users: [], content_type: "", object_id: 0, previous_message_id: null });
         };
 
         document.querySelector('#like-template').onclick = function(e) {

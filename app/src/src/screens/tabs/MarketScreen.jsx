@@ -11,7 +11,7 @@ const endpoints = [AdsEndpoint];
 const itemViews = [(item) => <AdView {...item} />];
 
 // A screen that renders market shared items
-const MarketScreen = ({ navigation }) => {
+const MarketScreen = ({ navigation, route }) => {
   const [adFilters, setAdFilters] = useState({});
   const ref = useRef(null);
 
@@ -25,6 +25,7 @@ const MarketScreen = ({ navigation }) => {
         itemViews={itemViews}
         filtersList={[adFilters]}
         scrollRef={ref}
+        route={route}
       />
       <CreateItemModal navigation={navigation} />
     </View>

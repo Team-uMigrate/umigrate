@@ -11,7 +11,7 @@ const endpoints = [ListingsEndpoint];
 const itemViews = [(item) => <ListingView {...item} />];
 
 // A screen that renders housing shared items
-const HousingScreen = ({ navigation }) => {
+const HousingScreen = ({ navigation, route }) => {
   const [listingFilters, setListingFilters] = useState({});
   const ref = useRef(null);
 
@@ -25,6 +25,7 @@ const HousingScreen = ({ navigation }) => {
         itemViews={itemViews}
         filtersList={[listingFilters]}
         scrollRef={ref}
+        route={route}
       />
       <CreateItemModal navigation={navigation} />
     </View>

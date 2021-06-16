@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import TabNavContext from '../contexts/TabNavContext';
@@ -10,8 +9,9 @@ import CreateItemScreen from '../screens/tabs/CreateItemScreen';
 import HousingScreen from '../screens/tabs/HousingScreen';
 import MenuScreen from '../screens/tabs/MenuScreen';
 import { routes } from '../utils/routes';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 // A navigator that renders components depending on the current tab navigation route
 const TabNavigator = ({ navigation }) => {
@@ -29,10 +29,13 @@ const TabNavigator = ({ navigation }) => {
       inactiveColor="#888888"
       labeled={false}
       barStyle={styles.TabNavigator}
+      lazy={false}
+      tabBarOptions={{ showLabel: false, activeTintColor: '#72AAFF' }}
     >
       <Tab.Screen
         name={routes.community}
         component={CommunityScreen}
+        initialParams={{ page: routes.community }}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -46,6 +49,7 @@ const TabNavigator = ({ navigation }) => {
       <Tab.Screen
         name={routes.market}
         component={MarketScreen}
+        initialParams={{ page: routes.market }}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -59,6 +63,7 @@ const TabNavigator = ({ navigation }) => {
       <Tab.Screen
         name={routes.createItem}
         component={CreateItemScreen}
+        initialParams={{ page: routes.createItem }}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -78,6 +83,7 @@ const TabNavigator = ({ navigation }) => {
       <Tab.Screen
         name={routes.housing}
         component={HousingScreen}
+        initialParams={{ page: routes.housing }}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="domain" color={color} size={24} />
@@ -87,6 +93,7 @@ const TabNavigator = ({ navigation }) => {
       <Tab.Screen
         name={routes.menu}
         component={MenuScreen}
+        initialParams={{ page: routes.menu }}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="menu" color={color} size={24} />

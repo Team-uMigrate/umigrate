@@ -57,18 +57,12 @@ class ConnectUser(GenericUserExtension):
         if response.status_code != HTTP_200_OK:
             return response
 
-        try:
-            add_user = request.data[self.field_string]
-            if add_user:
-                receiver = request.user
-                sender = CustomUser.objects.get(id=request.data["id"])
-                is_request = receiver.connected_users.filter(
-                    id=request.data["id"]
-                ).exists()
-                create_connection_request_notification(receiver, sender, is_request)
-
-        except ObjectDoesNotExist:
-            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        add_user = request.data[self.field_string]
+        if add_user:
+            receiver = request.user
+            sender = CustomUser.objects.get(id=request.data["id"])
+            is_request = receiver.connected_users.filter(id=request.data["id"]).exists()
+            create_connection_request_notification(receiver, sender, is_request)
 
         return response
 

@@ -4,7 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from .receive import receive_message, receive_like
 from .models import Room, Message
-from django.contrib.contenttypes.models import ContentType
 
 
 # Handles websocket connections for messaging
@@ -69,6 +68,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "previous_message": event["previous_message"],
             "datetime_created": event["datetime_created"],
             "tagged_users": event["tagged_users"],
+            "content_type": event["content_type"],
+            "object_id": event["object_id"],
         }
         await create_data(self, data)
 

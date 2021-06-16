@@ -2,8 +2,9 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
-from .models import Room
 from .receive import receive_message, receive_like
+from .models import Room, Message
+from django.contrib.contenttypes.models import ContentType
 
 
 # Handles websocket connections for messaging

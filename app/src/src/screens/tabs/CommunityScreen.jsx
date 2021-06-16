@@ -15,7 +15,7 @@ const itemViews = [
 ];
 
 // A screen that renders community shared items
-const CommunityScreen = ({ navigation }) => {
+const CommunityScreen = ({ navigation, route }) => {
   const [postFilters, setPostFilters] = useState({});
   const [eventFilters, setEventFilters] = useState({});
   const ref = useRef(null);
@@ -30,6 +30,7 @@ const CommunityScreen = ({ navigation }) => {
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}
+        route={route}
       />
       <CreateItemModal navigation={navigation} />
     </View>

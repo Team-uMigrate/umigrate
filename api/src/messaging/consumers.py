@@ -40,9 +40,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if self.member["id"] == user_id:
             event = None
             if text_data_json["type"] == "send_message":
-                event = await receive_message(self, text_data_json)
+                text_data_json["member_id"] = self.member["id"]
+                text_data_json["first_name"] = self.member["first_name"]
+                text_data_json["last_name"] = self.member["last_name"]
+                text_data_json["preferred_name"] = self.member["preferred_name"]
+                text_data_json["creator_id"] = self.scope["user"].id
+                text_data_json["room_id"] = self.room_id
+
+                event = await receive_message(text_data_json)
             elif text_data_json["type"] == "send_like":
-                event = await receive_like(self, text_data_json)
+                text_data_json["user_id"] = self.scope["user"].id
+
+                event = await receive_like(text_data_json)
             if event is not None:
                 await self.channel_layer.group_send(self.room_group_name, event)
         else:
@@ -58,7 +67,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "like": event["like"],
             "user_id": event["user_id"],
         }
-        await create_data(self, data)
+        await self.send_data(data)
 
     async def send_message(self, event):
         data = {
@@ -71,15 +80,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "content_type": event["content_type"],
             "object_id": event["object_id"],
         }
-        await create_data(self, data)
+        await self.send_data(data)
 
-
-# Helper function for creating data
-async def create_data(consumer, data):
-    user_id = consumer.scope["user"].id
-    if consumer.member["id"] == user_id:
-        await consumer.send(text_data=json.dumps(data))
-    else:
-        await consumer.channel_layer.group_discard(
-            consumer.room_group_name, consumer.channel_name
-        )
+    # Helper function for creating data
+    async def send_data(self, data):
+        if self.member["id"] == self.scope["user"].id:
+            await self.send(text_data=json.dumps(data))
+        else:
+            await self.channel_layer.group_discard(
+                self.room_group_name, self.channel_name
+            )

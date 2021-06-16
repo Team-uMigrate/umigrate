@@ -1,7 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
 from common.decorators import api_view_swagger_decorator
 from common.generics.generic_post_api_views import GenericUserExtension
 from common.notification_helpers import create_connection_request_notification
@@ -48,13 +52,25 @@ class ConnectUser(GenericUserExtension):
         return CustomUser.objects.get(id=obj_id).connected_users
 
     def post(self, request, *args, **kwargs):
-        GenericUserExtension.post(request, args, kwargs)
-        add_user = request.data[self.field_string]
-        if add_user:
-            receiver = request.user
-            sender = CustomUser.objects.get(id=request.data["id"])
-            request = receiver.connected_users.filter(id=request.data["id"]).exists()
-            create_connection_request_notification(receiver, sender, request)
+        response: Response = GenericUserExtension.post(self, request, args, kwargs)
+
+        if response.status_code != HTTP_200_OK:
+            return response
+
+        try:
+            add_user = request.data[self.field_string]
+            if add_user:
+                receiver = request.user
+                sender = CustomUser.objects.get(id=request.data["id"])
+                is_request = receiver.connected_users.filter(
+                    id=request.data["id"]
+                ).exists()
+                create_connection_request_notification(receiver, sender, is_request)
+
+        except ObjectDoesNotExist:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        return response
 
 
 @api_view_swagger_decorator(["Users"])

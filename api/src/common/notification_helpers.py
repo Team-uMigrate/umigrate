@@ -2,6 +2,7 @@ from types import SimpleNamespace
 from typing import List
 from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.query import QuerySet
 from exponent_server_sdk import PushMessage, PushClient
 from comments.models import Comment, Reply
 from common.abstract_models import AbstractPostModel
@@ -54,9 +55,9 @@ def create_connection_request_notification(
     send_push_notifications(notification)
 
 
-# A function that sends push notifications to a user when they recieve a message
+# A function that sends push notifications to a user when they receive a message
 def create_message_notification(
-    recievers: List[CustomUser], sender: CustomUser, message: Message
+    receivers: QuerySet[CustomUser], sender: CustomUser, message: Message
 ) -> None:
     content_type = ContentType.objects.get_for_model(message)
     content = f"{sender.preferred_name} sent you a message"
@@ -67,7 +68,7 @@ def create_message_notification(
         creator_id=sender.id,
     )
     notification.save()
-    notification.receivers.add(*recievers)
+    notification.receivers.add(*receivers)
     send_push_notifications(notification)
 
 

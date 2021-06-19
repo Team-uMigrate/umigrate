@@ -52,12 +52,12 @@ class ConnectUser(GenericUserExtension):
         return CustomUser.objects.get(id=obj_id).connected_users
 
     def post(self, request, *args, **kwargs):
-        response: Response = GenericUserExtension.post(self, request, args, kwargs)
+        response = GenericUserExtension.post(self, request, args, kwargs)
 
         if response.status_code != HTTP_200_OK:
             return response
 
-        add_user = request.data[self.field_string]
+        add_user: bool = request.data[self.field_string]
         if add_user:
             receiver = request.user
             sender = CustomUser.objects.get(id=request.data["id"])

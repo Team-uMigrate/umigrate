@@ -15,7 +15,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None
     room_group_name = None
     member = None
-    # cached objects
     room = None
     user = None
 
@@ -26,7 +25,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            self.room = Room.objects.get(id=self.room_id)
+            self.room = await database_sync_to_async(
+                Room.objects.get(id=self.room_id)
+            )()
             self.user = await database_sync_to_async(
                 lambda: self.room.members.get(id=user_id)
             )()
@@ -45,10 +46,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, byte_data=None):
         text_data_json = json.loads(text_data)
         user_id = self.scope["user"].id
-        if not self.room:
-            # panic error?
-            pass
-
         if self.member["id"] == user_id:
             event = None
             if text_data_json["type"] == "send_message":
@@ -73,7 +70,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await database_sync_to_async(
                 lambda: message.liked_users.add(self.scope["user"].id)
             )()
-            create_liked_shared_item_notification(message, self.user)
+            await database_sync_to_async(
+                create_liked_shared_item_notification(message, self.user)
+            )()
 
         else:
             await database_sync_to_async(
@@ -146,8 +145,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await database_sync_to_async(
             lambda: message_object.tagged_users.add(*tagged_users)
         )()
-        receivers = list(self.room.members.all())
-        create_message_notification(receivers, self.user, message_object)
+        await database_sync_to_async(
+            create_message_notification(
+                self.room.members.all(), self.user, message_object
+            )
+        )
         return {
             "type": "send_message",
             "id": message_object.id,

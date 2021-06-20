@@ -28,7 +28,7 @@ async def receive_message(text_data_json: dict) -> dict:
     }
 
     if content_type and object_id:
-        model_class: ContentType = await database_sync_to_async(
+        model_class: type(models.Model) = await database_sync_to_async(
             lambda: ContentType.objects.get(model=content_type).model_class()
         )()
         content_object: models.Model = await database_sync_to_async(

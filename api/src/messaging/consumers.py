@@ -3,6 +3,10 @@ from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .models import Room, Message
+from common.notification_helpers import (
+    create_liked_shared_item_notification,
+    create_message_notification,
+)
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -11,6 +15,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None
     room_group_name = None
     member = None
+    room = None
+    user = None
 
     # Creates a group or enters and existing one
     async def connect(self):
@@ -19,10 +25,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            user = await database_sync_to_async(
-                lambda: Room.objects.get(id=self.room_id).members.get(id=user_id)
+            self.room = await database_sync_to_async(
+                lambda: Room.objects.get(id=self.room_id)
             )()
-            self.member = user.__dict__
+            self.user = await database_sync_to_async(
+                lambda: self.room.members.get(id=user_id)
+            )()
+            self.member = self.user.__dict__
 
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
             await self.accept()
@@ -61,6 +70,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await database_sync_to_async(
                 lambda: message.liked_users.add(self.scope["user"].id)
             )()
+            await database_sync_to_async(
+                lambda: create_liked_shared_item_notification(message, self.user)
+            )()
+
         else:
             await database_sync_to_async(
                 lambda: message.liked_users.remove(self.scope["user"].id)
@@ -131,6 +144,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await database_sync_to_async(lambda: message_object.save())()
         await database_sync_to_async(
             lambda: message_object.tagged_users.add(*tagged_users)
+        )()
+        await database_sync_to_async(
+            lambda: create_message_notification(
+                self.room.members.all(), self.user, message_object
+            )
         )()
         return {
             "type": "send_message",

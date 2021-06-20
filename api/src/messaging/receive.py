@@ -1,6 +1,12 @@
 from channels.db import database_sync_to_async
+from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from .models import Message
+from .models import Message, Room
+from common.notification_helpers import (
+    create_liked_shared_item_notification,
+    create_message_notification,
+)
+from users.models import CustomUser
 
 
 # A function for creating a message event
@@ -11,6 +17,8 @@ async def receive_message(text_data_json: dict) -> dict:
     content_type: int = text_data_json["content_type"]
     content_object: ContentType = None
     object_id: int = text_data_json["object_id"]
+    user: CustomUser = text_data_json["user"]
+    room: Room = text_data_json["room"]
 
     creator = {
         "id": text_data_json["member_id"],
@@ -19,14 +27,13 @@ async def receive_message(text_data_json: dict) -> dict:
         "preferred_name": text_data_json["preferred_name"],
     }
 
-    if content_type and object_id > 0:
-        content_type = await database_sync_to_async(ContentType.objects.get)(
-            model=content_type
-        )
-        content_type = content_type.model_class()
-        content_object = await database_sync_to_async(content_type.objects.get)(
-            id=object_id
-        )
+    if content_type and object_id:
+        model_class: ContentType = await database_sync_to_async(
+            lambda: ContentType.objects.get(model=content_type).model_class()
+        )()
+        content_object: models.Model = await database_sync_to_async(
+            lambda: model_class.objects.get(id=object_id)
+        )()
 
     previous_message = None
     if previous_message_id is not None:
@@ -59,11 +66,14 @@ async def receive_message(text_data_json: dict) -> dict:
             content_object=content_object,
         )
     )()
-
     await database_sync_to_async(lambda: message_object.save())()
     await database_sync_to_async(
         lambda: message_object.tagged_users.add(*tagged_users)
     )()
+    await database_sync_to_async(
+        lambda: create_message_notification(room.members.all(), user, message_object)
+    )()
+
     return {
         "type": "send_message",
         "id": message_object.id,
@@ -74,8 +84,8 @@ async def receive_message(text_data_json: dict) -> dict:
             "%Y-%m-%dT%H:%M:%S.%fZ"
         ),
         "tagged_users": tagged_users,
-        "content_type": text_data_json["content_type"],
-        "object_id": text_data_json["object_id"],
+        "content_type": content_type,
+        "object_id": object_id,
     }
 
 
@@ -84,13 +94,20 @@ async def receive_like(text_data_json: dict) -> dict:
     message_id: int = text_data_json["message_id"]
     is_liked: bool = text_data_json["like"]
     user_id: int = text_data_json["user_id"]
+    user: CustomUser = text_data_json["user"]
+
     message: Message = await database_sync_to_async(
         lambda: Message.objects.get(id=message_id)
     )()
+
     if is_liked:
         await database_sync_to_async(lambda: message.liked_users.add(user_id))()
+        await database_sync_to_async(
+            lambda: create_liked_shared_item_notification(message, user)
+        )()
     else:
         await database_sync_to_async(lambda: message.liked_users.remove(user_id))()
+
     return {
         "type": "send_like",
         "message_id": message_id,

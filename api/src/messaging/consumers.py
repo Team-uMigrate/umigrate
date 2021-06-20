@@ -11,6 +11,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room_id = None
     room_group_name = None
     member = None
+    room = None
+    user = None
 
     # Creates a group or enters and existing one
     async def connect(self):
@@ -19,10 +21,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         try:
             user_id = self.scope["user"].id
-            user = await database_sync_to_async(
-                lambda: Room.objects.get(id=self.room_id).members.get(id=user_id)
+            self.room = await database_sync_to_async(
+                lambda: Room.objects.get(id=self.room_id)
             )()
-            self.member = user.__dict__
+            self.user = await database_sync_to_async(
+                lambda: self.room.members.get(id=user_id)
+            )()
+            self.member = self.user.__dict__
 
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)
             await self.accept()
@@ -45,11 +50,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 text_data_json["last_name"] = self.member["last_name"]
                 text_data_json["preferred_name"] = self.member["preferred_name"]
                 text_data_json["creator_id"] = self.scope["user"].id
-                text_data_json["room_id"] = self.room_id
+                text_data_json["room_id"] = self.room_id                
+                text_data_json["user"] = self.user
+                text_data_json["room"] = self.room
 
                 event = await receive_message(text_data_json)
             elif text_data_json["type"] == "send_like":
                 text_data_json["user_id"] = self.scope["user"].id
+                text_data_json["user"] = self.user
 
                 event = await receive_like(text_data_json)
             if event is not None:

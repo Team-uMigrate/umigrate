@@ -35,7 +35,6 @@ const CommunitySelectModal = ({
       visible={visible}
       onDismiss={() => {
         setVisible(false);
-        setVisible(false);
       }}
       contentContainerStyle={styles.communitySelectModal}
     >

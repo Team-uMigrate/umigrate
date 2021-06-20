@@ -11,16 +11,14 @@ import TabNavContext from '../../contexts/TabNavContext';
 import SearchResults from './SearchResults';
 
 class FeedContainer extends Component {
-  static contextType = TabNavContext;
-
-  constructor({ endpoints, itemViews, filtersList, scrollRef, feedName }) {
-    super({ endpoints, itemViews, filtersList, scrollRef, feedName });
+  constructor(props) {
+    super(props);
     this.state = {
       items: [],
       nextPages: this.props.endpoints.map(() => 1),
       errorMessages: [],
-      refreshing: false,
-      searching: false,
+      isRefreshing: false,
+      isSearching: false,
     };
   }
 
@@ -71,7 +69,7 @@ class FeedContainer extends Component {
       );
     });
 
-    let newItems = this.state.refreshing ? [] : items;
+    let newItems = this.state.isRefreshing ? [] : items;
     let newNextPages = nextPages;
 
     responseDataList.forEach((responseData, t) => {
@@ -118,13 +116,13 @@ class FeedContainer extends Component {
         items: [],
         nextPages: this.state.nextPages.map(() => 1),
         errorMessages: [],
-        refreshing: true,
+        isRefreshing: true,
       },
       async () => {
         // Fetch items
         await this.fetchItems();
         // Set state to not refreshing
-        this.setState({ refreshing: false });
+        this.setState({ isRefreshing: false });
       }
     );
   };
@@ -136,16 +134,16 @@ class FeedContainer extends Component {
     });
   };
 
-  searchingState = () => {
-    this.setState({ searching: !this.state.searching });
+  setIsSearching = () => {
+    this.setState({ isSearching: !this.state.isSearching });
   };
 
   render() {
-    if (this.state.searching === true) {
+    if (this.state.isSearching === true) {
       return (
         // TODO: Fix this margin... its not dynammic enough
         <View style={{ marginBottom: '45%' }}>
-          <SearchResults searchingState={this.searchingState}></SearchResults>
+          <SearchResults setIsSearching={this.setIsSearching} />
         </View>
       );
     } else {
@@ -154,7 +152,7 @@ class FeedContainer extends Component {
           <FlatList
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={this.state.isRefreshing}
                 onRefresh={this.handleRefresh}
               />
             }
@@ -169,7 +167,7 @@ class FeedContainer extends Component {
               this.props.feedName && (
                 <FeedHeader
                   feedName={this.props.feedName}
-                  searchingState={this.searchingState}
+                  setIsSearching={this.setIsSearching}
                 />
               )
             }

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
-const FeedHeader = ({ feedName, searchingState }) => {
+const FeedHeader = ({ feedName, setIsSearching }) => {
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>{feedName}</Text>
@@ -11,7 +11,7 @@ const FeedHeader = ({ feedName, searchingState }) => {
         style={{ alignSelf: 'flex-start' }}
         color={'#AAAAAA'}
         size={25}
-        onPress={searchingState}
+        onPress={setIsSearching}
       />
       {/* TODO: Filter Bar */}
     </View>

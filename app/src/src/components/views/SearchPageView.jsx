@@ -23,16 +23,16 @@ const SearchPageView = ({
   let count = 0;
 
   // Determines endpoints with data to be displayed
-  for (var x = 0; x < Object.keys(data).length; x++) {
+  for (let x = 0; x < Object.keys(data).length; x++) {
     // if this is not -1, this means we have info to display!
-    if (data[endpoints[x].name][0] != -1) {
+    if (data[endpoints[x].name][0] !== -1) {
       display = [...display, endpoints[x]];
       names = [...names, endpoints[x].name];
       count++;
     }
   }
 
-  if (count == 0) {
+  if (count === 0) {
     return (
       <View
         style={{ justifyContent: 'center', alignItems: 'center', margin: 20 }}
@@ -47,9 +47,9 @@ const SearchPageView = ({
       <ScrollView>
         <View>
           {names.map((endpointName) => {
-            if (endpointName != 'UsersEndpoint') {
+            if (endpointName !== 'UsersEndpoint') {
               return (
-                <View style={styles.content}>
+                <View style={styles.content} key={endpointName}>
                   <View
                     style={{
                       borderBottomColor: 'lightgrey',
@@ -60,7 +60,7 @@ const SearchPageView = ({
                   <Text style={{ fontSize: 25 }}>
                     {endpoints_text[endpointName]}
                   </Text>
-                  {data[endpointName][1].map((obj) => {
+                  {data[endpointName][1].map((obj, i) => {
                     if (
                       obj == undefined ||
                       obj == null ||
@@ -72,7 +72,7 @@ const SearchPageView = ({
                       return;
                     } else {
                       return (
-                        <View style={{ marginVertical: 5 }}>
+                        <View style={{ marginVertical: 5 }} key={i.toString()}>
                           <Text style={{ fontWeight: 'bold' }}>
                             {obj['creator']['preferred_name']} {'>'}
                           </Text>
@@ -128,7 +128,7 @@ const SearchPageView = ({
               );
             } else {
               return (
-                <View style={styles.content}>
+                <View style={styles.content} key={endpointName}>
                   <View
                     style={{
                       borderBottomColor: 'lightgrey',
@@ -139,17 +139,10 @@ const SearchPageView = ({
                   <Text style={{ fontSize: 25 }}>
                     {endpoints_text[endpointName]}
                   </Text>
-                  {data[endpointName][1].map((obj) => {
-                    if (
-                      obj == undefined ||
-                      obj == null ||
-                      obj['preferred_name'] == undefined ||
-                      obj['preferred_name'] == null
-                    ) {
-                      return;
-                    } else {
+                  {data[endpointName][1].map((obj, i) => {
+                    if (obj && obj['preferred_name']) {
                       return (
-                        <View style={{ marginVertical: 5 }}>
+                        <View style={{ marginVertical: 5 }} key={i.toString()}>
                           <Text style={{ fontWeight: 'bold' }}>
                             {obj['preferred_name']} {'>'}
                           </Text>
@@ -160,19 +153,19 @@ const SearchPageView = ({
                       );
                     }
                   })}
-                  {data[endpointName][0] != -2 ? (
-                    data[endpointName][0] != 1 ? (
+                  {data[endpointName][0] !== -2 ? (
+                    data[endpointName][0] !== 1 ? (
                       <View style={styles.viewStyle}>
                         <Button
                           title="More"
                           onPress={() =>
                             get_more(endpointName, data[endpointName][0])
                           }
-                        ></Button>
+                        />
                         <Button
                           title="Collapse"
                           onPress={() => collapse(endpointName)}
-                        ></Button>
+                        />
                       </View>
                     ) : (
                       <View style={styles.viewStyle}>
@@ -181,7 +174,7 @@ const SearchPageView = ({
                           onPress={() =>
                             get_more(endpointName, data[endpointName][0])
                           }
-                        ></Button>
+                        />
                       </View>
                     )
                   ) : (
@@ -198,7 +191,7 @@ const SearchPageView = ({
                       <Button
                         title="Collapse"
                         onPress={() => collapse(endpointName)}
-                      ></Button>
+                      />
                     </View>
                   )}
                 </View>

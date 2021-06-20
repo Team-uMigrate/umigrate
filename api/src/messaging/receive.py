@@ -3,13 +3,14 @@ from django.contrib.contenttypes.models import ContentType
 from .models import Message
 
 
+# A function for creating a message event
 async def receive_message(text_data_json: dict) -> dict:
-    message_body = text_data_json["message_body"]
-    previous_message_id = text_data_json["previous_message_id"]
-    tagged_users = text_data_json["tagged_users"]
-    content_type = text_data_json["content_type"]
-    content_object = None
-    object_id = text_data_json["object_id"]
+    message_body: str = text_data_json["message_body"]
+    previous_message_id: int = text_data_json["previous_message_id"]
+    tagged_users: list[int] = text_data_json["tagged_users"]
+    content_type: int = text_data_json["content_type"]
+    content_object: ContentType = None
+    object_id: int = text_data_json["object_id"]
 
     creator = {
         "id": text_data_json["member_id"],
@@ -32,7 +33,7 @@ async def receive_message(text_data_json: dict) -> dict:
         previous_message_result: Message = await database_sync_to_async(
             lambda: Message.objects.get(id=previous_message_id)
         )()
-        tagged_users_previous = await database_sync_to_async(
+        tagged_users_previous: list[int] = await database_sync_to_async(
             lambda: list(
                 previous_message_result.tagged_users.values_list("id", flat=True)
             )
@@ -78,6 +79,7 @@ async def receive_message(text_data_json: dict) -> dict:
     }
 
 
+# A function for creating a like event
 async def receive_like(text_data_json: dict) -> dict:
     message_id: int = text_data_json["message_id"]
     is_liked: bool = text_data_json["like"]

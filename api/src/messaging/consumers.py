@@ -82,8 +82,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }
         await self.send_data(data)
 
-    # Helper function for creating data
-    async def send_data(self, data):
+    # Helper function for sending data
+    async def send_data(self, data: dict) -> None:
         if self.member["id"] == self.scope["user"].id:
             await self.send(text_data=json.dumps(data))
         else:

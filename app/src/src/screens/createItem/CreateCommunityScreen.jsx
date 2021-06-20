@@ -9,12 +9,13 @@ import {
   PollsEndpoint,
   PostsEndpoint,
 } from '../../utils/endpoints';
-import { Card, IconButton, Button } from 'react-native-paper';
+import { Card, IconButton, Button, Portal } from 'react-native-paper';
 import CreatePageTextInput from '../../components/common/CreatePageTextInput';
 import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
 import { getUserData } from '../../utils/storageAccess';
 import toYearMonthDayTimeInNumbers from '../../components/common/FormatDate/toYearMonthDayTimeInNumbers';
 import PickADayTimeModal from '../../components/modals/PickADayTimeModal';
+import TagModal from '../../components/modals/TagModal';
 
 class CreateCommunityScreen extends React.Component {
   state = {
@@ -32,6 +33,10 @@ class CreateCommunityScreen extends React.Component {
     eventAdmissionPrice: '',
     showDatePicker: false,
     showTimePicker: false,
+    tagModalVisible: false,
+    setTagModalVisible: (visible) => {
+      this.setState({ tagModalVisible: visible });
+    },
   };
 
   resetPage = () => {
@@ -278,16 +283,19 @@ class CreateCommunityScreen extends React.Component {
 
         {/* Buttons to insert images and tag users */}
         <View style={styles.imageAndTagButtonsView}>
-          <Card style={{ marginHorizontal: 8 }}>
+          <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
             <IconButton
               icon={'tag'}
               color={'black'}
               mode={'contained'}
               style={styles.imageAndTagButtons}
               size={28}
+              onPress={() => {
+                this.state.setTagModalVisible(true);
+              }}
             />
           </Card>
-          <Card style={{ marginHorizontal: 8 }}>
+          <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
             <IconButton
               icon={'image-plus'}
               color={'black'}
@@ -297,6 +305,14 @@ class CreateCommunityScreen extends React.Component {
             />
           </Card>
         </View>
+
+        {/* Tag modal */}
+        <Portal>
+          <TagModal
+            visible={this.state.tagModalVisible}
+            setVisible={this.state.setTagModalVisible}
+          />
+        </Portal>
 
         {/* TODO bring these buttons to the bottom */}
         {/* TODO calculate how big the buttons should be */}

@@ -50,7 +50,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 text_data_json["last_name"] = self.member["last_name"]
                 text_data_json["preferred_name"] = self.member["preferred_name"]
                 text_data_json["creator_id"] = self.scope["user"].id
-                text_data_json["room_id"] = self.room_id                
+                text_data_json["room_id"] = self.room_id
                 text_data_json["user"] = self.user
                 text_data_json["room"] = self.room
 

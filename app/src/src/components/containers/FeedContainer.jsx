@@ -15,7 +15,7 @@ class FeedContainer extends Component {
     super(props);
     this.state = {
       items: [],
-      nextPages: this.props.endpoints.map(() => 1),
+      nextPages: this.props.getItemsSet.map(() => 1),
       errorMessages: [],
       isRefreshing: false,
       isSearching: false,
@@ -39,14 +39,14 @@ class FeedContainer extends Component {
   fetchItems = async () => {
     // Retrieve state and props
     const { items, nextPages, errorMessages } = this.state;
-    const { endpoints, filtersList } = this.props;
+    const { getItemsSet, filtersList } = this.props;
 
     // Fetch a list of items from each endpoint
     let responseDataList = [];
-    for (let i = 0; i < endpoints.length; i++) {
+    for (let i = 0; i < getItemsSet.length; i++) {
       try {
         responseDataList[i] = (
-          await endpoints[i].list(nextPages[i], filtersList[i])
+          await getItemsSet[i](nextPages[i], filtersList[i])
         ).data;
       } catch (error) {
         // Append error messages to state

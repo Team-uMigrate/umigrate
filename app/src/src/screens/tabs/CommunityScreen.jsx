@@ -8,7 +8,10 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const endpoints = [PostsEndpoint, EventsEndpoint];
+const getItemsSet = [
+  async (page, filters) => await PostsEndpoint.list(page, filters),
+  async (page, filters) => await EventsEndpoint.list(page, filters),
+];
 const itemViews = [
   (item) => <PostView {...item} />,
   (item) => <EventView {...item} />,
@@ -26,7 +29,7 @@ const CommunityScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Community Page" />
       <FeedContainer
-        endpoints={endpoints}
+        getItemsSet={getItemsSet}
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}

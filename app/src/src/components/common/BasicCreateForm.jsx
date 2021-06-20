@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, IconButton, Portal } from 'react-native-paper';
@@ -9,9 +9,11 @@ import ButtonWithDownArrow from './ButtonWithDownArrow';
 import { communities } from '../../utils/choices';
 import TagModal from '../modals/TagModal';
 
-// Components in the common to all create pages
+// Components in the common to all create pages.
 // Includes community select modal, button to call it, title input,
-// body input, and an icon for the page
+// body input, tag and insert image buttons, and an icon for the page.
+// The only bits between the different "create" pages that are visually different are the components
+// in between the content text input and the tag button, which are passed into this component as children
 const BasicCreateForm = ({
   title,
   setTitle,

@@ -30,7 +30,7 @@ const CommunityScreen = ({ navigation, route }) => {
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}
-        route={route}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

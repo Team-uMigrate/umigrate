@@ -6,18 +6,18 @@ import {
   RefreshControl,
   Button,
 } from 'react-native';
-import FeedContainerHeader from '../common/FeedContainerHeader';
+import FeedHeader from '../common/FeedHeader';
 import TabNavContext from '../../contexts/TabNavContext';
 import SearchResults from './SearchResults';
 
 class FeedContainer extends Component {
   static contextType = TabNavContext;
 
-  constructor(props) {
-    super(props);
+  constructor({ endpoints, itemViews, filtersList, scrollRef, feedName }) {
+    super({ endpoints, itemViews, filtersList, scrollRef, feedName });
     this.state = {
       items: [],
-      nextPages: props.endpoints.map(() => 1),
+      nextPages: this.props.endpoints.map(() => 1),
       errorMessages: [],
       refreshing: false,
       searching: false,
@@ -166,10 +166,12 @@ class FeedContainer extends Component {
             showsVerticalScrollIndicator={false}
             ref={this.props.scrollRef}
             ListHeaderComponent={
-              <FeedContainerHeader
-                page_name={this.props.route.name}
-                searchingState={this.searchingState}
-              />
+              this.props.feedName && (
+                <FeedHeader
+                  feedName={this.props.feedName}
+                  searchingState={this.searchingState}
+                />
+              )
             }
           />
         </View>

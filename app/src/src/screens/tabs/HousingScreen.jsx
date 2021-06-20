@@ -25,7 +25,7 @@ const HousingScreen = ({ navigation, route }) => {
         itemViews={itemViews}
         filtersList={[listingFilters]}
         scrollRef={ref}
-        route={route}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

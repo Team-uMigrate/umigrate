@@ -25,7 +25,7 @@ const MarketScreen = ({ navigation, route }) => {
         itemViews={itemViews}
         filtersList={[adFilters]}
         scrollRef={ref}
-        route={route}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

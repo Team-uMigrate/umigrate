@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Portal } from 'react-native-paper';
+import { Card, IconButton, Portal } from 'react-native-paper';
 import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
 import { communities } from '../../utils/choices';
+import TagModal from '../modals/TagModal';
 
 // Components in the common to all create pages
 // Includes community select modal, button to call it, title input,
@@ -20,11 +21,14 @@ const BasicCreateForm = ({
   setCommunity,
   profilePhoto,
   pageIconName,
+  children,
 }) => {
   const [
     communitySelectModalVisible,
     setCommunitySelectModalVisible,
   ] = useState(false);
+
+  const [tagModalVisible, setTagModalVisible] = useState(false);
 
   return (
     <>
@@ -65,14 +69,45 @@ const BasicCreateForm = ({
         style={{ textAlignVertical: 'top', padding: 10 }}
       />
 
-      {/* Community select modal */}
+      {/* This includes all components below the content text input and above the tag and add image buttons. */}
+      {/* These are specific to the type of post being made. */}
+      {children}
+
+      {/* Buttons to insert images and tag users */}
+      <View style={styles.imageAndTagButtonsView}>
+        <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
+          <IconButton
+            icon={'tag'}
+            color={'black'}
+            mode={'contained'}
+            style={styles.imageAndTagButtons}
+            size={28}
+            onPress={() => {
+              setTagModalVisible(true);
+            }}
+          />
+        </Card>
+        <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
+          <IconButton
+            icon={'image-plus'}
+            color={'black'}
+            mode={'contained'}
+            style={styles.imageAndTagButtons}
+            size={28}
+          />
+        </Card>
+      </View>
+
       <Portal>
+        {/* Community select modal */}
         <CommunitySelectModal
           visible={communitySelectModalVisible}
           setVisible={setCommunitySelectModalVisible}
           community={community}
           setCommunity={setCommunity}
         />
+        {/* Tag modal */}
+        <TagModal visible={tagModalVisible} setVisible={setTagModalVisible} />
       </Portal>
     </>
   );
@@ -95,5 +130,16 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     elevation: 5,
     borderRadius: 10,
+  },
+  imageAndTagButtonsView: {
+    marginTop: 10,
+    alignContent: 'center',
+    alignSelf: 'center',
+    flexDirection: 'row',
+  },
+  imageAndTagButtons: {
+    alignSelf: 'center',
+    borderRadius: 10,
+    margin: 0,
   },
 });

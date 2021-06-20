@@ -31,6 +31,10 @@ class CreateCommunityScreen extends React.Component {
     eventTime: new Date(),
     eventLocation: '',
     eventAdmissionPrice: '',
+    taggedUsers: [],
+    setTaggedUsers: (taggedUsers) => {
+      this.setState({ taggedUsers: taggedUsers });
+    },
     showDatePicker: false,
     showTimePicker: false,
     tagModalVisible: false,
@@ -172,147 +176,118 @@ class CreateCommunityScreen extends React.Component {
             setCommunity={(newCommunity) =>
               this.setState({ community: newCommunity })
             }
+            taggedUsers={this.state.taggedUsers}
+            setTaggedUsers={(taggedUsers) => {
+              this.setState({ taggedUsers: { taggedUsers } });
+            }}
             profilePhoto={this.state.user.profile_photo}
             pageIconName={'earth'}
-          />
+          >
+            {/* Render list of poll options and new poll option button if the poll button is selected */}
+            {this.state.selectedPostType === 'Poll' && (
+              <>
+                {this.state.pollOptions.map((_, index) => {
+                  return (
+                    <View
+                      key={index.toString()}
+                      style={styles.pollOptionInputView}
+                    >
+                      <TextInput
+                        autoCapitalize={'sentences'}
+                        autoCorrect={true}
+                        value={this.state.pollOptions[index]}
+                        onChangeText={(newValue) => {
+                          let newPollOptions = Object.assign(
+                            [],
+                            this.state.pollOptions
+                          );
+                          newPollOptions[index] = newValue;
+                          this.setState({ pollOptions: newPollOptions });
+                        }}
+                        placeholder={'Poll option...'}
+                        placeholderTextColor={'#484848'}
+                        style={{ flex: 5, paddingLeft: '5%' }}
+                      />
+                      <IconButton
+                        icon={'close'}
+                        size={16}
+                        color={'#404040'}
+                        onPress={() => {
+                          let newPollOptions = Object.assign(
+                            [],
+                            this.state.pollOptions
+                          );
+                          newPollOptions.splice(index, 1); // Removes this poll option
+                          this.setState({ pollOptions: newPollOptions });
+                        }}
+                      />
+                    </View>
+                  );
+                })}
 
-          {/* Render list of poll options and new poll option button if the poll button is selected */}
-          {this.state.selectedPostType === 'Poll' && (
-            <>
-              {this.state.pollOptions.map((_, index) => {
-                return (
-                  <View
-                    key={index.toString()}
-                    style={styles.pollOptionInputView}
-                  >
-                    <TextInput
-                      autoCapitalize={'sentences'}
-                      autoCorrect={true}
-                      value={this.state.pollOptions[index]}
-                      onChangeText={(newValue) => {
-                        let newPollOptions = Object.assign(
-                          [],
-                          this.state.pollOptions
-                        );
-                        newPollOptions[index] = newValue;
-                        this.setState({ pollOptions: newPollOptions });
-                      }}
-                      placeholder={'Poll option...'}
-                      placeholderTextColor={'#484848'}
-                      style={{ flex: 5, paddingLeft: '5%' }}
-                    />
-                    <IconButton
-                      icon={'close'}
-                      size={16}
-                      color={'#404040'}
-                      onPress={() => {
-                        let newPollOptions = Object.assign(
-                          [],
-                          this.state.pollOptions
-                        );
-                        newPollOptions.splice(index, 1); // Removes this poll option
-                        this.setState({ pollOptions: newPollOptions });
-                      }}
-                    />
-                  </View>
-                );
-              })}
-
-              <Button
-                mode={'contained'}
-                color={'white'}
-                style={styles.newPollOptionButton}
-                onPress={() => {
-                  this.setState({
-                    pollOptions: this.state.pollOptions.concat(''),
-                  });
-                }}
-              >
-                New Poll Option
-              </Button>
-            </>
-          )}
-
-          {/* Render form specific to events */}
-          {this.state.selectedPostType === 'Event' && (
-            <>
-              <View style={{ flex: 1, marginTop: 7 }}>
-                <ButtonWithDownArrow
+                <Button
+                  mode={'contained'}
+                  color={'white'}
+                  style={styles.newPollOptionButton}
                   onPress={() => {
-                    this.setState({ showDatePicker: true });
+                    this.setState({
+                      pollOptions: this.state.pollOptions.concat(''),
+                    });
                   }}
-                  text={this.state.eventTime.toString()}
+                >
+                  New Poll Option
+                </Button>
+              </>
+            )}
+
+            {/* Render form specific to events */}
+            {this.state.selectedPostType === 'Event' && (
+              <>
+                <View style={{ flex: 1, marginTop: 7 }}>
+                  <ButtonWithDownArrow
+                    onPress={() => {
+                      this.setState({ showDatePicker: true });
+                    }}
+                    text={this.state.eventTime.toString()}
+                  />
+                  <PickADayTimeModal
+                    showDatePicker={this.state.showDatePicker}
+                    onShowDatePickerChange={(show) =>
+                      this.setState({ showDatePicker: show })
+                    }
+                    showTimePicker={this.state.showTimePicker}
+                    onShowTimePickerChange={(show) =>
+                      this.setState({ showTimePicker: show })
+                    }
+                    eventTime={this.state.eventTime}
+                    onEventTimeChange={(date) =>
+                      this.setState({ eventTime: date })
+                    }
+                  />
+                </View>
+
+                {/* Location/Link */}
+                <CreatePageTextInput
+                  textValue={this.state.eventLocation}
+                  setText={(newText) => {
+                    this.setState({ eventLocation: newText });
+                  }}
+                  placeholder={'Location/Link...'}
                 />
-                <PickADayTimeModal
-                  showDatePicker={this.state.showDatePicker}
-                  onShowDatePickerChange={(show) =>
-                    this.setState({ showDatePicker: show })
-                  }
-                  showTimePicker={this.state.showTimePicker}
-                  onShowTimePickerChange={(show) =>
-                    this.setState({ showTimePicker: show })
-                  }
-                  eventTime={this.state.eventTime}
-                  onEventTimeChange={(date) =>
-                    this.setState({ eventTime: date })
-                  }
+
+                {/* Admission Price... */}
+                <CreatePageTextInput
+                  textValue={this.state.eventAdmissionPrice}
+                  setText={(newText) => {
+                    this.setState({ eventAdmissionPrice: newText });
+                  }}
+                  placeholder={'Admission Price...'}
+                  style={{ marginHorizontal: '15%' }}
                 />
-              </View>
-
-              {/* Location/Link */}
-              <CreatePageTextInput
-                textValue={this.state.eventLocation}
-                setText={(newText) => {
-                  this.setState({ eventLocation: newText });
-                }}
-                placeholder={'Location/Link...'}
-              />
-
-              {/* Admission Price... */}
-              <CreatePageTextInput
-                textValue={this.state.eventAdmissionPrice}
-                setText={(newText) => {
-                  this.setState({ eventAdmissionPrice: newText });
-                }}
-                placeholder={'Admission Price...'}
-                style={{ marginHorizontal: '15%' }}
-              />
-            </>
-          )}
+              </>
+            )}
+          </BasicCreateForm>
         </View>
-
-        {/* Buttons to insert images and tag users */}
-        <View style={styles.imageAndTagButtonsView}>
-          <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
-            <IconButton
-              icon={'tag'}
-              color={'black'}
-              mode={'contained'}
-              style={styles.imageAndTagButtons}
-              size={28}
-              onPress={() => {
-                this.state.setTagModalVisible(true);
-              }}
-            />
-          </Card>
-          <Card style={{ marginHorizontal: 8, borderRadius: 10 }}>
-            <IconButton
-              icon={'image-plus'}
-              color={'black'}
-              mode={'contained'}
-              style={styles.imageAndTagButtons}
-              size={28}
-            />
-          </Card>
-        </View>
-
-        {/* Tag modal */}
-        <Portal>
-          <TagModal
-            visible={this.state.tagModalVisible}
-            setVisible={this.state.setTagModalVisible}
-          />
-        </Portal>
 
         {/* TODO bring these buttons to the bottom */}
         {/* TODO calculate how big the buttons should be */}
@@ -379,17 +354,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCDCDC',
     borderRadius: 10,
     marginTop: 10,
-  },
-  imageAndTagButtonsView: {
-    marginTop: 10,
-    alignContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  imageAndTagButtons: {
-    alignSelf: 'center',
-    borderRadius: 10,
-    margin: 0,
   },
   previewAndShareButtons: {
     borderRadius: 10,

@@ -59,8 +59,8 @@ class ConnectUser(GenericUserExtension):
 
         add_user: bool = request.data[self.field_string]
         if add_user:
-            receiver = request.user
-            sender = CustomUser.objects.get(id=request.data["id"])
+            sender = request.user
+            receiver = CustomUser.objects.get(id=request.data["id"])
             is_request = receiver.connected_users.filter(id=request.data["id"]).exists()
             create_connection_request_notification(receiver, sender, is_request)
 

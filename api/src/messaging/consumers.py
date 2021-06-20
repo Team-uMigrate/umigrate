@@ -26,7 +26,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             user_id = self.scope["user"].id
             self.room = await database_sync_to_async(
-                Room.objects.get(id=self.room_id)
+                lambda: Room.objects.get(id=self.room_id)
             )()
             self.user = await database_sync_to_async(
                 lambda: self.room.members.get(id=user_id)
@@ -71,7 +71,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 lambda: message.liked_users.add(self.scope["user"].id)
             )()
             await database_sync_to_async(
-                create_liked_shared_item_notification(message, self.user)
+                lambda: create_liked_shared_item_notification(message, self.user)
             )()
 
         else:
@@ -146,10 +146,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             lambda: message_object.tagged_users.add(*tagged_users)
         )()
         await database_sync_to_async(
-            create_message_notification(
+            lambda: create_message_notification(
                 self.room.members.all(), self.user, message_object
             )
-        )
+        )()
         return {
             "type": "send_message",
             "id": message_object.id,

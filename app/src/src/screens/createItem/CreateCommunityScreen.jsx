@@ -9,13 +9,12 @@ import {
   PollsEndpoint,
   PostsEndpoint,
 } from '../../utils/endpoints';
-import { Card, IconButton, Button, Portal } from 'react-native-paper';
+import { IconButton, Button } from 'react-native-paper';
 import CreatePageTextInput from '../../components/common/CreatePageTextInput';
 import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
 import { getUserData } from '../../utils/storageAccess';
 import toYearMonthDayTimeInNumbers from '../../components/common/FormatDate/toYearMonthDayTimeInNumbers';
 import PickADayTimeModal from '../../components/modals/PickADayTimeModal';
-import TagModal from '../../components/modals/TagModal';
 
 class CreateCommunityScreen extends React.Component {
   state = {

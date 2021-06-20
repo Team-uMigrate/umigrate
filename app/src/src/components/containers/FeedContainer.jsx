@@ -6,21 +6,19 @@ import {
   RefreshControl,
   Button,
 } from 'react-native';
-import FeedContainerHeader from '../common/FeedContainerHeader';
+import FeedHeader from '../common/FeedHeader';
 import TabNavContext from '../../contexts/TabNavContext';
 import SearchResults from './SearchResults';
 
 class FeedContainer extends Component {
-  static contextType = TabNavContext;
-
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      nextPages: props.endpoints.map(() => 1),
+      nextPages: this.props.getItemsSet.map(() => 1),
       errorMessages: [],
-      refreshing: false,
-      searching: false,
+      isRefreshing: false,
+      isSearching: false,
     };
   }
 
@@ -41,14 +39,14 @@ class FeedContainer extends Component {
   fetchItems = async () => {
     // Retrieve state and props
     const { items, nextPages, errorMessages } = this.state;
-    const { endpoints, filtersList } = this.props;
+    const { getItemsSet, filtersList } = this.props;
 
     // Fetch a list of items from each endpoint
     let responseDataList = [];
-    for (let i = 0; i < endpoints.length; i++) {
+    for (let i = 0; i < getItemsSet.length; i++) {
       try {
         responseDataList[i] = (
-          await endpoints[i].list(nextPages[i], filtersList[i])
+          await getItemsSet[i](nextPages[i], filtersList[i])
         ).data;
       } catch (error) {
         // Append error messages to state
@@ -71,7 +69,7 @@ class FeedContainer extends Component {
       );
     });
 
-    let newItems = this.state.refreshing ? [] : items;
+    let newItems = this.state.isRefreshing ? [] : items;
     let newNextPages = nextPages;
 
     responseDataList.forEach((responseData, t) => {
@@ -118,13 +116,13 @@ class FeedContainer extends Component {
         items: [],
         nextPages: this.state.nextPages.map(() => 1),
         errorMessages: [],
-        refreshing: true,
+        isRefreshing: true,
       },
       async () => {
         // Fetch items
         await this.fetchItems();
         // Set state to not refreshing
-        this.setState({ refreshing: false });
+        this.setState({ isRefreshing: false });
       }
     );
   };
@@ -136,16 +134,16 @@ class FeedContainer extends Component {
     });
   };
 
-  searchingState = () => {
-    this.setState({ searching: !this.state.searching });
+  setIsSearching = () => {
+    this.setState({ isSearching: !this.state.isSearching });
   };
 
   render() {
-    if (this.state.searching === true) {
+    if (this.state.isSearching === true) {
       return (
         // TODO: Fix this margin... its not dynammic enough
         <View style={{ marginBottom: '45%' }}>
-          <SearchResults searchingState={this.searchingState}></SearchResults>
+          <SearchResults setIsSearching={this.setIsSearching} />
         </View>
       );
     } else {
@@ -154,7 +152,7 @@ class FeedContainer extends Component {
           <FlatList
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={this.state.isRefreshing}
                 onRefresh={this.handleRefresh}
               />
             }
@@ -166,10 +164,12 @@ class FeedContainer extends Component {
             showsVerticalScrollIndicator={false}
             ref={this.props.scrollRef}
             ListHeaderComponent={
-              <FeedContainerHeader
-                page_name={this.props.route.name}
-                searchingState={this.searchingState}
-              />
+              this.props.feedName && (
+                <FeedHeader
+                  feedName={this.props.feedName}
+                  setIsSearching={this.setIsSearching}
+                />
+              )
             }
           />
         </View>

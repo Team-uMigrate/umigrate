@@ -2,53 +2,50 @@ import React, { useState, useContext } from 'react';
 import { Text, Alert, StyleSheet, View, Image } from 'react-native';
 import { Button, Avatar } from 'react-native-paper';
 import Modal from 'react-native-modal';
-import CreateItemContext from '../../contexts/CreateItemContext';
+import UserViewContext from '../../contexts/UserViewContext';
 import { routes } from '../../utils/routes';
 
 const UserViewModal = ({ navigation }) => {
-  // const createItem = useContext(CreateItemContext);
-
-  // const navigate = (page) => {
-  //   createItem.setIsModalVisible(false);
-  //   navigation.navigate(routes.createItem, { page: page });
-  // };
+  const userView = useContext(UserViewContext);
+  const navigate = (route) => {
+    userView.setUser(null);
+    navigation.navigate(route);
+  };
 
   return (
     <View>
       <Modal
-        //onBackdropPress={() => createItem.setIsModalVisible(false)}
-        //visible={createItem.isModalVisible}
-        visible={true}
+        onBackdropPress={() => userView.setUser(null)}
+        visible={userView.user !== null}
         transparent={true}
         style={styles.modalContent}
-        // backdropOpacity={0.3}
-      //  backdropOpacity={createItem.isModalVisible ? 0.2 : 1}
+        backdropOpacity={userView.user ? 0.2 : 1}
       >
         <View style={styles.modalView}>
           <View style={styles.backHeading}>
-            <Image
+            { userView.user?.background_photo && <Image
               style={styles.backGroundHeading}
-              source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/220px-SNice.svg.png" }}
-            />
+              source={{ uri: userView.user.background_photo }}
+            />}
             <View style={styles.profileArea}>
-              <Avatar.Image
+             { userView.user?.profile_photo ? <Avatar.Image
                 size={110}
                 style={styles.pfpShadow}
-                source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/220px-SNice.svg.png" }}
-              />
-              <Text style={styles.profileName}>{"John Doe"}</Text>
+                source={{ uri: userView.user.profile_photo }}
+              />:<Avatar.Icon size={110} icon={'account'} /> }
+              <Text style={styles.profileName}>{userView.user?.preferred_name}</Text>
             </View>
           </View>
           <View style={styles.buttonContainer}>
             <Button
               style={styles.buttonStyle}
-             // onPress={() => navigate(routes.messaging)}
+              onPress={() => navigate(routes.messaging)}
             >
               <Text style={styles.buttonText}>Message</Text>
             </Button>
             <Button
               style={styles.buttonStyle}
-             // onPress={() => navigate(routes.profile)}
+              onPress={() => navigate(routes.profile)}
             >
               <Text style={styles.buttonText}>View Profile</Text>
             </Button>

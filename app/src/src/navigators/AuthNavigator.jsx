@@ -15,6 +15,7 @@ import NotificationScreen from '../screens/notifications/NotificationsScreen';
 import CommentsScreen from '../screens/comments/CommentsScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
+import { UserViewContextProvider } from '../contexts/UserViewContext';
 
 const Stack = createStackNavigator();
 
@@ -43,26 +44,28 @@ const AuthNavigator = () => {
     return (
       <TabNavContextProvider>
         <CreateItemContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              gestureDirection={'horizontal-inverted'}
-            >
-              <Stack.Screen name={routes.tabs} component={TabNavigator} />
-              <Stack.Screen
-                name={routes.messaging}
-                component={MessagingScreen}
-              />
-              <Stack.Screen name={routes.comments} component={CommentsScreen} />
-              <Stack.Screen
-                name={routes.notifications}
-                options={{
-                  gestureDirection: 'horizontal-inverted',
-                }}
-                component={NotificationScreen}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <UserViewContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+                gestureDirection={'horizontal-inverted'}
+              >
+                <Stack.Screen name={routes.tabs} component={TabNavigator} />
+                <Stack.Screen
+                  name={routes.messaging}
+                  component={MessagingScreen}
+                />
+                <Stack.Screen name={routes.comments} component={CommentsScreen} />
+                <Stack.Screen
+                  name={routes.notifications}
+                  options={{
+                    gestureDirection: 'horizontal-inverted',
+                  }}
+                  component={NotificationScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </UserViewContextProvider>
         </CreateItemContextProvider>
       </TabNavContextProvider>
     );

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import React, {useContext} from 'react';
+import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ListingsEndpoint } from '../../utils/endpoints';
@@ -12,6 +12,7 @@ import {
   listingCategories,
   seasons,
 } from '../../utils/choices';
+import UserViewContext from '../../contexts/UserViewContext';
 
 const ListingView = (listing) => {
   const {
@@ -29,11 +30,13 @@ const ListingView = (listing) => {
 
   const { width, height } = Dimensions.get('window');
   const contentType = contentTypes.listing;
+  const userView = useContext(UserViewContext);
 
   return (
     <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
-        <View style={styles.row}>
+      <TouchableOpacity style={styles.row}
+        onPress = { () => userView.setUser(creator) } >
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
@@ -44,7 +47,7 @@ const ListingView = (listing) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>

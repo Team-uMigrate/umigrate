@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import React, {useContext} from 'react';
+import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { EventsEndpoint } from '../../utils/endpoints';
@@ -8,6 +8,7 @@ import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
+import UserViewContext from '../../contexts/UserViewContext';
 
 const EventView = (event) => {
   const {
@@ -27,11 +28,13 @@ const EventView = (event) => {
 
   const { width, height } = Dimensions.get('window');
   const contentType = contentTypes['event'];
+  const userView = useContext(UserViewContext);
 
   return (
     <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
-        <View style={styles.row}>
+        <TouchableOpacity style={styles.row}
+        onPress = { () => userView.setUser(creator) } >
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
@@ -41,7 +44,7 @@ const EventView = (event) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>

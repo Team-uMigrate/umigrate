@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import React, {useContext} from 'react';
+import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { AdsEndpoint } from '../../utils/endpoints';
@@ -7,6 +7,7 @@ import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
+import UserViewContext from '../../contexts/UserViewContext';
 
 const AdView = (ad) => {
   const {
@@ -20,16 +21,17 @@ const AdView = (ad) => {
     category,
     photos,
   } = ad;
-
+  const userView = useContext(UserViewContext);
   const { width, height } = Dimensions.get('window');
   const contentType = contentTypes['ad'];
 
   return (
     <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
-        <View style={styles.row}>
+        <TouchableOpacity style={styles.row}
+        onPress = { () => userView.setUser(creator) } >
           <View>
-            <ProfilePhotoView photo={creator.profile_photo} />
+            <ProfilePhotoView photo={creator.profile_photo}/>
           </View>
           <View style={styles.column}>
             <Text style={styles.name}>{creator.preferred_name}</Text>
@@ -38,7 +40,7 @@ const AdView = (ad) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>

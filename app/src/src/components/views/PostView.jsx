@@ -1,5 +1,5 @@
-import React, { createRef } from 'react';
-import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
+import React, { createRef, useContext } from 'react';
+import { StyleSheet, Dimensions, Image, View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { PostsEndpoint } from '../../utils/endpoints';
@@ -8,17 +8,20 @@ import ImageCollectionView from './ImageCollectionView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { communities, contentTypes } from '../../utils/choices';
+import UserViewContext from '../../contexts/UserViewContext';
 
 const PostView = (post) => {
   const { title, creator, datetime_created, content, community, photos } = post;
 
   const { width, height } = Dimensions.get('window');
   const contentType = contentTypes['post'];
+  const userView = useContext(UserViewContext);
 
   return (
     <Card style={styles.container}>
       <Card.Content style={styles.cardContent}>
-        <View style={styles.row}>
+      <TouchableOpacity style={styles.row}
+        onPress = { () => userView.setUser(creator) }>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
@@ -28,7 +31,7 @@ const PostView = (post) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <Title style={styles.title}>{title}</Title>
         <Paragraph style={styles.bodyText}>{content}</Paragraph>
         <Paragraph style={styles.bodyText}>

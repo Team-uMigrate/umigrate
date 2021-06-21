@@ -73,7 +73,7 @@ const EventView = (event) => {
             style={styles.buttonStyleAttend}
             mode={is_attending ? 'contained' : 'outlined'}
             title={is_attending ? 'Attending' : 'Attending'}
-            gradientBegin={is_interested ? null : '#483FAB'}
+            gradientBegin={is_attending ? null : '#483FAB'}
             textStyle={styles.bodyText}
             radius={10}
             onPressAction={async () => {

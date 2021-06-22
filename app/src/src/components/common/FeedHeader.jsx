@@ -2,23 +2,23 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
-const FeedContainerHeader = ({ page_name, searchingState }) => {
+const FeedHeader = ({ feedName, setIsSearching }) => {
   return (
     <View style={styles.viewStyle}>
-      <Text style={styles.textStyle}>{page_name}</Text>
+      <Text style={styles.textStyle}>{feedName}</Text>
       <IconButton
         icon="magnify"
         style={{ alignSelf: 'flex-start' }}
         color={'#AAAAAA'}
         size={25}
-        onPress={searchingState}
+        onPress={setIsSearching}
       />
       {/* TODO: Filter Bar */}
     </View>
   );
 };
 
-export default FeedContainerHeader;
+export default FeedHeader;
 
 const styles = StyleSheet.create({
   viewStyle: {

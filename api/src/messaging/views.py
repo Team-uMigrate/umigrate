@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # Todo: Remove this file later
 def index(request):
     return render(request, "index.html")

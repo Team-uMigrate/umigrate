@@ -14,7 +14,7 @@ import {
 import SearchPageView from '../views/SearchPageView';
 
 // a functional component letting the user search across all endpoints for given text
-const SearchResults = ({ searchingState }) => {
+const SearchResults = ({ setIsSearching }) => {
   const [queried_text, setText] = useState('');
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -230,7 +230,7 @@ const SearchResults = ({ searchingState }) => {
           style={{ alignSelf: 'flex-start', flex: 1, backgroundColor: 'white' }}
           color={'#AAAAAA'}
           size={25}
-          onPress={searchingState}
+          onPress={setIsSearching}
         />
         <Searchbar
           onChangeText={(typed) => {

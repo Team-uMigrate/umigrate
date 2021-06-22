@@ -5,7 +5,10 @@ import { shallow } from 'enzyme';
 import FeedContainer from './FeedContainer';
 import { MockEndpoint1, MockEndpoint2 } from '../../utils/mockEndpoints';
 
-const endpoints = [MockEndpoint1, MockEndpoint2];
+const endpoints = [
+  async (page, filters) => await MockEndpoint1.list(page, filters),
+  async (page, filters) => await MockEndpoint2.list(page, filters),
+];
 const itemViews = [
   (item) => <Text>{item.id}</Text>,
   (item) => <Text>{item.id}</Text>,

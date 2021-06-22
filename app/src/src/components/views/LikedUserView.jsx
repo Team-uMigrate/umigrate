@@ -1,14 +1,6 @@
-import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-// import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import {
-  configureFonts,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from 'react-native-paper';
 
-const LikedUserView = (props) => {
-  const { first_name, profile_photo } = props;
+const LikedUserView = ({ first_name, profile_photo }) => {
   return (
     <>
       <View style={styles.ListBegin}>

@@ -3,16 +3,15 @@ import { StyleSheet, View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
-import { CommentsEndpoint } from '../../utils/endpoints';
-import CommentView from '../../components/views/CommentView';
-import UsersList from '../../components/common/UsersList';
+import { LikesEndpoint } from '../../utils/endpoints'; // yet to be implemented
+import LikedUserView from '../../components/views/LikedUserView';
 
-const endpoints = [CommentsEndpoint];
-const itemViews = [(item) => <CommentView {...item} />];
+const endpoints = [LikesEndpoint];
+const itemViews = [(item) => <LikedUserView {...item} />];
 
-// A screen that renders comments
+// A screen that renders likes
 const LikesScreen = ({ navigation, route }) => {
-  const [commentsFilters, setCommentsFilters] = useState({
+  const [likeFilters, setLikeFilters] = useState({
     content_type: route.params.contentType,
     object_id: route.params.postId,
   });
@@ -24,7 +23,7 @@ const LikesScreen = ({ navigation, route }) => {
       <FeedContainer
         endpoints={endpoints}
         itemViews={itemViews}
-        filtersList={[commentsFilters]}
+        filtersList={[likeFilters]}
         scrollRef={ref}
       />
       <CreateItemModal navigation={navigation} />

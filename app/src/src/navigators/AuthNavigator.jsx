@@ -7,7 +7,7 @@ import { TabNavContextProvider } from '../contexts/TabNavContext';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/authentication/LoadingScreen';
-//import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
+import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
 import MessagingScreen from '../screens/messaging/MessagingScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';

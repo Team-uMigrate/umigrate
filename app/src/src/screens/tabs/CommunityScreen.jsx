@@ -8,14 +8,17 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const endpoints = [PostsEndpoint, EventsEndpoint];
+const getItemsSet = [
+  async (page, filters) => await PostsEndpoint.list(page, filters),
+  async (page, filters) => await EventsEndpoint.list(page, filters),
+];
 const itemViews = [
   (item) => <PostView {...item} />,
   (item) => <EventView {...item} />,
 ];
 
 // A screen that renders community shared items
-const CommunityScreen = ({ navigation }) => {
+const CommunityScreen = ({ navigation, route }) => {
   const [postFilters, setPostFilters] = useState({});
   const [eventFilters, setEventFilters] = useState({});
   const ref = useRef(null);
@@ -26,10 +29,11 @@ const CommunityScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Community Page" />
       <FeedContainer
-        endpoints={endpoints}
+        getItemsSet={getItemsSet}
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

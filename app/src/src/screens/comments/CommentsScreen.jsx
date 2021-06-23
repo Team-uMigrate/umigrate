@@ -7,7 +7,9 @@ import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
 import {styles} from '../../stylesheets/comments/comments.jsx';
 
-const endpoints = [CommentsEndpoint];
+const getItemsSet = [
+  async (page, filters) => await CommentsEndpoint.list(page, filters),
+];
 const itemViews = [(item) => <CommentView {...item} />];
 
 // A screen that renders comments
@@ -22,7 +24,7 @@ const CommentsScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
-        endpoints={endpoints}
+        getItemsSet={getItemsSet}
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}

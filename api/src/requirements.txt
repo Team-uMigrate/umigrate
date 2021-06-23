@@ -2,6 +2,7 @@ Django
 djangorestframework
 django-rest-auth
 django-allauth
+django-axes
 django-filter
 requests
 Pillow
@@ -20,3 +21,4 @@ daphne
 sentry-sdk
 black
 pylint-django
+django-rq

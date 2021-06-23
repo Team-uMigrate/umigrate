@@ -7,11 +7,13 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const endpoints = [AdsEndpoint];
+const getItemsSet = [
+  async (page, filters) => await AdsEndpoint.list(page, filters),
+];
 const itemViews = [(item) => <AdView {...item} />];
 
 // A screen that renders market shared items
-const MarketScreen = ({ navigation }) => {
+const MarketScreen = ({ navigation, route }) => {
   const [adFilters, setAdFilters] = useState({});
   const ref = useRef(null);
 
@@ -21,10 +23,11 @@ const MarketScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Market" />
       <FeedContainer
-        endpoints={endpoints}
+        getItemsSet={getItemsSet}
         itemViews={itemViews}
         filtersList={[adFilters]}
         scrollRef={ref}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

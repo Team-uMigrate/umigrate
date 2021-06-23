@@ -24,19 +24,19 @@ const AuthNavigator = () => {
   const error = useContext(ErrorContext);
   const [expoPushToken, setExpoPushToken] = useState(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     // Register for push notifications if authenticated
-  //     if (auth.isAuthenticated) {
-  //       try {
-  //         const token = await registerForPushNotificationsAsync(error);
-  //         setExpoPushToken(token);
-  //       } catch (e) {
-  //         error.setMessage(e.message);
-  //       }
-  //     }
-  //   })();
-  // }, [auth.isAuthenticated]);
+  useEffect(() => {
+    (async () => {
+      // Register for push notifications if authenticated
+      if (auth.isAuthenticated) {
+        try {
+          const token = await registerForPushNotificationsAsync(error);
+          setExpoPushToken(token);
+        } catch (e) {
+          error.setMessage(e.message);
+        }
+      }
+    })();
+  }, [auth.isAuthenticated]);
 
   if (auth.isAuthenticated === true) {
     // Render authenticated view

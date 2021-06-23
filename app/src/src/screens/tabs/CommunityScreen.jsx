@@ -3,10 +3,11 @@ import PostView from '../../components/views/PostView';
 import EventView from '../../components/views/EventView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import {sharedItemTabsStyles} from '../../stylesheets/tabs/tabs.jsx';
 
 const getItemsSet = [
   async (page, filters) => await PostsEndpoint.list(page, filters),
@@ -26,7 +27,7 @@ const CommunityScreen = ({ navigation, route }) => {
   useScrollToTop(ref);
 
   return (
-    <View style={styles.container}>
+    <View style={sharedItemTabsStyles.container}>
       <Header title="Community Page" />
       <FeedContainer
         getItemsSet={getItemsSet}
@@ -42,9 +43,3 @@ const CommunityScreen = ({ navigation, route }) => {
 
 export default CommunityScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-  },
-});

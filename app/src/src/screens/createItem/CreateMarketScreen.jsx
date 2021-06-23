@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import {styles} from '../../stylesheets/createItem/createItem.jsx';
+import {  View, Text } from 'react-native';
+import {sharedItemstyles} from '../../stylesheets/createItem/createItem.jsx';
 
 const CreateMarketScreen = () => {
   return (
-    <View styles={styles}>
+    <View styles={sharedItemstyles}>
       <Text>Create a post in market!</Text>
     </View>
   );

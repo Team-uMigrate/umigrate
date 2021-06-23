@@ -4,7 +4,8 @@ import {
   View,
   FlatList,
   RefreshControl,
-  Button,
+  Text,
+  ActivityIndicator,
 } from 'react-native';
 import FeedHeader from '../common/FeedHeader';
 import { fetchAndMergeData } from '../../utils/fetchDataHelpers';
@@ -15,8 +16,8 @@ class FeedContainer extends Component {
     this.state = {
       items: [],
       nextPages: this.props.getItemsSet.map(() => 1),
-      errorMessages: [],
-      isRefreshing: false,
+      isRefreshing: true,
+      errors: [],
     };
   }
 
@@ -36,24 +37,24 @@ class FeedContainer extends Component {
 
   fetchItems = async () => {
     // Retrieve state and props
-    const { items, nextPages, errorMessages, isRefreshing } = this.state;
+    const { items, nextPages, isRefreshing } = this.state;
     const { getItemsSet, filtersList } = this.props;
-    const handleErrors = (error) =>
-      this.setState({
-        errorMessages: [...errorMessages, JSON.stringify(error)],
-      });
 
-    const { newItems, newNextPages } = await fetchAndMergeData(
+    const { newItems, newNextPages, errors } = await fetchAndMergeData(
       items,
       getItemsSet,
       nextPages,
       filtersList,
-      isRefreshing,
-      handleErrors
+      isRefreshing
     );
 
     // Update state
-    this.setState({ items: newItems, nextPages: newNextPages });
+    this.setState({
+      items: newItems,
+      nextPages: newNextPages,
+      isRefreshing: false,
+      errors: errors,
+    });
   };
 
   handleRefresh = () => {
@@ -62,14 +63,12 @@ class FeedContainer extends Component {
       {
         items: [],
         nextPages: this.state.nextPages.map(() => 1),
-        errorMessages: [],
         isRefreshing: true,
+        errors: [],
       },
       async () => {
         // Fetch items
         await this.fetchItems();
-        // Set state to not refreshing
-        this.setState({ isRefreshing: false });
       }
     );
   };
@@ -82,6 +81,15 @@ class FeedContainer extends Component {
   };
 
   render() {
+    if (this.state.errors.length) {
+      return (
+        <>
+          {this.state.errors.map((e, i) => (
+            <Text key={i.toString()}>{JSON.stringify(e)}</Text>
+          ))}
+        </>
+      );
+    }
     return (
       <View style={styles.feedContainer}>
         <FlatList
@@ -100,6 +108,11 @@ class FeedContainer extends Component {
           ref={this.props.scrollRef}
           ListHeaderComponent={
             this.props.feedName && <FeedHeader feedName={this.props.feedName} />
+          }
+          ListFooterComponent={
+            !this.state.isRefreshing && (
+              <ActivityIndicator size="large" style={{ padding: 10 }} />
+            )
           }
         />
       </View>

@@ -3,22 +3,28 @@ export async function fetchAndMergeData(
   getItemsSet,
   nextPages,
   filtersList,
-  isRefreshing,
-  handleErrors
+  isRefreshing
 ) {
   // Fetch a list of items from each endpoint
-  let responseDataList = [];
+  const responseDataList = [];
+  const errors = [];
   for (let i = 0; i < getItemsSet.length; i++) {
     try {
       responseDataList[i] = (
         await getItemsSet[i](nextPages[i], filtersList[i])
       ).data;
     } catch (error) {
-      // Append error messages to state
-      handleErrors(error);
-      return;
+      // Append error message
+      errors.push(error);
     }
   }
+
+  if (errors.length)
+    return {
+      newItems: [],
+      newNextPages: getItemsSet.map(() => 1),
+      errors: errors,
+    };
 
   // Find the max end date between the results from all endpoints
   let maxEndDate = 0;
@@ -66,5 +72,5 @@ export async function fetchAndMergeData(
     (a, b) => Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
   );
 
-  return { newItems, newNextPages };
+  return { newItems, newNextPages, errors: errors };
 }

@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Header from '../../components/views/Header';
 import React from 'react';
+import {styles} from '../../stylesheets/messaging/messaging.jsx';
 
 // A screen that renders notifications
 const NotificationScreen = () => {
@@ -14,13 +15,3 @@ const NotificationScreen = () => {
 
 export default NotificationScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-  },
-  title: {
-    alignSelf: 'center',
-    marginTop: '80%',
-  },
-});

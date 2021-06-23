@@ -5,6 +5,7 @@ import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 import { LikesEndpoint } from '../../utils/endpoints'; // yet to be implemented
 import LikedUserView from '../../components/views/LikedUserView';
+import {styles} from '../../stylesheets/comments/comments.jsx';
 
 const endpoints = [LikesEndpoint];
 const itemViews = [(item) => <LikedUserView {...item} />];
@@ -33,9 +34,3 @@ const LikesScreen = ({ navigation, route }) => {
 
 export default LikesScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});

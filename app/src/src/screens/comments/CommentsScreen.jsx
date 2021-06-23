@@ -5,6 +5,7 @@ import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
+import {styles} from '../../stylesheets/comments/comments.jsx';
 
 const endpoints = [CommentsEndpoint];
 const itemViews = [(item) => <CommentView {...item} />];
@@ -32,10 +33,3 @@ const CommentsScreen = ({ navigation, route }) => {
 };
 
 export default CommentsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});

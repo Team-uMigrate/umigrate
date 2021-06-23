@@ -69,12 +69,13 @@ const EventView = (event) => {
         <ImageCollectionView photos={photos} />
         <View style={styles.buttonContainer}>
           <GradientButton
-            compact={true}
             style={styles.buttonStyleAttend}
-            mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Attending' : 'Attending'}
-            gradientBegin={is_interested ? null : '#483FAB'}
-            textStyle={styles.bodyText}
+            gradientBegin={is_attending ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_attending ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_attending ? '#483FAB' : '#ffffff' },
+            ]}
             radius={10}
             onPressAction={async () => {
               await EventsEndpoint.setAttending(event.id, !event.is_attending);
@@ -87,17 +88,19 @@ const EventView = (event) => {
               });
             }}
           >
-            {is_attending ? 'Attending' : 'Attend?'}
+            Attending
           </GradientButton>
 
           <GradientButton
-            compact={true}
             style={styles.buttonStyleInterest}
-            mode={is_interested ? 'contained' : 'outlined'}
-            title={is_interested ? 'Uninterest' : 'Interested?'}
             textStyle={styles.bodyText}
             radius={10}
-            gradientBegin={is_interested ? null : '#483FAB'}
+            gradientBegin={is_interested ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_interested ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_interested ? '#483FAB' : '#ffffff' },
+            ]}
             onPressAction={async () => {
               await EventsEndpoint.setInterested(
                 event.id,
@@ -112,7 +115,7 @@ const EventView = (event) => {
               });
             }}
           >
-            {is_interested ? 'Uninterest' : 'Interested?'}
+            Interested
           </GradientButton>
         </View>
         <CommentBar
@@ -173,11 +176,17 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 0,
     marginRight: '4%',
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonStyleInterest: {
     height: 36,
     flex: 1,
     marginRight: 0,
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonContainer: {
     flexDirection: 'row',

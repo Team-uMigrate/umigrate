@@ -8,7 +8,6 @@ import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
-import RadialGradient from 'react-native-radial-gradient';
 
 const EventView = (event) => {
   const {
@@ -72,7 +71,7 @@ const EventView = (event) => {
           <GradientButton
             style={styles.buttonStyleAttend}
             gradientBegin={is_attending ? '#ffffff' : '#483FAB'}
-            gradientEnd={is_attending ? '#ffffff' : '#FF668B'}
+            gradientEnd={is_attending ? '#ffffff' : '#5438a6'}
             textStyle={[
               styles.bodyText,
               { color: is_attending ? '#483FAB' : '#ffffff' },
@@ -97,7 +96,7 @@ const EventView = (event) => {
             textStyle={styles.bodyText}
             radius={10}
             gradientBegin={is_interested ? '#ffffff' : '#483FAB'}
-            gradientEnd={is_interested ? '#ffffff' : '#FF668B'}
+            gradientEnd={is_interested ? '#ffffff' : '#5438a6'}
             textStyle={[
               styles.bodyText,
               { color: is_interested ? '#483FAB' : '#ffffff' },
@@ -177,7 +176,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 0,
     marginRight: '4%',
-    //backgroundColor: "'radialGradient(608.33% 2909.72% at 97.66% -441.67%, #FF668B 0%, rgba(72, 63, 171, 0) 100%), #483FAB',",
     borderRadius: 11,
     borderWidth: 1,
     borderColor: '#483FAB',

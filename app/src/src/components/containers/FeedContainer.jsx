@@ -18,7 +18,6 @@ class FeedContainer extends Component {
       nextPages: this.props.getItemsSet.map(() => 1),
       errorMessages: [],
       isRefreshing: false,
-      isSearching: false,
     };
   }
 
@@ -134,47 +133,29 @@ class FeedContainer extends Component {
     });
   };
 
-  setIsSearching = () => {
-    this.setState({ isSearching: !this.state.isSearching });
-  };
-
   render() {
-    if (this.state.isSearching === true) {
-      return (
-        // TODO: Fix this margin... its not dynammic enough
-        <View style={{ marginBottom: '45%' }}>
-          <SearchResults setIsSearching={this.setIsSearching} />
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.feedContainer}>
-          <FlatList
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.isRefreshing}
-                onRefresh={this.handleRefresh}
-              />
-            }
-            data={this.state.items}
-            keyExtractor={(item, i) => i.toString()}
-            renderItem={this.renderItem}
-            onEndReachedThreshold={0.5}
-            onEndReached={this.fetchItems}
-            showsVerticalScrollIndicator={false}
-            ref={this.props.scrollRef}
-            ListHeaderComponent={
-              this.props.feedName && (
-                <FeedHeader
-                  feedName={this.props.feedName}
-                  setIsSearching={this.setIsSearching}
-                />
-              )
-            }
-          />
-        </View>
-      );
-    }
+    return (
+      <View style={styles.feedContainer}>
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.handleRefresh}
+            />
+          }
+          data={this.state.items}
+          keyExtractor={(item, i) => i.toString()}
+          renderItem={this.renderItem}
+          onEndReachedThreshold={0.5}
+          onEndReached={this.fetchItems}
+          showsVerticalScrollIndicator={false}
+          ref={this.props.scrollRef}
+          ListHeaderComponent={
+            this.props.feedName && <FeedHeader feedName={this.props.feedName} />
+          }
+        />
+      </View>
+    );
   }
 }
 

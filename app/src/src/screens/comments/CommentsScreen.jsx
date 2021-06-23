@@ -24,7 +24,7 @@ const CommentsScreen = ({ navigation, route }) => {
     <View style={sharedLikesCommentsstyles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
-        endpoints={endpoints}
+        getItemsSet={getItemsSet}
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}

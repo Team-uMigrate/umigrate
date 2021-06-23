@@ -7,7 +7,7 @@ import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
-import {commonViewStyles} from '../../stylesheets/views/views.jsx';
+import { commonViewStyles } from '../../stylesheets/views/views.jsx';
 
 const AdView = (ad) => {
   const {
@@ -69,4 +69,3 @@ const AdView = (ad) => {
 };
 
 export default AdView;
-

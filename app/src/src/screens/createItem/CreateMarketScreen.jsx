@@ -1,6 +1,6 @@
 import React from 'react';
-import {  View, Text } from 'react-native';
-import {sharedItemStyles} from '../../stylesheets/createItem/createItem.jsx';
+import { View, Text } from 'react-native';
+import { sharedItemStyles } from '../../stylesheets/createItem/createItem.jsx';
 
 const CreateMarketScreen = () => {
   return (

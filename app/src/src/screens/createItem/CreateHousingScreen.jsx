@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import {sharedItemstyles} from '../../stylesheets/createItem/createItem.jsx';
+import { sharedItemStyles } from '../../stylesheets/createItem/createItem.jsx';
 
 const CreateHousingScreen = () => {
   return (
-    <View styles={sharedItemstyles}>
+    <View styles={sharedItemStyles}>
       <Text>Create a post in housing!</Text>
     </View>
   );
 };
-
 
 export default CreateHousingScreen;

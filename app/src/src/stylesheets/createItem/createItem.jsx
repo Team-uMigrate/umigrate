@@ -1,11 +1,9 @@
+import { StyleSheet } from 'react-native';
 
-/* Used in CalendarScreen, SavedItemsScreen, SettingsScreen */
-
-import { StyleSheet } from "react-native";
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#eeeeee',
-    },
-  });
+// Styles for Shared Item Screens
+export const sharedItemStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#eeeeee',
+  },
+});

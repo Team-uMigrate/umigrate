@@ -1,12 +1,9 @@
-/* Used in CommentsScreen, LikedScreen */
+import { StyleSheet } from 'react-native';
 
-import { StyleSheet } from "react-native";
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white',
-    },
-  });
-  
-  export {styles}
+// Styles for Likes and Comments Screens
+export const sharedLikesCommentsstyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});

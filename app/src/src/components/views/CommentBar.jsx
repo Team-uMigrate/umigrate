@@ -58,11 +58,7 @@ const CommentBar = ({ item, contentType, endpoint }) => {
     return (
       <View style={styles.commentBarContainer}>
         <View style={styles.likesAndCommentsText}>
-          <Text
-            onPress={() => {
-            }}
-            style={styles.likesText}
-          >
+          <Text onPress={() => {}} style={styles.likesText}>
             {'Likes (' + item.likes + ')'}
           </Text>
           <Text

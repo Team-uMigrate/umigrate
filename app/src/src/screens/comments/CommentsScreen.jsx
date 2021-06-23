@@ -5,7 +5,7 @@ import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
-import {styles} from '../../stylesheets/comments/comments.jsx';
+import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
 
 const getItemsSet = [
   async (page, filters) => await CommentsEndpoint.list(page, filters),
@@ -21,10 +21,10 @@ const CommentsScreen = ({ navigation, route }) => {
   const ref = useRef(null);
 
   return (
-    <View style={styles.container}>
+    <View style={sharedLikesCommentsstyles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        endpoints={endpoints}
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Dimensions, View, Text } from 'react-native';
+import { Dimensions, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ListingsEndpoint } from '../../utils/endpoints';
@@ -12,7 +12,7 @@ import {
   listingCategories,
   seasons,
 } from '../../utils/choices';
-import {commonViewStyles} from '../../stylesheets/views/views.jsx';
+import { commonViewStyles } from '../../stylesheets/views/views.jsx';
 
 const ListingView = (listing) => {
   const {
@@ -51,7 +51,9 @@ const ListingView = (listing) => {
         <Paragraph style={commonViewStyles.bodyText}>
           {'Community: ' + communities[community]}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>{'Price: $' + price}</Paragraph>
+        <Paragraph style={commonViewStyles.bodyText}>
+          {'Price: $' + price}
+        </Paragraph>
         <Paragraph style={commonViewStyles.bodyText}>
           {'Term: ' + seasons[season] + ' ' + year}
         </Paragraph>
@@ -70,4 +72,3 @@ const ListingView = (listing) => {
 };
 
 export default ListingView;
-

@@ -1,6 +1,9 @@
+import { StyleSheet } from 'react-native';
 
-container {
-      flex: 1;
-      background-color: '#eeeeee'
-    }
-
+// Styles for Shared Item Tabs
+export const sharedItemTabsStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#eeeeee',
+  },
+});

@@ -1,5 +1,5 @@
 import React, { createRef } from 'react';
-import {  Dimensions, Image, View, Text } from 'react-native';
+import { Dimensions, Image, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { PostsEndpoint } from '../../utils/endpoints';
@@ -8,7 +8,7 @@ import ImageCollectionView from './ImageCollectionView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { communities, contentTypes } from '../../utils/choices';
-import {commonViewStyles} from '../../stylesheets/views/views.jsx';
+import { commonViewStyles } from '../../stylesheets/views/views.jsx';
 
 const PostView = (post) => {
   const { title, creator, datetime_created, content, community, photos } = post;
@@ -33,7 +33,9 @@ const PostView = (post) => {
         <Title style={commonViewStyles.title}>{title}</Title>
         <Paragraph style={commonViewStyles.bodyText}>{content}</Paragraph>
         <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Community: {communities[community]}</Text>
+          <Text style={commonViewStyles.bold}>
+            Community: {communities[community]}
+          </Text>
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
@@ -47,5 +49,3 @@ const PostView = (post) => {
 };
 
 export default PostView;
-
-

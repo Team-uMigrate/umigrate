@@ -8,7 +8,7 @@ import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
-import {commonViewStyles} from '../../stylesheets/views/views.jsx';
+import { commonViewStyles } from '../../stylesheets/views/views.jsx';
 
 const EventView = (event) => {
   const {
@@ -129,7 +129,6 @@ const EventView = (event) => {
 export default EventView;
 
 const styles = StyleSheet.create({
-
   buttonStyleAttend: {
     height: 36,
     flex: 1,

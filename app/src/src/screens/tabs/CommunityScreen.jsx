@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
-import {sharedItemTabsStyles} from '../../stylesheets/tabs/tabs.jsx';
+import { sharedItemTabsStyles } from '../../stylesheets/tabs/tabs.jsx';
 
 const getItemsSet = [
   async (page, filters) => await PostsEndpoint.list(page, filters),
@@ -42,4 +42,3 @@ const CommunityScreen = ({ navigation, route }) => {
 };
 
 export default CommunityScreen;
-

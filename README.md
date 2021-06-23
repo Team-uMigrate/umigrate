@@ -1,4 +1,4 @@
-# Welcome to uMigrate
+# Deletethis
 
 # About uMigrate
 uMigrate is a social web application for university students to use while completing their undergraduate or graduate degree. It is designed to assist students with the non-academic side of university life through a variety of features.

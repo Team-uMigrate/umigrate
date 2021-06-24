@@ -85,6 +85,7 @@ def create_liked_shared_item_notification(
         object_id=liked_data.id,
         creator_id=liker.id,
     )
+    notification.save()
     notification.receivers.add(owner)
     send_push_notifications(notification)
 

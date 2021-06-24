@@ -6,7 +6,7 @@ import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
 
-const getItemsSet = [
+const fetchItemsList = [
   async (page, filters) => await CommentsEndpoint.list(page, filters),
 ];
 const itemViews = [(item) => <CommentView {...item} />];
@@ -23,7 +23,7 @@ const CommentsScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}

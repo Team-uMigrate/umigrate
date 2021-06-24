@@ -18,7 +18,7 @@ import PropsType from 'prop-types';
 class FeedContainer extends Component {
   static propTypes = {
     /** An array of asynchronous functions that each return an AxiosResponse. Used to fetch each list of items. */
-    getItemsSet: PropsType.arrayOf(PropsType.func).isRequired,
+    fetchItemsList: PropsType.arrayOf(PropsType.func).isRequired,
     /** An array of functions that each return JSX. Used to render an item from each list. */
     itemViews: PropsType.arrayOf(PropsType.func).isRequired,
     /** An array of filter objects. Used to filter each list of items. */
@@ -34,7 +34,7 @@ class FeedContainer extends Component {
     super(props);
     this.state = {
       items: [],
-      nextPages: this.props.getItemsSet.map(() => 1),
+      nextPages: this.props.fetchItemsList.map(() => 1),
       isRefreshing: false,
       isFetching: false,
       hasMorePages: true,
@@ -47,16 +47,6 @@ class FeedContainer extends Component {
     this.fetchItems();
   };
 
-  updateItem = (item) => {
-    const index = this.state.items.findIndex(
-      (obj) => obj.id === item.id && obj.type === item.type
-    );
-    const copiedItems = JSON.parse(JSON.stringify(this.state.items));
-
-    copiedItems[index] = item;
-    this.setState({ items: copiedItems });
-  };
-
   fetchItems = () => {
     // Exit if already fetching
     if (this.state.isFetching) return;
@@ -66,7 +56,7 @@ class FeedContainer extends Component {
       // Fetch and merge data into newItems list
       const { newItems, newNextPages, errors } = await fetchAndMergeData(
         this.state.items,
-        this.props.getItemsSet,
+        this.props.fetchItemsList,
         this.state.nextPages,
         this.props.filtersList,
         this.state.isRefreshing
@@ -82,6 +72,16 @@ class FeedContainer extends Component {
         errors: errors,
       });
     });
+  };
+
+  updateItem = (item) => {
+    const index = this.state.items.findIndex(
+      (obj) => obj.id === item.id && obj.type === item.type
+    );
+    const copiedItems = [...this.state.items];
+
+    copiedItems[index] = item;
+    this.setState({ items: copiedItems });
   };
 
   handleRefresh = () => {

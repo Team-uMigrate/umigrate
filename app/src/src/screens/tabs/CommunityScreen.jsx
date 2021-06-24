@@ -8,7 +8,7 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const getItemsSet = [
+const fetchItemsList = [
   async (page, filters) => await PostsEndpoint.list(page, filters),
   async (page, filters) => await EventsEndpoint.list(page, filters),
 ];
@@ -29,7 +29,7 @@ const CommunityScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Community Page" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}

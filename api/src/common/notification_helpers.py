@@ -93,10 +93,10 @@ def create_liked_shared_item_notification(
 # A function that sends push notifications to the receivers of a notification object
 def send_push_notifications(notification: Notification) -> None:
     push_messages = []
-    request = SimpleNamespace()
-    request.user = notification.creator
     for receiver in notification.receivers.all():
         for device in receiver.devices.all():
+            request = SimpleNamespace()
+            request.user = notification.creator
             push_messages.append(
                 PushMessage(
                     to=device.expo_push_token,

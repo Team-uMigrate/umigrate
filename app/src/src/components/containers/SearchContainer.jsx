@@ -11,10 +11,10 @@ import {
   AdsEndpoint,
   UsersEndpoint,
 } from '../../utils/endpoints';
-import SearchPageView from '../views/SearchPageView';
+import SearchView from '../views/SearchView';
 
 // a functional component letting the user search across all endpoints for given text
-const SearchResults = ({ setIsSearching }) => {
+const SearchContainer = ({ setIsSearching }) => {
   const [queried_text, setText] = useState('');
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -244,18 +244,18 @@ const SearchResults = ({ setIsSearching }) => {
         ></Searchbar>
         <View style={{ flex: 1 }}></View>
       </View>
-      <SearchPageView
+      <SearchView
         data={data}
         endpoints={endpoints}
         endpoints_text={endpoints_text}
         get_more={this.get_more}
         collapse={this.collapse}
-      ></SearchPageView>
+      ></SearchView>
     </View>
   );
 };
 
-export default SearchResults;
+export default SearchContainer;
 
 const styles = StyleSheet.create({
   viewStyle: {

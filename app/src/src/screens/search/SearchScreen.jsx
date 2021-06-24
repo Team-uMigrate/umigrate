@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import SearchResults from '../../components/containers/SearchResults';
+import SearchContainer from '../../components/containers/SearchContainer';
 
 const SearchScreen = ({ navigation }) => {
   return (
     <View style={{ marginBottom: '45%' }}>
-      <SearchResults setIsSearching={() => navigation.goBack()} />
+      <SearchContainer setIsSearching={navigation.goBack} />
     </View>
   );
 };

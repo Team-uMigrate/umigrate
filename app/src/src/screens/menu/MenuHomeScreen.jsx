@@ -33,6 +33,13 @@ class MenuHomeScreen extends Component {
       this.setState({ user: userData });
     }
   };
+
+  componentWillUnmount() {
+    this.setState = (_state, _callback) => {
+      return;
+    };
+  }
+
   render() {
     return this.state.user ? (
       <View style={styles.container}>

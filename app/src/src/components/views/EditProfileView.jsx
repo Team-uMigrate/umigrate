@@ -10,12 +10,12 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Avatar, Button, IconButton } from 'react-native-paper';
-import { ProfileEndpoint, JobsEndpoint } from '../../utils/endpoints';
+import { ProfileEndpoint } from '../../utils/endpoints';
 import Header from './Header';
 import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
-import { communities, programs, pronouns, terms } from '../../utils/choices';
+import { communities, pronouns } from '../../utils/choices';
 import pickImage from '../common/PickImage';
 import BasicModal from '../common/BasicModal';
 import CreatePageTextInput from '../common/CreatePageTextInput';

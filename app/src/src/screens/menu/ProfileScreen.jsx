@@ -8,7 +8,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import { Avatar, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import Header from '../../components/views/Header';
 import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
@@ -34,6 +34,12 @@ class ProfileScreen extends Component {
       this.setState({ user: userData });
     }
   };
+
+  componentWillUnmount() {
+    this.setState = (_state, _callback) => {
+      return;
+    };
+  }
 
   render() {
     return (

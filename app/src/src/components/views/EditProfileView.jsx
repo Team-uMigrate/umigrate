@@ -10,9 +10,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Avatar, Button, IconButton } from 'react-native-paper';
-import { ProfileEndpoint } from '../../utils/endpoints';
+import { ProfileEndpoint, JobsEndpoint } from '../../utils/endpoints';
 import Header from './Header';
-import ProfileView from './ProfileView';
 import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
@@ -21,9 +20,10 @@ import pickImage from '../common/PickImage';
 import BasicModal from '../common/BasicModal';
 import CreatePageTextInput from '../common/CreatePageTextInput';
 import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
+// import WorkEduSection from '../common/WorkEduSection';
 
 const EditProfileView = ({ user, navigation }) => {
-  // useStates for data
+  // useStates for user data
   const [bgPic, setbgPic] = useState(null);
   const [pfp, setPfp] = useState(null);
   const [prefName, setPrefName] = useState(user.preferred_name);
@@ -109,26 +109,6 @@ const EditProfileView = ({ user, navigation }) => {
         setZero={setZeroReg}
       />
       <BasicModal
-        version={'options'}
-        visible={visiblePro}
-        setVisible={setVisiblePro}
-        title={'Pick a program option!'}
-        type={program}
-        setType={setProgram}
-        choices={programs}
-        setZero={setZeroPro}
-      />
-      <BasicModal
-        version={'options'}
-        visible={visibleTerm}
-        setVisible={setVisibleTerm}
-        title={'Pick a current term option!'}
-        type={term}
-        setType={setTerm}
-        choices={terms}
-        setZero={setZeroTerm}
-      />
-      <BasicModal
         version={'date'}
         visible={visibleBirth}
         setVisible={setVisibleBirth}
@@ -154,8 +134,8 @@ const EditProfileView = ({ user, navigation }) => {
               <View style={{ ...styles.wrenchButton, margin: '5%' }}>
                 <IconButton
                   icon={'wrench'}
-                  color={'#5341A9'}
-                  style={styles.wrench}
+                  color={'#483FAB'}
+                  style={styles.iconBtn}
                   size={24}
                   onPress={async () => {
                     await pickImage({
@@ -175,8 +155,8 @@ const EditProfileView = ({ user, navigation }) => {
               >
                 <IconButton
                   icon={'wrench'}
-                  color={'#5341A9'}
-                  style={styles.wrench}
+                  color={'#483FAB'}
+                  style={styles.iconBtn}
                   size={24}
                   onPress={async () => {
                     await pickImage({
@@ -335,35 +315,13 @@ const EditProfileView = ({ user, navigation }) => {
               <Text style={styles.editButtonTextSave}>Save Changes</Text>
             </Button>
           </View>
+          {/* Will be used for education/jobs section of edit profile page
           <View style={styles.about}>
             <Text style={styles.aboutText}>About</Text>
           </View>
-          <View>
-            <TouchableOpacity onPress={() => setVisiblePro(!visiblePro)}>
-              <ProfileView
-                label="Program"
-                val={
-                  zeroPro == 0
-                    ? programs[0]
-                    : program
-                    ? programs[program]
-                    : programs[user.enrolled_program]
-                }
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setVisibleTerm(!visibleTerm)}>
-              <ProfileView
-                label="Current Term"
-                val={
-                  zeroTerm == 0
-                    ? terms[0]
-                    : term
-                    ? terms[term]
-                    : terms[user.current_term]
-                }
-              />
-            </TouchableOpacity>
-          </View>
+          <WorkEduSection type={'edu'} jobs={jobs} />
+          <WorkEduSection type={'work'} jobs={jobs} />
+        */}
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
@@ -376,7 +334,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#FFF',
   },
   scrollView: {
     height: '100%',
@@ -395,7 +353,7 @@ const styles = StyleSheet.create({
     elevation: 6,
     zIndex: 999,
   },
-  wrench: {
+  iconBtn: {
     alignSelf: 'center',
     margin: 0,
   },
@@ -483,8 +441,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: '#5341A9',
-    backgroundColor: '#5341A9',
+    borderColor: '#483FAB',
+    backgroundColor: '#483FAB',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -498,7 +456,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderStyle: 'solid',
     borderWidth: 1,
-    backgroundColor: '#EEE',
+    backgroundColor: '#FFF',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -520,12 +478,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'left',
     marginLeft: '5%',
-    color: '#6C6A6A',
+    color: '#404040',
   },
   textVal: {
     fontSize: 14,
     textAlign: 'left',
-    fontWeight: 'bold',
     marginLeft: '5%',
     marginRight: '5%',
     height: 30,

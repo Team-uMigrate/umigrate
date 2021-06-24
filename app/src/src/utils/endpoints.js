@@ -181,7 +181,7 @@ export class ListingsEndpoint extends AbstractEndpoint {
 }
 
 export class JobsEndpoint extends AbstractEndpoint {
-  static endpoint = '/api/jobs/';
+  static endpoint = '/api/users/jobs/';
 }
 
 export class RoomsEndpoint extends AbstractEndpoint {

@@ -35,14 +35,10 @@ const EditProfileView = ({ user, navigation }) => {
   const [birth, setBirth] = useState(user.birthday);
   const [comm, setComm] = useState(user.community);
   const [bio, setBio] = useState(user.bio);
-  const [program, setProgram] = useState(user.enrolled_program);
-  const [term, setTerm] = useState(user.current_term);
 
   // useStates for modal
   const [visiblePronoun, setVisiblePronoun] = useState(false);
   const [visibleReg, setVisibleReg] = useState(false);
-  const [visiblePro, setVisiblePro] = useState(false);
-  const [visibleTerm, setVisibleTerm] = useState(false);
   const [visibleBirth, setVisibleBirth] = useState(false);
 
   // useState for datetimepicker
@@ -51,8 +47,6 @@ const EditProfileView = ({ user, navigation }) => {
   // useStates for stupid react native picker defaulting 0
   const [zeroPronoun, setZeroPronoun] = useState();
   const [zeroReg, setZeroReg] = useState();
-  const [zeroPro, setZeroPro] = useState();
-  const [zeroTerm, setZeroTerm] = useState();
 
   const handleEdit = async () => {
     const result = await ProfileEndpoint.patch({
@@ -129,7 +123,13 @@ const EditProfileView = ({ user, navigation }) => {
           <View style={styles.backHeading}>
             <ImageBackground
               style={styles.backGroundHeading}
-              source={{ uri: bgPic ? bgPic : user.background_photo }}
+              source={{
+                uri: bgPic
+                  ? bgPic
+                  : user.background_photo
+                  ? user.background_photo
+                  : '//:0',
+              }}
             >
               <View style={{ ...styles.wrenchButton, margin: '5%' }}>
                 <IconButton
@@ -172,7 +172,13 @@ const EditProfileView = ({ user, navigation }) => {
                 <Avatar.Image
                   size={100}
                   style={styles.pfpShadow}
-                  source={{ uri: pfp ? pfp : user.profile_photo }}
+                  source={{
+                    uri: pfp
+                      ? pfp
+                      : user.profile_photo
+                      ? user.profile_photo
+                      : '//:0',
+                  }}
                 />
               </TouchableOpacity>
             </View>

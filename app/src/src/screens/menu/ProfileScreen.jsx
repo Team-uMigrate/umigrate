@@ -42,7 +42,11 @@ class ProfileScreen extends Component {
         <View style={styles.backHeading}>
           <Image
             style={styles.backGroundHeading}
-            source={{ uri: this.state.user.background_photo }}
+            source={{
+              uri: this.state.user.background_photo
+                ? this.state.user.background_photo
+                : '//:0',
+            }}
           />
           <View style={styles.profileArea}>
             <TouchableOpacity
@@ -50,7 +54,11 @@ class ProfileScreen extends Component {
               onPress={() => this.props.navigation.navigate(routes.menuHome)}
             >
               <ProfilePhotoView
-                photo={this.state.user.profile_photo}
+                photo={
+                  this.state.user.profile_photo
+                    ? this.state.user.profile_photo
+                    : '//:0'
+                }
                 size={110}
                 styles={styles.pfpShadow}
               />

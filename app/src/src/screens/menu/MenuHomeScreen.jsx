@@ -41,7 +41,11 @@ class MenuHomeScreen extends Component {
           {this.state.user.background_photo && (
             <Image
               style={styles.backGroundHeading}
-              source={{ uri: this.state.user.background_photo }}
+              source={{
+                uri: this.state.user.background_photo
+                  ? this.state.user.background_photo
+                  : '//:0',
+              }}
             />
           )}
           <View style={styles.profileArea}>

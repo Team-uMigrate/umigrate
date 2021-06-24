@@ -8,16 +8,18 @@ export async function fetchAndMergeData(
   // Fetch a list of items from each endpoint
   const responseDataList = [];
   const errors = [];
-  for (let i = 0; i < getItemsSet.length; i++) {
-    try {
-      responseDataList[i] = (
-        await getItemsSet[i](nextPages[i], filtersList[i])
-      ).data;
-    } catch (error) {
-      // Append error message
-      errors.push(error);
-    }
-  }
+  await Promise.all(
+    getItemsSet.map(async (getItems, i) => {
+      try {
+        responseDataList[i] = (
+          await getItems(nextPages[i], filtersList[i])
+        ).data;
+      } catch (error) {
+        // Append error message
+        errors.push(error);
+      }
+    })
+  );
 
   if (errors.length)
     return {

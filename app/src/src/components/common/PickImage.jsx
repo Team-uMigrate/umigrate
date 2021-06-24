@@ -1,7 +1,10 @@
 import * as ImagePicker from 'expo-image-picker';
 /* Select an image from the camera roll. Returns the local uri to the image. 
    The local uri can also be used on the page without saving it, so if the "undo changes"
-   or "back" buttons are pressed, then the image isn't saved (unless you press the "save" button) */
+   or "back" buttons are pressed, then the image isn't saved (unless you press the "save" button) 
+   TODO: add better handling for larger image dimensions (can't save larger images without getting an error, 
+         unless you crop the photo)
+   */
 
 const pickImage = async ({ set }) => {
   const result = await ImagePicker.launchImageLibraryAsync({

@@ -57,9 +57,6 @@ const EditProfileView = ({ user, navigation }) => {
       pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
       birthday: birth ? birth : user.birthday,
       community: zeroReg == 0 ? 0 : comm ? comm : user.community,
-      enrolled_program:
-        zeroPro == 0 ? 0 : program ? program : user.enrolled_program,
-      current_term: zeroTerm == 0 ? 0 : term ? term : user.current_term,
       bio: bio ? bio : user.bio,
     });
     if (result) {
@@ -229,10 +226,9 @@ const EditProfileView = ({ user, navigation }) => {
               <Text style={styles.textLabel}>Email</Text>
               <CreatePageTextInput
                 textValue={email}
-                setText={setEmail}
-                placeholder={user.email ? user.email : 'Add your email...'}
+                placeholder={user.email}
                 style={styles.textVal}
-                profileEdit={email ? true : user.email}
+                profileEdit={true}
                 edit={false}
               />
             </View>

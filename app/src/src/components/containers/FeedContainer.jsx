@@ -9,8 +9,27 @@ import {
 } from 'react-native';
 import FeedHeader from '../common/FeedHeader';
 import { fetchAndMergeData } from '../../utils/fetchDataHelpers';
+import PropsType from 'prop-types';
 
+/**
+ * A React component that asynchronously fetches multiple lists of items from the API
+ * and merges the lists together, sorting the items by their datetime_created property.
+ */
 class FeedContainer extends Component {
+  static propTypes = {
+    /** An array of asynchronous functions that each return an AxiosResponse. Used to fetch each list of items. */
+    getItemsSet: PropsType.arrayOf(PropsType.func).isRequired,
+    /** An array of functions that each return JSX. Used to render an item from each list. */
+    itemViews: PropsType.arrayOf(PropsType.func).isRequired,
+    /** An array of filter objects. Used to filter each list of items. */
+    filtersList: PropsType.arrayOf(PropsType.object).isRequired,
+    /** A ref that was passed to the useScrollToTop hook.
+     * Used to scroll to the top of the FlatList. */
+    scrollRef: PropsType.object.isRequired,
+    /** A string representing the name of the feed container. Is optional. */
+    feedName: PropsType.string,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +88,7 @@ class FeedContainer extends Component {
     // Exit if already refreshing
     if (this.state.isRefreshing) return;
 
-    // Set state to refreshing
+    // Set state to refreshing and reset other state properties
     this.setState(
       {
         items: [],

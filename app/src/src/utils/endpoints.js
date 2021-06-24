@@ -219,10 +219,16 @@ export class DevicesEndpoint {
   }
 
   static async post(name, token) {
-    return await Axios.post(`${BASE_URL}${this.endpoint}`, {
-      name: name,
-      expo_push_token: token,
-    });
+    return await Axios.post(
+      `${BASE_URL}${this.endpoint}`,
+      {
+        name: name,
+        expo_push_token: token,
+      },
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
   }
 }
 

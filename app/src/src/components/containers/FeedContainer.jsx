@@ -43,10 +43,11 @@ class FeedContainer extends Component {
   }
 
   componentDidMount = () => {
-    // Fetch items
+    // Fetch items when mounted
     this.fetchItems();
   };
 
+  /** Fetches items from the API */
   fetchItems = () => {
     // Exit if already fetching
     if (this.state.isFetching) return;
@@ -62,7 +63,7 @@ class FeedContainer extends Component {
         this.state.isRefreshing
       );
 
-      // Update state
+      // Update state with new items
       this.setState({
         items: newItems,
         nextPages: newNextPages,
@@ -74,16 +75,21 @@ class FeedContainer extends Component {
     });
   };
 
+  /** Updates an item in the state */
   updateItem = (item) => {
+    // Find the index of the item to replace in the state
     const index = this.state.items.findIndex(
       (obj) => obj.id === item.id && obj.type === item.type
     );
+    // Perform a shallow copy of the items
     const copiedItems = [...this.state.items];
-
+    // Update the item
     copiedItems[index] = item;
+    // Update the state with the copied list
     this.setState({ items: copiedItems });
   };
 
+  /** Refreshes the feed */
   handleRefresh = () => {
     // Exit if already refreshing
     if (this.state.isRefreshing) return;
@@ -105,7 +111,9 @@ class FeedContainer extends Component {
     );
   };
 
+  /** Renders an item */
   renderItem = ({ item }) => {
+    // Use an itemView to render the item
     return this.props.itemViews[item.type]({
       ...item,
       updateItem: this.updateItem,
@@ -114,6 +122,7 @@ class FeedContainer extends Component {
 
   render() {
     if (this.state.errors.length) {
+      // Display any errors
       return (
         <>
           {this.state.errors.map((e, i) => (
@@ -158,6 +167,6 @@ export default FeedContainer;
 const styles = StyleSheet.create({
   feedContainer: {
     flexDirection: 'column',
-    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
+    marginBottom: '15%', // Todo: Make this in sync with the Tab Navigator height
   },
 });

@@ -16,13 +16,16 @@ class FeedContainer extends Component {
     this.state = {
       items: [],
       nextPages: this.props.getItemsSet.map(() => 1),
-      isRefreshing: true,
+      isRefreshing: false,
+      isFetching: false,
+      hasMorePages: true,
       errors: [],
     };
   }
 
-  componentDidMount = async () => {
-    await this.fetchItems();
+  componentDidMount = () => {
+    // Fetch items
+    this.fetchItems();
   };
 
   updateItem = (item) => {
@@ -35,40 +38,50 @@ class FeedContainer extends Component {
     this.setState({ items: copiedItems });
   };
 
-  fetchItems = async () => {
-    // Retrieve state and props
-    const { items, nextPages, isRefreshing } = this.state;
-    const { getItemsSet, filtersList } = this.props;
+  fetchItems = () => {
+    // Exit if already fetching
+    if (this.state.isFetching) return;
 
-    const { newItems, newNextPages, errors } = await fetchAndMergeData(
-      items,
-      getItemsSet,
-      nextPages,
-      filtersList,
-      isRefreshing
-    );
+    // Set state to fetching
+    this.setState({ isFetching: true }, async () => {
+      // Fetch and merge data into newItems list
+      const { newItems, newNextPages, errors } = await fetchAndMergeData(
+        this.state.items,
+        this.props.getItemsSet,
+        this.state.nextPages,
+        this.props.filtersList,
+        this.state.isRefreshing
+      );
 
-    // Update state
-    this.setState({
-      items: newItems,
-      nextPages: newNextPages,
-      isRefreshing: false,
-      errors: errors,
+      // Update state
+      this.setState({
+        items: newItems,
+        nextPages: newNextPages,
+        isRefreshing: false,
+        isFetching: false,
+        hasMorePages: this.state.items.length !== newItems.length,
+        errors: errors,
+      });
     });
   };
 
   handleRefresh = () => {
+    // Exit if already refreshing
+    if (this.state.isRefreshing) return;
+
     // Set state to refreshing
     this.setState(
       {
         items: [],
         nextPages: this.state.nextPages.map(() => 1),
         isRefreshing: true,
+        isFetching: false,
+        hasMorePages: true,
         errors: [],
       },
-      async () => {
+      () => {
         // Fetch items
-        await this.fetchItems();
+        this.fetchItems();
       }
     );
   };
@@ -103,14 +116,15 @@ class FeedContainer extends Component {
           keyExtractor={(item, i) => i.toString()}
           renderItem={this.renderItem}
           onEndReachedThreshold={0.5}
-          onEndReached={this.fetchItems}
+          onEndReached={this.state.hasMorePages && this.fetchItems}
           showsVerticalScrollIndicator={false}
           ref={this.props.scrollRef}
           ListHeaderComponent={
             this.props.feedName && <FeedHeader feedName={this.props.feedName} />
           }
           ListFooterComponent={
-            !this.state.isRefreshing && (
+            !this.state.isRefreshing &&
+            this.state.isFetching && (
               <ActivityIndicator size="large" style={{ padding: 10 }} />
             )
           }

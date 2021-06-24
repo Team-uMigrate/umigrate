@@ -17,4 +17,5 @@ export const routes = {
   savedItems: 'SavedItems',
   calendar: 'Calendar',
   settings: 'Settings',
+  search: 'Search',
 };

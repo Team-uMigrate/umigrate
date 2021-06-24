@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, Button } from 'react-native';
 
-const SearchPageView = ({
+const SearchView = ({
   data,
   endpoints,
   endpoints_text,
   get_more,
   collapse,
 }) => {
-  if (data == undefined || data == null || data.length == 0) {
+  if (!data || data.length == 0) {
     return (
       <View
         style={{ justifyContent: 'center', alignItems: 'center', margin: 20 }}
@@ -62,15 +62,10 @@ const SearchPageView = ({
                   </Text>
                   {data[endpointName][1].map((obj, i) => {
                     if (
-                      obj == undefined ||
-                      obj == null ||
-                      obj['title'] == undefined ||
-                      obj['title'] == null ||
-                      obj['creator']['preferred_name'] == undefined ||
-                      obj['creator']['preferred_name'] == null
+                      obj &&
+                      obj['title'] &&
+                      obj['creator']['preferred_name']
                     ) {
-                      return;
-                    } else {
                       return (
                         <View style={{ marginVertical: 5 }} key={i.toString()}>
                           <Text style={{ fontWeight: 'bold' }}>
@@ -203,7 +198,7 @@ const SearchPageView = ({
     );
   }
 };
-export default SearchPageView;
+export default SearchView;
 
 const styles = StyleSheet.create({
   viewStyle: {

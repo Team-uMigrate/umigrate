@@ -7,7 +7,7 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const getItemsSet = [
+const fetchItemsList = [
   async (page, filters) => await ListingsEndpoint.list(page, filters),
 ];
 const itemViews = [(item) => <ListingView {...item} />];
@@ -23,7 +23,7 @@ const HousingScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Housing" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[listingFilters]}
         scrollRef={ref}

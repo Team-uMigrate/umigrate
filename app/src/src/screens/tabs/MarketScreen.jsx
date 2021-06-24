@@ -7,7 +7,7 @@ import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 
-const getItemsSet = [
+const fetchItemsList = [
   async (page, filters) => await AdsEndpoint.list(page, filters),
 ];
 const itemViews = [(item) => <AdView {...item} />];
@@ -23,7 +23,7 @@ const MarketScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Market" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[adFilters]}
         scrollRef={ref}

@@ -14,6 +14,7 @@ import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
 import { getUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
+import ProfilePhotoView from '../../components/views/ProfilePhotoView';
 
 class ProfileScreen extends Component {
   state = { user: {} };
@@ -48,10 +49,10 @@ class ProfileScreen extends Component {
               style={styles.profileImg}
               onPress={() => this.props.navigation.navigate(routes.menuHome)}
             >
-              <Avatar.Image
-                size={100}
-                style={styles.pfpShadow}
-                source={{ uri: this.state.user.profile_photo }}
+              <ProfilePhotoView
+                photo={this.state.user.profile_photo}
+                size={110}
+                styles={styles.pfpShadow}
               />
             </TouchableOpacity>
           </View>

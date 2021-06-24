@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -8,97 +8,115 @@ import {
   View,
 } from 'react-native';
 import Header from '../../components/views/Header';
-import { Avatar, Card, IconButton, Paragraph } from 'react-native-paper';
+import { Card, IconButton, Paragraph } from 'react-native-paper';
 import MenuLogout from '../../components/buttons/MenuLogout';
 import { routes } from '../../utils/routes';
 import { getUserData } from '../../utils/storageAccess';
+import ProfilePhotoView from '../../components/views/ProfilePhotoView';
 
 // A screen that allows the user to access menu options
-const MenuHomeScreen = ({ navigation }) => {
-  const [user, setUser] = useState(null);
+class MenuHomeScreen extends Component {
+  state = { user: {} };
 
-  useEffect(() => {
-    (async () => {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount = async () => {
+    const userData = await getUserData();
+    this.setState({ user: userData });
+  };
+
+  componentDidUpdate = async (_prevProps, prevState) => {
+    if (prevState !== this.state) {
       const userData = await getUserData();
-      setUser(userData);
-    })();
-  }, []);
-
-  return user ? (
-    <View style={styles.container}>
-      <Header title="MenuHomeScreen" />
-      <View style={styles.backHeading}>
-        <Image
-          style={styles.backGroundHeading}
-          source={{ uri: user.background_photo }}
-        />
-        <View style={styles.profileArea}>
-          <TouchableOpacity
-            style={styles.profileImg}
-            onPress={() => navigation.navigate(routes.profile)}
-          >
-            <Avatar.Image
-              size={110}
-              style={styles.pfpShadow}
-              source={{ uri: user.profile_photo }}
+      this.setState({ user: userData });
+    }
+  };
+  render() {
+    return this.state.user ? (
+      <View style={styles.container}>
+        <Header title="MenuHomeScreen" />
+        <View style={styles.backHeading}>
+          {this.state.user.background_photo && (
+            <Image
+              style={styles.backGroundHeading}
+              source={{ uri: this.state.user.background_photo }}
             />
-            <Text style={styles.profileName}>{user.preferred_name}</Text>
-            <Text style={styles.profileText}>See Your Profile</Text>
-          </TouchableOpacity>
+          )}
+          <View style={styles.profileArea}>
+            <TouchableOpacity
+              style={styles.profileImg}
+              onPress={() => this.props.navigation.navigate(routes.profile)}
+            >
+              <ProfilePhotoView
+                photo={this.state.user.profile_photo}
+                size={110}
+                styles={styles.pfpShadow}
+              />
+              <Text style={styles.profileName}>
+                {!!this.state.user.preferred_name
+                  ? this.state.user.preferred_name
+                  : ''}
+              </Text>
+              <Text style={styles.profileText}>See Your Profile</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.rows1}>
+          <Card style={styles.tiles}>
+            <Card.Content>
+              <IconButton
+                icon="content-save"
+                size={70}
+                style={styles.iconPic}
+                onPress={() =>
+                  this.props.navigation.navigate(routes.savedItems)
+                }
+              />
+              <Paragraph style={styles.text}>Saved Items</Paragraph>
+            </Card.Content>
+          </Card>
+          <Card style={styles.tiles}>
+            <Card.Content>
+              <IconButton
+                icon="calendar"
+                size={70}
+                style={styles.iconPic}
+                onPress={() => this.props.navigation.navigate(routes.calendar)}
+              />
+              <Paragraph style={styles.text}>Calendar</Paragraph>
+            </Card.Content>
+          </Card>
+        </View>
+        <View style={styles.rows2}>
+          <Card style={styles.tiles}>
+            <Card.Content>
+              <IconButton
+                icon="settings"
+                size={70}
+                style={styles.iconPic}
+                onPress={() => this.props.navigation.navigate(routes.settings)}
+              />
+              <Paragraph style={styles.text}>Settings</Paragraph>
+            </Card.Content>
+          </Card>
+          <Card style={styles.tiles}>
+            <Card.Content>
+              <MenuLogout />
+              <Paragraph style={styles.textLogout}>Logout</Paragraph>
+            </Card.Content>
+          </Card>
         </View>
       </View>
-      <View style={styles.rows1}>
-        <Card style={styles.tiles}>
-          <Card.Content>
-            <IconButton
-              icon="content-save"
-              size={70}
-              style={styles.iconPic}
-              onPress={() => navigation.navigate(routes.savedItems)}
-            />
-            <Paragraph style={styles.text}>Saved Items</Paragraph>
-          </Card.Content>
-        </Card>
-        <Card style={styles.tiles}>
-          <Card.Content>
-            <IconButton
-              icon="calendar"
-              size={70}
-              style={styles.iconPic}
-              onPress={() => navigation.navigate(routes.calendar)}
-            />
-            <Paragraph style={styles.text}>Calendar</Paragraph>
-          </Card.Content>
-        </Card>
+    ) : (
+      <View style={styles.waitContainer}>
+        <Text>Please Wait</Text>
+        <ActivityIndicator size="large" />
       </View>
-      <View style={styles.rows2}>
-        <Card style={styles.tiles}>
-          <Card.Content>
-            <IconButton
-              icon="settings"
-              size={70}
-              style={styles.iconPic}
-              onPress={() => navigation.navigate(routes.settings)}
-            />
-            <Paragraph style={styles.text}>Settings</Paragraph>
-          </Card.Content>
-        </Card>
-        <Card style={styles.tiles}>
-          <Card.Content>
-            <MenuLogout />
-            <Paragraph style={styles.textLogout}>Logout</Paragraph>
-          </Card.Content>
-        </Card>
-      </View>
-    </View>
-  ) : (
-    <View style={styles.waitContainer}>
-      <Text>Please Wait</Text>
-      <ActivityIndicator size="large" />
-    </View>
-  );
-};
-
+    );
+  }
+}
 export default MenuHomeScreen;
 
 const styles = StyleSheet.create({

@@ -39,15 +39,11 @@ describe('<EditProfileView /> UI Tests', () => {
     expect(screen.getByText(pronouns[mockUser.pronouns]));
   });
 
-  it('should contain the program', () => {
-    expect(screen.getByText(programs[mockUser.enrolled_program]));
-  });
-
   it('should contain the community', () => {
     expect(screen.getByText(communities[mockUser.community]));
   });
 
-  it('should contain the current term', () => {
-    expect(screen.getByText(terms[mockUser.current_term]));
+  it('should contain the bio', () => {
+    expect(screen.getByText(mockUser.bio));
   });
 });

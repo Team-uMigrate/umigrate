@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  RefreshControl,
+  Button,
+} from 'react-native';
+import FeedHeader from '../common/FeedHeader';
+import TabNavContext from '../../contexts/TabNavContext';
+import SearchResults from './SearchResults';
 
 class FeedContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      nextPages: props.endpoints.map(() => 1),
+      nextPages: this.props.getItemsSet.map(() => 1),
       errorMessages: [],
-      refreshing: false,
+      isRefreshing: false,
+      isSearching: false,
     };
   }
 
@@ -29,14 +39,14 @@ class FeedContainer extends Component {
   fetchItems = async () => {
     // Retrieve state and props
     const { items, nextPages, errorMessages } = this.state;
-    const { endpoints, filtersList } = this.props;
+    const { getItemsSet, filtersList } = this.props;
 
     // Fetch a list of items from each endpoint
     let responseDataList = [];
-    for (let i = 0; i < endpoints.length; i++) {
+    for (let i = 0; i < getItemsSet.length; i++) {
       try {
         responseDataList[i] = (
-          await endpoints[i].list(nextPages[i], filtersList[i])
+          await getItemsSet[i](nextPages[i], filtersList[i])
         ).data;
       } catch (error) {
         // Append error messages to state
@@ -59,7 +69,7 @@ class FeedContainer extends Component {
       );
     });
 
-    let newItems = this.state.refreshing ? [] : items;
+    let newItems = this.state.isRefreshing ? [] : items;
     let newNextPages = nextPages;
 
     responseDataList.forEach((responseData, t) => {
@@ -106,13 +116,13 @@ class FeedContainer extends Component {
         items: [],
         nextPages: this.state.nextPages.map(() => 1),
         errorMessages: [],
-        refreshing: true,
+        isRefreshing: true,
       },
       async () => {
         // Fetch items
         await this.fetchItems();
         // Set state to not refreshing
-        this.setState({ refreshing: false });
+        this.setState({ isRefreshing: false });
       }
     );
   };
@@ -124,26 +134,47 @@ class FeedContainer extends Component {
     });
   };
 
+  setIsSearching = () => {
+    this.setState({ isSearching: !this.state.isSearching });
+  };
+
   render() {
-    return (
-      <View style={styles.feedContainer}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.handleRefresh}
-            />
-          }
-          data={this.state.items}
-          keyExtractor={(item, i) => i.toString()}
-          renderItem={this.renderItem}
-          onEndReachedThreshold={0.5}
-          onEndReached={this.fetchItems}
-          showsVerticalScrollIndicator={false}
-          ref={this.props.scrollRef}
-        />
-      </View>
-    );
+    if (this.state.isSearching === true) {
+      return (
+        // TODO: Fix this margin... its not dynammic enough
+        <View style={{ marginBottom: '45%' }}>
+          <SearchResults setIsSearching={this.setIsSearching} />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.feedContainer}>
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.handleRefresh}
+              />
+            }
+            data={this.state.items}
+            keyExtractor={(item, i) => i.toString()}
+            renderItem={this.renderItem}
+            onEndReachedThreshold={0.5}
+            onEndReached={this.fetchItems}
+            showsVerticalScrollIndicator={false}
+            ref={this.props.scrollRef}
+            ListHeaderComponent={
+              this.props.feedName && (
+                <FeedHeader
+                  feedName={this.props.feedName}
+                  setIsSearching={this.setIsSearching}
+                />
+              )
+            }
+          />
+        </View>
+      );
+    }
   }
 }
 

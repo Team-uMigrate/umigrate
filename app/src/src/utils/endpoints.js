@@ -19,8 +19,6 @@ const MESSAGING_WEBSOCKET =
     ? 'wss://dev.umigrate.ca/ws/messaging/'
     : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
 
-// Helper functions
-
 /**
  * Converts an object into a FormData object.
  * @param {object} data

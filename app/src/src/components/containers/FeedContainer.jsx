@@ -96,7 +96,6 @@ class FeedContainer extends Component {
     // Set state to refreshing and reset other state properties
     this.setState(
       {
-        items: [],
         nextPages: this.state.nextPages.map(() => 1),
         isRefreshing: true,
         isFetching: false,

@@ -7,6 +7,7 @@
  * @param nextPages - An array of numbers that represent the next page number for each endpoint.
  * @param filtersList - An array of filter objects. Used to filter each list of items.
  * @param isRefreshing - A boolean value indicating whether to refresh the feed
+ * @return {{ newItems, newNextPages, errors }}
  * */
 export async function fetchAndMergeItemsLists(
   items,
@@ -49,7 +50,8 @@ export async function fetchAndMergeItemsLists(
     );
   });
 
-  let newItems = isRefreshing ? [] : items;
+  items = isRefreshing ? [] : items;
+  let newItems = items;
   let newNextPages = nextPages;
 
   responseDataList.forEach((responseData, t) => {

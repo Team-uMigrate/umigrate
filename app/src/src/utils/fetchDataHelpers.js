@@ -1,6 +1,17 @@
-export async function fetchAndMergeData(
+/**
+ * A function that asynchronously fetches multiple lists of items from the API
+ * and merges the lists together, sorting the items by their datetime_created property.
+ * @param items - An array of item objects
+ * @param fetchItemsList - An array of asynchronous functions that each return an AxiosResponse.
+ * Used to fetch each list of items.
+ * @param nextPages - An array of numbers that represent the next page number for each endpoint.
+ * @param filtersList - An array of filter objects. Used to filter each list of items.
+ * @param isRefreshing - A boolean value indicating whether to refresh the feed
+ * @return {{ newItems, newNextPages, errors }}
+ * */
+export async function fetchAndMergeItemsLists(
   items,
-  getItemsSet,
+  fetchItemsList,
   nextPages,
   filtersList,
   isRefreshing
@@ -9,7 +20,7 @@ export async function fetchAndMergeData(
   const responseDataList = [];
   const errors = [];
   await Promise.all(
-    getItemsSet.map(async (getItems, i) => {
+    fetchItemsList.map(async (getItems, i) => {
       try {
         responseDataList[i] = (
           await getItems(nextPages[i], filtersList[i])
@@ -24,7 +35,7 @@ export async function fetchAndMergeData(
   if (errors.length)
     return {
       newItems: [],
-      newNextPages: getItemsSet.map(() => 1),
+      newNextPages: fetchItemsList.map(() => 1),
       errors: errors,
     };
 
@@ -39,7 +50,8 @@ export async function fetchAndMergeData(
     );
   });
 
-  let newItems = isRefreshing ? [] : items;
+  items = isRefreshing ? [] : items;
+  let newItems = items;
   let newNextPages = nextPages;
 
   responseDataList.forEach((responseData, t) => {

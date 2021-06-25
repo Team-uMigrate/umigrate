@@ -1,8 +1,14 @@
 import React, { useState, createContext } from 'react';
 
-const CreateItemContext = createContext();
+const CreateItemContext = createContext({
+  isModalVisible: false,
+  setIsModalVisible: () => {},
+});
 
-// A context provider that stores the create item modal's visibility state
+/**
+ * Provides access to the create item modal visibility state
+ * @param {ReactNode} children
+ * */
 const CreateItemContextProvider = ({ children }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 

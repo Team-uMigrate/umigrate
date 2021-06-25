@@ -1,16 +1,22 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, ReactNode } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  isAuthenticated: null,
+  setIsAuthenticated: () => {},
+});
 
-// A context provider that stores the user's authentication state
+/**
+ * Provides access to the authentication state
+ * @param {ReactNode} children
+ * */
 const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: isAuthenticated,
-        setIsAuthenticated: setIsAuthenticated,
+        isAuthenticated,
+        setIsAuthenticated,
       }}
     >
       {children}

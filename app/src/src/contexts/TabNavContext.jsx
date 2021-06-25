@@ -1,8 +1,14 @@
 import React, { useState, createContext } from 'react';
 
-const TabNavContext = createContext();
+const TabNavContext = createContext({
+  navigation: null,
+  setNavigation: () => {},
+});
 
-// A context provider that stores the tab navigator's navigation prop
+/**
+ * Provides access to the tab navigator navigation state
+ * @param {ReactNode} children
+ * */
 const TabNavContextProvider = ({ children }) => {
   const [navigation, setNavigation] = useState(null);
 

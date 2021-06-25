@@ -1,16 +1,25 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, ReactNode } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  /** @type {boolean | null} */
+  isAuthenticated: null,
+  /** @type {function(boolean | null): void} */
+  setIsAuthenticated: function (isAuthenticated) {},
+});
 
-// A context provider that stores the user's authentication state
+/**
+ * Provides access to the authentication state.
+ * @param {ReactNode} children
+ * @return {JSX.Element}
+ * */
 const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: isAuthenticated,
-        setIsAuthenticated: setIsAuthenticated,
+        isAuthenticated,
+        setIsAuthenticated,
       }}
     >
       {children}

@@ -1,22 +1,38 @@
 import React, { useContext, useState } from 'react';
 import { AuthEndpoint } from '../../utils/endpoints';
-import { Image, Modal, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { routes } from '../../utils/routes';
 import ErrorContext from '../../contexts/ErrorContext';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// A screen that allows the user to register with their credentials
+const initialState = {
+  /** @type {string | null} */
+  email: null,
+  /** @type {string | null} */
+  password: null,
+  /** @type {string | null} */
+  confirm: null,
+};
+
+/**
+ * Renders the registration screen.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ * */
 const RegistrationScreen = ({ navigation }) => {
   const error = useContext(ErrorContext);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirm, setConfirm] = useState();
+  const [email, setEmail] = useState(initialState.email);
+  const [password, setPassword] = useState(initialState.password);
+  const [confirm, setConfirm] = useState(initialState.confirm);
 
   const signInRedirect = () => {
-    navigation.navigate(routes.login);
+    // Navigate to the login screen
+    navigation.push(routes.login);
   };
 
   const handleSignUp = async () => {
+    // Try to login and redirect to the login screen if successful or display the error message otherwise
     try {
       await AuthEndpoint.register(email, password, confirm);
       signInRedirect();

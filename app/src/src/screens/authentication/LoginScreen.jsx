@@ -3,26 +3,41 @@ import AuthContext from '../../contexts/AuthContext';
 import { AuthEndpoint, ProfileEndpoint } from '../../utils/endpoints';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Image, Modal, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { routes } from '../../utils/routes';
 import ErrorContext from '../../contexts/ErrorContext';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// A screen that allows the user to log in with their credentials
+const initialState = {
+  /** @type {string | null} */
+  email: null,
+  /** @type {string | null} */
+  password: null,
+};
+
+/**
+ * Renders the login screen.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ * */
 const LoginScreen = ({ navigation }) => {
   const auth = useContext(AuthContext);
   const error = useContext(ErrorContext);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState(initialState.email);
+  const [password, setPassword] = useState(initialState.password);
 
   const signUpRedirect = () => {
-    navigation.navigate(routes.registration);
+    // Navigate to the registration screen
+    navigation.push(routes.registration);
   };
 
   const passwordResetRedirect = () => {
-    navigation.navigate(routes.passwordReset);
+    // Navigate to the password reset screen
+    navigation.push(routes.passwordReset);
   };
 
   const handleSignIn = async () => {
+    // Try to login and set isAuthenticated to true if successful or false otherwise
     try {
       await AuthEndpoint.login(email, password);
       await ProfileEndpoint.get();

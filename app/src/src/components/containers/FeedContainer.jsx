@@ -8,12 +8,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import FeedHeader from '../common/FeedHeader';
-import { fetchAndMergeData } from '../../utils/fetchDataHelpers';
+import { fetchAndMergeItemsLists } from '../../utils/fetchDataHelpers';
 import PropsType from 'prop-types';
 
 /**
- * A React component that asynchronously fetches multiple lists of items from the API
- * and merges the lists together, sorting the items by their datetime_created property.
+ * A React component that renders a list of items fetched from different API endpoints.
  */
 class FeedContainer extends Component {
   static propTypes = {
@@ -55,12 +54,11 @@ class FeedContainer extends Component {
     // Set state to fetching
     this.setState({ isFetching: true }, async () => {
       // Fetch and merge data into newItems list
-      const { newItems, newNextPages, errors } = await fetchAndMergeData(
-        this.state.items,
+      const { newItems, newNextPages, errors } = await fetchAndMergeItemsLists(
+        this.state.isRefreshing ? [] : this.state.items,
         this.props.fetchItemsList,
         this.state.nextPages,
-        this.props.filtersList,
-        this.state.isRefreshing
+        this.props.filtersList
       );
 
       // Update state with new items
@@ -97,7 +95,6 @@ class FeedContainer extends Component {
     // Set state to refreshing and reset other state properties
     this.setState(
       {
-        items: [],
         nextPages: this.state.nextPages.map(() => 1),
         isRefreshing: true,
         isFetching: false,

@@ -15,7 +15,7 @@ const FeedHeader = ({ feedName }) => {
         style={{ alignSelf: 'flex-start' }}
         color={'#AAAAAA'}
         size={25}
-        onPress={() => nav.navigation.navigate(routes.search)}
+        onPress={() => nav.navigation.push(routes.search)}
       />
       {/* TODO: Filter Bar */}
     </View>

@@ -11,7 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const SearchScreen = ({ navigation }) => {
   return (
     <View style={{ marginBottom: '45%' }}>
-      <SearchContainer setIsSearching={navigation.pop()} />
+      <SearchContainer setIsSearching={() => navigation.pop()} />
     </View>
   );
 };

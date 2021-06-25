@@ -18,9 +18,7 @@ const TabNavContextProvider = ({ children }) => {
   const [navigation, setNavigation] = useState(initialState.navigation);
 
   return (
-    <TabNavContext.Provider
-      value={{ navigation, setNavigation }}
-    >
+    <TabNavContext.Provider value={{ navigation, setNavigation }}>
       {children}
     </TabNavContext.Provider>
   );

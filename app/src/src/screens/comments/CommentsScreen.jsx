@@ -11,7 +11,9 @@ import { RouteProp } from '@react-navigation/native';
 const fetchItemsList = [
   async (page, filters) => await CommentsEndpoint.list(page, filters),
 ];
-const itemViews = [(props) => <CommentView {...props} />];
+const itemViews = [
+  (item, updateItem) => <CommentView item={item} updateItem={updateItem} />,
+];
 
 /** @type {function(RouteProp): object} */
 const getInitialState = (route) => ({

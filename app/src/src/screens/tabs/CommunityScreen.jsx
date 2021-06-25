@@ -15,8 +15,8 @@ const fetchItemsList = [
   async (page, filters) => await EventsEndpoint.list(page, filters),
 ];
 const itemViews = [
-  (props) => <PostView {...props} />,
-  (props) => <EventView {...props} />,
+  (item, updateItem) => <PostView item={item} updateItem={updateItem} />,
+  (item, updateItem) => <EventView item={item} updateItem={updateItem} />,
 ];
 
 /**

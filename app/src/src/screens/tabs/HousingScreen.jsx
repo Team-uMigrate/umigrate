@@ -12,7 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 const fetchItemsList = [
   async (page, filters) => await ListingsEndpoint.list(page, filters),
 ];
-const itemViews = [(props) => <ListingView {...props} />];
+const itemViews = [(item, updateItem) => <ListingView item={item} updateItem={updateItem} />];
 
 /**
  * Renders the housing screen.

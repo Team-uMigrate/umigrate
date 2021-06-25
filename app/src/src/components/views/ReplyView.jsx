@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
 
-
 /**
  * Renders a reply.
  * @param {object} item

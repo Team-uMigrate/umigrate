@@ -19,7 +19,7 @@ const TabNavContextProvider = ({ children }) => {
 
   return (
     <TabNavContext.Provider
-      value={{ navigation: navigation, setNavigation: setNavigation }}
+      value={{ navigation, setNavigation }}
     >
       {children}
     </TabNavContext.Provider>

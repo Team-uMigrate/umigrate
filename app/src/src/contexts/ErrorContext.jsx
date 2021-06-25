@@ -16,7 +16,7 @@ const ErrorContextProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   return (
-    <ErrorContext.Provider value={{ message: message, setMessage: setMessage }}>
+    <ErrorContext.Provider value={{ message, setMessage }}>
       {children}
     </ErrorContext.Provider>
   );

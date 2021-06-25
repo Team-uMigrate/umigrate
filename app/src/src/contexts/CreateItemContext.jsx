@@ -18,8 +18,8 @@ const CreateItemContextProvider = ({ children }) => {
   return (
     <CreateItemContext.Provider
       value={{
-        isModalVisible: isModalVisible,
-        setIsModalVisible: setIsModalVisible,
+        isModalVisible,
+        setIsModalVisible,
       }}
     >
       {children}

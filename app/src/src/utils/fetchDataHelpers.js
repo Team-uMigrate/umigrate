@@ -1,11 +1,13 @@
+import { AxiosResponse } from 'axios';
+
 /**
  * Asynchronously fetches multiple lists of items from the API
  * and merges the lists together, sorting the items by their datetime_created property.
- * @param items - An array of item objects
- * @param fetchItemsList - An array of asynchronous functions that each return an AxiosResponse.
+ * @param {object[]} items - An array of item objects
+ * @param {function(number, object): Promise<AxiosResponse>} fetchItemsList - An array of asynchronous functions that each return an AxiosResponse.
  * Used to fetch each list of items.
- * @param nextPages - An array of numbers that represent the next page number for each endpoint.
- * @param filtersList - An array of filter objects. Used to filter each list of items.
+ * @param {number[]} nextPages - An array of numbers that represent the next page number for each endpoint.
+ * @param {object} filtersList - An array of filter objects. Used to filter each list of items.
  * @return {{ newItems, newNextPages, errors }}
  * */
 export async function fetchAndMergeItemsLists(

@@ -1,8 +1,10 @@
 import React, { useState, createContext, ReactNode } from 'react';
 
 const AuthContext = createContext({
+  /** @type {boolean | null} */
   isAuthenticated: null,
-  setIsAuthenticated: () => {},
+  /** @type {function(boolean | null): void} */
+  setIsAuthenticated: function (isAuthenticated) {},
 });
 
 /**

@@ -1,6 +1,11 @@
 import React, { useState, createContext } from 'react';
 
-const ErrorContext = createContext({ message: null, setMessage: () => {} });
+const ErrorContext = createContext({
+  /** @type {string | null} */
+  message: null,
+  /** @type {function(string | null): void} */
+  setMessage: function (message) {},
+});
 
 /**
  * Provides access to the error modal message state

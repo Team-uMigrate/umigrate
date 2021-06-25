@@ -1,8 +1,10 @@
 import React, { useState, createContext } from 'react';
 
 const CreateItemContext = createContext({
+  /** @type {boolean} */
   isModalVisible: false,
-  setIsModalVisible: () => {},
+  /** @type {function(boolean): void} */
+  setIsModalVisible: function (isModalVisible) {},
 });
 
 /**

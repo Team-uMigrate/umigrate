@@ -1,9 +1,13 @@
 import React, { useState, createContext } from 'react';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-const TabNavContext = createContext({
+const defaultValue = {
+  /** @type {BottomTabNavigationProp | null} */
   navigation: null,
-  setNavigation: () => {},
-});
+  /** @type {function(BottomTabNavigationProp | null): void} */
+  setNavigation: function (navigation) {},
+};
+const TabNavContext = createContext(defaultValue);
 
 /**
  * Provides access to the tab navigator navigation state

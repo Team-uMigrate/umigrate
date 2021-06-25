@@ -14,6 +14,7 @@ const CreatePageTextInput = ({
   edit,
   profileEdit,
   maxlength,
+  textDefault,
 }) => {
   return (
     <TextInput
@@ -30,6 +31,7 @@ const CreatePageTextInput = ({
       numberOfLines={numberOfLines}
       editable={edit}
       maxLength={maxlength}
+      defaultValue={textDefault}
     />
   );
 };

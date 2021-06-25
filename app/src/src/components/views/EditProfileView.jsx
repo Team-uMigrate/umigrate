@@ -54,6 +54,8 @@ const EditProfileView = ({ user, navigation }) => {
         profile_photo: pfp ? pfp : '',
         background_photo: bgPic ? bgPic : '',
         preferred_name: prefName ? prefName : user.preferred_name,
+        first_name: fName ? fName : user.first_name,
+        last_name: lName ? lName : user.last_name,
         phone_number: phone ? phone : user.phone_number,
         pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
         birthday: birth ? birth : user.birthday,
@@ -132,19 +134,30 @@ const EditProfileView = ({ user, navigation }) => {
                   : '//:0',
               }}
             >
-              <View style={{ ...styles.wrenchButton, margin: '5%' }}>
-                <IconButton
-                  icon={'wrench'}
-                  color={'#483FAB'}
-                  style={styles.iconBtn}
-                  size={24}
-                  onPress={async () => {
-                    await pickImage({
-                      set: setbgPic,
-                    });
-                  }}
-                />
-              </View>
+              <TouchableOpacity
+                style={{
+                  alignSelf: 'flex-end',
+                }}
+                onPress={async () => {
+                  await pickImage({
+                    set: setbgPic,
+                  });
+                }}
+              >
+                <View style={{ ...styles.wrenchButton, margin: '5%' }}>
+                  <IconButton
+                    icon={'wrench'}
+                    color={'#483FAB'}
+                    style={styles.iconBtn}
+                    size={24}
+                    onPress={async () => {
+                      await pickImage({
+                        set: setbgPic,
+                      });
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
             </ImageBackground>
             <View style={styles.profileArea}>
               <View
@@ -191,13 +204,12 @@ const EditProfileView = ({ user, navigation }) => {
                 textValue={prefName}
                 setText={setPrefName}
                 placeholder={
-                  user.preferred_name
-                    ? user.preferred_name
-                    : 'Add your preferred name...'
+                  user.preferred_name ? '' : 'Add your preferred name...'
                 }
                 style={styles.textVal}
-                profileEdit={prefName ? true : user.preferred_name}
+                profileEdit={true}
                 maxlength={50}
+                textDefault={user.preferred_name ? user.preferred_name : ''}
               />
             </View>
             <View>
@@ -205,12 +217,11 @@ const EditProfileView = ({ user, navigation }) => {
               <CreatePageTextInput
                 textValue={fName}
                 setText={setFName}
-                placeholder={
-                  user.first_name ? user.first_name : 'Add your first name...'
-                }
+                placeholder={user.first_name ? '' : 'Add your first name...'}
                 style={styles.textVal}
-                profileEdit={fName ? true : user.first_name}
+                profileEdit={true}
                 maxlength={50}
+                textDefault={user.first_name ? user.first_name : ''}
               />
             </View>
             <View>
@@ -218,12 +229,11 @@ const EditProfileView = ({ user, navigation }) => {
               <CreatePageTextInput
                 textValue={lName}
                 setText={setLName}
-                placeholder={
-                  user.last_name ? user.last_name : 'Add your last name...'
-                }
+                placeholder={user.last_name ? '' : 'Add your last name...'}
                 style={styles.textVal}
-                profileEdit={lName ? true : user.last_name}
+                profileEdit={true}
                 maxlength={50}
+                textDefault={user.last_name ? user.last_name : ''}
               />
             </View>
             <View>
@@ -233,6 +243,7 @@ const EditProfileView = ({ user, navigation }) => {
                 placeholder={user.email}
                 style={styles.textVal}
                 profileEdit={true}
+                textDefault={user.email}
                 edit={false}
               />
             </View>
@@ -242,13 +253,12 @@ const EditProfileView = ({ user, navigation }) => {
                 textValue={phone}
                 setText={setPhone}
                 placeholder={
-                  user.phone_number
-                    ? user.phone_number
-                    : 'Add your phone number...'
+                  user.phone_number ? '' : 'Add your phone number...'
                 }
                 style={styles.textVal}
-                profileEdit={phone ? true : user.phone_number}
+                profileEdit={true}
                 maxlength={15}
+                textDefault={user.phone_number ? user.phone_number : ''}
               />
             </View>
             <View style={styles.rows}>
@@ -301,12 +311,13 @@ const EditProfileView = ({ user, navigation }) => {
               <CreatePageTextInput
                 textValue={bio}
                 setText={setBio}
-                placeholder={user.bio ? user.bio : 'Add your bio...'}
+                placeholder={user.bio ? '' : 'Add your bio...'}
                 style={{ ...styles.textVal, height: 50 }}
                 multiline={true}
                 numberOfLines={3}
                 profileEdit={bio ? true : user.bio}
                 maxlength={1000}
+                textDefault={user.bio ? user.bio : ''}
               />
             </View>
           </View>

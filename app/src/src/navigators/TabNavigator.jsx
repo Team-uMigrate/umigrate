@@ -20,7 +20,6 @@ const Tab = createBottomTabNavigator();
  * Renders screens based on the current tab navigation route
  * @param {BottomTabNavigationProp} navigation
  * @return {JSX.Element}
- * @constructor
  */
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(TabNavContext);

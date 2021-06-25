@@ -13,7 +13,6 @@ const Stack = createStackNavigator();
 /**
  * Renders screens based on the current menu navigation route
  * @return {JSX.Element}
- * @constructor
  */
 const MenuNavigator = () => {
   return (

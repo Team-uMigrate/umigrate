@@ -1,5 +1,4 @@
 from types import SimpleNamespace
-from typing import List
 from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
@@ -33,9 +32,9 @@ def create_tagged_user_notification(
         send_push_notifications(notification)
 
 
-# A function that sends push notifications to a user when they recieve a connection request
+# A function that sends push notifications to a user when they receiver a connection request
 def create_connection_request_notification(
-    reciever: CustomUser,
+    receiver: CustomUser,
     sender: CustomUser,
     is_request: bool,  # request => true if requesting, false if accepting
 ) -> None:
@@ -51,7 +50,7 @@ def create_connection_request_notification(
         creator_id=sender.id,
     )
     notification.save()
-    notification.receivers.add(reciever)
+    notification.receivers.add(receiver)
     send_push_notifications(notification)
 
 

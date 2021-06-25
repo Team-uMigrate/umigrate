@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import TabNavContext from '../../contexts/TabNavContext';
+import StackNavContext from '../../contexts/StackNavContext';
 import { routes } from '../../utils/routes';
 
 const FeedHeader = ({ feedName }) => {
-  const nav = useContext(TabNavContext);
+  const nav = useContext(StackNavContext);
 
   return (
     <View style={styles.viewStyle}>

@@ -7,22 +7,22 @@ const initialState = {
   /** @type {function(StackNavigationProp | null): void} */
   setNavigation: function (navigation) {},
 };
-const TabNavContext = createContext(initialState);
+const StackNavContext = createContext(initialState);
 
 /**
- * Provides access to the tab navigator navigation state.
+ * Provides access to the stack navigator navigation state.
  * @param {ReactNode} children
  * @return {JSX.Element}
  * */
-const TabNavContextProvider = ({ children }) => {
+const StackNavContextProvider = ({ children }) => {
   const [navigation, setNavigation] = useState(initialState.navigation);
 
   return (
-    <TabNavContext.Provider value={{ navigation, setNavigation }}>
+    <StackNavContext.Provider value={{ navigation, setNavigation }}>
       {children}
-    </TabNavContext.Provider>
+    </StackNavContext.Provider>
   );
 };
 
-export { TabNavContextProvider };
-export default TabNavContext;
+export { StackNavContextProvider };
+export default StackNavContext;

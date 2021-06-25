@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
 import CommentBarButtons from '../buttons/CommentBarButtons';
-import TabNavContext from '../../contexts/TabNavContext';
+import StackNavContext from '../../contexts/StackNavContext';
 import { routes } from '../../utils/routes';
 
 /*
@@ -19,7 +19,7 @@ The other props are self-explanatory enough.
 const CommentBar = ({ item, contentType, endpoint }) => {
   const [text, setText] = useState('');
   const [sendButtonVisible, setSendButtonVisible] = useState(false);
-  const nav = useContext(TabNavContext);
+  const nav = useContext(StackNavContext);
 
   if (sendButtonVisible) {
     return (

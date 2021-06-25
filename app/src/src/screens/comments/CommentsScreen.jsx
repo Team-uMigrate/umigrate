@@ -6,7 +6,7 @@ import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useScrollToTop } from '@react-navigation/native';
 
 const fetchItemsList = [
   async (page, filters) => await CommentsEndpoint.list(page, filters),
@@ -36,6 +36,8 @@ const CommentsScreen = ({ navigation, route }) => {
     getInitialState(route).commentsFilters
   );
   const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   return (
     <View style={styles.container}>

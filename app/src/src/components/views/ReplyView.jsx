@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
 
-const ReplyView = ({ creator, content, datetime_created }) => {
-  let date = datetime_created.substring(0, 10);
-  let time = datetime_created.substring(11, 16);
+const ReplyView = ({ item, updateItem }) => {
+  const { datetime_created, creator, content } = item;
+  // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z
+  const date = datetime_created.substring(0, 10);
+  const time = datetime_created.substring(11, 16);
 
   return (
     <View style={styles.replyView}>

@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import ReplyView from './ReplyView';
-import { CommentRepliesEndpoint } from '../../utils/endpoints';
+import { RepliesEndpoint } from '../../utils/endpoints';
 import FeedContainer from '../containers/FeedContainer';
 import { useScrollToTop } from '@react-navigation/native';
 
 const fetchItemsList = [
-  async (page, filters) => await CommentRepliesEndpoint.list(page, filters),
+  async (page, filters) => await RepliesEndpoint.list(page, filters),
 ];
 const itemViews = [
   (item, updateItem) => <ReplyView item={item} updateItem={updateItem} />,

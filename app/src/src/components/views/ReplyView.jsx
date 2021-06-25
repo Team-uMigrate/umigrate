@@ -2,6 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
 
+
+/**
+ * Renders a reply.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const ReplyView = ({ item, updateItem }) => {
   const { datetime_created, creator, content } = item;
   // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z

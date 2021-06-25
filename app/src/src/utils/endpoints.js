@@ -187,7 +187,7 @@ export class CommentsEndpoint extends AbstractEndpoint {
   static path = '/api/comments/';
 }
 
-export class CommentRepliesEndpoint extends AbstractEndpoint {
+export class RepliesEndpoint extends AbstractEndpoint {
   static path = '/api/comments/replies/';
 }
 

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
   FlatList,
   RefreshControl,
   Text,
@@ -126,41 +124,32 @@ class FeedContainer extends Component {
       );
     }
     return (
-      <View style={styles.feedContainer}>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.handleRefresh}
-            />
-          }
-          data={this.state.items}
-          keyExtractor={(item, i) => i.toString()}
-          renderItem={this.renderItem}
-          onEndReachedThreshold={0.5}
-          onEndReached={this.state.hasMorePages && this.fetchItems}
-          showsVerticalScrollIndicator={false}
-          ref={this.props.scrollRef}
-          ListHeaderComponent={
-            this.props.feedName && <FeedHeader feedName={this.props.feedName} />
-          }
-          ListFooterComponent={
-            !this.state.isRefreshing &&
-            this.state.isFetching && (
-              <ActivityIndicator size="large" style={{ padding: 10 }} />
-            )
-          }
-        />
-      </View>
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.isRefreshing}
+            onRefresh={this.handleRefresh}
+          />
+        }
+        data={this.state.items}
+        keyExtractor={(item, i) => i.toString()}
+        renderItem={this.renderItem}
+        onEndReachedThreshold={0.5}
+        onEndReached={this.state.hasMorePages && this.fetchItems}
+        showsVerticalScrollIndicator={false}
+        ref={this.props.scrollRef}
+        ListHeaderComponent={
+          this.props.feedName && <FeedHeader feedName={this.props.feedName} />
+        }
+        ListFooterComponent={
+          !this.state.isRefreshing &&
+          this.state.isFetching && (
+            <ActivityIndicator size="large" style={{ padding: 10 }} />
+          )
+        }
+      />
     );
   }
 }
 
 export default FeedContainer;
-
-const styles = StyleSheet.create({
-  feedContainer: {
-    flexDirection: 'column',
-    marginBottom: '15%', // Todo: Make this in sync with the Tab Navigator height
-  },
-});

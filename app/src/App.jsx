@@ -5,7 +5,10 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import AuthNavigator from './src/navigators/AuthNavigator';
 import { ErrorContextProvider } from './src/contexts/ErrorContext';
 
-// The root React Component
+/**
+ * Renders the app.
+ * @return {JSX.Element}
+ */
 const App = () => {
   return (
     <PaperProvider>

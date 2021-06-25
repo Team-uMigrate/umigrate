@@ -10,7 +10,11 @@ import { routes } from '../utils/routes';
 
 const Stack = createStackNavigator();
 
-// A navigator that renders components depending on the current menu navigation route
+/**
+ * Renders screens based on the current menu navigation route
+ * @return {JSX.Element}
+ * @constructor
+ */
 const MenuNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -8,7 +8,7 @@ const ErrorContext = createContext({
 });
 
 /**
- * Provides access to the error modal message state
+ * Provides access to the error modal message state.
  * @param {ReactNode} children
  * @return {JSX.Element}
  * */

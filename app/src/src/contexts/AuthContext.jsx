@@ -8,7 +8,7 @@ const AuthContext = createContext({
 });
 
 /**
- * Provides access to the authentication state
+ * Provides access to the authentication state.
  * @param {ReactNode} children
  * @return {JSX.Element}
  * */

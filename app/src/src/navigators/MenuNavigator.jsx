@@ -11,7 +11,7 @@ import { routes } from '../utils/routes';
 const Stack = createStackNavigator();
 
 /**
- * Renders screens based on the current menu navigation route
+ * Renders screens based on the current menu navigation route.
  * @return {JSX.Element}
  */
 const MenuNavigator = () => {

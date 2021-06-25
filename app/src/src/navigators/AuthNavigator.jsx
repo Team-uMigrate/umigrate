@@ -25,7 +25,7 @@ const initialState = {
 const Stack = createStackNavigator();
 
 /**
- * Renders screens based on the authentication state
+ * Renders screens based on the authentication state.
  * @return {JSX.Element}
  */
 const AuthNavigator = () => {

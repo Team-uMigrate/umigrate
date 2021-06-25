@@ -1,21 +1,21 @@
 import React, { useState, createContext } from 'react';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const defaultValue = {
-  /** @type {BottomTabNavigationProp | null} */
+const initialState = {
+  /** @type {StackNavigationProp | null} */
   navigation: null,
-  /** @type {function(BottomTabNavigationProp | null): void} */
+  /** @type {function(StackNavigationProp | null): void} */
   setNavigation: function (navigation) {},
 };
-const TabNavContext = createContext(defaultValue);
+const TabNavContext = createContext(initialState);
 
 /**
- * Provides access to the tab navigator navigation state
+ * Provides access to the tab navigator navigation state.
  * @param {ReactNode} children
  * @return {JSX.Element}
  * */
 const TabNavContextProvider = ({ children }) => {
-  const [navigation, setNavigation] = useState(null);
+  const [navigation, setNavigation] = useState(initialState.navigation);
 
   return (
     <TabNavContext.Provider

@@ -9,16 +9,14 @@ import CreateItemScreen from '../screens/tabs/CreateItemScreen';
 import HousingScreen from '../screens/tabs/HousingScreen';
 import MenuScreen from '../screens/tabs/MenuScreen';
 import { routes } from '../utils/routes';
-import {
-  createBottomTabNavigator,
-  BottomTabNavigationProp,
-} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
 /**
- * Renders screens based on the current tab navigation route
- * @param {BottomTabNavigationProp} navigation
+ * Renders screens based on the current tab navigation route.
+ * @param {StackNavigationProp} navigation
  * @return {JSX.Element}
  */
 const TabNavigator = ({ navigation }) => {

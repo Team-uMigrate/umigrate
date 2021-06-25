@@ -8,7 +8,7 @@ const CreateItemContext = createContext({
 });
 
 /**
- * Provides access to the create item modal visibility state
+ * Provides access to the create item modal visibility state.
  * @param {ReactNode} children
  * @return {JSX.Element}
  * */

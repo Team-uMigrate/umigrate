@@ -7,6 +7,8 @@ import { StyleSheet, View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 const fetchItemsList = [
   async (page, filters) => await PostsEndpoint.list(page, filters),
@@ -17,7 +19,12 @@ const itemViews = [
   (item) => <EventView {...item} />,
 ];
 
-// A screen that renders community shared items
+/**
+ * Renders the community screen.
+ * @param {StackNavigationProp} navigation
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
 const CommunityScreen = ({ navigation, route }) => {
   const [postFilters, setPostFilters] = useState({});
   const [eventFilters, setEventFilters] = useState({});

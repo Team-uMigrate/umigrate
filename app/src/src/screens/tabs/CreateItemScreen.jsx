@@ -2,8 +2,13 @@ import React from 'react';
 import CreateCommunityScreen from '../createItem/CreateCommunityScreen';
 import CreateMarketScreen from '../createItem/CreateMarketScreen';
 import CreateHousingScreen from '../createItem/CreateHousingScreen';
+import { RouteProp } from '@react-navigation/native';
 
-// A screen that allows the user to a create shared item
+/**
+ * Renders the create item screen.
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
 const CreateItemScreen = ({ route }) => {
   switch (route.params.page) {
     case 'Community':

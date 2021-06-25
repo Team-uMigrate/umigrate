@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ReplyContainer } from '../containers/ReplyContainer';
 
-const CommentView = ({ id, datetime_created, creator, content }) => {
+const CommentView = ({ item, updateItem }) => {
+  const { id, datetime_created, creator, content } = item;
   // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z
   const date = datetime_created.substring(0, 'YYYY-MM-DD'.length);
   const time = datetime_created.substring(

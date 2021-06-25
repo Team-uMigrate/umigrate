@@ -3,6 +3,12 @@ import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ReplyContainer } from '../containers/ReplyContainer';
 
+/**
+ * Renders a comment.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const CommentView = ({ item, updateItem }) => {
   const { id, datetime_created, creator, content } = item;
   // The dateTime string looks like this: 2020-11-02T23:49:23.846475Z

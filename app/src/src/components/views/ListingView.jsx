@@ -13,6 +13,12 @@ import {
   seasons,
 } from '../../utils/choices';
 
+/**
+ * Renders a listing.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const ListingView = ({ item, updateItem }) => {
   const {
     creator,

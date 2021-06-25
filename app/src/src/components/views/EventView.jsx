@@ -9,6 +9,12 @@ import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
 
+/**
+ * Renders an event.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const EventView = ({ item, updateItem }) => {
   const {
     id,

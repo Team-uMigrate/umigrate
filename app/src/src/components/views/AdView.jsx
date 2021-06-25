@@ -8,6 +8,12 @@ import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
 
+/**
+ * Renders an ad.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const AdView = ({ item, updateItem }) => {
   const {
     title,

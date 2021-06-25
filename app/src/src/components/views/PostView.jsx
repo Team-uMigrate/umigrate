@@ -8,6 +8,12 @@ import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { communities, contentTypes } from '../../utils/choices';
 
+/**
+ * Renders a post.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
 const PostView = ({ item, updateItem }) => {
   const { title, creator, datetime_created, content, community, photos } = item;
 

@@ -8,6 +8,7 @@ const AuthContext = createContext({
 /**
  * Provides access to the authentication state
  * @param {ReactNode} children
+ * @return {JSX.Element}
  * */
 const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);

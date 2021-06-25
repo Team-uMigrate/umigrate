@@ -5,6 +5,7 @@ const ErrorContext = createContext({ message: null, setMessage: () => {} });
 /**
  * Provides access to the error modal message state
  * @param {ReactNode} children
+ * @return {JSX.Element}
  * */
 const ErrorContextProvider = ({ children }) => {
   const [message, setMessage] = useState(null);

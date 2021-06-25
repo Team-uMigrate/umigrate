@@ -8,6 +8,7 @@ const CreateItemContext = createContext({
 /**
  * Provides access to the create item modal visibility state
  * @param {ReactNode} children
+ * @return {JSX.Element}
  * */
 const CreateItemContextProvider = ({ children }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);

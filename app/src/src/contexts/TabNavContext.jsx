@@ -8,6 +8,7 @@ const TabNavContext = createContext({
 /**
  * Provides access to the tab navigator navigation state
  * @param {ReactNode} children
+ * @return {JSX.Element}
  * */
 const TabNavContextProvider = ({ children }) => {
   const [navigation, setNavigation] = useState(null);

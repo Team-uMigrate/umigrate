@@ -25,9 +25,6 @@ const IndividualWork = ({ job, isEdit, setVisible, isLast }) => {
             size={24}
             color={'#DADADA'}
             style={styles.xBtn}
-            onPress={() => {
-              console.log(isLast);
-            }}
           />
         </View>
       )}

@@ -49,19 +49,23 @@ const EditProfileView = ({ user, navigation }) => {
   const [zeroReg, setZeroReg] = useState();
 
   const handleEdit = async () => {
-    const result = await ProfileEndpoint.patch({
-      profile_photo: pfp ? pfp : '',
-      background_photo: bgPic ? bgPic : '',
-      preferred_name: prefName ? prefName : user.preferred_name,
-      phone_number: phone ? phone : user.phone_number,
-      pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
-      birthday: birth ? birth : user.birthday,
-      community: zeroReg == 0 ? 0 : comm ? comm : user.community,
-      bio: bio ? bio : user.bio,
-    });
-    if (result) {
-      await setUserData(result.data);
-      navigation.navigate(routes.profile);
+    try {
+      const result = await ProfileEndpoint.patch({
+        profile_photo: pfp ? pfp : '',
+        background_photo: bgPic ? bgPic : '',
+        preferred_name: prefName ? prefName : user.preferred_name,
+        phone_number: phone ? phone : user.phone_number,
+        pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
+        birthday: birth ? birth : user.birthday,
+        community: zeroReg == 0 ? 0 : comm ? comm : user.community,
+        bio: bio ? bio : user.bio,
+      });
+      if (result) {
+        await setUserData(result.data);
+        navigation.navigate(routes.profile);
+      }
+    } catch (err) {
+      console.log(err.message);
     }
   };
 

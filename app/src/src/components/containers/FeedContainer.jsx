@@ -55,11 +55,10 @@ class FeedContainer extends Component {
     this.setState({ isFetching: true }, async () => {
       // Fetch and merge data into newItems list
       const { newItems, newNextPages, errors } = await fetchAndMergeItemsLists(
-        this.state.items,
+        this.state.isRefreshing ? [] : this.state.items,
         this.props.fetchItemsList,
         this.state.nextPages,
-        this.props.filtersList,
-        this.state.isRefreshing
+        this.props.filtersList
       );
 
       // Update state with new items

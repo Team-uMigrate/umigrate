@@ -17,13 +17,23 @@ import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
 
+const initialState = {
+  /** @type {string | null} */
+  expoPushToken: null,
+};
+
 const Stack = createStackNavigator();
 
-// A navigator that renders components depending on the authentication state
+/**
+ * Renders screens based on the authentication state.
+ * @return {JSX.Element}
+ */
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
   const error = useContext(ErrorContext);
-  const [expoPushToken, setExpoPushToken] = useState(null);
+  const [expoPushToken, setExpoPushToken] = useState(
+    initialState.expoPushToken
+  );
 
   useEffect(() => {
     (async () => {
@@ -40,7 +50,7 @@ const AuthNavigator = () => {
   }, [auth.isAuthenticated]);
 
   if (auth.isAuthenticated === true) {
-    // Render authenticated view
+    // Render authenticated screens
     return (
       <TabNavContextProvider>
         <CreateItemContextProvider>
@@ -69,7 +79,7 @@ const AuthNavigator = () => {
       </TabNavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {
-    // Render not authenticated view
+    // Render unauthenticated screens
     return (
       <NavigationContainer>
         <Stack.Navigator>
@@ -86,7 +96,7 @@ const AuthNavigator = () => {
       </NavigationContainer>
     );
   } else {
-    // Render loading view
+    // Render loading screen
     return <LoadingScreen />;
   }
 };

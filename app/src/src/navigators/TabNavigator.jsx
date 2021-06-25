@@ -10,10 +10,15 @@ import HousingScreen from '../screens/tabs/HousingScreen';
 import MenuScreen from '../screens/tabs/MenuScreen';
 import { routes } from '../utils/routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
-// A navigator that renders components depending on the current tab navigation route
+/**
+ * Renders screens based on the current tab navigation route.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ */
 const TabNavigator = ({ navigation }) => {
   const nav = useContext(TabNavContext);
   const createItem = useContext(CreateItemContext);

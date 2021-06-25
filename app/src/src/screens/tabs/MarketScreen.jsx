@@ -12,7 +12,7 @@ import { RouteProp } from '@react-navigation/native';
 const fetchItemsList = [
   async (page, filters) => await AdsEndpoint.list(page, filters),
 ];
-const itemViews = [(item) => <AdView {...item} />];
+const itemViews = [(props) => <AdView {...props} />];
 
 /**
  * Renders the market screen.

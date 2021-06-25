@@ -1,19 +1,15 @@
-import React, { createRef } from 'react';
-import { StyleSheet, Dimensions, Image, View, Text } from 'react-native';
-import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { PostsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { communities, contentTypes } from '../../utils/choices';
 
-const PostView = (post) => {
-  const { title, creator, datetime_created, content, community, photos } = post;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes['post'];
+const PostView = ({ item, updateItem }) => {
+  const { title, creator, datetime_created, content, community, photos } = item;
 
   return (
     <Card style={styles.container}>
@@ -36,8 +32,9 @@ const PostView = (post) => {
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
-          item={post}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.post}
           endpoint={PostsEndpoint}
         />
       </Card.Content>

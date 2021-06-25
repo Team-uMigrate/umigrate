@@ -112,7 +112,7 @@ class FeedContainer extends Component {
   renderItem = ({ item }) => {
     // Use an itemView to render the item
     return this.props.itemViews[item.type]({
-      ...item,
+      item,
       updateItem: this.updateItem,
     });
   };

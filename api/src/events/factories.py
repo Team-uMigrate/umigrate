@@ -1,8 +1,6 @@
 import random
-
 import factory
 from django.db.models import QuerySet
-
 from common.abstract_factories import AbstractFactory
 from common.constants.choices import Choices, get_length, MockData
 from users.factories import UserFactory

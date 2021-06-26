@@ -2,8 +2,11 @@ from django_filters import rest_framework as filters
 from .models import Event
 
 
-# A filter set class for the Event model
 class EventFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Event model.
+    """
+
     min_datetime_created = filters.DateTimeFilter(
         field_name="datetime_created", lookup_expr="gte"
     )

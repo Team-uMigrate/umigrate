@@ -40,14 +40,16 @@ class AddRemoveMembers(APIView):
     ]
 
     @swagger_auto_schema(tags=["Messaging"])
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # todo: add more comments
         member_id = request.data
         room_id = kwargs["id"]
         try:
             room = Room.objects.get(id=room_id)
             if room.members.filter(id=request.user.id).exists():
                 user = CustomUser.objects.get(id=member_id)
-                room.members.add(user)
+                room.members.add(
+                    user
+                )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
                 if room.members.filter(id=member_id):
                     return Response({"message": "Member already exists"})
 
@@ -65,12 +67,14 @@ class AddRemoveMembers(APIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(tags=["Messaging"])
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):  # todo: add more comments
         room_id = kwargs["id"]
         member = request.user
         try:
             room = Room.objects.get(id=room_id)
-            room.members.remove(member)
+            room.members.remove(
+                member
+            )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
             return Response({"message": "Member Removed."})
         except ObjectDoesNotExist as e:
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)

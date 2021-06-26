@@ -2,7 +2,7 @@ from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
-from .models import Notification, Device
+from .models import Device
 from .serializers import NotificationSerializer, DeviceSerializer
 from common.abstract_models import IsCreator
 from rest_framework.permissions import IsAuthenticated
@@ -10,8 +10,9 @@ from common.decorators import model_view_set_swagger_decorator
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Notifications"]))
-class NotificationList(ListAPIView):
-    queryset = Notification.objects.all()
+class NotificationList(
+    ListAPIView
+):  # todo: create endpoint for removing the user from receivers and adding the user to viewers
     serializer_class = NotificationSerializer
     permission_classes = [
         IsAuthenticated,

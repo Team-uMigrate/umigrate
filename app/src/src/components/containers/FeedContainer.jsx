@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  ActivityIndicator,
-  VirtualizedList,
-} from 'react-native';
+import { Text, ActivityIndicator, VirtualizedList } from 'react-native';
 import FeedHeader from '../common/FeedHeader';
 import { fetchAndMergeItemsLists } from '../../utils/fetchDataHelpers';
 import PropsType from 'prop-types';

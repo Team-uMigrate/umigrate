@@ -1,188 +1,148 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  RefreshControl,
-  Button,
-} from 'react-native';
+import { Text, ActivityIndicator, VirtualizedList } from 'react-native';
 import FeedHeader from '../common/FeedHeader';
-import TabNavContext from '../../contexts/TabNavContext';
-import SearchResults from './SearchResults';
+import { fetchAndMergeItemsLists } from '../../utils/fetchDataHelpers';
+import PropsType from 'prop-types';
 
+/**
+ * A React component that renders a list of items fetched from different API endpoints.
+ */
 class FeedContainer extends Component {
+  static propTypes = {
+    /** An array of asynchronous functions that each return an AxiosResponse. Used to fetch each list of items. */
+    fetchItemsList: PropsType.arrayOf(PropsType.func).isRequired,
+    /** An array of functions that each return JSX. Used to render an item from each list. */
+    itemViews: PropsType.arrayOf(PropsType.func).isRequired,
+    /** An array of filter objects. Used to filter each list of items. */
+    filtersList: PropsType.arrayOf(PropsType.object).isRequired,
+    /** A ref that was passed to the useScrollToTop hook.
+     * Used to scroll to the top of the FlatList. */
+    scrollRef: PropsType.object.isRequired,
+    /** A string representing the name of the feed container. Is optional. */
+    feedName: PropsType.string,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      nextPages: this.props.getItemsSet.map(() => 1),
-      errorMessages: [],
+      nextPages: this.props.fetchItemsList.map(() => 1),
       isRefreshing: false,
-      isSearching: false,
+      isFetching: false,
+      hasMorePages: true,
+      errors: [],
     };
   }
 
-  componentDidMount = async () => {
-    await this.fetchItems();
+  componentDidMount = () => {
+    // Fetch items when mounted
+    this.fetchItems();
   };
 
+  /** Fetches items from the API. */
+  fetchItems = () => {
+    // Exit if already fetching
+    if (this.state.isFetching) return;
+
+    // Set state to fetching
+    this.setState({ isFetching: true }, async () => {
+      // Fetch and merge data into newItems list
+      const { newItems, newNextPages, errors } = await fetchAndMergeItemsLists(
+        this.state.isRefreshing ? [] : this.state.items,
+        this.props.fetchItemsList,
+        this.state.nextPages,
+        this.props.filtersList
+      );
+
+      // Update state with new items
+      this.setState({
+        items: newItems,
+        nextPages: newNextPages,
+        isRefreshing: false,
+        isFetching: false,
+        hasMorePages: this.state.items.length !== newItems.length,
+        errors: errors,
+      });
+    });
+  };
+
+  /** Updates an item in the state. */
   updateItem = (item) => {
+    // Find the index of the item to replace in the state
     const index = this.state.items.findIndex(
       (obj) => obj.id === item.id && obj.type === item.type
     );
-    const copiedItems = JSON.parse(JSON.stringify(this.state.items));
-
+    // Perform a shallow copy of the items
+    const copiedItems = [...this.state.items];
+    // Update the item
     copiedItems[index] = item;
+    // Update the state with the copied list
     this.setState({ items: copiedItems });
   };
 
-  fetchItems = async () => {
-    // Retrieve state and props
-    const { items, nextPages, errorMessages } = this.state;
-    const { getItemsSet, filtersList } = this.props;
-
-    // Fetch a list of items from each endpoint
-    let responseDataList = [];
-    for (let i = 0; i < getItemsSet.length; i++) {
-      try {
-        responseDataList[i] = (
-          await getItemsSet[i](nextPages[i], filtersList[i])
-        ).data;
-      } catch (error) {
-        // Append error messages to state
-        this.setState({
-          errorMessages: [...errorMessages, JSON.stringify(error)],
-        });
-        return;
-      }
-    }
-
-    // Find the max end date between the results from all endpoints
-    let maxEndDate = 0;
-    responseDataList.forEach((responseData) => {
-      maxEndDate = Math.max(
-        maxEndDate,
-        Date.parse(
-          responseData.results[responseData.results.length - 1]
-            ?.datetime_created
-        ) ?? null
-      );
-    });
-
-    let newItems = this.state.isRefreshing ? [] : items;
-    let newNextPages = nextPages;
-
-    responseDataList.forEach((responseData, t) => {
-      // Set next pages
-      if (
-        Date.parse(
-          responseData.results[responseData.results.length - 1]
-            ?.datetime_created
-        ) >= maxEndDate &&
-        responseData.next
-      ) {
-        newNextPages[t] = nextPages[t] + 1;
-      }
-
-      // Add results from each endpoint to items
-      newItems = newItems.concat(
-        responseData.results
-          // Filter out items created before max end date and duplicate items
-          .filter(
-            (item) =>
-              Date.parse(item.datetime_created) >= maxEndDate &&
-              !items.find((stateItem) => {
-                return stateItem.id === item.id && stateItem.type === t;
-              })
-          )
-          // Add type to each item
-          .map((item) => ({ ...item, type: t }))
-      );
-    });
-
-    // Sort items by date and time created descending
-    newItems = newItems.sort(
-      (a, b) => Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
-    );
-
-    // Update state
-    this.setState({ items: newItems, nextPages: newNextPages });
-  };
-
+  /** Refreshes the feed. */
   handleRefresh = () => {
-    // Set state to refreshing
+    // Exit if already refreshing
+    if (this.state.isRefreshing) return;
+
+    // Set state to refreshing and reset other state properties
     this.setState(
       {
-        items: [],
         nextPages: this.state.nextPages.map(() => 1),
-        errorMessages: [],
         isRefreshing: true,
+        isFetching: false,
+        hasMorePages: true,
+        errors: [],
       },
-      async () => {
+      () => {
         // Fetch items
-        await this.fetchItems();
-        // Set state to not refreshing
-        this.setState({ isRefreshing: false });
+        this.fetchItems();
       }
     );
   };
 
+  /** Renders an item. */
   renderItem = ({ item }) => {
-    return this.props.itemViews[item.type]({
-      ...item,
-      updateItem: this.updateItem,
-    });
-  };
-
-  setIsSearching = () => {
-    this.setState({ isSearching: !this.state.isSearching });
+    // Use an itemView to render the item
+    return this.props.itemViews[item.type](item, this.updateItem);
   };
 
   render() {
-    if (this.state.isSearching === true) {
+    if (this.state.errors.length) {
+      // Display any errors
       return (
-        // TODO: Fix this margin... its not dynammic enough
-        <View style={{ marginBottom: '45%' }}>
-          <SearchResults setIsSearching={this.setIsSearching} />
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.feedContainer}>
-          <FlatList
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.isRefreshing}
-                onRefresh={this.handleRefresh}
-              />
-            }
-            data={this.state.items}
-            keyExtractor={(item, i) => i.toString()}
-            renderItem={this.renderItem}
-            onEndReachedThreshold={0.5}
-            onEndReached={this.fetchItems}
-            showsVerticalScrollIndicator={false}
-            ref={this.props.scrollRef}
-            ListHeaderComponent={
-              this.props.feedName && (
-                <FeedHeader
-                  feedName={this.props.feedName}
-                  setIsSearching={this.setIsSearching}
-                />
-              )
-            }
-          />
-        </View>
+        <>
+          {this.state.errors.map((e, i) => (
+            <Text key={i.toString()}>{JSON.stringify(e)}</Text>
+          ))}
+        </>
       );
     }
+    return (
+      <VirtualizedList
+        ListHeaderComponent={
+          this.props.feedName && <FeedHeader feedName={this.props.feedName} />
+        }
+        data={this.state.items}
+        getItem={(data, i) => data[i]}
+        getItemCount={(data) => data.length}
+        renderItem={this.renderItem}
+        keyExtractor={(item, i) => i.toString()}
+        onEndReached={this.state.hasMorePages && this.fetchItems}
+        onEndReachedThreshold={0.5}
+        refreshing={this.state.isRefreshing}
+        onRefresh={this.handleRefresh}
+        ref={this.props.scrollRef}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={
+          !this.state.isRefreshing &&
+          this.state.isFetching && (
+            <ActivityIndicator size="large" style={{ padding: 10 }} />
+          )
+        }
+      />
+    );
   }
 }
 
 export default FeedContainer;
-
-const styles = StyleSheet.create({
-  feedContainer: {
-    flexDirection: 'column',
-    marginBottom: '15%', // To make sure a bit of the bottom post isn't cut off
-  },
-});

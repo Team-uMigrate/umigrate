@@ -6,8 +6,11 @@ from common.constants.choices import Choices
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-# An abstract model class that represents a basic post
 class AbstractPostModel(models.Model):
+    """
+    An abstract model class that represents a basic post.
+    """
+
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000, blank=True)
@@ -38,8 +41,11 @@ class AbstractPostModel(models.Model):
         return f"{self.title}"
 
 
-# A permission class that only allows the creator of a shared item to modify or delete it
 class IsCreatorOrReadOnly(BasePermission):
+    """
+    A permission class that only allows the creator of a shared item to modify or delete it.
+    """
+
     def has_object_permission(self, request, view, obj: AbstractPostModel):
         if request.method in SAFE_METHODS:
             return True
@@ -47,7 +53,10 @@ class IsCreatorOrReadOnly(BasePermission):
         return obj.creator_id == request.user.id
 
 
-# A permission class that only allows the creator of a shared item to access it
 class IsCreator(BasePermission):
+    """
+    A permission class that only allows the creator of a shared item to access it.
+    """
+
     def has_object_permission(self, request, view, obj: AbstractPostModel):
         return obj.creator_id == request.user.id

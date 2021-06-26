@@ -9,8 +9,11 @@ from common.notification_helpers import (
 from users.models import CustomUser
 
 
-# A function for creating a message event
 async def receive_message(text_data_json: dict) -> dict:
+    """
+    A function for creating a message event.
+    """
+
     message_body: str = text_data_json["message_body"]
     previous_message_id: int = text_data_json["previous_message_id"]
     tagged_users: list[int] = text_data_json["tagged_users"]
@@ -89,8 +92,11 @@ async def receive_message(text_data_json: dict) -> dict:
     }
 
 
-# A function for creating a like event
 async def receive_like(text_data_json: dict) -> dict:
+    """
+    A function for creating a like event.
+    """
+
     message_id: int = text_data_json["message_id"]
     is_liked: bool = text_data_json["like"]
     user_id: int = text_data_json["user_id"]

@@ -13,14 +13,28 @@ from rest_framework import status
 from common.abstract_serializers import AddRemoveUserSerializer, AbstractModelSerializer
 from common.abstract_models import IsCreatorOrReadOnly, AbstractPostModel
 from users.serializers import BasicUserSerializer
-from users.models import CustomUser
 
 
-# An abstract model view set class that supports creating, retrieving, updating, and destroying shared items
 class AbstractModelViewSet(ModelViewSet):
-    queryset: QuerySet[AbstractPostModel] = None  # Must be overridden
-    serializer_class: AbstractModelSerializer = None  # Must be overridden
-    detail_serializer_class: AbstractModelSerializer = None  # Must be overridden
+    """
+    An abstract model view set class that supports creating, retrieving, updating, and destroying shared items.
+    """
+
+    queryset: QuerySet[AbstractPostModel] = None
+    """
+    The queryset to use for accessing data in the database. Must be overwritten.    
+    """
+
+    serializer_class: AbstractModelSerializer = None
+    """
+    The serializer class to use for all HTTP requests except HTTP GET requests. Must be overwritten.
+    """
+
+    detail_serializer_class: AbstractModelSerializer = None
+    """
+    The serializer class to use for only HTTP GET requests. Must be overwritten.
+    """
+
     permission_classes = [
         IsAuthenticated,
         IsCreatorOrReadOnly,
@@ -42,17 +56,32 @@ class AbstractModelViewSet(ModelViewSet):
         return self.serializer_class
 
 
-# An abstract api view class that supports adding and removing a user to and from a many to many field
 class AbstractAddRemoveUser(ListAPIView):
-    serializer_class: Serializer = None  # Must be overridden
-    model_class: Model = None  # Must be overridden
-    query_string: str = None  # Must be overridden
+    """
+    An abstract API view class that supports adding and removing a user to and from a many to many field.
+    """
+
+    serializer_class: Serializer = None
+    """
+    The serializer class to use for all HTTP requests except HTTP GET requests. Must be overwritten.
+    """
+
+    model_class: Model = None
+    """
+    The model class with the many to many field to add the user to. Must be overwritten.
+    """
+
+    query_string: str = None
+    """
+    The name of the attribute on the user that is used to get a list of objects. Must be overwritten.
+    """
+
     permission_classes = [
         IsAuthenticated,
     ]
 
     def get_queryset(self):
-        # Retrieve the user's saved shared items
+        # Retrieve the list of objects using the attribute specified by the query string
         return getattr(self.request.user, self.query_string).all()
 
     def get_serializer_class(self):
@@ -74,10 +103,10 @@ class AbstractAddRemoveUser(ListAPIView):
 
         try:
             shared_item = self.model_class.objects.get(id=shared_item_id)
-            # Add or remove the user from the list of saved users for the shared item
+            # Add or remove an object from the list of objects using the attribute specified by the query string
             if should_add:
                 getattr(self.request.user, self.query_string).add(shared_item)
-                # Hacky solution. Checks if many to many field is like by query string
+                # Send a liked shared item notification if the user liked a shared item
                 if self.query_string.startswith("liked_"):
                     create_liked_shared_item_notification(
                         shared_item, self.request.user
@@ -93,15 +122,23 @@ class AbstractAddRemoveUser(ListAPIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
 
-# An abstract api view class that supports retrieving the liked users for a shared item
 class AbstractLikedUsers(ListAPIView):
-    queryset = CustomUser.objects.all()
-    model_class: AbstractPostModel = None  # Must be overridden
+    """
+    An abstract API view class that supports retrieving the liked users for a shared item.
+    """
+
+    model_class: AbstractPostModel = None
+    """
+    The model class with the liked users many to many field to add the user to. Must be overwritten.
+    """
+
     serializer_class = BasicUserSerializer
     permission_classes = [
         IsAuthenticated,
     ]
 
     def get_queryset(self):
-        # Retrieve the liked users for a shared item
-        return self.model_class.objects.get(id=self.kwargs["id"]).liked_users.all()
+        # Retrieve the list of users that have liked a shared item
+        return self.model_class.objects.get(
+            id=self.kwargs["id"]
+        ).liked_users.all()  # todo: make this more generic by allowing the sub-class to specify the attribute instead of using liked_users

@@ -7,12 +7,53 @@ from users.models import CustomUser
 from common.constants.choices import Choices
 
 
-# A serializer class for the CustomUser model
-class UserSerializer(ModelSerializerExtension):
-    email = serializers.ReadOnlyField()
+class BasicUserSerializer(ModelSerializerExtension):
+    """
+    A basic serializer class for the CustomUser model.
+    """
+
     connection_status = serializers.SerializerMethodField()
     is_blocked = serializers.SerializerMethodField()
-    connected = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            "id",
+            "preferred_name",
+            "profile_photo",
+            "background_photo",
+            "connection_status",
+            "is_blocked",
+        ]
+
+    def get_connection_status(self, instance):
+        user = self.context["request"].user
+        received = instance.connected_users.filter(id=user.id).exists()
+        sent = user.connected_users.filter(id=instance.id).exists()
+
+        if received and sent:
+            return Choices.CONNECTION_STATUS_CHOICES["Connected"]
+
+        if sent:
+            return Choices.CONNECTION_STATUS_CHOICES["Request Sent"]
+
+        if received:
+            return Choices.CONNECTION_STATUS_CHOICES["Request Received"]
+
+        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
+
+    def get_is_blocked(self, instance):
+        return (
+            self.context["request"].user.blocked_users.filter(id=instance.id).exists()
+        )
+
+
+class UserSerializer(BasicUserSerializer):
+    """
+    A serializer class for the CustomUser model.
+    """
+
+    email = serializers.ReadOnlyField()
 
     class Meta:
         model = CustomUser
@@ -36,33 +77,12 @@ class UserSerializer(ModelSerializerExtension):
             "user_permissions",
         ]
 
-    def get_connection_status(self, instance):
-        user = self.context["request"].user
-        recieved = instance.connected_users.filter(id=user.id).exists()
-        sent = user.connected_users.filter(id=instance.id).exists()
 
-        if recieved and sent:
-            return Choices.CONNECTION_STATUS_CHOICES["Connected"]
-
-        if sent:
-            return Choices.CONNECTION_STATUS_CHOICES["Request Sent"]
-
-        if recieved:
-            return Choices.CONNECTION_STATUS_CHOICES["Request Recieved"]
-
-        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
-
-    def get_is_blocked(self, instance):
-        return (
-            self.context["request"].user.blocked_users.filter(id=instance.id).exists()
-        )
-
-    def get_connected(self, instance):
-        return instance.connected_users.count()
-
-
-# A detailed serializer class for the CustomUser model
 class UserDetailSerializer(ModelSerializerExtension):
+    """
+    A detailed serializer class for the CustomUser model.
+    """
+
     email = serializers.ReadOnlyField()
 
     class Meta:
@@ -79,46 +99,11 @@ class UserDetailSerializer(ModelSerializerExtension):
         ]
 
 
-# A basic serializer class for the CustomUser model
-class BasicUserSerializer(ModelSerializerExtension):
-    connection_status = serializers.SerializerMethodField()
-    is_blocked = serializers.SerializerMethodField()
-
-    class Meta:
-        model = CustomUser
-        fields = [
-            "id",
-            "preferred_name",
-            "profile_photo",
-            "background_photo",
-            "connection_status",
-            "is_blocked",
-        ]
-
-    def get_connection_status(self, instance):
-        user = self.context["request"].user
-        recieved = instance.connected_users.filter(id=user.id).exists()
-        sent = user.connected_users.filter(id=instance.id).exists()
-
-        if recieved and sent:
-            return Choices.CONNECTION_STATUS_CHOICES["Connected"]
-
-        if sent:
-            return Choices.CONNECTION_STATUS_CHOICES["Request Sent"]
-
-        if recieved:
-            return Choices.CONNECTION_STATUS_CHOICES["Request Recieved"]
-
-        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
-
-    def get_is_blocked(self, instance):
-        return (
-            self.context["request"].user.blocked_users.filter(id=instance.id).exists()
-        )
-
-
-# A serializer class for login
 class LoginSerializer(serializers.Serializer):
+    """
+    A serializer class for login.
+    """
+
     email = serializers.EmailField(required=True)
     password = serializers.CharField(style={"input_type": "password"})
 
@@ -126,21 +111,16 @@ class LoginSerializer(serializers.Serializer):
         return authenticate(self.context["request"], **kwargs)
 
     def _validate_email(self, email, password):
-        user = None
-
         if email and password:
             user = self.authenticate(email=email, password=password)
-        else:
-            msg = _('Must include "email" and "password".')
-            raise exceptions.ValidationError(msg)
+            return user
 
-        return user
+        msg = _('Must include "email" and "password".')
+        raise exceptions.ValidationError(msg)
 
     def validate(self, attrs):
         email = attrs.get("email")
         password = attrs.get("password")
-
-        user = None
 
         user = self._validate_email(email, password)
 
@@ -148,6 +128,7 @@ class LoginSerializer(serializers.Serializer):
             if not user.is_active:
                 msg = _("User account is disabled.")
                 raise exceptions.ValidationError(msg)
+
         else:
             msg = _("Unable to log in with provided credentials.")
             raise exceptions.ValidationError(msg)
@@ -158,3 +139,9 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass

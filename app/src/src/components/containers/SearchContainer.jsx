@@ -46,13 +46,13 @@ const SearchContainer = ({ setIsSearching }) => {
 
   // populate the initial results (5 most recent results from each endpoint)
   useEffect(() => {
-    this.text_filter_default();
+    text_filter_default();
   }, []);
 
   // envoked upon mounting of component, or when no text in search bar
 
   // TODO: RANDOMIZE THIS !!! Dont display the same data each default time
-  text_filter_default = async () => {
+  const text_filter_default = async () => {
     // Fetch a list of items from each endpoint
     setData([]);
     // Necessary to cover the case of going from 1 typed character -> 0 typed characters,
@@ -77,7 +77,7 @@ const SearchContainer = ({ setIsSearching }) => {
     for (let i = 0; i < endpoints.length; i++) {
       try {
         // gets the first page as initial search results
-        retrieved = (await endpoints[i].list(1)).data;
+        let retrieved = (await endpoints[i].list(1)).data;
 
         // if no info at all, continue
         if (retrieved == undefined || retrieved['count'] == 0) continue;
@@ -106,7 +106,7 @@ const SearchContainer = ({ setIsSearching }) => {
   };
 
   // similar to text_filter_default, except searches for results with the passed text
-  text_filter = async (text) => {
+  const text_filter = async (text) => {
     // Using a dictonary so that the view component doesn't have to worry about knowing correct index
     // each endpoint will hold two key pieces of info:
     // the first is how many pages are to be rendered/are available to render
@@ -129,7 +129,7 @@ const SearchContainer = ({ setIsSearching }) => {
     for (let i = 0; i < endpoints.length; i++) {
       try {
         // gets the first page as initial search results
-        retrieved = (await endpoints[i].list(1, { search: text })).data;
+        let retrieved = (await endpoints[i].list(1, { search: text })).data;
 
         // if no info at all, continue
         if (retrieved == undefined || retrieved['count'] == 0) continue;
@@ -144,7 +144,7 @@ const SearchContainer = ({ setIsSearching }) => {
   };
 
   // when triggered, attempts to get more data.
-  get_more = async (endpoint_name, current_page) => {
+  const get_more = async (endpoint_name, current_page) => {
     // get copy of current data
     let temp = data;
     try {
@@ -153,12 +153,12 @@ const SearchContainer = ({ setIsSearching }) => {
       let endpoint_index = -1;
 
       // get endpoint's index in endpoints array
-      for (i = 0; i < endpoints.length; i++) {
+      for (let i = 0; i < endpoints.length; i++) {
         if (endpoints[i].name == endpoint_name) {
           endpoint_index = i;
         }
       }
-      retrieved = (
+      let retrieved = (
         await endpoints[endpoint_index].list(current_page, {
           search: queried_text,
         })
@@ -189,7 +189,7 @@ const SearchContainer = ({ setIsSearching }) => {
     }
   };
 
-  collapse = async (endpoint_name) => {
+  const collapse = async (endpoint_name) => {
     // get copy of current data
     let temp = data;
     try {
@@ -198,12 +198,12 @@ const SearchContainer = ({ setIsSearching }) => {
       let endpoint_index = -1;
 
       // get endpoint's index in endpoints array
-      for (i = 0; i < endpoints.length; i++) {
+      for (let i = 0; i < endpoints.length; i++) {
         if (endpoints[i].name == endpoint_name) {
           endpoint_index = i;
         }
       }
-      retrieved = (
+      let retrieved = (
         await endpoints[endpoint_index].list(1, {
           search: queried_text,
         })
@@ -235,7 +235,7 @@ const SearchContainer = ({ setIsSearching }) => {
         <Searchbar
           onChangeText={(typed) => {
             if (typed.length == 0) {
-              this.text_filter_default();
+              text_filter_default();
             } else {
               delayedQuery(typed);
             }
@@ -248,8 +248,8 @@ const SearchContainer = ({ setIsSearching }) => {
         data={data}
         endpoints={endpoints}
         endpoints_text={endpoints_text}
-        get_more={this.get_more}
-        collapse={this.collapse}
+        get_more={get_more}
+        collapse={collapse}
       ></SearchView>
     </View>
   );

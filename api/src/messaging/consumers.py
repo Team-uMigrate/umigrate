@@ -3,19 +3,25 @@ from channels.db import database_sync_to_async
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from .receive import receive_message, receive_like
-from .models import Room, Message
+from .models import Room
 
 
-# Handles websocket connections for messaging
 class ChatConsumer(AsyncWebsocketConsumer):
+    """
+    Handles websocket connections for messaging.
+    """
+
     room_id = None
     room_group_name = None
     member = None
     room = None
     user = None
 
-    # Creates a group or enters and existing one
     async def connect(self):
+        """
+        Creates a group or enters and existing one.
+        """
+
         self.room_id = int(self.scope["url_route"]["kwargs"]["room_id"])
         self.room_group_name = "chat_%s" % str(self.room_id)
 
@@ -34,12 +40,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except ObjectDoesNotExist:
             pass
 
-    # Leaves a group
     async def disconnect(self, close_code):
+        """
+        Leaves a group.
+        """
+
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
-    # Receive a message from a websocket
     async def receive(self, text_data=None, byte_data=None):
+        """
+        Receive a message from a websocket.
+        """
+
         text_data_json = json.loads(text_data)
         user_id = self.scope["user"].id
         if self.member["id"] == user_id:
@@ -68,8 +80,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 self.channel_name,
             )
 
-    # Sends a received message to the group
     async def send_like(self, event):
+        """
+        Sends a received message to the group.
+        """
+
         data = {
             "message_id": event["message_id"],
             "like": event["like"],
@@ -78,6 +93,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send_data(data)
 
     async def send_message(self, event):
+        """
+        Sends a received like to the group.
+        """
+
         data = {
             "id": event["id"],
             "message_body": event["message_body"],
@@ -90,8 +109,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }
         await self.send_data(data)
 
-    # Helper function for sending data
     async def send_data(self, data: dict) -> None:
+        """
+        Sends data to the group.
+        """
+
         if self.member["id"] == self.scope["user"].id:
             await self.send(text_data=json.dumps(data))
         else:

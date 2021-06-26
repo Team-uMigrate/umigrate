@@ -10,8 +10,11 @@ from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
 
 
-# A model class that represents an event
 class Event(AbstractPostModel, PhotoCollectionExtension):
+    """
+    A model class that represents an event.
+    """
+
     start_datetime = models.DateTimeField(default=datetime.today)
     end_datetime = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True)

@@ -9,15 +9,20 @@ import {
   View,
   TextInput,
 } from 'react-native';
+import { UsersEndpoint } from '../../utils/endpoints';
 
 const TEXTSIZE = 12;
 
 const TagModal = ({ visible, setVisible }) => {
   //, taggedUsers, setTaggedUsers }) => {
-  const [friendSearchInput, setFriendSearchInput] = useState('');
 
   const taggedUsers = ['Shashank', 'Shashank', 'Shashank'];
-  const userSearchResults = ['Shashank', 'Shashank'];
+  const [userSearchResults, setUserSearchResults] = useState([]);
+
+  const searchUsers = async (query) => {
+    const response = await UsersEndpoint.list(1, { search: query });
+    setUserSearchResults(response.data.results);
+  };
 
   return (
     <Modal
@@ -41,8 +46,9 @@ const TagModal = ({ visible, setVisible }) => {
               placeholder={'Friends...'}
               placeholderTextColor={'#404040'}
               clearTextOnFocus={true}
-              value={friendSearchInput}
-              onChangeText={setFriendSearchInput}
+              onChangeText={(newQuery) => {
+                searchUsers(newQuery); // TODO add activityIndicator while users being queried
+              }}
             />
             {taggedUsers.map((user, index) => (
               <TaggedUser user={{ name: user }} key={index} />
@@ -52,7 +58,7 @@ const TagModal = ({ visible, setVisible }) => {
       </View>
       <View style={[styles.tagModal, { marginTop: '1%' }]}>
         {userSearchResults.map((user, index) => (
-          <UserButton user={{ name: user }} key={index} />
+          <UserButton user={user} key={index} />
         ))}
       </View>
     </Modal>
@@ -63,7 +69,7 @@ const UserButton = ({ user }) => {
   return (
     <TouchableHighlight>
       <Card style={styles.userButton}>
-        <Text>{user.name}</Text>
+        <Text>{user.first_name + ' ' + user.last_name}</Text>
       </Card>
     </TouchableHighlight>
   );

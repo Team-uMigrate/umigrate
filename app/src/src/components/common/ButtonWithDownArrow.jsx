@@ -5,13 +5,13 @@ import { Entypo } from '@expo/vector-icons';
 
 // A button styled to look like the button with
 // the down arrow shown in the figma.
-const ButtonWithDownArrow = ({ onPress, text, textColour }) => {
+const ButtonWithDownArrow = ({ onPress, text }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1 }}>
       <Card style={styles.cardStyle}>
         <View style={styles.viewStyle}>
           {/* Todo montserrat here */}
-          <Text style={{ ...styles.textStyle, color: textColour }}>{text}</Text>
+          <Text style={styles.textStyle}>{text}</Text>
           <Entypo
             name="triangle-down"
             style={{ alignSelf: 'center' }}
@@ -37,5 +37,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  textStyle: { fontSize: 14 },
+  textStyle: { fontSize: 14, color: '#8781D0' },
 });

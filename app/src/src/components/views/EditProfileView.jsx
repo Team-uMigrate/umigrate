@@ -19,7 +19,7 @@ import { communities, pronouns } from '../../utils/choices';
 import pickImage from '../common/PickImage';
 import BasicModal from '../common/BasicModal';
 import CreatePageTextInput from '../common/CreatePageTextInput';
-import ButtonWithDownArrow from '../common/ButtonWithDownArrow';
+import DropdownList from '../common/DropdownList';
 // import WorkEduSection from '../common/WorkEduSection';
 
 const EditProfileView = ({ user, navigation }) => {
@@ -37,7 +37,6 @@ const EditProfileView = ({ user, navigation }) => {
   const [bio, setBio] = useState(user.bio);
 
   // useStates for modal
-  const [visiblePronoun, setVisiblePronoun] = useState(false);
   const [visibleReg, setVisibleReg] = useState(false);
   const [visibleBirth, setVisibleBirth] = useState(false);
 
@@ -85,16 +84,6 @@ const EditProfileView = ({ user, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <BasicModal
-        version={'options'}
-        visible={visiblePronoun}
-        setVisible={setVisiblePronoun}
-        title={'Pick a pronoun option!'}
-        type={pronoun}
-        setType={setPronoun}
-        choices={pronouns}
-        setZero={setZeroPronoun}
-      />
       <BasicModal
         version={'options'}
         visible={visibleReg}
@@ -289,22 +278,21 @@ const EditProfileView = ({ user, navigation }) => {
                 />
               </TouchableOpacity>
             </View>
-            <View>
-              <View style={styles.pronounDropdown}>
-                <ButtonWithDownArrow
-                  onPress={() => {
-                    setVisiblePronoun(true);
-                  }}
-                  text={
-                    zeroPronoun == 0
-                      ? pronouns[0]
-                      : pronoun
-                      ? pronouns[pronoun]
-                      : pronouns[user.pronouns]
-                  }
-                  textColour={'#000'}
-                />
-              </View>
+            <View style={styles.pronounDropdown}>
+              <DropdownList
+                text={'Pronoun'}
+                set={setPronoun}
+                setZero={setZeroPronoun}
+                choices={pronouns}
+                currVal={pronoun ? pronoun : user.pronouns}
+                currChoice={
+                  zeroPronoun == 0
+                    ? pronouns[0]
+                    : pronoun
+                    ? pronouns[pronoun]
+                    : pronouns[user.pronouns]
+                }
+              />
             </View>
             <View>
               <Text style={styles.textLabel}>Bio</Text>
@@ -435,8 +423,11 @@ const styles = StyleSheet.create({
     width: '93%',
   },
   pronounDropdown: {
-    width: '30%',
+    paddingTop: '5%',
+    paddingBottom: '8%',
+    width: '42%',
     alignSelf: 'center',
+    zIndex: 999,
   },
   about: {
     width: '100%',
@@ -448,6 +439,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   rowsButtons: {
+    paddingTop: '8%',
     justifyContent: 'space-evenly',
     flexWrap: 'wrap',
     flexDirection: 'row',

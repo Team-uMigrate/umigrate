@@ -40,7 +40,6 @@ const BasicCreateForm = ({
                 setCommunitySelectModalVisible(true);
               }}
               text={communities[community]}
-              textColour={'#8781D0'}
             />
           </View>
         </View>

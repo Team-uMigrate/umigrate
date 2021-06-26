@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  FlatList,
+  VirtualizedList,
   RefreshControl,
   Text,
   ActivityIndicator,
@@ -124,23 +124,21 @@ class FeedContainer extends Component {
       );
     }
     return (
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.handleRefresh}
-          />
-        }
-        data={this.state.items}
-        keyExtractor={(item, i) => i.toString()}
-        renderItem={this.renderItem}
-        onEndReachedThreshold={0.5}
-        onEndReached={this.state.hasMorePages && this.fetchItems}
-        showsVerticalScrollIndicator={false}
-        ref={this.props.scrollRef}
+      <VirtualizedList
         ListHeaderComponent={
           this.props.feedName && <FeedHeader feedName={this.props.feedName} />
         }
+        data={this.state.items}
+        getItem={(data, i) => data[i]}
+        getItemCount={(data) => data.length}
+        renderItem={this.renderItem}
+        keyExtractor={(item, i) => i.toString()}
+        onEndReached={this.state.hasMorePages && this.fetchItems}
+        onEndReachedThreshold={0.5}
+        refreshing={this.state.isRefreshing}
+        onRefresh={this.handleRefresh}
+        ref={this.props.scrollRef}
+        showsVerticalScrollIndicator={false}
         ListFooterComponent={
           !this.state.isRefreshing &&
           this.state.isFetching && (

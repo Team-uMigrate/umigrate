@@ -21,6 +21,8 @@ const BasicCreateForm = ({
   setBody,
   community,
   setCommunity,
+  taggedUsers,
+  setTaggedUsers,
   profilePhoto,
   pageIconName,
   children,
@@ -29,7 +31,6 @@ const BasicCreateForm = ({
     communitySelectModalVisible,
     setCommunitySelectModalVisible,
   ] = useState(false);
-
   const [tagModalVisible, setTagModalVisible] = useState(false);
 
   return (
@@ -109,7 +110,12 @@ const BasicCreateForm = ({
           setCommunity={setCommunity}
         />
         {/* Tag modal */}
-        <TagModal visible={tagModalVisible} setVisible={setTagModalVisible} />
+        <TagModal
+          visible={tagModalVisible}
+          setVisible={setTagModalVisible}
+          taggedUsers={taggedUsers}
+          setTaggedUsers={setTaggedUsers}
+        />
       </Portal>
     </>
   );

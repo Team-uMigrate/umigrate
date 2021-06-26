@@ -15,7 +15,11 @@ const itemViews = [
   (item, updateItem) => <CommentView item={item} updateItem={updateItem} />,
 ];
 
-/** @type {function(RouteProp): object} */
+/**
+ * Gets the initial state.
+ * @param {RouteProp} route
+ * @return {object}
+ * */
 const getInitialState = (route) => ({
   commentsFilters: {
     /** @type {number} */

@@ -44,7 +44,7 @@ class FeedContainer extends Component {
     this.fetchItems();
   };
 
-  /** Fetches items from the API */
+  /** Fetches items from the API. */
   fetchItems = () => {
     // Exit if already fetching
     if (this.state.isFetching) return;
@@ -71,7 +71,7 @@ class FeedContainer extends Component {
     });
   };
 
-  /** Updates an item in the state */
+  /** Updates an item in the state. */
   updateItem = (item) => {
     // Find the index of the item to replace in the state
     const index = this.state.items.findIndex(
@@ -85,7 +85,7 @@ class FeedContainer extends Component {
     this.setState({ items: copiedItems });
   };
 
-  /** Refreshes the feed */
+  /** Refreshes the feed. */
   handleRefresh = () => {
     // Exit if already refreshing
     if (this.state.isRefreshing) return;
@@ -106,7 +106,7 @@ class FeedContainer extends Component {
     );
   };
 
-  /** Renders an item */
+  /** Renders an item. */
   renderItem = ({ item }) => {
     // Use an itemView to render the item
     return this.props.itemViews[item.type](item, this.updateItem);

@@ -6,8 +6,11 @@ from datetime import date
 from django.contrib.auth.base_user import BaseUserManager
 
 
-# A custom manager for creating users and super users
 class CustomUserManager(BaseUserManager):
+    """
+    A custom manager for creating users and super users.
+    """
+
     def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError(_("The Email must be set"))
@@ -37,8 +40,11 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# A model class that represents a user
 class CustomUser(AbstractUser):
+    """
+    A model class that represents a user.
+    """
+
     username = None
     email = models.EmailField(_("email address"), unique=True)
 

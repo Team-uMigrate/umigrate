@@ -1,34 +1,45 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from '../../components/views/Header';
-import {Card, Paragraph} from 'react-native-paper';
+import { Card, Paragraph } from 'react-native-paper';
 import { routes } from '../../utils/routes';
 
 // A screen that allows user to access saved items category that they want to view
 const SavedHomeScreen = ({ navigation }) => {
-
   return (
     <View style={styles.container}>
       <Header title="SavedHomeScreen" />
       <View style={styles.rows1}>
-        <Card style={styles.tiles} onPress={()=> navigation.navigate(routes.posts)}>
+        <Card
+          style={styles.tiles}
+          onPress={() => navigation.navigate(routes.posts)}
+        >
           <Card.Content>
-              <Paragraph style={styles.text}>Saved Posts</Paragraph>
-            </Card.Content>
+            <Paragraph style={styles.text}>Saved Posts</Paragraph>
+          </Card.Content>
         </Card>
-        <Card style={styles.tiles} onPress={()=> navigation.navigate(routes.events)}>
+        <Card
+          style={styles.tiles}
+          onPress={() => navigation.navigate(routes.events)}
+        >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Events</Paragraph>
           </Card.Content>
         </Card>
       </View>
       <View style={styles.rows2}>
-        <Card style={styles.tiles} onPress={()=> navigation.navigate(routes.ads)}>
+        <Card
+          style={styles.tiles}
+          onPress={() => navigation.navigate(routes.ads)}
+        >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Ads </Paragraph>
           </Card.Content>
         </Card>
-        <Card style={styles.tiles} onPress={()=> navigation.navigate(routes.listings)}>
+        <Card
+          style={styles.tiles}
+          onPress={() => navigation.navigate(routes.listings)}
+        >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Listings</Paragraph>
           </Card.Content>
@@ -74,6 +85,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: '30%',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

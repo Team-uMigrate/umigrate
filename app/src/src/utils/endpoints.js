@@ -46,7 +46,10 @@ class AbstractEndpoint {
   static endpoint = '';
 
   static async list(page, filters = {}) {
-    let temp = `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
+    let temp = `${BASE_URL}${this.endpoint}${toQueryString({
+      page: page,
+      ...filters,
+    })}`;
     return await Axios.get(
       `${BASE_URL}${this.endpoint}${toQueryString({ page: page, ...filters })}`
     );
@@ -99,7 +102,9 @@ class AbstractEndpoint {
   }
 
   static async saved(page) {
-    let temp = `${BASE_URL}${this.endpoint}saved${toQueryString({ page: page })}`
+    let temp = `${BASE_URL}${this.endpoint}saved${toQueryString({
+      page: page,
+    })}`;
     return await Axios.get(
       `${BASE_URL}${this.endpoint}saved${toQueryString({ page: page })}`
     );

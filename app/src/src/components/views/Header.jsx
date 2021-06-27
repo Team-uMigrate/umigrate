@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Appbar } from 'react-native-paper';
-import {StyleSheet, Image, Dimensions, Text} from 'react-native';
+import { StyleSheet, Image, Dimensions, Text } from 'react-native';
 import Logo from '../../../assets/favicon.png';
 import TabNavContext from '../../contexts/TabNavContext';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -18,7 +18,6 @@ const Header = ({
 
   return (
     <Appbar.Header style={styles.header} statusBarHeight={statusHeight}>
-
       {/* if on messaging page or notification page, let the user go back */}
       {(isNotificationPage || isMessagingOrCommentsPage) && (
         <Appbar.Action
@@ -47,12 +46,12 @@ const Header = ({
       )}
 
       {/* if not on home page, do not display logo */}
-      {!isMessagingOrCommentsPage && !isNotificationPage &&(
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Image style={styles.image} source={Logo} />
       )}
 
       {/* if on home page, let user go to messages */}
-      {!isMessagingOrCommentsPage && !isNotificationPage &&(
+      {!isMessagingOrCommentsPage && !isNotificationPage && (
         <Appbar.Action
           color="#555555"
           icon="message"

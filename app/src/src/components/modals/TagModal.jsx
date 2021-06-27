@@ -8,6 +8,8 @@ import {
   TouchableHighlight,
   View,
   TextInput,
+  ScrollView,
+  FlatList,
 } from 'react-native';
 import { UsersEndpoint } from '../../utils/endpoints';
 
@@ -56,10 +58,14 @@ const TagModal = ({ visible, setVisible }) => {
           </View>
         </TouchableWithoutFeedback>
       </View>
+      {/* Box with user search results */}
       <View style={[styles.tagModal, { marginTop: '1%' }]}>
-        {userSearchResults.map((user, index) => (
-          <UserButton user={user} key={index} />
-        ))}
+        <FlatList
+          data={userSearchResults}
+          renderItem={({ item }) => (
+            <UserButton user={item} key={item.id.toString()} />
+          )}
+        />
       </View>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ListingsEndpoint } from '../../utils/endpoints';
@@ -14,7 +14,13 @@ import {
 } from '../../utils/choices';
 import { commonViewStyles } from '../../stylesheets/views/views.jsx';
 
-const ListingView = (listing) => {
+/**
+ * Renders a listing.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const ListingView = ({ item, updateItem }) => {
   const {
     creator,
     title,
@@ -26,10 +32,7 @@ const ListingView = (listing) => {
     price,
     season,
     year,
-  } = listing;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes.listing;
+  } = item;
 
   return (
     <Card style={commonViewStyles.container}>
@@ -62,8 +65,9 @@ const ListingView = (listing) => {
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
-          item={listing}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.listing}
           endpoint={ListingsEndpoint}
         />
       </Card.Content>

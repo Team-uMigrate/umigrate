@@ -12,7 +12,6 @@ from .api_views import (
 router = DefaultRouter(trailing_slash=False)
 router.register(r"", PollViewSet, basename="polls")
 
-# Polls url patterns
 urlpatterns = router.urls + [
     path("liked", LikedPolls.as_view()),
     path("saved", SavedPolls.as_view()),
@@ -20,3 +19,6 @@ urlpatterns = router.urls + [
     path("options/", OptionListCreate.as_view()),
     path("options/votes/", VoteListCreate.as_view()),
 ]
+"""
+Polls url patterns.
+"""

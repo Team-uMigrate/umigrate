@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
+import StackNavContext from '../../contexts/StackNavContext';
+import { routes } from '../../utils/routes';
 
-const FeedHeader = ({ feedName, setIsSearching }) => {
+const FeedHeader = ({ feedName }) => {
+  const nav = useContext(StackNavContext);
+
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>{feedName}</Text>
@@ -11,7 +15,7 @@ const FeedHeader = ({ feedName, setIsSearching }) => {
         style={{ alignSelf: 'flex-start' }}
         color={'#AAAAAA'}
         size={25}
-        onPress={setIsSearching}
+        onPress={() => nav.navigation.push(routes.search)}
       />
       {/* TODO: Filter Bar */}
     </View>

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Poll, Option, Vote
 
 
-# Registers the pol, option, and vote models with the admin site
+# Register the pol, option, and vote models with the admin site
 admin.site.register(Poll)
 admin.site.register(Option)
 admin.site.register(Vote)

@@ -12,7 +12,6 @@ from .api_views import (
 router = DefaultRouter(trailing_slash=False)
 router.register(r"", EventViewSet, basename="events")
 
-# Events url patterns
 urlpatterns = router.urls + [
     path("liked", LikedEvents.as_view()),
     path("saved", SavedEvents.as_view()),
@@ -20,3 +19,6 @@ urlpatterns = router.urls + [
     path("interested", InterestedEvents.as_view()),
     path("attending", AttendingEvents.as_view()),
 ]
+"""
+Events url patterns.
+"""

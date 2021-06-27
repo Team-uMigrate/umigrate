@@ -8,7 +8,10 @@ import {
   setAuthToken,
 } from '../../utils/storageAccess';
 
-// A screen that shows the loading view
+/**
+ * Renders the loading screen.
+ * @return {JSX.Element}
+ * */
 const LoadingScreen = () => {
   const auth = useContext(AuthContext);
 
@@ -16,7 +19,7 @@ const LoadingScreen = () => {
     (async () => {
       const token = await getAuthToken();
 
-      // Make request to Profile endpoint and set isAuthenticated to true if successful and false otherwise
+      // Make request to Profile endpoint and set isAuthenticated to true if successful or false otherwise
       if (token != null) {
         await setAuthToken(token);
         try {
@@ -28,7 +31,7 @@ const LoadingScreen = () => {
         }
       } else auth.setIsAuthenticated(false);
     })();
-  }, [auth]);
+  }, [auth.isAuthenticated]);
 
   return (
     <View style={styles.waitContainer}>

@@ -1,5 +1,4 @@
 from types import SimpleNamespace
-from typing import List
 from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
@@ -11,17 +10,24 @@ from notifications.models import Notification
 from notifications.serializers import NotificationSerializer
 
 
-# A function that sends push notifications to all tagged users for a shared item
-def create_tagged_user_notification(
+def create_tagged_users_notification(
     created_data: AbstractPostModel or Comment or Message or Reply,
 ) -> None:
+    """
+    A function that sends push notifications to all tagged users for a shared item.
+    """
+
     tagged_users = created_data.tagged_users.all()
     if len(tagged_users) > 0:
         content_type = ContentType.objects.get_for_model(created_data)
+
+        # todo: remove hardcoded list of content types that start with vowels and check if first letter is a vowel
         if content_type.model in ["ad", "event"]:
             content = f"{created_data.creator.preferred_name} has tagged you in an {content_type.model}!"
+
         else:
             content = f"{created_data.creator.preferred_name} has tagged you in a {content_type.model}!"
+
         notification = Notification(
             content=content,
             content_type=content_type,
@@ -33,15 +39,18 @@ def create_tagged_user_notification(
         send_push_notifications(notification)
 
 
-# A function that sends push notifications to a user when they recieve a connection request
 def create_connection_request_notification(
-    reciever: CustomUser,
+    receiver: CustomUser,
     sender: CustomUser,
-    is_request: bool,  # request => true if requesting, false if accepting
+    is_requesting: bool,
 ) -> None:
+    """
+    A function that sends push notifications to a user when they receiver a connection request.
+    """
+
     content_type = ContentType.objects.get_for_model(sender)
     content = f"{sender.preferred_name} sent you a connection request"
-    if is_request:
+    if is_requesting:
         content = f"{sender.preferred_name} accepted your connection request"
 
     notification = Notification(
@@ -51,14 +60,17 @@ def create_connection_request_notification(
         creator_id=sender.id,
     )
     notification.save()
-    notification.receivers.add(reciever)
+    notification.receivers.add(receiver)
     send_push_notifications(notification)
 
 
-# A function that sends push notifications to a user when they receive a message
 def create_message_notification(
     receivers: QuerySet[CustomUser], sender: CustomUser, message: Message
 ) -> None:
+    """
+    A function that sends push notifications to a user when they receive a message.
+    """
+
     content_type = ContentType.objects.get_for_model(message)
     content = f"{sender.preferred_name} sent you a message"
     notification = Notification(
@@ -72,10 +84,13 @@ def create_message_notification(
     send_push_notifications(notification)
 
 
-# A function that sends push notifications to the owner of a shared item when it is liked
 def create_liked_shared_item_notification(
     liked_data: AbstractPostModel or Comment or Message or Reply, liker: CustomUser
 ) -> None:
+    """
+    A function that sends push notifications to the owner of a shared item when it is liked.
+    """
+
     owner = liked_data.creator
     content_type = ContentType.objects.get_for_model(liked_data)
     content = f"{liker.preferred_name} liked your {content_type.model}!"
@@ -85,17 +100,21 @@ def create_liked_shared_item_notification(
         object_id=liked_data.id,
         creator_id=liker.id,
     )
+    notification.save()
     notification.receivers.add(owner)
     send_push_notifications(notification)
 
 
-# A function that sends push notifications to the receivers of a notification object
 def send_push_notifications(notification: Notification) -> None:
+    """
+    A function that sends push notifications to the receivers of a notification object.
+    """
+
     push_messages = []
-    request = SimpleNamespace()
-    request.user = notification.creator
     for receiver in notification.receivers.all():
         for device in receiver.devices.all():
+            request = SimpleNamespace()
+            request.user = notification.creator
             push_messages.append(
                 PushMessage(
                     to=device.expo_push_token,

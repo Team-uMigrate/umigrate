@@ -8,12 +8,13 @@ import {
   TouchableHighlight,
   View,
   TextInput,
-  ScrollView,
+  KeyboardAvoidingView,
   FlatList,
 } from 'react-native';
 import { UsersEndpoint } from '../../utils/endpoints';
+import ProfilePhotoView from '../views/ProfilePhotoView';
 
-const TEXTSIZE = 12;
+const TEXTSIZE = 16;
 
 const TagModal = ({ visible, setVisible }) => {
   //, taggedUsers, setTaggedUsers }) => {
@@ -53,7 +54,7 @@ const TagModal = ({ visible, setVisible }) => {
               }}
             />
             {taggedUsers.map((user, index) => (
-              <TaggedUser user={{ name: user }} key={index} />
+              <TaggedUser user={{ name: user }} key={index.toString()} />
             ))}
           </View>
         </TouchableWithoutFeedback>
@@ -62,9 +63,8 @@ const TagModal = ({ visible, setVisible }) => {
       <View style={[styles.tagModal, { marginTop: '1%' }]}>
         <FlatList
           data={userSearchResults}
-          renderItem={({ item }) => (
-            <UserButton user={item} key={item.id.toString()} />
-          )}
+          renderItem={({ item }) => <UserButton user={item} />}
+          keyExtractor={(item, index) => item.id.toString()}
         />
       </View>
     </Modal>
@@ -75,7 +75,18 @@ const UserButton = ({ user }) => {
   return (
     <TouchableHighlight>
       <Card style={styles.userButton}>
-        <Text>{user.first_name + ' ' + user.last_name}</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ justifyContent: 'center', marginRight: '1%' }}>
+            <ProfilePhotoView
+              photo={user.profile_photo}
+              size={TEXTSIZE + 10}
+              style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
+            />
+          </View>
+          <View style={{ justifyContent: 'center' }}>
+            <Text>{user.first_name + ' ' + user.last_name}</Text>
+          </View>
+        </View>
       </Card>
     </TouchableHighlight>
   );
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginVertical: 3,
     elevation: 5,
-    paddingHorizontal: 10,
+    paddingRight: 10,
     paddingVertical: 2,
   },
 });

@@ -7,7 +7,7 @@ import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
-import { commonViewStyles } from '../../stylesheets/views/views.jsx';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
 /**
  * Renders an ad.
@@ -29,35 +29,37 @@ const AdView = ({ item, updateItem }) => {
   } = item;
 
   return (
-    <Card style={commonViewStyles.container}>
-      <Card.Content style={commonViewStyles.cardContent}>
-        <View style={commonViewStyles.row}>
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
+        <View style={sharedItemViewStyles.row}>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={commonViewStyles.column}>
-            <Text style={commonViewStyles.name}>{creator.preferred_name}</Text>
-            <Text style={commonViewStyles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {' '}
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
         </View>
-        <Title style={commonViewStyles.title}>{title}</Title>
-        <Paragraph style={commonViewStyles.bodyText}>{content}</Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Price: </Text>${price}
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Price: </Text>${price}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Community: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Community: </Text>
           {communities[community]}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Postal Code: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Postal Code: </Text>
           {postal_code}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Category: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Category: </Text>
           {adCategories[category]}
         </Paragraph>
         <ImageCollectionView photos={photos} />

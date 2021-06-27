@@ -8,7 +8,7 @@ import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
-import { commonViewStyles } from '../../stylesheets/views/views.jsx';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
 /**
  * Renders an event.
@@ -36,39 +36,41 @@ const EventView = ({ item, updateItem }) => {
   } = item;
 
   return (
-    <Card style={commonViewStyles.container}>
-      <Card.Content style={commonViewStyles.cardContent}>
-        <View style={commonViewStyles.row}>
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
+        <View style={sharedItemViewStyles.row}>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={commonViewStyles.column}>
-            <Text style={commonViewStyles.name}>{creator.preferred_name}</Text>
-            <Text style={commonViewStyles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
         </View>
-        <Title style={commonViewStyles.title}>{title}</Title>
-        <Paragraph style={commonViewStyles.bodyText}>{content}</Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Price: </Text>
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Price: </Text>
           {prices[price_scale]}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Community: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Community: </Text>
           {communities[community]}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Location: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Location: </Text>
           {location}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>Start: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Start: </Text>
           {moment(start_datetime).format('MMMM D, YYYY, h:mm a')}
         </Paragraph>
-        <Paragraph style={commonViewStyles.bodyText}>
-          <Text style={commonViewStyles.bold}>End: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>End: </Text>
           {end_datetime
             ? moment(end_datetime).format('MMMM D, YYYY, h:mm a')
             : 'N/A'}

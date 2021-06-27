@@ -39,6 +39,11 @@ export async function fetchAndMergeItemsLists(
       errors: errors,
     };
 
+    if(fetchItemsList.length===1)
+    {
+      return { newItems: responseDataList[0].results.map((x) => ({...x, type: 0})), newNextPages: [nextPages[0]+1], errors: errors };
+    };
+
   // Find the max end date between the results from all endpoints
   let maxEndDate = 0;
   responseDataList.forEach((responseData) => {

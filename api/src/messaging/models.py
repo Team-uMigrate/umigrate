@@ -104,6 +104,7 @@ def ondelete_shared_item(sender, instance, using, **kwargs):
     """
     When a shared item is deleted, find any references of that shared item in a message and set that field to null.
     """
+
     content_type = ContentType.objects.get_for_model(sender)
     res = Message.objects.filter(content_type=content_type)
     # avoid filtering on null records when a shared item isn't referenced in any message.

@@ -100,13 +100,12 @@ class IsMember(BasePermission):
 
 
 @receiver(pre_delete)
-def ondelete_shared_item_field(sender, instance, using, **kwargs):
+def ondelete_shared_item(sender, instance, using, **kwargs):
     """
     When a shared item is deleted, find any references of that shared item in a message and set that field to null.
     """
     content_type = ContentType.objects.get_for_model(sender)
     res = Message.objects.filter(content_type=content_type)
-    if (
-        res.count() > 0
-    ):  # avoid filtering on null records when a shared item isn't referenced in any message.
+    # avoid filtering on null records when a shared item isn't referenced in any message.
+    if res.count() > 0:
         res.filter(object_id=instance.id).update(content_type=None, object_id=None)

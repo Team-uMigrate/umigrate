@@ -1,3 +1,4 @@
+from events.models import Event
 from types import SimpleNamespace
 from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
@@ -104,6 +105,24 @@ def create_liked_shared_item_notification(
     notification.receivers.add(owner)
     send_push_notifications(notification)
 
+def event_reminder_notfication(
+    receivers: QuerySet[CustomUser], event: Event
+) -> None:
+    """
+    A function that sends push notifications to a user when they receive a message.
+    """
+
+    content_type = ContentType.objects.get_for_model(event)
+    content = f"Reminding you of an upcoming event: {event.title} on {event.start_datetime} UTC"
+    notification = Notification(
+        content=content,
+        content_type=content_type,
+        object_id=event.id,
+        creator_id=event.creator.id,
+    )
+    notification.save()
+    notification.receivers.add(*receivers)
+    send_push_notifications(notification)
 
 def send_push_notifications(notification: Notification) -> None:
     """

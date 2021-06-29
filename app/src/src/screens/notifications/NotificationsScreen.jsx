@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Header from '../../components/views/Header';
 import React from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// A screen that renders notifications
-const NotificationScreen = () => {
+/**
+ * Renders the notification screen.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ * */
+const NotificationScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Notifications" isNotificationPage={true} />

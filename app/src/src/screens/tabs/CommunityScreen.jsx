@@ -7,15 +7,25 @@ import { StyleSheet, View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
-const endpoints = [PostsEndpoint, EventsEndpoint];
+const fetchItemsList = [
+  async (page, filters) => await PostsEndpoint.list(page, filters),
+  async (page, filters) => await EventsEndpoint.list(page, filters),
+];
 const itemViews = [
-  (item) => <PostView {...item} />,
-  (item) => <EventView {...item} />,
+  (item, updateItem) => <PostView item={item} updateItem={updateItem} />,
+  (item, updateItem) => <EventView item={item} updateItem={updateItem} />,
 ];
 
-// A screen that renders community shared items
-const CommunityScreen = ({ navigation }) => {
+/**
+ * Renders the community screen.
+ * @param {StackNavigationProp} navigation
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
+const CommunityScreen = ({ navigation, route }) => {
   const [postFilters, setPostFilters] = useState({});
   const [eventFilters, setEventFilters] = useState({});
   const ref = useRef(null);
@@ -26,10 +36,11 @@ const CommunityScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Community Page" />
       <FeedContainer
-        endpoints={endpoints}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[postFilters, eventFilters]}
         scrollRef={ref}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

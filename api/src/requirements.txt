@@ -21,3 +21,4 @@ daphne
 sentry-sdk
 black
 pylint-django
+django-rq

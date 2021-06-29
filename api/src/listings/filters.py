@@ -2,8 +2,11 @@ from django_filters import rest_framework as filters
 from .models import Listing
 
 
-# A filter set class for the Listing model
 class ListingFilter(filters.FilterSet):
+    """
+    A filter set class for the Listing model.
+    """
+
     min_datetime_created = filters.DateTimeFilter(
         field_name="datetime_created", lookup_expr="gte"
     )

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Appbar } from 'react-native-paper';
 import { StyleSheet, Image, Dimensions, Text } from 'react-native';
 import Logo from '../../../assets/favicon.png';
-import TabNavContext from '../../contexts/TabNavContext';
+import StackNavContext from '../../contexts/StackNavContext';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { routes } from '../../utils/routes';
 
@@ -14,7 +14,7 @@ const Header = ({
   isMessagingOrCommentsPage = false,
   isNotificationPage = false,
 }) => {
-  const nav = useContext(TabNavContext);
+  const nav = useContext(StackNavContext);
 
   return (
     <Appbar.Header style={styles.header} statusBarHeight={statusHeight}>

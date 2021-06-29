@@ -58,6 +58,14 @@ if STAGE_ENVIRONMENT == "local":
     ALLOWED_HOSTS = ["*"]
     os.environ["UW_API_KEY"] = "6e73072cfa18f652ff28aa8f2ef82aca"
 
+SCHEDULER_QUEUE = f"{STAGE_ENVIRONMENT}_default"
+RQ_QUEUES = {
+    SCHEDULER_QUEUE: {
+        "HOST": "127.0.0.1",
+        "PORT": 6379,
+        "DB": 0,
+    }
+}
 
 # Application definition
 
@@ -97,6 +105,7 @@ INSTALLED_APPS = [
     "photos",
     "comments",
     "notifications",
+    "django_rq",
 ]
 
 # Middleware

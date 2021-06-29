@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { AdsEndpoint } from '../../utils/endpoints';
@@ -8,7 +8,13 @@ import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
 
-const AdView = (ad) => {
+/**
+ * Renders an ad.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const AdView = ({ item, updateItem }) => {
   const {
     title,
     creator,
@@ -19,10 +25,7 @@ const AdView = (ad) => {
     postal_code,
     category,
     photos,
-  } = ad;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes['ad'];
+  } = item;
 
   return (
     <Card style={styles.container}>
@@ -58,8 +61,9 @@ const AdView = (ad) => {
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
-          item={ad}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.ad}
           endpoint={AdsEndpoint}
         />
       </Card.Content>

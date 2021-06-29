@@ -5,8 +5,11 @@ from common.constants.choices import Choices
 from users.models import CustomUser
 
 
-# A model class that represents a listing
 class Listing(AbstractPostModel, PhotoCollectionExtension):
+    """
+    A model class that represents a listing.
+    """
+
     category = models.PositiveSmallIntegerField(
         choices=Choices.LISTING_CATEGORY_CHOICES, default=0
     )
@@ -23,8 +26,11 @@ class Listing(AbstractPostModel, PhotoCollectionExtension):
     )
 
 
-# A model class that represents a roommate post
 class RoommatePost(AbstractPostModel, PhotoCollectionExtension):
+    """
+    A model class that represents a roommate post.
+    """
+
     quantity = models.PositiveSmallIntegerField(default=0)
     contacted_users = models.ManyToManyField(
         to=CustomUser, related_name="contacted_roommate_posts", blank=True

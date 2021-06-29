@@ -6,12 +6,23 @@ import { StyleSheet, View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
-const endpoints = [AdsEndpoint];
-const itemViews = [(item) => <AdView {...item} />];
+const fetchItemsList = [
+  async (page, filters) => await AdsEndpoint.list(page, filters),
+];
+const itemViews = [
+  (item, updateItem) => <AdView item={item} updateItem={updateItem} />,
+];
 
-// A screen that renders market shared items
-const MarketScreen = ({ navigation }) => {
+/**
+ * Renders the market screen.
+ * @param {StackNavigationProp} navigation
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
+const MarketScreen = ({ navigation, route }) => {
   const [adFilters, setAdFilters] = useState({});
   const ref = useRef(null);
 
@@ -21,10 +32,11 @@ const MarketScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Market" />
       <FeedContainer
-        endpoints={endpoints}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[adFilters]}
         scrollRef={ref}
+        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>

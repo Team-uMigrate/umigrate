@@ -7,8 +7,11 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 
-# A model class that represents a room
 class Room(models.Model):
+    """
+    A model class that represents a room.
+    """
+
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -32,15 +35,21 @@ class Room(models.Model):
             super().save(*args, **kwargs)
 
 
-# A model class that allows for storing of a users join date and time
 class Membership(models.Model):
+    """
+    A model class that represents a membership of a room for a user.
+    """
+
     member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date_joined = models.DateTimeField(auto_now_add=True)
 
 
-# A model class that represents a message
 class Message(models.Model):
+    """
+    A model class that represents a message.
+    """
+
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)
     creator = models.ForeignKey(
@@ -81,15 +90,23 @@ class Message(models.Model):
         return f"{self.content}"
 
 
-# A permission class that only allows members of a room to access it
 class IsMember(BasePermission):
+    """
+    A permission class that only allows members of a room to access it.
+    """
+
     def has_object_permission(self, request, view, obj: Room):
         return obj.members.filter(id=request.user.id).exists()
 
 
 @receiver(pre_delete)
-def remove(sender, instance, using, **kwargs):
+def ondelete_shared_item(sender, instance, using, **kwargs):
+    """
+    When a shared item is deleted, find any references of that shared item in a message and set that field to null.
+    """
+
     content_type = ContentType.objects.get_for_model(sender)
     res = Message.objects.filter(content_type=content_type)
+    # avoid filtering on null records when a shared item isn't referenced in any message.
     if res.count() > 0:
         res.filter(object_id=instance.id).update(content_type=None, object_id=None)

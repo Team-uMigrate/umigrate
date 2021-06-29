@@ -3,8 +3,11 @@ from notifications.models import Device, Notification
 from users.serializers import BasicUserSerializer
 
 
-# A serializer class for the Notification model
 class NotificationSerializer(ModelSerializerExtension):
+    """
+    A serializer class for the Notification model.
+    """
+
     creator = BasicUserSerializer(read_only=True)
 
     class Meta:
@@ -13,8 +16,11 @@ class NotificationSerializer(ModelSerializerExtension):
         exclude_fields = ["receivers", "viewers"]
 
 
-# A serializer class for the Device model
 class DeviceSerializer(ModelSerializerExtension):
+    """
+    A serializer class for the Device model.
+    """
+
     creator = BasicUserSerializer(read_only=True)
 
     class Meta:

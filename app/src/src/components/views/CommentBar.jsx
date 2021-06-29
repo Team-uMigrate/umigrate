@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
 import CommentBarButtons from '../buttons/CommentBarButtons';
-import TabNavContext from '../../contexts/TabNavContext';
+import StackNavContext from '../../contexts/StackNavContext';
 import { routes } from '../../utils/routes';
 
 /*
@@ -16,10 +16,10 @@ to pass in the right number.
 
 The other props are self-explanatory enough.
  */
-const CommentBar = ({ item, contentType, endpoint }) => {
+const CommentBar = ({ item, updateItem, contentType, endpoint }) => {
   const [text, setText] = useState('');
   const [sendButtonVisible, setSendButtonVisible] = useState(false);
-  const nav = useContext(TabNavContext);
+  const nav = useContext(StackNavContext);
 
   if (sendButtonVisible) {
     return (
@@ -39,12 +39,13 @@ const CommentBar = ({ item, contentType, endpoint }) => {
             setSendButtonVisible(true);
           }}
           onEndEditing={() => {
-            if (text == '') setSendButtonVisible(false);
+            if (text === '') setSendButtonVisible(false);
           }}
           style={styles.textInput}
         />
         <CommentBarButtons
           item={item}
+          updateItem={updateItem}
           contentType={contentType}
           endpoint={endpoint}
           sendButtonVisible={sendButtonVisible}
@@ -80,6 +81,7 @@ const CommentBar = ({ item, contentType, endpoint }) => {
         </View>
         <CommentBarButtons
           item={item}
+          updateItem={updateItem}
           contentType={contentType}
           endpoint={endpoint}
           sendButtonVisible={sendButtonVisible}

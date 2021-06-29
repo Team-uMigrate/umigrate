@@ -1,11 +1,12 @@
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { CommentsEndpoint } from '../../utils/endpoints';
 
 const CommentBarButtons = ({
   item,
+  updateItem,
   endpoint,
   contentType,
   sendButtonVisible,
@@ -14,8 +15,6 @@ const CommentBarButtons = ({
   liked,
   setText,
 }) => {
-  const windowWidth = Dimensions.get('window').width;
-
   if (sendButtonVisible) {
     return (
       // Button to submit comments
@@ -35,7 +34,7 @@ const CommentBarButtons = ({
                 tagged_users: [],
               };
               await CommentsEndpoint.post(data);
-              item.updateItem({ ...item, comments: item.comments + 1 });
+              updateItem({ ...item, comments: item.comments + 1 });
               setText('');
               setSendButtonVisible(false);
             }
@@ -59,7 +58,7 @@ const CommentBarButtons = ({
             style={styles.button}
             onPress={async () => {
               await endpoint.like(item.id, !liked);
-              item.updateItem({
+              updateItem({
                 ...item,
                 is_liked: !liked,
                 likes: liked ? item.likes - 1 : item.likes + 1,

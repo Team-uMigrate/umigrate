@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import TabNavContext from '../contexts/TabNavContext';
+import StackNavContext from '../contexts/StackNavContext';
 import CreateItemContext from '../contexts/CreateItemContext';
 import CommunityScreen from '../screens/tabs/CommunityScreen';
 import MarketScreen from '../screens/tabs/MarketScreen';
@@ -10,12 +10,17 @@ import HousingScreen from '../screens/tabs/HousingScreen';
 import MenuScreen from '../screens/tabs/MenuScreen';
 import { routes } from '../utils/routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
-// A navigator that renders components depending on the current tab navigation route
+/**
+ * Renders screens based on the current tab navigation route.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ */
 const TabNavigator = ({ navigation }) => {
-  const nav = useContext(TabNavContext);
+  const nav = useContext(StackNavContext);
   const createItem = useContext(CreateItemContext);
 
   useEffect(() => {

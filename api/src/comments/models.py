@@ -4,8 +4,11 @@ from django.contrib.contenttypes.models import ContentType
 from users.models import CustomUser
 
 
-# A model class that represents a comment
 class Comment(models.Model):
+    """
+    A model class that represents a comment.
+    """
+
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)
     creator = models.ForeignKey(
@@ -35,8 +38,11 @@ class Comment(models.Model):
         return f"{self.content}"
 
 
-# A model class that represents a reply
 class Reply(models.Model):
+    """
+    A model class that represents a reply.
+    """
+
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=1000)
     creator = models.ForeignKey(

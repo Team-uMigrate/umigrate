@@ -2,8 +2,11 @@ from django_filters import rest_framework as filters
 from .models import Poll, Option, Vote
 
 
-# A filter set class for the Poll model
 class PollFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Poll model.
+    """
+
     min_datetime_created = filters.DateTimeFilter(
         field_name="datetime_created", lookup_expr="gte"
     )
@@ -23,8 +26,11 @@ class PollFilterSet(filters.FilterSet):
         ]
 
 
-# A filter set class for the Option model
 class OptionFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Option model.
+    """
+
     class Meta:
         model = Option
         fields = [
@@ -32,8 +38,11 @@ class OptionFilterSet(filters.FilterSet):
         ]
 
 
-# A filter set class for the Vote model
 class VoteFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Vote model.
+    """
+
     class Meta:
         model = Vote
         fields = [

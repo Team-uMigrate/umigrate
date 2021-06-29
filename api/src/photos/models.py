@@ -3,15 +3,21 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
-# A custom manager for multiple deletions at once
 class CustomManager(models.Manager):
+    """
+    A custom manager for multiple deletions at once.
+    """
+
     def delete(self):
         for obj in self.get_queryset():
             obj.delete()
 
 
-# A model class that represents a photo
 class Photo(models.Model):
+    """
+    A model class that represents a photo.
+    """
+
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to="images/photos", blank=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

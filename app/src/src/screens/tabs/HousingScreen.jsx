@@ -6,13 +6,22 @@ import { StyleSheet, View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
-const getItemsSet = [
+const fetchItemsList = [
   async (page, filters) => await ListingsEndpoint.list(page, filters),
 ];
-const itemViews = [(item) => <ListingView {...item} />];
+const itemViews = [
+  (item, updateItem) => <ListingView item={item} updateItem={updateItem} />,
+];
 
-// A screen that renders housing shared items
+/**
+ * Renders the housing screen.
+ * @param {StackNavigationProp} navigation
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
 const HousingScreen = ({ navigation, route }) => {
   const [listingFilters, setListingFilters] = useState({});
   const ref = useRef(null);
@@ -23,7 +32,7 @@ const HousingScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Header title="Housing" />
       <FeedContainer
-        getItemsSet={getItemsSet}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[listingFilters]}
         scrollRef={ref}

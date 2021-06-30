@@ -8,7 +8,6 @@ import {
   TouchableHighlight,
   View,
   TextInput,
-  KeyboardAvoidingView,
   FlatList,
 } from 'react-native';
 import { UsersEndpoint } from '../../utils/endpoints';
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 15,
     marginHorizontal: '10%',
+    maxHeight: '45%',
   },
   promptText: {
     fontSize: 16,

@@ -102,7 +102,7 @@ class IsMember(BasePermission):
 @receiver(pre_delete)
 def remove(
     sender, instance, using, **kwargs
-):  # todo: add comments and use a more accurate name
+):  
     content_type = ContentType.objects.get_for_model(sender)
     res = Message.objects.filter(content_type=content_type)
     if res.count() > 0:

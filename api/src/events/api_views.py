@@ -13,7 +13,6 @@ from common.decorators import (
     api_view_swagger_decorator,
 )
 
-
 @model_view_set_swagger_decorator(["Events"])
 class EventViewSet(AbstractModelViewSet):
     queryset = Event.objects.all()

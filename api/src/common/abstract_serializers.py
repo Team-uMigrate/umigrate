@@ -1,7 +1,5 @@
-from django.db.models import Count
-from comments.models import Comment
-from comments.serializers import CommentDetailSerializer
 from common.abstract_models import AbstractPostModel
+from comments.models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
@@ -9,12 +7,30 @@ from photos.serializers import PhotoRetrieveSerializer
 from common.notification_helpers import create_tagged_users_notification
 
 
-class AbstractModelSerializer(ModelSerializerExtension):
+class AbstractCreatorSerializer(ModelSerializerExtension):
+    """
+    An abstract model serializer class for models with a creator field.
+    """
+
+    creator = BasicUserSerializer(read_only=True)
+
+    def create(self, validated_data):
+        # Set the user as the creator of the shared item
+        validated_data["creator"] = self.context["request"].user
+
+        created_data: AbstractPostModel or Comment or Reply = (
+            ModelSerializerExtension.create(self, validated_data)
+        )
+        create_tagged_users_notification(created_data)
+
+        return created_data
+
+
+class AbstractModelSerializer(AbstractCreatorSerializer):
     """
     An abstract model serializer class for shared items.
     """
 
-    creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
@@ -51,17 +67,6 @@ class AbstractModelSerializer(ModelSerializerExtension):
     #     )
     #
     #     return most_liked_comment_serializer.data
-
-    def create(self, validated_data):
-        # Set the user as the creator of the shared item
-        validated_data["creator"] = self.context["request"].user
-
-        created_data: AbstractPostModel = ModelSerializerExtension.create(
-            self, validated_data
-        )
-        create_tagged_users_notification(created_data)
-
-        return created_data
 
 
 class AbstractModelDetailSerializer(AbstractModelSerializer):

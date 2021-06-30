@@ -3,15 +3,14 @@ from common.notification_helpers import create_tagged_users_notification
 from .models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
-from common.serializer_extensions import ModelSerializerExtension
+from common.abstract_serializers import AbstractCreatorSerializer
 
 
-class CommentSerializer(ModelSerializerExtension):
+class CommentSerializer(AbstractCreatorSerializer):
     """
     A serializer class for the Comment model.
     """
 
-    creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
@@ -54,13 +53,6 @@ class CommentSerializer(ModelSerializerExtension):
     #
     #     return most_liked_reply_serializer.data
 
-    def create(self, validated_data):
-        # Set the user as the creator of the comment
-        validated_data["creator"] = self.context["request"].user
-        created_data: Comment = ModelSerializerExtension.create(self, validated_data)
-        create_tagged_users_notification(created_data)
-        return created_data
-
 
 class CommentDetailSerializer(CommentSerializer):
     """
@@ -70,12 +62,11 @@ class CommentDetailSerializer(CommentSerializer):
     tagged_users = BasicUserSerializer(read_only=True, many=True)
 
 
-class ReplySerializer(ModelSerializerExtension):
+class ReplySerializer(AbstractCreatorSerializer):
     """
     A serializer class for the Reply model.
     """
 
-    creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
@@ -94,13 +85,6 @@ class ReplySerializer(ModelSerializerExtension):
 
     def get_likes(self, instance):
         return instance.liked_users.count()
-
-    def create(self, validated_data):
-        # Set the user as the creator of the reply
-        validated_data["creator"] = self.context["request"].user
-        created_data: Reply = ModelSerializerExtension.create(self, validated_data)
-        create_tagged_users_notification(created_data)
-        return created_data
 
 
 class ReplyDetailSerializer(ReplySerializer):

@@ -1,4 +1,5 @@
 from common.abstract_models import AbstractPostModel
+from comments.models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
@@ -17,8 +18,8 @@ class AbstractCreatorSerializer(ModelSerializerExtension):
         # Set the user as the creator of the shared item
         validated_data["creator"] = self.context["request"].user
 
-        created_data: AbstractPostModel = ModelSerializerExtension.create(
-            self, validated_data
+        created_data: AbstractPostModel or Comment or Reply = (
+            ModelSerializerExtension.create(self, validated_data)
         )
         create_tagged_users_notification(created_data)
 

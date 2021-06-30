@@ -6,7 +6,9 @@ from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
 
 
-class CommentSerializer(ModelSerializerExtension):
+class CommentSerializer(
+    ModelSerializerExtension
+):  # todo: make more abstract model serializers for any field shared with the abstract model serializer
     """
     A serializer class for the Comment model.
     """

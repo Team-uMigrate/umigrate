@@ -1,12 +1,12 @@
 from common.abstract_serializers import (
-    ModelSerializerExtension,
     AbstractModelSerializer,
     AbstractModelDetailSerializer,
+    AbstractCreatorSerializer,
 )
 from .models import Poll, Option, Vote
 
 
-class VoteSerializer(ModelSerializerExtension):
+class VoteSerializer(AbstractCreatorSerializer):
     """
     A serializer class for the Vote model.
     """
@@ -15,12 +15,8 @@ class VoteSerializer(ModelSerializerExtension):
         model = Vote
         fields = "__all__"
 
-    def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
 
-
-class OptionSerializer(ModelSerializerExtension):
+class OptionSerializer(AbstractCreatorSerializer):
     """
     A serializer class for the option model.
     """
@@ -33,10 +29,6 @@ class OptionSerializer(ModelSerializerExtension):
         extra_fields = [
             "votes",
         ]
-
-    def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
 
 
 class PollSerializer(AbstractModelSerializer):

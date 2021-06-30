@@ -18,12 +18,7 @@ class AbstractCreatorSerializer(ModelSerializerExtension):
         # Set the user as the creator of the shared item
         validated_data["creator"] = self.context["request"].user
 
-        created_data: AbstractPostModel or Comment or Reply = (
-            ModelSerializerExtension.create(self, validated_data)
-        )
-        create_tagged_users_notification(created_data)
-
-        return created_data
+        return ModelSerializerExtension.create(self, validated_data)
 
 
 class AbstractModelSerializer(AbstractCreatorSerializer):
@@ -50,6 +45,16 @@ class AbstractModelSerializer(AbstractCreatorSerializer):
 
     def get_comments(self, instance):
         return instance.comments.count()
+
+    def create(self, validated_data):
+        created_data: AbstractPostModel or Comment or Reply = (
+            AbstractCreatorSerializer.create(self, validated_data)
+        )
+
+        # Send a tagged users notification
+        create_tagged_users_notification(created_data)
+
+        return created_data
 
     # def get_most_liked_comment(self, instance):
     #     # Retrieve the first most liked comment

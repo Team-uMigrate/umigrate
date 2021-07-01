@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Modal, View } from 'react-native';
-import OptionModal from '../modals/OptionModal';
 import PickADayModal from '../modals/PickADayModal';
 
 // Basic outline for a sliding-up modal

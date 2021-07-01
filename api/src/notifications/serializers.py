@@ -1,5 +1,4 @@
 from common.serializer_extensions import ModelSerializerExtension
-from common.abstract_serializers import AbstractCreatorSerializer
 from notifications.models import Device, Notification
 from users.serializers import BasicUserSerializer
 
@@ -17,7 +16,7 @@ class NotificationSerializer(ModelSerializerExtension):
         exclude_fields = ["receivers", "viewers"]
 
 
-class DeviceSerializer(AbstractCreatorSerializer):
+class DeviceSerializer(ModelSerializerExtension):
     """
     A serializer class for the Device model.
     """
@@ -25,3 +24,11 @@ class DeviceSerializer(AbstractCreatorSerializer):
     class Meta:
         model = Device
         fields = "__all__"
+
+    creator = BasicUserSerializer(read_only=True)
+
+    def create(self, validated_data):
+        # Set the user as the creator of the shared item
+        validated_data["creator"] = self.context["request"].user
+
+        return ModelSerializerExtension.create(self, validated_data)

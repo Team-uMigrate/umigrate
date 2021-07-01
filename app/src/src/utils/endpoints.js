@@ -34,7 +34,7 @@ function toFormData(data) {
         formData.append(key, value);
       });
     } else {
-      if (data[key].toString().startsWith('file:///var/mobile/Containers/Data/Application/')){
+      if (data[key].toString().startsWith('file:///')){
         const filename = data[key].split('/').pop();
         formData.append(key, {
           uri: data[key],

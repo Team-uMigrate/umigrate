@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
 import Header from '../../components/views/Header';
 import { Card, IconButton, Paragraph } from 'react-native-paper';
@@ -79,7 +80,9 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="content-save"
-                size={70}
+                size={
+                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
+                }
                 style={styles.iconPic}
                 onPress={() =>
                   this.props.navigation.navigate(routes.savedItems)
@@ -92,7 +95,9 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="calendar"
-                size={70}
+                size={
+                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
+                }
                 style={styles.iconPic}
                 onPress={() => this.props.navigation.navigate(routes.calendar)}
               />
@@ -105,7 +110,9 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="settings"
-                size={70}
+                size={
+                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
+                }
                 style={styles.iconPic}
                 onPress={() => this.props.navigation.navigate(routes.settings)}
               />
@@ -150,7 +157,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // get half of pfp on background and half not
     bottom: '-75%',
-    paddingBottom: '-60%',
     width: '100%',
   },
   profileImg: {
@@ -164,12 +170,12 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: Platform.OS === 'ios' ? 25 : 22,
     paddingTop: 5,
     textAlign: 'center',
   },
   profileText: {
-    fontSize: 14,
+    fontSize: Platform.OS === 'ios' ? 14 : 10,
     textAlign: 'center',
   },
   rows1: {
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: '35%',
+    marginTop: Platform.OS === 'ios' ? '35%' : '24%',
   },
   rows2: {
     flex: 2,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Platform } from 'react-native';
 import { RadioButton, List } from 'react-native-paper';
 
 // a button with a dropdown selector
@@ -27,7 +27,7 @@ const DropdownList = ({ choices, text, set, currChoice, currVal, setZero }) => {
             }}
             value={value}
           >
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
               {choices.map((choice, i) => (
                 <View
                   style={i === choices.length - 1 ? '' : styles.radioBtn}
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 14,
+    fontSize: Platform.OS === 'ios' ? 14 : 10,
     textAlign: 'left',
   },
   scrollView: {
@@ -111,5 +111,4 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F2F2F2',
     borderBottomWidth: 1,
   },
-  textStyle: { fontSize: 14 },
 });

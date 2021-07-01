@@ -12,7 +12,6 @@ import {
 import { Avatar, Button, IconButton } from 'react-native-paper';
 import { ProfileEndpoint } from '../../utils/endpoints';
 import Header from './Header';
-import * as ImagePicker from 'expo-image-picker';
 import { routes } from '../../utils/routes';
 import { setUserData } from '../../utils/storageAccess';
 import { communities, pronouns } from '../../utils/choices';
@@ -37,7 +36,6 @@ const EditProfileView = ({ user, navigation }) => {
   const [bio, setBio] = useState(user.bio);
 
   // useStates for modal
-  const [visibleReg, setVisibleReg] = useState(false);
   const [visibleBirth, setVisibleBirth] = useState(false);
 
   // useState for datetimepicker
@@ -70,32 +68,9 @@ const EditProfileView = ({ user, navigation }) => {
     }
   };
 
-  useEffect(() => {
-    const askUser = async () => {
-      if (Platform.OS !== 'web') {
-        const status = await ImagePicker.requestCameraRollPermissionsAsync();
-        if (status !== 'granted') {
-          alert('We need your camera roll permissions to change your pictures');
-        }
-      }
-    };
-    askUser();
-  }, []);
-
   return (
     <View style={styles.container}>
       <BasicModal
-        version={'options'}
-        visible={visibleReg}
-        setVisible={setVisibleReg}
-        title={'Pick a community option!'}
-        type={comm}
-        setType={setComm}
-        choices={communities}
-        setZero={setZeroReg}
-      />
-      <BasicModal
-        version={'date'}
         visible={visibleBirth}
         setVisible={setVisibleBirth}
         title={'Pick your birthday!'}
@@ -251,23 +226,37 @@ const EditProfileView = ({ user, navigation }) => {
               />
             </View>
             <View style={styles.rows}>
-              <TouchableOpacity onPress={() => setVisibleReg(!visibleReg)}>
-                <Text style={styles.textLabel}>Region</Text>
-                <CreatePageTextInput
-                  textValue={
-                    zeroReg == 0
-                      ? communities[0]
-                      : comm
-                      ? communities[comm]
-                      : communities[user.community]
-                  }
-                  placeholder={communities[user.community]}
-                  style={styles.textVal}
-                  edit={false}
-                  profileEdit={true}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setVisibleBirth(!visibleBirth)}>
+              <View style={{ width: '50%', zIndex: 999 }}>
+                <Text
+                  style={{
+                    ...styles.textLabel,
+                    marginBottom: '2%',
+                    marginLeft: '-1%',
+                  }}
+                >
+                  Community
+                </Text>
+                <View style={styles.communityDropdown}>
+                  <DropdownList
+                    text={'Region'}
+                    set={setComm}
+                    setZero={setZeroReg}
+                    choices={communities}
+                    currVal={comm ? comm : user.community}
+                    currChoice={
+                      zeroReg == 0
+                        ? communities[0]
+                        : comm
+                        ? communities[comm]
+                        : communities[user.community]
+                    }
+                  />
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => setVisibleBirth(!visibleBirth)}
+                style={{ maxHeight: '50%' }}
+              >
                 <Text style={styles.textLabel}>Birthday</Text>
                 <CreatePageTextInput
                   textValue={birth}
@@ -418,14 +407,21 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     marginBottom: '1%',
+    paddingBottom: '5%',
     justifyContent: 'space-between',
-    marginLeft: '4%',
+    marginLeft: '5%',
     width: '93%',
+    zIndex: 2000,
+  },
+  communityDropdown: {
+    paddingBottom:
+      Platform.OS === 'android' ? '60%' : Platform.OS === 'ios' && '20%',
+    width: Platform.OS === 'android' ? '95%' : Platform.OS === 'ios' && '85%',
   },
   pronounDropdown: {
-    paddingTop: '5%',
-    paddingBottom: '8%',
-    width: '42%',
+    paddingBottom:
+      Platform.OS === 'android' ? '30%' : Platform.OS === 'ios' && '10%',
+    width: Platform.OS === 'android' ? '52%' : Platform.OS === 'ios' && '42%',
     alignSelf: 'center',
     zIndex: 999,
   },

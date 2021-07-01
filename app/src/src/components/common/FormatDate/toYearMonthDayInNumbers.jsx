@@ -6,6 +6,14 @@ const toYearMonthDayInNumbers = ({ selectedValue }) => {
     month: 'numeric',
     day: 'numeric',
   });
-  return YYYYMMDD;
+  const check = YYYYMMDD.indexOf('/');
+  // on android, it returns with / instead of - in format of MM/DD/YY instead of YYYY-MM-DD
+  if (check == -1) return YYYYMMDD;
+  else {
+    const dateArr = YYYYMMDD.split('/');
+    const androidYYYYMMDD =
+      '20' + dateArr[2] + '-' + dateArr[0] + '-' + dateArr[1];
+    return androidYYYYMMDD;
+  }
 };
 export default toYearMonthDayInNumbers;

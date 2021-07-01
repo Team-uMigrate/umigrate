@@ -4,17 +4,7 @@ import OptionModal from '../modals/OptionModal';
 import PickADayModal from '../modals/PickADayModal';
 
 // Basic outline for a sliding-up modal
-const BasicModal = ({
-  version,
-  visible,
-  setVisible,
-  title,
-  type,
-  setType,
-  choices,
-  setZero,
-  setDate,
-}) => {
+const BasicModal = ({ visible, setVisible, title, type, setType, setDate }) => {
   return (
     <View>
       <Modal
@@ -24,30 +14,15 @@ const BasicModal = ({
         hardwareAccelerated={true}
         onRequestClose={() => setVisible(false)}
       >
-        {version == 'options' ? (
-          <OptionModal
-            visible={visible}
-            setVisible={setVisible}
-            title={title}
-            type={type}
-            setType={setType}
-            choices={choices}
-            setZero={setZero}
-            styles={styles}
-          />
-        ) : version == 'date' ? (
-          <PickADayModal
-            visible={visible}
-            setVisible={setVisible}
-            title={title}
-            type={type}
-            setType={setType}
-            setDate={setDate}
-            styles={styles}
-          />
-        ) : (
-          ''
-        )}
+        <PickADayModal
+          visible={visible}
+          setVisible={setVisible}
+          title={title}
+          type={type}
+          setType={setType}
+          setDate={setDate}
+          styles={styles}
+        />
       </Modal>
     </View>
   );

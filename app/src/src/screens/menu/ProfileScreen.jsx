@@ -45,36 +45,36 @@ class ProfileScreen extends Component {
     return (
       <View style={styles.container}>
         <Header title="Profile" />
-        <View style={styles.backHeading}>
-          <Image
-            style={styles.backGroundHeading}
-            source={{
-              uri: this.state.user.background_photo
-                ? this.state.user.background_photo
-                : '//:0',
-            }}
-          />
-          <View style={styles.profileArea}>
-            <TouchableOpacity
-              style={styles.profileImg}
-              onPress={() => this.props.navigation.navigate(routes.menuHome)}
-            >
-              <ProfilePhotoView
-                photo={
-                  this.state.user.profile_photo
-                    ? this.state.user.profile_photo
-                    : '//:0'
-                }
-                size={110}
-                styles={styles.pfpShadow}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
         <ScrollView
-          style={{ flex: 1, marginHorizontal: 1 }}
-          scrollEnabled={Platform.OS === 'android'}
+          style={styles.scrollViewStyle}
+          contentContainerStyle={styles.contentContainer}
         >
+          <View style={styles.backHeading}>
+            <Image
+              style={styles.backGroundHeading}
+              source={{
+                uri: this.state.user.background_photo
+                  ? this.state.user.background_photo
+                  : '//:0',
+              }}
+            />
+            <View style={styles.profileArea}>
+              <TouchableOpacity
+                style={styles.profileImg}
+                onPress={() => this.props.navigation.navigate(routes.menuHome)}
+              >
+                <ProfilePhotoView
+                  photo={
+                    this.state.user.profile_photo
+                      ? this.state.user.profile_photo
+                      : '//:0'
+                  }
+                  size={110}
+                  styles={styles.pfpShadow}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
           <View style={styles.pfInfo}>
             <View>
               <ProfileView
@@ -141,9 +141,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eeeeee',
   },
+  contentContainer: {
+    paddingBottom:
+      Platform.OS === 'android' ? '40%' : Platform.OS === 'ios' && '30%',
+  },
+  scrollViewStyle: {
+    flex: 1,
+    marginHorizontal: 1,
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+  },
   backHeading: {
     width: '100%',
-    height: '18%',
+    height: Platform.OS === 'android' ? '18%' : Platform.OS === 'ios' && '30%',
   },
   backGroundHeading: {
     flex: 2,

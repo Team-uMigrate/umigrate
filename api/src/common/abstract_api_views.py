@@ -10,7 +10,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from common.abstract_serializers import AddRemoveUserSerializer, AbstractModelSerializer
+from common.abstract_serializers import (
+    AddRemoveUserSerializer,
+    AbstractSharedItemSerializer,
+)
 from common.abstract_models import IsCreatorOrReadOnly, AbstractPostModel
 from users.serializers import BasicUserSerializer
 
@@ -25,12 +28,12 @@ class AbstractModelViewSet(ModelViewSet):
     The queryset to use for accessing data in the database. Must be overwritten.    
     """
 
-    serializer_class: AbstractModelSerializer = None
+    serializer_class: AbstractSharedItemSerializer = None
     """
     The serializer class to use for all HTTP requests except HTTP GET requests. Must be overwritten.
     """
 
-    detail_serializer_class: AbstractModelSerializer = None
+    detail_serializer_class: AbstractSharedItemSerializer = None
     """
     The serializer class to use for only HTTP GET requests. Must be overwritten.
     """

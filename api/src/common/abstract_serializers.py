@@ -18,15 +18,10 @@ class AbstractCreatorSerializer(ModelSerializerExtension):
         # Set the user as the creator of the shared item
         validated_data["creator"] = self.context["request"].user
 
-        created_data: AbstractPostModel or Comment or Reply = (
-            ModelSerializerExtension.create(self, validated_data)
-        )
-        create_tagged_users_notification(created_data)
-
-        return created_data
+        return ModelSerializerExtension.create(self, validated_data)
 
 
-class AbstractModelSerializer(AbstractCreatorSerializer):
+class AbstractSharedItemSerializer(AbstractCreatorSerializer):
     """
     An abstract model serializer class for shared items.
     """
@@ -35,9 +30,6 @@ class AbstractModelSerializer(AbstractCreatorSerializer):
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
-    comments = serializers.SerializerMethodField()
-    # Todo: Maybe in the future
-    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context["request"].user.id).exists()
@@ -47,6 +39,26 @@ class AbstractModelSerializer(AbstractCreatorSerializer):
 
     def get_likes(self, instance):
         return instance.liked_users.count()
+
+    def create(self, validated_data):
+        created_data: AbstractPostModel or Comment or Reply = (
+            AbstractCreatorSerializer.create(self, validated_data)
+        )
+
+        # Send a tagged users notification
+        create_tagged_users_notification(created_data)
+
+        return created_data
+
+
+class AbstractPostSerializer(AbstractSharedItemSerializer):
+    """
+    An abstract model serializer class for abstract posts.
+    """
+
+    comments = serializers.SerializerMethodField()
+    # Todo: Maybe in the future
+    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_comments(self, instance):
         return instance.comments.count()
@@ -69,12 +81,21 @@ class AbstractModelSerializer(AbstractCreatorSerializer):
     #     return most_liked_comment_serializer.data
 
 
-class AbstractModelDetailSerializer(AbstractModelSerializer):
+class AbstractSharedItemDetailSerializer(AbstractSharedItemSerializer):
     """
     A detailed abstract model serializer class for shared items.
     """
 
     tagged_users = BasicUserSerializer(read_only=True, many=True)
+
+
+class AbstractPostDetailSerializer(
+    AbstractPostSerializer, AbstractSharedItemDetailSerializer
+):
+    """
+    A detailed abstract model serializer class for abstract posts.
+    """
+
     photos = PhotoRetrieveSerializer(read_only=True, many=True)
 
 

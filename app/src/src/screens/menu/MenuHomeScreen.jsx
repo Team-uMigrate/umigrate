@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: Platform.OS === 'ios' ? '35%' : '24%',
+    marginTop: Platform.OS === 'ios' ? '35%' : '30%',
   },
   rows2: {
     flex: 2,

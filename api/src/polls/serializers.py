@@ -1,6 +1,6 @@
 from common.abstract_serializers import (
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
     AbstractCreatorSerializer,
 )
 from .models import Poll, Option, Vote
@@ -31,7 +31,7 @@ class OptionSerializer(AbstractCreatorSerializer):
         ]
 
 
-class PollSerializer(AbstractModelSerializer):
+class PollSerializer(AbstractPostSerializer):
     """
     A serializer class for the Poll model.
     """
@@ -47,7 +47,7 @@ class PollSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-class PollDetailSerializer(PollSerializer, AbstractModelDetailSerializer):
+class PollDetailSerializer(PollSerializer, AbstractPostDetailSerializer):
     """
     A detailed serializer class for the Poll model.
     """

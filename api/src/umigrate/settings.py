@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     "comments",
     "notifications",
     "django_rq",
+    "tests",
 ]
 
 # Middleware

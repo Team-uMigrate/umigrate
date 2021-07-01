@@ -9,17 +9,16 @@ import {
   View,
   TextInput,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import { UsersEndpoint } from '../../utils/endpoints';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 
-const TEXTSIZE = 16;
+const USERTEXTSIZE = 22;
 
-const TagModal = ({ visible, setVisible }) => {
-  //, taggedUsers, setTaggedUsers }) => {
-
-  const taggedUsers = ['Shashank', 'Shashank', 'Shashank'];
+const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   const [userSearchResults, setUserSearchResults] = useState([]);
+  const [fetchingNewResults, setFetchingNewResults] = useState(false);
 
   const searchUsers = async (query) => {
     const response = await UsersEndpoint.list(1, { search: query });
@@ -41,30 +40,47 @@ const TagModal = ({ visible, setVisible }) => {
             Keyboard.dismiss();
           }}
         >
-          <View style={{ paddingBottom: '5%' }}>
+          <View>
             <Text style={styles.promptText}>Tag friend(s)</Text>
-            <TextInput
-              style={styles.searchFriendsTextInput}
-              placeholder={'Friends...'}
-              placeholderTextColor={'#404040'}
-              clearTextOnFocus={true}
-              onChangeText={(newQuery) => {
-                searchUsers(newQuery); // TODO add activityIndicator while users being queried
-              }}
-            />
-            {taggedUsers.map((user, index) => (
-              <TaggedUser user={{ name: user }} key={index.toString()} />
-            ))}
+            <View style={{ flexDirection: 'column' }}>
+              <TextInput
+                style={styles.searchFriendsTextInput}
+                placeholder={'Friends...'}
+                placeholderTextColor={'#404040'}
+                clearTextOnFocus={true}
+                onChangeText={(newQuery) => {
+                  setFetchingNewResults(true);
+                  searchUsers(newQuery).then(() => {
+                    setFetchingNewResults(false);
+                  });
+                }}
+              />
+              <Text />
+              {taggedUsers.map((user, index) => (
+                <TaggedUser user={{ name: user }} key={index.toString()} />
+              ))}
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </View>
       {/* Box with user search results */}
-      <View style={[styles.tagModal, { marginTop: '1%' }]}>
-        <FlatList
-          data={userSearchResults}
-          renderItem={({ item }) => <UserButton user={item} />}
-          keyExtractor={(item, index) => item.id.toString()}
-        />
+      <View
+        style={[styles.tagModal, { marginTop: '1%', justifyContent: 'center' }]}
+      >
+        {fetchingNewResults ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            data={userSearchResults}
+            renderItem={({ item }) => <UserButton user={item} />}
+            keyExtractor={(item) => item.id.toString()}
+            ListEmptyComponent={() => (
+              <View>
+                <Text style={{ textAlign: 'center' }}>No users found.</Text>
+              </View>
+            )}
+          />
+        )}
       </View>
     </Modal>
   );
@@ -78,7 +94,7 @@ const UserButton = ({ user }) => {
           <View style={{ justifyContent: 'center', marginRight: '1%' }}>
             <ProfilePhotoView
               photo={user.profile_photo}
-              size={TEXTSIZE + 10}
+              size={USERTEXTSIZE + 10}
               style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
             />
           </View>
@@ -96,9 +112,14 @@ const TaggedUser = ({ user }) => {
     <Card style={styles.userButton}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={{ justifyContent: 'center' }}>
-          <Text size={TEXTSIZE}>{user.name}</Text>
+          <ProfilePhotoView
+            photo={user.profile_photo}
+            size={USERTEXTSIZE + 10}
+            style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
+          />
+          <Text size={USERTEXTSIZE}>{user.name}</Text>
         </View>
-        <IconButton icon={'close'} color={'#404040'} size={TEXTSIZE + 4} />
+        <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE + 4} />
       </View>
     </Card>
   );
@@ -114,7 +135,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 15,
     marginHorizontal: '10%',
-    maxHeight: '45%',
+    maxHeight: '50%',
+    minHeight: '15%',
   },
   promptText: {
     fontSize: 16,

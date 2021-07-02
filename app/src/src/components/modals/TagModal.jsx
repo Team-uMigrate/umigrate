@@ -55,9 +55,10 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 }}
               />
               <Text />
-              {taggedUsers.map((user) => (
-                <TaggedUser user={user} key={user.id.toString()} />
-              ))}
+              {taggedUsers.map((user) => {
+                console.log(taggedUsers);
+                return <TaggedUser user={user} key={user.id.toString()} />;
+              })}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -99,34 +100,45 @@ const UserButton = ({ user, taggedUsers, setTaggedUsers }) => {
       }}
     >
       <Card style={styles.userButton}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ justifyContent: 'center', marginRight: '1%' }}>
-            <ProfilePhotoView
-              photo={user.profile_photo}
-              size={USERTEXTSIZE + 10}
-              style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
-            />
-          </View>
-          <View style={{ justifyContent: 'center' }}>
-            <Text>{user.first_name + ' ' + user.last_name}</Text>
-          </View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            marginRight: '1%',
+            flexDirection: 'row',
+          }}
+        >
+          <ProfilePhotoView
+            photo={user.profile_photo}
+            size={USERTEXTSIZE + 10}
+            style={{
+              borderColor: '#A3C8FF',
+              borderWidth: 2,
+              marginRight: '2%',
+            }}
+          />
+          <Text>{user.first_name + ' ' + user.last_name}</Text>
         </View>
       </Card>
     </TouchableWithoutFeedback>
   );
 };
 
-const TaggedUser = ({ user, key }) => {
+const TaggedUser = ({ user }) => {
   return (
-    <Card style={styles.userButton} key={key}>
+    <Card style={styles.userButton}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ justifyContent: 'center' }}>
+        <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
           <ProfilePhotoView
             photo={user.profile_photo}
             size={USERTEXTSIZE + 10}
             style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
           />
-          <Text size={USERTEXTSIZE}>{user.name}</Text>
+          <View style={{ justifyContent: 'center' }}>
+            <Text size={USERTEXTSIZE}>
+              {user.first_name + ' ' + user.last_name}
+            </Text>
+          </View>
         </View>
         <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE + 4} />
       </View>

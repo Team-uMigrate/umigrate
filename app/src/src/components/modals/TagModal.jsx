@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
-  TouchableHighlight,
   View,
   TextInput,
   FlatList,
@@ -56,8 +55,8 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 }}
               />
               <Text />
-              {taggedUsers.map((user, index) => (
-                <TaggedUser user={{ name: user }} key={index.toString()} />
+              {taggedUsers.map((user) => (
+                <TaggedUser user={user} key={user.id.toString()} />
               ))}
             </View>
           </View>
@@ -72,8 +71,14 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
         ) : (
           <FlatList
             data={userSearchResults}
-            renderItem={({ item }) => <UserButton user={item} />}
             keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <UserButton
+                user={item}
+                taggedUsers={taggedUsers}
+                setTaggedUsers={setTaggedUsers}
+              />
+            )}
             ListEmptyComponent={() => (
               <View>
                 <Text style={{ textAlign: 'center' }}>No users found.</Text>
@@ -86,9 +91,13 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   );
 };
 
-const UserButton = ({ user }) => {
+const UserButton = ({ user, taggedUsers, setTaggedUsers }) => {
   return (
-    <TouchableHighlight>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setTaggedUsers(taggedUsers.concat(user));
+      }}
+    >
       <Card style={styles.userButton}>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ justifyContent: 'center', marginRight: '1%' }}>
@@ -103,13 +112,13 @@ const UserButton = ({ user }) => {
           </View>
         </View>
       </Card>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   );
 };
 
-const TaggedUser = ({ user }) => {
+const TaggedUser = ({ user, key }) => {
   return (
-    <Card style={styles.userButton}>
+    <Card style={styles.userButton} key={key}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={{ justifyContent: 'center' }}>
           <ProfilePhotoView

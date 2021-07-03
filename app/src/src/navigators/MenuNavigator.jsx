@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/menu/SettingsScreen';
 import SavedHomeScreen from '../screens/saved/SavedHomeScreen';
-import SavedItemsScreen from "../screens/saved/SavedItemsScreen";
+import SavedItemsScreen from '../screens/saved/SavedItemsScreen';
 import ProfileScreen from '../screens/menu/ProfileScreen';
 import EditProfileScreen from '../screens/menu/EditProfileScreen';
 import MenuHomeScreen from '../screens/menu/MenuHomeScreen';

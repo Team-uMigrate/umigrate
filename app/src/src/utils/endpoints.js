@@ -9,15 +9,15 @@ import {
 
 // Base URL
 const BASE_URL =
-    process.env.NODE_ENV === 'development'
-        ? 'https://dev.umigrate.ca'
-        : 'https://dev.umigrate.ca'; // todo: change back to prod server
+  process.env.NODE_ENV === 'development'
+    ? 'https://dev.umigrate.ca'
+    : 'https://dev.umigrate.ca'; // todo: change back to prod server
 
 // Websocket URLs
 const MESSAGING_WEBSOCKET =
-    process.env.NODE_ENV === 'development'
-        ? 'wss://dev.umigrate.ca/ws/messaging/'
-        : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
+  process.env.NODE_ENV === 'development'
+    ? 'wss://dev.umigrate.ca/ws/messaging/'
+    : 'wss://dev.umigrate.ca/ws/messaging/'; // todo: change back to prod server
 
 /**
  * Converts an object into a FormData object.
@@ -46,8 +46,8 @@ function toFormData(data) {
  * */
 function toQueryParams(data) {
   return Object.keys(data)
-      .map((key, i) => `${i === 0 ? '?' : '&'}${key}=${data[key]}`)
-      .reduce((prev, curr) => prev + curr);
+    .map((key, i) => `${i === 0 ? '?' : '&'}${key}=${data[key]}`)
+    .reduce((prev, curr) => prev + curr);
 }
 
 /**
@@ -65,7 +65,7 @@ class AbstractEndpoint {
    * */
   static async list(page, filters) {
     return await Axios.get(
-        `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
+      `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
     );
   }
 
@@ -117,7 +117,7 @@ class AbstractEndpoint {
    * */
   static async liked(page) {
     return await Axios.get(
-        `${BASE_URL}${this.path}liked${toQueryParams({ page: page })}`
+      `${BASE_URL}${this.path}liked${toQueryParams({ page: page })}`
     );
   }
 
@@ -129,11 +129,11 @@ class AbstractEndpoint {
    * */
   static async like(id, shouldLike) {
     return await Axios.post(
-        `${BASE_URL}${this.path}liked`,
-        toFormData({ id: id, should_add: shouldLike }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}${this.path}liked`,
+      toFormData({ id: id, should_add: shouldLike }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 
@@ -145,7 +145,7 @@ class AbstractEndpoint {
    * */
   static async likes(id, page) {
     return await Axios.get(
-        `${BASE_URL}${this.path}${id}/likes${toQueryParams({ page: page })}`
+      `${BASE_URL}${this.path}${id}/likes${toQueryParams({ page: page })}`
     );
   }
 
@@ -156,7 +156,7 @@ class AbstractEndpoint {
    * */
   static async saved(page) {
     return await Axios.get(
-        `${BASE_URL}${this.path}saved${toQueryParams({ page: page })}`
+      `${BASE_URL}${this.path}saved${toQueryParams({ page: page })}`
     );
   }
 
@@ -168,11 +168,11 @@ class AbstractEndpoint {
    * */
   static async save(id, shouldSave) {
     return await Axios.post(
-        `${BASE_URL}${this.path}saved`,
-        toFormData({ id: id, should_add: shouldSave }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}${this.path}saved`,
+      toFormData({ id: id, should_add: shouldSave }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -201,7 +201,7 @@ export class EventsEndpoint extends AbstractEndpoint {
    * */
   static async interested(page) {
     return await Axios.get(
-        `${BASE_URL}${this.path}interested${toQueryParams({ page: page })}`
+      `${BASE_URL}${this.path}interested${toQueryParams({ page: page })}`
     );
   }
 
@@ -213,11 +213,11 @@ export class EventsEndpoint extends AbstractEndpoint {
    * */
   static async setInterested(id, shouldSetInterested) {
     return await Axios.post(
-        `${BASE_URL}${this.path}interested`,
-        toFormData({ id: id, should_add: shouldSetInterested }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}${this.path}interested`,
+      toFormData({ id: id, should_add: shouldSetInterested }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 
@@ -228,7 +228,7 @@ export class EventsEndpoint extends AbstractEndpoint {
    * */
   static async attending(page) {
     return await Axios.get(
-        `${BASE_URL}${this.path}attending${toQueryParams({ page: page })}`
+      `${BASE_URL}${this.path}attending${toQueryParams({ page: page })}`
     );
   }
   /**
@@ -239,11 +239,11 @@ export class EventsEndpoint extends AbstractEndpoint {
    * */
   static async setAttending(id, shouldSetAttending) {
     return await Axios.post(
-        `${BASE_URL}${this.path}attending`,
-        toFormData({ id: id, should_add: shouldSetAttending }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}${this.path}attending`,
+      toFormData({ id: id, should_add: shouldSetAttending }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -271,7 +271,7 @@ export class MessagesEndpoint {
    * */
   static async list(page, filters) {
     return await Axios.get(
-        `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
+      `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
     );
   }
 }
@@ -291,7 +291,7 @@ export class PollOptionsEndpoint {
    * */
   static async list(page, filters = {}) {
     return await Axios.get(
-        `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
+      `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
     );
   }
 
@@ -330,14 +330,14 @@ export class DevicesEndpoint {
    * */
   static async post(name, token) {
     return await Axios.post(
-        `${BASE_URL}${this.path}`,
-        {
-          name: name,
-          expo_push_token: token,
-        },
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}${this.path}`,
+      {
+        name: name,
+        expo_push_token: token,
+      },
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }
@@ -353,7 +353,7 @@ export class UsersEndpoint {
    * */
   static async list(page, filters = {}) {
     return await Axios.get(
-        `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
+      `${BASE_URL}${this.path}${toQueryParams({ page: page, ...filters })}`
     );
   }
 
@@ -379,11 +379,11 @@ export class AuthEndpoint {
     await removePushToken();
     await removeUserData();
     const response = await Axios.post(
-        `${BASE_URL}/api/login/`,
-        toFormData({ email: email, password: password }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}/api/login/`,
+      toFormData({ email: email, password: password }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
     await setAuthToken(response.data.key);
     return response;
@@ -413,15 +413,15 @@ export class AuthEndpoint {
     await removePushToken();
     await removeUserData();
     return await Axios.post(
-        `${BASE_URL}/api/registration/`,
-        toFormData({
-          email: email,
-          password1: password,
-          password2: confirmPassword,
-        }),
-        {
-          headers: { 'content-type': 'multipart/form-data' },
-        }
+      `${BASE_URL}/api/registration/`,
+      toFormData({
+        email: email,
+        password1: password,
+        password2: confirmPassword,
+      }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
     );
   }
 }

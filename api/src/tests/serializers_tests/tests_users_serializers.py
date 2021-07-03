@@ -64,7 +64,28 @@ class BasicUserSerializerTestCase(APITestCase):
         self.assertEqual(Choices.CONNECTION_STATUS_CHOICES["Not Connected"], status)
 
     def test_get_is_blocked_true(self):
-        pass
+        # Arrange
+        request = HttpRequest()
+        request.user = baker.make("CustomUser")
+        user: CustomUser = baker.make("CustomUser")
+        request.user.blocked_users.add(user)
+        serializer = BasicUserSerializer(context={"request": request})
+
+        # Act
+        is_blocked = serializer.get_is_blocked(user)
+
+        # Assert
+        self.assertTrue(is_blocked)
 
     def test_get_is_blocked_false(self):
-        pass
+        # Arrange
+        request = HttpRequest()
+        request.user = baker.make("CustomUser")
+        user: CustomUser = baker.make("CustomUser")
+        serializer = BasicUserSerializer(context={"request": request})
+
+        # Act
+        is_blocked = serializer.get_is_blocked(user)
+
+        # Assert
+        self.assertFalse(is_blocked)

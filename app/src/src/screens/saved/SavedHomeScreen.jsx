@@ -12,7 +12,7 @@ const SavedHomeScreen = ({ navigation }) => {
       <View style={styles.rows1}>
         <Card
           style={styles.tiles}
-          onPress={() => navigation.navigate(routes.savedPosts)}
+          onPress={() => navigation.navigate(routes.savedItems, {type: 'posts'})}
         >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Posts</Paragraph>
@@ -20,7 +20,7 @@ const SavedHomeScreen = ({ navigation }) => {
         </Card>
         <Card
           style={styles.tiles}
-          onPress={() => navigation.navigate(routes.savedEvents)}
+          onPress={() => navigation.navigate(routes.savedItems, {type: 'events'})}
         >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Events</Paragraph>
@@ -30,7 +30,7 @@ const SavedHomeScreen = ({ navigation }) => {
       <View style={styles.rows2}>
         <Card
           style={styles.tiles}
-          onPress={() => navigation.navigate(routes.savedAds)}
+          onPress={() => navigation.navigate(routes.savedItems, {type: 'ads'})}
         >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Ads </Paragraph>
@@ -38,7 +38,7 @@ const SavedHomeScreen = ({ navigation }) => {
         </Card>
         <Card
           style={styles.tiles}
-          onPress={() => navigation.navigate(routes.savedListings)}
+          onPress={() => navigation.navigate(routes.savedItems, {type: 'listings'})}
         >
           <Card.Content>
             <Paragraph style={styles.text}>Saved Listings</Paragraph>

@@ -130,7 +130,7 @@ class SavedContainer extends Component {
     console.log('item.title: ' + item.title + item.title.length);
     let title = '';
 
-    if (this.state.name == 'posts' || this.state.name == 'events') {
+    if (this.state.name == 'Posts' || this.state.name == 'Events') {
       for (let i = 0; i < 12; i++) {
         if (i > item.title.length) {
           i = 13;
@@ -141,7 +141,7 @@ class SavedContainer extends Component {
       if (item.title.length >= 13) {
         title = title + '...';
       }
-    } else if (this.state.name == 'ads') {
+    } else if (this.state.name == 'Ads') {
       console.log(item.is_buying);
       if (item.is_buying == true) {
         title = 'Sold: ';
@@ -168,7 +168,7 @@ class SavedContainer extends Component {
           title = title + '...';
         }
       }
-    } else if (this.state.name == 'listings') {
+    } else if (this.state.name == 'Listings') {
       console.log(item.confirmed_users);
       if (item.confirmed_users.length) {
         title = 'Sold: ';

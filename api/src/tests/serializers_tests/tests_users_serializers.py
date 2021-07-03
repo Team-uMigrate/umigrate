@@ -17,7 +17,7 @@ class BasicUserSerializerTestCase(APITestCase):
         serializer = BasicUserSerializer(context={"request": request})
 
         # Act
-        status: int = serializer.get_connection_status(user)
+        status = serializer.get_connection_status(user)
 
         # Assert
         self.assertEqual(Choices.CONNECTION_STATUS_CHOICES["Connected"], status)
@@ -31,7 +31,7 @@ class BasicUserSerializerTestCase(APITestCase):
         serializer = BasicUserSerializer(context={"request": request})
 
         # Act
-        status: int = serializer.get_connection_status(user)
+        status = serializer.get_connection_status(user)
 
         # Assert
         self.assertEqual(Choices.CONNECTION_STATUS_CHOICES["Request Sent"], status)
@@ -45,7 +45,7 @@ class BasicUserSerializerTestCase(APITestCase):
         serializer = BasicUserSerializer(context={"request": request})
 
         # Act
-        status: int = serializer.get_connection_status(user)
+        status = serializer.get_connection_status(user)
 
         # Assert
         self.assertEqual(Choices.CONNECTION_STATUS_CHOICES["Request Received"], status)
@@ -58,7 +58,7 @@ class BasicUserSerializerTestCase(APITestCase):
         serializer = BasicUserSerializer(context={"request": request})
 
         # Act
-        status: int = serializer.get_connection_status(user)
+        status = serializer.get_connection_status(user)
 
         # Assert
         self.assertEqual(Choices.CONNECTION_STATUS_CHOICES["Not Connected"], status)

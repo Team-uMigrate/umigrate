@@ -1,3 +1,4 @@
+from unittest import skip
 from rest_framework.test import APITestCase
 from common.abstract_tests import (
     AbstractAPITestCase,
@@ -11,6 +12,7 @@ from .factories import PollFactory
 
 
 # Test case for the polls endpoints
+@skip("Obsolete")
 class PollTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
@@ -58,6 +60,7 @@ class PollTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
         AbstractSavedTestCase.test_save(self)
 
 
+@skip("Obsolete")
 class PollLikesTestCase(AbstractLikesTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

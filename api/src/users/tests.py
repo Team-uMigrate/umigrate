@@ -1,3 +1,4 @@
+from unittest import skip
 from django.http import HttpRequest
 from rest_framework.test import APITestCase
 from users.models import CustomUser
@@ -5,6 +6,7 @@ from rest_framework import status
 
 
 # Test case for the test API views
+@skip("Obsolete")
 class UserTestCase(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(

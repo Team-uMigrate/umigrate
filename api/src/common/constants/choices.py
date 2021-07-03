@@ -115,7 +115,7 @@ class Choices:
         [
             "Connected",
             "Request Sent",
-            "Request Recieved",
+            "Request Received",
             "Not Connected",
         ]
     )

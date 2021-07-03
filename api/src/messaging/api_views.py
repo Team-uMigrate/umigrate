@@ -97,7 +97,12 @@ class MessageList(ListAPIView):
                 .exists()
             ):
                 # Retrieve the messages for the room
-                self.queryset = Message.objects.filter(room=kwargs["id"])
+                self.queryset = Message.objects.filter(
+                    room=kwargs["id"],
+                    datetime_created__gte=request.user.membership_set.get(
+                        room=kwargs["id"]
+                    ).date_joined,
+                )
                 return ListAPIView.list(self, request, *args, **kwargs)
 
             return Response("Permission denied", status=status.HTTP_403_FORBIDDEN)

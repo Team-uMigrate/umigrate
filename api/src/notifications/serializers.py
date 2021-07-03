@@ -21,14 +21,14 @@ class DeviceSerializer(ModelSerializerExtension):
     A serializer class for the Device model.
     """
 
-    creator = BasicUserSerializer(read_only=True)
-
     class Meta:
         model = Device
         fields = "__all__"
 
+    creator = BasicUserSerializer(read_only=True)
+
     def create(self, validated_data):
-        # Set the user as the creator of the device
+        # Set the user as the creator of the shared item
         validated_data["creator"] = self.context["request"].user
 
         return ModelSerializerExtension.create(self, validated_data)

@@ -1,7 +1,5 @@
-from django.db.models import Count
-from comments.models import Comment
-from comments.serializers import CommentDetailSerializer
 from common.abstract_models import AbstractPostModel
+from comments.models import Comment, Reply
 from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
@@ -9,19 +7,29 @@ from photos.serializers import PhotoRetrieveSerializer
 from common.notification_helpers import create_tagged_users_notification
 
 
-class AbstractModelSerializer(ModelSerializerExtension):
+class AbstractCreatorSerializer(ModelSerializerExtension):
+    """
+    An abstract model serializer class for models with a creator field.
+    """
+
+    creator = BasicUserSerializer(read_only=True)
+
+    def create(self, validated_data):
+        # Set the user as the creator of the shared item
+        validated_data["creator"] = self.context["request"].user
+
+        return ModelSerializerExtension.create(self, validated_data)
+
+
+class AbstractSharedItemSerializer(AbstractCreatorSerializer):
     """
     An abstract model serializer class for shared items.
     """
 
-    creator = BasicUserSerializer(read_only=True)
     liked_users = BasicUserSerializer(read_only=True, many=True)
     is_liked = serializers.SerializerMethodField()
     is_saved = serializers.SerializerMethodField()
     likes = serializers.SerializerMethodField()
-    comments = serializers.SerializerMethodField()
-    # Todo: Maybe in the future
-    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_is_liked(self, instance):
         return instance.liked_users.filter(id=self.context["request"].user.id).exists()
@@ -31,6 +39,26 @@ class AbstractModelSerializer(ModelSerializerExtension):
 
     def get_likes(self, instance):
         return instance.liked_users.count()
+
+    def create(self, validated_data):
+        created_data: AbstractPostModel or Comment or Reply = (
+            AbstractCreatorSerializer.create(self, validated_data)
+        )
+
+        # Send a tagged users notification
+        create_tagged_users_notification(created_data)
+
+        return created_data
+
+
+class AbstractPostSerializer(AbstractSharedItemSerializer):
+    """
+    An abstract model serializer class for abstract posts.
+    """
+
+    comments = serializers.SerializerMethodField()
+    # Todo: Maybe in the future
+    # most_liked_comment = serializers.SerializerMethodField()
 
     def get_comments(self, instance):
         return instance.comments.count()
@@ -52,24 +80,22 @@ class AbstractModelSerializer(ModelSerializerExtension):
     #
     #     return most_liked_comment_serializer.data
 
-    def create(self, validated_data):
-        # Set the user as the creator of the shared item
-        validated_data["creator"] = self.context["request"].user
 
-        created_data: AbstractPostModel = ModelSerializerExtension.create(
-            self, validated_data
-        )
-        create_tagged_users_notification(created_data)
-
-        return created_data
-
-
-class AbstractModelDetailSerializer(AbstractModelSerializer):
+class AbstractSharedItemDetailSerializer(AbstractSharedItemSerializer):
     """
     A detailed abstract model serializer class for shared items.
     """
 
     tagged_users = BasicUserSerializer(read_only=True, many=True)
+
+
+class AbstractPostDetailSerializer(
+    AbstractPostSerializer, AbstractSharedItemDetailSerializer
+):
+    """
+    A detailed abstract model serializer class for abstract posts.
+    """
+
     photos = PhotoRetrieveSerializer(read_only=True, many=True)
 
 

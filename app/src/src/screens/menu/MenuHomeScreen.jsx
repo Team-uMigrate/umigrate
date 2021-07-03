@@ -54,9 +54,9 @@ const MenuHomeScreen = ({ navigation }) => {
               icon="content-save"
               size={70}
               style={styles.iconPic}
-              onPress={() => navigation.navigate(routes.savedItems)}
+              onPress={() => navigation.navigate(routes.savedHome)}
             />
-            <Paragraph style={styles.text}>Saved Items</Paragraph>
+            <Paragraph style={styles.text}>Saved Home</Paragraph>
           </Card.Content>
         </Card>
         <Card style={styles.tiles}>

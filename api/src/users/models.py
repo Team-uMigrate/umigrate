@@ -74,10 +74,10 @@ class CustomUser(AbstractUser):
     profile_photo = models.ImageField(upload_to="images/photos", blank=True)
     background_photo = models.ImageField(upload_to="images/photos", blank=True)
     connected_users = models.ManyToManyField(
-        to="self", related_name="connected_users", blank=True
+        to="self", related_name="connected_users_set", symmetrical=False, blank=True
     )
     blocked_users = models.ManyToManyField(
-        to="self", related_name="blocked_users", blank=True
+        to="self", related_name="blocked_users_set", symmetrical=False, blank=True
     )
 
     objects = CustomUserManager()

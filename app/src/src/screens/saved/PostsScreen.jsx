@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { StyleSheet, Text, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-
 import Header from '../../components/views/Header';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { routes } from '../../utils/routes';

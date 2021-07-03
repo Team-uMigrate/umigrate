@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { StyleSheet, Text, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-
 import Header from '../../components/views/Header';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { routes } from '../../utils/routes';
@@ -10,7 +8,7 @@ import { AdsEndpoint } from '../../utils/endpoints';
 import AdView from '../../components/views/AdView';
 import SavedContainer from '../../components/containers/SavedContainer';
 
-// A screen that renders saved posts of user
+// A screen that renders saved ads of user
 const AdsScreen = ({ navigation }) => {
   // function to go navigate back to savedHome screen from savedAds screen
   const savedHomeRedirect = () => {

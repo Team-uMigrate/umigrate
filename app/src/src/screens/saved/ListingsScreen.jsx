@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { StyleSheet, Text, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-
 import Header from '../../components/views/Header';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { routes } from '../../utils/routes';
@@ -10,7 +8,7 @@ import { ListingsEndpoint } from '../../utils/endpoints';
 import ListingView from '../../components/views/ListingView';
 import SavedContainer from '../../components/containers/SavedContainer';
 
-// A screen that renders saved posts of user
+// A screen that renders saved listings of user
 const ListingsScreen = ({ navigation }) => {
   // function to go navigate back to savedHome screen from savedListings screen
   const savedHomeRedirect = () => {

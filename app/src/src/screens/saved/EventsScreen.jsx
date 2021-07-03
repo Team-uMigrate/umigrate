@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { StyleSheet, Text, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-
 import Header from '../../components/views/Header';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { routes } from '../../utils/routes';
@@ -10,7 +8,7 @@ import { EventsEndpoint } from '../../utils/endpoints';
 import EventView from '../../components/views/EventView';
 import SavedContainer from '../../components/containers/SavedContainer';
 
-// A screen that renders saved posts of user
+// A screen that renders saved events of user
 const EventsScreen = ({ navigation }) => {
   // function to go navigate back to savedHome screen from savedEvents screen
   const savedHomeRedirect = () => {

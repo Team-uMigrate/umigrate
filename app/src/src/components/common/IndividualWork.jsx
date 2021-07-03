@@ -13,10 +13,7 @@ const IndividualWork = ({ job, isEdit, setVisible, isLast }) => {
   const [end, setEnd] = useState(job.end_date);
   const [city, setCity] = useState(job.location);
   const [info, setInfo] = useState(job.content);
-  const getMonthYear = (date) => {
-    const result = toMonthDayYearInWords({ date: date }).split(' ');
-    return result[1] + ' ' + result[2];
-  };
+
   return (
     <View style={{ alignItems: 'center' }}>
       {isEdit && (

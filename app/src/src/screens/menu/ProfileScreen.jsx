@@ -8,12 +8,13 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import { Avatar, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import Header from '../../components/views/Header';
 import ProfileView from '../../components/views/ProfileView';
 import { routes } from '../../utils/routes';
 import { getUserData } from '../../utils/storageAccess';
 import { communities, programs, pronouns, terms } from '../../utils/choices';
+import ProfilePhotoView from '../../components/views/ProfilePhotoView';
 
 class ProfileScreen extends Component {
   state = { user: {} };
@@ -34,32 +35,38 @@ class ProfileScreen extends Component {
     }
   };
 
+  componentWillUnmount() {
+    this.setState = (_state, _callback) => {
+      return;
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Header title="Profile" />
-        <View style={styles.backHeading}>
-          <Image
-            style={styles.backGroundHeading}
-            source={{ uri: this.state.user.background_photo }}
-          />
-          <View style={styles.profileArea}>
-            <TouchableOpacity
-              style={styles.profileImg}
-              onPress={() => this.props.navigation.navigate(routes.menuHome)}
-            >
-              <Avatar.Image
-                size={100}
-                style={styles.pfpShadow}
-                source={{ uri: this.state.user.profile_photo }}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
         <ScrollView
-          style={{ flex: 1, marginHorizontal: 1 }}
-          scrollEnabled={Platform.OS === 'android'}
+          style={styles.scrollViewStyle}
+          contentContainerStyle={styles.contentContainer}
         >
+          <View style={styles.backHeading}>
+            <Image
+              style={styles.backGroundHeading}
+              source={{ uri: this.state.user.background_photo ?? '//:0' }}
+            />
+            <View style={styles.profileArea}>
+              <TouchableOpacity
+                style={styles.profileImg}
+                onPress={() => this.props.navigation.navigate(routes.menuHome)}
+              >
+                <ProfilePhotoView
+                  photo={this.state.user.profile_photo ?? '//:0'}
+                  size={110}
+                  styles={styles.pfpShadow}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
           <View style={styles.pfInfo}>
             <View>
               <ProfileView
@@ -126,9 +133,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eeeeee',
   },
+  contentContainer: {
+    paddingBottom: Platform.OS === 'android' ? '40%' : '30%',
+  },
+  scrollViewStyle: {
+    flex: 1,
+    marginHorizontal: 1,
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+  },
   backHeading: {
     width: '100%',
-    height: '18%',
+    height: Platform.OS === 'android' ? '18%' : '30%',
   },
   backGroundHeading: {
     flex: 2,
@@ -141,7 +158,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // get half of pfp on background and half not
     bottom: '-40%',
-    paddingBottom: '-60%',
     width: '100%',
   },
   profileImg: {

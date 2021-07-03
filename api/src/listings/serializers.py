@@ -1,11 +1,11 @@
 from common.abstract_serializers import (
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
 )
 from .models import Listing
 
 
-class ListingSerializer(AbstractModelSerializer):
+class ListingSerializer(AbstractPostSerializer):
     """
     A serializer class for the Listing model.
     """
@@ -16,7 +16,7 @@ class ListingSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-class ListingDetailSerializer(ListingSerializer, AbstractModelDetailSerializer):
+class ListingDetailSerializer(ListingSerializer, AbstractPostDetailSerializer):
     """
     A detailed serializer class for the Listing model.
     """

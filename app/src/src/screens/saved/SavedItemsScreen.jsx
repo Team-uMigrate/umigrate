@@ -26,23 +26,51 @@ const SavedItemsScreen = ({ route, navigation }) => {
   let itemViews;
   let name;
 
-  if (type == 'events') {
-    endpoints = [EventsEndpoint];
-    itemViews = [(item) => <EventView {...item} />];
-    name = 'Events';
-  } else if (type == 'posts') {
-    endpoints = [PostsEndpoint];
-    itemViews = [(item) => <PostView {...item} />];
-    name = 'Posts';
-  } else if (type == 'ads') {
-    endpoints = [AdsEndpoint];
-    itemViews = [(item) => <AdView {...item} />];
-    name = 'Ads';
-  } else {
-    endpoints = [ListingsEndpoint];
-    itemViews = [(item) => <ListingView {...item} />];
-    name = 'Listings';
+  switch (type) {
+    case 'events':
+      endpoints = [EventsEndpoint];
+      itemViews = [(item) => <EventView {...item} />];
+      name = 'Events';
+      break;
+
+    case 'posts':
+      endpoints = [PostsEndpoint];
+      itemViews = [(item) => <PostView {...item} />];
+      name = 'Posts';
+      break;
+
+    case 'ads':
+      endpoints = [AdsEndpoint];
+      itemViews = [(item) => <AdView {...item} />];
+      name = 'Ads';
+      break;
+
+    case 'listings':
+      endpoints = [ListingsEndpoint];
+      itemViews = [(item) => <ListingView {...item} />];
+      name = 'Listings';
+      break;
+
+    default:
+      break;
   }
+  // if (type == 'events') {
+  //   endpoints = [EventsEndpoint];
+  //   itemViews = [(item) => <EventView {...item} />];
+  //   name = 'Events';
+  // } else if (type == 'posts') {
+  //   endpoints = [PostsEndpoint];
+  //   itemViews = [(item) => <PostView {...item} />];
+  //   name = 'Posts';
+  // } else if (type == 'ads') {
+  //   endpoints = [AdsEndpoint];
+  //   itemViews = [(item) => <AdView {...item} />];
+  //   name = 'Ads';
+  // } else {
+  //   endpoints = [ListingsEndpoint];
+  //   itemViews = [(item) => <ListingView {...item} />];
+  //   name = 'Listings';
+  // }
 
   return (
     <View style={styles.container}>

@@ -40,7 +40,7 @@ class BasicUserSerializer(ModelSerializerExtension):
         if received:
             return Choices.CONNECTION_STATUS_CHOICES["Request Received"]
 
-        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
+        return Choices.CONNECTION_STATUS_CHOICES["Not Connected"]
 
     def get_is_blocked(self, instance):
         return (

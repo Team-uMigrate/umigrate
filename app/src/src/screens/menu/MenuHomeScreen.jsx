@@ -72,11 +72,9 @@ class MenuHomeScreen extends Component {
                 icon="content-save"
                 size={Platform.OS === 'android' ? 50 : 70}
                 style={styles.iconPic}
-                onPress={() =>
-                  this.props.navigation.navigate(routes.savedItems)
-                }
+                onPress={() => this.props.navigation.navigate(routes.savedHome)}
               />
-              <Paragraph style={styles.text}>Saved Items</Paragraph>
+              <Paragraph style={styles.text}>Saved Home</Paragraph>
             </Card.Content>
           </Card>
           <Card style={styles.tiles}>

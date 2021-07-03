@@ -15,6 +15,7 @@ export const routes = Object.freeze({
   menuHome: 'MenuHome',
   profile: 'Profile',
   editProfile: 'EditProfile',
+  savedHome: 'SavedHome',
   savedItems: 'SavedItems',
   calendar: 'Calendar',
   settings: 'Settings',

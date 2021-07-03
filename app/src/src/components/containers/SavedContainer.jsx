@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from '../views/ProfilePhotoView';
-import testImage from '../../screens/saved/tree-276014__340.jpg';
 
 class SavedContainer extends Component {
   constructor(props) {
@@ -24,16 +23,6 @@ class SavedContainer extends Component {
 
   componentDidMount = async () => {
     await this.fetchItems();
-  };
-
-  updateItem = (item) => {
-    const index = this.state.items.findIndex(
-      (obj) => obj.id === item.id && obj.type === item.type
-    );
-    const copiedItems = JSON.parse(JSON.stringify(this.state.items));
-
-    copiedItems[index] = item;
-    this.setState({ items: copiedItems });
   };
 
   fetchItems = async () => {
@@ -199,9 +188,8 @@ class SavedContainer extends Component {
 
     return (
       <Card style={styles.row}>
-        {/*<ImageBackground source={item.photos} style={{paddingBottom: 95}} imageStyle={{borderTopLeftRadius: 20, borderTopRightRadius: 20}}>*/}
         <ImageBackground
-          source={testImage}
+          source={item.photos}
           style={{ paddingBottom: 95 }}
           imageStyle={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
         >

@@ -54,23 +54,6 @@ const SavedItemsScreen = ({ route, navigation }) => {
     default:
       break;
   }
-  // if (type == 'events') {
-  //   endpoints = [EventsEndpoint];
-  //   itemViews = [(item) => <EventView {...item} />];
-  //   name = 'Events';
-  // } else if (type == 'posts') {
-  //   endpoints = [PostsEndpoint];
-  //   itemViews = [(item) => <PostView {...item} />];
-  //   name = 'Posts';
-  // } else if (type == 'ads') {
-  //   endpoints = [AdsEndpoint];
-  //   itemViews = [(item) => <AdView {...item} />];
-  //   name = 'Ads';
-  // } else {
-  //   endpoints = [ListingsEndpoint];
-  //   itemViews = [(item) => <ListingView {...item} />];
-  //   name = 'Listings';
-  // }
 
   return (
     <View style={styles.container}>

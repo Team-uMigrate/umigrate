@@ -12,6 +12,7 @@ channels-redis
 exponent_server_sdk
 sendgrid
 drf_yasg
+model_bakery
 factory_boy
 pytest-django
 uwaterloodriver

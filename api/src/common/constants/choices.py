@@ -116,7 +116,7 @@ class Choices:
             "Connected",
             "Request Sent",
             "Request Recieved",
-            "Strangers",
+            "Not Connected",
         ]
     )
 

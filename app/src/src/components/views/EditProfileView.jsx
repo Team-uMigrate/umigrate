@@ -47,20 +47,20 @@ const EditProfileView = ({ user, navigation }) => {
 
   const handleEdit = async () => {
     try {
-      const result = await ProfileEndpoint.patch({
-        profile_photo: pfp ? pfp : '',
-        background_photo: bgPic ? bgPic : '',
-        preferred_name: prefName ? prefName : user.preferred_name,
-        first_name: fName ? fName : user.first_name,
-        last_name: lName ? lName : user.last_name,
-        phone_number: phone ? phone : user.phone_number,
-        pronouns: zeroPronoun == 0 ? 0 : pronoun ? pronoun : user.pronouns,
-        birthday: birth ? birth : user.birthday,
-        community: zeroReg == 0 ? 0 : comm ? comm : user.community,
-        bio: bio ? bio : user.bio,
+      const response = await ProfileEndpoint.patch({
+        profile_photo: pfp ?? '',
+        background_photo: bgPic ?? '',
+        preferred_name: prefName ?? user.preferred_name,
+        first_name: fName ?? user.first_name,
+        last_name: lName ?? user.last_name,
+        phone_number: phone ?? user.phone_number,
+        pronouns: zeroPronoun == 0 ? 0 : pronoun ?? user.pronouns,
+        birthday: birth ?? user.birthday,
+        community: zeroReg == 0 ? 0 : comm ?? user.community,
+        bio: bio ?? user.bio,
       });
-      if (result) {
-        await setUserData(result.data);
+      if (response) {
+        await setUserData(response.data);
         navigation.navigate(routes.profile);
       }
     } catch (err) {
@@ -91,11 +91,7 @@ const EditProfileView = ({ user, navigation }) => {
             <ImageBackground
               style={styles.backGroundHeading}
               source={{
-                uri: bgPic
-                  ? bgPic
-                  : user.background_photo
-                  ? user.background_photo
-                  : '//:0',
+                uri: bgPic ?? user.background_photo ?? '//:0',
               }}
             >
               <TouchableOpacity
@@ -151,11 +147,7 @@ const EditProfileView = ({ user, navigation }) => {
                   size={100}
                   style={styles.pfpShadow}
                   source={{
-                    uri: pfp
-                      ? pfp
-                      : user.profile_photo
-                      ? user.profile_photo
-                      : '//:0',
+                    uri: pfp ?? user.profile_photo ?? '//:0',
                   }}
                 />
               </TouchableOpacity>
@@ -173,7 +165,7 @@ const EditProfileView = ({ user, navigation }) => {
                 style={styles.textVal}
                 profileEdit={true}
                 maxlength={50}
-                textDefault={user.preferred_name ? user.preferred_name : ''}
+                textDefault={user.preferred_name ?? ''}
               />
             </View>
             <View>
@@ -185,7 +177,7 @@ const EditProfileView = ({ user, navigation }) => {
                 style={styles.textVal}
                 profileEdit={true}
                 maxlength={50}
-                textDefault={user.first_name ? user.first_name : ''}
+                textDefault={user.first_name ?? ''}
               />
             </View>
             <View>
@@ -197,7 +189,7 @@ const EditProfileView = ({ user, navigation }) => {
                 style={styles.textVal}
                 profileEdit={true}
                 maxlength={50}
-                textDefault={user.last_name ? user.last_name : ''}
+                textDefault={user.last_name ?? ''}
               />
             </View>
             <View>
@@ -222,7 +214,7 @@ const EditProfileView = ({ user, navigation }) => {
                 style={styles.textVal}
                 profileEdit={true}
                 maxlength={15}
-                textDefault={user.phone_number ? user.phone_number : ''}
+                textDefault={user.phone_number ?? ''}
               />
             </View>
             <View style={styles.rows}>
@@ -242,7 +234,7 @@ const EditProfileView = ({ user, navigation }) => {
                     set={setComm}
                     setZero={setZeroReg}
                     choices={communities}
-                    currVal={comm ? comm : user.community}
+                    currVal={comm ?? user.community}
                     currChoice={
                       zeroReg == 0
                         ? communities[0]
@@ -273,7 +265,7 @@ const EditProfileView = ({ user, navigation }) => {
                 set={setPronoun}
                 setZero={setZeroPronoun}
                 choices={pronouns}
-                currVal={pronoun ? pronoun : user.pronouns}
+                currVal={pronoun ?? user.pronouns}
                 currChoice={
                   zeroPronoun == 0
                     ? pronouns[0]
@@ -292,9 +284,9 @@ const EditProfileView = ({ user, navigation }) => {
                 style={{ ...styles.textVal, height: 50 }}
                 multiline={true}
                 numberOfLines={3}
-                profileEdit={bio ? true : user.bio}
+                profileEdit={true}
                 maxlength={1000}
-                textDefault={user.bio ? user.bio : ''}
+                textDefault={user.bio ?? ''}
               />
             </View>
           </View>
@@ -414,14 +406,12 @@ const styles = StyleSheet.create({
     zIndex: 2000,
   },
   communityDropdown: {
-    paddingBottom:
-      Platform.OS === 'android' ? '60%' : Platform.OS === 'ios' && '20%',
-    width: Platform.OS === 'android' ? '95%' : Platform.OS === 'ios' && '85%',
+    paddingBottom: Platform.OS === 'android' ? '60%' : '20%',
+    width: Platform.OS === 'android' ? '95%' : '85%',
   },
   pronounDropdown: {
-    paddingBottom:
-      Platform.OS === 'android' ? '30%' : Platform.OS === 'ios' && '10%',
-    width: Platform.OS === 'android' ? '52%' : Platform.OS === 'ios' && '42%',
+    paddingBottom: Platform.OS === 'android' ? '30%' : '10%',
+    width: Platform.OS === 'android' ? '52%' : '42%',
     alignSelf: 'center',
     zIndex: 999,
   },

@@ -30,7 +30,7 @@ const DropdownList = ({ choices, text, set, currChoice, currVal, setZero }) => {
             <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
               {choices.map((choice, i) => (
                 <View
-                  style={i === choices.length - 1 ? '' : styles.radioBtn}
+                  style={i === choices.length - 1 ? {} : styles.radioBtn}
                   key={i}
                 >
                   <RadioButton.Item

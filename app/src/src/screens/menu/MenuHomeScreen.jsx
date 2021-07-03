@@ -19,10 +19,6 @@ import ProfilePhotoView from '../../components/views/ProfilePhotoView';
 class MenuHomeScreen extends Component {
   state = { user: {} };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount = async () => {
     const userData = await getUserData();
     this.setState({ user: userData });
@@ -49,11 +45,7 @@ class MenuHomeScreen extends Component {
           {this.state.user.background_photo && (
             <Image
               style={styles.backGroundHeading}
-              source={{
-                uri: this.state.user.background_photo
-                  ? this.state.user.background_photo
-                  : '//:0',
-              }}
+              source={{ uri: this.state.user.background_photo ?? '//:0' }}
             />
           )}
           <View style={styles.profileArea}>
@@ -67,9 +59,7 @@ class MenuHomeScreen extends Component {
                 styles={styles.pfpShadow}
               />
               <Text style={styles.profileName}>
-                {!!this.state.user.preferred_name
-                  ? this.state.user.preferred_name
-                  : ''}
+                {this.state.user.preferred_name ?? ''}
               </Text>
               <Text style={styles.profileText}>See Your Profile</Text>
             </TouchableOpacity>
@@ -80,9 +70,7 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="content-save"
-                size={
-                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
-                }
+                size={Platform.OS === 'android' ? 50 : 70}
                 style={styles.iconPic}
                 onPress={() =>
                   this.props.navigation.navigate(routes.savedItems)
@@ -95,9 +83,7 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="calendar"
-                size={
-                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
-                }
+                size={Platform.OS === 'android' ? 50 : 70}
                 style={styles.iconPic}
                 onPress={() => this.props.navigation.navigate(routes.calendar)}
               />
@@ -110,9 +96,7 @@ class MenuHomeScreen extends Component {
             <Card.Content>
               <IconButton
                 icon="settings"
-                size={
-                  Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50
-                }
+                size={Platform.OS === 'android' ? 50 : 70}
                 style={styles.iconPic}
                 onPress={() => this.props.navigation.navigate(routes.settings)}
               />

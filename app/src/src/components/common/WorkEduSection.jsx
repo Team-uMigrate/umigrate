@@ -4,6 +4,7 @@ import { IconButton } from 'react-native-paper';
 import IndividualWork from '../common/IndividualWork';
 /* May be used for education/jobs section of edit profile page
    Basic outline for the add education and add work sections of the edit profile page */
+
 const WorkEduSection = ({ type, jobs }) => {
   return (
     <View>

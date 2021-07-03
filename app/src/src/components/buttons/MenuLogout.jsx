@@ -15,7 +15,7 @@ const MenuLogout = () => {
   return (
     <IconButton
       icon="logout"
-      size={Platform.OS === 'ios' ? 70 : Platform.OS === 'android' && 50}
+      size={Platform.OS === 'android' ? 50 : 70}
       style={{ alignSelf: 'center', marginBottom: '-15%' }}
       onPress={handleSignOut}
     />

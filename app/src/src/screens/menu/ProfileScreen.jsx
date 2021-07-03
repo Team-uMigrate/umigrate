@@ -52,11 +52,7 @@ class ProfileScreen extends Component {
           <View style={styles.backHeading}>
             <Image
               style={styles.backGroundHeading}
-              source={{
-                uri: this.state.user.background_photo
-                  ? this.state.user.background_photo
-                  : '//:0',
-              }}
+              source={{ uri: this.state.user.background_photo ?? '//:0' }}
             />
             <View style={styles.profileArea}>
               <TouchableOpacity
@@ -64,11 +60,7 @@ class ProfileScreen extends Component {
                 onPress={() => this.props.navigation.navigate(routes.menuHome)}
               >
                 <ProfilePhotoView
-                  photo={
-                    this.state.user.profile_photo
-                      ? this.state.user.profile_photo
-                      : '//:0'
-                  }
+                  photo={this.state.user.profile_photo ?? '//:0'}
                   size={110}
                   styles={styles.pfpShadow}
                 />
@@ -142,8 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eeeeee',
   },
   contentContainer: {
-    paddingBottom:
-      Platform.OS === 'android' ? '40%' : Platform.OS === 'ios' && '30%',
+    paddingBottom: Platform.OS === 'android' ? '40%' : '30%',
   },
   scrollViewStyle: {
     flex: 1,
@@ -154,7 +145,7 @@ const styles = StyleSheet.create({
   },
   backHeading: {
     width: '100%',
-    height: Platform.OS === 'android' ? '18%' : Platform.OS === 'ios' && '30%',
+    height: Platform.OS === 'android' ? '18%' : '30%',
   },
   backGroundHeading: {
     flex: 2,

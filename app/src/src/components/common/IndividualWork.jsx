@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import toMonthDayYearInWords from '../common/FormatDate/toMonthDayYearInWords';
+import toMonthYear from '../../utils/FormatDate/toMonthYear';
 // May be used for education/jobs section of edit profile page
 // Basic outline for displaying the individual work of the edit profile page
+
 const IndividualWork = ({ job, isEdit, setVisible, isLast }) => {
   // useStates for job data
   const [company, setCompany] = useState(job.company);
@@ -34,7 +35,8 @@ const IndividualWork = ({ job, isEdit, setVisible, isLast }) => {
           {company} - {city}
         </Text>
         <Text style={styles.textDate}>
-          {getMonthYear(start)} - {end ? getMonthYear(end) : 'PRESENT'}
+          {toMonthYear({ date: start })} -{' '}
+          {end ? toMonthYear({ date: end }) : 'PRESENT'}
         </Text>
         <TouchableOpacity>
           {isEdit ? (

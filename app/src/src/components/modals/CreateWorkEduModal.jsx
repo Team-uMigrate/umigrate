@@ -5,4 +5,5 @@ import { View } from 'react-native';
 const CreateWorkEduModal = ({ type, title, setPreSave, setClose, edit }) => {
   return <View></View>;
 };
+
 export default CreateWorkEduModal;

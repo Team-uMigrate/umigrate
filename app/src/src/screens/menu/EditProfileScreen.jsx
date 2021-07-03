@@ -4,6 +4,7 @@ import { getUserData } from '../../utils/storageAccess';
 // import { JobsEndpoint } from '../../utils/endpoints';
 // import { ActivityIndicator } from 'react-native';
 // Some parts may be used for education/jobs section of edit profile page
+
 class EditProfileScreen extends Component {
   state = {
     user: {},
@@ -12,10 +13,6 @@ class EditProfileScreen extends Component {
     jobs: [],
     done: false, */
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount = async () => {
     const userData = await getUserData();
@@ -43,18 +40,16 @@ class EditProfileScreen extends Component {
   };
 
   getJobs = async () => {
-    /* TODO: for some reason, the filtering by creator doesn't filter by creator (it can filter by job_type though ? )
-       currently, it returns all the jobs for all the users */
     const response = await JobsEndpoint.list(this.state.nextPage, {
       creator: this.state.user.id,
     });
-    let next = !!response.data.next;
+    const next = !!response.data.next;
     this.setState({
       pages: next,
       nextPage: next ? this.state.nextPage + 1 : this.state.nextPage,
     });
     // temporarily find the user's jobs manually
-    response.data.results.map((job) => {
+    response.data.results.forEach((job) => {
       if (job.creator === this.state.user.id) this.state.jobs.push(job);
     });
   };

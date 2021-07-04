@@ -5,14 +5,36 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from notifications.models import Notification
 from notifications.api_views import ViewedReceivedNotifications
+from notifications.serializers import (
+    NotificationSerializer,
+    ReceivedNotificationsSerializer,
+)
 
 
 class ViewedReceivedNotificationsTestCase(APITestCase):
     def test_get_serializer_class_notification_serializer(self):
-        pass
+        # Arrange
+        request = HttpRequest()
+        request.method = "GET"
+        api_view = ViewedReceivedNotifications(request=request)
+
+        # Act
+        serializer_class = api_view.get_serializer_class()
+
+        # Assert
+        self.assertEqual(NotificationSerializer, serializer_class)
 
     def test_get_serializer_class_received_notifications_serializer(self):
-        pass
+        # Arrange
+        request = HttpRequest()
+        request.method = "POST"
+        api_view = ViewedReceivedNotifications(request=request)
+
+        # Act
+        serializer_class = api_view.get_serializer_class()
+
+        # Assert
+        self.assertEqual(ReceivedNotificationsSerializer, serializer_class)
 
     def test_get_query_set_received_and_viewed_notifications(self):
         # Arrange
@@ -28,7 +50,7 @@ class ViewedReceivedNotificationsTestCase(APITestCase):
         # Act
         queryset: QuerySet[Notification] = api_view.get_queryset()
 
-        # Arrange
+        # Assert
         self.assertTrue(queryset.filter(id=received_notification.id).exists())
         self.assertTrue(queryset.filter(id=viewed_notification.id).exists())
 

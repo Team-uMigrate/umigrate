@@ -73,7 +73,7 @@ class Message(models.Model):
     previous_message = models.ForeignKey(
         to="self",
         related_name="replies",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )

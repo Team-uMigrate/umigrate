@@ -48,4 +48,3 @@ class ReceivedNotificationsSerializer(ModelSerializerExtension):
     class Meta:
         model = CustomUser
         fields = ["received_notifications"]
-        extra_fields = ["received_notifications"]

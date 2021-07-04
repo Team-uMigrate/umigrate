@@ -34,15 +34,14 @@ function toFormData(data) {
         formData.append(key, value);
       });
     } else {
-      if (data[key].toString().startsWith('file:///')){
+      if (data[key].toString().startsWith('file:///')) {
         const filename = data[key].split('/').pop();
         formData.append(key, {
           uri: data[key],
           name: `${filename}`,
           type: `${mime.getType(data[key])}`,
         });
-      }
-      else {
+      } else {
         formData.append(key, data[key]);
       }
     }

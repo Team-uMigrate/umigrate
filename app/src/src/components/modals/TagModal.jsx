@@ -98,7 +98,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
             data={userSearchResults}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <UserButton
+              <UserSearchResult
                 user={item}
                 taggedUsers={taggedUsers}
                 setTaggedUsers={setTaggedUsers}
@@ -118,7 +118,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   );
 };
 
-const UserButton = ({
+const UserSearchResult = ({
   user,
   taggedUsers,
   setTaggedUsers,
@@ -142,20 +142,7 @@ const UserButton = ({
       }}
     >
       <Card style={styles.userButton}>
-        <View style={styles.userView}>
-          <ProfilePhotoView
-            photo={user.profile_photo}
-            size={USERTEXTSIZE * 2}
-            style={{
-              borderColor: '#A3C8FF',
-              borderWidth: 2,
-              marginRight: '2%',
-            }}
-          />
-          <Text style={{ fontSize: USERTEXTSIZE }}>
-            {user.first_name + ' ' + user.last_name}
-          </Text>
-        </View>
+        <UserView />
       </Card>
     </TouchableWithoutFeedback>
   );
@@ -165,27 +152,32 @@ const TaggedUser = ({ user }) => {
   return (
     <Card style={styles.userButton}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
-          <ProfilePhotoView
-            photo={user.profile_photo}
-            size={USERTEXTSIZE * 2}
-            style={{
-              borderColor: '#A3C8FF',
-              borderWidth: 2,
-              marginRight: '2%',
-            }}
-          />
-          <View style={{ justifyContent: 'center' }}>
-            <Text style={{ fontSize: USERTEXTSIZE }}>
-              {user.first_name + ' ' + user.last_name}
-            </Text>
-          </View>
+        <View style={styles.userView}>
+          <UserView />
         </View>
         <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE} />
       </View>
     </Card>
   );
 };
+
+// Helper component to contain stuff common to both TaggedUser and UserSearchResult
+const UserView = ({ user }) => (
+  <View style={styles.userView}>
+    <ProfilePhotoView
+      photo={user.profile_photo}
+      size={USERTEXTSIZE * 2}
+      style={{
+        borderColor: '#A3C8FF',
+        borderWidth: 2,
+        marginRight: '2%',
+      }}
+    />
+    <Text style={{ fontSize: USERTEXTSIZE }}>
+      {user.first_name + ' ' + user.last_name}
+    </Text>
+  </View>
+);
 
 export default TagModal;
 

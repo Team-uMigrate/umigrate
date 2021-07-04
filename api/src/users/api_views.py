@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK
 from common.decorators import api_view_swagger_decorator
 from common.generics.generic_post_api_views import GenericUserExtension
-from common.notification_helpers import create_connection_request_notification
+from notifications.notification_helpers import create_connection_request_notification
 from .filters import UserFilterSet
 from .models import CustomUser
 from .serializers import UserSerializer

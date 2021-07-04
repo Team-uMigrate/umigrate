@@ -1,4 +1,4 @@
-from common.notification_helpers import create_liked_shared_item_notification
+from notifications.notification_helpers import create_liked_shared_item_notification
 from django.db.models import Model
 from django.db.models.query import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend

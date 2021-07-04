@@ -52,7 +52,6 @@ class ViewedReceivedNotificationsTestCase(APITestCase):
     def test_post_invalid_data(self):
         # Arrange
         request = HttpRequest()
-        request.user = baker.make("CustomUser")
         request.data = {"received_notifications": [1]}
         api_view = ViewedReceivedNotifications()
 

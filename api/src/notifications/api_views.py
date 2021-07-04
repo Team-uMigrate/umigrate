@@ -48,12 +48,10 @@ class ViewedReceivedNotifications(ListAPIView):
         notification_ids: List[int] = serializer.data["received_notifications"]
 
         for notification_id in notification_ids:
-            if self.request.user.received_notifications.filter(
-                id=notification_id
-            ).exists():
+            if request.user.received_notifications.filter(id=notification_id).exists():
                 # Move notification from received to viewed
-                self.request.user.received_notifications.remove(notification_id)
-                self.request.user.viewed_notifications.add(notification_id)
+                request.user.received_notifications.remove(notification_id)
+                request.user.viewed_notifications.add(notification_id)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 

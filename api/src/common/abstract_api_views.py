@@ -108,15 +108,13 @@ class AbstractAddRemoveUser(ListAPIView):
             shared_item = self.model_class.objects.get(id=shared_item_id)
             # Add or remove an object from the list of objects using the attribute specified by the query string
             if should_add:
-                getattr(self.request.user, self.query_string).add(shared_item)
+                getattr(request.user, self.query_string).add(shared_item)
                 # Send a liked shared item notification if the user liked a shared item
                 if self.query_string.startswith("liked_"):
-                    create_liked_shared_item_notification(
-                        shared_item, self.request.user
-                    )
+                    create_liked_shared_item_notification(shared_item, request.user)
 
             else:
-                getattr(self.request.user, self.query_string).remove(shared_item)
+                getattr(request.user, self.query_string).remove(shared_item)
 
             return Response({"should_add": should_add, "id": shared_item_id})
 

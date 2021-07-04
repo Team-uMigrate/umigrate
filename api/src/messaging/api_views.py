@@ -47,12 +47,12 @@ class AddRemoveMembers(APIView):
             room = Room.objects.get(id=room_id)
             if room.members.filter(id=request.user.id).exists():
                 user = CustomUser.objects.get(id=member_id)
+                if room.members.filter(id=member_id).exists():
+                    return Response({"message": "Member already exists"})
+
                 room.members.add(
                     user
                 )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
-                if room.members.filter(id=member_id):
-                    return Response({"message": "Member already exists"})
-
                 return Response({"message": "Member added to room"})
 
             return Response(
@@ -75,6 +75,7 @@ class AddRemoveMembers(APIView):
             room.members.remove(
                 member
             )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
+            room.save()
             return Response({"message": "Member Removed."})
         except ObjectDoesNotExist as e:
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)

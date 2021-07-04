@@ -7,13 +7,25 @@ import multiselectfield.db.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0003_customuser_notification_preferences'),
+        ("users", "0003_customuser_notification_preferences"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='notification_preferences',
-            field=multiselectfield.db.fields.MultiSelectField(blank=True, choices=[('Shared_Item_Likes', 'Shared_Item_Likes'), ('Messages_Received', 'Messages_Received'), ('Shared_Item_Comments', 'Shared_Item_Comments'), ('Shared_Item_Tag', 'Shared_Item_Tag'), ('Connection_Request', 'Connection_Request')], default='Shared_Item_Likes,Messages_Received,Shared_Item_Comments,Shared_Item_Tag,Connection_Request', max_length=91, null=True),
+            model_name="customuser",
+            name="notification_preferences",
+            field=multiselectfield.db.fields.MultiSelectField(
+                blank=True,
+                choices=[
+                    ("Shared_Item_Likes", "Shared_Item_Likes"),
+                    ("Messages_Received", "Messages_Received"),
+                    ("Shared_Item_Comments", "Shared_Item_Comments"),
+                    ("Shared_Item_Tag", "Shared_Item_Tag"),
+                    ("Connection_Request", "Connection_Request"),
+                ],
+                default="Shared_Item_Likes,Messages_Received,Shared_Item_Comments,Shared_Item_Tag,Connection_Request",
+                max_length=91,
+                null=True,
+            ),
         ),
     ]

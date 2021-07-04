@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('notifications', '0002_auto_20201128_2031'),
+        ("notifications", "0002_auto_20201128_2031"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='notification',
-            name='notification_type',
-            field=models.CharField(choices=[('Shared_Item_Likes', 'Shared_Item_Likes'), ('Messages_Received', 'Messages_Received'), ('Shared_Item_Comments', 'Shared_Item_Comments'), ('Shared_Item_Tag', 'Shared_Item_Tag'), ('Connection_Request', 'Connection_Request')], default='Shared_Item_Likes', max_length=20),
+            model_name="notification",
+            name="notification_type",
+            field=models.CharField(
+                choices=[
+                    ("Shared_Item_Likes", "Shared_Item_Likes"),
+                    ("Messages_Received", "Messages_Received"),
+                    ("Shared_Item_Comments", "Shared_Item_Comments"),
+                    ("Shared_Item_Tag", "Shared_Item_Tag"),
+                    ("Connection_Request", "Connection_Request"),
+                ],
+                default="Shared_Item_Likes",
+                max_length=20,
+            ),
         ),
     ]

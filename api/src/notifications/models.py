@@ -29,7 +29,14 @@ class Notification(models.Model):
         to=CustomUser, related_name="viewed_notifications", blank=True
     )
     notification_type = models.CharField(
-        choices=settings.NOTIFICATION_CHOICES, default=settings.LIKES_FIELD, max_length=max([len(notification_type[0]) for notification_type in settings.NOTIFICATION_CHOICES])
+        choices=settings.NOTIFICATION_CHOICES,
+        default=settings.LIKES_FIELD,
+        max_length=max(
+            [
+                len(notification_type[0])
+                for notification_type in settings.NOTIFICATION_CHOICES
+            ]
+        ),
     )
 
     class Meta:

@@ -1,6 +1,11 @@
 node_modules/
 .expo/
 npm-debug.*
+debuggerWorker.js
+
+# Coverage directory used by tools like istanbul
+coverage/
+
 *.jks
 *.p8
 *.p12

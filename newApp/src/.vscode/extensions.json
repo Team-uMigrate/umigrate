@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "msjsdiag.vscode-react-native",
+    "visualstudioexptteam.vscodeintellicode",
+    "xabikos.javascriptsnippets",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense"
+  ]
+}

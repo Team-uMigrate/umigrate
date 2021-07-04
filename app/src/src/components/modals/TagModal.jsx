@@ -13,7 +13,7 @@ import {
 import { UsersEndpoint } from '../../utils/endpoints';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 
-const USERTEXTSIZE = 22;
+const USERTEXTSIZE = 16;
 
 const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   const [userSearchResults, setUserSearchResults] = useState([]);
@@ -21,7 +21,29 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
 
   const searchUsers = async (query) => {
     const response = await UsersEndpoint.list(1, { search: query });
-    setUserSearchResults(response.data.results);
+    let newUserSearchResults = response.data.results;
+    const taggedUserSet = new Set();
+
+    console.log('taggedUsers', taggedUsers);
+
+    if (taggedUsers.length != 0) {
+      // Populate set with users that are already tagged
+      for (const index in taggedUsers) taggedUserSet.add(taggedUsers[index].id);
+
+      // Iterate through newUserSearchResults and weed out tagged users
+      for (let index = 0; index < newUserSearchResults.length; index++) {
+        const id = newUserSearchResults[index].id;
+        if (taggedUserSet.has(id)) {
+          console.log('removed', id);
+          // Remove result if already in taggedUsers
+          newUserSearchResults.splice(index, 1);
+          // The indices have now changed, so the next element's index is equal to the index variable here
+          index--;
+        }
+      }
+    }
+
+    setUserSearchResults(newUserSearchResults);
   };
 
   return (
@@ -49,16 +71,18 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 clearTextOnFocus={true}
                 onChangeText={(newQuery) => {
                   setFetchingNewResults(true);
-                  searchUsers(newQuery).then(() => {
-                    setFetchingNewResults(false);
-                  });
+                  searchUsers(newQuery)
+                    .then(() => {
+                      setFetchingNewResults(false);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                 }}
               />
-              <Text />
-              {taggedUsers.map((user) => {
-                console.log(taggedUsers);
-                return <TaggedUser user={user} key={user.id.toString()} />;
-              })}
+              {taggedUsers.map((user) => (
+                <TaggedUser user={user} key={user.id.toString()} />
+              ))}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -78,6 +102,8 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 user={item}
                 taggedUsers={taggedUsers}
                 setTaggedUsers={setTaggedUsers}
+                userSearchResults={userSearchResults}
+                setUserSearchResults={setUserSearchResults}
               />
             )}
             ListEmptyComponent={() => (
@@ -92,32 +118,43 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   );
 };
 
-const UserButton = ({ user, taggedUsers, setTaggedUsers }) => {
+const UserButton = ({
+  user,
+  taggedUsers,
+  setTaggedUsers,
+  userSearchResults,
+  setUserSearchResults,
+}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
+        // Remove the user you're tagging from the search results (so users can't tag them again)
+        let newResults = userSearchResults;
+        for (let index in userSearchResults) {
+          if (userSearchResults[index].id === user.id) {
+            newResults.splice(index, 1);
+            break;
+          }
+        }
+        setUserSearchResults(newResults);
+
         setTaggedUsers(taggedUsers.concat(user));
       }}
     >
       <Card style={styles.userButton}>
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            marginRight: '1%',
-            flexDirection: 'row',
-          }}
-        >
+        <View style={styles.userView}>
           <ProfilePhotoView
             photo={user.profile_photo}
-            size={USERTEXTSIZE + 10}
+            size={USERTEXTSIZE * 2}
             style={{
               borderColor: '#A3C8FF',
               borderWidth: 2,
               marginRight: '2%',
             }}
           />
-          <Text>{user.first_name + ' ' + user.last_name}</Text>
+          <Text style={{ fontSize: USERTEXTSIZE }}>
+            {user.first_name + ' ' + user.last_name}
+          </Text>
         </View>
       </Card>
     </TouchableWithoutFeedback>
@@ -131,16 +168,20 @@ const TaggedUser = ({ user }) => {
         <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
           <ProfilePhotoView
             photo={user.profile_photo}
-            size={USERTEXTSIZE + 10}
-            style={{ borderColor: '#A3C8FF', borderWidth: 2 }}
+            size={USERTEXTSIZE * 2}
+            style={{
+              borderColor: '#A3C8FF',
+              borderWidth: 2,
+              marginRight: '2%',
+            }}
           />
           <View style={{ justifyContent: 'center' }}>
-            <Text size={USERTEXTSIZE}>
+            <Text style={{ fontSize: USERTEXTSIZE }}>
               {user.first_name + ' ' + user.last_name}
             </Text>
           </View>
         </View>
-        <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE + 4} />
+        <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE} />
       </View>
     </Card>
   );
@@ -171,6 +212,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 5,
     backgroundColor: '#D9D9D9',
+  },
+  userView: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginRight: '1%',
+    flexDirection: 'row',
   },
   userButton: {
     borderRadius: 100,

@@ -174,7 +174,6 @@ class CreateCommunityScreen extends React.Component {
             }
             taggedUsers={this.state.taggedUsers}
             setTaggedUsers={(taggedUsers) => {
-              console.log(taggedUsers);
               this.setState({ taggedUsers: taggedUsers });
             }}
             profilePhoto={this.state.user.profile_photo}

@@ -93,7 +93,7 @@ class MenuHomeScreen extends Component {
           <Card style={styles.tiles}>
             <Card.Content>
               <IconButton
-                icon="settings"
+                icon="cog"
                 size={Platform.OS === 'android' ? 50 : 70}
                 style={styles.iconPic}
                 onPress={() => this.props.navigation.navigate(routes.settings)}

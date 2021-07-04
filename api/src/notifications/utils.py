@@ -72,17 +72,18 @@ def create_message_notification(
     A function that sends push notifications to a user when they receive a message.
     """
 
-    content_type = ContentType.objects.get_for_model(message)
-    content = f"{sender.preferred_name} sent you a message"
-    notification = Notification(
-        content=content,
-        content_type=content_type,
-        object_id=sender.id,
-        creator_id=sender.id,
-    )
-    notification.save()
-    notification.receivers.add(*receivers)
-    send_push_notifications(notification)
+    if receivers.exists():
+        content_type = ContentType.objects.get_for_model(message)
+        content = f"{sender.preferred_name} sent you a message"
+        notification = Notification(
+            content=content,
+            content_type=content_type,
+            object_id=sender.id,
+            creator_id=sender.id,
+        )
+        notification.save()
+        notification.receivers.add(*receivers)
+        send_push_notifications(notification)
 
 
 def create_liked_shared_item_notification(
@@ -128,4 +129,5 @@ def send_push_notifications(notification: Notification) -> None:
                 )
             )
 
-    PushClient().publish_multiple(push_messages)
+    if len(push_messages) > 0:
+        PushClient().publish_multiple(push_messages)

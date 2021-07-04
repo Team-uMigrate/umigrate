@@ -1,7 +1,9 @@
 from typing import List
+
+from django.http import HttpRequest
 from model_bakery import baker
 from rest_framework.test import APITestCase
-from messaging.models import Room
+from messaging.models import Room, IsMember
 from users.models import CustomUser
 
 
@@ -33,10 +35,36 @@ class RoomTestCase(APITestCase):
 
 class IsMemberTestCase(APITestCase):
     def test_has_object_permission_true(self):
-        pass
+        # Arrange
+        users: List[CustomUser] = baker.make("CustomUser", _quantity=1)
+        request = HttpRequest()
+        request.user = users[0]
+        room: Room = baker.make("Room", members=users)
+        permission = IsMember()
+
+        # Act
+        is_member = permission.has_object_permission(
+            request=request, view=None, obj=room
+        )
+
+        # Assert
+        self.assertTrue(is_member)
 
     def test_has_object_permission_false(self):
-        pass
+        # Arrange
+        users: List[CustomUser] = baker.make("CustomUser", _quantity=1)
+        request = HttpRequest()
+        request.user = baker.make("CustomUser")
+        room: Room = baker.make("Room", members=users)
+        permission = IsMember()
+
+        # Act
+        is_member = permission.has_object_permission(
+            request=request, view=None, obj=room
+        )
+
+        # Assert
+        self.assertFalse(is_member)
 
 
 class OnDeleteSharedItemTestCase(APITestCase):

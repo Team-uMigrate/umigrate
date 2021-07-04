@@ -167,7 +167,7 @@ const UserView = ({ user }) => (
     <ProfilePhotoView
       photo={user.profile_photo}
       size={USERTEXTSIZE * 2}
-      style={{
+      styles={{
         borderColor: '#A3C8FF',
         borderWidth: 2,
         marginRight: '2%',

@@ -1,5 +1,6 @@
 import toYearMonthDayInNumbers from './toYearMonthDayInNumbers';
 // takes in Date and returns the date in Month Day Year format (ex: January 1 1960)
+
 const toMonthDayYearInWords = ({ date }) => {
   let yyyymmdd = date;
   // check if date is in Date format or is already in YYYY-MM-DD format (birthday saves in YYYY-MM-DD format)

@@ -18,9 +18,7 @@ from common.decorators import (
 
 
 @api_view_swagger_decorator(["Notifications"])
-class ViewedReceivedNotifications(
-    ListAPIView
-):  # todo: create endpoint for removing the user from receivers and adding the user to viewers
+class ViewedReceivedNotifications(ListAPIView):
     serializer_class = NotificationSerializer
     permission_classes = [
         IsAuthenticated,

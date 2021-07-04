@@ -2,9 +2,10 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import exceptions
 from common.serializer_extensions import ModelSerializerExtension
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from users.models import CustomUser
 from common.constants.choices import Choices
+from django.conf import settings
 
 
 class BasicUserSerializer(ModelSerializerExtension):
@@ -139,6 +140,22 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+
+class NotificationPreferencesSerializer(serializers.Serializer):
+    """
+    A serializer class for updating the notification preferences for the user.
+    """
+
+    notification_preferences = fields.MultipleChoiceField(
+        choices=settings.NOTIFICATION_CHOICES
+    )
 
     def create(self, validated_data):
         pass

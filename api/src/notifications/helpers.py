@@ -1,4 +1,5 @@
-from types import SimpleNamespace
+from typing import List
+from django.http import HttpRequest
 from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
@@ -17,8 +18,8 @@ def create_tagged_users_notification(
     A function that sends push notifications to all tagged users for a shared item.
     """
 
-    tagged_users = created_data.tagged_users.all()
-    if len(tagged_users) > 0:
+    tagged_users: QuerySet[CustomUser] = created_data.tagged_users.all()
+    if tagged_users.exists():
         content_type = ContentType.objects.get_for_model(created_data)
 
         # todo: remove hardcoded list of content types that start with vowels and check if first letter is a vowel
@@ -91,7 +92,7 @@ def create_liked_shared_item_notification(
     A function that sends push notifications to the owner of a shared item when it is liked.
     """
 
-    owner = liked_data.creator
+    owner: CustomUser = liked_data.creator
     content_type = ContentType.objects.get_for_model(liked_data)
     content = f"{liker.preferred_name} liked your {content_type.model}!"
     notification = Notification.objects.create(
@@ -110,10 +111,10 @@ def send_push_notifications(notification: Notification) -> None:
     A function that sends push notifications to the receivers of a notification object.
     """
 
-    push_messages = []
+    push_messages: List[PushMessage] = []
     for receiver in notification.receivers.all():
         for device in receiver.devices.all():
-            request = SimpleNamespace()
+            request = HttpRequest()
             request.user = notification.creator
             push_messages.append(
                 PushMessage(

@@ -2,7 +2,7 @@ from channels.db import database_sync_to_async
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from .models import Message, Room
-from notifications.notification_helpers import (
+from notifications.helpers import (
     create_liked_shared_item_notification,
     create_message_notification,
 )

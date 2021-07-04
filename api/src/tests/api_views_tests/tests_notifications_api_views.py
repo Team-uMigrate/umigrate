@@ -3,8 +3,8 @@ from django.http import HttpRequest
 from model_bakery import baker
 from rest_framework import status
 from rest_framework.test import APITestCase
-from notifications.models import Notification
-from notifications.api_views import ViewedReceivedNotifications
+from notifications.models import Notification, Device
+from notifications.api_views import ViewedReceivedNotifications, DeviceViewSet
 from notifications.serializers import (
     NotificationSerializer,
     ReceivedNotificationsSerializer,
@@ -100,3 +100,32 @@ class ViewedReceivedNotificationsTestCase(APITestCase):
 
         # Assert
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+
+
+class DeviceViewSetTestCase(APITestCase):
+    def test_get_query_set_has_devices(self):
+        # Arrange
+        request = HttpRequest()
+        request.user = baker.make("CustomUser")
+        device: Device = baker.make("Device", creator=request.user)
+        api_view = DeviceViewSet(request=request)
+
+        # Act
+        queryset: QuerySet[Device] = api_view.get_queryset()
+
+        # Assert
+        self.assertTrue(queryset.filter(id=device.id).exists())
+
+    def test_get_query_set_has_no_devices(self):
+        # Arrange
+        request = HttpRequest()
+        request.user = baker.make("CustomUser")
+        user = baker.make("CustomUser")
+        device: Device = baker.make("Device", creator=user)
+        api_view = DeviceViewSet(request=request)
+
+        # Act
+        queryset: QuerySet[Device] = api_view.get_queryset()
+
+        # Assert
+        self.assertFalse(queryset.filter(id=device.id).exists())

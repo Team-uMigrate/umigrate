@@ -29,7 +29,7 @@ class Room(models.Model):
         return f"{self.title}"
 
     def save(self, *args, **kwargs):
-        if self.id and not self.members:
+        if self.id and not self.members.count():
             self.delete()
         else:
             super().save(*args, **kwargs)

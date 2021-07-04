@@ -12,6 +12,11 @@ from common.decorators import (
     model_view_set_swagger_decorator,
     api_view_swagger_decorator,
 )
+from notifications.utils import create_event_reminder_notification
+from datetime import datetime, timedelta
+from umigrate import settings
+from rq import Queue
+from redis import Redis
 
 
 @model_view_set_swagger_decorator(["Events"])
@@ -53,3 +58,18 @@ class AttendingEvents(AbstractAddRemoveUser):
     query_string = "attending_events"
     serializer_class = EventSerializer
     model_class = Event
+
+    def post(self, request, *args, **kwargs):
+        response = AbstractAddRemoveUser.post(self, request, args, kwargs)
+        if response["should_add"] and request.user.event_reminder_preference:
+            queue = Queue(name=settings.SCHEDULER_QUEUE, connection=Redis())
+            event = Event.objects.get(request.id)
+            job = queue.enqueue_at(
+                event.start_datetime
+                - timedelta(minutes=request.user.event_reminder_preference),
+                create_event_reminder_notification,
+                event,
+                request.use,
+            )
+
+        return response

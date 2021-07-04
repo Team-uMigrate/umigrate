@@ -75,6 +75,7 @@ class UserSerializer(BasicUserSerializer):
             "connected_users",
             "blocked_users",
             "user_permissions",
+            "event_reminder_preference",
         ]
 
 

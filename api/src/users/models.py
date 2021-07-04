@@ -79,6 +79,9 @@ class CustomUser(AbstractUser):
     blocked_users = models.ManyToManyField(
         to="self", related_name="blocked_users_set", symmetrical=False, blank=True
     )
+    event_reminder_preference = models.PositiveSmallIntegerField(
+        choices=Choices.EVENT_REMINDER_CHOICES, default=0, null=True
+    )
 
     objects = CustomUserManager()
 

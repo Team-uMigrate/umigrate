@@ -1,6 +1,7 @@
 from typing import List
 from django.http import HttpRequest
 from users.models import CustomUser
+from events.models import Event
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from exponent_server_sdk import PushMessage, PushClient
@@ -104,6 +105,23 @@ def create_liked_shared_item_notification(
     )
     notification.save()
     notification.receivers.add(owner)
+    send_push_notifications(notification)
+
+
+def create_event_reminder_notification(event: Event, attendee: CustomUser) -> None:
+    """
+    A function that sends push notifications to the owner of a shared item when it is liked.
+    """
+    content_type = ContentType.objects.get_for_model(event)
+    content = f"Your event, {event.title}, starts in {attendee.event_reminder_preference} minutes!"
+    notification = Notification.objects.create(
+        content=content,
+        content_type=content_type,
+        object_id=event.id,
+        creator_id=attendee.id,
+    )
+    notification.save()
+    notification.receivers.add(attendee)
     send_push_notifications(notification)
 
 

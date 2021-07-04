@@ -119,6 +119,15 @@ class Choices:
             "Not Connected",
         ]
     )
+    EVENT_REMINDER_CHOICES = convert_to_tuple(
+        [
+            5,
+            15,
+            30,
+            60,
+            None,
+        ]
+    )
 
 
 class MockData:

@@ -3,7 +3,8 @@ from typing import List
 from django.http import HttpRequest
 from model_bakery import baker
 from rest_framework.test import APITestCase
-from messaging.models import Room, IsMember
+from messaging.models import Room, IsMember, on_delete_shared_item, Message
+from posts.models import Post
 from users.models import CustomUser
 
 
@@ -69,7 +70,28 @@ class IsMemberTestCase(APITestCase):
 
 class OnDeleteSharedItemTestCase(APITestCase):
     def test_on_delete_shared_item_set_to_none(self):
-        pass
+        # Arrange
+        user: CustomUser = baker.make("CustomUser")
+        post: Post = baker.make("Post", creator=user)
+        message: Message = baker.make("Message", creator=user, content_object=post)
+
+        # Act
+        on_delete_shared_item(sender=Post, instance=post, using=None)
+        message.refresh_from_db()
+
+        # Assert
+        self.assertIsNone(message.content_object)
 
     def test_has_object_permission_do_not_set_to_none(self):
-        pass
+        # Arrange
+        user: CustomUser = baker.make("CustomUser")
+        post_1: Post = baker.make("Post", creator=user)
+        post_2: Post = baker.make("Post", creator=user)
+        message: Message = baker.make("Message", creator=user, content_object=post_1)
+
+        # Act
+        on_delete_shared_item(sender=Post, instance=post_2, using=None)
+        message.refresh_from_db()
+
+        # Assert
+        self.assertIsNotNone(message.content_object)

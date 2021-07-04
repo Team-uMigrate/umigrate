@@ -4,7 +4,7 @@ from users.serializers import BasicUserSerializer
 from rest_framework import serializers
 from common.serializer_extensions import ModelSerializerExtension
 from photos.serializers import PhotoRetrieveSerializer
-from notifications.helpers import create_tagged_users_notification
+from notifications.utils import create_tagged_users_notification
 
 
 class AbstractCreatorSerializer(ModelSerializerExtension):

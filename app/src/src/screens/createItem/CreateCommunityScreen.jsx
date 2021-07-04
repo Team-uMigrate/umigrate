@@ -13,7 +13,7 @@ import { IconButton, Button } from 'react-native-paper';
 import CreatePageTextInput from '../../components/common/CreatePageTextInput';
 import ButtonWithDownArrow from '../../components/common/ButtonWithDownArrow';
 import { getUserData } from '../../utils/storageAccess';
-import toYearMonthDayTimeInNumbers from '../../components/common/FormatDate/toYearMonthDayTimeInNumbers';
+import toYearMonthDayTimeInNumbers from '../../utils/FormatDate/toYearMonthDayTimeInNumbers';
 import PickADayTimeModal from '../../components/modals/PickADayTimeModal';
 
 class CreateCommunityScreen extends React.Component {

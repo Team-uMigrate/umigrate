@@ -26,7 +26,7 @@ class BasicUserSerializer(ModelSerializerExtension):
             "is_blocked",
         ]
 
-    def get_connection_status(self, instance):
+    def get_connection_status(self, instance: CustomUser) -> int:
         user = self.context["request"].user
         received = instance.connected_users.filter(id=user.id).exists()
         sent = user.connected_users.filter(id=instance.id).exists()
@@ -40,9 +40,9 @@ class BasicUserSerializer(ModelSerializerExtension):
         if received:
             return Choices.CONNECTION_STATUS_CHOICES["Request Received"]
 
-        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
+        return Choices.CONNECTION_STATUS_CHOICES["Not Connected"]
 
-    def get_is_blocked(self, instance):
+    def get_is_blocked(self, instance: CustomUser) -> bool:
         return (
             self.context["request"].user.blocked_users.filter(id=instance.id).exists()
         )

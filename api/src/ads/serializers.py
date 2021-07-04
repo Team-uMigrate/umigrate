@@ -1,11 +1,11 @@
 from common.abstract_serializers import (
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
 )
 from .models import Ad
 
 
-class AdSerializer(AbstractModelSerializer):
+class AdSerializer(AbstractPostSerializer):
     """
     A serializer class for the Ad model.
     """
@@ -16,7 +16,7 @@ class AdSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-class AdDetailSerializer(AdSerializer, AbstractModelDetailSerializer):
+class AdDetailSerializer(AdSerializer, AbstractPostDetailSerializer):
     """
     A detailed serializer class for the Ad model.
     """

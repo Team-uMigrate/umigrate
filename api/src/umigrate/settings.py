@@ -93,6 +93,8 @@ INSTALLED_APPS = [
     # Channels apps
     "channels",
     "channels_redis",
+    # Redis Queue apps
+    "django_rq",
     # Project apps
     "ads",
     "events",
@@ -105,7 +107,7 @@ INSTALLED_APPS = [
     "photos",
     "comments",
     "notifications",
-    "django_rq",
+    "tests",
 ]
 
 # Middleware

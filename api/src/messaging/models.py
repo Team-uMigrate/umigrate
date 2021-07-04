@@ -29,7 +29,7 @@ class Room(models.Model):
         return f"{self.title}"
 
     def save(self, *args, **kwargs):
-        if self.id and not self.members:
+        if self.id and not self.members.count():
             self.delete()
         else:
             super().save(*args, **kwargs)
@@ -100,9 +100,9 @@ class IsMember(BasePermission):
 
 
 @receiver(pre_delete)
-def ondelete_shared_item(sender, instance, using, **kwargs):
+def on_delete_shared_item(sender, instance, using, **kwargs):
     """
-    When a shared item is deleted, find any references of that shared item in a message and set that field to null.
+    When a shared item is deleted, find any references of that shared item in a message and set that field to none.
     """
 
     content_type = ContentType.objects.get_for_model(sender)

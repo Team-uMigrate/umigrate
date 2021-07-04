@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   textLabelRow: {
     fontSize: 12,
     textAlign: 'left',
-    marginLeft: '50%',
+    marginLeft: '45%',
     marginBottom: '1%',
     color: '#6C6A6A',
   },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'left',
     fontWeight: 'bold',
-    marginLeft: '50%',
+    marginLeft: '45%',
     marginBottom: '3%',
   },
   textValRowValNull: {

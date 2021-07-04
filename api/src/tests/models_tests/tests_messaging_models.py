@@ -69,7 +69,7 @@ class IsMemberTestCase(APITestCase):
 
 
 class OnDeleteSharedItemTestCase(APITestCase):
-    def test_on_delete_shared_item_set_to_none(self):
+    def test_set_to_none(self):
         # Arrange
         user: CustomUser = baker.make("CustomUser")
         post: Post = baker.make("Post", creator=user)
@@ -82,7 +82,7 @@ class OnDeleteSharedItemTestCase(APITestCase):
         # Assert
         self.assertIsNone(message.content_object)
 
-    def test_has_object_permission_do_not_set_to_none(self):
+    def test_do_not_set_to_none(self):
         # Arrange
         user: CustomUser = baker.make("CustomUser")
         post_1: Post = baker.make("Post", creator=user)

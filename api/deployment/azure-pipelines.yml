@@ -58,9 +58,9 @@ jobs:
       TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
 
   - task: UsePythonVersion@0
-    displayName: 'Use Python 3.7'
+    displayName: 'Use Python 3.9'
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.9'
 
   - script: python -m pip install --upgrade pip setuptools wheel
     displayName: 'Install Tools'

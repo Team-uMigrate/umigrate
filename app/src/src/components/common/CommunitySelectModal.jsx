@@ -21,10 +21,7 @@ const CommunitySelectModal = ({
   // The options that get shown in the modal while the search bar is unfocused
   // default options are set to the first 4 options
   const [shownCommunityChoices, setShownCommunityChoices] = useState([
-    0,
-    1,
-    2,
-    3,
+    0, 1, 2, 3,
   ]);
   const [communitySearchFocused, setCommunitySearchFocused] = useState(false);
   const [searchResults, setSearchResults] = useState(shownCommunityChoices);

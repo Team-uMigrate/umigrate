@@ -21,10 +21,8 @@ const BasicCreateForm = ({
   profilePhoto,
   pageIconName,
 }) => {
-  const [
-    communitySelectModalVisible,
-    setCommunitySelectModalVisible,
-  ] = useState(false);
+  const [communitySelectModalVisible, setCommunitySelectModalVisible] =
+    useState(false);
 
   return (
     <>

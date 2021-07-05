@@ -119,7 +119,13 @@ class Choices:
             "Not Connected",
         ]
     )
-    LIKES_FIELD, MESSAGE_FIELD, COMMENT_FIELD, TAG_FIELD, CONNECTION_FIELD = (1, 2, 3, 4, 5)
+    LIKES_FIELD, MESSAGE_FIELD, COMMENT_FIELD, TAG_FIELD, CONNECTION_FIELD = (
+        1,
+        2,
+        3,
+        4,
+        5,
+    )
     NOTIFICATION_CHOICES = (
         (LIKES_FIELD, "Shared_Item_Likes"),
         (MESSAGE_FIELD, "Messages_Received"),

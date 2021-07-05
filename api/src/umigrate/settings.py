@@ -223,15 +223,6 @@ DATABASES = {
     },
 }
 
-# todo: Figure out how to get tests working with postgres instead of sqlite3
-import sys
-
-if (
-    "test" in sys.argv or "test_coverage" in sys.argv
-):  # Covers regular testing and django-coverage
-    DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
-
-
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Channels configuration

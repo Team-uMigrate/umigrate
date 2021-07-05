@@ -9,6 +9,7 @@ from common.abstract_models import AbstractPostModel
 from messaging.models import Message
 from notifications.models import Notification
 from notifications.serializers import NotificationSerializer
+from common.constants.choices import Choices
 
 
 def create_tagged_users_notification(
@@ -34,6 +35,7 @@ def create_tagged_users_notification(
             content_type=content_type,
             object_id=created_data.id,
             creator_id=created_data.creator.id,
+            notification_type=Choices.TAG_FIELD,
         )
         notification.save()
         notification.receivers.add(*tagged_users)
@@ -59,6 +61,7 @@ def create_connection_request_notification(
         content_type=content_type,
         object_id=sender.id,
         creator_id=sender.id,
+        notification_type=Choices.CONNECTION_FIELD,
     )
     notification.save()
     notification.receivers.add(receiver)
@@ -80,6 +83,7 @@ def create_message_notification(
             content_type=content_type,
             object_id=sender.id,
             creator_id=sender.id,
+            notification_type=Choices.MESSAGE_FIELD,
         )
         notification.save()
         notification.receivers.add(*receivers)
@@ -101,6 +105,7 @@ def create_liked_shared_item_notification(
         content_type=content_type,
         object_id=liked_data.id,
         creator_id=liker.id,
+        notification_type=Choices.LIKES_FIELD,
     )
     notification.save()
     notification.receivers.add(owner)

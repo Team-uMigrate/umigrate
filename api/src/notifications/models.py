@@ -2,7 +2,7 @@ from django.db import models
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.conf import settings
+from common.constants.choices import Choices
 
 
 class Notification(models.Model):
@@ -28,15 +28,8 @@ class Notification(models.Model):
     viewers = models.ManyToManyField(
         to=CustomUser, related_name="viewed_notifications", blank=True
     )
-    notification_type = models.CharField(
-        choices=settings.NOTIFICATION_CHOICES,
-        default=settings.LIKES_FIELD,
-        max_length=max(
-            [
-                len(notification_type[0])
-                for notification_type in settings.NOTIFICATION_CHOICES
-            ]
-        ),
+    notification_type = models.PositiveSmallIntegerField(
+        choices=Choices.NOTIFICATION_CHOICES, default=Choices.LIKES_FIELD
     )
 
     class Meta:

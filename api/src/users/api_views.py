@@ -2,7 +2,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK
+from rest_framework import status
 from rest_framework.response import Response
 from common.decorators import api_view_swagger_decorator
 from common.generics.generic_post_api_views import GenericUserExtension
@@ -90,7 +91,7 @@ class NotificationPreferences(UpdateAPIView):
 
         # Validate HTTP patch/put data
         if not serializer.is_valid():
-            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         # update the notification preferences field
         notification_preferences = serializer.data["notification_preferences"]
@@ -98,7 +99,8 @@ class NotificationPreferences(UpdateAPIView):
         self.request.user.save()
 
         return Response(
-            {"notification_preferences": notification_preferences}, status=HTTP_200_OK
+            {"notification_preferences": notification_preferences},
+            status=status.HTTP_200_OK,
         )
 
     def patch(self, request, *args, **kwargs):

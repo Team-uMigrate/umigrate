@@ -4,9 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from common.constants.choices import Choices
 from datetime import date
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.postgres.fields import ArrayField
 from multiselectfield import MultiSelectField
-from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
@@ -82,10 +80,9 @@ class CustomUser(AbstractUser):
     blocked_users = models.ManyToManyField(
         to="self", related_name="blocked_users_set", symmetrical=False, blank=True
     )
-
     notification_preferences = MultiSelectField(
-        choices=settings.NOTIFICATION_CHOICES,
-        default=",".join([str(key[0]) for key in settings.NOTIFICATION_CHOICES]),
+        choices=Choices.NOTIFICATION_CHOICES,
+        default=",".join([str(key[0]) for key in Choices.NOTIFICATION_CHOICES]),
         blank=True,
         null=True,
     )

@@ -5,7 +5,7 @@ from common.serializer_extensions import ModelSerializerExtension
 from rest_framework import serializers, fields
 from users.models import CustomUser
 from common.constants.choices import Choices
-from django.conf import settings
+from common.constants.choices import Choices
 
 
 class BasicUserSerializer(ModelSerializerExtension):
@@ -154,7 +154,7 @@ class NotificationPreferencesSerializer(serializers.Serializer):
     """
 
     notification_preferences = fields.MultipleChoiceField(
-        choices=settings.NOTIFICATION_CHOICES
+        choices=Choices.NOTIFICATION_CHOICES
     )
 
     def create(self, validated_data):

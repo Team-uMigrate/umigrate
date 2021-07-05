@@ -351,19 +351,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "../static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
-
-# Notification types
-LIKES_FIELD, MESSAGE_FIELD, TAG_FIELD, CONNECTION_FIELD, COMMENT_FIELD = (
-    "Shared_Item_Likes",
-    "Messages_Received",
-    "Shared_Item_Tag",
-    "Connection_Request",
-    "Shared_Item_Comments",
-)
-NOTIFICATION_CHOICES = (
-    (LIKES_FIELD, LIKES_FIELD),
-    (MESSAGE_FIELD, MESSAGE_FIELD),
-    (COMMENT_FIELD, COMMENT_FIELD),
-    (TAG_FIELD, TAG_FIELD),
-    (CONNECTION_FIELD, CONNECTION_FIELD),
-)

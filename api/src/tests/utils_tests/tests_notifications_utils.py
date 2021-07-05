@@ -2,6 +2,8 @@ from typing import List
 from model_bakery import baker
 from rest_framework.test import APITestCase
 from unittest.mock import patch, MagicMock
+
+from common.constants.choices import Choices
 from messaging.models import Message
 from notifications.models import Notification, Device
 from posts.models import Post
@@ -34,6 +36,7 @@ class CreateTaggedUsersNotificationTestCase(APITestCase):
         self.assertEqual(
             f"{user.preferred_name} has tagged you in a post!", notification.content
         )
+        self.assertEqual(Choices.TAG_FIELD, notification.notification_type)
         self.assertTrue(notification.receivers.filter(id=users[0].id).exists())
 
     @patch("notifications.utils.send_push_notifications")
@@ -67,6 +70,7 @@ class CreateConnectionRequestNotificationTestCase(APITestCase):
             f"{sender.preferred_name} accepted your connection request",
             notification.content,
         )
+        self.assertEqual(Choices.CONNECTION_FIELD, notification.notification_type)
         self.assertTrue(notification.receivers.filter(id=receiver.id).exists())
 
     @patch("notifications.utils.send_push_notifications")
@@ -86,6 +90,7 @@ class CreateConnectionRequestNotificationTestCase(APITestCase):
             f"{sender.preferred_name} sent you a connection request",
             notification.content,
         )
+        self.assertEqual(Choices.CONNECTION_FIELD, notification.notification_type)
         self.assertTrue(notification.receivers.filter(id=receiver.id).exists())
 
 
@@ -109,6 +114,7 @@ class CreateMessageNotificationTestCase(APITestCase):
             f"{users[0].preferred_name} sent you a message",
             notification.content,
         )
+        self.assertEqual(Choices.MESSAGE_FIELD, notification.notification_type)
         self.assertTrue(notification.receivers.filter(id=users[1].id).exists())
 
     @patch("notifications.utils.send_push_notifications")
@@ -142,6 +148,7 @@ class CreateLikedSharedItemNotificationTestCase(APITestCase):
             f"{users[1].preferred_name} liked your post!",
             notification.content,
         )
+        self.assertEqual(Choices.LIKES_FIELD, notification.notification_type)
         self.assertTrue(notification.receivers.filter(id=users[0].id).exists())
 
 

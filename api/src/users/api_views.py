@@ -2,7 +2,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_200_OK
 from rest_framework import status
 from rest_framework.response import Response
 from common.decorators import api_view_swagger_decorator
@@ -53,7 +52,7 @@ class ConnectUser(GenericUserExtension):
     def post(self, request, *args, **kwargs):
         response = GenericUserExtension.post(self, request, args, kwargs)
 
-        if response.status_code != HTTP_200_OK:
+        if response.status_code != status.HTTP_200_OK:
             return response
 
         add_user: bool = request.data[self.field_string]

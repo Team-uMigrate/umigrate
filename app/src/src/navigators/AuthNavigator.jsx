@@ -3,11 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthContext from '../contexts/AuthContext';
 import TabNavigator from './TabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TabNavContextProvider } from '../contexts/TabNavContext';
+import { StackNavContextProvider } from '../contexts/StackNavContext';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/authentication/LoadingScreen';
-import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
+// import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
 import MessagingScreen from '../screens/messaging/MessagingScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
@@ -15,22 +15,34 @@ import NotificationScreen from '../screens/notifications/NotificationsScreen';
 import CommentsScreen from '../screens/comments/CommentsScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
+import SearchScreen from '../screens/search/SearchScreen';
+
+const initialState = {
+  /** @type {string | null} */
+  expoPushToken: null,
+};
 
 const Stack = createStackNavigator();
 
-// A navigator that renders components depending on the authentication state
+/**
+ * Renders screens based on the authentication state.
+ * @return {JSX.Element}
+ */
 const AuthNavigator = () => {
   const auth = useContext(AuthContext);
   const error = useContext(ErrorContext);
-  const [expoPushToken, setExpoPushToken] = useState(null);
+  const [expoPushToken, setExpoPushToken] = useState(
+    initialState.expoPushToken
+  );
 
   useEffect(() => {
     (async () => {
       // Register for push notifications if authenticated
       if (auth.isAuthenticated) {
         try {
-          const token = await registerForPushNotificationsAsync(error);
-          setExpoPushToken(token);
+          // Todo: Expo Permissions is deprecated
+          // const token = await registerForPushNotificationsAsync(error);
+          // setExpoPushToken(token);
         } catch (e) {
           error.setMessage(e.message);
         }
@@ -39,9 +51,9 @@ const AuthNavigator = () => {
   }, [auth.isAuthenticated]);
 
   if (auth.isAuthenticated === true) {
-    // Render authenticated view
+    // Render authenticated screens
     return (
-      <TabNavContextProvider>
+      <StackNavContextProvider>
         <CreateItemContextProvider>
           <NavigationContainer>
             <Stack.Navigator
@@ -49,11 +61,12 @@ const AuthNavigator = () => {
               gestureDirection={'horizontal-inverted'}
             >
               <Stack.Screen name={routes.tabs} component={TabNavigator} />
+              <Stack.Screen name={routes.comments} component={CommentsScreen} />
+              <Stack.Screen name={routes.search} component={SearchScreen} />
               <Stack.Screen
                 name={routes.messaging}
                 component={MessagingScreen}
               />
-              <Stack.Screen name={routes.comments} component={CommentsScreen} />
               <Stack.Screen
                 name={routes.notifications}
                 options={{
@@ -64,10 +77,10 @@ const AuthNavigator = () => {
             </Stack.Navigator>
           </NavigationContainer>
         </CreateItemContextProvider>
-      </TabNavContextProvider>
+      </StackNavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {
-    // Render not authenticated view
+    // Render unauthenticated screens
     return (
       <NavigationContainer>
         <Stack.Navigator>
@@ -84,7 +97,7 @@ const AuthNavigator = () => {
       </NavigationContainer>
     );
   } else {
-    // Render loading view
+    // Render loading screen
     return <LoadingScreen />;
   }
 };

@@ -4,14 +4,21 @@ from common.model_extensions import PhotoCollectionExtension
 from users.models import CustomUser
 
 
-# A model class that represents a poll
 class Poll(AbstractPostModel, PhotoCollectionExtension):
+    """
+    A model class that represents a poll.
+    """
+
     is_multiselect = models.BooleanField(default=False)
     is_public = models.BooleanField(default=False)
+    is_anonymous = models.BooleanField(default=False)
 
 
-# A model class that represents a poll option
 class Option(models.Model):
+    """
+    A model class that represents a poll option.
+    """
+
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=100)
     creator = models.ForeignKey(
@@ -30,8 +37,11 @@ class Option(models.Model):
         return f"{self.content}"
 
 
-# A model class that represents an option vote
 class Vote(models.Model):
+    """
+    A model class that represents an option vote.
+    """
+
     id = models.AutoField(primary_key=True)
     creator = models.ForeignKey(
         to=CustomUser,

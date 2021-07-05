@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Divider, Modal, Portal } from 'react-native-paper';
+import { Card, Divider, Modal } from 'react-native-paper';
 import {
   StyleSheet,
   Text,
@@ -21,10 +21,7 @@ const CommunitySelectModal = ({
   // The options that get shown in the modal while the search bar is unfocused
   // default options are set to the first 4 options
   const [shownCommunityChoices, setShownCommunityChoices] = useState([
-    0,
-    1,
-    2,
-    3,
+    0, 1, 2, 3,
   ]);
   const [communitySearchFocused, setCommunitySearchFocused] = useState(false);
   const [searchResults, setSearchResults] = useState(shownCommunityChoices);
@@ -120,7 +117,7 @@ const CommunitySelectModal = ({
 
           {communitySearchFocused && (
             <Card style={styles.communitySearchResultsCard}>
-              <ScrollView>
+              <ScrollView keyboardShouldPersistTaps={'always'}>
                 {searchResults.map((item, index) => {
                   return (
                     <View key={index}>

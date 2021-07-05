@@ -1,18 +1,24 @@
 from common.abstract_serializers import (
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
 )
 from .models import Post
 
 
-# A serializer class for the Post model
-class PostSerializer(AbstractModelSerializer):
+class PostSerializer(AbstractPostSerializer):
+    """
+    A serializer class for the Post model.
+    """
+
     class Meta:
         model = Post
         fields = "__all__"
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# A detailed serializer class for the Post model
-class PostDetailSerializer(PostSerializer, AbstractModelDetailSerializer):
+class PostDetailSerializer(PostSerializer, AbstractPostDetailSerializer):
+    """
+    A detailed serializer class for the Post model.
+    """
+
     pass

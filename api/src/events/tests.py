@@ -1,3 +1,4 @@
+from unittest import skip
 from rest_framework.test import APITestCase
 from common.abstract_tests import (
     AbstractAPITestCase,
@@ -11,6 +12,7 @@ from .factories import EventFactory
 
 
 # Test case for the events endpoints
+@skip("Obsolete")
 class EventTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
@@ -63,6 +65,7 @@ class EventTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
 
 
 # Test case for the liked users endpoint for events
+@skip("Obsolete")
 class EventLikesTestCase(AbstractLikesTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

@@ -1,4 +1,5 @@
-export const routes = {
+// Navigation routes
+export const routes = Object.freeze({
   login: 'Login',
   registration: 'Registration',
   passwordReset: 'PasswordReset',
@@ -14,7 +15,9 @@ export const routes = {
   menuHome: 'MenuHome',
   profile: 'Profile',
   editProfile: 'EditProfile',
+  savedHome: 'SavedHome',
   savedItems: 'SavedItems',
   calendar: 'Calendar',
   settings: 'Settings',
-};
+  search: 'Search',
+});

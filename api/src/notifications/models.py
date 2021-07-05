@@ -2,10 +2,14 @@ from django.db import models
 from users.models import CustomUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from common.constants.choices import Choices
 
 
-# A model class that represents a notification
 class Notification(models.Model):
+    """
+    A model class that represents a notification.
+    """
+
     id = models.AutoField(primary_key=True)
     content = models.CharField(max_length=100)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -24,6 +28,9 @@ class Notification(models.Model):
     viewers = models.ManyToManyField(
         to=CustomUser, related_name="viewed_notifications", blank=True
     )
+    notification_type = models.PositiveSmallIntegerField(
+        choices=Choices.NOTIFICATION_CHOICES, default=Choices.LIKES_FIELD
+    )
 
     class Meta:
         ordering = ["-datetime_created"]
@@ -32,8 +39,11 @@ class Notification(models.Model):
         return f"{self.content}"
 
 
-# A model class that represents a device
 class Device(models.Model):
+    """
+    A model class that represents a device.
+    """
+
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     expo_push_token = models.CharField(max_length=50)

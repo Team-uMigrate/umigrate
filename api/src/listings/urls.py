@@ -5,9 +5,11 @@ from .api_views import ListingViewSet, LikedListings, SavedListings, ListingLike
 router = DefaultRouter(trailing_slash=False)
 router.register(r"", ListingViewSet, basename="listings")
 
-# Listings url patterns
 urlpatterns = router.urls + [
     path("liked", LikedListings.as_view()),
     path("saved", SavedListings.as_view()),
     path("<int:id>/likes", ListingLikes.as_view()),
 ]
+"""
+Listings url patterns.
+"""

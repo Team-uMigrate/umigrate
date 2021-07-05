@@ -17,7 +17,6 @@ router.register(r"", CommentViewSet, basename="comments")
 replies_router = DefaultRouter(trailing_slash=False)
 replies_router.register(r"", ReplyViewSet, basename="replies")
 
-# Comments url patterns
 urlpatterns = router.urls + [
     path("liked", LikedComments.as_view()),
     path("saved", SavedComments.as_view()),
@@ -27,3 +26,6 @@ urlpatterns = router.urls + [
     path("replies/saved", SavedReplies.as_view()),
     path("replies/<int:id>/likes", ReplyLikes.as_view()),
 ]
+"""
+Comments url patterns.
+"""

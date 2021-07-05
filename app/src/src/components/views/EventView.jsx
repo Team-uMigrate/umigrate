@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { EventsEndpoint } from '../../utils/endpoints';
@@ -9,8 +9,15 @@ import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
 
-const EventView = (event) => {
+/**
+ * Renders an event.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const EventView = ({ item, updateItem }) => {
   const {
+    id,
     creator,
     price_scale,
     title,
@@ -23,10 +30,9 @@ const EventView = (event) => {
     photos,
     is_interested,
     is_attending,
-  } = event;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes['event'];
+    attending,
+    interested,
+  } = item;
 
   return (
     <Card style={styles.container}>
@@ -69,55 +75,50 @@ const EventView = (event) => {
         <ImageCollectionView photos={photos} />
         <View style={styles.buttonContainer}>
           <GradientButton
-            compact={true}
             style={styles.buttonStyleAttend}
-            mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Attending' : 'Attending'}
-            gradientBegin={is_interested ? null : '#483FAB'}
-            textStyle={styles.bodyText}
+            gradientBegin={is_attending ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_attending ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_attending ? '#483FAB' : '#ffffff' },
+            ]}
             radius={10}
             onPressAction={async () => {
-              await EventsEndpoint.setAttending(event.id, !event.is_attending);
-              event.updateItem({
-                ...event,
-                is_attending: !event.is_attending,
-                attending: event.is_attending
-                  ? event.attending - 1
-                  : event.attending + 1,
+              await EventsEndpoint.setAttending(id, !is_attending);
+              updateItem({
+                ...item,
+                is_attending: !is_attending,
+                attending: is_attending ? attending - 1 : attending + 1,
               });
             }}
           >
-            {is_attending ? 'Attending' : 'Attend?'}
+            Attending
           </GradientButton>
-
           <GradientButton
-            compact={true}
             style={styles.buttonStyleInterest}
-            mode={is_interested ? 'contained' : 'outlined'}
-            title={is_interested ? 'Uninterest' : 'Interested?'}
-            textStyle={styles.bodyText}
             radius={10}
-            gradientBegin={is_interested ? null : '#483FAB'}
+            gradientBegin={is_interested ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_interested ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_interested ? '#483FAB' : '#ffffff' },
+            ]}
             onPressAction={async () => {
-              await EventsEndpoint.setInterested(
-                event.id,
-                !event.is_interested
-              );
-              event.updateItem({
-                ...event,
-                is_interested: !event.is_interested,
-                interested: event.is_interested
-                  ? event.interested - 1
-                  : event.interested + 1,
+              await EventsEndpoint.setInterested(id, !is_interested);
+              updateItem({
+                ...item,
+                is_interested: !is_interested,
+                interested: is_interested ? interested - 1 : interested + 1,
               });
             }}
           >
-            {is_interested ? 'Uninterest' : 'Interested?'}
+            Interested
           </GradientButton>
         </View>
         <CommentBar
-          item={event}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.event}
           endpoint={EventsEndpoint}
         />
       </Card.Content>
@@ -173,11 +174,17 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 0,
     marginRight: '4%',
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonStyleInterest: {
     height: 36,
     flex: 1,
     marginRight: 0,
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonContainer: {
     flexDirection: 'row',

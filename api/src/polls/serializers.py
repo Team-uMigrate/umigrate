@@ -1,24 +1,26 @@
 from common.abstract_serializers import (
-    ModelSerializerExtension,
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
+    AbstractCreatorSerializer,
 )
 from .models import Poll, Option, Vote
 
 
-# A serializer class for the Vote model
-class VoteSerializer(ModelSerializerExtension):
+class VoteSerializer(AbstractCreatorSerializer):
+    """
+    A serializer class for the Vote model.
+    """
+
     class Meta:
         model = Vote
         fields = "__all__"
 
-    def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
 
+class OptionSerializer(AbstractCreatorSerializer):
+    """
+    A serializer class for the option model.
+    """
 
-# A serializer class for the option model
-class OptionSerializer(ModelSerializerExtension):
     vote_set = VoteSerializer(read_only=True, many=True)
 
     class Meta:
@@ -28,13 +30,12 @@ class OptionSerializer(ModelSerializerExtension):
             "votes",
         ]
 
-    def create(self, validated_data):
-        validated_data["creator"] = self.context["request"].user
-        return ModelSerializerExtension.create(self, validated_data)
 
+class PollSerializer(AbstractPostSerializer):
+    """
+    A serializer class for the Poll model.
+    """
 
-# # A serializer class for the Poll model
-class PollSerializer(AbstractModelSerializer):
     option_set = OptionSerializer(read_only=True, many=True)
 
     class Meta:
@@ -46,6 +47,9 @@ class PollSerializer(AbstractModelSerializer):
         exclude_fields = ["saved_users", "liked_users"]
 
 
-# A detailed serializer class for the Poll model
-class PollDetailSerializer(PollSerializer, AbstractModelDetailSerializer):
+class PollDetailSerializer(PollSerializer, AbstractPostDetailSerializer):
+    """
+    A detailed serializer class for the Poll model.
+    """
+
     pass

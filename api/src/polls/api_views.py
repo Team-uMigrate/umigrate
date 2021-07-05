@@ -14,14 +14,13 @@ from .serializers import (
 )
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
+from common.decorators import (
+    model_view_set_swagger_decorator,
+    api_view_swagger_decorator,
+)
 
 
-@method_decorator(name="list", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="create", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="retrieve", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="update", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="partial_update", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="destroy", decorator=swagger_auto_schema(tags=["Polls"]))
+@model_view_set_swagger_decorator(["Polls"])
 class PollViewSet(AbstractModelViewSet):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
@@ -29,16 +28,14 @@ class PollViewSet(AbstractModelViewSet):
     filterset_class = PollFilterSet
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+@api_view_swagger_decorator(["Polls"])
 class LikedPolls(AbstractAddRemoveUser):
     query_string = "liked_polls"
     serializer_class = PollSerializer
     model_class = Poll
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+@api_view_swagger_decorator(["Polls"])
 class SavedPolls(AbstractAddRemoveUser):
     query_string = "saved_polls"
     serializer_class = PollSerializer
@@ -50,8 +47,7 @@ class PollLikes(AbstractLikedUsers):
     model_class = Poll
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+@api_view_swagger_decorator(["Polls"])
 class OptionListCreate(GenericPostListCreate):
     queryset = Option.objects.all()
     serializer_class = OptionSerializer
@@ -59,8 +55,7 @@ class OptionListCreate(GenericPostListCreate):
     detail_serializer_class = OptionSerializer
 
 
-@method_decorator(name="get", decorator=swagger_auto_schema(tags=["Polls"]))
-@method_decorator(name="post", decorator=swagger_auto_schema(tags=["Polls"]))
+@api_view_swagger_decorator(["Polls"])
 class VoteListCreate(GenericPostListCreate):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer

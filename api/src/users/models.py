@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from common.constants.choices import Choices
 from datetime import date
 from django.contrib.auth.base_user import BaseUserManager
+from multiselectfield import MultiSelectField
 
 
 class CustomUserManager(BaseUserManager):
@@ -74,10 +75,16 @@ class CustomUser(AbstractUser):
     profile_photo = models.ImageField(upload_to="images/photos", blank=True)
     background_photo = models.ImageField(upload_to="images/photos", blank=True)
     connected_users = models.ManyToManyField(
-        to="self", related_name="connected_users", blank=True
+        to="self", related_name="connected_users_set", symmetrical=False, blank=True
     )
     blocked_users = models.ManyToManyField(
-        to="self", related_name="blocked_users", blank=True
+        to="self", related_name="blocked_users_set", symmetrical=False, blank=True
+    )
+    notification_preferences = MultiSelectField(
+        choices=Choices.NOTIFICATION_CHOICES,
+        default=",".join([str(key[0]) for key in Choices.NOTIFICATION_CHOICES]),
+        blank=True,
+        null=True,
     )
 
     objects = CustomUserManager()

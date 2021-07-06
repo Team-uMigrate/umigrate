@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
-import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
 
 /**
  * Renders a User.

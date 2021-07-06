@@ -1,4 +1,4 @@
-from types import SimpleNamespace
+from unittest import skip
 from rest_framework import status
 from rest_framework.test import APITestCase
 from common.abstract_tests import AbstractAPITestCase
@@ -13,6 +13,7 @@ from .factories import CommentFactory, ReplyFactory
 
 
 # Test case for the comments endpoints
+@skip("Obsolete")
 class CommentTestCase(AbstractAPITestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
@@ -100,6 +101,7 @@ class CommentTestCase(AbstractAPITestCase, APITestCase):
 
 
 # Test case for the replies endpoints
+@skip("Obsolete")
 class ReplyTestCase(AbstractAPITestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

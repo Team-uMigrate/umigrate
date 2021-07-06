@@ -2,8 +2,9 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import exceptions
 from common.serializer_extensions import ModelSerializerExtension
-from rest_framework import serializers
+from rest_framework import serializers, fields
 from users.models import CustomUser
+from common.constants.choices import Choices
 from common.constants.choices import Choices
 
 
@@ -26,7 +27,7 @@ class BasicUserSerializer(ModelSerializerExtension):
             "is_blocked",
         ]
 
-    def get_connection_status(self, instance):
+    def get_connection_status(self, instance: CustomUser) -> int:
         user = self.context["request"].user
         received = instance.connected_users.filter(id=user.id).exists()
         sent = user.connected_users.filter(id=instance.id).exists()
@@ -40,9 +41,9 @@ class BasicUserSerializer(ModelSerializerExtension):
         if received:
             return Choices.CONNECTION_STATUS_CHOICES["Request Received"]
 
-        return Choices.CONNECTION_STATUS_CHOICES["Strangers"]
+        return Choices.CONNECTION_STATUS_CHOICES["Not Connected"]
 
-    def get_is_blocked(self, instance):
+    def get_is_blocked(self, instance: CustomUser) -> bool:
         return (
             self.context["request"].user.blocked_users.filter(id=instance.id).exists()
         )
@@ -139,6 +140,22 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+
+class NotificationPreferencesSerializer(serializers.Serializer):
+    """
+    A serializer class for updating the notification preferences for the user.
+    """
+
+    notification_preferences = fields.MultipleChoiceField(
+        choices=Choices.NOTIFICATION_CHOICES
+    )
 
     def create(self, validated_data):
         pass

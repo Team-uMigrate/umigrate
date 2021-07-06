@@ -1,4 +1,4 @@
-from common.notification_helpers import create_liked_shared_item_notification
+from notifications.utils import create_liked_shared_item_notification
 from django.db.models import Model
 from django.db.models.query import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -10,7 +10,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from common.abstract_serializers import AddRemoveUserSerializer, AbstractModelSerializer
+from common.abstract_serializers import (
+    AddRemoveUserSerializer,
+    AbstractSharedItemSerializer,
+)
 from common.abstract_models import IsCreatorOrReadOnly, AbstractPostModel
 from users.serializers import BasicUserSerializer
 
@@ -25,12 +28,12 @@ class AbstractModelViewSet(ModelViewSet):
     The queryset to use for accessing data in the database. Must be overwritten.    
     """
 
-    serializer_class: AbstractModelSerializer = None
+    serializer_class: AbstractSharedItemSerializer = None
     """
     The serializer class to use for all HTTP requests except HTTP GET requests. Must be overwritten.
     """
 
-    detail_serializer_class: AbstractModelSerializer = None
+    detail_serializer_class: AbstractSharedItemSerializer = None
     """
     The serializer class to use for only HTTP GET requests. Must be overwritten.
     """
@@ -105,15 +108,13 @@ class AbstractAddRemoveUser(ListAPIView):
             shared_item = self.model_class.objects.get(id=shared_item_id)
             # Add or remove an object from the list of objects using the attribute specified by the query string
             if should_add:
-                getattr(self.request.user, self.query_string).add(shared_item)
+                getattr(request.user, self.query_string).add(shared_item)
                 # Send a liked shared item notification if the user liked a shared item
                 if self.query_string.startswith("liked_"):
-                    create_liked_shared_item_notification(
-                        shared_item, self.request.user
-                    )
+                    create_liked_shared_item_notification(shared_item, request.user)
 
             else:
-                getattr(self.request.user, self.query_string).remove(shared_item)
+                getattr(request.user, self.query_string).remove(shared_item)
 
             return Response({"should_add": should_add, "id": shared_item_id})
 

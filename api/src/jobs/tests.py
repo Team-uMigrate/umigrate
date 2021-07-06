@@ -1,3 +1,4 @@
+from unittest import skip
 from django.http import HttpRequest
 from users.models import CustomUser
 from rest_framework.test import APITestCase
@@ -8,6 +9,7 @@ from datetime import date, timedelta
 
 
 # Test case for the jobs API views
+@skip("Obsolete")
 class JobTestCase(APITestCase):
     create_data = {
         "content": "Sanitational engineering is my passion",

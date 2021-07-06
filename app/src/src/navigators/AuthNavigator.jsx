@@ -7,7 +7,7 @@ import { StackNavContextProvider } from '../contexts/StackNavContext';
 import { CreateItemContextProvider } from '../contexts/CreateItemContext';
 import ErrorContext from '../contexts/ErrorContext';
 import LoadingScreen from '../screens/authentication/LoadingScreen';
-import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
+// import { registerForPushNotificationsAsync } from '../utils/pushNotificationHelpers';
 import MessagingScreen from '../screens/messaging/MessagingScreen';
 import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
@@ -41,8 +41,9 @@ const AuthNavigator = () => {
       // Register for push notifications if authenticated
       if (auth.isAuthenticated) {
         try {
-          const token = await registerForPushNotificationsAsync(error);
-          setExpoPushToken(token);
+          // Todo: Expo Permissions is deprecated
+          // const token = await registerForPushNotificationsAsync(error);
+          // setExpoPushToken(token);
         } catch (e) {
           error.setMessage(e.message);
         }

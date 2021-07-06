@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
-import { sharedItemTabsStyles } from '../../stylesheets/tabs/tabs.jsx';
+import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import UserView from '../../components/views/UserView';
@@ -31,7 +31,7 @@ const LikesScreen = ({ navigation, route }) => {
   useScrollToTop(ref);
 
   return (
-    <View style={sharedItemTabsStyles.container}>
+    <View style={sharedLikesCommentsstyles.container}>
       <Header title="Likes" />
       <FeedContainer
         fetchItemsList={fetchItemsList}

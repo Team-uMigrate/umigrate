@@ -13,7 +13,9 @@ const MessagingScreen = ({ navigation }) => {
   return (
     <View style={sharedMessagingNotificationStyles.container}>
       <Header title="Messaging" isMessagingOrCommentsPage={true} />
-      <Text style={styles.title}>Messaging Page!</Text>
+      <Text style={sharedMessagingNotificationStyles.title}>
+        Messaging Page!
+      </Text>
     </View>
   );
 };

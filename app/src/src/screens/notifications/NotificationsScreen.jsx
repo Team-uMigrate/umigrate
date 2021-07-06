@@ -13,7 +13,9 @@ const NotificationScreen = ({ navigation }) => {
   return (
     <View style={sharedMessagingNotificationStyles.container}>
       <Header title="Notifications" isNotificationPage={true} />
-      <Text style={styles.title}>Notification Page!</Text>
+      <Text style={sharedMessagingNotificationStyles.title}>
+        Notification Page!
+      </Text>
     </View>
   );
 };

@@ -11,9 +11,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import UserView from '../../components/views/UserView';
 
-const fetchItemsList = [
-  async (page, filters) => await PostsEndpoint.likes(400, page),
-];
 const itemViews = [
   (item, updateItem) => <UserView item={item} updateItem={updateItem} />,
 ];
@@ -26,6 +23,11 @@ const itemViews = [
  * */
 
 const LikesScreen = ({ navigation, route }) => {
+  const fetchItemsList = [
+    async (page, filters) =>
+      await PostsEndpoint.likes(route.params['postId'], page),
+  ];
+
   const ref = useRef(null);
 
   useScrollToTop(ref);

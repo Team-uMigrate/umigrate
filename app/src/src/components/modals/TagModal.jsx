@@ -24,8 +24,6 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
     let newUserSearchResults = response.data.results;
     const taggedUserSet = new Set();
 
-    console.log('taggedUsers', taggedUsers);
-
     if (taggedUsers.length != 0) {
       // Populate set with users that are already tagged
       for (const index in taggedUsers) taggedUserSet.add(taggedUsers[index].id);
@@ -34,7 +32,6 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
       for (let index = 0; index < newUserSearchResults.length; index++) {
         const id = newUserSearchResults[index].id;
         if (taggedUserSet.has(id)) {
-          console.log('removed', id);
           // Remove result if already in taggedUsers
           newUserSearchResults.splice(index, 1);
           // The indices have now changed, so the next element's index is equal to the index variable here
@@ -80,9 +77,18 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                     });
                 }}
               />
-              {taggedUsers.map((user) => (
-                <TaggedUser user={user} key={user.id.toString()} />
-              ))}
+              <FlatList
+                data={taggedUsers}
+                keyExtractor={(user) => user.id.toString()}
+                renderItem={({ item, index }) => (
+                  <TaggedUser
+                    user={item}
+                    taggedUsers={taggedUsers}
+                    setTaggedUsers={setTaggedUsers}
+                    index={index}
+                  />
+                )}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -96,14 +102,15 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
         ) : (
           <FlatList
             data={userSearchResults}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
+            keyExtractor={(user) => user.id.toString()}
+            renderItem={({ item, index }) => (
               <UserSearchResult
                 user={item}
                 taggedUsers={taggedUsers}
                 setTaggedUsers={setTaggedUsers}
                 userSearchResults={userSearchResults}
                 setUserSearchResults={setUserSearchResults}
+                index={index}
               />
             )}
             ListEmptyComponent={() => (
@@ -124,38 +131,51 @@ const UserSearchResult = ({
   setTaggedUsers,
   userSearchResults,
   setUserSearchResults,
+  // The index of the result in userSearchResults
+  index,
 }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         // Remove the user you're tagging from the search results (so users can't tag them again)
         let newResults = userSearchResults;
-        for (let index in userSearchResults) {
-          if (userSearchResults[index].id === user.id) {
-            newResults.splice(index, 1);
-            break;
-          }
-        }
+        newResults.splice(index, 1);
         setUserSearchResults(newResults);
 
         setTaggedUsers(taggedUsers.concat(user));
       }}
     >
       <Card style={styles.userButton}>
-        <UserView />
+        <UserView user={user} />
       </Card>
     </TouchableWithoutFeedback>
   );
 };
 
-const TaggedUser = ({ user }) => {
+const TaggedUser = ({
+  user,
+  taggedUsers,
+  setTaggedUsers,
+  // Index of the user in taggedUsers
+  index,
+}) => {
   return (
     <Card style={styles.userButton}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={styles.userView}>
-          <UserView />
+          <UserView user={user} />
         </View>
-        <IconButton icon={'close'} color={'#404040'} size={USERTEXTSIZE} />
+        <IconButton
+          icon={'close'}
+          color={'#404040'}
+          size={USERTEXTSIZE}
+          onPress={() => {
+            // Remove user from taggedUsers
+            let newTaggedUsers = taggedUsers;
+            newTaggedUsers.splice(index, 1);
+            setTaggedUsers(newTaggedUsers);
+          }}
+        />
       </View>
     </Card>
   );

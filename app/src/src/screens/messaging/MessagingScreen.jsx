@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from '../../components/views/Header';
+import { sharedMessagingNotificationStyles } from '../../stylesheets/messaging/messaging.jsx';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 /**
@@ -10,22 +11,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
  * */
 const MessagingScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={sharedMessagingNotificationStyles.container}>
       <Header title="Messaging" isMessagingOrCommentsPage={true} />
-      <Text style={styles.title}>Messaging Page!</Text>
+      <Text style={sharedMessagingNotificationStyles.title}>
+        Messaging Page!
+      </Text>
     </View>
   );
 };
 
 export default MessagingScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-  },
-  title: {
-    alignSelf: 'center',
-    marginTop: '80%',
-  },
-});

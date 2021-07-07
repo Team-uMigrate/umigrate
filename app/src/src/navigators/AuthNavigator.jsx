@@ -13,6 +13,7 @@ import LoginScreen from '../screens/authentication/LoginScreen';
 import RegistrationScreen from '../screens/authentication/RegistrationScreen';
 import NotificationScreen from '../screens/notifications/NotificationsScreen';
 import CommentsScreen from '../screens/comments/CommentsScreen';
+import LikesScreen from '../screens/likes/LikesScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
@@ -61,6 +62,7 @@ const AuthNavigator = () => {
             >
               <Stack.Screen name={routes.tabs} component={TabNavigator} />
               <Stack.Screen name={routes.comments} component={CommentsScreen} />
+              <Stack.Screen name={routes.likes} component={LikesScreen} />
               <Stack.Screen name={routes.search} component={SearchScreen} />
               <Stack.Screen
                 name={routes.messaging}

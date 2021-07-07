@@ -1,4 +1,4 @@
-import { ListingsEndpoint } from '../../utils/endpoints';
+import { ListingsEndpoint, PostsEndpoint } from '../../utils/endpoints';
 import ListingView from '../../components/views/ListingView';
 import React, { useRef, useState } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
@@ -6,42 +6,44 @@ import { View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
-import { sharedItemTabsStyles } from '../../stylesheets/tabs/tabs.jsx';
+import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import UserView from '../../components/views/UserView';
 
-const fetchItemsList = [
-  async (page, filters) => await ListingsEndpoint.list(page, filters),
-];
 const itemViews = [
-  (item, updateItem) => <ListingView item={item} updateItem={updateItem} />,
+  (item, updateItem) => <UserView item={item} updateItem={updateItem} />,
 ];
 
 /**
- * Renders the housing screen.
+ * Renders the likes screen.
  * @param {StackNavigationProp} navigation
  * @param {RouteProp} route
  * @return {JSX.Element}
  * */
-const HousingScreen = ({ navigation, route }) => {
-  const [listingFilters, setListingFilters] = useState({});
+
+const LikesScreen = ({ navigation, route }) => {
+  const fetchItemsList = [
+    async (page, filters) =>
+      await PostsEndpoint.likes(route.params['postId'], page),
+  ];
+
   const ref = useRef(null);
 
   useScrollToTop(ref);
 
   return (
-    <View style={sharedItemTabsStyles.container}>
-      <Header title="Housing" />
+    <View style={sharedLikesCommentsstyles.container}>
+      <Header title="Likes" />
       <FeedContainer
         fetchItemsList={fetchItemsList}
         itemViews={itemViews}
-        filtersList={[listingFilters]}
+        filtersList={[]}
         scrollRef={ref}
-        feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
     </View>
   );
 };
 
-export default HousingScreen;
+export default LikesScreen;

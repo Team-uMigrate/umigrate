@@ -7,6 +7,7 @@ import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
 /**
  * Renders an ad.
@@ -28,35 +29,37 @@ const AdView = ({ item, updateItem }) => {
   } = item;
 
   return (
-    <Card style={styles.container}>
-      <Card.Content style={styles.cardContent}>
-        <View style={styles.row}>
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
+        <View style={sharedItemViewStyles.row}>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={styles.column}>
-            <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {' '}
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
         </View>
-        <Title style={styles.title}>{title}</Title>
-        <Paragraph style={styles.bodyText}>{content}</Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price: </Text>${price}
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Price: </Text>${price}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Community: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Community: </Text>
           {communities[community]}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Postal Code: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Postal Code: </Text>
           {postal_code}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Category: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Category: </Text>
           {adCategories[category]}
         </Paragraph>
         <ImageCollectionView photos={photos} />
@@ -72,46 +75,3 @@ const AdView = ({ item, updateItem }) => {
 };
 
 export default AdView;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    marginTop: '2.5%',
-    padding: 3,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-  },
-  cardContent: {
-    paddingTop: '1.5%',
-    paddingBottom: '2.5%',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: '2.5%',
-  },
-  column: {
-    flex: 5,
-    marginLeft: '4%',
-    flexDirection: 'column',
-    alignSelf: 'center',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    letterSpacing: 0.5,
-  },
-  bodyText: {
-    marginBottom: 0,
-    letterSpacing: 0.5,
-    fontSize: 15,
-  },
-  name: {
-    fontWeight: '500',
-    fontSize: 16,
-  },
-  bold: {
-    fontWeight: 'bold',
-  },
-  date: {
-    color: 'grey',
-  },
-});

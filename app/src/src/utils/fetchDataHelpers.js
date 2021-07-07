@@ -48,9 +48,6 @@ export async function fetchAndMergeItemsLists(
         responseData.results[responseData.results.length - 1]?.datetime_created ?? 0
       )
     );
-    console.log(Date.parse(
-      responseData.results[responseData.results.length - 1]?.datetime_created ?? 0
-    ));
   });
 
   let newItems = items;

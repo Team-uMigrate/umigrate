@@ -22,19 +22,14 @@ export async function registerForPushNotificationsAsync(error) {
       error.setMessage('Failed to get push token for push notification!');
       return;
     }
-    try {
-      // Retrieve token and set it to async storage
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      await setPushToken(token);
+    // Retrieve token and set it to async storage
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    await setPushToken(token);
 
-      // Retrieve devices from Devices endpoint and register current device if not in the devices list
-      const devices = (await DevicesEndpoint.list()).data;
-      if (!devices.find((d) => d.expo_push_token === token)) {
-        await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
-      }
-    }
-    catch (e) {
-      console.log(e.response);
+    // Retrieve devices from Devices endpoint and register current device if not in the devices list
+    const devices = (await DevicesEndpoint.list()).data;
+    if (!devices.find((d) => d.expo_push_token === token)) {
+      await DevicesEndpoint.post(`Device ${devices.length + 1}`, token);
     }
   } else {
     error.setMessage('Must use physical device for Push Notifications');

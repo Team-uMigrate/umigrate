@@ -40,7 +40,7 @@ export async function fetchAndMergeItemsLists(
     };
 
   // Find the max end date between the results from all endpoints
-  let maxEndDate = 0;
+  let maxEndDate = Date.parse("0");
   responseDataList.forEach((responseData) => {
     maxEndDate = Math.max(
       maxEndDate,
@@ -48,6 +48,9 @@ export async function fetchAndMergeItemsLists(
         responseData.results[responseData.results.length - 1]?.datetime_created ?? 0
       )
     );
+    console.log(Date.parse(
+      responseData.results[responseData.results.length - 1]?.datetime_created ?? 0
+    ));
   });
 
   let newItems = items;

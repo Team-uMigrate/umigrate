@@ -40,7 +40,6 @@ const AuthNavigator = () => {
       // Register for push notifications if authenticated
       if (auth.isAuthenticated) {
         try {
-          // Todo: Expo Permissions is deprecated
           const token = await registerForPushNotificationsAsync(error);
           setExpoPushToken(token);
         } catch (e) {

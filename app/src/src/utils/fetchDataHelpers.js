@@ -45,13 +45,13 @@ export async function fetchAndMergeItemsLists(
     };
 
   // Find the max end date between the results from all endpoints
-  let maxEndDate = 0;
+  let maxEndDate = Date.parse("0");
   responseDataList.forEach((responseData) => {
     maxEndDate = Math.max(
       maxEndDate,
       Date.parse(
-        responseData.results[responseData.results.length - 1]?.datetime_created
-      ) ?? null
+        responseData.results[responseData.results.length - 1]?.datetime_created ?? "0"
+      )
     );
   });
 
@@ -62,7 +62,7 @@ export async function fetchAndMergeItemsLists(
     // Set next pages
     if (
       Date.parse(
-        responseData.results[responseData.results.length - 1]?.datetime_created
+        responseData.results[responseData.results.length - 1]?.datetime_created  ?? "0"
       ) >= maxEndDate &&
       responseData.next
     ) {
@@ -75,7 +75,7 @@ export async function fetchAndMergeItemsLists(
         // Filter out items created before max end date and duplicate items
         .filter(
           (item) =>
-            Date.parse(item.datetime_created) >= maxEndDate &&
+            Date.parse(item.datetime_created ?? "0") >= maxEndDate &&
             !items.find((stateItem) => {
               return stateItem.id === item.id && stateItem.type === t;
             })
@@ -87,7 +87,7 @@ export async function fetchAndMergeItemsLists(
 
   // Sort items by date and time created descending
   newItems = newItems.sort(
-    (a, b) => Date.parse(b.datetime_created) - Date.parse(a.datetime_created)
+    (a, b) => Date.parse(b.datetime_created ?? "0") - Date.parse(a.datetime_created ?? "0")
   );
 
   return { newItems, newNextPages, errors: errors };

@@ -341,10 +341,10 @@ export class DevicesEndpoint {
   static async post(name, token) {
     return await Axios.post(
       `${BASE_URL}${this.path}`,
-      {
+      toFormData({
         name: name,
         expo_push_token: token,
-      },
+      }),
       {
         headers: { 'content-type': 'multipart/form-data' },
       }

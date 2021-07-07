@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import ProfilePhotoView from './ProfilePhotoView';
+import { IconButton } from 'react-native-paper';
 
 /**
  * Renders a User.
@@ -15,10 +16,18 @@ const UserView = ({ item, updateItem }) => {
     <View style={styles.listView}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.profilePhotoView}>
-          <ProfilePhotoView photo={profile_photo} size={30} />
+          <ProfilePhotoView photo={profile_photo} size={40} />
         </View>
         <View style={styles.contentContainer}>
-          <Text>{preferred_name}</Text>
+          <Text style={styles.text}>{preferred_name}</Text>
+        </View>
+        <View>
+          <IconButton
+            icon="message"
+            style={styles.iconButton}
+            size={Platform.OS === 'android' ? 10 : 25}
+            onPress={() => console.log('Pressed')}
+          />
         </View>
       </View>
     </View>
@@ -34,6 +43,7 @@ const styles = StyleSheet.create({
 
   profilePhotoView: {
     marginRight: 5,
+    marginLeft: 20,
     flex: 1,
     padding: 10,
   },
@@ -41,5 +51,17 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 5.5,
     padding: 10,
+  },
+
+  iconButton: {
+    alignSelf: 'center',
+    marginBottom: '-15%',
+    paddingTop: 10,
+    marginRight: 20,
+  },
+
+  text: {
+    paddingTop: 10,
+    fontSize: 15,
   },
 });

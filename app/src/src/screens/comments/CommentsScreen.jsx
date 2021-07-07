@@ -5,6 +5,7 @@ import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
+import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 
@@ -44,7 +45,7 @@ const CommentsScreen = ({ navigation, route }) => {
   useScrollToTop(ref);
 
   return (
-    <View style={styles.container}>
+    <View style={sharedLikesCommentsstyles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
         fetchItemsList={fetchItemsList}
@@ -58,10 +59,3 @@ const CommentsScreen = ({ navigation, route }) => {
 };
 
 export default CommentsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});

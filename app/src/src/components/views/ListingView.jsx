@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { ListingsEndpoint } from '../../utils/endpoints';
@@ -35,13 +35,14 @@ const ListingView = ({ item, updateItem }) => {
     year,
   } = item;
   const userView = useContext(UserViewContext);
-  
+
   return (
     <Card style={sharedItemViewStyles.container}>
       <Card.Content style={sharedItemViewStyles.cardContent}>
-      <TouchableOpacity style={styles.row}
-        onPress = { () => userView.setUser(creator) } >
-        <View style={sharedItemViewStyles.row}>
+        <TouchableOpacity
+          style={sharedItemViewStyles.row}
+          onPress={() => userView.setUser(creator)}
+        >
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
@@ -54,11 +55,10 @@ const ListingView = ({ item, updateItem }) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-          </View>
         </TouchableOpacity>
-        <Title style={styles.title}>{title}</Title>
-        <Paragraph style={styles.bodyText}>{content}</Paragraph>
-        <Paragraph style={styles.bodyText}>
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
           {'Community: ' + communities[community]}
         </Paragraph>
         <Paragraph style={sharedItemViewStyles.bodyText}>

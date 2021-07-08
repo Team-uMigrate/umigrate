@@ -7,6 +7,7 @@ const UserViewContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   return (
+    console.log("USERVIEW", userView),
     <UserViewContext.Provider
       value={{
         user: user,

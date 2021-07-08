@@ -8,6 +8,7 @@ import { routes } from '../../utils/routes';
 const UserViewModal = ({ navigation }) => {
   const userView = useContext(UserViewContext);
   const navigate = (route) => {
+    if (userView.user !==  null )
     userView.setUser(null);
     navigation.navigate(route);
   };
@@ -38,6 +39,7 @@ const UserViewModal = ({ navigation }) => {
           </View>
           <View style={styles.buttonContainer}>
             <Button
+              mode='contained' 
               style={styles.buttonStyle}
               onPress={() => navigate(routes.messaging)}
             >
@@ -70,7 +72,8 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     flex: 1,
-    height: 100,
+    backgroundColor: '#8781D0',
+    height: 50,
     width: 100,
     borderRadius: 15,
     flexDirection: 'row',
@@ -83,10 +86,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 2,
-    elevation: 2,
+    top: 125,
   },
   buttonText: {
     fontSize: 15,
+    color: 'white',
+    alignSelf: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 50,
     width: 340,
-    height: 400,
+    height: 320,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     position: 'absolute',
-    bottom: 50,
+    bottom: 200,
   },
   container: {
     flex: 1,
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   },
   backHeading: {
     width: '100%',
-    height: '20%',
+    height: '40%',
   },
   backGroundHeading: {
     flex: 2,
@@ -144,6 +149,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 6,
+    alignSelf: 'center',
   },
   profileName: {
     fontWeight: 'bold',
@@ -155,33 +161,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
-  rows1: {
-    flex: 2,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginTop: '35%',
-  },
-  rows2: {
-    flex: 2,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginBottom: '10%',
-  },
-  tiles: {
-    backgroundColor: '#ffffff',
-    margin: '2%',
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 5,
-  },
   textLogout: {
     textAlign: 'center',
     color: '#ff0000',
   },
-  iconPic: {
-    alignSelf: 'center',
-    marginBottom: '-15%',
-  }
 });

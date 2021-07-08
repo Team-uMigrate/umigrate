@@ -56,28 +56,33 @@ const AuthNavigator = () => {
     return (
       <StackNavContextProvider>
         <CreateItemContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              gestureDirection={'horizontal-inverted'}
-            >
-              <Stack.Screen name={routes.tabs} component={TabNavigator} />
-              <Stack.Screen name={routes.comments} component={CommentsScreen} />
-              <Stack.Screen name={routes.likes} component={LikesScreen} />
-              <Stack.Screen name={routes.search} component={SearchScreen} />
-              <Stack.Screen
-                name={routes.messaging}
-                component={MessagingScreen}
-              />
-              <Stack.Screen
-                name={routes.notifications}
-                options={{
-                  gestureDirection: 'horizontal-inverted',
-                }}
-                component={NotificationScreen}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <UserViewContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+                gestureDirection={'horizontal-inverted'}
+              >
+                <Stack.Screen name={routes.tabs} component={TabNavigator} />
+                <Stack.Screen
+                  name={routes.comments}
+                  component={CommentsScreen}
+                />
+                <Stack.Screen name={routes.likes} component={LikesScreen} />
+                <Stack.Screen name={routes.search} component={SearchScreen} />
+                <Stack.Screen
+                  name={routes.messaging}
+                  component={MessagingScreen}
+                />
+                <Stack.Screen
+                  name={routes.notifications}
+                  options={{
+                    gestureDirection: 'horizontal-inverted',
+                  }}
+                  component={NotificationScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </UserViewContextProvider>
         </CreateItemContextProvider>
       </StackNavContextProvider>
     );

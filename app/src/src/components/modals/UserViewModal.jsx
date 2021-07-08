@@ -8,8 +8,7 @@ import { routes } from '../../utils/routes';
 const UserViewModal = ({ navigation }) => {
   const userView = useContext(UserViewContext);
   const navigate = (route) => {
-    if (userView.user !==  null )
-    userView.setUser(null);
+    if (userView.user !== null) userView.setUser(null);
     navigation.navigate(route);
   };
 
@@ -24,28 +23,37 @@ const UserViewModal = ({ navigation }) => {
       >
         <View style={styles.modalView}>
           <View style={styles.backHeading}>
-            { userView.user?.background_photo && <Image
-              style={styles.backGroundHeading}
-              source={{ uri: userView.user.background_photo }}
-            />}
+            {userView.user?.background_photo && (
+              <Image
+                style={styles.backGroundHeading}
+                source={{ uri: userView.user.background_photo }}
+              />
+            )}
             <View style={styles.profileArea}>
-             { userView.user?.profile_photo ? <Avatar.Image
-                size={110}
-                style={styles.pfpShadow}
-                source={{ uri: userView.user.profile_photo }}
-              />:<Avatar.Icon size={110} icon={'account'} /> }
-              <Text style={styles.profileName}>{userView.user?.preferred_name}</Text>
+              {userView.user?.profile_photo ? (
+                <Avatar.Image
+                  size={110}
+                  style={styles.pfpShadow}
+                  source={{ uri: userView.user.profile_photo }}
+                />
+              ) : (
+                <Avatar.Icon size={110} icon={'account'} />
+              )}
+              <Text style={styles.profileName}>
+                {userView.user?.preferred_name}
+              </Text>
             </View>
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              mode='contained' 
+              mode="contained"
               style={styles.buttonStyle}
               onPress={() => navigate(routes.messaging)}
             >
-              <Text style={styles.buttonText}>Message</Text>
+              <Text style={styles.buttonText}> Message</Text>
             </Button>
             <Button
+              mode="contained"
               style={styles.buttonStyle}
               onPress={() => navigate(routes.profile)}
             >
@@ -69,14 +77,15 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     margin: 0,
+    marginHorizontal: 'auto',
   },
   buttonStyle: {
     flex: 1,
     backgroundColor: '#8781D0',
-    height: 50,
+    height: 35,
     width: 100,
     borderRadius: 15,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     marginLeft: 5,
     marginRight: 5,
@@ -91,10 +100,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15,
     color: 'white',
-    alignSelf: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   modalView: {
@@ -107,7 +116,7 @@ const styles = StyleSheet.create({
     borderColor: '#CDCBEC',
     paddingHorizontal: 10,
     paddingVertical: 30,
-    alignItems: 'center',
+    alignItems: 'flex-end',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -141,10 +150,6 @@ const styles = StyleSheet.create({
     paddingBottom: '-60%',
     width: '100%',
   },
-  profileImg: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
   pfpShadow: {
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -156,13 +161,5 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingTop: 5,
     textAlign: 'center',
-  },
-  profileText: {
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  textLogout: {
-    textAlign: 'center',
-    color: '#ff0000',
   },
 });

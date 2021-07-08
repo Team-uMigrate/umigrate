@@ -37,24 +37,41 @@ const LikesScreen = ({ navigation, route }) => {
   useScrollToTop(ref);
 
   return (
-    <View style={sharedLikesCommentsstyles.container}>
-      <View style={{ flexDirection: 'row' }}>
-        <IconButton
-          icon="arrow-left"
-          style={styles.button}
-          size={20}
-          onPress={() => nav.navigation.goBack()}
+    <>
+      <View style={sharedLikesCommentsstyles.container}>
+        <View style={{ flexDirection: 'row' }}>
+          <IconButton
+            icon="arrow-left"
+            style={styles.button}
+            size={20}
+            onPress={() => nav.navigation.goBack()}
+          />
+          <Text style={styles.text}>Liked Users</Text>
+        </View>
+        <View>
+          <Searchbar
+            placeholder="Search"
+            placeholderTextColor="lightgray"
+            iconColor="darkgray"
+            onChangeText={(typed) => {
+              if (typed.length == 0) {
+                text_filter_default();
+              } else {
+                delayedQuery(typed);
+              }
+            }}
+            style={styles.searchBar}
+          ></Searchbar>
+        </View>
+        <FeedContainer
+          fetchItemsList={fetchItemsList}
+          itemViews={itemViews}
+          filtersList={[]}
+          scrollRef={ref}
         />
-        <Text style={styles.text}>Liked Users</Text>
+        <CreateItemModal navigation={navigation} />
       </View>
-      <FeedContainer
-        fetchItemsList={fetchItemsList}
-        itemViews={itemViews}
-        filtersList={[]}
-        scrollRef={ref}
-      />
-      <CreateItemModal navigation={navigation} />
-    </View>
+    </>
   );
 };
 
@@ -69,6 +86,17 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 62,
     marginLeft: 10,
+  },
+
+  searchBar: {
+    borderColor: 'lightgray',
+    borderWidth: 1,
+    marginTop: 10,
+    height: 35,
+    width: 355,
+    alignSelf: 'center',
+    borderRadius: 7,
+    elevation: 0,
   },
 });
 

@@ -40,17 +40,19 @@ class AddRemoveMembers(APIView):
     ]
 
     @swagger_auto_schema(tags=["Messaging"])
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # todo: add more comments
         member_id = request.data
         room_id = kwargs["id"]
         try:
             room = Room.objects.get(id=room_id)
             if room.members.filter(id=request.user.id).exists():
                 user = CustomUser.objects.get(id=member_id)
-                room.members.add(user)
-                if room.members.filter(id=member_id):
+                if room.members.filter(id=member_id).exists():
                     return Response({"message": "Member already exists"})
 
+                room.members.add(
+                    user
+                )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
                 return Response({"message": "Member added to room"})
 
             return Response(
@@ -65,12 +67,15 @@ class AddRemoveMembers(APIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(tags=["Messaging"])
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):  # todo: add more comments
         room_id = kwargs["id"]
         member = request.user
         try:
             room = Room.objects.get(id=room_id)
-            room.members.remove(member)
+            room.members.remove(
+                member
+            )  # todo: use membership_set instead of members. Figure out what needs to be passed as an argument(s)
+            room.save()
             return Response({"message": "Member Removed."})
         except ObjectDoesNotExist as e:
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
@@ -93,7 +98,12 @@ class MessageList(ListAPIView):
                 .exists()
             ):
                 # Retrieve the messages for the room
-                self.queryset = Message.objects.filter(room=kwargs["id"])
+                self.queryset = Message.objects.filter(
+                    room=kwargs["id"],
+                    datetime_created__gte=request.user.membership_set.get(
+                        room=kwargs["id"]
+                    ).date_joined,
+                )
                 return ListAPIView.list(self, request, *args, **kwargs)
 
             return Response("Permission denied", status=status.HTTP_403_FORBIDDEN)

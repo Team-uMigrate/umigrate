@@ -4,10 +4,14 @@ from django.utils.translation import ugettext_lazy as _
 from common.constants.choices import Choices
 from datetime import date
 from django.contrib.auth.base_user import BaseUserManager
+from multiselectfield import MultiSelectField
 
 
-# A custom manager for creating users and super users
 class CustomUserManager(BaseUserManager):
+    """
+    A custom manager for creating users and super users.
+    """
+
     def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError(_("The Email must be set"))
@@ -37,8 +41,11 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# A model class that represents a user
 class CustomUser(AbstractUser):
+    """
+    A model class that represents a user.
+    """
+
     username = None
     email = models.EmailField(_("email address"), unique=True)
 
@@ -68,10 +75,16 @@ class CustomUser(AbstractUser):
     profile_photo = models.ImageField(upload_to="images/photos", blank=True)
     background_photo = models.ImageField(upload_to="images/photos", blank=True)
     connected_users = models.ManyToManyField(
-        to="self", related_name="connected_users", blank=True
+        to="self", related_name="connected_users_set", symmetrical=False, blank=True
     )
     blocked_users = models.ManyToManyField(
-        to="self", related_name="blocked_users", blank=True
+        to="self", related_name="blocked_users_set", symmetrical=False, blank=True
+    )
+    notification_preferences = MultiSelectField(
+        choices=Choices.NOTIFICATION_CHOICES,
+        default=",".join([str(key[0]) for key in Choices.NOTIFICATION_CHOICES]),
+        blank=True,
+        null=True,
     )
 
     objects = CustomUserManager()

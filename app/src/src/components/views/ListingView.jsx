@@ -13,8 +13,15 @@ import {
   seasons,
 } from '../../utils/choices';
 import UserViewContext from '../../contexts/UserViewContext';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
-const ListingView = (listing) => {
+/**
+ * Renders a listing.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const ListingView = ({ item, updateItem }) => {
   const {
     creator,
     title,
@@ -26,26 +33,27 @@ const ListingView = (listing) => {
     price,
     season,
     year,
-  } = listing;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes.listing;
+  } = item;
   const userView = useContext(UserViewContext);
-
+  
   return (
-    <Card style={styles.container}>
-      <Card.Content style={styles.cardContent}>
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
       <TouchableOpacity style={styles.row}
         onPress = { () => userView.setUser(creator) } >
+        <View style={sharedItemViewStyles.row}>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={styles.column}>
-            <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {' '}
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
+          </View>
           </View>
         </TouchableOpacity>
         <Title style={styles.title}>{title}</Title>
@@ -53,17 +61,20 @@ const ListingView = (listing) => {
         <Paragraph style={styles.bodyText}>
           {'Community: ' + communities[community]}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>{'Price: $' + price}</Paragraph>
-        <Paragraph style={styles.bodyText}>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          {'Price: $' + price}
+        </Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
           {'Term: ' + seasons[season] + ' ' + year}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
           {'Category: ' + listingCategories[category]}
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
-          item={listing}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.listing}
           endpoint={ListingsEndpoint}
         />
       </Card.Content>
@@ -72,46 +83,3 @@ const ListingView = (listing) => {
 };
 
 export default ListingView;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    marginTop: '2.5%',
-    padding: 3,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-  },
-  cardContent: {
-    paddingTop: '1.5%',
-    paddingBottom: '2.5%',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: '2.5%',
-  },
-  column: {
-    flex: 5,
-    marginLeft: '4%',
-    flexDirection: 'column',
-    alignSelf: 'center',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    letterSpacing: 0.5,
-  },
-  date: {
-    color: 'grey',
-  },
-  bodyText: {
-    marginBottom: 0,
-    letterSpacing: 0.5,
-    fontSize: 15,
-  },
-  bold: {
-    fontWeight: '500',
-  },
-  name: {
-    fontWeight: '500',
-    fontSize: 16,
-  },
-});

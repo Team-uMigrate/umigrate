@@ -1,3 +1,4 @@
+from unittest import skip
 from django.http import HttpRequest
 from common.abstract_tests import AbstractAPITestCase
 from rest_framework.test import APITestCase
@@ -8,6 +9,7 @@ from .serializers import RoomSerializer, RoomDetailSerializer
 
 
 # Test case for the room API views
+@skip("Obsolete")
 class RoomTestCase(AbstractAPITestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, waitFor } from 'react-native-testing-library';
+import { render } from 'react-native-testing-library';
 import { mockUser } from '../../utils/mockData';
 import EditProfileView from '../../components/views/EditProfileView';
-import { communities, programs, pronouns, terms } from '../../utils/choices';
+import { communities, pronouns } from '../../utils/choices';
 
 describe('<EditProfileView /> UI Tests', () => {
   beforeEach(() => {
@@ -39,15 +39,11 @@ describe('<EditProfileView /> UI Tests', () => {
     expect(screen.getByText(pronouns[mockUser.pronouns]));
   });
 
-  it('should contain the program', () => {
-    expect(screen.getByText(programs[mockUser.enrolled_program]));
-  });
-
   it('should contain the community', () => {
     expect(screen.getByText(communities[mockUser.community]));
   });
 
-  it('should contain the current term', () => {
-    expect(screen.getByText(terms[mockUser.current_term]));
+  it('should contain the bio', () => {
+    expect(screen.getByText(mockUser.bio));
   });
 });

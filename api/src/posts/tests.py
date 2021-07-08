@@ -1,3 +1,4 @@
+from unittest import skip
 from rest_framework.test import APITestCase
 from common.abstract_tests import (
     AbstractAPITestCase,
@@ -11,6 +12,7 @@ from .factories import PostFactory
 
 
 # Test case for the posts endpoints
+@skip("Obsolete")
 class PostTestCase(
     AbstractAPITestCase,
     AbstractSavedTestCase,
@@ -62,6 +64,7 @@ class PostTestCase(
         AbstractSavedTestCase.test_save(self)
 
 
+@skip("Obsolete")
 class PostLikesTestCase(AbstractLikesTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

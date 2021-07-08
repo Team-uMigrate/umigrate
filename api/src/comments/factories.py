@@ -2,7 +2,6 @@ import factory
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import QuerySet
 from comments.models import Comment, Reply
-from common.constants.choices import Choices, get_length
 from users.factories import UserFactory
 from posts.factories import PostFactory
 import random

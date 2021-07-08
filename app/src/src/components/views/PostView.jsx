@@ -5,42 +5,52 @@ import ProfilePhotoView from './ProfilePhotoView';
 import { PostsEndpoint } from '../../utils/endpoints';
 import CommentBar from './CommentBar';
 import ImageCollectionView from './ImageCollectionView';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { communities, contentTypes } from '../../utils/choices';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 import UserViewContext from '../../contexts/UserViewContext';
 
-const PostView = (post) => {
-  const { title, creator, datetime_created, content, community, photos } = post;
-
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes['post'];
+/**
+ * Renders a post.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const PostView = ({ item, updateItem }) => {
+  const { title, creator, datetime_created, content, community, photos } = item;
   const userView = useContext(UserViewContext);
 
   return (
-    <Card style={styles.container}>
-      <Card.Content style={styles.cardContent}>
-      <TouchableOpacity style={styles.row}
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
+        <View style={sharedItemViewStyles.row}>
+        <TouchableOpacity style={styles.row}
         onPress = { () => userView.setUser(creator) }>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={styles.column}>
-            <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </TouchableOpacity>
-        <Title style={styles.title}>{title}</Title>
-        <Paragraph style={styles.bodyText}>{content}</Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Community: {communities[community]}</Text>
+          </TouchableOpacity>
+        </View>
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>
+            Community: {communities[community]}
+          </Text>
         </Paragraph>
         <ImageCollectionView photos={photos} />
         <CommentBar
-          item={post}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.post}
           endpoint={PostsEndpoint}
         />
       </Card.Content>
@@ -49,46 +59,3 @@ const PostView = (post) => {
 };
 
 export default PostView;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    marginTop: '2.5%',
-    padding: 3,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-  },
-  cardContent: {
-    paddingTop: '1.5%',
-    paddingBottom: '2.5%',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: '2.5%',
-  },
-  column: {
-    flex: 5,
-    marginLeft: '4%',
-    flexDirection: 'column',
-    alignSelf: 'center',
-  },
-  bold: {
-    fontWeight: '500',
-  },
-  date: {
-    color: 'grey',
-  },
-  name: {
-    fontWeight: '500',
-    fontSize: 16,
-  },
-  title: {
-    alignSelf: 'flex-start',
-    letterSpacing: 0.5,
-  },
-  bodyText: {
-    marginBottom: 0,
-    letterSpacing: 0.5,
-    fontSize: 15,
-  },
-});

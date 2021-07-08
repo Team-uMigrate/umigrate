@@ -1,13 +1,22 @@
 import React, { useState, createContext } from 'react';
 
-const ErrorContext = createContext();
+const ErrorContext = createContext({
+  /** @type {string | null} */
+  message: null,
+  /** @type {function(string | null): void} */
+  setMessage: function (message) {},
+});
 
-// A context provider that stores the error messages for the error modal
+/**
+ * Provides access to the error modal message state.
+ * @param {ReactNode} children
+ * @return {JSX.Element}
+ * */
 const ErrorContextProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   return (
-    <ErrorContext.Provider value={{ message: message, setMessage: setMessage }}>
+    <ErrorContext.Provider value={{ message, setMessage }}>
       {children}
     </ErrorContext.Provider>
   );

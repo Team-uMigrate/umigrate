@@ -9,9 +9,17 @@ import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
 import UserViewContext from '../../contexts/UserViewContext';
+import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
-const EventView = (event) => {
+/**
+ * Renders an event.
+ * @param {object} item
+ * @param {function(object): void} updateItem
+ * @return {JSX.Element}
+ */
+const EventView = ({ item, updateItem }) => {
   const {
+    id,
     creator,
     price_scale,
     title,
@@ -24,47 +32,50 @@ const EventView = (event) => {
     photos,
     is_interested,
     is_attending,
-  } = event;
+    attending,
+    interested,
+  } = item;
 
-  const { width, height } = Dimensions.get('window');
-  const contentType = contentTypes['event'];
   const userView = useContext(UserViewContext);
-
   return (
-    <Card style={styles.container}>
-      <Card.Content style={styles.cardContent}>
-        <TouchableOpacity style={styles.row}
+    <Card style={sharedItemViewStyles.container}>
+      <Card.Content style={sharedItemViewStyles.cardContent}>
+      <TouchableOpacity style={styles.row}
         onPress = { () => userView.setUser(creator) } >
+        <View style={sharedItemViewStyles.row}>
           <View>
             <ProfilePhotoView photo={creator.profile_photo} />
           </View>
-          <View style={styles.column}>
-            <Text style={styles.name}>{creator.preferred_name}</Text>
-            <Text style={styles.date}>
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
+        </View>
         </TouchableOpacity>
-        <Title style={styles.title}>{title}</Title>
-        <Paragraph style={styles.bodyText}>{content}</Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Price: </Text>
+        <Title style={sharedItemViewStyles.title}>{title}</Title>
+        <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Price: </Text>
           {prices[price_scale]}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Community: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Community: </Text>
           {communities[community]}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Location: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Location: </Text>
           {location}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>Start: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>Start: </Text>
           {moment(start_datetime).format('MMMM D, YYYY, h:mm a')}
         </Paragraph>
-        <Paragraph style={styles.bodyText}>
-          <Text style={styles.bold}>End: </Text>
+        <Paragraph style={sharedItemViewStyles.bodyText}>
+          <Text style={sharedItemViewStyles.bold}>End: </Text>
           {end_datetime
             ? moment(end_datetime).format('MMMM D, YYYY, h:mm a')
             : 'N/A'}
@@ -72,55 +83,50 @@ const EventView = (event) => {
         <ImageCollectionView photos={photos} />
         <View style={styles.buttonContainer}>
           <GradientButton
-            compact={true}
             style={styles.buttonStyleAttend}
-            mode={is_attending ? 'contained' : 'outlined'}
-            title={is_attending ? 'Attending' : 'Attending'}
-            gradientBegin={is_interested ? null : '#483FAB'}
-            textStyle={styles.bodyText}
+            gradientBegin={is_attending ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_attending ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_attending ? '#483FAB' : '#ffffff' },
+            ]}
             radius={10}
             onPressAction={async () => {
-              await EventsEndpoint.setAttending(event.id, !event.is_attending);
-              event.updateItem({
-                ...event,
-                is_attending: !event.is_attending,
-                attending: event.is_attending
-                  ? event.attending - 1
-                  : event.attending + 1,
+              await EventsEndpoint.setAttending(id, !is_attending);
+              updateItem({
+                ...item,
+                is_attending: !is_attending,
+                attending: is_attending ? attending - 1 : attending + 1,
               });
             }}
           >
-            {is_attending ? 'Attending' : 'Attend?'}
+            Attending
           </GradientButton>
-
           <GradientButton
-            compact={true}
             style={styles.buttonStyleInterest}
-            mode={is_interested ? 'contained' : 'outlined'}
-            title={is_interested ? 'Uninterest' : 'Interested?'}
-            textStyle={styles.bodyText}
             radius={10}
-            gradientBegin={is_interested ? null : '#483FAB'}
+            gradientBegin={is_interested ? '#ffffff' : '#483FAB'}
+            gradientEnd={is_interested ? '#ffffff' : '#5438a6'}
+            textStyle={[
+              styles.bodyText,
+              { color: is_interested ? '#483FAB' : '#ffffff' },
+            ]}
             onPressAction={async () => {
-              await EventsEndpoint.setInterested(
-                event.id,
-                !event.is_interested
-              );
-              event.updateItem({
-                ...event,
-                is_interested: !event.is_interested,
-                interested: event.is_interested
-                  ? event.interested - 1
-                  : event.interested + 1,
+              await EventsEndpoint.setInterested(id, !is_interested);
+              updateItem({
+                ...item,
+                is_interested: !is_interested,
+                interested: is_interested ? interested - 1 : interested + 1,
               });
             }}
           >
-            {is_interested ? 'Uninterest' : 'Interested?'}
+            Interested
           </GradientButton>
         </View>
         <CommentBar
-          item={event}
-          contentType={contentType}
+          item={item}
+          updateItem={updateItem}
+          contentType={contentTypes.event}
           endpoint={EventsEndpoint}
         />
       </Card.Content>
@@ -131,56 +137,22 @@ const EventView = (event) => {
 export default EventView;
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    marginTop: '2.5%',
-    padding: 3,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-  },
-  cardContent: {
-    paddingTop: '1.5%',
-    paddingBottom: '2.5%',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: '2.5%',
-  },
-  column: {
-    flex: 5,
-    marginLeft: '4%',
-    flexDirection: 'column',
-    alignSelf: 'center',
-  },
-  bold: {
-    fontWeight: '500',
-  },
-  name: {
-    fontWeight: '500',
-    fontSize: 16,
-  },
-  date: {
-    color: 'grey',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    letterSpacing: 0.5,
-  },
-  bodyText: {
-    marginBottom: 0,
-    letterSpacing: 0.5,
-    fontSize: 16,
-  },
   buttonStyleAttend: {
     height: 36,
     flex: 1,
     marginLeft: 0,
     marginRight: '4%',
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonStyleInterest: {
     height: 36,
     flex: 1,
     marginRight: 0,
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: '#483FAB',
   },
   buttonContainer: {
     flexDirection: 'row',

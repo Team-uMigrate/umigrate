@@ -13,7 +13,7 @@ const UserViewModal = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={{ marginHorizontal: 'auto' }}>
       <Modal
         onBackdropPress={() => userView.setUser(null)}
         visible={userView.user !== null}

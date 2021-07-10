@@ -1,5 +1,11 @@
-import React, {useContext} from 'react';
-import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { EventsEndpoint } from '../../utils/endpoints';
@@ -40,21 +46,23 @@ const EventView = ({ item, updateItem }) => {
   return (
     <Card style={sharedItemViewStyles.container}>
       <Card.Content style={sharedItemViewStyles.cardContent}>
-      <TouchableOpacity style={styles.row}
-        onPress = { () => userView.setUser(creator) } >
-        <View style={sharedItemViewStyles.row}>
-          <View>
-            <ProfilePhotoView photo={creator.profile_photo} />
+        <TouchableOpacity
+          style={styles.row}
+          onPress={() => userView.setUser(creator)}
+        >
+          <View style={sharedItemViewStyles.row}>
+            <View>
+              <ProfilePhotoView photo={creator.profile_photo} />
+            </View>
+            <View style={sharedItemViewStyles.column}>
+              <Text style={sharedItemViewStyles.name}>
+                {creator.preferred_name}
+              </Text>
+              <Text style={sharedItemViewStyles.date}>
+                {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
+              </Text>
+            </View>
           </View>
-          <View style={sharedItemViewStyles.column}>
-            <Text style={sharedItemViewStyles.name}>
-              {creator.preferred_name}
-            </Text>
-            <Text style={sharedItemViewStyles.date}>
-              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
-            </Text>
-          </View>
-        </View>
         </TouchableOpacity>
         <Title style={sharedItemViewStyles.title}>{title}</Title>
         <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>

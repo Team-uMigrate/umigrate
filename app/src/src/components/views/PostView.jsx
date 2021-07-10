@@ -1,9 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { PostsEndpoint } from '../../utils/endpoints';

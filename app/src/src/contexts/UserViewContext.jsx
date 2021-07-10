@@ -4,7 +4,7 @@ const UserViewContext = createContext();
 
 // A context provider that stores the user whose profile is to be shown
 const UserViewContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   return (
     <UserViewContext.Provider

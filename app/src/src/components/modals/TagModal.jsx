@@ -49,8 +49,9 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
       onDismiss={() => {
         setVisible(false);
       }}
+      contentContainerStyle={styles.modalContainer}
     >
-      <View style={styles.tagModal}>
+      <View style={[styles.tagModal, { paddingBottom: '17%' }]}>
         {/* Used to exit the search bar of the modal without exiting the modal itself */}
         {/* For some reason, you can't just tap anywhere on the modal to dismiss the keyboard by default */}
         <TouchableWithoutFeedback
@@ -58,7 +59,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
             Keyboard.dismiss();
           }}
         >
-          <View>
+          <>
             <Text style={styles.promptText}>Tag friend(s)</Text>
             <View style={{ flexDirection: 'column' }}>
               <TextInput
@@ -90,7 +91,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 )}
               />
             </View>
-          </View>
+          </>
         </TouchableWithoutFeedback>
       </View>
       {/* Box with user search results */}
@@ -98,7 +99,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
         style={[styles.tagModal, { marginTop: '1%', justifyContent: 'center' }]}
       >
         {fetchingNewResults ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" color="blue" />
         ) : (
           <FlatList
             data={userSearchResults}
@@ -202,6 +203,12 @@ const UserView = ({ user }) => (
 export default TagModal;
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    alignItems: 'stretch',
+    minHeight: '100%',
+    paddingBottom: '5%',
+    justifyContent: 'center',
+  },
   // TODO same as modal from communitySelectModal; make shared style
   tagModal: {
     backgroundColor: 'white',
@@ -209,8 +216,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 15,
     marginHorizontal: '10%',
-    maxHeight: '50%',
-    minHeight: '15%',
+    maxHeight: '45%',
   },
   promptText: {
     fontSize: 16,

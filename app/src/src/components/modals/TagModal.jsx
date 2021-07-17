@@ -84,9 +84,12 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                 renderItem={({ item, index }) => (
                   <TaggedUser
                     user={item}
-                    taggedUsers={taggedUsers}
-                    setTaggedUsers={setTaggedUsers}
-                    index={index}
+                    untagUser={() => {
+                      // Remove user from taggedUsers
+                      let newTaggedUsers = taggedUsers;
+                      newTaggedUsers.splice(index, 1);
+                      setTaggedUsers(newTaggedUsers);
+                    }}
                   />
                 )}
               />
@@ -107,11 +110,15 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
             renderItem={({ item, index }) => (
               <UserSearchResult
                 user={item}
-                taggedUsers={taggedUsers}
-                setTaggedUsers={setTaggedUsers}
-                userSearchResults={userSearchResults}
-                setUserSearchResults={setUserSearchResults}
-                index={index}
+                tagUser={() => {
+                  // Remove the user you're tagging from the search results (so users can't tag them again)
+                  let newResults = userSearchResults;
+                  newResults.splice(index, 1);
+                  setUserSearchResults(newResults);
+
+                  // Tag this user
+                  setTaggedUsers(taggedUsers.concat(item));
+                }}
               />
             )}
             ListEmptyComponent={() => (
@@ -126,26 +133,9 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
   );
 };
 
-const UserSearchResult = ({
-  user,
-  taggedUsers,
-  setTaggedUsers,
-  userSearchResults,
-  setUserSearchResults,
-  // The index of the result in userSearchResults
-  index,
-}) => {
+const UserSearchResult = ({ user, tagUser }) => {
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        // Remove the user you're tagging from the search results (so users can't tag them again)
-        let newResults = userSearchResults;
-        newResults.splice(index, 1);
-        setUserSearchResults(newResults);
-
-        setTaggedUsers(taggedUsers.concat(user));
-      }}
-    >
+    <TouchableWithoutFeedback onPress={tagUser}>
       <Card style={styles.userButton}>
         <UserView user={user} />
       </Card>
@@ -153,13 +143,7 @@ const UserSearchResult = ({
   );
 };
 
-const TaggedUser = ({
-  user,
-  taggedUsers,
-  setTaggedUsers,
-  // Index of the user in taggedUsers
-  index,
-}) => {
+const TaggedUser = ({ user, untagUser }) => {
   return (
     <Card style={styles.userButton}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -170,12 +154,7 @@ const TaggedUser = ({
           icon={'close'}
           color={'#404040'}
           size={USERTEXTSIZE}
-          onPress={() => {
-            // Remove user from taggedUsers
-            let newTaggedUsers = taggedUsers;
-            newTaggedUsers.splice(index, 1);
-            setTaggedUsers(newTaggedUsers);
-          }}
+          onPress={untagUser}
         />
       </View>
     </Card>

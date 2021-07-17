@@ -105,9 +105,10 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     width: '80%',
     height: '35%',
+    borderRadius: 11,
   },
   inputBoxes: {
-    marginTop: '10%',
+    marginTop: '8%',
   },
   container: {
     flex: 1,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    marginTop: '10%',
+    marginTop: '9%',
     fontSize: 23,
     fontWeight: 'bold',
   },
@@ -135,6 +136,10 @@ const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
     width: 250,
+    marginBottom: '2.5%',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#5b38a6',
   },
   modalView: {
     margin: 20,

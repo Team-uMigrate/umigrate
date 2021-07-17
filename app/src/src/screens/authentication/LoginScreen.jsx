@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.row}>
             <TextInput
               style={styles.textInput}
-              label="uWaterloo Email"
+              label="uWaterloo email..."
               onChangeText={(text) => setEmail(text.toLowerCase().trim())}
               autoCompleteType="email"
             />
@@ -75,6 +75,14 @@ const LoginScreen = ({ navigation }) => {
             />
           </View>
         </View>
+        <View style={styles.row}>
+          <Text 
+            style={styles.forgotPassword}
+            onClick={passwordResetRedirect}
+          >
+            Forgot password?
+          </Text>
+        </View>
         <View style={styles.buttonContainer}>
           <Button
             compact={true}
@@ -85,9 +93,6 @@ const LoginScreen = ({ navigation }) => {
           >
             Login
           </Button>
-          <View style={styles.divider}>
-            <Text>or</Text>
-          </View>
           <Button
             compact={true}
             style={styles.buttonStyle}
@@ -96,18 +101,6 @@ const LoginScreen = ({ navigation }) => {
             onPress={signUpRedirect}
           >
             Register
-          </Button>
-          <View style={styles.divider}>
-            <Text>or</Text>
-          </View>
-          <Button
-            compact={true}
-            style={styles.buttonStyle}
-            mode="outlined"
-            title="Sign up"
-            onPress={passwordResetRedirect}
-          >
-            Reset password
           </Button>
         </View>
       </View>
@@ -120,6 +113,11 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   imageStyle: {
     marginTop: '5%',
+  },
+  forgotPassword: {
+    fontSize: 14,
+    color: '#3D8BFF',
+    alignSelf: 'flex-end',
   },
   container: {
     flex: 1,
@@ -150,6 +148,10 @@ const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
     width: 250,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#5b38a6',
+    marginBottom: '2.5%',
   },
   errorText: {
     alignItems: 'center',

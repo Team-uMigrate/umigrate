@@ -85,13 +85,15 @@ const AuthNavigator = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name={routes.login} component={LoginScreen} />
+          <Stack.Screen 
+            name={routes.login} 
+            component={LoginScreen} />
           <Stack.Screen
             name={routes.registration}
             component={RegistrationScreen}
           />
           <Stack.Screen
-            name={routes.passwordReset}
+            name={routes.resetPassword}
             component={PasswordResetScreen}
           />
         </Stack.Navigator>

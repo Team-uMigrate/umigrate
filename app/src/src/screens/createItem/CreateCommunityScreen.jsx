@@ -37,6 +37,7 @@ class CreateCommunityScreen extends React.Component {
     setTagModalVisible: (visible) => {
       this.setState({ tagModalVisible: visible });
     },
+    shareButtonPressed: false,
   };
 
   resetPage = () => {
@@ -47,6 +48,7 @@ class CreateCommunityScreen extends React.Component {
       eventTime: new Date(),
       eventLocation: '',
       eventAdmissionPrice: '',
+      taggedUsers: [],
       showDatePicker: false,
     });
   };
@@ -60,6 +62,9 @@ class CreateCommunityScreen extends React.Component {
   };
 
   submitPost = async () => {
+    // This is used to disable the share button after pressing it so you can't spam it to create several identical posts
+    this.setState({ shareButtonPressed: true });
+
     const basicData = {
       title: this.state.title,
       content: this.state.body,
@@ -126,10 +131,13 @@ class CreateCommunityScreen extends React.Component {
         console.log('error response:', error.response);
       }
     }
+
+    this.setState({ shareButtonPressed: false });
   };
 
   shareButtonDisabled = () => {
-    if (this.state.title === '') return true;
+    if (this.state.shareButtonPressed) return true;
+    else if (this.state.title === '') return true;
     else if (this.state.selectedPostType === 'Poll') {
       if (this.state.pollOptions.length === 0) return true;
       else

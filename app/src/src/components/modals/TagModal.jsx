@@ -187,7 +187,7 @@ export default TagModal;
 const styles = StyleSheet.create({
   modalContainer: {
     alignItems: 'stretch',
-    paddingBottom: '5%',
+    marginBottom: '5%',
     justifyContent: 'center',
   },
   // TODO same as modal from communitySelectModal; make shared style

@@ -187,7 +187,6 @@ export default TagModal;
 const styles = StyleSheet.create({
   modalContainer: {
     alignItems: 'stretch',
-    minHeight: '100%',
     paddingBottom: '5%',
     justifyContent: 'center',
   },
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 15,
     marginHorizontal: '10%',
-    maxHeight: '45%',
+    height: '40%',
   },
   promptText: {
     fontSize: 16,

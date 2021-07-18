@@ -24,7 +24,7 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
     let newUserSearchResults = response.data.results;
     const taggedUserSet = new Set();
 
-    if (taggedUsers.length != 0) {
+    if (taggedUsers.length !== 0) {
       // Populate set with users that are already tagged
       for (const index in taggedUsers) taggedUserSet.add(taggedUsers[index].id);
 
@@ -89,6 +89,9 @@ const TagModal = ({ visible, setVisible, taggedUsers, setTaggedUsers }) => {
                       let newTaggedUsers = taggedUsers;
                       newTaggedUsers.splice(index, 1);
                       setTaggedUsers(newTaggedUsers);
+
+                      // Add user back to the search results
+                      setUserSearchResults(userSearchResults.concat(item));
                     }}
                   />
                 )}

@@ -64,7 +64,7 @@ class CreateCommunityScreen extends React.Component {
       title: this.state.title,
       content: this.state.body,
       community: this.state.community,
-      tagged_users: [], // TODO add tag user functionality
+      tagged_users: this.state.taggedUsers.map((user) => user.id),
     };
 
     if (this.state.selectedPostType === 'Post') {

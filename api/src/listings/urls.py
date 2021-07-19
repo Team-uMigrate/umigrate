@@ -7,12 +7,12 @@ from .api_views import (
     ListingLikes,
     ContactedListings,
     ConfirmedListings,
-    ListingContacted,
-    ListingConfirmed,
-    ContactedRoommatePost,
-    ConfirmedRoommatePost,
-    RoommatePostContacted,
-    RoommatePostConfirmed,
+    ListingContactedUsers,
+    ListingConfirmedUsers,
+    ConfirmedRoommatePosts,
+    ConfirmedRoommatePosts,
+    RoommatePostContactedUsers,
+    RoommatePostConfirmedUsers,
 )
 
 router = DefaultRouter(trailing_slash=False)
@@ -24,12 +24,12 @@ urlpatterns = router.urls + [
     path("<int:id>/likes", ListingLikes.as_view()),
     path("contacted", ContactedListings.as_view()),
     path("confirmed", ConfirmedListings.as_view()),
-    path("<int:id>/contacted", ListingContacted.as_view()),
-    path("<int:id>/confirmed", ListingConfirmed.as_view()),
-    # path("roommate/contacted", ContactedRoommatePost.as_view()),
-    # path("roommate/confirmed", ConfirmedRoommatePost.as_view()),
-    # path("roommate/<int:id>/contacted", RoommatePostContacted.as_view()),
-    # path("roommate/<int:id>/confirmed", RoommatePostConfirmed.as_view()),
+    path("roommates/<int:id>/contacted-users", ListingContactedUsers.as_view()),
+    path("roommates/<int:id>/confirmed-users", ListingConfirmedUsers.as_view()),
+    # path("roommates/contacted", ConfirmedRoommatePosts.as_view()),
+    # path("roommates/confirmed", ConfirmedRoommatePosts.as_view()),
+    # path("roommate/<int:id>/contacted", RoommatePostContactedUsers.as_view()),
+    # path("roommate/<int:id>/confirmed", RoommatePostConfirmedUsers.as_view()),
 ]
 """
 Listings url patterns.

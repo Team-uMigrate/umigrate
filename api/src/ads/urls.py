@@ -20,8 +20,8 @@ urlpatterns = router.urls + [
     path("<int:id>/likes", AdLikes.as_view()),
     path("contacted", ContactedAds.as_view()),
     path("confirmed", ConfirmedAds.as_view()),
-    path("<int:id>/contacted", AdContacted.as_view()),
-    path("<int:id>/confirmed", AdConfirmed.as_view()),
+    path("<int:id>/contacted-users", AdContacted.as_view()),
+    path("<int:id>/confirmed-users", AdConfirmed.as_view()),
 ]
 """
 Ads url patterns.

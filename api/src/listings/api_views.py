@@ -57,34 +57,34 @@ class ListingLikes(AbstractLikedUsers):
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
-class ListingContacted(AbstractRetrieveUsers):
+class ListingContactedUsers(AbstractRetrieveUsers):
     model_class = Listing
     query_string = "contacted_users"
 
 
 @method_decorator(name="get", decorator=swagger_auto_schema(tags=["Listings"]))
-class ListingConfirmed(AbstractRetrieveUsers):
+class ListingConfirmedUsers(AbstractRetrieveUsers):
     model_class = Listing
     query_string = "confirmed_users"
 
 
 # BLOCKED because there isn't modelViewSet or Serializer for RoommatePost
 # @api_view_swagger_decorator(["RoommatePost"])
-# class ContactedRoommatePost(AbstractAddRemoveUser):
+# class ContactedRoommatesPosts(AbstractAddRemoveUser):
 #     query_string = "contacted_roommate_posts"
 #     serializer_class = RoommatePostSerializer
 #     model_class = RoommatePost
 #
 #
 # @api_view_swagger_decorator(["RoommatePost"])
-# class ConfirmedRoommatePost(AbstractAddRemoveUser):
+# class ConfirmedRoommatePosts(AbstractAddRemoveUser):
 #     query_string = "confirmed_roommate_posts"
 #     serializer_class = RoommatePostSerializer
 #     model_class = RoommatePost
 #
 #
 # @method_decorator(name="get", decorator=swagger_auto_schema(tags=["RoommatePost"]))
-# class RoommatePostContacted(AbstractRetrieveUsers):
+# class RoommatePostContactedUsers(AbstractRetrieveUsers):
 #     model_class = RoommatePost
 #     query_string = "contacted_roommate_posts"
 #

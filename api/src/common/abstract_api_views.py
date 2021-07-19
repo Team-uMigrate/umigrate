@@ -145,7 +145,7 @@ class AbstractLikedUsers(ListAPIView):
 
 class AbstractRetrieveUsers(ListAPIView):
     """
-    An abstract API view class that supports retrieving the liked users for a shared item.
+    An abstract API view class that supports retrieving users for a shared item.
     """
 
     model_class: AbstractPostModel = None
@@ -164,7 +164,7 @@ class AbstractRetrieveUsers(ListAPIView):
     ]
 
     def get_queryset(self):
-        # Retrieve the list of users
+        # Retrieve the list of users associated with query_string
         return getattr(
             self.model_class.objects.get(id=self.kwargs["id"]), self.query_string
         ).all()

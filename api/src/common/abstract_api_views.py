@@ -150,12 +150,12 @@ class AbstractRetrieveUsers(ListAPIView):
 
     model_class: AbstractPostModel = None
     """
-    The model class with the liked users many to many field to add the user to. Must be overwritten.
+    The model class with the users many to many field to add the user to. Must be overwritten.
     """
 
     query_string: str = None
     """
-    The name of the attribute on the user that is used to get a list of objects. Must be overwritten.
+    The name of the attribute on the model that is used to get a list of objects. Must be overwritten.
     """
 
     serializer_class = BasicUserSerializer

@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from .models import Listing
+from .models import Listing, RoommatePost
 
 
 class ListingFilter(filters.FilterSet):

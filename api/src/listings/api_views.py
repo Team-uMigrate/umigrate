@@ -4,9 +4,14 @@ from common.abstract_api_views import (
     AbstractLikedUsers,
     AbstractRetrieveUsers,
 )
-from .filters import ListingFilter
+from .filters import ListingFilter, RoommateFilter
 from .models import Listing, RoommatePost
-from .serializers import ListingSerializer, ListingDetailSerializer
+from .serializers import (
+    ListingSerializer,
+    ListingDetailSerializer,
+    RoommateSerializer,
+    RoommateDetailSerializer,
+)
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from common.decorators import (
@@ -68,28 +73,35 @@ class ListingConfirmedUsers(AbstractRetrieveUsers):
     query_string = "confirmed_users"
 
 
-# BLOCKED because there isn't modelViewSet or Serializer for RoommatePost
-# @api_view_swagger_decorator(["RoommatePost"])
-# class ContactedRoommatesPosts(AbstractAddRemoveUser):
-#     query_string = "contacted_roommate_posts"
-#     serializer_class = RoommatePostSerializer
-#     model_class = RoommatePost
-#
-#
-# @api_view_swagger_decorator(["RoommatePost"])
-# class ConfirmedRoommatePosts(AbstractAddRemoveUser):
-#     query_string = "confirmed_roommate_posts"
-#     serializer_class = RoommatePostSerializer
-#     model_class = RoommatePost
-#
-#
-# @method_decorator(name="get", decorator=swagger_auto_schema(tags=["RoommatePost"]))
-# class RoommatePostContactedUsers(AbstractRetrieveUsers):
-#     model_class = RoommatePost
-#     query_string = "contacted_roommate_posts"
-#
-#
-# @method_decorator(name="get", decorator=swagger_auto_schema(tags=["RoommatePost"]))
-# class RoommatePostConfirmed(AbstractRetrieveUsers):
-#     model_class = RoommatePost
-#     query_string = "confirmed_roommate_posts"
+@model_view_set_swagger_decorator(["RoommatePost"])
+class RoommateViewSet(AbstractModelViewSet):
+    queryset = RoommatePost.objects.all()
+    serializer_class = RoommateSerializer
+    detail_serializer_class = RoommateDetailSerializer
+    filterset_class = RoommateFilter
+
+
+@api_view_swagger_decorator(["RoommatePost"])
+class ContactedRoommatesPosts(AbstractAddRemoveUser):
+    query_string = "contacted_roommate_posts"
+    serializer_class = RoommateSerializer
+    model_class = RoommatePost
+
+
+@api_view_swagger_decorator(["RoommatePost"])
+class ConfirmedRoommatePosts(AbstractAddRemoveUser):
+    query_string = "confirmed_roommate_posts"
+    serializer_class = RoommateSerializer
+    model_class = RoommatePost
+
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["RoommatePost"]))
+class RoommatePostContactedUsers(AbstractRetrieveUsers):
+    model_class = RoommatePost
+    query_string = "contacted_users"
+
+
+@method_decorator(name="get", decorator=swagger_auto_schema(tags=["RoommatePost"]))
+class RoommatePostConfirmedUsers(AbstractRetrieveUsers):
+    model_class = RoommatePost
+    query_string = "confirmed_users"

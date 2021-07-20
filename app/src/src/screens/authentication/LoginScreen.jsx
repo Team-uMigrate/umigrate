@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
 
   const passwordResetRedirect = () => {
     // Navigate to the password reset screen
-    navigation.push(routes.passwordReset);
+    navigation.push(routes.resetPassword);
   };
 
   const handleSignIn = async () => {
@@ -78,7 +78,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.row}>
           <Text 
             style={styles.forgotPassword}
-            onClick={passwordResetRedirect}
+            onPress={passwordResetRedirect}
           >
             Forgot password?
           </Text>
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
   forgotPassword: {
     fontSize: 14,
     color: '#3D8BFF',
-    alignSelf: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,

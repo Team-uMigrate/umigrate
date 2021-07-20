@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { AuthEndpoint } from '../../utils/endpoints';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { routes } from '../../contexts/ErrorContext';
-//import ErrorContext from '../../contexts/ErrorContext'
+import { routes } from '../../utils/routes';
+import ErrorContext from '../../contexts/ErrorContext'
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 
@@ -53,49 +53,48 @@ const PasswordResetScreen = ({ navigation }) => {
       passwordResetRedirect();
     } catch (err) {
       error.setMessage(err.message);
-
-      return (
-        <View style={styles.container}>
-          <Image
-            style={styles.imageStyle}
-            source={require('../../../assets/templatedRegister.png')}
-          />
-          <Text style={styles.title}>Forgot your password?</Text>
-          <Text style={styles.paragraph}>
-            Enter your email for a password reset link
-          </Text>
-          <View style={styles.inputBoxes}>
-            <View style={styles.row}>
-              <TextInput
-                style={styles.textInput}
-                label="uWaterloo email..."
-                onChangeText={(text) => setEmail(text.toLowerCase().trim())}
-                autoCompleteType="email"
-              />
-            </View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.buttonStyle}
-              mode="contained"
-              title="Password reset"
-              onPress={handlePasswordReset}
-            >
-              Send Email Link
-            </Button>
-            <Button
-              style={styles.buttonStyle}
-              mode="outlined"
-              title="Back"
-              onPress={signInRedirect}
-            >
-              Back
-            </Button>
-          </View>
-        </View>
-      );
     }
-  };
+  }
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.imageStyle}
+        source={require('../../../assets/templatedRegister.png')}
+      />
+      <Text style={styles.title}>Forgot your password?</Text>
+      <Text style={styles.paragraph}>
+        Enter the email address associated with your account.
+      </Text>
+      <View style={styles.inputBoxes}>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textInput}
+            label="uWaterloo email..."
+            onChangeText={(text) => setEmail(text.toLowerCase().trim())}
+            autoCompleteType="email"
+          />
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          style={styles.buttonStyle}
+          mode="contained"
+          title="Password reset"
+          onPress={handlePasswordReset}
+        >
+          Send Email Link
+        </Button>
+        <Button
+          style={styles.buttonStyle}
+          mode="outlined"
+          title="Back"
+          onPress={signInRedirect}
+        >
+          Back
+        </Button>
+      </View>
+    </View>
+  );
 };
 
 export default PasswordResetScreen;

@@ -13,6 +13,7 @@ from .api_views import (
     ContactedRoommatesPosts,
     RoommatePostContactedUsers,
     RoommatePostConfirmedUsers,
+    RoommateViewSet,
 )
 
 router = DefaultRouter(trailing_slash=False)
@@ -34,6 +35,7 @@ urlpatterns = router.urls + [
     path("roommate/<int:id>/contacted", RoommatePostContactedUsers.as_view()),
     path("roommate/<int:id>/confirmed", RoommatePostConfirmedUsers.as_view()),
 ]
+
 """
 Listings url patterns.
 """

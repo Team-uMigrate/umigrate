@@ -3,7 +3,7 @@ import CreatePageTextInput from './CreatePageTextInput';
 import { Text, View, StyleSheet } from 'react-native';
 import ProfilePhotoView from '../views/ProfilePhotoView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Card, IconButton, Portal } from 'react-native-paper';
+import { Button, Card, IconButton, Portal } from 'react-native-paper';
 import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
 import { communities } from '../../utils/choices';
@@ -25,12 +25,12 @@ const BasicCreateForm = ({
   setTaggedUsers,
   profilePhoto,
   pageIconName,
+  shareButtonDisabled,
+  submitPost,
   children,
 }) => {
-  const [
-    communitySelectModalVisible,
-    setCommunitySelectModalVisible,
-  ] = useState(false);
+  const [communitySelectModalVisible, setCommunitySelectModalVisible] =
+    useState(false);
   const [tagModalVisible, setTagModalVisible] = useState(false);
 
   return (
@@ -101,6 +101,35 @@ const BasicCreateForm = ({
         </Card>
       </View>
 
+      {/* TODO bring these buttons to the bottom */}
+      {/* TODO calculate how big the buttons should be */}
+      <View
+        style={{
+          flexDirection: 'row',
+          alignContent: 'center',
+          marginVertical: 10,
+        }}
+      >
+        <Button
+          mode={'contained'}
+          color={'#8781D0'}
+          style={styles.previewAndShareButtons}
+          dark={true}
+        >
+          Preview
+        </Button>
+        <Button
+          mode={'contained'}
+          color={'#8781D0'}
+          disabled={shareButtonDisabled}
+          style={styles.previewAndShareButtons}
+          dark={true}
+          onPress={submitPost}
+        >
+          Share
+        </Button>
+      </View>
+
       <Portal>
         {/* Community select modal */}
         <CommunitySelectModal
@@ -149,5 +178,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
     margin: 0,
+  },
+  previewAndShareButtons: {
+    borderRadius: 10,
+    flex: 1,
+    marginHorizontal: 5,
   },
 });

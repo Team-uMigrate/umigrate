@@ -186,6 +186,8 @@ class CreateCommunityScreen extends React.Component {
             }}
             profilePhoto={this.state.user.profile_photo}
             pageIconName={'earth'}
+            shareButtonDisabled={this.shareButtonDisabled()}
+            submitPost={this.submitPost}
           >
             {/* Render list of poll options and new poll option button if the poll button is selected */}
             {this.state.selectedPostType === 'Poll' && (
@@ -292,37 +294,6 @@ class CreateCommunityScreen extends React.Component {
             )}
           </BasicCreateForm>
         </View>
-
-        {/* TODO bring these buttons to the bottom */}
-        {/* TODO calculate how big the buttons should be */}
-        <View
-          style={{
-            // flex: 1,
-            flexDirection: 'row',
-            marginHorizontal: '20%',
-            justifyContent: 'flex-end',
-            marginVertical: 10,
-          }}
-        >
-          <Button
-            mode={'contained'}
-            color={'#8781D0'}
-            style={styles.previewAndShareButtons}
-            dark={true}
-          >
-            Preview
-          </Button>
-          <Button
-            mode={'contained'}
-            color={'#8781D0'}
-            disabled={this.shareButtonDisabled()}
-            style={styles.previewAndShareButtons}
-            dark={true}
-            onPress={this.submitPost}
-          >
-            Share
-          </Button>
-        </View>
       </ScrollView>
     );
   }
@@ -358,11 +329,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCDCDC',
     borderRadius: 10,
     marginTop: 10,
-  },
-  previewAndShareButtons: {
-    borderRadius: 10,
-    flex: 1,
-    marginHorizontal: 5,
   },
   newPollOptionButton: {
     borderRadius: 10,

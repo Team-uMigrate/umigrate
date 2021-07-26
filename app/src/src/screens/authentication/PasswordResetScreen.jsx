@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { AuthEndpoint } from '../../utils/endpoints';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { routes } from '../../utils/routes';
-import ErrorContext from '../../contexts/ErrorContext'
+import ErrorContext from '../../contexts/ErrorContext';
 import { StackNavigationProp } from '@react-navigation/stack';
-import axios from 'axios';
 
 const initialState = {
   /** @type {string | null} */
@@ -18,43 +17,26 @@ const initialState = {
  * @return {JSX.Element}
  * */
 const PasswordResetScreen = ({ navigation }) => {
-  //const auth = useContext(AuthContext);
-  //const error = useContext(ErrorContext);
   const [email, setEmail] = useState(initialState.email);
-
   const signInRedirect = () => {
     // Navigate to the login screen
     navigation.push(routes.login);
   };
 
-  // if user enters an invalid email, should redirect to the password reset page
+  const emailSentRedirect = () => {
+    // Navigate to the password reset email sent screen
+    navigation.push(routes.emailSent)
+  }
+
   const handlePasswordReset = async () => {
-    // Try to reset password with email and redirect to the password reset screen
-    // if successful (email is correct) or display error message otherwise
-    async.preventDefault();
-
-    const data = {
-      email: this.email,
-    };
-
-    axios
-      .post('forgot', data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
     try {
       await AuthEndpoint.passwordReset(email);
-      await ProfileEndpoint.get();
-      auth.setIsAuthenticated(true);
-      passwordResetRedirect();
+      emailSentRedirect();
     } catch (err) {
       error.setMessage(err.message);
     }
-  }
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -80,7 +62,7 @@ const PasswordResetScreen = ({ navigation }) => {
           style={styles.buttonStyle}
           mode="contained"
           title="Password reset"
-          onPress={handlePasswordReset}
+          onPress={handlePasswordReset} 
         >
           Send Email Link
         </Button>
@@ -131,6 +113,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 50,
     width: 250,
+    marginBottom: '5%',
   },
   buttonContainer: {
     marginTop: '5%',

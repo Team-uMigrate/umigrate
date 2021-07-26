@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    marginTop: '9%',
+    marginTop: '8%',
     fontSize: 23,
     fontWeight: 'bold',
   },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
     width: 250,
-    marginBottom: '2.5%',
+    marginBottom: '2%',
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#5b38a6',

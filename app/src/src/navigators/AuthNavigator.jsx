@@ -17,6 +17,8 @@ import LikesScreen from '../screens/likes/LikesScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
+import EmailSentScreen from '../screens/authentication/EmailSentScreen';
+
 
 const initialState = {
   /** @type {string | null} */
@@ -95,6 +97,10 @@ const AuthNavigator = () => {
           <Stack.Screen
             name={routes.resetPassword}
             component={PasswordResetScreen}
+          />
+          <Stack.Screen
+            name={routes.emailSent}
+            component={EmailSentScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

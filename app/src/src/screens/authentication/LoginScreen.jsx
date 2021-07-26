@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.row}>
             <TextInput
               style={styles.textInput}
-              label="uWaterloo email..."
+              label="uWaterloo Email..."
               onChangeText={(text) => setEmail(text.toLowerCase().trim())}
               autoCompleteType="email"
             />
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#5b38a6',
-    marginBottom: '2.5%',
+    marginBottom: '2%',
   },
   errorText: {
     alignItems: 'center',

@@ -20,7 +20,7 @@ const EmailSentScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Password Reset Email Sent</Text>
       <Text style={styles.paragraph}>
-        An email has been sent to the email address provided. {"\n"} {"\n"}
+        An email has been sent to the email address provided. {'\n'} {'\n'}
         Follow the directions in the email to reset your password.
       </Text>
       <View style={styles.buttonContainer}>

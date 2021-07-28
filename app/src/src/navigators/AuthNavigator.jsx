@@ -19,7 +19,6 @@ import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
 import EmailSentScreen from '../screens/authentication/EmailSentScreen';
 
-
 const initialState = {
   /** @type {string | null} */
   expoPushToken: null,
@@ -87,9 +86,7 @@ const AuthNavigator = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen 
-            name={routes.login} 
-            component={LoginScreen} />
+          <Stack.Screen name={routes.login} component={LoginScreen} />
           <Stack.Screen
             name={routes.registration}
             component={RegistrationScreen}
@@ -98,10 +95,7 @@ const AuthNavigator = () => {
             name={routes.resetPassword}
             component={PasswordResetScreen}
           />
-          <Stack.Screen
-            name={routes.emailSent}
-            component={EmailSentScreen}
-          />
+          <Stack.Screen name={routes.emailSent} component={EmailSentScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

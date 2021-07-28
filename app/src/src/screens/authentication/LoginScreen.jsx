@@ -76,10 +76,7 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.row}>
-          <Text 
-            style={styles.forgotPassword}
-            onPress={passwordResetRedirect}
-          >
+          <Text style={styles.forgotPassword} onPress={passwordResetRedirect}>
             Forgot password?
           </Text>
         </View>

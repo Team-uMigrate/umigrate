@@ -25,8 +25,8 @@ const PasswordResetScreen = ({ navigation }) => {
 
   const emailSentRedirect = () => {
     // Navigate to the password reset email sent screen
-    navigation.push(routes.emailSent)
-  }
+    navigation.push(routes.emailSent);
+  };
 
   const handlePasswordReset = async () => {
     try {
@@ -62,7 +62,7 @@ const PasswordResetScreen = ({ navigation }) => {
           style={styles.buttonStyle}
           mode="contained"
           title="Password reset"
-          onPress={handlePasswordReset} 
+          onPress={handlePasswordReset}
         >
           Send Email Link
         </Button>

@@ -1,7 +1,6 @@
 import React from 'react';
-import { AuthEndpoint } from '../../utils/endpoints';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { routes } from '../../utils/routes';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -13,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const EmailSentScreen = ({ navigation }) => {
   const signInRedirect = () => {
     // Navigate to the login screen
-    navigation.push(routes.login);
+    navigation.navigate(routes.login);
   };
 
   return (

@@ -90,6 +90,9 @@ const LoginScreen = ({ navigation }) => {
           >
             Login
           </Button>
+          <View style={styles.divider}>
+            <Text>or</Text>
+          </View>
           <Button
             compact={true}
             style={styles.buttonStyle}
@@ -116,6 +119,10 @@ const styles = StyleSheet.create({
     color: '#3D8BFF',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: '2.5%',
+    textAlign: 'right',
+    flex: 1,
+    marginRight: '15.2%',
   },
   container: {
     flex: 1,
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   divider: {
-    marginTop: '5%',
+    marginTop: '3%',
     marginBottom: '5%',
     alignItems: 'center',
   },

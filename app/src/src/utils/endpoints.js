@@ -441,9 +441,6 @@ export class AuthEndpoint {
    * @return {Promise<AxiosResponse>}
    * */
   static async passwordReset(email) {
-    await removeAuthToken();
-    await removePushToken();
-    await removeUserData();
     return await Axios.post(
       `${BASE_URL}/api/password/reset/`,
       toFormData({

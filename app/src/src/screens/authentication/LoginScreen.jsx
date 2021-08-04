@@ -117,12 +117,10 @@ const styles = StyleSheet.create({
   forgotPassword: {
     fontSize: 14,
     color: '#3D8BFF',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginBottom: '2.5%',
     textAlign: 'right',
     flex: 1,
-    marginRight: '15.2%',
+    marginRight: '15.1%',
   },
   container: {
     flex: 1,

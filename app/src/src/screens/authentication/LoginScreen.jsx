@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
       <View style={styles.container}>
         <View>
           <Image

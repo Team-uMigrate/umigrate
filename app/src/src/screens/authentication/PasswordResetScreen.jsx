@@ -40,7 +40,7 @@ const PasswordResetScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
       <View style={styles.container}>
         <Image
           style={styles.imageStyle}

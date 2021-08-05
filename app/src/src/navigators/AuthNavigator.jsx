@@ -85,9 +85,7 @@ const AuthNavigator = () => {
     // Render unauthenticated screens
     return (
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-        >
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name={routes.login} component={LoginScreen} />
           <Stack.Screen
             name={routes.registration}

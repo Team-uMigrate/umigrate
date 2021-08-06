@@ -17,6 +17,7 @@ import LikesScreen from '../screens/likes/LikesScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
+import EmailSentScreen from '../screens/authentication/EmailSentScreen';
 
 const initialState = {
   /** @type {string | null} */
@@ -84,16 +85,17 @@ const AuthNavigator = () => {
     // Render unauthenticated screens
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name={routes.login} component={LoginScreen} />
           <Stack.Screen
             name={routes.registration}
             component={RegistrationScreen}
           />
           <Stack.Screen
-            name={routes.passwordReset}
+            name={routes.resetPassword}
             component={PasswordResetScreen}
           />
+          <Stack.Screen name={routes.emailSent} component={EmailSentScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

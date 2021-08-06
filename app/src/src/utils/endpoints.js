@@ -434,6 +434,23 @@ export class AuthEndpoint {
       }
     );
   }
+
+  /**
+   * Emails user password reset link.
+   * @param {string} email
+   * @return {Promise<AxiosResponse>}
+   * */
+  static async passwordReset(email) {
+    return await Axios.post(
+      `${BASE_URL}/api/password/reset/`,
+      toFormData({
+        email: email,
+      }),
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
+  }
 }
 
 export class ProfileEndpoint {

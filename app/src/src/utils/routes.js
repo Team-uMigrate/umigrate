@@ -2,7 +2,8 @@
 export const routes = Object.freeze({
   login: 'Login',
   registration: 'Registration',
-  passwordReset: 'PasswordReset',
+  resetPassword: 'PasswordResetScreen',
+  emailSent: 'EmailSentScreen',
   tabs: 'Tabs',
   messaging: 'Messaging',
   notifications: 'Notifications',

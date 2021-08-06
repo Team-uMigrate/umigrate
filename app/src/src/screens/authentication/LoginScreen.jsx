@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
 
   const passwordResetRedirect = () => {
     // Navigate to the password reset screen
-    navigation.push(routes.passwordReset);
+    navigation.push(routes.resetPassword);
   };
 
   const handleSignIn = async () => {
@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
       <View style={styles.container}>
         <View>
           <Image
@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.row}>
             <TextInput
               style={styles.textInput}
-              label="uWaterloo Email"
+              label="uWaterloo Email..."
               onChangeText={(text) => setEmail(text.toLowerCase().trim())}
               autoCompleteType="email"
             />
@@ -74,6 +74,11 @@ const LoginScreen = ({ navigation }) => {
               secureTextEntry={true}
             />
           </View>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.forgotPassword} onPress={passwordResetRedirect}>
+            Forgot password?
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
@@ -97,18 +102,6 @@ const LoginScreen = ({ navigation }) => {
           >
             Register
           </Button>
-          <View style={styles.divider}>
-            <Text>or</Text>
-          </View>
-          <Button
-            compact={true}
-            style={styles.buttonStyle}
-            mode="outlined"
-            title="Sign up"
-            onPress={passwordResetRedirect}
-          >
-            Reset password
-          </Button>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -120,6 +113,14 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   imageStyle: {
     marginTop: '5%',
+  },
+  forgotPassword: {
+    fontSize: 14,
+    color: '#3D8BFF',
+    marginBottom: '2.5%',
+    textAlign: 'right',
+    flex: 1,
+    marginRight: '15.1%',
   },
   container: {
     flex: 1,
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     width: 250,
   },
   divider: {
-    marginTop: '5%',
+    marginTop: '3%',
     marginBottom: '5%',
     alignItems: 'center',
   },
@@ -150,6 +151,10 @@ const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
     width: 250,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#5b38a6',
+    marginBottom: '2%',
   },
   errorText: {
     alignItems: 'center',

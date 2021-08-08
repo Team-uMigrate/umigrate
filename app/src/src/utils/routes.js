@@ -20,4 +20,5 @@ export const routes = Object.freeze({
   calendar: 'Calendar',
   settings: 'Settings',
   search: 'Search',
+  mediaSelection: "MediaSelection"
 });

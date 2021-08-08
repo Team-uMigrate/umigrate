@@ -16,6 +16,8 @@ import CommentsScreen from '../screens/comments/CommentsScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
 import SearchScreen from '../screens/search/SearchScreen';
+import MediaSelectionScreen from '../screens/createItem/MediaSelectionScreen';
+import { SetImagesContextProvider } from '../contexts/SetImagesContext';
 
 const initialState = {
   /** @type {string | null} */
@@ -55,27 +57,36 @@ const AuthNavigator = () => {
     return (
       <StackNavContextProvider>
         <CreateItemContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              gestureDirection={'horizontal-inverted'}
-            >
-              <Stack.Screen name={routes.tabs} component={TabNavigator} />
-              <Stack.Screen name={routes.comments} component={CommentsScreen} />
-              <Stack.Screen name={routes.search} component={SearchScreen} />
-              <Stack.Screen
-                name={routes.messaging}
-                component={MessagingScreen}
-              />
-              <Stack.Screen
-                name={routes.notifications}
-                options={{
-                  gestureDirection: 'horizontal-inverted',
-                }}
-                component={NotificationScreen}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <SetImagesContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+                gestureDirection={'horizontal-inverted'}
+              >
+                <Stack.Screen name={routes.tabs} component={TabNavigator} />
+                <Stack.Screen
+                  name={routes.comments}
+                  component={CommentsScreen}
+                />
+                <Stack.Screen name={routes.search} component={SearchScreen} />
+                <Stack.Screen
+                  name={routes.messaging}
+                  component={MessagingScreen}
+                />
+                <Stack.Screen
+                  name={routes.notifications}
+                  options={{
+                    gestureDirection: 'horizontal-inverted',
+                  }}
+                  component={NotificationScreen}
+                />
+                <Stack.Screen
+                  name={routes.mediaSelection}
+                  component={MediaSelectionScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </SetImagesContextProvider>
         </CreateItemContextProvider>
       </StackNavContextProvider>
     );

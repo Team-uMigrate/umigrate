@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CreatePageTextInput from './CreatePageTextInput';
 import { Text, View, StyleSheet } from 'react-native';
 import ProfilePhotoView from '../views/ProfilePhotoView';
@@ -8,6 +8,9 @@ import CommunitySelectModal from './CommunitySelectModal';
 import ButtonWithDownArrow from './ButtonWithDownArrow';
 import { communities } from '../../utils/choices';
 import TagModal from '../modals/TagModal';
+import StackNavContext from '../../contexts/StackNavContext';
+import SetImagesContext from '../../contexts/SetImagesContext';
+import { routes } from '../../utils/routes';
 
 // Components in the common to all create pages.
 // Includes community select modal, button to call it, title input,
@@ -32,6 +35,7 @@ const BasicCreateForm = ({
   const [communitySelectModalVisible, setCommunitySelectModalVisible] =
     useState(false);
   const [tagModalVisible, setTagModalVisible] = useState(false);
+  const nav = useContext(StackNavContext);
 
   return (
     <>
@@ -97,6 +101,9 @@ const BasicCreateForm = ({
             mode={'contained'}
             style={styles.imageAndTagButtons}
             size={28}
+            onPress={() => {
+              nav.navigation.navigate(routes.mediaSelection);
+            }}
           />
         </Card>
       </View>

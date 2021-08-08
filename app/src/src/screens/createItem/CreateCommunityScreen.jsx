@@ -31,6 +31,7 @@ class CreateCommunityScreen extends React.Component {
     eventLocation: '',
     eventAdmissionPrice: '',
     taggedUsers: [],
+    images: [],
     showDatePicker: false,
     showTimePicker: false,
     tagModalVisible: false,
@@ -49,6 +50,7 @@ class CreateCommunityScreen extends React.Component {
       eventLocation: '',
       eventAdmissionPrice: '',
       taggedUsers: [],
+      images: [],
       showDatePicker: false,
     });
   };
@@ -183,6 +185,9 @@ class CreateCommunityScreen extends React.Component {
             taggedUsers={this.state.taggedUsers}
             setTaggedUsers={(taggedUsers) => {
               this.setState({ taggedUsers: taggedUsers });
+            }}
+            setImages={(images) => {
+              this.setState({ images: images });
             }}
             profilePhoto={this.state.user.profile_photo}
             pageIconName={'earth'}

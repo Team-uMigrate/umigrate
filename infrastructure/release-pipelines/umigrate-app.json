@@ -1,0 +1,621 @@
+{
+    "source": 2,
+    "revision": 31,
+    "description": null,
+    "createdBy": {
+        "displayName": "Adrian Salvador",
+        "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/7699def4-e689-6420-a0dc-38ac0942a350",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw"
+            }
+        },
+        "id": "7699def4-e689-6420-a0dc-38ac0942a350",
+        "uniqueName": "adriansalvadoor@outlook.com",
+        "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw",
+        "descriptor": "msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw"
+    },
+    "createdOn": "2020-10-21T23:43:58.650Z",
+    "modifiedBy": {
+        "displayName": "Deandre Baker",
+        "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            }
+        },
+        "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+        "uniqueName": "deandreb54321@gmail.com",
+        "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+        "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+    },
+    "modifiedOn": "2021-05-12T03:08:01.587Z",
+    "isDeleted": false,
+    "lastRelease": {
+        "id": 403,
+        "name": "Release-101",
+        "artifacts": [],
+        "_links": {},
+        "description": "Triggered by umigrate-app 0.0.43.",
+        "releaseDefinition": {
+            "id": 4,
+            "projectReference": null,
+            "_links": {}
+        },
+        "createdOn": "2021-08-06T02:57:14.017Z",
+        "createdBy": {
+            "displayName": "GitHub",
+            "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/478919da-37cf-4a68-9e1f-f5304fbc2b6a",
+            "_links": {
+                "avatar": {
+                    "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2"
+                }
+            },
+            "id": "478919da-37cf-4a68-9e1f-f5304fbc2b6a",
+            "uniqueName": "GitHub App\\1ef39933-e8a5-455e-ab7b-0852fe6441f6",
+            "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2",
+            "descriptor": "svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2"
+        }
+    },
+    "variables": {},
+    "variableGroups": [],
+    "environments": [{
+            "id": 7,
+            "name": "Dev",
+            "rank": 1,
+            "owner": {
+                "displayName": "Deandre Baker",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                    }
+                },
+                "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                "uniqueName": "deandreb54321@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            },
+            "variables": {},
+            "variableGroups": [1],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 19
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 20
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 21
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "ubuntu-20.04"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Stop Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "inline",
+                                "commands": "",
+                                "scriptPath": "",
+                                "inline": "systemctl stop nginx\nsystemctl stop redis-server\nsystemctl start daphne@{0..2}\nsystemctl stop gunicorn.socket\nsystemctl stop gunicorn\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Source Code",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-app/drop",
+                                "contents": "**",
+                                "targetFolder": "/home/umigrate/website",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "true",
+                                "readyTimeout": "20000",
+                                "overwrite": "false",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Collect Static Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "inline",
+                                "commands": "",
+                                "scriptPath": "",
+                                "inline": "source /home/umigrate/venv/bin/activate\npy /home/umigrate/api/manage.py collectstatic --noinput\ndeactivate",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Start Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "inline",
+                                "commands": "",
+                                "scriptPath": "",
+                                "inline": "systemctl start gunicorn.socket\nsystemctl start gunicorn\nsystemctl start daphne@{0..2}\nsystemctl start redis-server\nsystemctl start nginx\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 168,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/168",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/4/7"
+        }, {
+            "id": 8,
+            "name": "Expo",
+            "rank": 2,
+            "owner": {
+                "displayName": "Deandre Baker",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                    }
+                },
+                "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                "uniqueName": "deandreb54321@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            },
+            "variables": {},
+            "variableGroups": [1],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 22
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 23
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 24
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "vs2017-win2016"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "31c75bbb-bcdf-4706-8d7c-4da6a1959bc2",
+                            "version": "0.*",
+                            "name": "Use Node 12.x",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "versionSpec": "12.x",
+                                "checkLatest": "false",
+                                "force32bit": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "fe47e961-9fa8-4106-8639-368c022d43ad",
+                            "version": "1.*",
+                            "name": "Install npm",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "install",
+                                "workingDir": "$(System.DefaultWorkingDirectory)/_umigrate-app/drop",
+                                "verbose": "false",
+                                "customCommand": "",
+                                "customRegistry": "useNpmrc",
+                                "customFeed": "",
+                                "customEndpoint": "",
+                                "publishRegistry": "useExternalRegistry",
+                                "publishFeed": "",
+                                "publishPackageMetadata": "true",
+                                "publishEndpoint": ""
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "6c731c3c-3c68-459a-a5c9-bde6e6595b5b",
+                            "version": "3.*",
+                            "name": "Install Expo",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "targetType": "filePath",
+                                "filePath": "$(System.DefaultWorkingDirectory)/_umigrate-app/drop/scripts/InstallExpo.sh",
+                                "arguments": "",
+                                "script": "# Write your commands here\n\necho 'Hello world'\n",
+                                "workingDirectory": "",
+                                "failOnStderr": "false",
+                                "noProfile": "true",
+                                "noRc": "true"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "6c731c3c-3c68-459a-a5c9-bde6e6595b5b",
+                            "version": "3.*",
+                            "name": "Publish Mobile App to Expo",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "targetType": "filePath",
+                                "filePath": "$(System.DefaultWorkingDirectory)/_umigrate-app/drop/scripts/Publish.sh",
+                                "arguments": "\"$(System.DefaultWorkingDirectory)\" \"$(SUPERUSER_PASSWORD)\"",
+                                "script": "# Write your commands here\n\necho 'Hello world'\n",
+                                "workingDirectory": "",
+                                "failOnStderr": "false",
+                                "noProfile": "true",
+                                "noRc": "true"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [{
+                    "name": "ReleaseStarted",
+                    "conditionType": 1,
+                    "value": ""
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 403,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/403",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/4/8"
+        }
+    ],
+    "artifacts": [{
+            "sourceId": "1ef39933-e8a5-455e-ab7b-0852fe6441f6:4",
+            "type": "Build",
+            "alias": "_umigrate-app",
+            "definitionReference": {
+                "artifactSourceDefinitionUrl": {
+                    "id": "https://dev.azure.com/Team-uMigrate/_permalink/_build/index?collectionId=35ef8520-4a03-43f6-aa5b-e9e0d055cfd8&projectId=1ef39933-e8a5-455e-ab7b-0852fe6441f6&definitionId=4",
+                    "name": ""
+                },
+                "defaultVersionBranch": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionSpecific": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionTags": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionType": {
+                    "id": "latestType",
+                    "name": "Latest"
+                },
+                "definition": {
+                    "id": "4",
+                    "name": "umigrate-mobile"
+                },
+                "definitions": {
+                    "id": "",
+                    "name": ""
+                },
+                "IsMultiDefinitionType": {
+                    "id": "False",
+                    "name": "False"
+                },
+                "project": {
+                    "id": "1ef39933-e8a5-455e-ab7b-0852fe6441f6",
+                    "name": "umigrate"
+                },
+                "repository": {
+                    "id": "",
+                    "name": ""
+                }
+            },
+            "isPrimary": true,
+            "isRetained": false
+        }
+    ],
+    "triggers": [{
+            "artifactAlias": "_umigrate-app",
+            "triggerConditions": [{
+                    "sourceBranch": "main",
+                    "tags": [],
+                    "tagFilter": null,
+                    "useBuildDefinitionBranch": false,
+                    "createReleaseOnBuildTagging": false
+                }
+            ],
+            "triggerType": 1
+        }
+    ],
+    "releaseNameFormat": "Release-$(rev:r)",
+    "tags": [],
+    "properties": {
+        "DefinitionCreationSource": {
+            "$type": "System.String",
+            "$value": "ReleaseClone"
+        },
+        "IntegrateBoardsWorkItems": {
+            "$type": "System.String",
+            "$value": "False"
+        },
+        "IntegrateJiraWorkItems": {
+            "$type": "System.String",
+            "$value": "false"
+        }
+    },
+    "id": 4,
+    "name": "umigrate-app",
+    "path": "\\",
+    "projectReference": null,
+    "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/definitions/4",
+    "_links": {
+        "self": {
+            "href": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/definitions/4"
+        },
+        "web": {
+            "href": "https://dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_release?definitionId=4"
+        }
+    }
+}

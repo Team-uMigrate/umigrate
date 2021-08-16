@@ -6,8 +6,7 @@ export const mockUser = {
   last_name: 'Baker',
   preferred_name: 'Dre',
   pronouns: 4,
-  bio:
-    'Listen fall job realize position. Spring baby authority list democratic evidence wide now.',
+  bio: 'Listen fall job realize position. Spring baby authority list democratic evidence wide now.',
   birthday: '1969-03-30',
   current_term: 8,
   enrolled_program: 1,

@@ -2,8 +2,11 @@ from django_filters import rest_framework as filters
 from .models import Comment, Reply
 
 
-# A filter set class for the Comment model
 class CommentFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Comment model.
+    """
+
     min_datetime_created = filters.DateTimeFilter(
         field_name="datetime_created", lookup_expr="gte"
     )
@@ -22,8 +25,11 @@ class CommentFilterSet(filters.FilterSet):
         ]
 
 
-# A filter set class for the Reply model
 class ReplyFilterSet(filters.FilterSet):
+    """
+    A filter set class for the Reply model.
+    """
+
     min_datetime_created = filters.DateTimeFilter(
         field_name="datetime_created", lookup_expr="gte"
     )

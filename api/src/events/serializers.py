@@ -1,13 +1,16 @@
 from common.abstract_serializers import (
-    AbstractModelSerializer,
-    AbstractModelDetailSerializer,
+    AbstractPostSerializer,
+    AbstractPostDetailSerializer,
 )
 from .models import Event
 from rest_framework import serializers
 
 
-# A serializer class for the Event model
-class EventSerializer(AbstractModelSerializer):
+class EventSerializer(AbstractPostSerializer):
+    """
+    A serializer class for the Event model.
+    """
+
     is_interested = serializers.SerializerMethodField()
     is_attending = serializers.SerializerMethodField()
     interested = serializers.SerializerMethodField()
@@ -40,6 +43,9 @@ class EventSerializer(AbstractModelSerializer):
         return instance.attending_users.count()
 
 
-# A detailed serializer class for the Event model
-class EventDetailSerializer(EventSerializer, AbstractModelDetailSerializer):
+class EventDetailSerializer(EventSerializer, AbstractPostDetailSerializer):
+    """
+    A detailed serializer class for the Event model.
+    """
+
     pass

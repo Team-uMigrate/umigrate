@@ -43,9 +43,10 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
     url=None if STAGE_ENVIRONMENT == "local" else f"https://{SITE}",
 )
+"""
+Swagger schema
+"""
 
-
-# URL patterns for the API
 urlpatterns = [
     url(
         r"^swagger(?P<format>\.json|\.yaml)$",
@@ -80,4 +81,8 @@ urlpatterns = [
     path("api/registration/", include("registration.urls")),
     path("api/registration/", include("rest_auth.registration.urls")),
     path("api/", include("allauth.urls")),
+    path("django-rq/", include("django_rq.urls")),
 ]
+"""
+URL patterns for the API.
+"""

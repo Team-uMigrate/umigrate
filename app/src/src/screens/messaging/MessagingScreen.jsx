@@ -1,26 +1,23 @@
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from '../../components/views/Header';
-import React from 'react';
+import { sharedMessagingNotificationStyles } from '../../stylesheets/messaging/messaging.jsx';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// A screen that renders available messaging rooms
-const MessagingScreen = () => {
+/**
+ * Renders the messaging screen.
+ * @param {StackNavigationProp} navigation
+ * @return {JSX.Element}
+ * */
+const MessagingScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={sharedMessagingNotificationStyles.container}>
       <Header title="Messaging" isMessagingOrCommentsPage={true} />
-      <Text style={styles.title}>Messaging Page!</Text>
+      <Text style={sharedMessagingNotificationStyles.title}>
+        Messaging Page!
+      </Text>
     </View>
   );
 };
 
 export default MessagingScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-  },
-  title: {
-    alignSelf: 'center',
-    marginTop: '80%',
-  },
-});

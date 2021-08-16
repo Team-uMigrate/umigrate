@@ -2,15 +2,21 @@ from common.serializer_extensions import ModelSerializerExtension
 from .models import Photo
 
 
-# A serializer class for the Photo model
 class PhotoSerializer(ModelSerializerExtension):
+    """
+    A serializer class for the Photo model.
+    """
+
     class Meta:
         model = Photo
         fields = "__all__"
 
 
-# A serializer class for the Photo model with only the image field
 class PhotoRetrieveSerializer(PhotoSerializer):
+    """
+    A serializer class for the Photo model with only the image field.
+    """
+
     class Meta:
         model = Photo
         fields = "__all__"

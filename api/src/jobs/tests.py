@@ -1,3 +1,5 @@
+from unittest import skip
+from django.http import HttpRequest
 from users.models import CustomUser
 from rest_framework.test import APITestCase
 from common.utils.create_resources import create_jobs
@@ -7,6 +9,7 @@ from datetime import date, timedelta
 
 
 # Test case for the jobs API views
+@skip("Obsolete")
 class JobTestCase(APITestCase):
     create_data = {
         "content": "Sanitational engineering is my passion",
@@ -34,7 +37,9 @@ class JobTestCase(APITestCase):
         self.user = CustomUser.objects.create_user(
             email="test0@uwaterloo.ca", password="Top$ecret150"
         )
-        self.client.login(email="test0@uwaterloo.ca", password="Top$ecret150")
+        self.client.login(
+            email="test0@uwaterloo.ca", password="Top$ecret150", request=HttpRequest()
+        )
         create_jobs(3)
 
     def test_list(self):

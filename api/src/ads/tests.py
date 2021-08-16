@@ -1,3 +1,4 @@
+from unittest import skip
 from rest_framework.test import APITestCase
 from common.abstract_tests import (
     AbstractAPITestCase,
@@ -11,6 +12,7 @@ from .factories import AdFactory
 
 
 # Test case for the ads endpoints
+@skip("Obsolete")
 class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client
@@ -61,6 +63,7 @@ class AdTestCase(AbstractAPITestCase, AbstractSavedTestCase, APITestCase):
 
 
 # Test case for the liked users endpoint for ads
+@skip("Obsolete")
 class AdLikesTestCase(AbstractLikesTestCase, APITestCase):
     def setUp(self):
         self.api_client = self.client

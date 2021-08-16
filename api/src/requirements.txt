@@ -2,6 +2,7 @@ Django
 djangorestframework
 django-rest-auth
 django-allauth
+django-axes
 django-filter
 requests
 Pillow
@@ -11,6 +12,7 @@ channels-redis
 exponent_server_sdk
 sendgrid
 drf_yasg
+model_bakery
 factory_boy
 pytest-django
 uwaterloodriver
@@ -20,3 +22,5 @@ daphne
 sentry-sdk
 black
 pylint-django
+django-rq
+django-multiselectfield

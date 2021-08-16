@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Platform } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { AuthEndpoint } from '../../utils/endpoints';
 import AuthContext from '../../contexts/AuthContext';
@@ -14,7 +15,7 @@ const MenuLogout = () => {
   return (
     <IconButton
       icon="logout"
-      size={70}
+      size={Platform.OS === 'android' ? 50 : 70}
       style={{ alignSelf: 'center', marginBottom: '-15%' }}
       onPress={handleSignOut}
     />

@@ -5,23 +5,50 @@ import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
 import { CommentsEndpoint } from '../../utils/endpoints';
 import CommentView from '../../components/views/CommentView';
+import { sharedLikesCommentsstyles } from '../../stylesheets/likesAndComments/likesAndComments.jsx';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp, useScrollToTop } from '@react-navigation/native';
 
-const endpoints = [CommentsEndpoint];
-const itemViews = [(item) => <CommentView {...item} />];
+const fetchItemsList = [
+  async (page, filters) => await CommentsEndpoint.list(page, filters),
+];
+const itemViews = [
+  (item, updateItem) => <CommentView item={item} updateItem={updateItem} />,
+];
 
-// A screen that renders comments
+/**
+ * Gets the initial state.
+ * @param {RouteProp} route
+ * @return {object}
+ * */
+const getInitialState = (route) => ({
+  commentsFilters: {
+    /** @type {number} */
+    content_type: route.params['contentType'],
+    /** @type {number} */
+    object_id: route.params['postId'],
+  },
+});
+
+/**
+ * Renders the comments screen.
+ * @param {StackNavigationProp} navigation
+ * @param {RouteProp} route
+ * @return {JSX.Element}
+ * */
 const CommentsScreen = ({ navigation, route }) => {
-  const [commentsFilters, setCommentsFilters] = useState({
-    content_type: route.params.contentType,
-    object_id: route.params.postId,
-  });
+  const [commentsFilters, setCommentsFilters] = useState(
+    getInitialState(route).commentsFilters
+  );
   const ref = useRef(null);
 
+  useScrollToTop(ref);
+
   return (
-    <View style={styles.container}>
+    <View style={sharedLikesCommentsstyles.container}>
       <Header title="Shared Item View" />
       <FeedContainer
-        endpoints={endpoints}
+        fetchItemsList={fetchItemsList}
         itemViews={itemViews}
         filtersList={[commentsFilters]}
         scrollRef={ref}
@@ -32,10 +59,3 @@ const CommentsScreen = ({ navigation, route }) => {
 };
 
 export default CommentsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});

@@ -12,3 +12,6 @@ urlpatterns = [
         name="account_confirm_email",
     ),
 ]
+"""
+Registration url patterns
+"""

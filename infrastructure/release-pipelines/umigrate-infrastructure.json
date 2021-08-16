@@ -1,0 +1,2082 @@
+{
+    "source": 2,
+    "revision": 84,
+    "description": null,
+    "createdBy": {
+        "displayName": "Deandre Baker",
+        "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            }
+        },
+        "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+        "uniqueName": "deandreb54321@gmail.com",
+        "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+        "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+    },
+    "createdOn": "2020-05-16T02:01:07.467Z",
+    "modifiedBy": {
+        "displayName": "Deandre Baker",
+        "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            }
+        },
+        "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+        "uniqueName": "deandreb54321@gmail.com",
+        "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+        "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+    },
+    "modifiedOn": "2021-05-02T21:54:27.780Z",
+    "isDeleted": false,
+    "lastRelease": {
+        "id": 332,
+        "name": "Release-109",
+        "artifacts": [],
+        "_links": {},
+        "description": "Triggered by umigrate-infrastructure 0.0.5.",
+        "releaseDefinition": {
+            "id": 2,
+            "projectReference": null,
+            "_links": {}
+        },
+        "createdOn": "2021-05-02T22:29:37.610Z",
+        "createdBy": {
+            "displayName": "GitHub",
+            "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/478919da-37cf-4a68-9e1f-f5304fbc2b6a",
+            "_links": {
+                "avatar": {
+                    "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2"
+                }
+            },
+            "id": "478919da-37cf-4a68-9e1f-f5304fbc2b6a",
+            "uniqueName": "GitHub App\\1ef39933-e8a5-455e-ab7b-0852fe6441f6",
+            "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2",
+            "descriptor": "svc.NTIwNjkwYzktZDRiZS00NzdlLWE4YzctYzMxNWI5OWVmMTNkOkdpdEh1YiBBcHA6MWVmMzk5MzMtZThhNS00NTVlLWFiN2ItMDg1MmZlNjQ0MWY2"
+        }
+    },
+    "variables": {},
+    "variableGroups": [],
+    "environments": [{
+            "id": 2,
+            "name": "Dev",
+            "rank": 1,
+            "owner": {
+                "displayName": "Deandre Baker",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                    }
+                },
+                "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                "uniqueName": "deandreb54321@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            },
+            "variables": {},
+            "variableGroups": [1],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 4
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 5
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 6
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "ubuntu-20.04"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Stop Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/StopServices.sh",
+                                "inline": "systemctl stop nginx\nsystemctl stop daphne\nsystemctl stop gunicorn\nsystemctl stop gunicorn.service\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Update Server",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Update.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Set System Settings",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/SystemConfig.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Install Applications",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/InstallApps.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Socket Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/sockets",
+                                "contents": "**",
+                                "targetFolder": "/etc/systemd/system/",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Service Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/services",
+                                "contents": "**",
+                                "targetFolder": "/etc/systemd/system/",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Sites",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/sites",
+                                "contents": "**",
+                                "targetFolder": "/etc/nginx/sites-available",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Scripts",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts",
+                                "contents": "**\n",
+                                "targetFolder": "/home/umigrate/maintenance/scripts",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Crontab Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/crontab",
+                                "contents": "**",
+                                "targetFolder": "/home/umigrate/crontab",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enable Maintenance Scripts",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "inline",
+                                "commands": "",
+                                "scriptPath": "",
+                                "inline": "chmod +x /home/umigrate/maintenance/scripts/*.sh",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Download AzCopy",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/DownloadAzCopy.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Create Virtualenv",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Virtualenv.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(SECRET_KEY)\" \"$(DATABASE_PASSWORD)\" \"$(REDIS_PASSWORD)\" \"$(SENDGRID_API_KEY)\" \"$(DOMAIN_NAME)\" \"$(STAGE_ENVIRONMENT)\"  \"$(UW_API_KEY)\" \"$(SAS_TOKEN)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Create Database",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Postgres.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DATABASE_PASSWORD)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Redis",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Redis.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(REDIS_PASSWORD)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Nginx",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Nginx.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DOMAIN_NAME)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Set Scheduled Tasks",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Crontab.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enable Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/EnableServices.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Firewall",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/UFW.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enhance Security",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Security.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "true",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Start Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/StartServices.sh",
+                                "inline": "systemctl start gunicorn.service\nsystemctl start gunicorn\nsystemctl start daphne\nsystemctl start nginx\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Install SSL Certificates",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "536192ee-98b2-47c3-b338-4821037e71a8",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Certbot.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DOMAIN_NAME)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [{
+                    "name": "ReleaseStarted",
+                    "conditionType": 1,
+                    "value": ""
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 332,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/332",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/2/2"
+        }, {
+            "id": 4,
+            "name": "Dev Testing (not working)",
+            "rank": 4,
+            "owner": {
+                "displayName": "Joel Braun",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/56e2dd2d-9df3-6991-8316-9a253657cefc",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NTZlMmRkMmQtOWRmMy03OTkxLTgzMTYtOWEyNTM2NTdjZWZj"
+                    }
+                },
+                "id": "56e2dd2d-9df3-6991-8316-9a253657cefc",
+                "uniqueName": "joel22b@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NTZlMmRkMmQtOWRmMy03OTkxLTgzMTYtOWEyNTM2NTdjZWZj",
+                "descriptor": "msa.NTZlMmRkMmQtOWRmMy03OTkxLTgzMTYtOWEyNTM2NTdjZWZj"
+            },
+            "variables": {},
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 10
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 11
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 12
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "vs2017-win2016"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "System Tests",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "5541a522-603c-47ad-91fc-a4b1d163081b",
+                            "version": "2.*",
+                            "name": "Restore",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "restore",
+                                "publishWebProjects": "true",
+                                "projects": "**/*.csproj",
+                                "custom": "",
+                                "arguments": "",
+                                "restoreArguments": "",
+                                "publishTestResults": "true",
+                                "testRunTitle": "",
+                                "zipAfterPublish": "true",
+                                "modifyOutputPath": "true",
+                                "selectOrConfig": "select",
+                                "feedRestore": "",
+                                "includeNuGetOrg": "true",
+                                "nugetConfigPath": "",
+                                "externalEndpoints": "",
+                                "noCache": "false",
+                                "packagesDirectory": "",
+                                "verbosityRestore": "Detailed",
+                                "searchPatternPush": "$(Build.ArtifactStagingDirectory)/*.nupkg",
+                                "nuGetFeedType": "internal",
+                                "feedPublish": "",
+                                "publishPackageMetadata": "true",
+                                "externalEndpoint": "",
+                                "searchPatternPack": "**/*.csproj",
+                                "configurationToPack": "$(BuildConfiguration)",
+                                "outputDir": "$(Build.ArtifactStagingDirectory)",
+                                "nobuild": "false",
+                                "includesymbols": "false",
+                                "includesource": "false",
+                                "versioningScheme": "off",
+                                "versionEnvVar": "",
+                                "requestedMajorVersion": "1",
+                                "requestedMinorVersion": "0",
+                                "requestedPatchVersion": "0",
+                                "buildProperties": "",
+                                "verbosityPack": "Detailed",
+                                "workingDirectory": ""
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "5541a522-603c-47ad-91fc-a4b1d163081b",
+                            "version": "2.*",
+                            "name": "Build",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "build",
+                                "publishWebProjects": "true",
+                                "projects": "**/*.csproj",
+                                "custom": "",
+                                "arguments": "--configuration $(BuildConfiguration)",
+                                "restoreArguments": "",
+                                "publishTestResults": "true",
+                                "testRunTitle": "",
+                                "zipAfterPublish": "true",
+                                "modifyOutputPath": "true",
+                                "selectOrConfig": "select",
+                                "feedRestore": "",
+                                "includeNuGetOrg": "true",
+                                "nugetConfigPath": "",
+                                "externalEndpoints": "",
+                                "noCache": "false",
+                                "packagesDirectory": "",
+                                "verbosityRestore": "Detailed",
+                                "searchPatternPush": "$(Build.ArtifactStagingDirectory)/*.nupkg",
+                                "nuGetFeedType": "internal",
+                                "feedPublish": "",
+                                "publishPackageMetadata": "true",
+                                "externalEndpoint": "",
+                                "searchPatternPack": "**/*.csproj",
+                                "configurationToPack": "$(BuildConfiguration)",
+                                "outputDir": "$(Build.ArtifactStagingDirectory)",
+                                "nobuild": "false",
+                                "includesymbols": "false",
+                                "includesource": "false",
+                                "versioningScheme": "off",
+                                "versionEnvVar": "",
+                                "requestedMajorVersion": "1",
+                                "requestedMinorVersion": "0",
+                                "requestedPatchVersion": "0",
+                                "buildProperties": "",
+                                "verbosityPack": "Detailed",
+                                "workingDirectory": ""
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "5541a522-603c-47ad-91fc-a4b1d163081b",
+                            "version": "2.*",
+                            "name": "Publish",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "publish",
+                                "publishWebProjects": "false",
+                                "projects": "",
+                                "custom": "",
+                                "arguments": "--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)",
+                                "restoreArguments": "",
+                                "publishTestResults": "true",
+                                "testRunTitle": "",
+                                "zipAfterPublish": "false",
+                                "modifyOutputPath": "false",
+                                "selectOrConfig": "select",
+                                "feedRestore": "",
+                                "includeNuGetOrg": "true",
+                                "nugetConfigPath": "",
+                                "externalEndpoints": "",
+                                "noCache": "false",
+                                "packagesDirectory": "",
+                                "verbosityRestore": "Detailed",
+                                "searchPatternPush": "$(Build.ArtifactStagingDirectory)/*.nupkg",
+                                "nuGetFeedType": "internal",
+                                "feedPublish": "",
+                                "publishPackageMetadata": "true",
+                                "externalEndpoint": "",
+                                "searchPatternPack": "**/*.csproj",
+                                "configurationToPack": "$(BuildConfiguration)",
+                                "outputDir": "$(Build.ArtifactStagingDirectory)",
+                                "nobuild": "false",
+                                "includesymbols": "false",
+                                "includesource": "false",
+                                "versioningScheme": "off",
+                                "versionEnvVar": "",
+                                "requestedMajorVersion": "1",
+                                "requestedMinorVersion": "0",
+                                "requestedPatchVersion": "0",
+                                "buildProperties": "",
+                                "verbosityPack": "Detailed",
+                                "workingDirectory": ""
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "2ff763a7-ce83-4e1f-bc89-0ae63477cebe",
+                            "version": "1.*",
+                            "name": "Publish Artifact: drop",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "PathtoPublish": "$(Build.ArtifactStagingDirectory)",
+                                "ArtifactName": "drop",
+                                "ArtifactType": "Container",
+                                "TargetPath": "",
+                                "Parallel": "false",
+                                "ParallelCount": "8",
+                                "FileCopyOptions": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 111,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/111",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/2/4"
+        }, {
+            "id": 6,
+            "name": "Dev System Tests",
+            "rank": 3,
+            "owner": {
+                "displayName": "Deandre Baker",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                    }
+                },
+                "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                "uniqueName": "deandreb54321@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            },
+            "variables": {},
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 16
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 17
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 18
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "vs2017-win2016"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "System Tests",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "5541a522-603c-47ad-91fc-a4b1d163081b",
+                            "version": "2.*",
+                            "name": "Restore",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "restore",
+                                "publishWebProjects": "true",
+                                "projects": "**/*.csproj",
+                                "custom": "",
+                                "arguments": "",
+                                "restoreArguments": "",
+                                "publishTestResults": "true",
+                                "testRunTitle": "",
+                                "zipAfterPublish": "true",
+                                "modifyOutputPath": "true",
+                                "selectOrConfig": "select",
+                                "feedRestore": "",
+                                "includeNuGetOrg": "true",
+                                "nugetConfigPath": "",
+                                "externalEndpoints": "",
+                                "noCache": "false",
+                                "packagesDirectory": "",
+                                "verbosityRestore": "Detailed",
+                                "searchPatternPush": "$(Build.ArtifactStagingDirectory)/*.nupkg",
+                                "nuGetFeedType": "internal",
+                                "feedPublish": "",
+                                "publishPackageMetadata": "true",
+                                "externalEndpoint": "",
+                                "searchPatternPack": "**/*.csproj",
+                                "configurationToPack": "$(BuildConfiguration)",
+                                "outputDir": "$(Build.ArtifactStagingDirectory)",
+                                "nobuild": "false",
+                                "includesymbols": "false",
+                                "includesource": "false",
+                                "versioningScheme": "off",
+                                "versionEnvVar": "",
+                                "requestedMajorVersion": "1",
+                                "requestedMinorVersion": "0",
+                                "requestedPatchVersion": "0",
+                                "buildProperties": "",
+                                "verbosityPack": "Detailed",
+                                "workingDirectory": ""
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "5541a522-603c-47ad-91fc-a4b1d163081b",
+                            "version": "2.*",
+                            "name": "Test",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "command": "test",
+                                "publishWebProjects": "true",
+                                "projects": "**/*.csproj",
+                                "custom": "",
+                                "arguments": "--configuration $(BuildConfiguration)",
+                                "restoreArguments": "",
+                                "publishTestResults": "true",
+                                "testRunTitle": "",
+                                "zipAfterPublish": "true",
+                                "modifyOutputPath": "true",
+                                "selectOrConfig": "select",
+                                "feedRestore": "",
+                                "includeNuGetOrg": "true",
+                                "nugetConfigPath": "",
+                                "externalEndpoints": "",
+                                "noCache": "false",
+                                "packagesDirectory": "",
+                                "verbosityRestore": "Detailed",
+                                "searchPatternPush": "$(Build.ArtifactStagingDirectory)/*.nupkg",
+                                "nuGetFeedType": "internal",
+                                "feedPublish": "",
+                                "publishPackageMetadata": "true",
+                                "externalEndpoint": "",
+                                "searchPatternPack": "**/*.csproj",
+                                "configurationToPack": "$(BuildConfiguration)",
+                                "outputDir": "$(Build.ArtifactStagingDirectory)",
+                                "nobuild": "false",
+                                "includesymbols": "false",
+                                "includesource": "false",
+                                "versioningScheme": "off",
+                                "versionEnvVar": "",
+                                "requestedMajorVersion": "1",
+                                "requestedMinorVersion": "0",
+                                "requestedPatchVersion": "0",
+                                "buildProperties": "",
+                                "verbosityPack": "Detailed",
+                                "workingDirectory": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 265,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/265",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "testing"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/2/6"
+        }, {
+            "id": 11,
+            "name": "Prod",
+            "rank": 2,
+            "owner": {
+                "displayName": "Deandre Baker",
+                "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                    }
+                },
+                "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                "uniqueName": "deandreb54321@gmail.com",
+                "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+            },
+            "variables": {},
+            "variableGroups": [2],
+            "preDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": false,
+                        "isNotificationOn": false,
+                        "approver": {
+                            "displayName": "Deandre Baker",
+                            "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/0724e6e5-1a80-6022-88b4-88a31e470159",
+                            "_links": {
+                                "avatar": {
+                                    "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                                }
+                            },
+                            "id": "0724e6e5-1a80-6022-88b4-88a31e470159",
+                            "uniqueName": "deandreb54321@gmail.com",
+                            "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5",
+                            "descriptor": "msa.MDcyNGU2ZTUtMWE4MC03MDIyLTg4YjQtODhhMzFlNDcwMTU5"
+                        },
+                        "id": 34
+                    }, {
+                        "rank": 1,
+                        "isAutomated": false,
+                        "isNotificationOn": false,
+                        "approver": {
+                            "displayName": "Anda Su",
+                            "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/410c7794-88f9-61e2-9a8b-f5caaed66734",
+                            "_links": {
+                                "avatar": {
+                                    "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NDEwYzc3OTQtODhmOS03MWUyLTlhOGItZjVjYWFlZDY2NzM0"
+                                }
+                            },
+                            "id": "410c7794-88f9-61e2-9a8b-f5caaed66734",
+                            "uniqueName": "Apsd1109@hotmail.ca",
+                            "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NDEwYzc3OTQtODhmOS03MWUyLTlhOGItZjVjYWFlZDY2NzM0",
+                            "descriptor": "msa.NDEwYzc3OTQtODhmOS03MWUyLTlhOGItZjVjYWFlZDY2NzM0"
+                        },
+                        "id": 35
+                    }, {
+                        "rank": 1,
+                        "isAutomated": false,
+                        "isNotificationOn": false,
+                        "approver": {
+                            "displayName": "Adrian Salvador",
+                            "url": "https://spsprodcca1.vssps.visualstudio.com/A520690c9-d4be-477e-a8c7-c315b99ef13d/_apis/Identities/7699def4-e689-6420-a0dc-38ac0942a350",
+                            "_links": {
+                                "avatar": {
+                                    "href": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw"
+                                }
+                            },
+                            "id": "7699def4-e689-6420-a0dc-38ac0942a350",
+                            "uniqueName": "adriansalvadoor@outlook.com",
+                            "imageUrl": "https://dev.azure.com/Team-uMigrate/_apis/GraphProfile/MemberAvatars/msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw",
+                            "descriptor": "msa.NzY5OWRlZjQtZTY4OS03NDIwLWEwZGMtMzhhYzA5NDJhMzUw"
+                        },
+                        "id": 36
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": 1,
+                    "releaseCreatorCanBeApprover": true,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 32
+            },
+            "postDeployApprovals": {
+                "approvals": [{
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 33
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [{
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "ubuntu-20.04"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 9,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [{
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Stop Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/StopServices.sh",
+                                "inline": "systemctl stop nginx\nsystemctl stop daphne\nsystemctl stop gunicorn\nsystemctl stop gunicorn.service\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Update Server",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Update.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Set System Settings",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/SystemConfig.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Install Applications",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/InstallApps.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Socket Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/sockets",
+                                "contents": "**",
+                                "targetFolder": "/etc/systemd/system/",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Service Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/services",
+                                "contents": "**",
+                                "targetFolder": "/etc/systemd/system/",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Sites",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/sites",
+                                "contents": "**",
+                                "targetFolder": "/etc/nginx/sites-available",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Scripts",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts",
+                                "contents": "**\n",
+                                "targetFolder": "/home/umigrate/maintenance/scripts",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "67cec91b-0351-4c2f-8465-d74b3d2a2d96",
+                            "version": "0.*",
+                            "name": "Copy Crontab Files",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "sourceFolder": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/crontab",
+                                "contents": "**",
+                                "targetFolder": "/home/umigrate/crontab",
+                                "isWindowsOnTarget": "false",
+                                "cleanTargetFolder": "false",
+                                "readyTimeout": "20000",
+                                "overwrite": "true",
+                                "failOnEmptySource": "true",
+                                "flattenFolders": "false"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enable Maintenance Scripts",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "inline",
+                                "commands": "",
+                                "scriptPath": "",
+                                "inline": "chmod +x /home/umigrate/maintenance/scripts/*.sh",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Download AzCopy",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/DownloadAzCopy.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Create Virtualenv",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Virtualenv.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(SECRET_KEY)\" \"$(DATABASE_PASSWORD)\" \"$(REDIS_PASSWORD)\" \"$(SENDGRID_API_KEY)\" \"$(DOMAIN_NAME)\" \"$(STAGE_ENVIRONMENT)\"  \"$(UW_API_KEY)\" \"$(SAS_TOKEN)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Create Database",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Postgres.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DATABASE_PASSWORD)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Redis",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Redis.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(REDIS_PASSWORD)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Nginx",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Nginx.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DOMAIN_NAME)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Set Scheduled Tasks",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Crontab.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enable Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/EnableServices.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Configure Firewall",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/UFW.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Enhance Security",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Security.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "true",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Start Services",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/StartServices.sh",
+                                "inline": "systemctl start gunicorn.service\nsystemctl start gunicorn\nsystemctl start daphne\nsystemctl start nginx\n",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }, {
+                            "environment": {},
+                            "taskId": "91443475-df55-4874-944b-39253b558790",
+                            "version": "0.*",
+                            "name": "Install SSL Certificates",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "",
+                            "inputs": {
+                                "sshEndpoint": "f02c4eab-b554-49a0-a6ad-a8232fcc7767",
+                                "runOptions": "script",
+                                "commands": "",
+                                "scriptPath": "$(System.DefaultWorkingDirectory)/_umigrate-infrastructure/drop/scripts/Certbot.sh",
+                                "inline": "",
+                                "interpreterCommand": "/bin/bash",
+                                "args": "\"$(DOMAIN_NAME)\"",
+                                "failOnStdErr": "false",
+                                "interactiveSession": "false",
+                                "readyTimeout": "20000"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 320,
+                "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/releases/320",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/Team-uMigrate/_apis/public/Release/badge/1ef39933-e8a5-455e-ab7b-0852fe6441f6/2/11"
+        }
+    ],
+    "artifacts": [{
+            "sourceId": "1ef39933-e8a5-455e-ab7b-0852fe6441f6:2",
+            "type": "Build",
+            "alias": "_umigrate-infrastructure",
+            "definitionReference": {
+                "artifactSourceDefinitionUrl": {
+                    "id": "https://dev.azure.com/Team-uMigrate/_permalink/_build/index?collectionId=35ef8520-4a03-43f6-aa5b-e9e0d055cfd8&projectId=1ef39933-e8a5-455e-ab7b-0852fe6441f6&definitionId=2",
+                    "name": ""
+                },
+                "defaultVersionBranch": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionSpecific": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionTags": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionType": {
+                    "id": "latestType",
+                    "name": "Latest"
+                },
+                "definition": {
+                    "id": "2",
+                    "name": "umigrate-infrastructure"
+                },
+                "definitions": {
+                    "id": "",
+                    "name": ""
+                },
+                "IsMultiDefinitionType": {
+                    "id": "False",
+                    "name": "False"
+                },
+                "project": {
+                    "id": "1ef39933-e8a5-455e-ab7b-0852fe6441f6",
+                    "name": "umigrate"
+                },
+                "repository": {
+                    "id": "",
+                    "name": ""
+                }
+            },
+            "isPrimary": true,
+            "isRetained": false
+        }
+    ],
+    "triggers": [{
+            "artifactAlias": "_umigrate-infrastructure",
+            "triggerConditions": [{
+                    "sourceBranch": "main",
+                    "tags": [],
+                    "tagFilter": null,
+                    "useBuildDefinitionBranch": false,
+                    "createReleaseOnBuildTagging": false
+                }
+            ],
+            "triggerType": 1
+        }
+    ],
+    "releaseNameFormat": "Release-$(rev:r)",
+    "tags": [],
+    "properties": {
+        "DefinitionCreationSource": {
+            "$type": "System.String",
+            "$value": "ReleaseNew"
+        },
+        "IntegrateBoardsWorkItems": {
+            "$type": "System.String",
+            "$value": "False"
+        },
+        "IntegrateJiraWorkItems": {
+            "$type": "System.String",
+            "$value": "false"
+        }
+    },
+    "id": 2,
+    "name": "umigrate-infrastructure",
+    "path": "\\",
+    "projectReference": null,
+    "url": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/definitions/2",
+    "_links": {
+        "self": {
+            "href": "https://vsrm.dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_apis/Release/definitions/2"
+        },
+        "web": {
+            "href": "https://dev.azure.com/Team-uMigrate/1ef39933-e8a5-455e-ab7b-0852fe6441f6/_release?definitionId=2"
+        }
+    }
+}

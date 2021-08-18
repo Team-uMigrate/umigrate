@@ -33,7 +33,7 @@ const AdView = ({ item, updateItem }) => {
   return (
     <Card style={sharedItemViewStyles.container}>
       <Card.Content style={sharedItemViewStyles.cardContent}>
-      <TouchableOpacity
+        <TouchableOpacity
           style={sharedItemViewStyles.row}
           onPress={() => userView.setUser(creator)}
         >

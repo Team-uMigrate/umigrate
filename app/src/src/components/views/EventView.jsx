@@ -47,21 +47,17 @@ const EventView = ({ item, updateItem }) => {
     <Card style={sharedItemViewStyles.container}>
       <Card.Content style={sharedItemViewStyles.cardContent}>
         <TouchableOpacity
-          style={styles.row}
+          style={sharedItemViewStyles.row}
           onPress={() => userView.setUser(creator)}
         >
-          <View style={sharedItemViewStyles.row}>
-            <View>
-              <ProfilePhotoView photo={creator.profile_photo} />
-            </View>
-            <View style={sharedItemViewStyles.column}>
-              <Text style={sharedItemViewStyles.name}>
-                {creator.preferred_name}
-              </Text>
-              <Text style={sharedItemViewStyles.date}>
-                {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
-              </Text>
-            </View>
+          <ProfilePhotoView photo={creator.profile_photo} />
+          <View style={sharedItemViewStyles.column}>
+            <Text style={sharedItemViewStyles.name}>
+              {creator.preferred_name}
+            </Text>
+            <Text style={sharedItemViewStyles.date}>
+              {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
+            </Text>
           </View>
         </TouchableOpacity>
         <Title style={sharedItemViewStyles.title}>{title}</Title>

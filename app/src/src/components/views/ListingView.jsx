@@ -43,9 +43,7 @@ const ListingView = ({ item, updateItem }) => {
           style={sharedItemViewStyles.row}
           onPress={() => userView.setUser(creator)}
         >
-          <View>
-            <ProfilePhotoView photo={creator.profile_photo} />
-          </View>
+          <ProfilePhotoView photo={creator.profile_photo} />
           <View style={sharedItemViewStyles.column}>
             <Text style={sharedItemViewStyles.name}>
               {creator.preferred_name}

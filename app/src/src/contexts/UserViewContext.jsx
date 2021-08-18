@@ -1,8 +1,11 @@
 import React, { useState, createContext } from 'react';
 
 const UserViewContext = createContext();
-
-// A context provider that stores the user whose profile is to be shown
+/**
+ * Stores the user whose profile is to be shown
+ * @param {ReactNode} children
+ * @return {JSX.Element}
+ * */
 const UserViewContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 

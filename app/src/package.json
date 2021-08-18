@@ -36,7 +36,6 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-gallery-swiper": "^1.26.4",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-gradient-buttons": "^2.0.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
@@ -46,6 +45,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-status-bar-height": "^2.6.0",
+    "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {

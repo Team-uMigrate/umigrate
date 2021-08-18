@@ -1,24 +1,30 @@
 import React from 'react';
-import GallerySwiper from 'react-native-gallery-swiper';
+import Swiper from 'react-native-swiper';
+import { Image } from 'react-native';
 
 const ImageCollectionView = ({ photos }) => {
-  const images = photos.map((photo) => {
-    return { uri: photo.image };
-  });
+  if (photos.length > 0) {
+    return (
+      <Swiper height={400} showsPagination={false} loop={false}>
+        {photos
+          .filter((photo) => photo.image !== null)
+          .map((photo, i) => {
+            return (
+              <Image
+                key={i.toString()}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+                source={{ uri: photo.image }}
+              />
+            );
+          })}
+      </Swiper>
+    );
+  }
 
-  return (
-    // <GallerySwiper
-    //   images={images}
-    //   height={images.length > 1 ? 400 : 0}
-    //   style={{
-    //     flex: 1,
-    //     backgroundColor: 'white',
-    //   }}
-    //   pageMargin={10}
-    //   enableTranslate={false}
-    // />
-    <></>
-  );
+  return <></>;
 };
 
 export default ImageCollectionView;

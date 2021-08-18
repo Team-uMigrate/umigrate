@@ -158,6 +158,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#483FAB',
   },
+  bodyText: {
+    fontSize: 17,
+  },
   buttonContainer: {
     flexDirection: 'row',
     marginTop: '3%',

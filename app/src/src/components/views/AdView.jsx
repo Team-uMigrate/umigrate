@@ -8,6 +8,7 @@ import ImageCollectionView from './ImageCollectionView';
 import moment from 'moment';
 import { contentTypes, communities, adCategories } from '../../utils/choices';
 import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
+import { SharedItemView } from './SharedItemView'
 
 /**
  * Renders an ad.

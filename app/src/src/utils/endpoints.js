@@ -27,20 +27,30 @@ const MESSAGING_WEBSOCKET =
  * */
 function toFormData(data) {
   const formData = new FormData();
+
+  // Splits a file URI into the components to add to the formData
+  const fileUriToObject = (uri) => {
+    const filename = uri.split('/').pop();
+    return {
+      uri: uri,
+      name: `${filename}`,
+      type: `${mime.getType(uri)}`,
+    };
+  };
+
   // Append each property to the form data
   Object.keys(data).forEach((key) => {
     if (typeof data[key] === 'object') {
       data[key].forEach((value) => {
-        formData.append(key, value);
+        // Handle arrays of files
+        if (value.toString().startsWith('file:///'))
+          formData.append(key, fileUriToObject(value));
+        else formData.append(key, value);
       });
     } else {
+      // Handle single files
       if (data[key].toString().startsWith('file:///')) {
-        const filename = data[key].split('/').pop();
-        formData.append(key, {
-          uri: data[key],
-          name: `${filename}`,
-          type: `${mime.getType(data[key])}`,
-        });
+        formData.append(key, fileUriToObject(data[key]));
       } else {
         formData.append(key, data[key]);
       }
@@ -456,5 +466,49 @@ export class ProfileEndpoint {
     return await Axios.patch(`${BASE_URL}/api/user/`, toFormData(data), {
       headers: { 'content-type': 'multipart/form-data' },
     });
+  }
+}
+
+export class PhotosEndpoint {
+  static path = '/api/uploads/photos/';
+
+  /**
+   * Gets a photo upload.
+   * @param {number} id
+   * @return {Promise<AxiosResponse>}
+   * */
+  static async get(id) {
+    return await Axios.get(`${BASE_URL}${this.path}${id}`);
+  }
+
+  /**
+   * Uploads a photo.
+   * @param {object} data
+   * @return {Promise<AxiosResponse>}
+   * */
+  static async post(data) {
+    return await Axios.post(`${BASE_URL}${this.path}`, toFormData(data), {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
+  }
+
+  /**
+   * Updates a photo.
+   * @param {object} data
+   * @return {Promise<AxiosResponse>}
+   * */
+  static async patch(data) {
+    return await Axios.patch(`${BASE_URL}${this.path}`, toFormData(data), {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
+  }
+
+  /**
+   * Deletes a photo.
+   * @param {number} id
+   * @return {Promise<AxiosResponse>}
+   * */
+  static async delete(id) {
+    return await Axios.delete(`${BASE_URL}${this.path}${id}`);
   }
 }

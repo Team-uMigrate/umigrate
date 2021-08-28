@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import Header from '../../components/views/Header';
 import FeedContainer from '../../components/containers/FeedContainer';
 import CreateItemModal from '../../components/modals/CreateItemModal';
+import UserViewModal from '../../components/modals/UserViewModal';
 import { sharedItemTabsStyles } from '../../stylesheets/tabs/tabs.jsx';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -40,6 +41,7 @@ const MarketScreen = ({ navigation, route }) => {
         feedName={route.name}
       />
       <CreateItemModal navigation={navigation} />
+      <UserViewModal navigation={navigation} />
     </View>
   );
 };

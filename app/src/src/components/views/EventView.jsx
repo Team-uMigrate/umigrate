@@ -1,5 +1,11 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import ProfilePhotoView from './ProfilePhotoView';
 import { EventsEndpoint } from '../../utils/endpoints';
@@ -8,6 +14,7 @@ import ImageCollectionView from './ImageCollectionView';
 import GradientButton from 'react-native-gradient-buttons';
 import moment from 'moment';
 import { communities, contentTypes, prices } from '../../utils/choices';
+import UserViewContext from '../../contexts/UserViewContext';
 import { sharedItemViewStyles } from '../../stylesheets/views/views.jsx';
 
 /**
@@ -35,13 +42,15 @@ const EventView = ({ item, updateItem }) => {
     interested,
   } = item;
 
+  const userView = useContext(UserViewContext);
   return (
     <Card style={sharedItemViewStyles.container}>
       <Card.Content style={sharedItemViewStyles.cardContent}>
-        <View style={sharedItemViewStyles.row}>
-          <View>
-            <ProfilePhotoView photo={creator.profile_photo} />
-          </View>
+        <TouchableOpacity
+          style={sharedItemViewStyles.row}
+          onPress={() => userView.setUser(creator)}
+        >
+          <ProfilePhotoView photo={creator.profile_photo} />
           <View style={sharedItemViewStyles.column}>
             <Text style={sharedItemViewStyles.name}>
               {creator.preferred_name}
@@ -50,7 +59,7 @@ const EventView = ({ item, updateItem }) => {
               {moment(datetime_created).format('MMMM D, YYYY, h:mm a')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <Title style={sharedItemViewStyles.title}>{title}</Title>
         <Paragraph style={sharedItemViewStyles.bodyText}>{content}</Paragraph>
         <Paragraph style={sharedItemViewStyles.bodyText}>

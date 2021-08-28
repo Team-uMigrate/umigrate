@@ -16,6 +16,7 @@ import CommentsScreen from '../screens/comments/CommentsScreen';
 import LikesScreen from '../screens/likes/LikesScreen';
 import { routes } from '../utils/routes';
 import PasswordResetScreen from '../screens/authentication/PasswordResetScreen';
+import { UserViewContextProvider } from '../contexts/UserViewContext';
 import SearchScreen from '../screens/search/SearchScreen';
 import EmailSentScreen from '../screens/authentication/EmailSentScreen';
 
@@ -55,30 +56,35 @@ const AuthNavigator = () => {
     // Render authenticated screens
     return (
       <StackNavContextProvider>
-        <CreateItemContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              gestureDirection={'horizontal-inverted'}
-            >
-              <Stack.Screen name={routes.tabs} component={TabNavigator} />
-              <Stack.Screen name={routes.comments} component={CommentsScreen} />
-              <Stack.Screen name={routes.likes} component={LikesScreen} />
-              <Stack.Screen name={routes.search} component={SearchScreen} />
-              <Stack.Screen
-                name={routes.messaging}
-                component={MessagingScreen}
-              />
-              <Stack.Screen
-                name={routes.notifications}
-                options={{
-                  gestureDirection: 'horizontal-inverted',
-                }}
-                component={NotificationScreen}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </CreateItemContextProvider>
+        <UserViewContextProvider>
+          <CreateItemContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+                gestureDirection={'horizontal-inverted'}
+              >
+                <Stack.Screen name={routes.tabs} component={TabNavigator} />
+                <Stack.Screen
+                  name={routes.comments}
+                  component={CommentsScreen}
+                />
+                <Stack.Screen name={routes.likes} component={LikesScreen} />
+                <Stack.Screen name={routes.search} component={SearchScreen} />
+                <Stack.Screen
+                  name={routes.messaging}
+                  component={MessagingScreen}
+                />
+                <Stack.Screen
+                  name={routes.notifications}
+                  options={{
+                    gestureDirection: 'horizontal-inverted',
+                  }}
+                  component={NotificationScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </CreateItemContextProvider>
+        </UserViewContextProvider>
       </StackNavContextProvider>
     );
   } else if (auth.isAuthenticated === false) {

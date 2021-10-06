@@ -140,6 +140,31 @@ class AbstractLikedUsers(ListAPIView):
 
     def get_queryset(self):
         # Retrieve the list of users that have liked a shared item
-        return self.model_class.objects.get(
-            id=self.kwargs["id"]
-        ).liked_users.all()  # todo: make this more generic by allowing the sub-class to specify the attribute instead of using liked_users
+        return self.model_class.objects.get(id=self.kwargs["id"]).liked_users.all()
+
+
+class AbstractRetrieveUsers(ListAPIView):
+    """
+    An abstract API view class that supports retrieving users for a shared item.
+    """
+
+    model_class: AbstractPostModel = None
+    """
+    The model class with the users many to many field to add the user to. Must be overwritten.
+    """
+
+    query_string: str = None
+    """
+    The name of the attribute on the model that is used to get a list of objects. Must be overwritten.
+    """
+
+    serializer_class = BasicUserSerializer
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    def get_queryset(self):
+        # Retrieve the list of users associated with query_string
+        return getattr(
+            self.model_class.objects.get(id=self.kwargs["id"]), self.query_string
+        ).all()
